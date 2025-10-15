@@ -27,998 +27,1079 @@ title: Jour 01 — Fondamentaux
 
 # Cours — Le Terminal (Bash)
 
-## Pourquoi / quoi
+## 1) Pourquoi / quoi
 
-Le terminal (ligne de commande) permet d’interagir avec la machine via des **commandes** pour :
+Le terminal permet d’interagir avec la machine via des **commandes** pour :
 
 - naviguer dans les dossiers,
 - manipuler fichiers/dossiers,
 - rechercher/filtrer du contenu,
-- enchaîner des traitements (pipelines).
+- automatiser et chaîner des traitements.
 
 > Windows : cmd / PowerShell (syntaxe différente)
 > 
 > 
-> Linux/macOS : **terminal Bash** (ce qu’on utilise dans Vagrant).
+> Linux/macOS : **Bash** (ce qu’on utilise dans Vagrant).
 > 
 
-## Anatomie d’une commande
+---
+
+## 2) Anatomie d’une commande
 
 ```
 commande [options] [arguments]
+
 ```
 
-- **commande** : le programme (ex: `ls`)
-- **options** : modifient le comportement (ex: `l`, `r`, `h`)
-- **arguments** : cibles (ex: `ls /var/log`)
+- **commande** : programme (ex : `ls`)
+- **options** : modifient le comportement (ex : `l`, `r`, `h`)
+- **arguments** : cibles (ex : `ls /var/log`)
 
-## Naviguer / gérer l’arborescence
+Enchaînements :
 
-- `pwd` : chemin courant
-- `ls` : lister (`ls -l`, `ls -la`)
-- `cd <dir>` : changer de dossier (`cd ..` parent / `cd ~` home)
-- `mkdir <dir>` : créer dossier (`mkdir -p a/b/c` crée toute la chaîne)
+- `;` exécute la suivante quoi qu’il arrive
+- `&&` exécute la suivante **si succès** (exit code 0)
+- `||` exécute la suivante **si échec**
+- `()` **subshell** (nouveau shell), `{ ...; }` **groupement** dans le shell courant
 
-## Fichiers — créer, afficher, transformer
+## 3) Naviguer dans l’arborescence
 
-- `touch <f>` : créer/mettre à jour un fichier vide
-- `cat <f>` : afficher (ou concaténer plusieurs)
-- `less <f>` : paginer (↑/↓, `q` pour quitter)
-- `grep "mot" <f>` : rechercher (options utiles : `n` numéros de ligne, `i` insensible à la casse, `r` récursif)
-- `cut -d';' -f2 <f>` : extraire colonnes
-- `sort` : trier (ex: `sort -h` nombres “humains”, `r` inverse, `t` séparateur, `k` clé)
-- `tr 'A-Z' 'D-ZABC'` : substitution caractère→caractère (utile pour Caesar)
-- `wc` : compter (`wc -l` lignes, `wc -w` mots, `wc -c` octets)
-- `echo "texte"` : écrire du texte (souvent redirigé vers un fichier)
-- `mv src dst` : déplacer/renommer (si `dst` est dossier → déplace, sinon renomme)
-- `rm <f>` : supprimer fichier (`rm -r <dir>` pour un dossier) **→ attention, pas de corbeille**
+### `pwd` — affiche le chemin courant
 
-## Système / réseau (bases)
+```bash
+pwd
 
-- `whoami` : utilisateur courant
-- `ps` / `ps aux` : processus
-- `kill <PID>` : terminer un processus
-- `df -h` : espace disque
-- `history` : historique de commandes
-- `ip addr` : infos réseau (IP)
-- `curl <url>` : requête HTTP rapide (ex: `curl ifconfig.me`)
+```
 
-## Aide intégrée
+### `ls` — liste les fichiers/dossiers
 
-- `man <cmd>` : manuel
-- `<cmd> --help` : aide synthétique
+```bash
+ls                             # simple
+ls -l                          # vue longue (droits, taille, date)
+ls -la                         # inclut les fichiers cachés
+ls -lh                         # tailles lisibles (K/M/G)
+ls -lt                         # tri par date (récents en haut)
 
-## Redirections & pipelines (indispensable)
+```
 
-- `>` : écraser vers un fichier ; `>>` : ajouter
-- `|` : **pipeline** : envoie la sortie d’une commande dans l’entrée de la suivante
-    
-    Ex. `cat logs.txt | grep ERROR | sort | uniq -c | sort -nr | head`
-    
+### `cd` — change de répertoire
 
-## Joker (globbing) & quotes
+```bash
+cd /chemin/vers/dir
+cd ..                          # remonter d'un cran
+cd ~                           # aller dans le HOME
+cd -                           # revenir au dossier précédent
 
-- `.txt`, `log?.txt`, `log{1..4}.txt`
-- Quotes : `"mot clé"` préserve les espaces ; `'texte brut'` empêche l’expansion
+```
+
+### `mkdir` / `rmdir` — crée / supprime des dossiers
+
+```bash
+mkdir mon_dossier
+mkdir -p a/b/c                 # crée toute la chaîne
+rmdir dossier_vide             # supprime uniquement s’il est vide
+
+```
 
 ---
 
-# CHALLENGES — Terminal & Bash
+## 4) Manipuler des fichiers
 
-## Préambule “Indices” (navigation + créations)
-
-### Ta version
+### `touch` — crée un fichier vide (ou met à jour son horodatage)
 
 ```bash
-cd
-# (affiche) projects/ setup/    .ssh/
-cd setup
-cd J
-# (affiche) J1/ J2/ J3/
-cd J1/secretcode
-ls
-# (affiche) indice.txt  lastindice.txt  myfolder  six.js
-cd myfolder/
-ls
-# (affiche) five.js
-touch terminal.txt
-ls
-# (affiche) five.js  terminal.txt
-cd ..
-cat lastindice.txt
-# (affiche) 9
-exit
+touch notes.txt
 
 ```
 
-### Version simplifiée (mêmes notions)
+### `cp` — copie un fichier ou un dossier
 
 ```bash
-cd ~/setup/J1/secretcode/myfolder && touch terminal.txt && ls
-cat ~/setup/J1/secretcode/lastindice.txt
+cp source.txt dest.txt
+cp -r dossier/ sauvegarde/     # copie récursive d’un dossier
+cp -a dossier/ sauvegarde/     # “archival” : conserve attributs/permissions
 
 ```
 
-**Pourquoi :** `&&` enchaîne uniquement si la commande précédente réussit ; chemins absolus/tilde évitent les allers-retours.
-
-## Challenge — Files & Folders
-
-### Ta version
+### `mv` — déplace ou renomme
 
 ```bash
-cd
-# (affiche) projects/ setup/    .ssh/
-cd setup/J1/filesandfolders
-mkdir txt
-ls
-# (affiche) emptyFile.txt  log1.txt  log2.txt  log3.txt  log4.txt  txt
-rm txt
-# -> erreur: est un dossier
-rm -r txt
-ls
-# (affiche) emptyFile.txt  log1.txt  log2.txt  log3.txt  log4.txt
-mkdir txt
-ls
-# (affiche) ... + txt
-rm -r txt | mkdir logs
-ls
-# (affiche) ... + logs
-mv log?.txt logs/
-ls
-# (affiche) emptyFile.txt  logs
-mv emptyFile.txt logs/
-ls
-# (affiche) logs
-ls logs/
-# (affiche) emptyFile.txt  log1.txt  log2.txt  log3.txt  log4.txt
-exit
+mv ancien_nom.txt nouveau_nom.txt
+mv *.log logs/                 # déplace tous les .log dans logs/
 
 ```
 
-### Version simplifiée/optimisée
+### `rm` — supprime (⚠️ pas de corbeille)
 
 ```bash
-cd ~/setup/J1/filesandfolders
-rm -rf txt && mkdir logs
-mv log?.txt emptyFile.txt logs/
-ls logs/
+rm fichier.txt
+rm -r dossier                  # dossier et contenu
+rm -rf dossier                 # **dangereux** : ne demande pas de confirmation
 
 ```
 
-**Pourquoi :** pas de pipeline (`|`) entre `rm` et `mkdir` ; `&&` garantit l’ordre logique. Un seul `mv` pour tout déplacer.
-
-## Challenge — Merge Files (concaténation)
-
-### Ta version
+### `ln` — crée un lien (raccourci)
 
 ```bash
-cd setup/J1/mergefiles/
-ls
-cat log1.txt
-cat log?.txt
-ls
-cat log1.txt > globalLogs.txt | cat log2.txt >> globalLogs.txt | cat log3.txt >> globalLogs.txt | cat log4.txt >> globalLogs.txt
-ls
-cat globalLogs.txt
-less --help
-less globalLogs.txt
-exit
+ln -s /vrai/chemin lien        # lien symbolique
 
 ```
 
-### Version simplifiée/optimisée
+---
+
+## 5) Voir et feuilleter des fichiers
+
+### `cat` / `tac` — affiche (normal / inversé)
 
 ```bash
-cd ~/setup/J1/mergefiles
-cat log{1..4}.txt > globalLogs.txt     # ou: cat log*.txt > globalLogs.txt
-less globalLogs.txt
+cat fichier.txt
+tac fichier.txt
 
 ```
 
-**Pourquoi :** une seule commande `cat` suffit ; pas besoin de `|` ici.
-
-## Challenge — Error Logs (extraction WARNING)
-
-### Ta version
+### `less` — pager interactif (recherche, navigation)
 
 ```bash
-cd setup/J1/errorlogs/
-ls
-cat log?.txt >>globalLogs.txt
-less globalLogs.txt
-less log1.txt
-cat log.txt > globalLogs2.txt
-# -> cat: log.txt: Aucun fichier ou dossier de ce type
-ls
-# (affiche globalLogs2.txt parmi les fichiers)
-rm globalLogs2.txt
-ls
-cat log?.txt | xargs >> globalLogs2.txt
-ls
-grep "WARNING" log?.txt
-grep "WARNING" log?.txt >> warningLogs.txt
-cat warningLogs.txt
-grep "WARNING" globalLogs.txt
-grep "WARNING" globalLogs2.txt
-grep "WARNING" globalLogs2.txt >> warningLogs2.txt
-set VAGRANT_VAGRANTFILE=Vagrantfile.amd64
+less -N fichier.txt            # N = numéros de ligne ; /mot pour chercher ; q pour quitter
 
 ```
 
-### Version simplifiée/optimisée
+### `head` / `tail` — début / fin d’un fichier
 
 ```bash
-cd ~/setup/J1/errorlogs
-cat log?.txt > globalLogs.txt
-grep "WARNING" log?.txt > warningLogs.txt        # par fichier (avec préfixes)
-grep -h "WARNING" log?.txt > warning_all.txt     # sans préfixes de fichier
-grep -c "WARNING" log?.txt                       # compte par fichier
-grep -h "WARNING" log?.txt | wc -l               # total WARNING
+head -n 20 fichier.txt
+tail -n 50 fichier.txt
+tail -f /var/log/syslog        # “suivre” les nouvelles lignes
 
 ```
 
-**Pourquoi :** `-h` nettoie l’affichage, `-c` donne le comptage direct. Évite `xargs` quand `grep` sait déjà faire.
-
-## Challenge — Count Lines (compter correctement)
-
-### Ta version
+### `nl` — numérote les lignes
 
 ```bash
-cd setup/J1/count
-# (affiche) countlines/      countoccurences/
-cd setup/J1/countlines/
-ls
-ls >> numberLines.txt
-ls
-cat numberLines.txt
-wc -l numberLines.txt
-# (affiche) 6 numberLines.txt
+nl -ba fichier.txt
 
 ```
 
-### Version selon intention
+---
 
-- **Nombre de fichiers .txt :**
-    
-    ```bash
-    ls *.txt | wc -l
-    
-    ```
-    
-- **Nombre total de lignes dans log1–4 :**
-    
-    ```bash
-    wc -l log?.txt
-    # ou juste le total :
-    cat log?.txt | wc -l
-    
-    ```
-    
+## 6) Rechercher / découper / trier du texte
 
-## Challenge — Find the command (système/réseau)
-
-### Ta version
+### `grep` — recherche de motif (regex possible)
 
 ```bash
-cd setup/J1/findthecommand/
-whoami
-whoami > whoami.txt
-cat whoami.txt
-ls
-ps
-ps aux
-ps aux > ps.txt
-ls
-less ps.txt
+grep "ERREUR" app.log
+grep -n "ERREUR" app.log       # afficher numéros de ligne
+grep -ri "erreur" .            # récursif, insensible à la casse
+grep -E "foo|bar" fichier      # regex étendues
+grep -v "DEBUG" app.log        # lignes qui NE contiennent PAS DEBUG
+
+```
+
+### `cut` — extrait des colonnes
+
+```bash
+cut -d',' -f1,3 data.csv       # colonnes 1 et 3 (séparateur virgule)
+cut -f2                        # colonnes tabulées par défaut
+
+```
+
+### `tr` — remplace des caractères (translittération)
+
+```bash
+tr 'a-z' 'A-Z' < fichier.txt   # minuscules -> MAJUSCULES
+
+```
+
+### `sort` — trie des lignes
+
+```bash
+sort fichier.txt               # tri alphabétique
+sort -r fichier.txt            # ordre inverse
+sort -h tailles.txt            # comprend K/M/G
+sort -t',' -k2,2 data.csv      # trier sur la 2e colonne CSV
+
+```
+
+### `uniq` — compresse les doublons (après un sort)
+
+```bash
+sort erreurs.log | uniq        # supprime doublons adjacents
+sort erreurs.log | uniq -c     # compte les occurrences
+
+```
+
+### `wc` — compte lignes/mots/octets
+
+```bash
+wc -l fichier.txt              # lignes
+wc -w fichier.txt              # mots
+wc -c fichier.txt              # octets
+
+```
+
+### `paste` — assemble des colonnes de fichiers
+
+```bash
+paste -d',' noms.txt notes.txt > fusion.csv
+
+```
+
+### `join` — jointure sur une clé (fichiers triés)
+
+```bash
+join -t',' -1 1 -2 1 A.csv B.csv   # jointure sur la 1re colonne
+
+```
+
+---
+
+## 7) Redirections & pipelines
+
+### Rediriger la sortie / l’erreur / l’entrée
+
+```bash
+cmd > out.txt                   # stdout -> fichier (écrase)
+cmd >> out.txt                  # stdout -> fichier (ajoute)
+cmd 2> err.txt                  # stderr -> fichier
+cmd &> tout.txt                 # stdout + stderr -> fichier
+cmd < input.txt                 # fichier -> stdin
+
+```
+
+### `|` (pipeline) — enchaîner des traitements
+
+```bash
+cat logs.txt | grep ERROR | sort | uniq -c | sort -nr | head
+
+```
+
+### `tee` — dupliquer la sortie (fichier + pipe)
+
+```bash
+dmesg | tee dmesg.txt | grep -i usb
+
+```
+
+> Rappel : | n’est pas un “et ensuite” : pour exécuter une 2e commande seulement si la 1re réussit, utilise &&.
+> 
+
+---
+
+## 8) Joker (globbing) & expansions
+
+### Jokers — étendre des motifs de noms de fichiers
+
+```bash
+echo log?.txt                  # ? = un caractère
+echo *.log                     # * = 0+ caractères
+echo file{1..3}.txt            # brace expansion : file1.txt file2.txt file3.txt
+echo {dev,staging,prod}.yaml   # 3 variantes
+
+```
+
+### Quotes — contrôler l’expansion
+
+```bash
+echo "Hello $USER"             # expansion de $USER
+echo 'Hello $USER'             # pas d’expansion
+
+```
+
+---
+
+## 9) Chercher des fichiers (puissant)
+
+### `find` — cherche par nom, type, taille, date…
+
+```bash
+find . -type f -name "*.log"
+find /var -type f -size +100M
+find . -mtime -1               # modifiés il y a < 1 jour
+find . -maxdepth 1 -type d
+find . -type f -perm -111      # exécutables
+
+```
+
+### `find` → action (`delete`, `exec`, `xargs`)
+
+```bash
+find . -type f -name "*.tmp" -delete
+find . -type f -name "*.log" -exec gzip -9 {} \;
+find . -type f -print0 | xargs -0 grep -n "ERROR"
+
+```
+
+---
+
+## 10) Espace disque & archives
+
+### `df` — vue globale des systèmes de fichiers
+
+```bash
 df -h
-df -h > df.txt
-ls
-less df.txt
-ip addr show > ifconfig.txt
-less ifconfig.txt
-ls
-curl ifconfig.me
-curl ifconfig.me > ip.txt
-ls
-cat ip.txt
 
 ```
 
-### Version “mémo rapide”
+### `du` — taille par dossier/fichier
 
 ```bash
-whoami > whoami.txt
-ps aux > ps.txt
-df -h > df.txt
-ip addr show > ifconfig.txt
-curl -s ifconfig.me > ip.txt
+du -sh .                       # taille du dossier courant
+du -sh * | sort -h             # tailles de tous les éléments du répertoire
 
 ```
 
-**Astuce :** `-s` (silent) avec `curl` pour ne garder que la réponse.
-
-## Challenge — Compter les occurrences (“INFO”)
-
-### Ta version
+### `tar` / `gzip` / `zip` — archiver / compresser
 
 ```bash
-cd setup/J1/countoccurences/
-grep "INFO" log1.txt
-grep "INFO" log1.txt | wc -l
-# 41
-grep "INFO" log?.txt | wc -l
-# 113
-grep "INFO" log?.txt | xargs wc -l
-find log*.txt | xargs grep -c INFO
-# log1.txt:41
-# log2.txt:31
-# log3.txt:27
-# log4.txt:14
+tar -czf archive.tgz dossier/  # créer archive .tgz
+tar -xzf archive.tgz           # extraire
+tar -tvf archive.tgz           # lister le contenu
+gzip -9 fichier                # compresser -> fichier.gz
+gunzip fichier.gz              # décompresser
+zip -r archive.zip dossier/    # zip récursif
+unzip archive.zip
 
 ```
-
-### Version simplifiée/optimisée
-
-```bash
-grep -c "INFO" log*.txt            # par fichier
-grep -h "INFO" log*.txt | wc -l    # total toutes occurrences
-
-```
-
-**Pourquoi :** évite `find/xargs` ici, `grep` gère directement les glob patterns.
-
-## Challenge — Jouer avec les pipelines (exemples utiles)
-
-### Ta (intention annoncée, pas de commandes conservées)
-
-Tu voulais pratiquer les `|` avec de vraies manipulations.
-
-### Propositions (dans le cadre du cours)
-
-```bash
-# Top 5 lignes (exactes) les plus fréquentes dans tous les logs
-cat log*.txt | sort | uniq -c | sort -nr | head -n5
-
-# Toutes les lignes "ERROR" triées, sans doublons
-grep "ERROR" log*.txt | sort | uniq
-
-```
-
-**Pourquoi :** `sort | uniq -c` agrège les doublons et les compte, `sort -nr` ordonne par fréquence.
-
-## Challenge — File Sorting (trier une sortie de ls -l enregistrée)
-
-### Ta version
-
-```bash
-cd setup/J1/filesorting/
-sort ls.txt
-cat ls.txt
-# ligne 'total 40' + 6 entrées
-sort -t" " k9 ls.txt
-# -> erreur : k9 non trouvé (oubli du '-')
-sort -t" " -k9 ls.txt
-sort -r -t" " -k9 ls.txt
-sort -h -t" " -k5 ls.txt
-sort -ha -t" " -k5 ls.txt
-# -> 'a' invalide
-sort -h -a -t" " -k5 ls.txt
-# -> 'a' invalide
-sort -h -t -r -k5 ls.txt
-# -> erreur de séparateur
-sort -h -k5 ls.txt
-sort -h -k5 -r ls.txt
-sort -h -k5 -r head3 ls.txt
-# -> 'head3' n'existe pas
-sort -h -k5 -r head3 ls.txt | head -n3
-# -> idem
-sort -h -k5 -r head3 ls.txt | xargs head 3
-# -> erreurs head
-sort -h -k5 -r head3 ls.txt | xargs head -n3
-# -> erreurs
-sort -h -k5 -r ls.txt | head -n3
-sort -h -k5 -r ls.txt | head -n3 > largest.txt
-ls
-cat largest.txt
-
-```
-
-### Version propre (3 plus gros éléments par **taille**)
-
-```bash
-grep -v '^total' ls.txt | sort -h -k5,5r | head -n3 > largest.txt
-
-```
-
-**Pourquoi :**
-
-- `grep -v '^total'` enlève la ligne d’entête.
-- `k5,5` fige la clé sur la seule 5e colonne (évite les surprises).
-- `h` comprend 256B/10K/etc.
-- `r` pour l’ordre décroissant.
-
-## Challenge — César (décryptage avec `tr`)
-
-### Ta version
-
-```bash
-cd setup/J1/caesercipher/
-cat cipher.txt
-echo "X IX SRB AB ZBQQB SFIIB ÉQOX
-KDBX IX SRB AB ZBQQB SFIIB ÉQOXKD" | tr 'A-Z' 'D-C'
-# -> erreur ordre inverse
-echo "X IX SRB AB ZBQQB SFIIB ÉQOXKDBX IX SRB AB ZBQQB SFIIB ÉQOXKD" | tr 'A-Z' 'D-ZC'
-# (sortie partielle)
-echo "X IX SRB AB ZBQQB SFIIB ÉQOXKDBX IX SRB AB ZBQQB SFIIB ÉQOXKD" | tr 'A-Z' 'D-ZABC'
-# (décryptage correct, partiel)
-cat cipher.txt | tr 'A-Z' 'D-ZABC' > message.txt
-ls
-# (affiche) cipher.txt  message.txt
-
-```
-
-### Version plus robuste (majuscules **et** minuscules)
-
-```bash
-tr 'A-Za-z' 'D-ZA-Cd-za-c' < cipher.txt > message.txt
-
-```
-
-**Note :** `tr` ne transforme pas les caractères accentués — c’est attendu.
 
 ---
 
-# Mini-rappels généraux (erreurs que tu as croisées)
+## 11) Droits & propriétaires
 
-- **Pipeline `|` ≠ enchaînement** :
-    
-    Utilise `&&` pour “exécuter si la précédente a réussi”.
-    
-    Exemple : `rm -r txt && mkdir logs` (et non `rm -r txt | mkdir logs`).
-    
-- **`sort`** :
-    - `t" "` définit le séparateur,
-    - `kX,Y` borne précisément la (les) colonne(s),
-    - `h` comprend `K/M/G/B`,
-    - `r` inverse l’ordre.
-- **Comptages** :
-    - Lignes par fichiers `wc -l log?.txt`,
-    - Occurrences d’un motif : `grep -c "MOT" *.txt`, total : `grep -h "MOT" *.txt | wc -l`.
-- **Suppression** : `rm -rf` = “pas de retour arrière”. Double-check le chemin.
-- **Globbing** : vérifie avec `echo log?.txt` ce que la coquille va étendre.
+### `chmod` — change permissions
+
+```bash
+chmod 644 fichier              # rw-r--r--
+chmod -R 755 dossier           # rwxr-xr-x récursif
+
+```
+
+### `chown` — change propriétaire/groupe
+
+```bash
+chown user:group fichier
+chown -R www-data:www-data /var/www
+
+```
+
+### Aides
+
+```bash
+id                              # uid/gid
+whoami                          # utilisateur courant
+groups                          # groupes
+umask 022                       # masque par défaut (futurs fichiers 644)
+
+```
 
 ---
 
-# SED — bases utiles (stream editor)
+## 12) Processus & jobs
 
-## 1) À quoi sert `sed` ?
+### Voir ce qui tourne
 
-- **Lit un flux** (fichier ou entrée standard) **ligne par ligne**, applique des **règles** (rechercher/remplacer, supprimer, insérer, modifier), et **écrit** le résultat sur la sortie standard.
-- Forme minimale :
+```bash
+ps aux | grep nginx
+top                              # ou htop si installé
+pgrep -fl nginx                  # pids par nom
+
+```
+
+### Tuer / prioriser / mesurer
+
+```bash
+kill -TERM 1234                  # terminer proprement
+kill -9 1234                     # forcer (dernier recours)
+nice -n 10 cmd                   # lancer avec priorité basse
+renice 5 -p 1234                 # changer la priorité d’un pid
+/usr/bin/time -v cmd             # temps + stats détaillées
+
+```
+
+### Exécuter en arrière-plan & gérer les jobs
+
+```bash
+cmd &                            # lancer en arrière-plan
+jobs                             # lister
+fg                               # ramener au premier plan
+bg                               # relancer en arrière-plan
+nohup cmd &                      # survivre à la déconnexion
+
+```
+
+---
+
+## 13) Réseau (en un clin d’œil)
+
+### IP, routes, ports, DNS, transferts
+
+```bash
+ip addr show                     # IP locales
+ip -brief addr                   # résumé
+ip route                         # table de routage
+ss -tulpen                       # ports en écoute (TCP/UDP)
+ping -c 4 8.8.8.8                # latence
+curl -I https://example.org      # entêtes HTTP
+curl -s ifconfig.me              # IP publique
+wget URL -O out.bin              # téléchargement simple
+dig +short A example.org         # requête DNS
+scp fichier user@hote:/chemin/   # copie via SSH
+rsync -a --delete src/ dst/      # synchro efficace
+
+```
+
+---
+
+## 14) Variables & expansions Bash
+
+### Déclarer, afficher, exporter
+
+```bash
+NAME="Alice"
+echo "Hello $NAME"
+export PATH="$HOME/bin:$PATH"
+
+```
+
+### Substitutions utiles
+
+```bash
+DATE="$(date +%F)"              # substitution de commande
+echo $(( 2 + 3 ))               # arithmétique
+echo "${VAR:-defaut}"           # valeur par défaut
+echo "${#VAR}"                  # longueur
+echo "${PATH##*/}"              # basename
+echo "${FILE%.*}"               # sans extension
+
+```
+
+---
+
+## 15) Scripts Bash (bases solides)
+
+### Squelette sûr & options de sécurité
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail               # stop sur erreur/var non définie/pipe défaillant
+IFS=$'\n\t'                     # séparateurs sûrs pour read/for
+
+```
+
+### Arguments, tests, boucles, fonctions
+
+```bash
+echo "Script: $0  args: $@  count: $#"
+
+if [[ -f "fichier" ]]; then echo "existe"; fi    # -d dossier, -x exécutable, -s >0 octets
+if [[ "$x" =~ ^[0-9]+$ ]]; then echo "numérique"; fi
+
+for f in *.log; do echo "$f"; done
+
+while IFS= read -r line; do
+  printf '%s\n' "$line"
+done < input.txt
+
+sum(){ echo $(( $1 + $2 )); }
+sum 2 3
+
+trap 'echo "Abort"; rm -f /tmp/tmpfile' INT TERM EXIT
+
+```
+
+---
+
+## 16) Aide & introspection
+
+### Trouver la doc / où se trouve une commande
+
+```bash
+man grep                        # manuel complet
+grep --help                     # aide brève
+man -k "network"                # rechercher par mots-clés (apropos)
+type ls                         # builtin/alias/fichier ?
+which ls                        # chemin de l’exécutable
+history                         # historique
+# astuces : !123 (rejouer la commande n°123), Ctrl-r (recherche inversée)
+
+```
+
+---
+
+## 17) Recettes rapides (prêtes à coller)
+
+### Top 10 erreurs uniques sur tous les logs
+
+```bash
+grep -h "ERROR" *.log | sort | uniq -c | sort -nr | head -n10
+
+```
+
+### Les 20 plus gros éléments du dossier courant
+
+```bash
+du -ah . | sort -h | tail -n 20
+
+```
+
+### Remplacer récursivement une chaîne dans tous les .conf
+
+```bash
+grep -RIl --include="*.conf" "ancien" . | xargs sed -i 's/ancien/nouveau/g'
+
+```
+
+### Supprimer les fichiers de log de plus de 30 jours
+
+```bash
+find /var/log -type f -mtime +30 -delete
+
+```
+
+### Lister les ports ouverts
+
+```bash
+ss -tulpen | sort
+
+```
+
+---
+
+## Bons réflexes & pièges à éviter
+
+- **`|` n’est pas un “et ensuite”** : pour dépendre du succès, utilise `&&` (`rm -r txt && mkdir logs`).
+- **Quoting partout** : `"$var"` protège les espaces/caractères spéciaux.
+- **`rm -rf`** : toujours vérifier le chemin. Astuce : commence par **afficher** la commande ou utilise `echo *.log` pour voir l’expansion.
+- **Tri/locale** : pour des tris ASCII rapides et prévisibles, `LC_ALL=C sort`.
+- **CSV compliqués** : `awk/sed` suffisent pour simple ; sinon `xsv`, `mlr`, `csvkit`.
+
+---
+
+# SED — comprendre, utiliser, être autonome
+
+## 1) Principe & utilité
+
+`sed` (STREAM EDitor) est un **éditeur de flux** : il **lit ligne par ligne**, applique des **règles** (rechercher/remplacer, supprimer, insérer, modifier), puis **écrit** le résultat (par défaut sur la sortie standard).
+
+C’est parfait pour **nettoyer**, **normaliser**, **éditer rapidement** des fichiers de conf, des logs ou du texte structuré.
+
+**Quand préférer `sed` ?**
+
+- Remplacements simples ou massifs (mots, motifs).
+- Suppression de lignes (vides, commentaires, plages).
+- Ajout/insersion de lignes autour d’un motif.
+- Éditions “in-place” ultra rapides dans des scripts.
+
+> Si tu dois comparer, calculer ou agréger, AWK sera souvent plus adapté. Pour de la recherche pure, grep suffit. Pour des CSV complexes, préfère un parseur dédié.
+> 
+
+---
+
+## 2) Anatomie d’une commande SED
+
+### 2.1 Forme minimale
 
 ```bash
 sed 'COMMANDE' fichier.txt
 
 ```
 
-## 2) Motifs & regex essentielles
+- Sans redirection ni `i`, **le fichier n’est pas modifié** ; le résultat s’affiche sur stdout.
 
-- `.` un caractère quelconque
-- 0 ou plusieurs répétitions du caractère précédent (`a*`)
-- `^` début de ligne, `$` fin de ligne
-- `[abc]` groupe de caractères autorisés
-- **Classes POSIX** (très pratiques) :
-    - `[[:digit:]]` chiffres, `[[:lower:]]` minuscules, `[[:upper:]]` majuscules, `[[:space:]]` espaces/tab
-- **Délimiteurs de mot** (GNU sed) : `\<` début de mot, `\>` fin de mot
-    
-    (utile pour éviter de toucher des sous-chaînes dans des mots plus longs)
-    
+### 2.2 Adresses (où appliquer la commande)
 
-> Astuce : sed -E (ou -r sur certains systèmes) active les regex étendues (parenthèses () sans backslash, +, ?, |, …).
+- **Numéros de lignes** : `1d` (supprimer 1re ligne), `5,10d` (lignes 5→10).
+- **Motifs/regex** : `'/^#/d'` (supprimer les lignes qui commencent par `#`).
+- **Plage motif→motif** : `'/^START/,/^END/d'`.
+
+> On peut combiner : 2,20s/foo/bar/g (remplacer foo par bar lignes 2→20).
 > 
 
-## 3) Les commandes de base à connaître
+### 2.3 Chaîner des commandes
 
-- **Substitution (remplacement)**
-    - 1re occurrence par ligne :
-        
-        `sed 's/motif/remplacement/' fichier`
-        
-    - **toutes** les occurrences par ligne :
-        
-        `sed 's/motif/remplacement/g' fichier`
-        
-    - indifférent à la casse (GNU sed) :
-        
-        `sed 's/motif/remplacement/Ig' fichier`
-        
-    - avec **groupes capturants** (`\(...\)` sans `E`, ou `(...)` avec `E`) et **backref** `\1`, `\2`, … :
-        
-        ```bash
-        sed -E 's/(foo)_(bar)/\1-\2/g' fichier
-        
-        ```
-        
-    - n’utiliser que les **mots entiers** :
-        
-        `sed 's/\<vieux\>/ancien/g'`
-        
-- **Supprimer**
-    - lignes qui matchent un motif : `sed '/motif/d' fichier`
-    - lignes vides : `sed '/^$/d' fichier`
-    - plage de lignes : `sed '5,10d' fichier`
-- **Remplacer une ligne complète** :
+- Séparateur `;` dans une seule expression :
     
-    `sed '2c\Nouvelle ligne entière' fichier`
+    `sed '/^#/d; /^$/d; s/http:/https:/g' fichier`
     
-- **Insérer**
-    - **après** la ligne qui matche : `sed '/motif/a\texte à ajouter' fichier`
-    - **avant** la ligne qui matche : `sed '/motif/i\texte à insérer' fichier`
-    - **au début** : `sed '1i\en-tête' fichier`
-- **Impression/filtrage**
-    - n’imprimer **que** les lignes qui matchent (et rien d’autre) :
-        
-        `sed -n '/motif/p' fichier`
-        
-    - **quitter** tôt (utile sur gros fichiers) :
-        
-        `sed '/motif/q' fichier`
-        
-
-## 4) Écrire dans le fichier (in-place)
-
-- `sed -i 's/foo/bar/g' fichier`
-- avec sauvegarde : `sed -i.bak 's/foo/bar/g' fichier` → garde `fichier.bak`
-
-## 5) Chaîner plusieurs commandes
-
-- Avec point-virgule :
-    
-    `sed '/^#/d; /^$/d' fichier`
-    
-- Ou options multiples :
+- Plusieurs `e` :
     
     `sed -e '/^#/d' -e '/^$/d' -e 's/http:/https:/g' fichier`
     
+- Charger un **script sed** depuis un fichier : `sed -f script.sed fichier`
 
----
+### 2.4 Regex utiles
 
-# CHALLENGES  SED
+- **De base** : `.` (un char),  (0+ fois le précédent), `^` (début), `$` (fin), `[abc]` (classe).
+- **Classes POSIX** : `[[:digit:]]`, `[[:lower:]]`, `[[:upper:]]`, `[[:space:]]`, etc.
+- **Limites de mot (GNU sed)** : `\<mot\>` (début de mot), `\>mot\>` (fin de mot).
+    
+    Alternative : `\b` en **regex étendues**.
+    
+- **Regex étendues** : `sed -E 's/(foo|bar)+/X/'` (parenthèses non échappées, `+`, `?`, `|`, …)
 
-## Challenge : Recherche et remplacement
-
-**Contexte**
-
-```
-texte.txt
-C'est un vieux livre.
-Le vieux bâtiment est en ruine.
-Ce film est vraiment vieux.
-
-```
-
-### Ce que tu as fait
-
-- `sed 's/vieux/ancien/g' texte.txt` (OK) → affiche **sur la sortie**.
-- Tu as ensuite utilisé `i` pour **écrire** dans le fichier et `i.bak` pour garder une copie. Très bien.
-
-### Points qui ont coincé
-
-- Quotes cassées / retour à la ligne au mauvais endroit -> invite secondaire `>` et Ctrl-C.
-- Sans `i`, **le fichier ne change pas** (sed écrit sur la sortie). Il faut rediriger `> nouveau.txt` ou utiliser `i`.
-
-### Version propre (à garder)
-
-```bash
-# Voir le résultat sans toucher au fichier
-sed 's/vieux/ancien/g' texte.txt
-
-# Écrire en place + garder une sauvegarde
-sed -i.bak 's/vieux/ancien/g' texte.txt
-
-# Facultatif : n’agir que sur le mot entier “vieux”
-sed -i 's/\<vieux\>/ancien/g' texte.txt
-
-# Variante insensible à la casse (GNU sed)
-sed -i 's/vieux/ancien/Ig' texte.txt
-
-```
-
-> Remarque langue : “Le ancien bâtiment” est grammaticalement incorrect, mais sed ne “comprend” pas le français — il remplace exactement le motif.
+> Change de délimiteur pour éviter d’échapper les / : s|http://|https://|g
 > 
 
 ---
 
-## Challenge : Suppression et ajout de texte (journal)
+## 3) Commandes de base (à connaître par cœur)
 
-**Objectif**
-
-- Enlever **commentaires** (`^#`) et **lignes vides**, puis **ajouter** une marque après chaque ligne “ERREUR”.
-
-### Ce que tu as fait
-
-- `sed '/^#/d;/^$/d' journal.txt` (OK pour un aperçu)
-- `sed -i.bak '/^#/d;/^$/d' journal.txt` (OK in-place + backup)
-- Puis :
-    
-    ```bash
-    sed -i '/ERREUR/a\-- Journal vérifié --' journal.txt.bak
-    mv journal.txt.bak journal_nettoyé.txt
-    
-    ```
-    
-    → Résultat correct.
-    
-
-### Les erreurs rencontrées
-
-- Mauvais nom de fichier (`texte.txt.bak` au lieu de `journal.txt.bak`)
-- `sed -i 'ERREUR/a\...'` : il faut **délimiter le motif par des slashes** : `'/ERREUR/a\...'`
-
-### Version propre (tout-en-un)
+### 3.1 Substitution (remplacement) — `s`
 
 ```bash
-# 1) Nettoyer (supprimer commentaires + lignes vides), en place avec sauvegarde
-sed -i.bak '/^#/d; /^$/d' journal.txt
+# 1re occurrence dans chaque ligne
+sed 's/motif/remplacement/' fichier
 
-# 2) Ajouter après chaque ligne contenant “ERREUR”
-sed -i '/ERREUR/a\-- Journal vérifié --' journal.txt
+# Toutes les occurrences (g = global)
+sed 's/motif/remplacement/g' fichier
 
-# (Option) renommer la sauvegarde
-mv journal.txt.bak journal_nettoye.txt
+# Insensible à la casse (GNU sed: I)
+sed 's/motif/remplacement/Ig' fichier
+
+# Captures & backrefs (groupes) — avec -E c'est plus lisible
+sed -E 's/(foo)_(bar)/\1-\2/g' fichier
+
+# Mot entier seulement (GNU sed)
+sed 's/\<vieux\>/ancien/g' fichier
+
+# Remplacer la N-ième occurrence (ex: seulement la 2e)
+sed 's/motif/rempl/2' fichier
+
+# Remplacer et écrire les lignes modifiées dans un fichier (w)
+sed -n 's/error/ERROR/w erreurs.txt' fichier
 
 ```
 
-> Astuce : pour imprimer seulement les lignes utiles sans modifier le fichier :
-> 
+### 3.2 Supprimer — `d`
 
 ```bash
-sed -n '/^#/!{/^$/!p}' journal.txt       # équivaut à “tout sauf # et vides”
+sed '/^$/d' fichier          # lignes vides
+sed '/^#/d' fichier          # commentaires débutant par #
+sed '5,10d' fichier          # plage 5→10
+sed '/^START/,/^END/d' f     # entre deux motifs
+
+```
+
+### 3.3 Remplacer une ligne entière — `c`
+
+```bash
+sed '2c\Ceci est une nouvelle ligne' fichier
+
+```
+
+### 3.4 Insérer/ajouter — `i` / `a`
+
+```bash
+sed '/motif/i\ligne AVANT' fichier
+sed '/motif/a\ligne APRES' fichier
+sed '1i\# En-tête' fichier
+
+```
+
+### 3.5 Impression/filtrage — `n` / `p` / `q` / `=`
+
+```bash
+sed -n '/motif/p' fichier   # n’imprime que les lignes qui matchent
+sed '/motif/q' fichier      # quitte au 1er match (utile gros fichiers)
+sed -n '1,3p' fichier       # n’imprimer que les lignes 1→3
+sed -n '=' fichier          # afficher les numéros de lignes
+
+```
+
+### 3.6 Translittération — `y`
+
+```bash
+sed 'y/abc/ABC/' fichier    # a->A, b->B, c->C (caractère par caractère)
 
 ```
 
 ---
 
-## Challenge : Nettoyage automatique (config)
-
-**Objectifs observés**
-
-- Enlever commentaires et vides, remplacer une IP, supprimer des lignes spécifiques, ajouter des marqueurs.
-
-### Version courte, reproductible
+## 4) Écriture “in-place” (modifier le fichier)
 
 ```bash
-# 1) Supprimer commentaires + vides (en place + sauvegarde)
-sed -i.bak '/^#/d; /^$/d' config.txt
+sed -i 's/foo/bar/g' fichier          # Linux (GNU sed)
+sed -i.bak 's/foo/bar/g' fichier      # crée fichier.bak avant d’écrire
 
-# 2) Remplacer toutes les occurrences d’une IP
+```
+
+> macOS/BSD sed : l’option -i exige un suffixe (même vide) :
+> 
+> 
+> `sed -i '' 's/foo/bar/g' fichier` ou `sed -i .bak 's/foo/bar/g' fichier`
+> 
+
+---
+
+## 5) Aller plus loin (multi-lignes & espace de retenue)
+
+### 5.1 Espace de motif vs espace de retenue
+
+- **Pattern space** : ligne en cours.
+- **Hold space** : tampon pour stocker et réutiliser (`h`, `H`, `g`, `G`, `x`).
+
+Commandes utiles :
+
+- `N` : lire **la ligne suivante** et l’ajouter au pattern space (donc pattern multi-ligne).
+- `P` : imprimer **jusqu’au 1er saut de ligne** dans le pattern space.
+- `h/H` : copier/concaténer dans la hold space ; `g/G` : récupérer/concaténer depuis la hold space ; `x` : échanger.
+
+### 5.2 Exemples multi-lignes
+
+```bash
+# Joindre les lignes vides avec la ligne suivante (supprime les doubles blancs)
+sed ':a;N;$!ba;s/\n{2,}/\n/g' fichier
+
+# Supprimer une ligne et la suivante si la 1re matche MOTIF
+sed '/MOTIF/ { N; d }' fichier
+
+```
+
+> Pour la plupart des usages du cours (conf/logs), tu restes sur du ligne par ligne sans hold space.
+> 
+
+---
+
+## 6) Recettes utiles (copier-coller)
+
+### 6.1 Nettoyages courants
+
+```bash
+# Supprimer commentaires (#) et lignes vides
+sed -i.bak '/^#/d; /^$/d' fichier
+
+# Trim espaces en début/fin de ligne
+sed -E -i 's/^[[:space:]]+//; s/[[:space:]]+$//' fichier
+
+# Réduire les espaces multiples à un seul
+sed -E -i 's/[[:space:]]+/ /g' fichier
+
+```
+
+### 6.2 URLs & IPs
+
+```bash
+# http -> https (change de délimiteur pour éviter d’échapper les /)
+sed -i 's|http://|https://|g' index.html
+
+# Remplacer une IP (échapper les points)
 sed -i 's/192\.168\.1\.10/10.0.0.1/g' config.txt
 
-# 3) Supprimer des lignes par numéro (ex: 1 à 2 puis la 3e)
-sed -i '1,2d; 3d' config.txt
+```
 
-# 4) Ajouter après toute ligne contenant “server” (motif)
-sed -i '/server/a# Configuration validée' config.txt
+### 6.3 Autour d’un motif
 
-# 5) Insérer une entête au début
-sed -i '1i# Début du fichier' config.txt
+```bash
+# Ajouter un tag après chaque ligne contenant ERREUR
+sed -i '/ERREUR/a\-- Journal vérifié --' journal.txt
 
-# 6) Remplacer complètement une ligne (ex: ligne 5)
-sed -i '5c\port=8080' config.txt
+# Insérer un en-tête une seule fois au début
+sed -i '1i# Début du fichier' fichier
 
 ```
 
-> Détail : dans un motif de substitution, échappe les points des IP (\.), sinon . matche n’importe quel caractère.
-> 
-
----
-
-## Challenge : Data Processing (préparation simple avec sed)
-
-Tu as fait :
-
-- `sort -h -k3 testLogs.txt` puis `cut -f1,6` → OK.
-
-Pour rester dans **SED**, deux idées utiles :
+### 6.4 Plages & blocs
 
 ```bash
-# 1) Normaliser : compresser les multiples tabulations en une seule
-sed -E 's/\t+/\t/g' testLogs.txt > normalized.txt
+# Supprimer tout entre START et END inclus
+sed -i '/^START/,/^END/d' fichier
 
-# 2) Extraire "jour" (col 3) et le binaire (chemin entre la colonne 6 et le “:”)
-#    Hypothèse : colonnes tabulées (comme ton fichier)
-sed -E 's/^([^\t]*\t){2}([^\t]+)\t([^\t]*\t){2}([^[:space:]]+):.*/\2\t\4/' testLogs.txt
-# -> imprime: <jour>\t<chemin-binaire>
+# Remplacer les lignes 5 à 7 par un bloc
+sed -i '5,7c\Bloc\nmulti-lignes' fichier
 
 ```
 
-Si tu préfères ta chaîne `sort|cut`, garde-la : elle est très bien.
-
----
-
-## Challenge : Recherche de motif (journal erreurs)
-
-Tu as utilisé `grep -i`. L’équivalent SED (pour ton cours) :
+### 6.5 Extraire sans modifier (filtrage)
 
 ```bash
-# Afficher seulement les lignes contenant “erreur” (insensible à la casse, GNU sed)
+# Seulement les lignes avec "erreur" (insensible à la casse)
 sed -n '/erreur/Ip' journal.txt > erreurs.log
 
 ```
 
-- `n` : n’imprime rien par défaut.
-- `/erreur/I` : motif insensible à la casse (`I`).
-- `p` : imprimer les lignes qui matchent.
-
----
-
-## Mini “cheat sheet” SED (à coller dans ton cours)
+### 6.6 Reformatage simple
 
 ```bash
-# Voir un remplacement (sans toucher au fichier)
-sed 's/ancien/nouveau/g' fichier
-
-# Écrire en place (+ sauvegarde)
-sed -i.bak 's/foo/bar/g' fichier
-
-# Mot entier seulement (GNU sed)
-sed 's/\<mot\>/rempl/g' fichier
-
-# Insensible à la casse (GNU sed)
-sed 's/motif/rempl/Ig' fichier
-
-# Supprimer : lignes par motif, vides, plage
-sed '/motif/d' fichier
-sed '/^$/d' fichier
-sed '10,20d' fichier
-
-# Remplacer ligne n
-sed '5c\contenu entier' fichier
-
-# Insérer avant / après
-sed '/motif/i\ligne AVANT' fichier
-sed '/motif/a\ligne APRES' fichier
-sed '1i\entete au debut' fichier
-
-# N’imprimer que les lignes qui matchent
-sed -n '/motif/p' fichier
-
-# Plusieurs commandes
-sed '/^#/d; /^$/d; s/http:/https:/g' fichier
+# Inverser "Nom, Prenom" -> "Prenom Nom"
+sed -E 's/^([^,]+),[[:space:]]*(.+)$/\2 \1/' noms.txt
 
 ```
 
 ---
 
-## Résumés rapides de tes erreurs (à ne plus refaire 😉)
+## 7) Pièges fréquents & bons réflexes
 
-- **Quotes cassées / retour à la ligne** : garde la commande sur **une seule ligne** (ou échappe les retours `\`).
-- **Sans `i`**, `sed` **n’écrit pas** dans le fichier (redirige `>` ou ajoute `i`).
-- Motifs : entoure-les bien de `/.../` (ex. `'/ERREUR/a\...'`), pas `ERREUR` tout seul.
-- Remplacement avec **IP** : échappe les points `\.`.
-- Fichiers : relis le **nom exact** du fichier (beaucoup d’erreurs venaient d’un nom fautif).
+- **Tu vois la sortie, mais le fichier ne change pas ?**
+    
+    Normal : `sed` écrit sur **stdout**. Utilise `-i` **ou** redirige `>`.
+    
+- **Slashes dans le motif (URLs, chemins)** :
+    
+    change le délimiteur : `s|/ancien/chemin|/nouveau/chemin|g`.
+    
+- **IP/regex** : `.` matche n’importe quoi → **échappe les points** : `192\.168\.1\.10`.
+- **Quoting/retours à la ligne** : garde ta commande sur **une seule ligne** (ou échappe les fins de ligne avec `\`).
+- **Insensible à la casse** : le flag `I` est **GNU sed**. Sur BSD/macOS, préfère des classes (`[Vv][Ii][Ee][Uu][Xx]`) si besoin de portabilité.
+- **`i` sur macOS** : `i ''` (suffixe vide) ou `i .bak`.
+- **Mots entiers** : `\<mot\>`/`\>mot\>` est GNU ; sinon, travaille avec des **délimiteurs explicites** (espaces, ponctuation) ou regex étendues `\b` selon l’outil.
+- **Multi-lignes** : n’en abuse pas ; pour les gros traitements multi-lignes, `awk`/`perl` peuvent être plus confortables.
 
 ---
 
-# AWK — les bases utiles (pour être autonome)
+## 8) Mini “cheat sheet” (SED en 60 secondes)
 
-## 1) Ce que fait AWK
+```bash
+# Substitutions
+sed 's/foo/bar/' file             # 1re occurrence par ligne
+sed 's/foo/bar/g' file            # toutes
+sed -E 's/(foo)_(bar)/\1-\2/g' f  # captures (ERE)
+sed 's|\<http://\>|https://|g' f  # change délimiteur + mot entier (GNU)
 
-- **Lit** un fichier ligne par ligne, **découpe** en colonnes, puis **agit** (afficher, filtrer, calculer, formater).
-- Forme la plus simple :
+# Supprimer
+sed '/^$/d' f                     # vides
+sed '/^#/d' f                     # commentaires
+sed '5,10d' f                     # plage lignes
+sed '/^START/,/^END/d' f         # bloc entre motifs
+
+# Insérer / Ajouter / Changer
+sed '1i\# Titre' f
+sed '/ERREUR/a\-- vérifié --' f
+sed '5c\Nouvelle ligne' f
+
+# Filtrer / Imprimer
+sed -n '/motif/p' f
+sed '/motif/q' f                  # quitter au 1er match
+
+# In-place (+ sauvegarde)
+sed -i.bak 's/http:/https:/g' f
+
+```
+
+# AWK — comprendre, utiliser, être autonome
+
+## 1) Principe & utilité
+
+AWK est un **outil de traitement de texte tabulaire** : il lit un flux **ligne par ligne**, découpe chaque ligne en **champs** (colonnes), et exécute une **action** (afficher, filtrer, calculer, reformater).
+
+Quand l’utiliser ?
+
+- Quand `cut` est trop limité (espaces irréguliers, besoin de calculs/conditions/formatage).
+- Quand `grep` ne suffit pas (tu veux **filtrer + afficher certaines colonnes**).
+- Quand tu veux des **totaux/moyennes** ou des **regroupements** “à la SQL” en une ligne.
+
+---
+
+## 2) Forme de base & notions essentielles
+
+### 2.1 Forme minimale
 
 ```bash
 awk '{ ACTION }' fichier
 
 ```
 
-## 2) Mots clés à connaître
+- Sans **pattern**, l’`ACTION` s’applique à **chaque** ligne.
 
-- `$1`, `$2`, … : colonnes (champs).
-- `$0` : ligne complète.
-- `NF` : nombre de colonnes de la ligne.
-- `NR` : numéro de ligne (1, 2, 3…).
-- Séparateurs :
-    - Entrée : `F','` (CSV simple), `F'\t'` (TSV), `F'[[:space:]]+'` (espaces multiples).
-    - Sortie : par défaut un espace entre les éléments de `print`.
-- Comparaisons simples : `==`, `!=`, `<`, `<=`, `>`, `>=` ; regex : `$3 ~ /mot/` (matche) / `$3 !~ /mot/` (ne matche pas).
+### 2.2 Pattern → Action
 
-## 3) Les 4 actions de base (à connaître par cœur)
+```bash
+awk 'PATTERN { ACTION }' fichier
 
-- **Afficher des colonnes**
-    
-    ```bash
-    awk '{print $1,$3}' fichier
-    
-    ```
-    
-- **Filtrer**
-    
-    ```bash
-    awk '$2 >= 15 {print $1,$2}' fichier
-    awk '$3 ~ /^Chi/' fichier
-    
-    ```
-    
-- **Compter / sommer / moyenne**
-    
-    ```bash
-    awk '{n++; sum+=$2} END{ if(n) print sum, sum/n }' fichier
-    
-    ```
-    
-- **Agrégats par groupe (tableau associatif)**
-    
-    ```bash
-    awk '{s[$1]+=$2} END{for(k in s) print k, s[k]}' fichier
-    
-    ```
-    
+```
 
-> END { ... } s’exécute après la dernière ligne : parfait pour afficher des totaux/moyennes.
+- `PATTERN` peut être :
+    - une **expression** : `$2 >= 15`, `$3 == "Maths"`,
+    - une **regex** : `/ERROR/`, `$3 ~ /^Chi/`,
+    - un “**vrai**” implicite : `NF` (ligne non vide), `NR>1` (pas l’entête).
+
+### 2.3 Champs & variables clés
+
+- `$1`, `$2`, … : colonnes de la ligne ; `$0` : la **ligne entière**
+- `NF` : nombre de champs de la ligne ; `NR` : numéro de ligne global
+- `FILENAME` : nom du fichier courant ; `FNR` : n° de ligne **dans** ce fichier
+
+### 2.4 Séparateurs (entrée & sortie)
+
+- **Entrée** : `F','` (CSV simple), `F'\t'` (TSV), `F'[[:space:]]+'` (espaces multiples)
+- **Sortie** : par défaut, `print` sépare par **un espace** entre les éléments
+
+### 2.5 Comparaisons & regex
+
+- Comparaisons : `==`, `!=`, `<`, `<=`, `>`, `>=`
+- Regex : `$3 ~ /mot/` (matche), `$3 !~ /mot/` (ne matche pas)
+
+> 💡 Numérique vs texte : AWK compare numériquement si les deux opérandes “ressemblent” à des nombres, sinon en chaîne.
+> 
+> 
+> Astuce pour forcer le numérique : `($3+0) > 100`.
 > 
 
 ---
 
----
+## 3) Ce que tu peux faire (et comment)
 
-# CHALLENGES AWK
-
----
-
-## Challenge “Score”
-
-**Fichier :** `scores.txt`
-
-```
-1 Anais History 80 B 0.345
-2 Antoine Biology 70 C 0.583
-3 Julie Physics 85 B+ 0.438
-4 Emma History 90 A 0.632
-5 Marlene Maths 80 B 0.832
-6 Lucas Chemistry 80 B 0.464
-
-```
-
-### Ce que tu as fait
+### 3.1 Afficher des colonnes
 
 ```bash
-awk '{print $2,$4}' scores.txt > results.txt   # OK : (nom, note)
-awk '{ total += $2; count++ } END { print total/count }' results.txt
-# -> 80,8333 (affiché avec virgule selon locale)
+awk '{print $1,$3}' file                 # colonnes 1 et 3
+awk -F',' '{print $1,$3}' file.csv       # CSV simple
+awk -F'[[:space:]]+' '{print $1,$2,$3}' file.txt
 
 ```
 
-### Ce qui coinçait avant
+### 3.2 Filtrer (conditions)
 
-- `awk '{somme/n += $2}' END { ... }` est **syntaxiquement faux** : `END{...}` doit être **dans** les quotes, et `somme/n += $2` n’a pas de sens (division avant affectation).
-- Utilise un **numérateur** et un **compteur** puis moyenne dans `END`.
+```bash
+awk '$2 >= 15 {print $1,$2}' notes.txt
+awk '$3 == "Maths" {print $1,$2}' notes.txt
+awk '$3 ~ /^Chi/ {print $1,$3}' notes.txt
+awk 'NF' notes.txt                        # lignes non vides
+awk 'NR>1' notes.csv                      # saute l’entête
 
-### Version propre (2 manières)
+```
 
-- **Directement depuis `scores.txt` (colonne 4)** :
-    
-    ```bash
-    awk '{sum+=$4; n++} END{ if(n) printf "%.2f\n", sum/n }' scores.txt
-    
-    ```
-    
-- **Depuis `results.txt` (colonne 2)** :
-    
-    ```bash
-    awk '{sum+=$2; n++} END{ if(n) printf "%.2f\n", sum/n }' results.txt
-    
-    ```
-    
+### 3.3 Compter / sommer / moyenne / min / max
 
-> printf "%.2f" force le point et 2 décimales (évite la virgule locale).
+```bash
+awk '{n++; sum+=$2} END{ if(n) print "n=",n,"sum=",sum,"avg=",sum/n }' file
+
+awk 'NR==1{min=max=$2; wmin=wmax=$1}
+     $2<min{min=$2; wmin=$1}
+     $2>max{max=$2; wmax=$1}
+     END{print "min",min,wmin,"max",max,wmax}' file
+
+```
+
+### 3.4 Regrouper (tableaux associatifs)
+
+```bash
+# Fréquences par clé
+awk '{c[$1]++} END{for(k in c) print k, c[k]}' file
+
+# Somme & moyenne par groupe (ex. matière en $3)
+awk '{s[$3]+=$2; n[$3]++}
+     END{for(m in s) printf "%s %d %.2f\n", m, s[m], s[m]/n[m] }' file
+
+```
+
+### 3.5 Formatage propre
+
+- `print` : simple, ajoute `OFS` (séparateur de sortie, espace par défaut)
+- `printf` : contrôle fin (largeur, décimales, alignement)
+
+```bash
+awk '{printf "%-10s %6d %-12s\n",$1,$2,$3}' notes.txt
+# %-10s = texte gauche 10; %6d = entier largeur 6; %.2f = 2 décimales
+
+```
+
+### 3.6 Variables shell → AWK
+
+```bash
+seuil=15
+awk -v s="$seuil" '$2 >= s {print $1,$2}' notes.txt
+
+```
+
+### 3.7 Fonctions pratiques
+
+- `length($1)`, `tolower($1)`, `toupper($1)`
+- `sub(/x/,"y",$3)` (remplace 1ère), `gsub(/x/,"y",$3)` (toutes)
+- `split($3, arr, "/")`, `substr($1,1,3)`, `index($0,"ERROR")`
+
+### 3.8 Multi-fichiers & “join léger” (idiome `NR==FNR`)
+
+```bash
+# bonus.txt : "Alice 2" (bonus de points)
+# notes.txt : "Alice 14 Maths" ...
+awk '
+  NR==FNR { bonus[$1]=$2; next }       # 1er fichier : charge bonus
+  { $2 += ( $1 in bonus ? bonus[$1] : 0 ); print $1,$2,$3 }
+' bonus.txt notes.txt
+
+```
+
+---
+
+## 4) Ce qu’il faut éviter / pièges fréquents
+
+- **`cat file | awk ...`** : inutile, fais `awk ... file`.
+- **`grep ... | awk ...`** : souvent inutile, mets la condition **dans AWK** (`/mot/` ou `$col ~ /mot/`).
+- **CSV “complexes”** (guillemets, virgules internes) : AWK a des limites → préfère `csvkit`, `xsv`, `mlr` si besoin.
+- **Espaces irréguliers** : utilise `F'[[:space:]]+'`.
+- **Forcer numérique** : `($3+0)` pour éviter des surprises si `$3` contient des espaces ou du texte.
+- **Locale & décimales** : `printf "%.2f"` donne un **point** (utile si ta locale affiche des virgules).
+
+---
+
+# Tes challenges — explications AWK (propres & réutilisables)
+
+## A) Score — extraire noms & calculer la moyenne
+
+**Objectif** : afficher `(nom, note)` et calculer la **moyenne** des notes.
+
+```bash
+# (1) colonnes 2 (nom) et 4 (note)
+awk '{print $2,$4}' scores.txt > results.txt
+
+# (2) moyenne depuis results.txt (note en $2)
+awk '{sum+=$2; n++} END{ if(n) printf "%.2f\n", sum/n }' results.txt
+
+```
+
+> Tu avais tenté somme/n += $2 : c’est une erreur de syntaxe. On accumule d’abord (sum+=...), on divise à la fin dans END.
 > 
 
 ---
 
-## Challenge “IP Finder”
+## B) IP Finder — extraire l’IP sans le `/24`
 
-### Ce que tu as fait
-
-- Bon réflexe : `ip addr show enp0s3 > ipaddr.txt`, puis `grep "inet"` pour filtrer.
-- Petite coquille de nom de fichier (`ipaddre.txt`) puis un retour à la ligne avant le `| awk` (sans gravité).
-
-### Version AWK seule (et IP sans le /24)
+**Objectif** : récupérer l’IP de `enp0s3` **sans** le masque.
 
 ```bash
-ip addr show enp0s3 | awk '/inet /{ split($2,a,"/"); print a[1] }' > ip.txt
-# ip.txt contient: 10.0.2.15
+ip addr show enp0s3 \
+| awk '/inet /{ split($2,a,"/"); print a[1] }' > ip.txt
+# -> 10.0.2.15
 
 ```
 
-> /inet / = motif (pattern). split($2,a,"/") sépare “10.0.2.15/24” en a[1]="10.0.2.15".
+> /inet / = pattern ; $2 vaut 10.0.2.15/24 ; split(...,"/") garde a[1].
 > 
 
 ---
 
-## Challenge “Free space”
+## C) Free space — pourcentage libre à partir de `df -h`
 
-### Ce que tu as fait
-
-```bash
-df -h /dev/sda1 | awk 'NR==2 {print $5}'                 # 13%
-df -h /dev/sda1 | awk 'NR==2 {print(100 - int($5))"%"}'  # 87%
-
-```
-
-**C’est très bien.** `int($5)` convertit “13%” → 13.
-
-### Alternative lisible
+**Objectif** : afficher `100 - Utilisation%` de `/dev/sda1`.
 
 ```bash
 df -h /dev/sda1 | awk 'NR==2 { gsub("%","",$5); print 100-$5 "%"}' > free.txt
+# NR==2 prend la ligne des données (la 2e), gsub retire le '%'
 
 ```
-
-> gsub("%","",$5) enlève le % dans le champ 5, puis on calcule.
-> 
 
 ---
 
-## Challenge “Colonnes et lignes”
+## D) Colonnes & lignes (CSV) — filtrer strictement `$3 > 100`
 
-### Commandes
-
-```bash
-awk -F ',' 'NR==1 || $3 > 100' donnees.txt > resultat_sup_100.txt
-
-```
-
-**Attendu :** l’entête **+** seulement les lignes où la **colonne 3 > 100**.
-
-### Pourquoi tu as eu des lignes à 75 / 90 ?
-
-Causes possibles (fréquentes) :
-
-- **Espace après la virgule** (`"..., 75"`). Normalement la comparaison numérique gère, mais pour être carré, **trim** :
-    
-    ```bash
-    awk -F',' 'NR==1{print; next} {gsub(/^ +| +$/,"",$3); if($3>100) print}' donnees.txt
-    
-    ```
-    
-- **Mauvais nom de fichier de sortie** : tu as fait `> resultat_sup_100.txt` puis tenté d’ouvrir `resultats_sup_100.txt` (avec un **s**).
-- **Mauvais séparateur** : si ce n’est pas la virgule dans le vrai fichier, ajuste `F`.
-
-### Version simple et sûre
+**Objectif** : garder **l’entête** + lignes où la **3e colonne** est **> 100**.
 
 ```bash
 awk -F',' 'NR==1{print; next} ($3+0) > 100' donnees.txt > resultat_sup_100.txt
+# ($3+0) force l’interprétation numérique ; next évite de re-tester l’entête
 
 ```
 
-> ($3+0) force l’interprétation numérique de la colonne.
+> Les erreurs que tu as vues (lignes 75, 90) viennent souvent d’un cast implicite ambigu ou d’espaces.
+> 
+> 
+> Avec `($3+0) > 100`, c’est sûr et simple.
 > 
 
 ---
 
-## Challenge “Regroupement de données”
+## E) Regroupement de données — somme par mois
 
-**Fichier :** `ventes.txt`
-
-```
-Janvier,500
-Février,600
-Janvier,750
-Mars,800
-Février,900
-
-```
-
-### Ce que tu as fait
-
-```bash
-awk -F ',' '{sums[$1] += $2} END {for (month in sums) print month "," sums[month]}' ventes.txt > ventes_mensuelles.tx
-# Puis tu as cherché ventes_mensuelles.txt (t manquant) → “Aucun fichier…”
-
-```
-
-### Version propre
+**Objectif** : `ventes_mensuelles.txt` (= somme des montants par mois).
 
 ```bash
 awk -F',' '{s[$1]+=$2} END{for(m in s) print m "," s[m]}' ventes.txt \
@@ -1026,112 +1107,95 @@ awk -F',' '{s[$1]+=$2} END{for(m in s) print m "," s[m]}' ventes.txt \
 
 ```
 
-> Le sort final classe les mois (sinon ordre associatif).
+> Tu avais bien la logique ; vérifie juste le nom du fichier de sortie (tu avais *.tx).
 > 
 
 ---
 
-## Challenge “Filtrage et statistiques”
+## F) Filtrage & statistiques — moyenne + export des > moyenne
 
-**Fichier :** `etudiants.txt`
-
-```
-Nom,Prenom,Note
-John,Doe,85
-Jane,Smith,92
-Bob,Johnson,78
-Alice,Williams,95
-
-```
-
-### Ton intention (moyenne + liste > moyenne) est parfaite.
-
-Ta commande s’est “cassée” en collant (retours à la ligne au mauvais endroit).
-
-### Version claire (une seule ligne, facile à relire)
+**Objectif** : calculer la **moyenne**, puis **écrire** les lignes **au-dessus** dans un fichier.
 
 ```bash
-awk -F',' 'NR>1 {sum+=$3; n++; data[n]=$0}
-END{
-  if(n){
-    avg=sum/n; print "Moyenne:", avg;
-    for(i=1;i<=n;i++){
-      split(data[i],f,",");
-      if(f[3]>avg) print f[1] "," f[2] > "excellents_etudiants.txt"
+awk -F',' '
+  NR>1 { sum+=$3; n++; data[n]=$0 }          # charge les lignes (sans entête)
+  END{
+    if(n){
+      avg=sum/n; printf "Moyenne: %.2f\n", avg;
+      for(i=1;i<=n;i++){
+        split(data[i],f,",");
+        if((f[3]+0) > avg) print f[1] "," f[2] > "excellents_etudiants.txt"
+      }
     }
   }
-}' etudiants.txt
+' etudiants.txt
 
 ```
 
-**Remarques**
-
-- `NR>1` saute l’entête.
-- On garde les lignes dans `data[]`, on calcule `avg`, puis on **écrit** les > moyenne.
-- L’affichage “Moyenne: 87,5” avec **virgule** vient de ta locale. Si tu veux **forcer le point** :
-    
-    ```bash
-    awk -F',' 'NR>1{sum+=$3;n++}
-    END{ if(n) printf "Moyenne: %.2f\n", sum/n }' etudiants.txt
-    
-    ```
-    
+> Ici j’utilise printf pour forcer la ponctuation et +0 pour forcer le numérique.
+> 
 
 ---
 
-## En 10 commandes, tu sais faire 95% des besoins
+# 15 commandes AWK à savoir (mémo rapide)
 
 ```bash
-# 1. Choisir des colonnes
+# Sélection de colonnes
 awk '{print $1,$3}' file
-
-# 2. Séparateur d’entrée (CSV simple / TSV / espaces multiples)
 awk -F',' '{print $1,$3}' file.csv
-awk -F'\t' '{print $1,$3}' file.tsv
 awk -F'[[:space:]]+' '{print $1,$2,$3}' file.txt
 
-# 3. Filtrer simples (numérique / texte / regex)
+# Filtres
 awk '$2>=15' file
 awk '$3=="Maths"' file
 awk '$3 ~ /^Chi/' file
+awk 'NF' file            # non vides
+awk 'NR>1' file          # sans l’entête
 
-# 4. Total / moyenne
-awk '{sum+=$2} END{print sum}' file
-awk '{sum+=$2;n++} END{if(n) print sum/n}' file
+# Totaux, moyennes, min/max
+awk '{s+=$2} END{print s}' file
+awk '{s+=$2;n++} END{if(n) printf "%.2f\n", s/n}' file
+awk 'NR==1{min=max=$2} $2<min{min=$2} $2>max{max=$2} END{print min,max}' file
 
-# 5. Min / Max (et qui)
-awk 'NR==1{min=max=$2; whoMin=whoMax=$1}
-     $2<min{min=$2;whoMin=$1}
-     $2>max{max=$2;whoMax=$1}
-     END{print "min",min,whoMin,"max",max,whoMax}' file
-
-# 6. Comptages/agrégats par groupe
+# Groupes / Agrégats
 awk '{c[$1]++} END{for(k in c) print k,c[k]}' file
-awk '{s[$3]+=$2;n[$3]++} END{for(m in s) print m,s[m],s[m]/n[m]}' file
+awk '{s[$3]+=$2;n[$3]++} END{for(m in s) printf "%s %d %.2f\n",m,s[m],s[m]/n[m]}' file
 
-# 7. Logs web : URLs en 404 (combined)
+# Logs web (combined): URLs en 404
 awk '$9==404 {print $7}' access.log | sort | uniq -c | sort -nr | head
 
-# 8. ls -l capturé : nom + taille (tri par taille humaine)
+# ls -l capturé : nom + taille (tri humain)
 grep -v '^total' ls.txt | awk '{print $9,$5}' | sort -k2,2h
+
+# Forcer numérique & nettoyer
+awk '($3+0)>100' file
+awk '{gsub(/,/, ".", $2); print $1,$2}' file
 
 ```
 
 ---
 
-## Bonus (facultatif, à la fin du cours) — soigner la sortie
+## BONUS (à la fin du cours) — `BEGIN` & formatage avancé (optionnel)
 
-- **Séparateur de sortie** :
+- **Fixer un séparateur de sortie** pour tous les `print` :
     
     ```bash
     awk 'BEGIN{OFS=" | "} {print $1,$3}' file
     
     ```
     
-- **Tableau aligné** :
+- **En-têtes & tableau aligné :**
     
     ```bash
     awk 'BEGIN{printf "%-10s %6s %-12s\n","Prenom","Note","Matiere"}
          {printf "%-10s %6d %-12s\n",$1,$2,$3}' notes.txt
+    
+    ```
+    
+- **Passer des variables dès le début (seuil, formats, etc.) :**
+    
+    ```bash
+    seuil=15
+    awk -v s="$seuil" 'BEGIN{OFS=";"} $2>=s {print $1,$2}' notes.txt
     
     ```
