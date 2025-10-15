@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Jour 01 — Fondamentaux
+title: Jour 01 — Environnement Linux/Unix et découverte de Bash
 ---
 
 ## Objectifs
