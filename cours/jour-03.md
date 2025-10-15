@@ -105,6 +105,7 @@ L’inspection de l’historique fournit une vue synthétique et détaillée des
 ```bash
 git log --oneline --graph --decorate --all
 git show <hash>
+git ls-remote           # Vue des 
 
 ```
 
@@ -149,6 +150,7 @@ La déclaration d’un **remote** associe le dépôt local au serveur distant. L
 ```bash
 git remote add origin https://gitlab.com/org/projet.git
 git push -u origin main
+git remote -v           # visualisation des depots distants
 
 ```
 
