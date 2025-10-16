@@ -12,16 +12,19 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 03](cours/jour-03)
 
 
-## Références du cours
+---
 
-- [Vagrant — bases utiles (cours)](https://gooseppr.github.io/GevOps_LC/cours/jour-01#vagrant-bases-utiles-cours)
-- [Cours — Le Terminal (Bash)](https://gooseppr.github.io/GevOps_LC/cours/jour-01#cours-le-terminal-bash)
-- [SED — comprendre, utiliser, être autonome](https://gooseppr.github.io/GevOps_LC/cours/jour-01#sed-comprendre-utiliser-être-autonome)
-- [AWK — comprendre, utiliser, être autonome](https://gooseppr.github.io/GevOps_LC/cours/jour-01#awk-comprendre-utiliser-être-autonome)
-- [Tes challenges — explications AWK (propres & réutilisables)](https://gooseppr.github.io/GevOps_LC/cours/jour-01#tes-challenges-explications-awk-propres-réutilisables)
-- [15 commandes AWK à savoir (mémo rapide)](https://gooseppr.github.io/GevOps_LC/cours/jour-01#15-commandes-awk-à-savoir-mémo-rapide)
-- [Cours — Scripting Bash](https://gooseppr.github.io/GevOps_LC/cours/jour-02#cours-scripting-bash)
-- [Cours — Gestion des droits sous Linux](https://gooseppr.github.io/GevOps_LC/cours/jour-02#cours-gestion-des-droits-sous-linux)
-- [Automatiser avec **cron** — comprendre & manipuler sans galérer](https://gooseppr.github.io/GevOps_LC/cours/jour-02#automatiser-avec-cron-comprendre-manipuler-sans-galérer)
-- [Git — le guide “manipulation sans stress”](https://gooseppr.github.io/GevOps_LC/cours/jour-03#git-le-guide-manipulation-sans-stress)
-- [Git — manipulation avancée de l’historique (sans paniquer)](https://gooseppr.github.io/GevOps_LC/cours/jour-03#git-manipulation-avancée-de-lhistorique-sans-paniquer)
+
+---
+
+## Tous les modules (ordre global)
+- Jour 01 / 01 : [Vagrant — bases utiles](modules/001_vagrant-bases-utiles.md)
+- Jour 01 / 02 : [Le Terminal (Bash)](modules/001_terminal-bash.md)
+- Jour 01 / 03 : [SED](modules/001_sed-utilisation.md)
+- Jour 01 / 04 : [AWK](modules/001_awk-utilisation.md)
+- Jour 02 / 01 : [Scripting Bash](modules/002_scripting-bash.md)
+- Jour 02 / 02 : [Gestion des droits sous Linux](modules/002_droits-linux.md)
+- Jour 02 / 03 : [Automatiser avec cron](modules/002_cron-automatisation.md)
+- Jour 03 / 01 : [Git — le guide “manipulation sans stress”](modules/003_git-manipulation.md)
+- Jour 03 / 02 : [Git — manipulation avancée de l’historique](modules/003_git-historique-avance.md)
+- Jour 04 / 01 : [Python — le cours Python](modules/004_python-cours.md)
