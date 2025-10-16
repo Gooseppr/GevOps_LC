@@ -26,12 +26,13 @@ python3 --version
 
 ---
 
+Les fichiers .py n'ont pas besoin de Shebang et d'élévation de droit pour être exécuter car ils sont exécuter dans Linux directement par python3 qui lui dispose déjà des droits.
+
 ## 3) Premier script
 
 `hello.py` :
 
 ```python
-#!/usr/bin/env python3
 print("Hello, world!")
 
 ```
@@ -39,7 +40,6 @@ print("Hello, world!")
 Exécution :
 
 ```bash
-chmod +x hello.py
 ./hello.py
 
 ```
@@ -60,8 +60,8 @@ rien = None            # absence de valeur
 
 # réaffectation
 score = 5
-score = score + 3
-score += 2             # 10
+score = score + 3       # 8  Réaffectation avec addition
+score += 2              # 10 Affectation augmentée
 
 ```
 
@@ -82,23 +82,61 @@ bool(0)      # False ; bool(1) -> True
 - **Arithmétiques** : `+ - * / // % **`
 
 ```python
-7 / 2   # 3.5
-7 // 2  # 3
-7 % 2   # 1
-2 ** 3  # 8
+7 / 2   # 3.5 - Division classique : donne le résultat en nombre décimal.
+7 // 2  # 3 - Division entière : donne le quotient entier.
+7 % 2   # 1 - Modulo : donne le reste de la division entière.
+2 ** 3  # 8 - Puissance : élève le premier nombre à la puissance du second.
 
 ```
 
 - **Comparaison** : `== != < <= > >=`
-- **Logiques** : `and or not`
-- **Appartenance / identité** :
+- Compare des **valeurs** → renvoie `True`/`False`.
+- Chaînage possible : `2 < x <= 10`.
 
 ```python
-"a" in "salut"   # True
-x = [1,2]; y = x; x is y  # True (même objet)
+3 == 3        # True
+3 != 4        # True
+2 < 5         # True
+"ab" < "aba"  # True (ordre lexicographique)
+2 < x <= 10   # équivaut à (2 < x) and (x <= 10)
 
 ```
 
+- **Logiques** : `and or not`
+- Combiner des conditions (évaluation **paresseuse** / *short-circuit*).
+- `and` renvoie le **premier falsy** ou le dernier operand.
+- `or` renvoie le **premier truthy**.
+- `not` inverse la vérité.
+
+```python
+age, has_id = 20, True
+age >= 18 and has_id     # True
+"user" or "default"      # "user"
+"" or "default"          # "default"
+not 0                    # True  (0 est falsy)
+
+```
+
+> Falsy : False, None, 0, 0.0, "", [], {}, set()… — tout le reste est truthy.
+
+- **Appartenance / identité** :
+
+  - **Appartenance (`in`)** : présence dans une **sequence/collection**.
+      - `str` : sous-chaîne ; `list/tuple` : élément ; `set` : très rapide ; `dict` : **clés**.
+  - **Identité (`is`)** : **même objet** en mémoire (≠ égalité de valeur).
+
+```python
+"py" in "python"           # True    (sous-chaîne)
+"a" in "python"            # False
+2 in [1,2,3]               # True
+"ville" in {"ville":"Paris"}  # True (test sur les clés)
+
+a = [1,2]; b = a; c = [1,2]
+a == c     # True  (même contenu)
+a is c     # False (objets distincts)
+x is None  # idiome recommandé
+
+```
 ---
 
 ## 6) Chaînes de caractères (str)
