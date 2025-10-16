@@ -10,12 +10,8 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 01](cours/jour-01)
 - 👉 [Jour 02](cours/jour-02)
 - 👉 [Jour 03](cours/jour-03)
+- 👉 [Jour 04](cours/jour-04)
 
-
----
-
-
----
 
 ## Tous les modules (ordre global)
 - Jour 01 / 01 : [Vagrant — bases utiles](modules/001_vagrant-bases-utiles.md)
