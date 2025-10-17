@@ -1,8 +1,8 @@
-# ---
-# module: Automatiser avec cron
-# jour: 02
-# ordre: 3
-# ---
+---
+module: Automatiser avec cron
+jour: 02
+ordre: 3
+---
 
 # Automatiser avec **cron** — comprendre & manipuler sans galérer
 

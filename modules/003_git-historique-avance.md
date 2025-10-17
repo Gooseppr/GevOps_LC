@@ -1,8 +1,8 @@
-# ---
-# module: Git — manipulation avancée de l’historique
-# jour: 03
-# ordre: 2
-# ---
+---
+module: Git — manipulation avancée de l’historique
+jour: 03
+ordre: 2
+---
 
 # Git — manipulation avancée de l’historique (sans paniquer)
 

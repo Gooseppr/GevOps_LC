@@ -1,8 +1,8 @@
-# ---
-# module: Python — le cours Python
-# jour: 04
-# ordre: 1
-# ---
+---
+module: Python — le cours Python
+jour: 04
+ordre: 1
+---
 
 # Python — le cours Python 
 
@@ -26,7 +26,7 @@ python3 --version
 
 ---
 
-Les fichiers .py n'ont pas besoin de Shebang et d'élévation de droit pour être exécuter car ils sont exécuter dans Linux directement par python3 qui lui dispose déjà des droits.
+Les fichiers .py n'ont pas forcément besoin de Shebang et d'élévation de droit pour être exécuter si ils sont exécuté dans Linux directement par python3 qui lui dispose déjà des droits.
 
 ## 3) Premier script
 

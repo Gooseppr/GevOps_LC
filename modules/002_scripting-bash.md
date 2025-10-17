@@ -1,8 +1,8 @@
-# ---
-# module: Scripting Bash
-# jour: 02
-# ordre: 1
-# ---
+---
+module: Scripting Bash
+jour: 02
+ordre: 1
+---
 
 # Cours — Scripting Bash
 

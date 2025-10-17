@@ -11,11 +11,32 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 02](cours/jour-02)
 - 👉 [Jour 03](cours/jour-03)
 - 👉 [Jour 04](cours/jour-04)
+- 👉 [Jour 05](cours/jour-05)
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+---
+
+
+---
+
+
+---
+
+
+---
 
 
 ---
@@ -34,3 +55,4 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 03 / 01 : [Git — le guide “manipulation sans stress”](modules/003_git-manipulation.md)
 - Jour 03 / 02 : [Git — manipulation avancée de l’historique](modules/003_git-historique-avance.md)
 - Jour 04 / 01 : [Python — le cours Python](modules/004_python-cours.md)
+- Jour 05 / 01 : [Python — le cours Python](modules/005_python-systeme.md)

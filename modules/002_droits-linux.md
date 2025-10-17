@@ -1,8 +1,8 @@
-# ---
-# module: Gestion des droits sous Linux
-# jour: 02
-# ordre: 2
-# ---
+---
+module: Gestion des droits sous Linux
+jour: 02
+ordre: 2
+---
 
 # Cours — Gestion des droits sous Linux
 

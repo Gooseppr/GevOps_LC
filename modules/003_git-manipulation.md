@@ -1,8 +1,8 @@
-# ---
-# module: Git — le guide “manipulation sans stress”
-# jour: 03
-# ordre: 1
-# ---
+---
+module: Git — le guide “manipulation sans stress”
+jour: 03
+ordre: 1
+---
 
 # Git — le guide “manipulation sans stress”
 

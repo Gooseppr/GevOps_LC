@@ -1,5 +1,7 @@
 title: "Mes Cours"
 description: "Cours journaliers accessibles partout"
-theme: minima   # thème officiel GitHub Pages
+theme: minima
 minima:
-  skin: dark    # active le thème sombre si supporté
+  skin: dark
+header_pages:
+  - index.md        # Accueil
