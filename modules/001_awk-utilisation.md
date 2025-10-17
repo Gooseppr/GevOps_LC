@@ -4,7 +4,7 @@ jour: 01
 ordre: 4
 ---
 
-# AWK — comprendre, utiliser, être autonome
+# AWK
 
 ## 1) Principe & utilité
 

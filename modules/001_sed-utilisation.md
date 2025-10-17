@@ -4,7 +4,7 @@ jour: 01
 ordre: 3
 ---
 
-# SED — comprendre, utiliser, être autonome
+# SED
 
 ## 1) Principe & utilité
 
