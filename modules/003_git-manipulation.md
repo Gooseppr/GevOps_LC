@@ -375,30 +375,7 @@ git push -u origin feat/xxx
 
 ---
 
-## 17) Exercices guidés (mise en pratique rapide)
-
-Ces exercices consolident les gestes essentiels : initialisation, branches, merge, conflits, retour arrière.
-
-1. **Initialisation et premier push**
-    
-    `git init` → création `README.md` → `git add .` → `git commit -m "init"` → `git remote add origin …` → `git push -u origin main`.
-    
-2. **Branche de fonctionnalité et merge**
-    
-    `git switch -c feat/hello` → modification → commit → `git switch main` → `git merge --no-ff feat/hello` → `git branch -d feat/hello`.
-    
-3. **Conflit contrôlé et résolution**
-    
-    modification de la même ligne sur deux branches → merge → résolution des marqueurs → `git add` → `git commit`.
-    
-4. **Retour arrière public**
-    
-    commit erroné → `git revert <hash>` → vérification de l’historique.
-    
-
----
-
-## 18) Kit de survie (référence rapide)
+## 17) Kit de survie (référence rapide)
 
 ```bash
 # État et historique
