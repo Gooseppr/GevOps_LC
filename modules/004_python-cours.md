@@ -472,16 +472,6 @@ Portée : les variables créées **dans** la fonction sont **locales**.
 
 Docstring : la chaîne triple-quotes sous `def` sert d’aide (`help(f)`).
 
-En pratique (à retenir) :
->
->Convention forte : on écrit self pour les méthodes d’instance et cls pour les @classmethod. Toute l’écosystème s’y attend (lecteurs, IDE, linters). Sortir de la convention rend le code moins lisible et peut déclencher des avertissements.
->
->Appels “non liés” (rares) : si tu appelles la méthode via la classe en passant l’instance par mot-clé, le nom compte.
->
->Outils & auto-complétion : Beaucoup d’IDE/linters/inspecteurs utilisent la convention self/cls pour comprendre l’intention (ex : détections d’erreurs, suggestions). Changer le nom peut dégrader l’expérience.
->
->Lisibilité & formation : tous les tutos, cours, revues de code partent de self. Te différencier ici ajoute du bruit cognitif sans bénéfice.
-
 ---
 
 ## 11) Gestion des erreurs (exceptions)
@@ -505,46 +495,72 @@ def set_age(age):
 
 ## 12) Les classes (programmation orientée objet)
 
-### 12.1 Pourquoi des classes
-
 Les classes regroupent **données** (attributs) et **comportements** (méthodes). Elles modélisent des entités réelles (compte, capteur, commande), protègent les invariants (ex : “solde ≥ 0”) et rendent le code extensible.
 
----
+### 12.1 Créer une classe
+
+```python
+class Empty:            # Crée un nouveau type
+    pass                # C'est un placeholder utilisé quand on ne définit pas de contenu
+
+e = Empty()             # On crée un objet e qui est une instance de la classe Empty
+print(type(e))          # <class '__main__.Empty'>
+
+```
+
+```python
+
+class salut:
+    def hello(self):
+        print("Hello!")
+
+e = salut()             # Les () servent à appeler le constructeur de la classe
+e.hello()               # Affichera "Hello!"
+
+```
 
 ### 12.2 Définir une classe, créer des objets
 
 ```python
-class CompteBancaire:
-    def __init__(self, titulaire, solde_initial=0):
-        self.titulaire = titulaire
-        self.solde = solde_initial
+class Shape:
+    color = "red"                           # attribut de classe (commun)
 
-    def deposer(self, montant):
-        self.solde += montant
+s1 = Shape(); s2 = Shape()                  #Crée 2 instances
+print(s1.color, s2.color)               # red red
+Shape.color = "blue"                        # Modifie l'attribut pour toute les instances
+print(s1.color, s2.color)               # blue blue
+s1.color = "black" ; s2.color = "white"     # Modifie l'attribut de façon ciblé 
+print(s1.color, s2.color)               # black white
 
-    def retirer(self, montant):
-        if montant > self.solde:
-            print("Fonds insuffisants")
-            return False
-        self.solde -= montant
-        return True
+```
 
-    def afficher(self):
-        print(f"{self.titulaire}: solde = {self.solde} €")
+```python
+class Rectangle:
+    def __init__(self, w, h, color="red"):
+        self.w = w               # attributs d’instance
+        self.h = h
+        self.color = color
 
-c = CompteBancaire("Amina", 100)
-c.deposer(50)
-c.retirer(20)
-c.afficher()     # Amina: solde = 130 €
+r = Rectangle(10, 20, color="blue")
+print(r.w, r.h, r.color)  # 10 20 blue
+
 
 ```
 
 - `__init__` : **constructeur**, appelé à la création.
 - `self` : référence **l’instance courante**.
 
+> **Convention forte** :  
+> - On écrit `self` comme premier paramètre des **méthodes d’instance**.  
+> - On écrit `cls` comme premier paramètre des **méthodes de classe** (`@classmethod`).  
+>  
+> Toute l’écosystème Python (lecteurs, IDE, linters) s’attend à cette convention.  
+> S’en écarter rend le code moins lisible et peut déclencher des avertissements.
+
 ---
 
 ### 12.3 Attributs d’instance vs attributs de classe
+Les attributs de classe sont partagés par toutes les instances, tandis que les attributs d’instance sont propres à chaque objet créé à partir de la classe.
 
 ```python
 class Serveur:
@@ -555,7 +571,8 @@ class Serveur:
         self.port = port or Serveur.port_par_defaut
 
 ```
-
+- Un attribut de classe (comme port_par_defaut) appartient à la classe elle-même. Toutes les instances (objets) de cette classe partagent la même valeur, sauf si on la modifie pour une instance précise.
+- Un attribut d’instance (comme nom ou port) appartient à chaque objet créé à partir de la classe. Chaque objet peut avoir une valeur différente pour ces attributs.
 ---
 
 ### 12.4 Représentation lisible : `__repr__`, `__str__`
@@ -564,13 +581,14 @@ class Serveur:
 class Point:
     def __init__(self, x=0, y=0):
         self.x, self.y = x, y
-    def __repr__(self):  # debug/dev
+    def __repr__(self):                             # debug/dev
         return f"Point(x={self.x}, y={self.y})"
-    def __str__(self):   # affichage utilisateur
+    def __str__(self):                              # affichage utilisateur
         return f"({self.x}, {self.y})"
 
 ```
-
+- __repr__ retourne une représentation détaillée et non ambiguë de l'objet, utile pour le debug ou le développement.
+- __str__ retourne une version lisible et simplifiée de l'objet, destinée à l'affichage pour l'utilisateur.
 ---
 
 ### 12.5 Comparaison et opérations (dunders utiles)
