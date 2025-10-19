@@ -571,8 +571,8 @@ class Serveur:
         self.port = port or Serveur.port_par_defaut
 
 ```
-- Un attribut de classe (comme port_par_defaut) appartient à la classe elle-même. Toutes les instances (objets) de cette classe partagent la même valeur, sauf si on la modifie pour une instance précise.
-- Un attribut d’instance (comme nom ou port) appartient à chaque objet créé à partir de la classe. Chaque objet peut avoir une valeur différente pour ces attributs.
+ Un attribut de classe (comme port_par_defaut) appartient à la classe elle-même. Toutes les instances (objets) de cette classe partagent la même valeur, sauf si on la modifie pour une instance précise.
+ Un attribut d’instance (comme nom ou port) appartient à chaque objet créé à partir de la classe. Chaque objet peut avoir une valeur différente pour ces attributs.
 ---
 
 ### 12.4 Représentation lisible : `__repr__`, `__str__`
@@ -587,8 +587,8 @@ class Point:
         return f"({self.x}, {self.y})"
 
 ```
-- __repr__ retourne une représentation détaillée et non ambiguë de l'objet, utile pour le debug ou le développement.
-- __str__ retourne une version lisible et simplifiée de l'objet, destinée à l'affichage pour l'utilisateur.
+ __repr__ retourne une représentation détaillée et non ambiguë de l'objet, utile pour le debug ou le développement.
+ __str__ retourne une version lisible et simplifiée de l'objet, destinée à l'affichage pour l'utilisateur.
 ---
 
 ### 12.5 Comparaison et opérations (dunders utiles)
