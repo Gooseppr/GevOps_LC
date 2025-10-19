@@ -159,10 +159,14 @@ s[-1]          # 'd'
 ```
 
 Formatage recommandé (f-strings) :
+- Le f permet d’insérer directement des variables ou expressions à l’intérieur de la chaîne avec {...}.
+- Plus lisible et puissant que la concaténation.
+- Permet le formatage (ex: arrondis) directement.
 
 ```python
 prenom, nom = "John", "Wall"
 print(f"{prenom} {nom}")    # John Wall
+
 
 ```
 
@@ -333,44 +337,150 @@ else:
 ---
 
 ## 10) Fonctions (définir, appeler, renvoyer)
+- Une fonction est un bloc réutilisable définit avec un `def` 
 
-Définition + retour :
+Création d'une fonction simple (sans paramètres) :
 
 ```python
-def moyenne(a, b):
-    """Renvoie la moyenne de deux nombres."""
-    return (a + b) / 2
+def login():                        # définit une fonction sans paramètres
+    return "je suis connecté"       # la fonction renvoit une chaine de caractère 
 
 ```
 
-Paramètres nommés et valeurs par défaut :
+Paramètres positionnels et nommés :
 
 ```python
-def saluer(prenom, titre=""):
-    if titre:
-        print(f"Bonjour {titre} {prenom}")
-    else:
-        print(f"Bonjour {prenom}")
+def saluer(prenom, nom):                    # définit une fonction avec 2 paramètres
+    return(f"Bonjour {prénom} {nom} !")
 
-saluer("Amina")
-saluer("Dupont", titre="Dr")
+# appel de la fonction avec les paramètres de façon positionnelle
+saluer("Charles", "Dupont")                 
+
+# appel de la fonction avec les paramètres de façon nommée (on choisi l'ordre)
+saluer(nom="Dupont", prenom="Edouard")      
 
 ```
+
+Paramètres positionnels et nommés :
+
+```python
+multiple(base, m=5):                    # définit une fonction avec m défini par defaut
+    return base * m
+
+# appel de la fonction le paramètre obligatoire
+multiple(3)                     # le résultat est 15 car 3 * 5 = 15
+
+# appel de la fonction le paramètre obligatoire et le paramètres par défaut modifié
+multiple(5,5)                   # le résultat est 25 car 5 * 5 = 25
+
+```
+
+**But :** proposer un **comportement par défaut**, que l’on peut modifier si besoin.
+
+> ⚠️ Ne pas mettre d’objets mutables (liste/dict) en valeur par défaut.
+> 
+> 
+> Mauvais :
+> 
+> ```python
+> def push(x, bucket=[]):  # ❌
+>     bucket.append(x)
+>     return bucket
+> 
+> ```
+> 
+> Bon :
+> 
+> ```python
+> def push(x, bucket=None):  # ✅
+>     if bucket is None:
+>         bucket = []
+>     bucket.append(x)
+>     return bucket
+> 
+> ```
+>
 
 Nombre variable d’arguments :
 
 ```python
-def somme(*nums):
-    total = 0
-    for n in nums:
-        total += n
-    return total
+# * définit un nombre d'argument variable obligatoirement positionnels
+def total(*nums):
+    return sum(nums)
+print(total(1, 2, 3, 4, 5))
+
+# ** définit un nombre d'argument variable obligatoirement nommés
+def total(**nums):
+    return sum(nums.values())
+print(total(a=1, b=2, c=3, d=4, e=5))
+
+```
+
+Forcer les arguments en positonnel ou nommés :
+
+```python
+# tous les arguments avant / sont obligatoirement positionnels
+def rgb(r, g, b, /):
+    return (r, g, b)
+
+rgb(255, 128, 0)            # OK
+rgb(r=255, g=128, b=0)        # ❌ TypeError (positional-only)
+
+# tous les arguments après * sont obligatoirement nommés
+def resize(w, h, *, keep_ratio=True):
+    return (w, h, keep_ratio)
+
+resize(640, 480)                      # keep_ratio=True car valeur par défaut
+resize(640, 480, keep_ratio=False)    # OK
+resize(640, 480, False)               # ❌ TypeError (doit être nommé)
+
+```
+
+Unpacking de liste, tuples et dict dans les paramètres :
+
+```python
+# Unpacking avec liste/tuple → *
+def aire(w, h):
+    return w * h
+
+taille = [1920, 1080]   # Les dimensions viennent d'une liste (pourraient être un tuple)
+
+resultat = aire(*taille)   # équivaut à aire(1920, 1080)
+print(resultat)            # 2073600
+
+# Unpacking avec dict → **
+def connect(host, port, *, timeout=5, ssl=False):
+    return {"host": host, "port": port, "timeout": timeout, "ssl": ssl}
+
+options = {"timeout": 10, "ssl": True}
+
+cfg = connect("db.local", 5432, **options)
+print(cfg)              # {'host': 'db.local', 'port': 5432, 'timeout': 10, 'ssl': True}
+
+# Unpacking avec liste/tuple → * et dict → **
+def rect(w, h, *, unit="px"):
+    return f"{w}x{h} {unit}"
+
+t = (1920, 1080)
+d = {"unit": "pt"}
+
+print(rect(*t, **d)) 
 
 ```
 
 Portée : les variables créées **dans** la fonction sont **locales**.
 
 Docstring : la chaîne triple-quotes sous `def` sert d’aide (`help(f)`).
+
+En pratique (à retenir) :
+>
+>Convention forte : on écrit self pour les méthodes d’instance et cls pour les @classmethod. Toute l’écosystème s’y attend (lecteurs, IDE, linters). Sortir de la convention rend le code moins lisible et peut déclencher des avertissements.
+>
+>Appels “non liés” (rares) : si tu appelles la méthode via la classe en passant l’instance par mot-clé, le nom compte.
+>
+>Outils & auto-complétion : Beaucoup d’IDE/linters/inspecteurs utilisent la convention self/cls pour comprendre l’intention (ex : détections d’erreurs, suggestions). Changer le nom peut dégrader l’expérience.
+>
+>Lisibilité & formation : tous les tutos, cours, revues de code partent de self. Te différencier ici ajoute du bruit cognitif sans bénéfice.
 
 ---
 
