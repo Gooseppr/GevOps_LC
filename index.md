@@ -12,6 +12,7 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 03](cours/jour-03)
 - 👉 [Jour 04](cours/jour-04)
 - 👉 [Jour 05](cours/jour-05)
+- 👉 [Jour 06](cours/jour-06)
 
 
 
@@ -27,6 +28,11 @@ Ce site affiche mes cours en **Markdown**.
 
 
 
+
+
+
+
+---
 
 
 ---
@@ -61,3 +67,4 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 03 / 02 : [Git — manipulation avancée de l’historique](modules/003_git-historique-avance.md)
 - Jour 04 / 01 : [Python — le cours Python](modules/004_python-cours.md)
 - Jour 05 / 01 : [Python — le cours Python](modules/005_python-systeme.md)
+- Jour 06 / 01 : [Les équipements réseaux](modules/006_equipements-reseau.md)

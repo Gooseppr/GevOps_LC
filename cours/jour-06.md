@@ -1,0 +1,7 @@
+---
+layout: page
+title: Jour 06 — Les équipements réseaux
+---
+
+## Modules du jour
+- [Les équipements réseaux]../modules/006_equipements-reseau.md
