@@ -39,6 +39,31 @@ Ce site affiche mes cours en **Markdown**.
 
 
 
+
+
+
+
+
+
+
+
+
+
+---
+
+
+---
+
+
+---
+
+
+---
+
+
+---
+
+
 ---
 
 
@@ -86,3 +111,4 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 06 / 01 : [Les équipements réseaux](modules/006_equipements-reseau.md)
 - Jour 06 / 02 : [Configuration](modules/006_configuration-reseau.md)
 - Jour 07 / 01 : [Adresse IP, port & protocole.](modules/007_IP-ports-protocole.md)
+- Jour 07 / 02 : [Mise en place & observation réseau](modules/007_observation-reseau.md)
