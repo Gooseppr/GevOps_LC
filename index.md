@@ -13,6 +13,7 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 04](cours/jour-04)
 - 👉 [Jour 05](cours/jour-05)
 - 👉 [Jour 06](cours/jour-06)
+- 👉 [Jour 07](cours/jour-07)
 
 
 
@@ -30,6 +31,21 @@ Ce site affiche mes cours en **Markdown**.
 
 
 
+
+
+
+
+
+
+
+
+---
+
+
+---
+
+
+---
 
 
 ---
@@ -68,3 +84,5 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 04 / 01 : [Python — le cours Python](modules/004_python-cours.md)
 - Jour 05 / 01 : [Python — le cours Python](modules/005_python-systeme.md)
 - Jour 06 / 01 : [Les équipements réseaux](modules/006_equipements-reseau.md)
+- Jour 06 / 02 : [Configuration](modules/006_configuration-reseau.md)
+- Jour 07 / 01 : [Adresse IP, port & protocole.](modules/007_IP-ports-protocole.md)
