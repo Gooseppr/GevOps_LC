@@ -14,6 +14,7 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 05](cours/jour-05)
 - 👉 [Jour 06](cours/jour-06)
 - 👉 [Jour 07](cours/jour-07)
+- 👉 [Jour 08](cours/jour-08)
 
 
 
@@ -47,6 +48,16 @@ Ce site affiche mes cours en **Markdown**.
 
 
 
+
+
+
+
+
+
+---
+
+
+---
 
 
 ---
@@ -112,3 +123,6 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 06 / 02 : [Configuration](modules/006_configuration-reseau.md)
 - Jour 07 / 01 : [Adresse IP, port & protocole.](modules/007_IP-ports-protocole.md)
 - Jour 07 / 02 : [Mise en place & observation réseau](modules/007_observation-reseau.md)
+- Jour 08 / 01 : [Administration de serveur SSH](modules/008_serveur-SSH.md)
+- Jour 08 / 02 : [Sécurité & Attaques](modules/008_securite.md)
+- Jour 08 / 03 : [Pratique - SSH et NGINX](modules/008_pratique-SSH-NGINX.md)
