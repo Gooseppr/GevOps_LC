@@ -147,7 +147,7 @@ Et ensuite on parlera sauvegarde/restauration.
 
 ### 3.1 PostgreSQL
 
-### Installation (Debian)
+#### Installation (Debian)
 
 ```bash
 sudo apt update
@@ -157,7 +157,7 @@ sudo apt install -y postgresql postgresql-contrib
 
 `postgresql-contrib` apporte des extensions utiles.
 
-### Service
+#### Service
 
 ```bash
 sudo systemctl status postgresql
@@ -168,7 +168,7 @@ sudo systemctl enable postgresql     # pour lancer au boot
 
 PostgreSQL tourne en général sous un compte système `postgres`.
 
-### Connexion à la CLI PostgreSQL
+#### Connexion à la CLI PostgreSQL
 
 Le super-utilisateur interne s’appelle `postgres`.
 
@@ -181,7 +181,7 @@ sudo -u postgres psql
 
 Tu arrives dans le shell `psql`.
 
-### Création d’une base et d’un utilisateur applicatif
+#### Création d’une base et d’un utilisateur applicatif
 
 Dans `psql` :
 
@@ -198,7 +198,7 @@ Idée importante :
 - On ne laisse pas l’application utiliser l’utilisateur superadmin `postgres`.
 - On crée un utilisateur “applicatif” avec des droits limités à UNE base.
 
-### Connexion en tant qu’utilisateur applicatif
+#### Connexion en tant qu’utilisateur applicatif
 
 En sortant de `psql`, tu peux maintenant te connecter comme ferait une vraie appli :
 
@@ -213,7 +213,7 @@ psql -U developer -h 127.0.0.1 -d mydb
 
 C’est exactement ce que ferait un backend Node.js / Python / Java : il se connecte avec un login/mot de passe, pas avec `sudo`.
 
-### Accès réseau externe
+#### Accès réseau externe
 
 Par défaut PostgreSQL peut être limité à l’accès local.
 
@@ -229,7 +229,7 @@ Important :
 
 Donner un accès réseau, c’est ouvrir la base à l’extérieur. Ça implique mot de passe fort, chiffrement, restriction IP. On ne met jamais ça à l’arrache en prod.
 
-### Installation sur Windows (idée générale)
+#### Installation sur Windows (idée générale)
 
 Sur Windows, PostgreSQL s’installe via un installeur officiel (ou via Chocolatey/winget).
 
@@ -254,7 +254,7 @@ Le principe reste le même :
 
 MariaDB et MySQL se manipulent quasiment de la même façon côté commandes de base.
 
-### Installation (Debian)
+#### Installation (Debian)
 
 ```bash
 sudo apt update
@@ -262,7 +262,7 @@ sudo apt install -y mariadb-server
 
 ```
 
-### Service
+#### Service
 
 ```bash
 sudo systemctl status mariadb
@@ -271,7 +271,7 @@ sudo systemctl enable mariadb
 
 ```
 
-### Connexion à la CLI MariaDB
+#### Connexion à la CLI MariaDB
 
 Sous Debian, en root système, tu peux ouvrir la CLI sans mot de passe :
 
@@ -282,7 +282,7 @@ sudo mariadb -u root
 
 Tu arrives dans `MariaDB [(none)]>`.
 
-### Création d’une base et d’un utilisateur applicatif
+#### Création d’une base et d’un utilisateur applicatif
 
 Dans la CLI :
 
@@ -300,7 +300,7 @@ Notion importante :
 - `'developer'@'localhost'` veut dire : cet utilisateur est autorisé uniquement s’il se connecte depuis localhost.
 - En prod, tu peux aussi créer `'appuser'@'10.0.12.%'` pour n’autoriser qu’un sous-réseau interne spécifique.
 
-### Connexion en tant qu’utilisateur applicatif
+#### Connexion en tant qu’utilisateur applicatif
 
 Ce sera l’équivalent de ce que ferait ton backend :
 
@@ -319,7 +319,7 @@ SHOW TABLES;
 
 Si la base est vide, c’est normal : pas encore de tables.
 
-### Exposition réseau
+#### Exposition réseau
 
 MariaDB écoute généralement sur le port 3306.
 
@@ -333,7 +333,7 @@ Pour autoriser une autre machine, on peut mettre l’adresse IP du serveur ou `0
 - comptes limités par IP (`'user'@'IP'`),
 - mots de passe solides.
 
-### Installation sur Windows (idée générale)
+#### Installation sur Windows (idée générale)
 
 Sous Windows, MariaDB s’installe via MSI ou via Chocolatey :
 
@@ -352,7 +352,7 @@ Même logique : créer une base, créer un utilisateur, lui donner les droits, n
 
 MongoDB est une base orientée documents.
 
-### Modèle de données
+#### Modèle de données
 
 - Une “database”.
 - À l’intérieur : des “collections”.
@@ -360,7 +360,7 @@ MongoDB est une base orientée documents.
 - Pas de schéma strict obligatoire.
 - Tu peux insérer des objets `{ name: "Alice", age: 19 }` sans avoir défini une table au préalable.
 
-### Installation (Debian, version serveur officielle)
+#### Installation (Debian, version serveur officielle)
 
 Tu ajoutes la clé et le repo officiels, puis tu installes le paquet :
 
@@ -375,7 +375,7 @@ sudo apt install -y mongodb-org
 
 (la version exacte change avec le temps, mais l’idée est la même : ajouter la clé, ajouter le dépôt, installer `mongodb-org` qui contient le serveur `mongod` et les outils `mongosh`, etc.)
 
-### Service
+#### Service
 
 ```bash
 sudo systemctl status mongod
@@ -386,7 +386,7 @@ sudo systemctl enable mongod
 
 Le service `mongod` doit être `active (running)` pour accepter les connexions.
 
-### Connexion au shell MongoDB
+#### Connexion au shell MongoDB
 
 ```bash
 mongosh
@@ -395,7 +395,7 @@ mongosh
 
 Tu arrives dans un shell JavaScript-like. Là tu n’es plus dans Bash, tu es dans MongoDB.
 
-### Création d’une base et d’un utilisateur applicatif
+#### Création d’une base et d’un utilisateur applicatif
 
 Dans MongoDB :
 
@@ -425,7 +425,7 @@ Idée importante :
 - MongoDB n’a pas “root Linux = accès illimité par défaut” comme PostgreSQL.
 - Tu définis des utilisateurs internes à Mongo avec des rôles (`readWrite`, `read`, `dbAdmin`, etc.).
 
-### Connexion en tant qu’utilisateur applicatif
+#### Connexion en tant qu’utilisateur applicatif
 
 Le backend (ou toi) se connecte ainsi :
 
@@ -454,7 +454,7 @@ db.students.insertMany([
 
 Note bien : tu n’as pas défini un schéma à l’avance. Tu as directement inséré des objets.
 
-### Exposition réseau
+#### Exposition réseau
 
 Dans `/etc/mongod.conf`, tu as :
 
@@ -464,7 +464,7 @@ Dans `/etc/mongod.conf`, tu as :
 
 C’est très important en prod : MongoDB exposé publiquement sans auth = fuite de données garantie.
 
-### Installation sur Windows (idée générale)
+#### Installation sur Windows (idée générale)
 
 Sur Windows, MongoDB s’installe via un MSI officiel. Ensuite :
 
@@ -480,7 +480,7 @@ Redis est une base clé-valeur en mémoire.
 
 C’est souvent utilisé comme cache, file d’attente légère, compteur de rate-limit, stockage de sessions, etc.
 
-### Modèle de données
+#### Modèle de données
 
 - Tu stockes des paires clé → valeur.
 - Exemple :
@@ -493,7 +493,7 @@ Redis n’est pas là pour stocker toutes les données métier structurées.
 
 Il est là pour accélérer.
 
-### Installation (Debian)
+#### Installation (Debian)
 
 Tu ajoutes le dépôt officiel Redis, tu installes le serveur Redis.
 
@@ -508,7 +508,7 @@ sudo systemctl enable redis
 
 Le service doit être actif.
 
-### Connexion à la CLI Redis
+#### Connexion à la CLI Redis
 
 ```bash
 redis-cli
@@ -517,7 +517,7 @@ redis-cli
 
 Tu vas te retrouver avec un prompt du type `127.0.0.1:6379>`.
 
-### Manipulation de clés
+#### Manipulation de clés
 
 Exemples :
 
@@ -531,7 +531,7 @@ KEYS *            -> liste toutes les clés
 
 Tu le vois : pas de schéma, pas de table. Juste des clés et des valeurs.
 
-### Sauvegarde Redis
+#### Sauvegarde Redis
 
 Redis garde les données en mémoire.
 
@@ -569,7 +569,7 @@ Pour restaurer :
     Redis recharge ce snapshot en mémoire au démarrage.
     
 
-### Windows
+#### Windows
 
 Redis officiel n’est plus maintenu nativement pour Windows depuis un moment. On utilise soit WSL (Windows Subsystem for Linux), soit des builds non officiels. En production Windows pure, ce n’est pas le scénario normal. La pratique moderne : Redis tourne sur une machine Linux (physique, VM, container, Kubernetes pod).
 
@@ -611,7 +611,7 @@ Il y a deux familles d’outils :
 
 ### 5.1 PostgreSQL
 
-### Sauvegarde (`pg_dump`)
+#### Sauvegarde (`pg_dump`)
 
 `pg_dump` génère un fichier texte SQL ou un format compressé contenant :
 
@@ -629,7 +629,7 @@ Ici `--format=p` veut dire “plain” : un script SQL lisible.
 
 Tu obtiens `newdump.sql`.
 
-### Restauration
+#### Restauration
 
 Deux options :
 
@@ -652,7 +652,7 @@ Bonnes pratiques :
 
 ### 5.2 MariaDB / MySQL
 
-### Sauvegarde (`mysqldump`)
+#### Sauvegarde (`mysqldump`)
 
 `mysqldump` génère aussi un script SQL contenant structure + données.
 
@@ -665,7 +665,7 @@ mysqldump -u developer -p mydb --no-tablespaces > mydb_dump.sql
 
 Option `--no-tablespaces` est parfois nécessaire selon la version/packaging Debian.
 
-### Restauration
+#### Restauration
 
 Pour restaurer :
 
@@ -691,7 +691,7 @@ Encore une fois : c’est un script SQL, donc lisible et rejouable.
 
 Mongo utilise des outils dédiés.
 
-### Sauvegarde avec `mongodump`
+#### Sauvegarde avec `mongodump`
 
 `mongodump` crée une sauvegarde binaire BSON de la base (ou d’une collection) dans un répertoire :
 
@@ -702,7 +702,7 @@ mongodump --db mydb --out /chemin/vers/backups
 
 Tu obtiens quelque chose comme `/chemin/vers/backups/mydb/...` avec les collections.
 
-### Restauration avec `mongorestore`
+#### Restauration avec `mongorestore`
 
 Pour restaurer :
 
@@ -713,7 +713,7 @@ mongorestore /chemin/vers/backups/mydb
 
 Ça réinjecte les données dans une instance MongoDB qui tourne.
 
-### Export lisible avec `mongoexport`
+#### Export lisible avec `mongoexport`
 
 Quand tu veux juste exporter une collection en JSON, pour l’archiver ou l’analyser ailleurs :
 
