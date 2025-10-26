@@ -1,6 +1,6 @@
 ---
 module: Le scripting Bash pour PostgreSQL
-jour: 01|10
+jour: 02|10
 type: bonus
 ---
 
