@@ -9,4 +9,4 @@ title: Jour 02
 - [Automatiser avec cron](../modules/002_cron-automatisation.md)
 
 ## Bonus
-- [Le scripting Bash pour PostgreSQL](../modules/bonus_bash-postgresql.md)
+- [Le scripting Bash pour base de données relationnelles](../modules/bonus_bash-bdd-rel.md)

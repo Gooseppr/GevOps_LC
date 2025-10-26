@@ -19,6 +19,7 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 10](cours/jour-10)
 
 
+
 ---
 
 ## Tous les modules (ordre global)
@@ -45,5 +46,5 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 10 / 01 : [Les bases de données](modules/010_bases-de-données.md)
 
 ## Bonus
-- [Le scripting Bash pour PostgreSQL](modules/bonus_bash-postgresql.md) (jour: 02, 10)
+- [Le scripting Bash pour base de données relationnelles](modules/bonus_bash-bdd-rel.md) (jour: 02, 10)
 

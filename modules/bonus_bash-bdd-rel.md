@@ -1,5 +1,5 @@
 ---
-module: Le scripting Bash pour PostgreSQL
+module: Le scripting Bash pour base de données relationnelles
 jour: 02|10
 type: bonus
 ---
