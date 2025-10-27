@@ -17,11 +17,7 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 08](cours/jour-08)
 - 👉 [Jour 09](cours/jour-09)
 - 👉 [Jour 10](cours/jour-10)
-
-
-
-
-
+- 👉 [Jour 11](cours/jour-11)
 
 
 ---
@@ -50,7 +46,7 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 10 / 01 : [Les bases de données](modules/010_bases-de-données.md)
 - Jour 11 / 01 : [La virtualisation](modules/011_Virtualisation.md)
 - Jour 11 / 02 : [Docker & la conteneurisation](modules/011_dockers.md)
-- Jour None / 99 : [011_dockers_pratique.md](modules/011_dockers_pratique.md)
+- Jour 11 / 03 : [Docker, mise en pratique](modules/011_dockers_pratique.md)
 
 ## Bonus
 - [Le scripting Bash pour base de données relationnelles](modules/bonus_bash-bdd-rel.md) (jour: 02, 10)
