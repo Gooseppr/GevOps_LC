@@ -48,6 +48,7 @@ title: Accueil
 - Jour 12 / 02 : [Pratique Docker Compose](modules/012_pratique-docker-compose.md)
 
 ## Pipeline
+- [Arrêt controlé](modules/P02_arret-controle.md) (tags: linux, docker, mariadb, postgresql, redis, nginx, kubernetes, devops)
 - [Audit de serveur](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
 
 ## Bonus
