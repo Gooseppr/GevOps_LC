@@ -20,6 +20,7 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 11](cours/jour-11)
 
 
+
 ---
 
 ## Tous les modules (ordre global)
@@ -47,6 +48,7 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 11 / 01 : [La virtualisation](modules/011_Virtualisation.md)
 - Jour 11 / 02 : [Docker & la conteneurisation](modules/011_dockers.md)
 - Jour 11 / 03 : [Docker, mise en pratique](modules/011_dockers_pratique.md)
+- Jour 12 / 01 : [Docker Compose](modules/012_docker-compose.md)
 
 ## Bonus
 - [Le scripting Bash pour base de données relationnelles](modules/bonus_bash-bdd-rel.md) (jour: 02, 10)
