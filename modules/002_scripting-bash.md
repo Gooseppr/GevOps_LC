@@ -2,6 +2,7 @@
 module: Scripting Bash
 jour: 02
 ordre: 1
+tags: bash, linux, devops
 ---
 
 # Cours — Scripting Bash

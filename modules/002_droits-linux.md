@@ -2,6 +2,7 @@
 module: Gestion des droits sous Linux
 jour: 02
 ordre: 2
+tags: linux, security
 ---
 
 # Cours — Gestion des droits sous Linux

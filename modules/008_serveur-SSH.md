@@ -2,8 +2,8 @@
 module: Administration de serveur SSH
 jour: 08
 ordre: 1
+tags: ssh, linux, security
 ---
-
 
 # Administration de serveur SSH
 

@@ -2,6 +2,7 @@
 module: Les bases de données
 jour: 10
 ordre: 1
+tags: mariadb, postgresql, mongodb, redis, devops
 ---
 
 # Les bases de données

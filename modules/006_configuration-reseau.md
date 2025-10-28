@@ -1,9 +1,10 @@
 ---
-module: Configuration
- réseaux
+module: Configuration réseaux
 jour: 06
 ordre: 2
+tags: network, linux, devops
 ---
+
 # Configuration réseau (GNS3)
 
 ## I. Contexte de travail (GNS3)

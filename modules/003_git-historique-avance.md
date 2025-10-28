@@ -2,6 +2,7 @@
 module: Git — manipulation avancée de l’historique
 jour: 03
 ordre: 2
+tags: git, devops
 ---
 
 # Git — manipulation avancée de l’historique (sans paniquer)

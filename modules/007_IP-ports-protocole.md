@@ -2,8 +2,8 @@
 module: Adresse IP, port & protocole.
 jour: 07
 ordre: 1
+tags: network
 ---
-
 
 ## 1) Modèle OSI (7 couches) — la carte mentale du réseau
 

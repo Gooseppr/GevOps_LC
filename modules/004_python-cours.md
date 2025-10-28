@@ -2,6 +2,7 @@
 module: Python — le cours Python
 jour: 04
 ordre: 1
+tags: python, devops
 ---
 
 # Python — le cours Python 

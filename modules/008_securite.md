@@ -2,6 +2,7 @@
 module: Sécurité & Attaques
 jour: 08
 ordre: 2
+tags: security, network, ssh
 ---
 
 # Introduction aux attaques informatiques

@@ -2,6 +2,7 @@
 module: Pratique - SSH et NGINX
 jour: 08
 ordre: 3
+tags: ssh, nginx, security, linux, devops
 ---
 
 # Mise en pratique

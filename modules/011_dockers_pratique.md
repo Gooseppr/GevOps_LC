@@ -2,6 +2,7 @@
 module: Docker, mise en pratique
 jour: 11
 ordre: 3
+tags: docker, linux, devops
 ---
 
 # 1. Introduction – synthèse déclarative du quiz

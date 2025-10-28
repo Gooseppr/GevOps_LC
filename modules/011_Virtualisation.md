@@ -2,6 +2,7 @@
 module: La virtualisation
 jour: 11
 ordre: 1
+tags: virtualisation, devops
 ---
 
 # 🧠 Cours complet : La Virtualisation et ses principes

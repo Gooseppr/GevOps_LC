@@ -1,3 +1,10 @@
+---
+module: Pratique Docker Compose
+jour: 12
+ordre: 2
+tags: docker
+---
+
 ## 1. Docker / Docker Compose : kit de survie
 
 ### Lancer / arrêter une stack

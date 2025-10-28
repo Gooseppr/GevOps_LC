@@ -2,6 +2,7 @@
 module: Docker & la conteneurisation
 jour: 11
 ordre: 2
+tags: docker, linux, devops
 ---
 
 # 🐳 Cours complet : Docker et la conteneurisation

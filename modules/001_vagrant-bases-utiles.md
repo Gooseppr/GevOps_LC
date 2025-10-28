@@ -2,6 +2,7 @@
 module: Vagrant — bases utiles
 jour: 01
 ordre: 1
+tags: vagrant, virtualisation, linux, devops
 ---
 
 # Vagrant — bases utiles (cours)

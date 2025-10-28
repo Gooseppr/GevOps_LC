@@ -2,8 +2,8 @@
 module: Backend & API
 jour: 09
 ordre: 1
+tags: api, devops
 ---
-
 
 # Le Backend et les API
 

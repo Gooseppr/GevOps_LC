@@ -2,6 +2,7 @@
 module: Python — le cours Python
 jour: 05
 ordre: 1
+tags: python, bash, linux, devops
 ---
 
 # Tâches système avec Python — version structurée et pratico-pratique

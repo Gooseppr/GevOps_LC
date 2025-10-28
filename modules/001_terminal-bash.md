@@ -2,6 +2,7 @@
 module: Le Terminal (Bash)
 jour: 01
 ordre: 2
+tags: bash, linux
 ---
 
 # Le Terminal (Bash)

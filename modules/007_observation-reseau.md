@@ -2,6 +2,7 @@
 module: Mise en place & observation réseau
 jour: 07
 ordre: 2
+tags: network, security, linux
 ---
 
 # Cours applicatif : Mise en place & observation réseau (OpenWrt, Debian, Nmap, FTP, cURL, tcpdump)

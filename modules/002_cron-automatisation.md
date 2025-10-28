@@ -2,6 +2,7 @@
 module: Automatiser avec cron
 jour: 02
 ordre: 3
+tags: cron, bash, linux
 ---
 
 # Automatiser avec **cron** — comprendre & manipuler sans galérer

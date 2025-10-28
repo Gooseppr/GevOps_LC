@@ -2,6 +2,7 @@
 module: Git — le guide “manipulation sans stress”
 jour: 03
 ordre: 1
+tags: git, devops
 ---
 
 # Git — le guide “manipulation sans stress”

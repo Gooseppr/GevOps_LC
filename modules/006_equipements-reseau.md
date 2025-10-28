@@ -2,6 +2,7 @@
 module: Les équipements réseaux
 jour: 06
 ordre: 1
+tags: network, linux
 ---
 
 # Les équipements réseaux

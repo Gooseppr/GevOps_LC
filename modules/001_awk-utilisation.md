@@ -2,6 +2,7 @@
 module: AWK
 jour: 01
 ordre: 4
+tags: bash, linux, text-processing
 ---
 
 # AWK

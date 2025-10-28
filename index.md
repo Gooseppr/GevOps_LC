@@ -3,10 +3,6 @@ layout: page
 title: Accueil
 ---
 
-# Bienvenue 👋
-
-Ce site affiche mes cours en **Markdown**.
-
 - 👉 [Jour 01](cours/jour-01)
 - 👉 [Jour 02](cours/jour-02)
 - 👉 [Jour 03](cours/jour-03)
@@ -19,6 +15,7 @@ Ce site affiche mes cours en **Markdown**.
 - 👉 [Jour 10](cours/jour-10)
 - 👉 [Jour 11](cours/jour-11)
 - 👉 [Jour 12](cours/jour-12)
+
 
 ---
 
@@ -35,7 +32,7 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 04 / 01 : [Python — le cours Python](modules/004_python-cours.md)
 - Jour 05 / 01 : [Python — le cours Python](modules/005_python-systeme.md)
 - Jour 06 / 01 : [Les équipements réseaux](modules/006_equipements-reseau.md)
-- Jour 06 / 02 : [Configuration](modules/006_configuration-reseau.md)
+- Jour 06 / 02 : [Configuration réseaux](modules/006_configuration-reseau.md)
 - Jour 07 / 01 : [Adresse IP, port & protocole.](modules/007_IP-ports-protocole.md)
 - Jour 07 / 02 : [Mise en place & observation réseau](modules/007_observation-reseau.md)
 - Jour 08 / 01 : [Administration de serveur SSH](modules/008_serveur-SSH.md)
@@ -48,7 +45,10 @@ Ce site affiche mes cours en **Markdown**.
 - Jour 11 / 02 : [Docker & la conteneurisation](modules/011_dockers.md)
 - Jour 11 / 03 : [Docker, mise en pratique](modules/011_dockers_pratique.md)
 - Jour 12 / 01 : [Docker Compose](modules/012_docker-compose.md)
-- Jour None / 99 : [012_pratique-docker-compose.md](modules/012_pratique-docker-compose.md)
+- Jour 12 / 02 : [Pratique Docker Compose](modules/012_pratique-docker-compose.md)
+
+## Pipeline
+- [Audit de serveur](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
 
 ## Bonus
 - [Le scripting Bash pour base de données relationnelles](modules/bonus_bash-bdd-rel.md) (jour: 02, 10)
