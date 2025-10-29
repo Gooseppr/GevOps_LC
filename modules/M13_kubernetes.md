@@ -251,7 +251,8 @@ sudo apt install -y kubectl
 
 #### Démarrage du cluster
 
-- Avec docker
+- Avec **docker**
+
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker
