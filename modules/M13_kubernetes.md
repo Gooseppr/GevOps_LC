@@ -233,15 +233,29 @@ kubectl version --client
 #### Sous Linux
 
 ```bash
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-sudo apt install kubectl -y
+sudo apt update
+sudo apt install -y curl apt-transport-https gnupg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] \
+https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /" | \
+  sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt update
+sudo apt install -y kubectl
+
 
 ```
 
 #### Démarrage du cluster
 
+- Avec docker
 ```bash
+sudo usermod -aG docker $USER
+newgrp docker
+
 minikube start --driver=docker
 
 ```
