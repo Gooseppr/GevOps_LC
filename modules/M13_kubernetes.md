@@ -93,6 +93,8 @@ les **réplique**, les **supervise**, et les **remplace** si un crash survient.
 
 ## 4. L’architecture de Kubernetes
 
+![Schéma](../images/Capture%20d%E2%80%99%C3%A9cran%202025-10-29%20%C3%A0%2011.49.48.png)
+
 Kubernetes fonctionne comme une **grande ferme de serveurs**, appelée **cluster**.
 
 Un **cluster Kubernetes** est composé de :
