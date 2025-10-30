@@ -364,7 +364,7 @@ Elle permet de gérer tous les objets du cluster : Pods, Services, Deployments, 
 
 ### 📘 Commandes de base
 
-### Cluster & nœuds
+#### Cluster & nœuds
 
 ```bash
 kubectl cluster-info
@@ -373,7 +373,7 @@ kubectl get all -A
 
 ```
 
-### Pods & Deployments
+#### Pods & Deployments
 
 ```bash
 kubectl get pods
@@ -383,7 +383,7 @@ kubectl logs <nom_du_pod>
 
 ```
 
-### Création rapide (impérative)
+#### Création rapide (impérative)
 
 ```bash
 kubectl create deployment nginx --image=nginx
@@ -393,7 +393,7 @@ minikube service nginx --url
 
 ```
 
-### Édition YAML (déclaratif)
+#### Édition YAML (déclaratif)
 
 ```bash
 kubectl apply -f deployment.yaml
@@ -401,7 +401,7 @@ kubectl delete -f deployment.yaml
 
 ```
 
-### Échelle / mise à jour
+#### Échelle / mise à jour
 
 ```bash
 kubectl scale deployment nginx --replicas=3
@@ -411,10 +411,52 @@ kubectl rollout undo deployment/nginx
 
 ```
 
-### Debug
+#### Debug
 
 ```bash
 kubectl exec -it <pod> -- sh
+kubectl get events --sort-by=.lastTimestamp
+
+```
+
+### Bonus perso : Commandes check-list d'arrivée
+
+```bash
+# 1. Est-ce que je parle bien au cluster ?
+kubectl version --short
+kubectl cluster-info
+kubectl get nodes -o wide
+
+# 2. Je suis sur QUEL cluster / namespace ?
+kubectl config get-contexts
+kubectl config current-context
+kubectl config view --minify --output 'jsonpath={..namespace}'; echo
+
+# 3. Vue d’ensemble de tout ce qui tourne
+kubectl get all --all-namespaces
+
+# 4. État des pods dans les namespaces critiques
+kubectl get pods -n kube-system -o wide
+kubectl get pods -n default -o wide
+
+# 5. Les objets qui gèrent les workloads
+kubectl get deployments --all-namespaces
+kubectl get statefulsets --all-namespaces
+kubectl get daemonsets --all-namespaces
+
+# 6. Réseau : ce qui est exposé
+kubectl get svc --all-namespaces -o wide
+kubectl get ingress --all-namespaces
+
+# 7. Stockage : ce qui garde des données
+kubectl get pv
+kubectl get pvc --all-namespaces
+
+# 8. Batch / automatisations
+kubectl get cronjobs --all-namespaces
+kubectl get jobs --all-namespaces
+
+# 9. Problèmes récents
 kubectl get events --sort-by=.lastTimestamp
 
 ```
