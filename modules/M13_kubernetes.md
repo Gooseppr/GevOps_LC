@@ -422,6 +422,33 @@ kubectl get events --sort-by=.lastTimestamp
 ### Bonus perso : Commandes check-list d'arrivée
 
 ```bash
+# Minikube ?
+if command -v minikube >/dev/null 2>&1; then
+    echo "[INFO] Minikube détecté"
+fi
+
+minikube status
+minikube start
+
+# K3s ?
+if systemctl list-units --type=service | grep -q k3s; then
+    echo "[INFO] K3s détecté"
+fi
+
+sudo systemctl start k3s 2>/dev/null
+mkdir -p $HOME/.kube
+sudo cat /etc/rancher/k3s/k3s.yaml > $HOME/.kube/config 2>/dev/null
+chmod 600 $HOME/.kube/config 2>/dev/null
+
+# kubeadm ?
+if [ -f /etc/kubernetes/admin.conf ]; then
+    echo "[INFO] kubeadm détecté"
+fi
+
+mkdir -p $HOME/.kube
+sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
 # 1. Est-ce que je parle bien au cluster ?
 kubectl version --short
 kubectl cluster-info
