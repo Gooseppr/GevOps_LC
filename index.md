@@ -16,6 +16,8 @@ title: Accueil
 - 👉 [Jour 11](cours/jour-11)
 - 👉 [Jour 12](cours/jour-12)
 - 👉 [Jour 13](cours/jour-13)
+- 👉 [Jour 14](cours/jour-14)
+- 👉 [Jour 15](cours/jour-15)
 
 
 ---
@@ -48,12 +50,13 @@ title: Accueil
 - Jour 12 / 01 : [Docker Compose](modules/012_docker-compose.md)
 - Jour 12 / 02 : [Pratique Docker Compose](modules/012_pratique-docker-compose.md)
 - Jour 13 / 01 : [Kubernetes](modules/M13_kubernetes.md)
-- Jour 13 / 01 : [Kubernetes avancés](modules/M14_kubernetes-yaml.md)
+- Jour 14 / 01 : [Kubernetes avancés](modules/M14_kubernetes-yaml.md)
 
 ## Pipeline
 - [Arrêt controlé](modules/P02_arret-controle.md) (tags: linux, docker, mariadb, postgresql, redis, nginx, kubernetes, devops)
 - [Audit de serveur](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
 
 ## Bonus
-- [Le scripting Bash pour base de données relationnelles](modules/bonus_bash-bdd-rel.md) (jour: 02, 10)
+- [Kubectl cmd](modules/B02_kubernetes-cmd.md) (jour: 13, 14, 15)
+- [Le scripting Bash pour base de données relationnelles](modules/B01_bash-bdd-rel.md) (jour: 02, 10)
 

@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Jour 13
+title: Jour 14
 ---
 
 ## Modules du jour
-- [Kubernetes](../modules/M13_kubernetes.md)
+- [Kubernetes avancés](../modules/M14_kubernetes-yaml.md)
 
 ## Bonus
 - [Kubectl cmd](../modules/B02_kubernetes-cmd.md)

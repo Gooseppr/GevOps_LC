@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Jour 13
+title: Jour 15
 ---
 
 ## Modules du jour
-- [Kubernetes](../modules/M13_kubernetes.md)
+
 
 ## Bonus
 - [Kubectl cmd](../modules/B02_kubernetes-cmd.md)
