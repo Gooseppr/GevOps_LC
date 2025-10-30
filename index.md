@@ -48,6 +48,7 @@ title: Accueil
 - Jour 12 / 01 : [Docker Compose](modules/012_docker-compose.md)
 - Jour 12 / 02 : [Pratique Docker Compose](modules/012_pratique-docker-compose.md)
 - Jour 13 / 01 : [Kubernetes](modules/M13_kubernetes.md)
+- Jour 13 / 01 : [Kubernetes avancés](modules/M14_kubernetes-yaml.md)
 
 ## Pipeline
 - [Arrêt controlé](modules/P02_arret-controle.md) (tags: linux, docker, mariadb, postgresql, redis, nginx, kubernetes, devops)
