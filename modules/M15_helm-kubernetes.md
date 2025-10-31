@@ -1,5 +1,5 @@
 ---
-module: Kubernetes
+module: Helm pour Kubernetes
 jour: 15
 ordre: 1
 tags: kubernetes, bash, linux, helm
