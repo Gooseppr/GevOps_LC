@@ -18,6 +18,7 @@ title: Accueil
 - 👉 [Jour 13](cours/jour-13)
 - 👉 [Jour 14](cours/jour-14)
 - 👉 [Jour 15](cours/jour-15)
+- 👉 [Jour 18](cours/jour-18)
 
 
 ---
@@ -51,7 +52,8 @@ title: Accueil
 - Jour 12 / 02 : [Pratique Docker Compose](modules/012_pratique-docker-compose.md)
 - Jour 13 / 01 : [Kubernetes](modules/M13_kubernetes.md)
 - Jour 14 / 01 : [Kubernetes avancés](modules/M14_kubernetes-yaml.md)
-- Jour 15 / 01 : [Kubernetes](modules/M15_helm-kubernetes.md)
+- Jour 15 / 01 : [Helm pour Kubernetes](modules/M15_helm-kubernetes.md)
+- Jour 18 / 01 : [Intégration continue](modules/M18_intégration-continue.md)
 
 ## Pipeline
 - [Arrêt controlé](modules/P02_arret-controle.md) (tags: linux, docker, mariadb, postgresql, redis, nginx, kubernetes, devops)
