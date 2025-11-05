@@ -24,6 +24,7 @@ title: Accueil
 ---
 
 ## Tous les modules (ordre global)
+- Jour 01 / 01 : [Vagrant — bases utiles et gestion SSH](modules/001_vagrant-bases-utiles-2025.md)
 - Jour 01 / 01 : [Vagrant — bases utiles](modules/001_vagrant-bases-utiles.md)
 - Jour 01 / 02 : [Le Terminal (Bash)](modules/001_terminal-bash.md)
 - Jour 01 / 03 : [SED](modules/001_sed-utilisation.md)
