@@ -19,6 +19,7 @@ title: Accueil
 - 👉 [Jour 14](cours/jour-14)
 - 👉 [Jour 15](cours/jour-15)
 - 👉 [Jour 18](cours/jour-18)
+- 👉 [Jour 19](cours/jour-19)
 
 
 ---
@@ -33,7 +34,10 @@ title: Accueil
 - Jour 02 / 02 : [Gestion des droits sous Linux](modules/002_droits-linux.md)
 - Jour 02 / 03 : [Automatiser avec cron](modules/002_cron-automatisation.md)
 - Jour 03 / 01 : [Git — le guide “manipulation sans stress”](modules/003_git-manipulation.md)
+- Jour 03 / 01 : [Git — manipulation sans stress](modules/M03_Git_Manipulation_sans_stress.md)
 - Jour 03 / 02 : [Git — manipulation avancée de l’historique](modules/003_git-historique-avance.md)
+- Jour 03 / 02 : [Git — manipulation avancée de l’historique](modules/M03_Git_Manipulation_avancee_historique.md)
+- Jour 03 / 03 : [Git — Workflows collaboratifs et stratégies DevOps](modules/M03_Git_Workflows_DevOps.md)
 - Jour 04 / 01 : [Python — le cours Python](modules/004_python-cours.md)
 - Jour 05 / 01 : [Python — le cours Python](modules/005_python-systeme.md)
 - Jour 06 / 01 : [Les équipements réseaux](modules/006_equipements-reseau.md)
@@ -55,6 +59,9 @@ title: Accueil
 - Jour 14 / 01 : [Kubernetes avancés](modules/M14_kubernetes-yaml.md)
 - Jour 15 / 01 : [Helm pour Kubernetes](modules/M15_helm-kubernetes.md)
 - Jour 18 / 01 : [Intégration continue](modules/M18_intégration-continue.md)
+- Jour 18 / 02 : [Intégration continue - GitLab Runner](modules/M18_Cours_GitLab_Runner.md)
+- Jour 19 / 01 : [Framework de test Cypress](modules/M19_test-cypress.md)
+- Jour 19 / 02 : [Framework de test Jest](modules/M19_test-jest.md)
 
 ## Pipeline
 - [Arrêt controlé](modules/P02_arret-controle.md) (tags: linux, docker, mariadb, postgresql, redis, nginx, kubernetes, devops)
