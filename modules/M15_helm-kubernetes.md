@@ -6,7 +6,7 @@ tags: kubernetes, bash, linux, helm
 ---
 
 
-# 🎓 Helm — Déploiement simplifié sur Kubernetes (Jour 1)
+# 🎓 Helm — Partie 1 : Déploiement simplifié sur Kubernetes
 
 ---
 
@@ -660,4 +660,392 @@ helm upgrade mon-app-release ./mon-app -f values-prod.yaml
 > 
 > 
 > Je déclare une application, je donne ses valeurs, Helm génère et applique les manifests Kubernetes, garde l’historique, et me permet d’upgrader ou de revenir en arrière proprement.”
+>
+# 🎓 Helm — Partie 2 : Helmfile & déploiements multi-environnements
+
+---
+
+## 🌍 Introduction — Pourquoi Helmfile existe ?
+
+Helm est parfait pour **déployer UNE application**.
+
+Mais en entreprise, tu n’as jamais une seule app.
+
+Tu as :
+
+- un **frontend** (Angular, React, etc.),
+- un **backend API** (Flask, Node, Spring),
+- une **base de données** (PostgreSQL, Redis…),
+- un **Ingress Controller**,
+- parfois un **monitoring** (Prometheus, Grafana).
+
+➡️ Et tout ça doit être :
+
+- **déployé ensemble**,
+- **cohérent entre environnements** (dev/staging/prod),
+- **versionné dans Git** (infra as code),
+- et **reproductible** en une seule commande.
+
+C’est là que **Helmfile** entre en scène.
+
+🧠 **Helmfile = orchestration pour Helm**
+
+→ Il te permet de **décrire tout ton environnement** (plusieurs charts, plusieurs namespaces, plusieurs valeurs) dans **un seul fichier YAML**, puis de tout déployer ou mettre à jour d’un coup.
+
+---
+
+## ⚙️ Installation de Helmfile
+
+Helmfile est un **binaire indépendant**, qui s’appuie sur Helm déjà installé.
+
+### 1️⃣ Prérequis
+
+Helm doit être fonctionnel :
+
+```bash
+helm version
+
+```
+
+### 2️⃣ Installation sur Linux / WSL
+
+### Option 1 : via `curl` (recommandée)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/helmfile/helmfile/main/scripts/install.sh | bash
+
+```
+
+### Option 2 : via APT (Debian / Ubuntu)
+
+```bash
+sudo apt-get install -y helmfile
+
+```
+
+(si le dépôt est déjà connu, sinon préfère la méthode curl ci-dessus)
+
+### Vérification :
+
+```bash
+helmfile --version
+
+```
+
+### 3️⃣ macOS (brew)
+
+```bash
+brew install helmfile
+
+```
+
+### 4️⃣ Windows (WSL ou binaire)
+
+Via WSL, même commande que Linux :
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/helmfile/helmfile/main/scripts/install.sh | bash
+
+```
+
+ou téléchargement direct depuis :
+
+👉 https://github.com/helmfile/helmfile/releases
+
+---
+
+## 🧠 Concepts fondamentaux Helmfile
+
+| Concept | Définition | Analogie |
+| --- | --- | --- |
+| **helmfile.yaml** | Fichier central décrivant toutes les releases Helm à déployer. | 📋 “Plan complet de ton environnement Kubernetes” |
+| **release** | Une instance d’un chart Helm gérée par Helmfile. | 🚀 “Une appli (ou microservice) dans ton cluster” |
+| **repository** | Source d’où proviennent les charts (Bitnami, Artifact Hub, etc.). | 📦 “Ton dépôt applicatif Helm” |
+| **values** | Fichiers YAML contenant les configurations par environnement. | ⚙️ “Les réglages du projet” |
+| **environment (`-e`)** | Bloc ou répertoire pour distinguer dev, staging, prod. | 🌍 “Ton espace logique de déploiement” |
+| **diff** | Compare ce qui tourne vs ce que tu veux appliquer. | 🔍 “Le git diff du déploiement” |
+| **sync / apply** | Exécute les changements pour que ton cluster reflète le `helmfile.yaml`. | 🔧 “Mets à jour tout ton environnement” |
+
+🧠 En résumé :
+
+> Helm déploie une app.
+> 
+> 
+> Helmfile déploie un écosystème complet.
+> 
+
+---
+
+## 🧩 Structure type d’un projet Helmfile
+
+```
+infrastructure/
+├── helmfile.yaml
+├── values-dev.yaml
+├── values-staging.yaml
+├── values-prod.yaml
+└── charts/
+    ├── backend/
+    ├── frontend/
+    └── database/
+
+```
+
+### Exemple de `helmfile.yaml`
+
+```yaml
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  - name: database
+    namespace: prod
+    chart: bitnami/postgresql
+    values:
+      - values-db-prod.yaml
+
+  - name: backend
+    namespace: prod
+    chart: ./charts/backend
+    values:
+      - values-backend-prod.yaml
+
+  - name: frontend
+    namespace: prod
+    chart: ./charts/frontend
+    values:
+      - values-frontend-prod.yaml
+
+```
+
+💡 Lecture :
+
+- Chaque `release:` correspond à une **app** (un chart Helm).
+- Tu peux avoir autant de releases que tu veux.
+- Tu gères tout via **un seul fichier `helmfile.yaml`**.
+
+---
+
+## 🔧 Commandes Helmfile essentielles (style “kubectl cheat-sheet”)
+
+### 1. Vérifier l’installation
+
+```bash
+helmfile --version
+
+```
+
+---
+
+### 2. Simuler sans rien casser
+
+```bash
+helmfile diff
+
+```
+
+Compare ton `helmfile.yaml` avec ce qui tourne réellement dans le cluster.
+
+🧠 C’est l’équivalent de `git diff` pour ton infra Helm.
+
+---
+
+### 3. Appliquer les changements (déploiement complet)
+
+```bash
+helmfile apply
+
+```
+
+➡️ Déploie ou met à jour toutes les releases listées dans ton `helmfile.yaml`.
+
+Option plus stricte (même effet) :
+
+```bash
+helmfile sync
+
+```
+
+> Synchronise l’état du cluster pour qu’il corresponde exactement à ton fichier.
+> 
+
+---
+
+### 4. Travailler sur un seul composant
+
+```bash
+helmfile -l name=backend apply
+helmfile -l name=database diff
+
+```
+
+💡 `-l name=` agit comme un **sélecteur de release**.
+
+---
+
+### 5. Générer les manifestes YAML sans rien déployer
+
+```bash
+helmfile template
+
+```
+
+> Idéal pour audit / validation avant mise en prod.
+> 
+
+---
+
+### 6. Supprimer toutes les releases
+
+```bash
+helmfile destroy
+
+```
+
+> Equivalent d’un helm uninstall sur chaque release listée.
+> 
+
+---
+
+### 7. Gérer plusieurs environnements
+
+Helmfile peut pointer vers différents fichiers de valeurs selon ton environnement.
+
+Exemple :
+
+```yaml
+environments:
+  dev:
+    values:
+      - values-dev.yaml
+  staging:
+    values:
+      - values-staging.yaml
+  prod:
+    values:
+      - values-prod.yaml
+
+```
+
+Commandes :
+
+```bash
+helmfile -e dev apply
+helmfile -e staging diff
+helmfile -e prod apply
+
+```
+
+💡 Astuce :
+
+> Tu peux combiner plusieurs valeurs (values-prod.yaml, values-secrets.yaml)
+> 
+> 
+> Helmfile les fusionne dans l’ordre.
+> 
+
+---
+
+### 8. Forcer la mise à jour des dépendances
+
+```bash
+helmfile deps
+
+```
+
+> Met à jour les sous-charts ou dépendances du projet.
+> 
+
+---
+
+### 9. Vérifier un seul fichier / environnement sans appliquer
+
+```bash
+helmfile lint
+
+```
+
+> Analyse syntaxique et cohérence globale du fichier Helmfile.
+> 
+
+---
+
+### 10. Variables d’environnement et templating avancé
+
+Helmfile supporte des variables d’environnement (comme `${IMAGE_TAG}`).
+
+Exemple :
+
+```yaml
+values:
+  - image:
+      tag: {{ requiredEnv "IMAGE_TAG" }}
+
+```
+
+Lancement :
+
+```bash
+export IMAGE_TAG=v1.4.2
+helmfile apply
+
+```
+
+---
+
+## 🧱 Bonnes pratiques d’équipe
+
+| Thème | Recommandation |
+| --- | --- |
+| **Organisation** | 1 Helmfile par environnement ou cluster. |
+| **Versioning** | Toujours commit le `helmfile.yaml` et les `values-*.yaml` dans Git. |
+| **Secrets** | Ne stocke pas de mots de passe en clair. Utilise `helm-secrets` ou SOPS. |
+| **Auditabilité** | Toujours exécuter `helmfile diff` avant `helmfile apply`. |
+| **Rollback** | Chaque release reste une Helm release → `helm rollback` fonctionne toujours. |
+| **CI/CD** | Utilise Helmfile dans ton pipeline pour garantir des déploiements cohérents. |
+
+💡 Astuce :
+
+> En entreprise, Helmfile remplace souvent les scripts bash d’orchestration manuelle (helm install A && helm install B...).
+> 
+
+---
+
+## 🧠 Différences Helm vs Helmfile
+
+| Fonctionnalité | Helm | Helmfile |
+| --- | --- | --- |
+| Déploiement d’une app | ✅ | ✅ |
+| Déploiement de plusieurs apps | ⚠️ (manuellement) | ✅ (déclaratif) |
+| Gestion multi-environnements | Manuelle via fichiers `values` | Native via `-e` |
+| Historique et rollback | Par release | Par environnement |
+| Diff avant apply | Partiel (`--dry-run`) | Complet (`helmfile diff`) |
+| CI/CD global | Limité | Intégré |
+| Lisibilité du système global | Faible | Excellente |
+
+🧠 Phrase clé :
+
+> “Helmfile rend Helm vraiment déclaratif : on décrit l’état voulu de l’environnement, Helmfile se charge que le cluster le respecte.”
+> 
+
+---
+
+## 🧩 Résumé final
+
+| Élément | Description |
+| --- | --- |
+| **Helm** | Gère une application (chart unique). |
+| **Helmfile** | Gère tout un environnement (plusieurs charts). |
+| **helmfile.yaml** | Source de vérité de l’infrastructure déployée. |
+| **helmfile diff / apply / sync** | Cycle standard d’évolution de ton cluster. |
+| **Bitnami / Artifact Hub** | Sources de charts fiables. |
+| **`-e dev`, `-e prod`** | Gestion d’environnements maîtrisée. |
+
+📘 **Philosophie :**
+
+> “Helmfile, c’est la pièce manquante qui fait de Helm un vrai outil d’infrastructure déclarative :
+> 
+> 
+> tu décris ton environnement complet en YAML, et tu le déploies en une commande, traçable, diffable et rollbackable.”
 >
