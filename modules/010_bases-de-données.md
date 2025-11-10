@@ -1,5 +1,6 @@
 ---
-module: Les bases de données
+titre: Les bases de données
+type: module
 jour: 10
 ordre: 1
 tags: mariadb, postgresql, mongodb, redis, devops
@@ -823,3 +824,6 @@ Ce que tu as fait aujourd’hui est typique d’une échelle “développement i
 
 Si tu maîtrises ça, tu es déjà au niveau “Je peux tenir la base de prod d’une petite startup sans paniquer quand ça tombe”.
 
+---
+[← Module précédent](010_bases-de-données.md) | [Module suivant →](010_bases-de-données.md)
+---

@@ -1,5 +1,6 @@
 ---
-module: Scripting Bash
+titre: Scripting Bash
+type: module
 jour: 02
 ordre: 1
 tags: bash, linux, devops
@@ -565,4 +566,8 @@ done
 
 ---
 [Module suivant →](002_droits-linux.md)
+---
+
+---
+[← Module précédent](002_scripting-bash.md) | [Module suivant →](002_droits-linux.md)
 ---

@@ -1,5 +1,6 @@
 ---
-module: Déploiement continu
+titre: Déploiement continu
+type: module
 jour: 20
 ordre: 1
 tags: cd, test, devops
@@ -287,3 +288,7 @@ Stratégie **expand/contract** :
 - CD robuste = **artefacts immuables**, **promotion**, **gates**, **observabilité**, **plan de rollback**, **migrations safe**.
 
 > *“Déployer, c’est ouvrir le robinet du trafic sur une version saine, et pouvoir le refermer immédiatement.”*
+
+---
+[← Module précédent](M20_Cours-CD-Approfondi.md) | [Module suivant →](M20_Cours-CD-Approfondi.md)
+---

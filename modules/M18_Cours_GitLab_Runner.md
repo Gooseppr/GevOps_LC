@@ -1,5 +1,6 @@
 ---
-module: Intégration continue - GitLab Runner
+titre: Intégration continue - GitLab Runner
+type: module
 jour: 18
 ordre: 2
 tags: ci, yaml, gitlab, devops
@@ -239,3 +240,7 @@ Emplacement : `/etc/gitlab-runner/config.toml`
 🎉 **Félicitations !**\
 Tu maîtrises maintenant les **GitLab Runners**, leur fonctionnement,
 leur installation, leur configuration et leur gestion quotidienne.
+
+---
+[← Module précédent](M18_intégration-continue.md) | [Module suivant →](M18_flake8.md)
+---

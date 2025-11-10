@@ -1,5 +1,6 @@
 ---
-module: Git — manipulation avancée de l’historique
+titre: Git — manipulation avancée de l’historique
+type: module
 jour: 03
 ordre: 2
 tags: git, devops, historique
@@ -307,3 +308,7 @@ Tu sais maintenant :
 
 🎉 Félicitations !  
 Tu maîtrises désormais les **outils avancés de Git** pour garder ton historique sous contrôle et collaborer efficacement dans un contexte DevOps.
+
+---
+[← Module précédent](003_git-historique-avance.md) | [Module suivant →](M03_Git_Workflows_DevOps.md)
+---

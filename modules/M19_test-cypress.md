@@ -1,5 +1,6 @@
 ---
-module: Framework de test Cypress
+titre: Framework de test Cypress
+type: module
 jour: 19
 ordre: 1
 tags: ci, test, cypress, nodejs, devops
@@ -369,3 +370,7 @@ npx cypress run --browser chrome
 
 📜 **DevOps mindset** :
 > “Automatise tes tests, exécute-les à chaque commit, et ne déploie que du code validé.”
+
+---
+[← Module précédent](M19_test-cypress.md) | [Module suivant →](M19_test-jest.md)
+---

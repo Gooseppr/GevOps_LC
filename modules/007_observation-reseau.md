@@ -1,5 +1,6 @@
 ---
-module: Mise en place & observation réseau
+titre: Mise en place & observation réseau
+type: module
 jour: 07
 ordre: 2
 tags: network, security, linux
@@ -413,3 +414,6 @@ journalctl -u ssh -e
 
 ```
 
+---
+[← Module précédent](007_IP-ports-protocole.md) | [Module suivant →](007_observation-reseau.md)
+---

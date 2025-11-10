@@ -1,5 +1,6 @@
 ---
-module: Vagrant — bases utiles
+titre: Vagrant — bases utiles
+type: module
 jour: 01
 ordre: 1
 tags: vagrant, virtualisation, linux, devops
@@ -173,3 +174,7 @@ vagrant global-status --prune
 | 3️⃣ | `vagrant ssh-config <ID> --host backend >> ~/.ssh/config` | Ajoute la config |
 | 4️⃣ | `ssh backend` | Connexion rapide |
 | 5️⃣ | `code --remote ssh-remote+backend` | Ouvre VS Code connecté à la VM |
+
+---
+[← Module précédent](001_vagrant-bases-utiles-2025.md) | [Module suivant →](001_terminal-bash.md)
+---

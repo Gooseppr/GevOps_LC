@@ -1,5 +1,6 @@
 ---
-module: Backend & API
+titre: Backend & API
+type: module
 jour: 09
 ordre: 2
 tags: nodejs, api, devops
@@ -310,3 +311,6 @@ curl -X POST http://127.0.0.1:8080/ -H "Content-Type: application/json" -d '{"me
 - **Pas de cargo** après install : `source ~/.cargo/env`.
 - **OpenSSL** manquant → déjà couvert par `libssl-dev`.
 
+---
+[← Module précédent](009_backend-API.md) | [Module suivant →](009_pratique-framework.md)
+---

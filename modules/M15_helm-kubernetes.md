@@ -1,5 +1,6 @@
 ---
-module: Helm pour Kubernetes
+titre: Helm pour Kubernetes
+type: module
 jour: 15
 ordre: 1
 tags: kubernetes, bash, linux, helm
@@ -1049,3 +1050,7 @@ helmfile apply
 > 
 > tu décris ton environnement complet en YAML, et tu le déploies en une commande, traçable, diffable et rollbackable.”
 >
+
+---
+[← Module précédent](M15_helm-kubernetes.md) | [Module suivant →](M15_helm-kubernetes.md)
+---

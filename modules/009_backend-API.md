@@ -1,5 +1,6 @@
 ---
-module: Backend & API
+titre: Backend & API
+type: module
 jour: 09
 ordre: 1
 tags: api, devops
@@ -381,3 +382,6 @@ server {
 - Le **.env** et les secrets doivent toujours rester protégés.
 - Une architecture propre = un backend maîtrisé, sécurisé et évolutif.
 
+---
+[← Module précédent](009_backend-API.md) | [Module suivant →](009_pratique-framework.md)
+---

@@ -1,5 +1,6 @@
 ---
-module: Adresse IP, port & protocole.
+titre: Adresse IP, port & protocole.
+type: module
 jour: 07
 ordre: 1
 tags: network
@@ -230,3 +231,7 @@ Exemples rapides :
 - DNS : `nslookup`, `dig`
 - HTTP : `curl -I https://site`
 - Perf : `iperf3 -c host`
+
+---
+[← Module précédent](007_IP-ports-protocole.md) | [Module suivant →](007_observation-reseau.md)
+---

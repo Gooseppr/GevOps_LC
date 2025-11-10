@@ -1,5 +1,6 @@
 ---
-module: Le Terminal (Bash)
+titre: Le Terminal (Bash)
+type: module
 jour: 01
 ordre: 2
 tags: bash, linux

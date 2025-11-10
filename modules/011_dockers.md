@@ -1,5 +1,6 @@
 ---
-module: Docker & la conteneurisation
+titre: Docker & la conteneurisation
+type: module
 jour: 11
 ordre: 2
 tags: docker, linux, devops
@@ -328,3 +329,7 @@ Il garantit :
 > 
 > “Ça marchait sur ma machine…” 🧑‍💻
 >
+
+---
+[← Module précédent](011_Virtualisation.md) | [Module suivant →](011_dockers_pratique.md)
+---

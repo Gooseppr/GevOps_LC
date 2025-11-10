@@ -1,5 +1,6 @@
 ---
-module: Pratique Docker Compose
+titre: Pratique Docker Compose
+type: module
 jour: 12
 ordre: 2
 tags: docker
@@ -583,3 +584,7 @@ Phrase à retenir :
 
 > “On met les secrets, mots de passe, mails par environnement dans un fichier .env qu’on ne commit pas. On les injecte avec env_file:.”
 >
+
+---
+[← Module précédent](012_docker-compose.md) | [Module suivant →](012_pratique-docker-compose.md)
+---

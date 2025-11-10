@@ -1,5 +1,6 @@
 ---
-module: Pratique - SSH et NGINX
+titre: Pratique - SSH et NGINX
+type: module
 jour: 08
 ordre: 3
 tags: ssh, nginx, security, linux, devops
@@ -629,3 +630,7 @@ ss -tunp | grep ESTAB
 - Utiliser `metasploit` pour générer un rapport automatisé (xml → html)
 - Étudier Meterpreter (payload avancé) pour post-exploitation contrôlée
 - Apprendre la mitigation avancée : SELinux/AppArmor, eBPF pour monitoring réseau, gestion centralisée des logs (ELK/Wazuh)
+
+---
+[← Module précédent](008_securite.md) | [Module suivant →](008_pratique-SSH-NGINX.md)
+---

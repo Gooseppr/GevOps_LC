@@ -1,5 +1,6 @@
 ---
-module: Git — manipulation sans stress
+titre: Git — manipulation sans stress
+type: module
 jour: 03
 ordre: 1
 tags: git, devops
@@ -310,3 +311,7 @@ Il te permet de :
 
 🎉 Félicitations !  
 Tu maîtrises maintenant les **bases solides de Git** : tu peux créer, versionner, fusionner et restaurer ton code en toute confiance.
+
+---
+[← Module précédent](003_git-manipulation.md) | [Module suivant →](003_git-historique-avance.md)
+---

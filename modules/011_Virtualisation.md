@@ -1,5 +1,6 @@
 ---
-module: La virtualisation
+titre: La virtualisation
+type: module
 jour: 11
 ordre: 1
 tags: virtualisation, devops
@@ -276,3 +277,7 @@ Une architecture typique moderne ressemble à ceci :
 
 > Matériel physique → Hyperviseur → VM Linux → Docker / Kubernetes → Conteneurs applicatifs
 >
+
+---
+[← Module précédent](011_Virtualisation.md) | [Module suivant →](011_dockers.md)
+---

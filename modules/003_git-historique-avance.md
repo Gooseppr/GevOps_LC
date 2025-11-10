@@ -1,5 +1,6 @@
 ---
-module: Git — manipulation avancée de l’historique
+titre: Git — manipulation avancée de l’historique
+type: module
 jour: 03
 ordre: 2
 tags: git, devops
@@ -362,4 +363,8 @@ git rebase --continue         # rebase/cherry-pick
 
 ---
 [← Module précédent](003_git-manipulation.md)
+---
+
+---
+[← Module précédent](M03_Git_Manipulation_sans_stress.md) | [Module suivant →](M03_Git_Manipulation_avancee_historique.md)
 ---

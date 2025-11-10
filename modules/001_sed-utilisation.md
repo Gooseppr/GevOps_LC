@@ -1,5 +1,6 @@
 ---
-module: SED
+titre: SED
+type: module
 jour: 01
 ordre: 3
 tags: bash, linux, text-processing

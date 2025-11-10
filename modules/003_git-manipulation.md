@@ -1,5 +1,6 @@
 ---
-module: Git — le guide “manipulation sans stress”
+titre: Git — le guide “manipulation sans stress”
+type: module
 jour: 03
 ordre: 1
 tags: git, devops
@@ -436,4 +437,8 @@ git push origin --tags
 
 ---
 [Module suivant →](003_git-historique-avance.md)
+---
+
+---
+[← Module précédent](003_git-manipulation.md) | [Module suivant →](M03_Git_Manipulation_sans_stress.md)
 ---

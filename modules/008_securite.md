@@ -1,5 +1,6 @@
 ---
-module: Sécurité & Attaques
+titre: Sécurité & Attaques
+type: module
 jour: 08
 ordre: 2
 tags: security, network, ssh
@@ -195,3 +196,6 @@ La sécurité informatique repose sur trois piliers :
 > 
 > Un excellent DevSecOps détecte, corrige et automatise la défense.
 
+---
+[← Module précédent](008_serveur-SSH.md) | [Module suivant →](008_pratique-SSH-NGINX.md)
+---

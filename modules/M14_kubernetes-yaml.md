@@ -1,5 +1,6 @@
 ---
-module: Kubernetes avancés
+titre: Kubernetes avancés
+type: module
 jour: 14
 ordre: 1
 tags: kubernetes, yaml
@@ -934,3 +935,6 @@ spec:
 | Job / CronJob | batch/v1 | Tâches ponctuelles ou récurrentes |
 | HPA | autoscaling/v2 | Auto-scale horizontal selon la charge |
 
+---
+[← Module précédent](M14_kubernetes-yaml.md) | [Module suivant →](M14_kubernetes-yaml.md)
+---

@@ -1,5 +1,6 @@
 ---
-module: Administration de serveur SSH
+titre: Administration de serveur SSH
+type: module
 jour: 08
 ordre: 1
 tags: ssh, linux, security
@@ -483,3 +484,6 @@ ssh -D 1080 debian@192.168.1.4
 
 ```
 
+---
+[← Module précédent](008_serveur-SSH.md) | [Module suivant →](008_securite.md)
+---

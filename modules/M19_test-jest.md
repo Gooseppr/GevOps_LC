@@ -1,5 +1,6 @@
 ---
-module: Framework de test Jest
+titre: Framework de test Jest
+type: module
 jour: 19
 ordre: 2
 tags: ci, test, jest, nodejs, devops
@@ -312,3 +313,7 @@ npm test            # ou : yarn jest
 - **TDD** aide à coder la **bonne chose**, pas juste “du code”.
 
 > « Décris l’intention, teste-la, puis rends le code vrai. »
+
+---
+[← Module précédent](M19_test-cypress.md) | [Module suivant →](M19_test-jest.md)
+---

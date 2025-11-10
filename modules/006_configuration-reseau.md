@@ -1,5 +1,6 @@
 ---
-module: Configuration réseaux
+titre: Configuration réseaux
+type: module
 jour: 06
 ordre: 2
 tags: network, linux, devops
@@ -451,3 +452,6 @@ ping -c 2 google.com              # DNS ok
 
 ```
 
+---
+[← Module précédent](006_equipements-reseau.md) | [Module suivant →](006_configuration-reseau.md)
+---

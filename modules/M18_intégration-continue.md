@@ -1,5 +1,6 @@
 ---
-module: Intégration continue
+titre: Intégration continue
+type: module
 jour: 18
 ordre: 1
 tags: ci, yaml, gitlab, devops
@@ -320,3 +321,6 @@ unit_tests:
 > L’intégration continue (CI) est le socle de la qualité logicielle.
 > Elle garantit que chaque changement de code est testé, validé et prêt à être déployé.
 
+---
+[← Module précédent](M18_intégration-continue.md) | [Module suivant →](M18_Cours_GitLab_Runner.md)
+---

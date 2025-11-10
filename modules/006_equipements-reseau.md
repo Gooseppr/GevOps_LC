@@ -1,5 +1,6 @@
 ---
-module: Les équipements réseaux
+titre: Les équipements réseaux
+type: module
 jour: 06
 ordre: 1
 tags: network, linux
@@ -306,3 +307,7 @@ Chaque rôle est séparé et maîtrisé :
 5. **Ping Internet par IP** : `ping 8.8.8.8`.
 6. **Ping par nom** : `ping google.com` (vérifie DNS).
 7. **Firewall/NAT** : règles, tables, journaux.
+
+---
+[← Module précédent](006_equipements-reseau.md) | [Module suivant →](006_configuration-reseau.md)
+---

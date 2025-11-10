@@ -1,5 +1,6 @@
 ---
-module: Vagrant — bases utiles et gestion SSH
+titre: Vagrant — bases utiles et gestion SSH
+type: module
 jour: 01
 ordre: 1
 tags: vagrant, virtualisation, ssh, gitlab, vscode, devops
@@ -252,3 +253,7 @@ vagrant resume                   # relance une VM suspendue
 ---
 
 [Module suivant →](001_terminal-bash.md)
+
+---
+[← Module précédent](001_vagrant-bases-utiles-2025.md) | [Module suivant →](001_vagrant-bases-utiles.md)
+---
