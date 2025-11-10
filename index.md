@@ -64,8 +64,8 @@ title: Accueil
 - Jour 18 / 02 : [Intégration continue - GitLab Runner](modules/M18_Cours_GitLab_Runner.md)
 - Jour 19 / 01 : [Framework de test Cypress](modules/M19_test-cypress.md)
 - Jour 19 / 02 : [Framework de test Jest](modules/M19_test-jest.md)
-- Jour 20 / 01 : [Framework de test Jest](modules/M20_Cours-CD-Approfondi.md)
-- Jour 21 / 01 : [Framework de test Jest](modules/M21_Cours_Tests_Montee_Charge_Locust.md)
+- Jour 20 / 01 : [Déploiement continu](modules/M20_Cours-CD-Approfondi.md)
+- Jour 21 / 01 : [Test de montée en charge - Locust](modules/M21_Cours_Tests_Montee_Charge_Locust.md)
 
 ## Pipeline
 - [Arrêt controlé](modules/P02_arret-controle.md) (tags: linux, docker, mariadb, postgresql, redis, nginx, kubernetes, devops)

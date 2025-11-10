@@ -240,6 +240,146 @@ locust
 locust -f locustfile.py --headless -u 100 -r 10 -t 5m --host=http://localhost:5000 --csv=results
 ```
 
+### 🚀 Démarrages rapides
+
+#### Interface Web (par défaut)
+
+```bash
+locust -f locustfile.py --host http://127.0.0.1:8000
+
+```
+
+- Ouvre l’UI sur **http://localhost:8089**
+- Tu saisis **Users**, **Spawn rate** et tu lances depuis le navigateur
+
+#### Mode headless (sans UI) + résumé final uniquement
+
+```bash
+locust -f locustfile.py --headless --only-summary \
+  -u 100 -r 10 -t 2m --host http://127.0.0.1:8000
+
+```
+
+---
+
+### 🧩 Options essentielles
+
+#### Cible & scénario
+
+- `f, --locustfile PATH` : fichier test (par défaut `locustfile.py`)
+- `-host URL` : URL cible (peut aussi être définie dans le code)
+
+#### Charge & durée
+
+- `u, --users N` : nombre d’utilisateurs simulés
+- `r, --spawn-rate N` : nouveaux utilisateurs par seconde
+- `t, --run-time D` : durée totale (ex : `30s`, `2m`, `1h`)
+- `-stop-timeout S` : arrêt **gracieux** des users (sec) à la fin
+
+#### Sortie & rapports
+
+- `-headless` : exécution sans interface web
+- `-only-summary` : **n’affiche que le résumé final**
+- `-csv PREFIX` : export CSV (`PREFIX_stats.csv`, `PREFIX_failures.csv`, …)
+- `-csv-full-history` : CSV avec chronologie complète (timeseries)
+- `-html REPORT.html` : génère un **rapport HTML** à la fin
+
+#### Logs
+
+- `-loglevel LEVEL` : `INFO`, `DEBUG`, `WARNING`, …
+- `-logfile FILE` : envoie les logs dans un fichier
+
+#### UI Web (quand tu veux la garder mais l’exposer ailleurs)
+
+- `-web-host 0.0.0.0` : écoute sur toutes les interfaces
+- `-web-port 8089` : port de l’UI
+
+---
+
+### 🎛️ Filtrer/organiser les tâches
+
+> Marque tes tâches avec @tag("login"), @tag("checkout") dans le code.
+> 
+- `-tags login,checkout` : **inclure** seulement ces tags
+- `-exclude-tags slow,admin` : **exclure** ces tags
+
+---
+
+### 🧪 Scénarios concrets (recettes)
+
+#### 1) Petit test de fumée (CI rapide)
+
+```bash
+locust -f locustfile.py --headless --only-summary \
+  -u 20 -r 5 -t 1m --host http://127.0.0.1:8000
+
+```
+
+#### 2) Campagne avec rapport HTML + CSV complet
+
+```bash
+locust -f locustfile.py --headless \
+  -u 200 -r 20 -t 10m --host https://app.example.com \
+  --csv results/run_$(date +%F_%H%M) --csv-full-history \
+  --html report_$(date +%F_%H%M).html
+
+```
+
+#### 3) Test sur un sous-ensemble de tâches (tags)
+
+```bash
+locust -f locustfile.py --headless --only-summary \
+  -u 100 -r 10 -t 5m --host https://api.example.com \
+  --tags login,search
+
+```
+
+#### 4) UI exposée à distance (docker/vm)
+
+```bash
+locust -f locustfile.py --host http://service:8000 \
+  --web-host 0.0.0.0 --web-port 8089
+
+```
+
+---
+
+### 🧮 Exécution distribuée (maître / travailleurs)
+
+> Pour pousser plus de charge, démarre 1 master + N workers.
+> 
+
+**Master :**
+
+```bash
+locust -f locustfile.py --master --headless \
+  -u 1000 -r 100 -t 15m --host https://app.example.com --only-summary
+
+```
+
+**Workers :**
+
+```bash
+locust -f locustfile.py --worker --master-host 127.0.0.1
+# (répéter la commande sur plusieurs machines/containers)
+
+```
+
+Options utiles côté master :
+
+- `-expect-workers N` : attend N workers avant de démarrer
+- `-master-bind-host/--master-bind-port` : écoute master personnalisée
+
+---
+
+### 🧠 Petits rappels utiles
+
+- **Users (`u`)** = plateau de charge cible, **Spawn rate (`r`)** = pente de montée.
+- **`-only-summary`** garde la console propre en CI (un verdict clair).
+- Toujours fixer `-host` ou le définir dans `HttpUser.host`.
+- Pense à `-stop-timeout` pour une fin de test propre (ex : 30 s).
+- Combine `-csv` et `-html` pour conserver des **preuves** et **comparer** les runs.
+
 ---
 
 ### 🎯 Pour aller plus loin
