@@ -1,5 +1,5 @@
 ---
-module: Framework de test Jest
+module: Test de montée en charge - Locust
 jour: 21
 ordre: 1
 tags: cd, test, locust, python, devops

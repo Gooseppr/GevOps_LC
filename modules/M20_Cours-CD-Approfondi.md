@@ -1,8 +1,8 @@
 ---
-module: Framework de test Jest
+module: Déploiement continu
 jour: 20
 ordre: 1
-tags: ci, test, jest, nodejs, devops
+tags: cd, test, devops
 ---
 
 # 🚀 Déploiement Continu (CD) — Cours approfondi (GitLab & Vercel)
