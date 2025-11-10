@@ -229,19 +229,6 @@ En cas d’échec, **la fusion est bloquée** et les résultats apparaissent dan
 
 ### 📎 Commandes récapitulatives
 
-```bash
-# Installer Locust
-pip install locust
-
-# Lancer l'interface graphique
-locust
-
-# Lancer un test en mode headless (sans interface)
-locust -f locustfile.py --headless -u 100 -r 10 -t 5m --host=http://localhost:5000 --csv=results
-```
-
-### 🚀 Démarrages rapides
-
 #### Interface Web (par défaut)
 
 ```bash
