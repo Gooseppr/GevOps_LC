@@ -22,6 +22,7 @@ title: Accueil
 - 👉 [Jour 19](jours/jour-19)
 - 👉 [Jour 20](jours/jour-20)
 - 👉 [Jour 21](jours/jour-21)
+- 👉 [Jour 22](jours/jour-22)
 
 
 ---
@@ -67,6 +68,7 @@ title: Accueil
 - Jour 19 / 02 : [M19_test-jest.md](modules/M19_test-jest.md)
 - Jour 20 / 01 : [M20_Cours-CD-Approfondi.md](modules/M20_Cours-CD-Approfondi.md)
 - Jour 21 / 01 : [M21_Cours_Tests_Montee_Charge_Locust.md](modules/M21_Cours_Tests_Montee_Charge_Locust.md)
+- Jour 22 / 01 : [M22_Test-qualité-Sonarqube.md](modules/M22_Test-qualité-Sonarqube.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
