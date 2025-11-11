@@ -322,5 +322,9 @@ unit_tests:
 > Elle garantit que chaque changement de code est testé, validé et prêt à être déployé.
 
 ---
-[← Module précédent](M18_intégration-continue.md) | [Module suivant →](M18_Cours_GitLab_Runner.md)
+[Module suivant →](M18_Cours_GitLab_Runner.md)
+---
+
+---
+[Module suivant →](M18_Cours_GitLab_Runner.md)
 ---

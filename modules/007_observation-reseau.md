@@ -415,5 +415,9 @@ journalctl -u ssh -e
 ```
 
 ---
-[← Module précédent](007_IP-ports-protocole.md) | [Module suivant →](007_observation-reseau.md)
+[← Module précédent](007_IP-ports-protocole.md)
+---
+
+---
+[← Module précédent](007_IP-ports-protocole.md)
 ---

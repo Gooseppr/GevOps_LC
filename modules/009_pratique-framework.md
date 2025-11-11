@@ -312,5 +312,9 @@ curl -X POST http://127.0.0.1:8080/ -H "Content-Type: application/json" -d '{"me
 - **OpenSSL** manquant → déjà couvert par `libssl-dev`.
 
 ---
-[← Module précédent](009_backend-API.md) | [Module suivant →](009_pratique-framework.md)
+[← Module précédent](009_backend-API.md)
+---
+
+---
+[← Module précédent](009_backend-API.md)
 ---

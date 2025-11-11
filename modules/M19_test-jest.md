@@ -315,5 +315,9 @@ npm test            # ou : yarn jest
 > « Décris l’intention, teste-la, puis rends le code vrai. »
 
 ---
-[← Module précédent](M19_test-cypress.md) | [Module suivant →](M19_test-jest.md)
+[← Module précédent](M19_test-cypress.md)
+---
+
+---
+[← Module précédent](M19_test-cypress.md)
 ---

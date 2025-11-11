@@ -233,5 +233,9 @@ Exemples rapides :
 - Perf : `iperf3 -c host`
 
 ---
-[← Module précédent](007_IP-ports-protocole.md) | [Module suivant →](007_observation-reseau.md)
+[Module suivant →](007_observation-reseau.md)
+---
+
+---
+[Module suivant →](007_observation-reseau.md)
 ---

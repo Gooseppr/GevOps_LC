@@ -279,5 +279,9 @@ Une architecture typique moderne ressemble à ceci :
 >
 
 ---
-[← Module précédent](011_Virtualisation.md) | [Module suivant →](011_dockers.md)
+[Module suivant →](011_dockers.md)
+---
+
+---
+[Module suivant →](011_dockers.md)
 ---

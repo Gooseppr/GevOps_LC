@@ -383,5 +383,9 @@ server {
 - Une architecture propre = un backend maîtrisé, sécurisé et évolutif.
 
 ---
-[← Module précédent](009_backend-API.md) | [Module suivant →](009_pratique-framework.md)
+[Module suivant →](009_pratique-framework.md)
+---
+
+---
+[Module suivant →](009_pratique-framework.md)
 ---

@@ -347,5 +347,9 @@ Puis modifie ton code pour corriger les erreurs une par une.
 Reviens ensuite sur le fichier `.flake8` pour **ignorer volontairement certaines règles** (ex. E501, F401) et constate comment cela change les résultats.
 
 ---
-[← Module précédent](M18_Cours_GitLab_Runner.md) | [Module suivant →](M18_flake8.md)
+[← Module précédent](M18_Cours_GitLab_Runner.md)
+---
+
+---
+[← Module précédent](M18_Cours_GitLab_Runner.md)
 ---

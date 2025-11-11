@@ -632,5 +632,9 @@ ss -tunp | grep ESTAB
 - Apprendre la mitigation avancée : SELinux/AppArmor, eBPF pour monitoring réseau, gestion centralisée des logs (ELK/Wazuh)
 
 ---
-[← Module précédent](008_securite.md) | [Module suivant →](008_pratique-SSH-NGINX.md)
+[← Module précédent](008_securite.md)
+---
+
+---
+[← Module précédent](008_securite.md)
 ---

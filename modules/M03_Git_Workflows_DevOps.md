@@ -209,5 +209,9 @@ Dans les **paramètres du dépôt GitLab** :
 Tu sais maintenant choisir, adapter et appliquer un **workflow Git professionnel** parfaitement intégré à une approche DevOps.
 
 ---
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md) | [Module suivant →](M03_Git_Workflows_DevOps.md)
+[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
+---
+
+---
+[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
 ---

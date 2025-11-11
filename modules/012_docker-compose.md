@@ -806,5 +806,9 @@ Voici les idées clés à retenir absolument :
 Si tu maîtrises ça, tu sais déjà faire ce que la plupart des boîtes attendent d’un dev backend ou d’un devops junior : lancer une app multi-services complète en une commande.
 
 ---
-[← Module précédent](012_docker-compose.md) | [Module suivant →](012_pratique-docker-compose.md)
+[Module suivant →](012_pratique-docker-compose.md)
+---
+
+---
+[Module suivant →](012_pratique-docker-compose.md)
 ---

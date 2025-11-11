@@ -372,5 +372,9 @@ npx cypress run --browser chrome
 > “Automatise tes tests, exécute-les à chaque commit, et ne déploie que du code validé.”
 
 ---
-[← Module précédent](M19_test-cypress.md) | [Module suivant →](M19_test-jest.md)
+[Module suivant →](M19_test-jest.md)
+---
+
+---
+[Module suivant →](M19_test-jest.md)
 ---

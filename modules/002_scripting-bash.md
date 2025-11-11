@@ -569,5 +569,9 @@ done
 ---
 
 ---
-[← Module précédent](002_scripting-bash.md) | [Module suivant →](002_droits-linux.md)
+[Module suivant →](002_droits-linux.md)
+---
+
+---
+[Module suivant →](002_droits-linux.md)
 ---

@@ -817,5 +817,9 @@ dive nginx-lacapsule:alpha
 ––––––––––––––––––![Texte alternatif](chemin/vers/image.png)
 
 ---
-[← Module précédent](011_dockers.md) | [Module suivant →](011_dockers_pratique.md)
+[← Module précédent](011_dockers.md)
+---
+
+---
+[← Module précédent](011_dockers.md)
 ---

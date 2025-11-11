@@ -453,5 +453,9 @@ ping -c 2 google.com              # DNS ok
 ```
 
 ---
-[← Module précédent](006_equipements-reseau.md) | [Module suivant →](006_configuration-reseau.md)
+[← Module précédent](006_equipements-reseau.md)
+---
+
+---
+[← Module précédent](006_equipements-reseau.md)
 ---

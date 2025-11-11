@@ -309,5 +309,9 @@ Chaque rôle est séparé et maîtrisé :
 7. **Firewall/NAT** : règles, tables, journaux.
 
 ---
-[← Module précédent](006_equipements-reseau.md) | [Module suivant →](006_configuration-reseau.md)
+[Module suivant →](006_configuration-reseau.md)
+---
+
+---
+[Module suivant →](006_configuration-reseau.md)
 ---
