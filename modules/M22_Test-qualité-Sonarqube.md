@@ -325,7 +325,3 @@ ils assurent un **feedback continu** sur la qualité et la sécurité du code.
 - Les équipes gagnent en **fiabilité**,
 - Le code devient **plus maintenable**,
 - Et les risques de failles **diminuent drastiquement** avant la mise en production.
-
----
-[← Module précédent](M22_Test-qualité-Sonarqube.md) | [Module suivant →](M22_Test-qualité-Sonarqube.md)
----

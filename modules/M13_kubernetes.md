@@ -573,7 +573,3 @@ C’est un **chef d’orchestre** complet, conçu pour :
 - la **production à grande échelle**,
 - la **fiabilité**,
 - et la **résilience automatique**.
-
----
-[← Module précédent](M13_kubernetes.md) | [Module suivant →](M13_kubernetes.md)
----

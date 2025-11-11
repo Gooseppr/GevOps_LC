@@ -879,7 +879,3 @@ class A:
 Ce document rassemble **toutes les briques natives** pour écrire des scripts Python efficaces et évolutifs — **sans dépendances externes**.
 
 Tu peux automatiser des tâches, manipuler des fichiers/texte, structurer ton code avec **fonctions** et **classes**, et exposer une API propre grâce aux **propriétés** et aux **dunders** essentiels.
-
----
-[← Module précédent](004_python-cours.md) | [Module suivant →](004_python-cours.md)
----

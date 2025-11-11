@@ -385,7 +385,3 @@ with open("vitals.log","a",encoding="utf-8") as f:
     f.write(f"CPU={cpu:.1f}% RAM={mem.percent:.1f}% DISK={disk.percent:.1f}%\n")
 
 ```
-
----
-[← Module précédent](005_python-systeme.md) | [Module suivant →](005_python-systeme.md)
----

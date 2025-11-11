@@ -823,7 +823,3 @@ Ce que tu as fait aujourd’hui est typique d’une échelle “développement i
     - Est-ce chiffré ?
 
 Si tu maîtrises ça, tu es déjà au niveau “Je peux tenir la base de prod d’une petite startup sans paniquer quand ça tombe”.
-
----
-[← Module précédent](010_bases-de-données.md) | [Module suivant →](010_bases-de-données.md)
----

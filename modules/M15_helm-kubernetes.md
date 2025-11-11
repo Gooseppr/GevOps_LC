@@ -1050,7 +1050,3 @@ helmfile apply
 > 
 > tu décris ton environnement complet en YAML, et tu le déploies en une commande, traçable, diffable et rollbackable.”
 >
-
----
-[← Module précédent](M15_helm-kubernetes.md) | [Module suivant →](M15_helm-kubernetes.md)
----

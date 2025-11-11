@@ -934,7 +934,3 @@ spec:
 | PVC | v1 | Demande de stockage par une appli |
 | Job / CronJob | batch/v1 | Tâches ponctuelles ou récurrentes |
 | HPA | autoscaling/v2 | Auto-scale horizontal selon la charge |
-
----
-[← Module précédent](M14_kubernetes-yaml.md) | [Module suivant →](M14_kubernetes-yaml.md)
----

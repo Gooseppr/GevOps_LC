@@ -716,7 +716,3 @@ npx artillery run --target https://example.com loadtest.yml
 - [Documentation officielle Locust](https://docs.locust.io)
 - [Exemples GitLab CI/CD Load Testing](https://docs.gitlab.com/ee/ci/testing/load_performance_testing.html)
 - [Tutoriel vidéo Locust & Python](https://www.youtube.com/results?search_query=locust+python+tutorial)
-
----
-[← Module précédent](M21_Cours_Tests_Montee_Charge_Locust.md) | [Module suivant →](M21_Cours_Tests_Montee_Charge_Locust.md)
----
