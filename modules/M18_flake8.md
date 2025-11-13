@@ -357,3 +357,7 @@ Reviens ensuite sur le fichier `.flake8` pour **ignorer volontairement certaines
 ---
 [← Module précédent](M18_Cours_GitLab_Runner.md)
 ---
+
+---
+[← Module précédent](M18_Cours_GitLab_Runner.md)
+---
