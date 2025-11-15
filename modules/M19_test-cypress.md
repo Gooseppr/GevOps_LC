@@ -390,3 +390,7 @@ npx cypress run --browser chrome
 ---
 [Module suivant →](M19_test-jest.md)
 ---
+
+---
+[Module suivant →](M19_test-jest.md)
+---
