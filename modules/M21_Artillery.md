@@ -346,3 +346,7 @@ npx artillery run --target https://example.com loadtest.yml
 ---
 [← Module précédent](M21_Tests_Montee_Charge_Locust.md)
 ---
+
+---
+[← Module précédent](M21_Tests_Montee_Charge_Locust.md)
+---

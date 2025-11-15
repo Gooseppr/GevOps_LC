@@ -293,3 +293,7 @@ Une architecture typique moderne ressemble à ceci :
 ---
 [Module suivant →](011_dockers.md)
 ---
+
+---
+[Module suivant →](011_dockers.md)
+---

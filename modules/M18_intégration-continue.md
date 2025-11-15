@@ -336,3 +336,7 @@ unit_tests:
 ---
 [Module suivant →](M18_Cours_GitLab_Runner.md)
 ---
+
+---
+[Module suivant →](M18_Cours_GitLab_Runner.md)
+---

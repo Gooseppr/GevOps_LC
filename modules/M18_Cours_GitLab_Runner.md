@@ -242,5 +242,5 @@ Tu maîtrises maintenant les **GitLab Runners**, leur fonctionnement,
 leur installation, leur configuration et leur gestion quotidienne.
 
 ---
-[← Module précédent](M18_intégration-continue.md) | [Module suivant →](M18_flake8.md)
+[← Module précédent](M18_intégration-continue.md) | [Module suivant →](M18_azure_devops.md)
 ---
