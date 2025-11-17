@@ -327,3 +327,7 @@ Contrairement aux Users :
 ---
 [Module suivant →](M25_AWS_Compute.md)
 ---
+
+---
+[Module suivant →](M25_AWS_Compute.md)
+---

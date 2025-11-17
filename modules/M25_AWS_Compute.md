@@ -6,6 +6,8 @@ ordre: 2
 tags: aws, cloud, devops
 ---
 
+# 🟦 **Cours AWS Compute**
+
 ## 1. Pourquoi le “compute” (puissance de calcul) est central ?
 
 Toutes les entreprises ont besoin de **capacité de calcul** (*compute capacity*) pour faire tourner :
@@ -181,8 +183,8 @@ Deux formes :
 
 | Type | FR | EN | Exemple |
 | --- | --- | --- | --- |
-| Verticale | Scale up / down | Modifier la taille de l’instance | passer de `t3.small` à `t3.large` |
-| Horizontale | Scale out / in | Ajouter / retirer des instances | passer de 2 à 6 serveurs web |
+| Verticale | Modifier la taille de l’instance | Scale up / down | passer de `t3.small` à `t3.large` |
+| Horizontale | Ajouter / retirer des instances | Scale out / in | passer de 2 à 6 serveurs web |
 
 Avec EC2, tu peux :
 
@@ -494,6 +496,10 @@ Donc **lift-and-shift** idéal : on déplace plus ou moins tel quel sur EC2.
 > 
 > *“Since the application already runs on Linux servers and we want to minimize refactoring, EC2 is the most appropriate choice. It allows a lift-and-shift migration with elasticity via Auto Scaling, whereas Lambda or container orchestrators like ECS/EKS would require significant redesign and containerization work.”*
 >
+
+---
+[← Module précédent](M25_AWS_intro.md)
+---
 
 ---
 [← Module précédent](M25_AWS_intro.md)
