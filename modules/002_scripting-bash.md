@@ -603,3 +603,7 @@ done
 ---
 [Module suivant →](002_droits-linux.md)
 ---
+
+---
+[Module suivant →](002_droits-linux.md)
+---

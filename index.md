@@ -77,8 +77,12 @@ title: Accueil
 - Jour 22 / 01 : [M22_Test-qualité-Sonarqube.md](modules/M22_Test-qualité-Sonarqube.md)
 - Jour 23 / 01 : [M23_sécurité-pipeline.md](modules/M23_sécurité-pipeline.md)
 - Jour 24 / 01 : [M24_Jenkins.md](modules/M24_Jenkins.md)
+- Jour 25 / 01 : [M25_AWS-Networking.md](modules/M25_AWS-Networking.md)
 - Jour 25 / 01 : [M25_AWS_intro.md](modules/M25_AWS_intro.md)
 - Jour 25 / 02 : [M25_AWS_Compute.md](modules/M25_AWS_Compute.md)
+- Jour 25 / 04 : [M25_AWS_reponse-quizz.md](modules/M25_AWS_reponse-quizz.md)
+- Jour 25 / 05 : [M25_Google_GCE.md](modules/M25_Google_GCE.md)
+- Jour 25 / 06 : [M25_Azure-VM.md](modules/M25_Azure-VM.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
