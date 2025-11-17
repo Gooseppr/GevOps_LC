@@ -5,3 +5,4 @@ title: Jour 25
 
 ## Modules du jour
 - [M25_AWS_intro.md](../modules/M25_AWS_intro.md)
+- [M25_AWS_Compute.md](../modules/M25_AWS_Compute.md)

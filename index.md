@@ -78,6 +78,7 @@ title: Accueil
 - Jour 23 / 01 : [M23_sécurité-pipeline.md](modules/M23_sécurité-pipeline.md)
 - Jour 24 / 01 : [M24_Jenkins.md](modules/M24_Jenkins.md)
 - Jour 25 / 01 : [M25_AWS_intro.md](modules/M25_AWS_intro.md)
+- Jour 25 / 02 : [M25_AWS_Compute.md](modules/M25_AWS_Compute.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)

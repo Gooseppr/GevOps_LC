@@ -341,3 +341,7 @@ npm test            # ou : yarn jest
 ---
 [← Module précédent](M19_test-cypress.md)
 ---
+
+---
+[← Module précédent](M19_test-cypress.md)
+---

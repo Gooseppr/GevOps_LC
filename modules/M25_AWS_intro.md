@@ -3,7 +3,7 @@ titre: AWS - Introduction
 type: module
 jour: 25
 ordre: 1
-tags: aws, devops
+tags: aws, cloud, devops
 ---
 
 # 🟦 **Cours AWS – Français avec vocabulaire anglais**
@@ -323,3 +323,7 @@ Contrairement aux Users :
 | Shared Model | AWS gère l’infrastructure, client gère la config. | Shared Responsibility. |
 | IAM | Gestion des identités et accès. | Identity and Access Management. |
 | Root User | Accès illimité → sécuriser absolument. | Full-access root. |
+
+---
+[Module suivant →](M25_AWS_Compute.md)
+---
