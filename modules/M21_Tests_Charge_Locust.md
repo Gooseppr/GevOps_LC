@@ -388,3 +388,7 @@ Options utiles côté master :
 ---
 [Module suivant →](M21_Artillery.md)
 ---
+
+---
+[Module suivant →](M21_Artillery.md)
+---

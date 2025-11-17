@@ -25,6 +25,7 @@ title: Accueil
 - 👉 [Jour 22](jours/jour-22)
 - 👉 [Jour 23](jours/jour-23)
 - 👉 [Jour 24](jours/jour-24)
+- 👉 [Jour 25](jours/jour-25)
 
 
 ---
@@ -76,6 +77,7 @@ title: Accueil
 - Jour 22 / 01 : [M22_Test-qualité-Sonarqube.md](modules/M22_Test-qualité-Sonarqube.md)
 - Jour 23 / 01 : [M23_sécurité-pipeline.md](modules/M23_sécurité-pipeline.md)
 - Jour 24 / 01 : [M24_Jenkins.md](modules/M24_Jenkins.md)
+- Jour 25 / 01 : [M25_AWS_intro.md](modules/M25_AWS_intro.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
