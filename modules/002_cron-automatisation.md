@@ -507,3 +507,7 @@ Avec ça, tu as tout pour automatiser proprement tes tâches récurrentes sur Li
 ---
 [← Module précédent](002_droits-linux.md)
 ---
+
+---
+[← Module précédent](002_droits-linux.md)
+---

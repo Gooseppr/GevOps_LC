@@ -22,6 +22,8 @@ Dans AWS (comme dans tout cloud), on ne stocke pas tout au même endroit. Chaque
 | **Block Storage** | Données découpées en blocs adressables | Latence très basse, IOPS élevées | Bases de données, systèmes, VM, workloads transactionnels |
 | **Object Storage** | Objets (data + metadata) dans des buckets | Scalabilité infinie, haute durabilité | Média, backups, data lakes, analyses |
 
+![Schéma](../images/Capture%20d%27%C3%A9cran%202025-11-18_105030.png)
+
 ➡️ *Chaque type a son architecture interne, ses performances, et ses usages.*
 
 ➡️ *Bien comprendre ces trois catégories = fondamental en DevOps / architecte cloud.*
