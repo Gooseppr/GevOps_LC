@@ -588,3 +588,7 @@ Tu connais maintenant :
 ---
 [← Module précédent](M20_Cours-CD-Approfondi.md)
 ---
+
+---
+[← Module précédent](M20_Cours-CD-Approfondi.md)
+---

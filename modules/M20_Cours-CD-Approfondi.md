@@ -308,3 +308,7 @@ Stratégie **expand/contract** :
 ---
 [Module suivant →](M20_eslint.md)
 ---
+
+---
+[Module suivant →](M20_eslint.md)
+---
