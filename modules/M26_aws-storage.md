@@ -3,7 +3,7 @@ titre: Amazon Storage
 type: module
 jour: 26
 ordre: 1
-tags: aws, storage, cloud, devops
+tags: aws, stockage, cloud, devops
 ---
 
 # 🧩 **Cours complet : AWS Storage**
@@ -356,3 +356,9 @@ Il couvre :
 - Versioning / lifecycle
 - Cas d’utilisation réels
 - Réponses aux questions d’examen / d'interview
+
+![Schéma](../images/recap_aws-storage.png)
+
+---
+[Module suivant →](M26_Content-delivery-network.md)
+---

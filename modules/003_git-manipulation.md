@@ -486,3 +486,7 @@ git push origin --tags
 ---
 [Module suivant →](M03_Git_Manipulation_sans_stress.md)
 ---
+
+---
+[Module suivant →](M03_Git_Manipulation_sans_stress.md)
+---

@@ -3,7 +3,7 @@ titre: Les bases de données
 type: module
 jour: 10
 ordre: 1
-tags: mariadb, postgresql, mongodb, redis, devops
+tags: bdd, mariadb, postgresql, mongodb, redis, devops
 ---
 
 # Les bases de données

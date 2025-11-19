@@ -27,6 +27,7 @@ title: Accueil
 - 👉 [Jour 24](jours/jour-24)
 - 👉 [Jour 25](jours/jour-25)
 - 👉 [Jour 26](jours/jour-26)
+- 👉 [Jour 27](jours/jour-27)
 
 
 ---
@@ -85,6 +86,10 @@ title: Accueil
 - Jour 25 / 05 : [M25_Google_GCE.md](modules/M25_Google_GCE.md)
 - Jour 25 / 06 : [M25_Azure-VM.md](modules/M25_Azure-VM.md)
 - Jour 26 / 01 : [M26_aws-storage.md](modules/M26_aws-storage.md)
+- Jour 26 / 02 : [M26_Content-delivery-network.md](modules/M26_Content-delivery-network.md)
+- Jour 26 / 03 : [M26_quizz_aws_storage.md](modules/M26_quizz_aws_storage.md)
+- Jour 27 / 01 : [M27_bdd_aws.md](modules/M27_bdd_aws.md)
+- Jour 27 / 02 : [M27_monitoring-elb-aws.md](modules/M27_monitoring-elb-aws.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)

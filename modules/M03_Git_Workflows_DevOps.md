@@ -255,3 +255,7 @@ Tu sais maintenant choisir, adapter et appliquer un **workflow Git professionnel
 ---
 [← Module précédent](M03_Git_Manipulation_avancee_historique.md)
 ---
+
+---
+[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
+---
