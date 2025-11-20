@@ -3,7 +3,7 @@ title: Docker Compose
 type: module
 jour: 12
 ordre: 1
-tags: docker
+tags: docker compose, docker, yaml, orchestration
 ---
 
 

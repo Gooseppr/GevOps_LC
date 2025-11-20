@@ -11,5 +11,9 @@ title: Jour 13
 
 ## Tags du jour
 - bash
+- k3s
+- k8s
+- kubectl
 - kubernetes
 - linux
+- minikube

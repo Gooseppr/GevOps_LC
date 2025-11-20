@@ -9,3 +9,6 @@ title: Jour 12
 
 ## Tags du jour
 - docker
+- docker compose
+- orchestration
+- yaml

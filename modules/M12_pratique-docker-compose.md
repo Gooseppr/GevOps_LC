@@ -3,7 +3,7 @@ title: Pratique Docker Compose
 type: module
 jour: 12
 ordre: 2
-tags: docker
+tags: docker compose, docker, yaml
 ---
 
 ## 1. Docker / Docker Compose : kit de survie

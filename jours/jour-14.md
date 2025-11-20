@@ -10,5 +10,6 @@ title: Jour 14
 - [B02_kubernetes-cmd.md](../modules/B02_kubernetes-cmd.md)
 
 ## Tags du jour
+- kubectl
 - kubernetes
 - yaml

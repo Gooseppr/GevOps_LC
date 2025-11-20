@@ -3,7 +3,7 @@ title: Kubernetes avancés
 type: module
 jour: 14
 ordre: 1
-tags: kubernetes, yaml
+tags: kubernetes, kubectl, yaml
 ---
 
 # 🧠 Kubernetes Avancé (Jour 2)

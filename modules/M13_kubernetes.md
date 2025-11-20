@@ -3,7 +3,7 @@ title: Kubernetes
 type: module
 jour: 13
 ordre: 1
-tags: kubernetes, bash, linux
+tags: kubernetes, bash, linux, minikube, k3s, k8s, kubectl
 ---
 
 
