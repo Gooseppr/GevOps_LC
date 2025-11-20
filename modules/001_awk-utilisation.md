@@ -387,3 +387,7 @@ awk '{gsub(/,/, ".", $2); print $1,$2}' file
 ---
 [← Module précédent](001_sed-utilisation.md)
 ---
+
+---
+[← Module précédent](001_sed-utilisation.md)
+---

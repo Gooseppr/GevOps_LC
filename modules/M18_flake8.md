@@ -397,3 +397,7 @@ Reviens ensuite sur le fichier `.flake8` pour **ignorer volontairement certaines
 ---
 [← Module précédent](M18_azure_devops.md)
 ---
+
+---
+[← Module précédent](M18_azure_devops.md)
+---

@@ -392,3 +392,7 @@ Ce quiz couvre exactement ces 5 dimensions.
 ---
 [← Module précédent](M26_Content-delivery-network.md)
 ---
+
+---
+[← Module précédent](M26_Content-delivery-network.md)
+---

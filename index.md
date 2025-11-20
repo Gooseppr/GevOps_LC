@@ -90,6 +90,7 @@ title: Accueil
 - Jour 26 / 03 : [M26_quizz_aws_storage.md](modules/M26_quizz_aws_storage.md)
 - Jour 27 / 01 : [M27_bdd_aws.md](modules/M27_bdd_aws.md)
 - Jour 27 / 02 : [M27_monitoring-elb-aws.md](modules/M27_monitoring-elb-aws.md)
+- Jour 27 / 03 : [M27_quiz-reponse.md](modules/M27_quiz-reponse.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)

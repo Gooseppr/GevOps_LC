@@ -419,3 +419,7 @@ Pour un DevOps, Azure VM sert à :
 ---
 [← Module précédent](M25_Google_GCE.md)
 ---
+
+---
+[← Module précédent](M25_Google_GCE.md)
+---

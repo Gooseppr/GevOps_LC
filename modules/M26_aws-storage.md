@@ -362,3 +362,7 @@ Il couvre :
 ---
 [Module suivant →](M26_Content-delivery-network.md)
 ---
+
+---
+[Module suivant →](M26_Content-delivery-network.md)
+---

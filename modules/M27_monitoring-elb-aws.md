@@ -5,6 +5,7 @@ jour: 27
 ordre: 2
 tags: aws, monitoring, cloud, devops,
 ---
+
 # 🧠 AWS Monitoring, Load Balancing & Scaling
 
 ## 1. Introduction générale
@@ -305,4 +306,8 @@ Ainsi, le trafic reste **fluide et sans interruption**.
 
 ---
 [← Module précédent](M27_bdd_aws.md)
+---
+
+---
+[← Module précédent](M27_bdd_aws.md) | [Module suivant →](M27_quiz-reponse.md)
 ---
