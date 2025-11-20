@@ -6,7 +6,7 @@ ordre: 3
 tags: sed, bash, linux, scripting
 ---
 
-# SED
+# Découvrir SED
 
 ## 1) Principe & utilité
 

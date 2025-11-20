@@ -6,7 +6,7 @@ ordre: 4
 tags: awk, bash, linux, scripting
 ---
 
-# AWK
+# Découvrir AWK
 
 ## 1) Principe & utilité
 

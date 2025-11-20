@@ -6,7 +6,7 @@ ordre: 2
 tags: bash, linux, cli
 ---
 
-# Le Terminal (Bash)
+# Commener avec le Terminal (Bash)
 
 ## 1) Pourquoi / quoi
 
