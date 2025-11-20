@@ -1,5 +1,5 @@
 ---
-titre: Kubectl cmd
+title: Kubectl cmd
 jour: 13|14|15
 type: bonus
 tags: Kubernetes, Bash, Virtualisation

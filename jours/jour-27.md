@@ -15,5 +15,7 @@ title: Jour 27
 - cloud
 - devops
 - infrastructure
+- load balancing
 - monitoring
+- scaling
 - stockage

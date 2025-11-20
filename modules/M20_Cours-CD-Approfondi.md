@@ -1,5 +1,5 @@
 ---
-titre: Déploiement continu
+title: Déploiement continu
 type: module
 jour: 20
 ordre: 1

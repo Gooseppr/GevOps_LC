@@ -1,5 +1,5 @@
 ---
-titre: Kubernetes avancés
+title: Kubernetes avancés
 type: module
 jour: 14
 ordre: 1

@@ -1,5 +1,5 @@
 ---
-titre: Intégration continue
+title: Intégration continue
 type: module
 jour: 18
 ordre: 1

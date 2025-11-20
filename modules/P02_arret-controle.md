@@ -1,5 +1,5 @@
 ---
-titre: Arrêt controlé
+title: Arrêt controlé
 type: pipeline
 tags: linux, docker, mariadb, postgresql, redis, nginx, kubernetes, devops
 ---

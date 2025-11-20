@@ -1,5 +1,5 @@
 ---
-titre: Gestion des droits sous Linux
+title: Gestion des droits sous Linux
 type: module
 jour: 02
 ordre: 2

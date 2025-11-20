@@ -1,5 +1,5 @@
 ---
-titre: Le scripting Bash pour base de données relationnelles
+title: Le scripting Bash pour base de données relationnelles
 jour: 02|10
 type: bonus
 tags: bash, mariadb, postgresql, devops

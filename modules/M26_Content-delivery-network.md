@@ -1,9 +1,9 @@
 ---
-titre: Content Delivery Network
+title: Content Delivery Network
 type: module
 jour: 26
 ordre: 2
-tags: infrastructure, stockage, cloud, devops
+tags: infrastructure, cdn, stockage, cloud, devops
 ---
 
 # 🧩 **Cours simplifié & structuré : Content Delivery Network (CDN)**
@@ -286,5 +286,5 @@ Un CDN est une **brique essentielle** dans une architecture moderne :
 C’est pourquoi tous les grands acteurs (Netflix, Amazon, YouTube, Twitch, Shopify…) reposent sur des CDN mondiaux.
 
 ---
-[← Module précédent](M26_aws-storage.md) | [Module suivant →](M26_quizz_aws_storage copy.md)
+[← Module précédent](M26_aws-storage.md) | [Module suivant →](M26_flashcard_aws_storage.md)
 ---

@@ -89,7 +89,7 @@ title: Accueil
 - Jour 25 / 06 : [M25_Azure-VM.md](modules/M25_Azure-VM.md)
 - Jour 26 / 01 : [M26_aws-storage.md](modules/M26_aws-storage.md)
 - Jour 26 / 02 : [M26_Content-delivery-network.md](modules/M26_Content-delivery-network.md)
-- Jour 26 / 03 : [M26_quizz_aws_storage copy.md](modules/M26_quizz_aws_storage copy.md)
+- Jour 26 / 03 : [M26_flashcard_aws_storage.md](modules/M26_flashcard_aws_storage.md)
 - Jour 26 / 03 : [M26_quizz_aws_storage.md](modules/M26_quizz_aws_storage.md)
 - Jour 27 / 01 : [M27_bdd_aws.md](modules/M27_bdd_aws.md)
 - Jour 27 / 02 : [M27_monitoring-elb-aws.md](modules/M27_monitoring-elb-aws.md)

@@ -1,5 +1,5 @@
 ---
-titre: Azure Virtual Machine
+title: Azure Virtual Machine
 type: module
 jour: 25
 ordre: 6

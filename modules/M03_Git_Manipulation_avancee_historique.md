@@ -1,5 +1,5 @@
 ---
-titre: Git — manipulation avancée de l’historique
+title: Git — manipulation avancée de l’historique
 type: module
 jour: 03
 ordre: 2

@@ -1,9 +1,9 @@
 ---
-titre: PaaS & Serverless
+title: PaaS & Serverless
 type: module
 jour: 28
 ordre: 1
-tags: aws, paas, ci, cd, devops,
+tags: aws, paas, ci, cd, devops
 ---
 
 # 🎓 **PaaS & Serverless (Déploiement Cloud & CI/CD)**

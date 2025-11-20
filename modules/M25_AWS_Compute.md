@@ -1,5 +1,5 @@
 ---
-titre: AWS Compute
+title: AWS Compute
 type: module
 jour: 25
 ordre: 2

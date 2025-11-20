@@ -1,9 +1,9 @@
 ---
-titre: AWS Monitoring, Load Blancing & Scaling
+title: AWS Monitoring, Load Balancing & Scaling
 type: module
 jour: 27
 ordre: 2
-tags: aws, monitoring, cloud, devops,
+tags: aws, monitoring, load balancing, scaling, cloud, devops
 ---
 
 # 🧠 AWS Monitoring, Load Balancing & Scaling

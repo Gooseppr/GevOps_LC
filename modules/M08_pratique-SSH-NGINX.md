@@ -1,5 +1,5 @@
 ---
-titre: Pratique - SSH et NGINX
+title: Pratique - SSH et NGINX
 type: module
 jour: 08
 ordre: 3

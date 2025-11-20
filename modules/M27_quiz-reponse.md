@@ -1,9 +1,9 @@
 ---
-titre: AWS Monitoring, Load Blancing & Scaling
+title: AWS Monitoring, Load Blancing & Scaling
 type: module
 jour: 27
 ordre: 3
-tags: aws, monitoring, cloud, devops,
+tags: aws, bdd, monitoring, cloud, devops
 ---
 
 1. 🌩️ Bases de données dans le cloud (général + SQL vs NoSQL)

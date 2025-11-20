@@ -1,5 +1,5 @@
 ---
-titre: Intégration continue - GitLab Runner
+title: Intégration continue - GitLab Runner
 type: module
 jour: 18
 ordre: 2

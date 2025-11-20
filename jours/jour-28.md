@@ -7,7 +7,6 @@ title: Jour 28
 - [M28_paas-serverless.md](../modules/M28_paas-serverless.md)
 
 ## Tags du jour
-- 
 - aws
 - cd
 - ci

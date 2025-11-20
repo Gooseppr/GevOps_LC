@@ -1,5 +1,5 @@
 ---
-titre: Git — le guide “manipulation sans stress”
+title: Git — le guide “manipulation sans stress”
 type: module
 jour: 03
 ordre: 1

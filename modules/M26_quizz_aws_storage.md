@@ -1,9 +1,9 @@
 ---
-titre: Flashcard Hoting & Cloud
+title: Quizz AWS Storage
 type: module
 jour: 26
 ordre: 3
-tags: infrastructure, stockage, cloud, devops, quiz
+tags: infrastructure, bdd, stockage, cloud, devops
 ---
 
 # 📘 **Cours : Comprendre les mécanismes de stockage AWS à travers un quiz**
@@ -390,5 +390,5 @@ La compétence DevOps/Cloud, c'est être capable de lire un besoin et d'y associ
 Ce quiz couvre exactement ces 5 dimensions.
 
 ---
-[← Module précédent](M26_quizz_aws_storage copy.md)
+[← Module précédent](M26_flashcard_aws_storage.md)
 ---

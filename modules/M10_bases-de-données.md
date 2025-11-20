@@ -1,5 +1,5 @@
 ---
-titre: Les bases de données
+title: Les bases de données
 type: module
 jour: 10
 ordre: 1

@@ -1,5 +1,5 @@
 ---
-titre: Scripting Bash
+title: Scripting Bash
 type: module
 jour: 02
 ordre: 1

@@ -1,5 +1,5 @@
 ---
-titre: Configuration réseaux
+title: Configuration réseaux
 type: module
 jour: 06
 ordre: 2

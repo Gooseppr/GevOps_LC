@@ -1,5 +1,5 @@
 ---
-titre: Git — Workflows collaboratifs et stratégies DevOps
+title: Git — Workflows collaboratifs et stratégies DevOps
 type: module
 jour: 03
 ordre: 3

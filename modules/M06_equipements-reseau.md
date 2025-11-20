@@ -1,5 +1,5 @@
 ---
-titre: Les équipements réseaux
+title: Les équipements réseaux
 type: module
 jour: 06
 ordre: 1

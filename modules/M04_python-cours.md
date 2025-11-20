@@ -1,5 +1,5 @@
 ---
-titre: Python — le cours Python
+title: Python — le cours Python
 type: module
 jour: 04
 ordre: 1
