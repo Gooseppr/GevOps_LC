@@ -1,5 +1,5 @@
 ---
-titre: Flashcard Hoting & Cloud
+titre: Quizz AWS Storage
 type: module
 jour: 26
 ordre: 3
@@ -402,5 +402,5 @@ Ce quiz couvre exactement ces 5 dimensions.
 ---
 
 ---
-[← Module précédent](M26_quizz_aws_storage copy.md)
+[← Module précédent](M26_Content-delivery-network.md) | [Module suivant →](M26_quizz_aws_storage.md)
 ---
