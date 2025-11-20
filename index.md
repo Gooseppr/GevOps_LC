@@ -28,6 +28,7 @@ title: Accueil
 - 👉 [Jour 25](jours/jour-25)
 - 👉 [Jour 26](jours/jour-26)
 - 👉 [Jour 27](jours/jour-27)
+- 👉 [Jour 28](jours/jour-28)
 
 
 ---
@@ -91,6 +92,7 @@ title: Accueil
 - Jour 27 / 01 : [M27_bdd_aws.md](modules/M27_bdd_aws.md)
 - Jour 27 / 02 : [M27_monitoring-elb-aws.md](modules/M27_monitoring-elb-aws.md)
 - Jour 27 / 03 : [M27_quiz-reponse.md](modules/M27_quiz-reponse.md)
+- Jour 28 / 01 : [M28_paas-serverless.md](modules/M28_paas-serverless.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)

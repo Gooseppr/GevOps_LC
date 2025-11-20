@@ -564,3 +564,7 @@ Ce set de quizz mélange trois compétences que tu dois maîtriser :
 ---
 [← Module précédent](M27_monitoring-elb-aws.md)
 ---
+
+---
+[← Module précédent](M27_monitoring-elb-aws.md)
+---
