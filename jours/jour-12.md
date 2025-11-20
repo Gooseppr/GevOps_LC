@@ -8,7 +8,6 @@ title: Jour 12
 - [M12_pratique-docker-compose.md](../modules/M12_pratique-docker-compose.md)
 
 ## Tags du jour
-- docker
 - docker compose
 - orchestration
 - yaml
