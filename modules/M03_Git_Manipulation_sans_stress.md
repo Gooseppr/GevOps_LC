@@ -3,7 +3,7 @@ titre: Git — manipulation sans stress
 type: module
 jour: 03
 ordre: 1
-tags: git, devops
+tags: git
 ---
 
 # 🧠 GIT — MANIPULATION SANS STRESS

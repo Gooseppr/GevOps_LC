@@ -3,7 +3,7 @@ titre: Automatiser avec cron
 type: module
 jour: 02
 ordre: 3
-tags: cron, bash, linux
+tags: cron, bash, linux, automatisation
 ---
 
 # Automatiser avec **cron** — comprendre & manipuler sans galérer
@@ -459,74 +459,6 @@ TZ=Europe/Paris
 - En cas de besoins avancés (précision, dépendances, DST), regarde les **timers systemd**.
 
 Avec ça, tu as tout pour automatiser proprement tes tâches récurrentes sur Linux.
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
-
----
-[← Module précédent](002_droits-linux.md)
----
 
 ---
 [← Module précédent](M02_droits-linux.md)

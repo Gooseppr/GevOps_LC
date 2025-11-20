@@ -12,8 +12,10 @@ title: Jour 02
 - [B01_bash-bdd-rel.md](../modules/B01_bash-bdd-rel.md)
 
 ## Tags collectés
+- automatisation
 - bash
 - cron
-- devops
+- droits
 - linux
-- security
+- permissions
+- scripting

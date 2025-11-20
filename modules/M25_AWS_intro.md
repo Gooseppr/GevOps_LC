@@ -325,13 +325,5 @@ Contrairement aux Users :
 | Root User | Accès illimité → sécuriser absolument. | Full-access root. |
 
 ---
-[Module suivant →](M25_AWS_Compute.md)
----
-
----
-[Module suivant →](M25_AWS_Compute.md)
----
-
----
 [← Module précédent](M25_AWS-Networking.md) | [Module suivant →](M25_AWS_Compute.md)
 ---

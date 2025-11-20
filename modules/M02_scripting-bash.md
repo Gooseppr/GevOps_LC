@@ -3,7 +3,7 @@ titre: Scripting Bash
 type: module
 jour: 02
 ordre: 1
-tags: bash, linux, devops
+tags: bash, linux, scripting
 ---
 
 # Cours — Scripting Bash
@@ -562,75 +562,6 @@ while (( compteur <= 3 )); do
 done
 
 ```
-
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
-
----
-[Module suivant →](002_droits-linux.md)
----
 
 ---
 [Module suivant →](M02_droits-linux.md)

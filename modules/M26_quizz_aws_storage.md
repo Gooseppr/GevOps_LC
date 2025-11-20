@@ -390,21 +390,5 @@ La compétence DevOps/Cloud, c'est être capable de lire un besoin et d'y associ
 Ce quiz couvre exactement ces 5 dimensions.
 
 ---
-[← Module précédent](M26_Content-delivery-network.md)
----
-
----
-[← Module précédent](M26_Content-delivery-network.md)
----
-
----
-[← Module précédent](M26_Content-delivery-network.md)
----
-
----
-[← Module précédent](M26_quizz_aws_storage copy.md)
----
-
----
 [← Module précédent](M26_quizz_aws_storage copy.md)
 ---

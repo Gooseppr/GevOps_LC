@@ -3,7 +3,7 @@ titre: Le Terminal (Bash)
 type: module
 jour: 01
 ordre: 2
-tags: bash, linux
+tags: bash, linux, cli
 ---
 
 # Le Terminal (Bash)
@@ -553,6 +553,10 @@ ss -tulpen | sort
 - **Tri/locale** : pour des tris ASCII rapides et prévisibles, `LC_ALL=C sort`.
 - **CSV compliqués** : `awk/sed` suffisent pour simple ; sinon `xsv`, `mlr`, `csvkit`.
 
+
+[← Module précédent](M01_vagrant-bases-utiles.md) | [Module suivant →](M01_sed-utilisation.md)
+
+[← Module précédent](M01_vagrant-bases-utiles.md) | [Module suivant →](M01_sed-utilisation.md)
 ---
 
 ---

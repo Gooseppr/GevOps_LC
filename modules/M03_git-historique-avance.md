@@ -362,9 +362,5 @@ git rebase --continue         # rebase/cherry-pick
 ```
 
 ---
-[← Module précédent](003_git-manipulation.md)
----
-
----
 [← Module précédent](M03_Git_Manipulation_avancee_historique.md) | [Module suivant →](M03_Git_Workflows_DevOps.md)
 ---

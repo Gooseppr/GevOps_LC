@@ -3,7 +3,7 @@ titre: Git — manipulation avancée de l’historique
 type: module
 jour: 03
 ordre: 2
-tags: git, devops, historique
+tags: git, historique
 ---
 
 # 🧠 GIT — MANIPULATION AVANCÉE DE L’HISTORIQUE

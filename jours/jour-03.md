@@ -11,7 +11,8 @@ title: Jour 03
 - [M03_Git_Workflows_DevOps.md](../modules/M03_Git_Workflows_DevOps.md)
 
 ## Tags collectés
-- cicd
+- cd
+- ci
 - devops
 - git
 - historique

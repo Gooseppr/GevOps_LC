@@ -3,7 +3,7 @@ titre: AWK
 type: module
 jour: 01
 ordre: 4
-tags: bash, linux, text-processing
+tags: awk, bash, linux, scripting
 ---
 
 # AWK
@@ -331,74 +331,6 @@ awk '{gsub(/,/, ".", $2); print $1,$2}' file
     awk -v s="$seuil" 'BEGIN{OFS=";"} $2>=s {print $1,$2}' notes.txt
     
     ```
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
-
----
-[← Module précédent](001_sed-utilisation.md)
----
 
 ---
 [← Module précédent](M01_sed-utilisation.md)

@@ -16,9 +16,7 @@ tags: git, devops
     Un mémo officiel des commandes de base est ici, très pratique à garder sous la main. [git-scm.com](https://git-scm.com/cheat-sheet?utm_source=chatgpt.com)
     
 
----
 
----
 
 ## 2) Configuration initiale d’une machine (une fois par machine)
 
@@ -433,75 +431,6 @@ git push origin --tags
 - Le **merge** intègre sans réécrire ; le **rebase** linéarise une branche **avant** publication.
 - **Revert** annule proprement un commit public ; **reflog** récupère les états perdus.
 - La consultation régulière de `git status` et `git log --oneline --graph` maintient une vision claire de la situation.
-
-
----
-[Module suivant →](003_git-historique-avance.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
-
----
-[Module suivant →](M03_Git_Manipulation_sans_stress.md)
----
 
 ---
 [← Module précédent](M03_Git_Manipulation_sans_stress.md) | [Module suivant →](M03_Git_Manipulation_avancee_historique.md)

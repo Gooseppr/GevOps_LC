@@ -3,7 +3,7 @@ titre: Git — Workflows collaboratifs et stratégies DevOps
 type: module
 jour: 03
 ordre: 3
-tags: git, devops, workflow, cicd
+tags: git, workflow, ci, cd
 ---
 
 # 🧩 GIT — WORKFLOWS COLLABORATIFS ET STRATÉGIES DEVOPS
@@ -207,70 +207,6 @@ Dans les **paramètres du dépôt GitLab** :
 
 🎉 **Félicitations !**  
 Tu sais maintenant choisir, adapter et appliquer un **workflow Git professionnel** parfaitement intégré à une approche DevOps.
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
-
----
-[← Module précédent](M03_Git_Manipulation_avancee_historique.md)
----
 
 ---
 [← Module précédent](M03_git-historique-avance.md)

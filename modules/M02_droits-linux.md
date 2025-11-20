@@ -3,7 +3,7 @@ titre: Gestion des droits sous Linux
 type: module
 jour: 02
 ordre: 2
-tags: linux, security
+tags: linux, bash, permissions, droits
 ---
 
 # Cours — Gestion des droits sous Linux

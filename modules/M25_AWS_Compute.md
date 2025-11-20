@@ -498,13 +498,5 @@ Donc **lift-and-shift** idéal : on déplace plus ou moins tel quel sur EC2.
 >
 
 ---
-[← Module précédent](M25_AWS_intro.md)
----
-
----
-[← Module précédent](M25_AWS_intro.md)
----
-
----
 [← Module précédent](M25_AWS_intro.md) | [Module suivant →](M25_AWS_reponse-quizz.md)
 ---

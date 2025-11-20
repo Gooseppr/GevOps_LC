@@ -305,9 +305,5 @@ Ainsi, le trafic reste **fluide et sans interruption**.
 4. Et le tout garantit une **disponibilité proche de 99.99 %**.
 
 ---
-[← Module précédent](M27_bdd_aws.md)
----
-
----
 [← Module précédent](M27_bdd_aws.md) | [Module suivant →](M27_quiz-reponse.md)
 ---

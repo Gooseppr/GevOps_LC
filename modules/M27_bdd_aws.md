@@ -315,19 +315,3 @@ aws rds create-db-instance \
 ---
 [Module suivant →](M27_monitoring-elb-aws.md)
 ---
-
----
-[Module suivant →](M27_monitoring-elb-aws.md)
----
-
----
-[Module suivant →](M27_monitoring-elb-aws.md)
----
-
----
-[Module suivant →](M27_monitoring-elb-aws.md)
----
-
----
-[Module suivant →](M27_monitoring-elb-aws.md)
----
