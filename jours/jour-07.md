@@ -4,5 +4,10 @@ title: Jour 07
 ---
 
 ## Modules du jour
-- [007_IP-ports-protocole.md](../modules/007_IP-ports-protocole.md)
-- [007_observation-reseau.md](../modules/007_observation-reseau.md)
+- [M07_IP-ports-protocole.md](../modules/M07_IP-ports-protocole.md)
+- [M07_observation-reseau.md](../modules/M07_observation-reseau.md)
+
+## Tags collectés
+- linux
+- network
+- security

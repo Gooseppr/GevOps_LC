@@ -317,3 +317,7 @@ vagrant resume                   # relance une VM suspendue
 ---
 [Module suivant →](001_vagrant-bases-utiles.md)
 ---
+
+---
+[Module suivant →](M01_vagrant-bases-utiles.md)
+---

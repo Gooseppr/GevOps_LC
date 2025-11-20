@@ -295,3 +295,7 @@ Exemples rapides :
 ---
 [Module suivant →](007_observation-reseau.md)
 ---
+
+---
+[Module suivant →](M07_observation-reseau.md)
+---

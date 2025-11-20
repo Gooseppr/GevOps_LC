@@ -10,3 +10,12 @@ title: Jour 25
 - [M25_AWS_reponse-quizz.md](../modules/M25_AWS_reponse-quizz.md)
 - [M25_Google_GCE.md](../modules/M25_Google_GCE.md)
 - [M25_Azure-VM.md](../modules/M25_Azure-VM.md)
+
+## Tags collectés
+- aws
+- azure
+- cloud
+- devops
+- gce
+- google
+- microsoft

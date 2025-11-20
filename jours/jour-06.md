@@ -4,5 +4,10 @@ title: Jour 06
 ---
 
 ## Modules du jour
-- [006_equipements-reseau.md](../modules/006_equipements-reseau.md)
-- [006_configuration-reseau.md](../modules/006_configuration-reseau.md)
+- [M06_equipements-reseau.md](../modules/M06_equipements-reseau.md)
+- [M06_configuration-reseau.md](../modules/M06_configuration-reseau.md)
+
+## Tags collectés
+- devops
+- linux
+- network

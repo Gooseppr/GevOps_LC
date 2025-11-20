@@ -648,3 +648,7 @@ Phrase à retenir :
 ---
 [← Module précédent](012_docker-compose.md)
 ---
+
+---
+[← Module précédent](M12_docker-compose.md)
+---

@@ -4,9 +4,16 @@ title: Jour 02
 ---
 
 ## Modules du jour
-- [002_scripting-bash.md](../modules/002_scripting-bash.md)
-- [002_droits-linux.md](../modules/002_droits-linux.md)
-- [002_cron-automatisation.md](../modules/002_cron-automatisation.md)
+- [M02_scripting-bash.md](../modules/M02_scripting-bash.md)
+- [M02_droits-linux.md](../modules/M02_droits-linux.md)
+- [M02_cron-automatisation.md](../modules/M02_cron-automatisation.md)
 
 ## Bonus
 - [B01_bash-bdd-rel.md](../modules/B01_bash-bdd-rel.md)
+
+## Tags collectés
+- bash
+- cron
+- devops
+- linux
+- security

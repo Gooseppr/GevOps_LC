@@ -868,3 +868,7 @@ Si tu maîtrises ça, tu sais déjà faire ce que la plupart des boîtes attende
 ---
 [Module suivant →](012_pratique-docker-compose.md)
 ---
+
+---
+[Module suivant →](M12_pratique-docker-compose.md)
+---

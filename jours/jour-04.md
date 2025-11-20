@@ -4,4 +4,8 @@ title: Jour 04
 ---
 
 ## Modules du jour
-- [004_python-cours.md](../modules/004_python-cours.md)
+- [M04_python-cours.md](../modules/M04_python-cours.md)
+
+## Tags collectés
+- devops
+- python

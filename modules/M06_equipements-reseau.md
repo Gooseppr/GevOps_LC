@@ -371,3 +371,7 @@ Chaque rôle est séparé et maîtrisé :
 ---
 [Module suivant →](006_configuration-reseau.md)
 ---
+
+---
+[Module suivant →](M06_configuration-reseau.md)
+---

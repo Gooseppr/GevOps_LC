@@ -7,3 +7,13 @@ title: Jour 27
 - [M27_bdd_aws.md](../modules/M27_bdd_aws.md)
 - [M27_monitoring-elb-aws.md](../modules/M27_monitoring-elb-aws.md)
 - [M27_quiz-reponse.md](../modules/M27_quiz-reponse.md)
+
+## Tags collectés
+- 
+- aws
+- bdd
+- cloud
+- devops
+- infrastructure
+- monitoring
+- stockage

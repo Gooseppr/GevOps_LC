@@ -307,5 +307,5 @@ sed -i.bak 's/http:/https:/g' f
 ```
 
 ---
-[← Module précédent](001_terminal-bash.md) | [Module suivant →](001_awk-utilisation.md)
+[← Module précédent](M01_terminal-bash.md) | [Module suivant →](M01_awk-utilisation.md)
 ---

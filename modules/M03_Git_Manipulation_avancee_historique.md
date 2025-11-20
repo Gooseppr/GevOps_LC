@@ -310,5 +310,5 @@ Tu sais maintenant :
 Tu maîtrises désormais les **outils avancés de Git** pour garder ton historique sous contrôle et collaborer efficacement dans un contexte DevOps.
 
 ---
-[← Module précédent](003_git-historique-avance.md) | [Module suivant →](M03_Git_Workflows_DevOps.md)
+[← Module précédent](M03_git-manipulation.md) | [Module suivant →](M03_git-historique-avance.md)
 ---

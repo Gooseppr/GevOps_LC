@@ -8,3 +8,8 @@ title: Jour 13
 
 ## Bonus
 - [B02_kubernetes-cmd.md](../modules/B02_kubernetes-cmd.md)
+
+## Tags collectés
+- bash
+- kubernetes
+- linux

@@ -197,5 +197,5 @@ La sécurité informatique repose sur trois piliers :
 > Un excellent DevSecOps détecte, corrige et automatise la défense.
 
 ---
-[← Module précédent](008_serveur-SSH.md) | [Module suivant →](008_pratique-SSH-NGINX.md)
+[← Module précédent](M08_serveur-SSH.md) | [Module suivant →](M08_pratique-SSH-NGINX.md)
 ---

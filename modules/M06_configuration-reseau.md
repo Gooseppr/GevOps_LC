@@ -515,3 +515,7 @@ ping -c 2 google.com              # DNS ok
 ---
 [← Module précédent](006_equipements-reseau.md)
 ---
+
+---
+[← Module précédent](M06_equipements-reseau.md)
+---

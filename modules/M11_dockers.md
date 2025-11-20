@@ -331,5 +331,5 @@ Il garantit :
 >
 
 ---
-[← Module précédent](011_Virtualisation.md) | [Module suivant →](011_dockers_pratique.md)
+[← Module précédent](M11_Virtualisation.md) | [Module suivant →](M11_dockers_pratique.md)
 ---

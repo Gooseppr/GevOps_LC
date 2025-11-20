@@ -176,5 +176,5 @@ vagrant global-status --prune
 | 5️⃣ | `code --remote ssh-remote+backend` | Ouvre VS Code connecté à la VM |
 
 ---
-[← Module précédent](001_vagrant-bases-utiles-2025.md) | [Module suivant →](001_terminal-bash.md)
+[← Module précédent](M01_vagrant-bases-utiles-2025.md) | [Module suivant →](M01_terminal-bash.md)
 ---

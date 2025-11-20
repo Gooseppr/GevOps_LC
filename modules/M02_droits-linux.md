@@ -412,5 +412,5 @@ find / -type f -perm -4000 2>/dev/null
 ```
 
 ---
-[← Module précédent](002_scripting-bash.md) | [Module suivant →](002_cron-automatisation.md)
+[← Module précédent](M02_scripting-bash.md) | [Module suivant →](M02_cron-automatisation.md)
 ---

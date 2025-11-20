@@ -404,3 +404,7 @@ Ce quiz couvre exactement ces 5 dimensions.
 ---
 [← Module précédent](M26_quizz_aws_storage copy.md)
 ---
+
+---
+[← Module précédent](M26_quizz_aws_storage copy.md)
+---

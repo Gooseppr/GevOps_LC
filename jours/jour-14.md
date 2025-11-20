@@ -8,3 +8,7 @@ title: Jour 14
 
 ## Bonus
 - [B02_kubernetes-cmd.md](../modules/B02_kubernetes-cmd.md)
+
+## Tags collectés
+- kubernetes
+- yaml

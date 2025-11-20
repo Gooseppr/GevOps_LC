@@ -8,3 +8,9 @@ title: Jour 15
 
 ## Bonus
 - [B02_kubernetes-cmd.md](../modules/B02_kubernetes-cmd.md)
+
+## Tags collectés
+- bash
+- helm
+- kubernetes
+- linux

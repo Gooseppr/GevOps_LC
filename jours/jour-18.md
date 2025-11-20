@@ -8,3 +8,10 @@ title: Jour 18
 - [M18_Cours_GitLab_Runner.md](../modules/M18_Cours_GitLab_Runner.md)
 - [M18_azure_devops.md](../modules/M18_azure_devops.md)
 - [M18_flake8.md](../modules/M18_flake8.md)
+
+## Tags collectés
+- ci
+- devops
+- flake8
+- gitlab
+- yaml
