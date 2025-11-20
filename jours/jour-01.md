@@ -9,7 +9,7 @@ title: Jour 01
 - [M01_sed-utilisation.md](../modules/M01_sed-utilisation.md)
 - [M01_awk-utilisation.md](../modules/M01_awk-utilisation.md)
 
-## Tags collectés
+## Tags du jour
 - awk
 - bash
 - cli

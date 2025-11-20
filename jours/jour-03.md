@@ -10,7 +10,7 @@ title: Jour 03
 - [M03_git-historique-avance.md](../modules/M03_git-historique-avance.md)
 - [M03_Git_Workflows_DevOps.md](../modules/M03_Git_Workflows_DevOps.md)
 
-## Tags collectés
+## Tags du jour
 - cd
 - ci
 - devops

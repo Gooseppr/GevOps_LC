@@ -7,5 +7,5 @@ title: Jour 12
 - [M12_docker-compose.md](../modules/M12_docker-compose.md)
 - [M12_pratique-docker-compose.md](../modules/M12_pratique-docker-compose.md)
 
-## Tags collectés
+## Tags du jour
 - docker

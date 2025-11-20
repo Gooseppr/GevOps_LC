@@ -7,7 +7,7 @@ title: Jour 20
 - [M20_Cours-CD-Approfondi.md](../modules/M20_Cours-CD-Approfondi.md)
 - [M20_eslint.md](../modules/M20_eslint.md)
 
-## Tags collectés
+## Tags du jour
 - cd
 - devops
 - eslint

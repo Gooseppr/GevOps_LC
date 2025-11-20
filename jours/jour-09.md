@@ -7,7 +7,7 @@ title: Jour 09
 - [M09_backend-API.md](../modules/M09_backend-API.md)
 - [M09_pratique-framework.md](../modules/M09_pratique-framework.md)
 
-## Tags collectés
+## Tags du jour
 - api
 - devops
 - nodejs

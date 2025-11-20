@@ -7,7 +7,7 @@ title: Jour 07
 - [M07_IP-ports-protocole.md](../modules/M07_IP-ports-protocole.md)
 - [M07_observation-reseau.md](../modules/M07_observation-reseau.md)
 
-## Tags collectés
+## Tags du jour
 - linux
 - network
 - security

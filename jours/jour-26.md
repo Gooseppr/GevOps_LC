@@ -9,7 +9,7 @@ title: Jour 26
 - [M26_quizz_aws_storage copy.md](../modules/M26_quizz_aws_storage copy.md)
 - [M26_quizz_aws_storage.md](../modules/M26_quizz_aws_storage.md)
 
-## Tags collectés
+## Tags du jour
 - aws
 - cloud
 - devops

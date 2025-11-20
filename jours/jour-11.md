@@ -8,7 +8,7 @@ title: Jour 11
 - [M11_dockers.md](../modules/M11_dockers.md)
 - [M11_dockers_pratique.md](../modules/M11_dockers_pratique.md)
 
-## Tags collectés
+## Tags du jour
 - devops
 - docker
 - linux

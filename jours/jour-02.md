@@ -11,7 +11,7 @@ title: Jour 02
 ## Bonus
 - [B01_bash-bdd-rel.md](../modules/B01_bash-bdd-rel.md)
 
-## Tags collectés
+## Tags du jour
 - automatisation
 - bash
 - cron

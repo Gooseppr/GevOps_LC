@@ -7,7 +7,7 @@ title: Jour 06
 - [M06_equipements-reseau.md](../modules/M06_equipements-reseau.md)
 - [M06_configuration-reseau.md](../modules/M06_configuration-reseau.md)
 
-## Tags collectés
+## Tags du jour
 - devops
 - linux
 - network

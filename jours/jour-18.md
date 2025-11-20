@@ -9,7 +9,7 @@ title: Jour 18
 - [M18_azure_devops.md](../modules/M18_azure_devops.md)
 - [M18_flake8.md](../modules/M18_flake8.md)
 
-## Tags collectés
+## Tags du jour
 - ci
 - devops
 - flake8

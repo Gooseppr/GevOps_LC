@@ -8,7 +8,7 @@ title: Jour 08
 - [M08_securite.md](../modules/M08_securite.md)
 - [M08_pratique-SSH-NGINX.md](../modules/M08_pratique-SSH-NGINX.md)
 
-## Tags collectés
+## Tags du jour
 - devops
 - linux
 - network

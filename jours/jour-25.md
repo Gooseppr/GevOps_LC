@@ -11,7 +11,7 @@ title: Jour 25
 - [M25_Google_GCE.md](../modules/M25_Google_GCE.md)
 - [M25_Azure-VM.md](../modules/M25_Azure-VM.md)
 
-## Tags collectés
+## Tags du jour
 - aws
 - azure
 - cloud
