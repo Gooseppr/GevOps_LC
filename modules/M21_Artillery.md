@@ -1,5 +1,6 @@
 ---
 title: Test de montée en charge - Locust & Artillery
+sujet: Déploiement Continu (CD), Versionning, Intégration continue (CI)
 type: module
 jour: 21
 ordre: 2

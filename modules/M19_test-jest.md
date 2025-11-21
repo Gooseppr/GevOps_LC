@@ -1,5 +1,6 @@
 ---
 title: Framework de test Jest
+sujet: Intégration continue (CI)
 type: module
 jour: 19
 ordre: 2

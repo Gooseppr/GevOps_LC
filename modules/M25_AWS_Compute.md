@@ -1,5 +1,6 @@
 ---
 title: AWS Compute
+sujet: Déploiement Continu (CD)
 type: module
 jour: 25
 ordre: 2

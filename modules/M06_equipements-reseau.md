@@ -1,5 +1,6 @@
 ---
 title: Les équipements réseaux
+sujet: Réseaux
 type: module
 jour: 06
 ordre: 1

@@ -1,5 +1,6 @@
 ---
 title: Framework de test Cypress
+sujet: Intégration continue (CI)
 type: module
 jour: 19
 ordre: 1

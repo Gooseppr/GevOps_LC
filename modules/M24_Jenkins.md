@@ -1,5 +1,6 @@
 ---
 title: Sécurité des pipelines
+sujet: Intégration continue (CI)
 type: module
 jour: 24
 ordre: 1

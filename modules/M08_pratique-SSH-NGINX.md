@@ -1,5 +1,6 @@
 ---
 title: Pratique - SSH et NGINX
+sujet: Administration, Sécurité
 type: module
 jour: 08
 ordre: 3

@@ -1,5 +1,6 @@
 ---
 title: Les bases de données
+sujet: Bases de données
 type: module
 jour: 10
 ordre: 1

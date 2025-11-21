@@ -1,5 +1,6 @@
 ---
 title: Bases de données AWS
+sujet: Hosting & Cloud
 type: module
 jour: 27
 ordre: 1

@@ -1,5 +1,6 @@
 ---
 title: Intégration continue
+sujet: Intégration continue (CI)
 type: module
 jour: 18
 ordre: 1

@@ -1,5 +1,6 @@
 ---
 title: Scripting Bash
+sujet: Terminal & Scripting
 type: module
 jour: 02
 ordre: 1

@@ -1,5 +1,6 @@
 ---
 title: Git — Workflows collaboratifs et stratégies DevOps
+sujet: Versionning
 type: module
 jour: 03
 ordre: 3

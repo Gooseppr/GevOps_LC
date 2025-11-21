@@ -1,5 +1,6 @@
 ---
 title: AWS Monitoring, Load Balancing & Scaling
+sujet: Hosting & Cloud
 type: module
 jour: 27
 ordre: 2

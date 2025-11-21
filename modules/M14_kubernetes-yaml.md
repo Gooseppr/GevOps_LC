@@ -1,5 +1,6 @@
 ---
 title: Kubernetes avancés
+sujet: Orchestration
 type: module
 jour: 14
 ordre: 1

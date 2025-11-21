@@ -1,5 +1,6 @@
 ---
 title: Python — le cours Python
+sujet: Python
 type: module
 jour: 04
 ordre: 1

@@ -1,5 +1,6 @@
 ---
 title: Sécurité des pipelines
+sujet: Déploiement Continu (CD)
 type: module
 jour: 23
 ordre: 1

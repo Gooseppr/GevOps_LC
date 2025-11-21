@@ -1,5 +1,6 @@
 ---
 title: Mise en place & observation réseau
+sujet: Réseaux
 type: module
 jour: 07
 ordre: 2

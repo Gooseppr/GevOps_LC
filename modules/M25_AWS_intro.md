@@ -1,5 +1,6 @@
 ---
 title: AWS - Introduction
+sujet: Déploiement Continu (CD)
 type: module
 jour: 25
 ordre: 1

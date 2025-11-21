@@ -1,5 +1,6 @@
 ---
 title: AWS - Réponse Quiz
+sujet: Déploiement Continu (CD)
 type: module
 jour: 25
 ordre: 4

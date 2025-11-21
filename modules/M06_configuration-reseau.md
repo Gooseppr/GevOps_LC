@@ -1,5 +1,6 @@
 ---
 title: Configuration réseaux
+sujet: Réseaux
 type: module
 jour: 06
 ordre: 2

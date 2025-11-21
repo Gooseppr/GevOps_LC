@@ -1,5 +1,6 @@
 ---
 title: Déploiement continu
+sujet: Déploiement Continu (CD)
 type: module
 jour: 20
 ordre: 1

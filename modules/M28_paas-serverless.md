@@ -1,5 +1,6 @@
 ---
 title: PaaS & Serverless
+sujet: Hosting & Cloud
 type: module
 jour: 28
 ordre: 1

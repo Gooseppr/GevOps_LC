@@ -1,5 +1,6 @@
 ---
 title: Hackathon 21/11/2025
+sujet: Cloud publique, Hosting & Cloud
 type: module
 jour: 29
 ordre: 1

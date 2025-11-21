@@ -1,5 +1,6 @@
 ---
 title: Automatiser avec cron
+sujet: Terminal & Scripting
 type: module
 jour: 02
 ordre: 3
