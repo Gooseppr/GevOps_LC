@@ -96,6 +96,7 @@ title: Accueil
 - Jour 27 / 02 : [M27_monitoring-elb-aws.md](modules/M27_monitoring-elb-aws.md)
 - Jour 27 / 03 : [M27_quiz-reponse.md](modules/M27_quiz-reponse.md)
 - Jour 28 / 01 : [M28_paas-serverless.md](modules/M28_paas-serverless.md)
+- Jour 28 / 02 : [M28_apachebench.md](modules/M28_apachebench.md)
 - Jour 29 / 01 : [M29_hackathon.md](modules/M29_hackathon.md)
 
 ## Pipeline
