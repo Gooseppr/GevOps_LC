@@ -476,6 +476,14 @@ sudo systemctl reload apache2
 
 ```
 
+### Activer le site
+
+```bash
+sudo a2ensite proxy-node.conf
+sudo systemctl reload apache2
+
+```
+
 Ce que ça donne en pratique :
 
 - Le client demande `http://monapp.local/users`.
@@ -543,6 +551,9 @@ sudo nginx -t
 sudo systemctl reload nginx
 # ou
 sudo nginx -s reload
+
+# Nommer les page à servir
+sudo nano /etc/nginx/sites-available/default
 
 ```
 
@@ -793,3 +804,7 @@ Objectif : comprendre **où** se place la gestion des certificats dans ton infra
     - ont des systèmes de fichiers de configuration organisés (sites, modules, logs).
 - D’autres reverse proxies existent pour des contextes spécifiques (Docker/K8s, haute dispo, microservices).
 - Les **certificats TLS** et HTTPS sont souvent gérés au niveau du reverse proxy, qui agit comme point d’entrée unique sécurisé.
+
+---
+[Module suivant →](M31_serveur-web copy.md)
+---

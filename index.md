@@ -100,6 +100,7 @@ title: Accueil
 - Jour 29 / 01 : [M29_paas-serverless.md](modules/M29_paas-serverless.md)
 - Jour 30 / 01 : [M30_hackathon.md](modules/M30_hackathon.md)
 - Jour 31 / 01 : [M31_serveur-web.md](modules/M31_serveur-web.md)
+- Jour 31 / 02 : [M31_serveur-web copy.md](modules/M31_serveur-web copy.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
