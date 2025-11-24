@@ -31,6 +31,7 @@ title: Accueil
 - 👉 [Jour 28](jours/jour-28)
 - 👉 [Jour 29](jours/jour-29)
 - 👉 [Jour 30](jours/jour-30)
+- 👉 [Jour 31](jours/jour-31)
 
 
 ---
@@ -98,7 +99,7 @@ title: Accueil
 - Jour 28 / 03 : [M28_quiz-reponse.md](modules/M28_quiz-reponse.md)
 - Jour 29 / 01 : [M29_paas-serverless.md](modules/M29_paas-serverless.md)
 - Jour 30 / 01 : [M30_hackathon.md](modules/M30_hackathon.md)
--  : [M31_serveur-web.md](modules/M31_serveur-web.md)
+- Jour 31 / 01 : [M31_serveur-web.md](modules/M31_serveur-web.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
