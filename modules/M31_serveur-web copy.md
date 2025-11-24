@@ -215,6 +215,8 @@ docker network connect webnet nginx2
 
 ```
 
+Il faut créer un réseau Docker car depuis le conteneur HAProxy il vaut mieux parler directement aux conteneurs nginx plutôt qu’aux ports 8081/8082 de l’host.
+
 ### 4️⃣ Config HAProxy
 
 `nano ~/haproxy.cfg` :
@@ -240,7 +242,12 @@ backend nginx-backend
     server s1 nginx1:80 check
     server s2 nginx2:80 check
 
+
 ```
+
+- Sur Docker Desktop (Windows/macOS), host.docker.internal existe.
+- Sur la VM Ubuntu/EC2, ce hostname n’existe pas → HAProxy n’arrive pas à résoudre l’adresse → il crashe
+- On cible directement les conteneurs nginx1 et nginx2 sur leur port interne 80 (pas 8081/8082, ça c’est pour l’extérieur).
 
 ### 5️⃣ Lancer HAProxy
 
