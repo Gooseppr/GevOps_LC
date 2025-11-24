@@ -2,7 +2,7 @@
 title: AWS Compute
 sujet: Déploiement Continu (CD)
 type: module
-jour: 25
+jour: 26
 ordre: 2
 tags: aws, cloud, devops
 ---
@@ -499,5 +499,5 @@ Donc **lift-and-shift** idéal : on déplace plus ou moins tel quel sur EC2.
 >
 
 ---
-[← Module précédent](M25_AWS_intro.md) | [Module suivant →](M25_AWS_reponse-quizz.md)
+[← Module précédent](M26_AWS_intro.md) | [Module suivant →](M26_AWS_reponse-quizz.md)
 ---

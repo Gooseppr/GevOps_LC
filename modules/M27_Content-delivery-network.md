@@ -2,7 +2,7 @@
 title: Content Delivery Network
 sujet: Hosting & Cloud
 type: module
-jour: 26
+jour: 27
 ordre: 2
 tags: infrastructure, cdn, stockage, cloud, devops
 ---
@@ -287,5 +287,5 @@ Un CDN est une **brique essentielle** dans une architecture moderne :
 C’est pourquoi tous les grands acteurs (Netflix, Amazon, YouTube, Twitch, Shopify…) reposent sur des CDN mondiaux.
 
 ---
-[← Module précédent](M26_aws-storage.md) | [Module suivant →](M26_flashcard_aws_storage.md)
+[← Module précédent](M27_aws-storage.md) | [Module suivant →](M27_flashcard_aws_storage.md)
 ---

@@ -2,7 +2,7 @@
 title: AWS Monitoring, Load Balancing & Scaling
 sujet: Hosting & Cloud
 type: module
-jour: 27
+jour: 28
 ordre: 2
 tags: aws, monitoring, load balancing, scaling, cloud, devops
 ---
@@ -306,5 +306,5 @@ Ainsi, le trafic reste **fluide et sans interruption**.
 4. Et le tout garantit une **disponibilité proche de 99.99 %**.
 
 ---
-[← Module précédent](M27_bdd_aws.md) | [Module suivant →](M27_quiz-reponse.md)
+[← Module précédent](M28_bdd_aws.md) | [Module suivant →](M29_apachebench.md)
 ---

@@ -4,14 +4,19 @@ title: Jour 28
 ---
 
 ## Modules du jour
-- [M28_paas-serverless.md](../modules/M28_paas-serverless.md)
-- [M28_apachebench.md](../modules/M28_apachebench.md)
+- [M28_bdd_aws.md](../modules/M28_bdd_aws.md)
+- [M28_monitoring-elb-aws.md](../modules/M28_monitoring-elb-aws.md)
+- [M29_apachebench.md](../modules/M29_apachebench.md)
+- [M28_quiz-reponse.md](../modules/M28_quiz-reponse.md)
 
 ## Tags du jour
+- 
 - aws
-- cd
-- charge
-- ci
+- bdd
+- cloud
 - devops
-- paas
-- test
+- infrastructure
+- load balancing
+- monitoring
+- scaling
+- stockage

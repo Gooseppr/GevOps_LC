@@ -2,7 +2,7 @@
 title: AWS Monitoring, Load Blancing & Scaling
 sujet: Hosting & Cloud
 type: module
-jour: 27
+jour: 28
 ordre: 3
 tags: aws, bdd, monitoring, cloud, devops
 ---
@@ -563,5 +563,5 @@ Ce set de quizz mélange trois compétences que tu dois maîtriser :
     - bonnes pratiques de coûts.
 
 ---
-[← Module précédent](M27_monitoring-elb-aws.md)
+[← Module précédent](M29_apachebench.md)
 ---

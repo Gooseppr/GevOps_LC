@@ -2,7 +2,7 @@
 title: Bases de données AWS
 sujet: Hosting & Cloud
 type: module
-jour: 27
+jour: 28
 ordre: 1
 tags: bdd, infrastructure, stockage, cloud, devops,
 ---
@@ -314,5 +314,5 @@ aws rds create-db-instance \
 - Découvre **Aurora Serverless** (mise à l’échelle automatique des ressources de base relationnelle).
 
 ---
-[Module suivant →](M27_monitoring-elb-aws.md)
+[Module suivant →](M28_monitoring-elb-aws.md)
 ---

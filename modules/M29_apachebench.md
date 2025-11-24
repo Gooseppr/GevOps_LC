@@ -241,5 +241,5 @@ Mais ❗ **pas suffisant pour simuler des utilisateurs réels**.
 Il est parfait **pour établir des bases de performance, comparer des optimisations et tester des API statiques**.
 
 ---
-[← Module précédent](M28_paas-serverless.md)
+[← Module précédent](M28_monitoring-elb-aws.md) | [Module suivant →](M28_quiz-reponse.md)
 ---

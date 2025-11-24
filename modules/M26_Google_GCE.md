@@ -2,7 +2,7 @@
 title: Google Compute Engine
 sujet: Déploiement Continu (CD)
 type: module
-jour: 25
+jour: 26
 ordre: 5
 tags: google, gce, cloud, devops
 ---
@@ -359,5 +359,5 @@ Savoir maîtriser GCE, c’est aussi comprendre :
 - Automatisation gcloud et Terraform
 
 ---
-[← Module précédent](M25_AWS_reponse-quizz.md) | [Module suivant →](M25_Azure-VM.md)
+[← Module précédent](M26_AWS_reponse-quizz.md) | [Module suivant →](M26_Azure-VM.md)
 ---

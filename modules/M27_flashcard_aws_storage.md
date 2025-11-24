@@ -2,7 +2,7 @@
 title: Flashcard Hoting & Cloud
 sujet: Hosting & Cloud
 type: module
-jour: 26
+jour: 27
 ordre: 3
 tags: infrastructure, stockage, cloud, devops, quiz
 ---
@@ -391,5 +391,5 @@ La compétence DevOps/Cloud, c'est être capable de lire un besoin et d'y associ
 Ce quiz couvre exactement ces 5 dimensions.
 
 ---
-[← Module précédent](M26_Content-delivery-network.md) | [Module suivant →](M26_quizz_aws_storage.md)
+[← Module précédent](M27_Content-delivery-network.md) | [Module suivant →](M27_quizz_aws_storage.md)
 ---

@@ -4,11 +4,13 @@ title: Jour 29
 ---
 
 ## Modules du jour
-- [M29_hackathon.md](../modules/M29_hackathon.md)
+- [M29_paas-serverless.md](../modules/M29_paas-serverless.md)
 
 ## Tags du jour
 - aws
-- cloud provider
-- gce
-- mongodb
-- node.js
+- cd
+- charge
+- ci
+- devops
+- paas
+- test

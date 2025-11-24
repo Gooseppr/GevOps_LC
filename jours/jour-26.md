@@ -4,17 +4,18 @@ title: Jour 26
 ---
 
 ## Modules du jour
-- [M26_aws-storage.md](../modules/M26_aws-storage.md)
-- [M26_Content-delivery-network.md](../modules/M26_Content-delivery-network.md)
-- [M26_flashcard_aws_storage.md](../modules/M26_flashcard_aws_storage.md)
-- [M26_quizz_aws_storage.md](../modules/M26_quizz_aws_storage.md)
+- [M26_AWS-Networking.md](../modules/M26_AWS-Networking.md)
+- [M26_AWS_intro.md](../modules/M26_AWS_intro.md)
+- [M26_AWS_Compute.md](../modules/M26_AWS_Compute.md)
+- [M26_AWS_reponse-quizz.md](../modules/M26_AWS_reponse-quizz.md)
+- [M26_Google_GCE.md](../modules/M26_Google_GCE.md)
+- [M26_Azure-VM.md](../modules/M26_Azure-VM.md)
 
 ## Tags du jour
 - aws
-- bdd
-- cdn
+- azure
 - cloud
 - devops
-- infrastructure
-- quiz
-- stockage
+- gce
+- google
+- microsoft

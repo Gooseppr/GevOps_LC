@@ -2,7 +2,7 @@
 title: Azure Virtual Machine
 sujet: Déploiement Continu (CD)
 type: module
-jour: 25
+jour: 26
 ordre: 6
 tags: microsoft, azure, cloud, devops
 ---
@@ -406,5 +406,5 @@ Pour un DevOps, Azure VM sert à :
 - Exécuter des workloads GPU IA
 
 ---
-[← Module précédent](M25_Google_GCE.md)
+[← Module précédent](M26_Google_GCE.md)
 ---

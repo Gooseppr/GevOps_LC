@@ -2,7 +2,7 @@
 title: AWS - Réponse Quiz
 sujet: Déploiement Continu (CD)
 type: module
-jour: 25
+jour: 26
 ordre: 4
 tags: aws, cloud, devops
 ---
@@ -664,5 +664,5 @@ Pour choisir un provider on regarde :
 | Q19 Pay-as-you-go | 4.6 (payer en fonction de la consommation) |
 
 ---
-[← Module précédent](M25_AWS_Compute.md) | [Module suivant →](M25_Google_GCE.md)
+[← Module précédent](M26_AWS_Compute.md) | [Module suivant →](M26_Google_GCE.md)
 ---

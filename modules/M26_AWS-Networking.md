@@ -2,7 +2,7 @@
 title: AWS - Introduction
 sujet: Déploiement Continu (CD)
 type: module
-jour: 25
+jour: 26
 ordre: 1
 tags: aws, cloud, devops
 ---
@@ -401,5 +401,5 @@ Un **Security Group (SG)** est un pare-feu **stateful** appliqué à une instanc
 >
 
 ---
-[Module suivant →](M25_AWS_intro.md)
+[Module suivant →](M26_AWS_intro.md)
 ---

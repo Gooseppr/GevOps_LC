@@ -2,7 +2,7 @@
 title: Quizz AWS Storage
 sujet: Hosting & Cloud
 type: module
-jour: 26
+jour: 27
 ordre: 3
 tags: infrastructure, bdd, stockage, cloud, devops
 ---
@@ -391,5 +391,5 @@ La compétence DevOps/Cloud, c'est être capable de lire un besoin et d'y associ
 Ce quiz couvre exactement ces 5 dimensions.
 
 ---
-[← Module précédent](M26_flashcard_aws_storage.md)
+[← Module précédent](M27_flashcard_aws_storage.md)
 ---

@@ -2,7 +2,7 @@
 title: Hackathon 21/11/2025
 sujet: Cloud publique, Hosting & Cloud
 type: module
-jour: 29
+jour: 30
 ordre: 1
 tags: aws, gce, mongodb, cloud provider, node.js
 ---

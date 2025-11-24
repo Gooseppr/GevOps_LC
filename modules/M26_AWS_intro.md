@@ -2,7 +2,7 @@
 title: AWS - Introduction
 sujet: Déploiement Continu (CD)
 type: module
-jour: 25
+jour: 26
 ordre: 1
 tags: aws, cloud, devops
 ---
@@ -326,5 +326,5 @@ Contrairement aux Users :
 | Root User | Accès illimité → sécuriser absolument. | Full-access root. |
 
 ---
-[← Module précédent](M25_AWS-Networking.md) | [Module suivant →](M25_AWS_Compute.md)
+[← Module précédent](M26_AWS-Networking.md) | [Module suivant →](M26_AWS_Compute.md)
 ---

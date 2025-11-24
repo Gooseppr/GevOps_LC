@@ -2,7 +2,7 @@
 title: Amazon Storage
 sujet: Hosting & Cloud
 type: module
-jour: 26
+jour: 27
 ordre: 1
 tags: aws, stockage, cloud, devops
 ---
@@ -361,5 +361,5 @@ Il couvre :
 ![Schéma](../images/recap_aws-storage.png)
 
 ---
-[Module suivant →](M26_Content-delivery-network.md)
+[Module suivant →](M27_Content-delivery-network.md)
 ---

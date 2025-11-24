@@ -2,7 +2,7 @@
 title: PaaS & Serverless
 sujet: Hosting & Cloud
 type: module
-jour: 28
+jour: 29
 ordre: 1
 tags: aws, paas, ci, cd, devops
 ---
@@ -226,7 +226,3 @@ Ces deux modèles simplifient :
 - la scalabilité,
 - les coûts,
 - la maintenance.
-
----
-[Module suivant →](M28_apachebench.md)
----
