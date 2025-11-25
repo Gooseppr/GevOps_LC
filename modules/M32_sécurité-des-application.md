@@ -4,7 +4,7 @@ sujet: Cloud publique, Hosting & Cloud
 type: module
 jour: 32
 ordre: 1
-tags: api gateway, sécurité, devops, asciinema, bastion, kong, ssh
+tags: api gateway, sécurité, devops, asciinema, bastion, kong, ssh, fail2ban
 ---
 
 # Sécurité des applications en Prod
@@ -632,3 +632,7 @@ Tu peux t’en servir comme mini-plan d’action.
 - [ ]  Configurer un **plugin de rate-limiting**.
 - [ ]  Activer l’export des métriques vers un outil de monitoring.
 - [ ]  Centraliser les logs applicatifs via Kong.
+
+---
+[Module suivant →](M32_sécurité_des_application_pratique.md)
+---

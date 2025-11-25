@@ -806,5 +806,5 @@ Objectif : comprendre **où** se place la gestion des certificats dans ton infra
 - Les **certificats TLS** et HTTPS sont souvent gérés au niveau du reverse proxy, qui agit comme point d’entrée unique sécurisé.
 
 ---
-[Module suivant →](M31_serveur-web copy.md)
+[Module suivant →](M31_serveur-web-pratique.md)
 ---
