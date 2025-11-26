@@ -7,25 +7,27 @@ ordre: 1
 tags: dns, certificat, devops, domaine, letsencrypt, http, https
 ---
 
-## 1. Objectifs du cours
+## 1. Objectifs du cours 🎯
 
 À la fin, tu dois être à l’aise pour :
 
 - Expliquer clairement **ce qu’est un nom de domaine** et pourquoi on en a besoin.
-- Comprendre **comment fonctionne le DNS** (résolution, cache, propagation).
+- Comprendre **comment fonctionne le DNS** (résolution, cache, propagation, hiérarchie).
 - Savoir **ce qu’est un registrar** et ce qui se passe quand tu “achètes” un domaine.
 - Lire et configurer une **zone DNS** (A, AAAA, CNAME, MX, TXT, NS, etc.).
-- Utiliser `dig` pour **diagnostiquer** les problèmes DNS.
+- Comprendre les rôles de **serveur DNS autoritatif** et **secondaire**.
+- Utiliser `dig` et `nslookup` pour **diagnostiquer** les problèmes DNS.
 - Comprendre et installer un **certificat SSL/TLS** (Let’s Encrypt, Certbot).
-- Appliquer tout ça à un projet web (par ex. ton NocoDB/QuickData, front + backend avec domaine perso et HTTPS).
 
 ---
 
-## 2. Contexte : IP vs noms de domaine
+## 2. Contexte : IP vs noms de domaine 🌐
 
 ### 2.1 Limite des adresses IP
 
-Une **adresse IP** (ex. `203.0.113.45`) identifie une machine sur le réseau. Problème :
+Une **adresse IP** (ex. `203.0.113.45`) identifie une machine sur le réseau.
+
+Problèmes :
 
 - **Difficile à retenir** : impossible de mémoriser des dizaines d’IP.
 - **Pas parlant** : `203.0.113.45` ne dit pas si c’est un site web, un serveur mail, une API, etc.
@@ -33,9 +35,27 @@ Une **adresse IP** (ex. `203.0.113.45`) identifie une machine sur le réseau. Pr
 
 D’où l’idée d’un système qui permette aux humains de retenir un **nom**, et aux machines de manipuler des **IP** : c’est le rôle des **noms de domaine** et du **DNS**.
 
+### 2.2 Qu’est-ce qu’une adresse IP ? Et comment sont-elles attribuées ?
+
+Une **adresse IP** (Internet Protocol) est un identifiant numérique unique sur un réseau :
+
+- **IPv4** : 32 bits, ex. `93.184.216.34`
+- **IPv6** : 128 bits, ex. `2001:db8::1`
+
+Attribution (hiérarchique) :
+
+| Niveau | Rôle |
+| --- | --- |
+| **IANA** | Gère l’espace global d’adresses IP |
+| **RIR** (ex. RIPE, ARIN) | Reçoivent de gros blocs d’IP par région |
+| **FAI / Hébergeurs / Entreprises** | Reçoivent des sous-blocs, les attribuent aux clients/serveurs |
+| **Clients / serveurs** | Reçoivent des IP fixes ou dynamiques |
+
+👉 Une IP n’est donc **pas choisie au hasard** : elle vient d’un bloc d’adresses attribué par cette chaîne d’autorités.
+
 ---
 
-## 3. Un peu d’historique (très rapide)
+## 3. Un peu d’historique (très rapide) 📜
 
 - Au début d’ARPANET : un simple fichier `hosts.txt` partagé listait “nom → IP”.
 - Quand le réseau a grossi, ce modèle ne tenait plus.
@@ -45,15 +65,17 @@ D’où l’idée d’un système qui permette aux humains de retenir un **nom**
 
 ---
 
-## 4. Qu’est-ce qu’un nom de domaine ?
+## 4. Qu’est-ce qu’un nom de domaine ? 🏷️
 
 Un **nom de domaine** est une **adresse lisible** qui sert d’alias à une adresse IP.
 
 👉 Au lieu de retenir `172.217.20.46`, tu tapes `www.google.com`.
 
-Analogie de tes notes :
+Analogie :
 
-Tu ne retiens pas l’**adresse complète** de ton ami, tu retiens **son nom**. Le “DNS” joue le rôle de l’annuaire qui, à partir du nom, retrouve l’adresse.
+Tu ne retiens pas l’**adresse complète** de ton ami, tu retiens **son nom**.
+
+Le **DNS** joue le rôle de l’annuaire qui, à partir du nom, retrouve l’adresse.
 
 Un bon nom de domaine :
 
@@ -63,14 +85,14 @@ Un bon nom de domaine :
 
 ---
 
-## 5. Anatomie d’un nom de domaine
+## 5. Anatomie d’un nom de domaine 🧩
 
-Prenons : `www.app.quickdata.fr`
+Prenons : `www.app.monsite.fr`
 
 | Partie | Nom | Rôle |
 | --- | --- | --- |
 | `.fr` | **TLD** (Top-Level Domain) | extension (pays ou générique) |
-| `quickdata` | **Domaine** (Second-Level Domain) | nom principal du site |
+| `monsite` | **Domaine** (Second-Level Domain) | nom principal du site |
 | `app` | **Sous-domaine** | section/service du site |
 | `www` | (souvent) sous-domaine | histo : “site web” |
 
@@ -82,63 +104,111 @@ Prenons : `www.app.quickdata.fr`
 
 ### 5.2 Domaine
 
-- C’est *le* nom que tu achètes chez un **registrar** : `quickdata.fr`, `monprojet.dev`.
-- Il est **unique** sous un TLD : s’il y a déjà un `quickdata.fr`, tu ne peux pas l’enregistrer.
+- C’est *le* nom que tu achètes chez un **registrar** : `monsite.fr`, `monprojet.dev`.
+- Il est **unique** sous un TLD : s’il y a déjà un `monsite.fr`, tu ne peux pas l’enregistrer.
 
 ### 5.3 Sous-domaine
 
 - C’est un “sous-espace” sous ton domaine principal :
-    - `www.quickdata.fr` → site principal,
-    - `api.quickdata.fr` → API backend,
-    - `noco.quickdata.fr` → interface NocoDB,
-    - `mail.quickdata.fr` → services mail.
+    - `www.monsite.fr` → site principal,
+    - `api.monsite.fr` → API backend,
+    - `blog.monsite.fr` → blog,
+    - `mail.monsite.fr` → services mail.
 - Tu peux créer autant de sous-domaines que tu veux via ta **zone DNS**.
 
 ---
 
-## 6. C’est quoi le DNS ?
+## 6. C’est quoi le DNS ? 💡
 
 **DNS (Domain Name System)** = annuaire géant d’Internet.
 
 Il traduit les **noms de domaine** en **adresses IP** (et d’autres infos : mail, TXT, etc.).
 
-### 6.1 Acteurs principaux
+### 6.1 Qu’est-ce qu’un serveur DNS ?
 
-- **Résolveur DNS récursif** : souvent celui de ton FAI ou de ton OS (`8.8.8.8`, `1.1.1.1`…).
-    
-    C’est lui que ton PC interroge en premier.
-    
-- **Serveurs racine** : connaissent où trouver les serveurs des TLD.
-- **Serveurs de TLD** : savent où sont les serveurs autoritatifs pour `.fr`, `.com`, etc.
-- **Serveurs DNS autoritatifs** : contiennent la **zone DNS** d’un domaine (`quickdata.fr`).
+Un **serveur DNS** est un serveur qui parle le protocole DNS et qui :
 
-### 6.2 Processus de résolution (simplifié)
+- reçoit des requêtes du type “quelle est l’IP de `www.monsite.fr` ?”,
+- répond avec des informations issues de sa base (ou qu’il va chercher ailleurs).
+
+On distingue plusieurs rôles :
+
+- **Résolveur DNS récursif** (DNS de ton FAI, 8.8.8.8, 1.1.1.1…)
+    
+    → C’est lui que ton PC interroge en premier.
+    
+- **Serveurs racine**
+    
+    → Connaissent où trouver les serveurs des TLD.
+    
+- **Serveurs de TLD**
+    
+    → Savent où sont les serveurs autoritatifs pour `.fr`, `.com`, etc.
+    
+- **Serveurs DNS autoritatifs**
+    
+    → Contiennent la **zone DNS** d’un domaine (ex. `monsite.fr`).
+    
+
+### 6.2 Serveur DNS racine (Root Server)
+
+Les **serveurs DNS racine** sont le point de départ de la hiérarchie.
+
+Ils ne connaissent pas les IP des sites, mais ils savent :
+
+> “Pour .fr, va voir tels serveurs ; pour .com, va voir tels serveurs…”
+> 
+
+---
+
+## 7. Comment fonctionne la résolution DNS ? 🔄
 
 Tu tapes `www.wikipedia.org` :
 
-1. Ton navigateur demande à ton système : “c’est quoi l’IP de `www.wikipedia.org` ?”.
+1. Ton navigateur demande à ton système :
+    
+    👉 “C’est quoi l’IP de `www.wikipedia.org` ?”
+    
 2. Ton PC demande au **résolveur DNS récursif** configuré (box/FAI/DNS public).
 3. Le résolveur :
     - regarde s’il a la réponse en **cache** ; si oui → il renvoie l’IP,
-    - sinon, il remonte l’arbre : **racine → TLD `.org` → DNS autoritatif de `wikipedia.org`**.
-4. Le DNS autoritatif renvoie un enregistrement (souvent de type **A** ou **AAAA**).
+    - sinon, il remonte la hiérarchie :
+        - interroge un **serveur racine** → obtient les serveurs du TLD `.org`,
+        - interroge les serveurs `.org` → obtient le serveur autoritatif de `wikipedia.org`.
+4. Le DNS autoritatif de `wikipedia.org` renvoie un enregistrement (souvent de type **A** ou **AAAA**).
 5. Le résolveur met en **cache** la réponse pour `TTL` secondes, puis la transmet à ton navigateur.
 6. Le navigateur se connecte à cette IP et affiche le site.
 
-### 6.3 Propagation DNS & cache
+### 7.1 Propagation DNS & cache
 
 - Chaque réponse DNS est **cachée** (mise en cache) pendant un certain temps : le **TTL** (Time To Live).
 - Quand tu modifies un record DNS, il faut attendre que tous les caches dans le monde expirent → c’est ce qu’on appelle la **propagation DNS** (quelques minutes à 48h).
 
 ---
 
-## 7. Registrar & Registry : qui fait quoi ?
+## 8. Le protocole DNS (UDP / TCP) 📡
 
-### 7.1 Registrar
+Les échanges DNS utilisent principalement :
+
+- **UDP port 53** :
+    - Requêtes rapides, réponses courtes.
+    - C’est le mode par défaut pour la résolution classique.
+- **TCP port 53** :
+    - Utilisé quand la réponse est trop grosse pour UDP,
+    - Utilisé pour les **transferts de zone** entre serveurs autoritatifs et secondaires,
+    - Utilisé pour certaines fonctions avancées (DNSSEC…).
+
+Le **protocole DNS** lui-même (format des messages, codes, sections) est normalisé par la RFC 1035.
+
+---
+
+## 9. Registrar & Registry : qui fait quoi ? 🏛️
+
+### 9.1 Registrar
 
 Un **registrar** est l’entreprise chez qui tu **achètes** ton nom de domaine :
 
-- Exemples : OVH, Gandi, Hostinger, Namecheap, Squarespace (qui a racheté Google Domains), etc.
+- Exemples : OVH, Gandi, Hostinger, Namecheap, Squarespace, etc.
 - Il est accrédité par l’**ICANN** (ou l’organisme local pour `.fr`, `.de`, etc.).
 - Il te fournit une interface pour :
     - **rechercher** un domaine disponible,
@@ -146,20 +216,23 @@ Un **registrar** est l’entreprise chez qui tu **achètes** ton nom de domaine 
     - **renouveler** ou **transférer** le domaine,
     - gérer ta **zone DNS** (ou déléguer à un autre fournisseur DNS).
 
-Analogie de tes notes :
+Analogie :
 
 Le registrar = le **guichet** où tu vas réserver **ton nom** pour être inscrit dans l’annuaire global.
 
-### 7.2 Registry
+### 9.2 Registry
 
 - C’est l’organisme qui **gère un TLD** donné (ex. `.fr`, `.com`).
 - Il tient la **liste officielle** de tous les domaines existants dans ce TLD.
 
-Le registrar parle au registry pour inscrire : “ce domaine appartient à tel contact, et pointe vers tels serveurs DNS”.
+Le registrar parle au registry pour inscrire :
+
+> “Ce domaine appartient à tel contact, et pointe vers tels serveurs DNS (NS).”
+> 
 
 ---
 
-## 8. Zone DNS : ton carnet d’adresses
+## 10. Zone DNS : ton carnet d’adresses 📒
 
 Une **zone DNS** est **la configuration DNS d’un domaine**.
 
@@ -168,12 +241,12 @@ C’est là que tu déclares :
 > “Pour tel nom (www.monsite.com), voici l’IP / le serveur mail / l’alias / etc.”
 > 
 
-### 8.1 Où est gérée la zone ?
+### 10.1 Où est gérée la zone ?
 
 - Chez ton **registrar** (interface DNS par défaut),
 - ou chez un **DNS provider** séparé (Route 53, Cloudflare, etc.), vers lequel tu délègues via les records **NS**.
 
-### 8.2 Principaux types d’enregistrements (records)
+### 10.2 Principaux types d’enregistrements (records)
 
 | Type | Rôle | Exemple |
 | --- | --- | --- |
@@ -187,7 +260,20 @@ C’est là que tu déclares :
 | **SRV** | Services (port + protocole) | `_sip._tcp.example.com` |
 | **CAA** | Autorise certaines autorités de certification à émettre des certificats | `0 issue "letsencrypt.org"` |
 
-### 8.3 Focus MX : comment fonctionnent les serveurs mail ?
+### 10.3 Serveur DNS autoritatif & secondaire
+
+- **Serveur autoritatif** : héberge la version **officielle** de la zone DNS.
+- **Serveur secondaire** : copie de la zone, mise à jour par **transfert de zone** (TCP 53).
+
+Rôle des secondaires :
+
+- Redondance (si le primaire tombe),
+- Répartition de la charge,
+- Disponibilité globale.
+
+---
+
+## 11. Focus MX : comment fonctionnent les serveurs mail 📧
 
 Les **enregistrements MX** indiquent **où envoyer les e-mails** pour ton domaine.
 
@@ -203,35 +289,30 @@ Exemple de zone pour `monsite.com` :
 
 ---
 
-## 9. Exemple de zone DNS complète (projet type QuickData / NocoDB)
+## 12. Exemple de zone DNS complète
 
-Imaginons le domaine `quickdata.dev` :
+Imaginons le domaine `monsite.com` :
 
 | Type | Nom | Valeur | Commentaire |
 | --- | --- | --- | --- |
-| A | `@` | `203.0.113.10` | IP du reverse proxy / frontend |
-| A | `api` | `203.0.113.11` | Backend API (NocoDB ou autre) |
-| A | `noco` | `203.0.113.12` | Interface NocoDB dédiée |
-| CNAME | `www` | `quickdata.dev.` | `www.quickdata.dev` → `quickdata.dev` |
+| A | `@` | `203.0.113.10` | IP principale du site |
+| A | `api` | `203.0.113.11` | Backend / API |
+| A | `blog` | `203.0.113.12` | Serveur blog |
+| CNAME | `www` | `monsite.com.` | `www.monsite.com` → `monsite.com` |
 | MX | `@` | `10 mail.protonmail.com` | Serveur mail |
 | TXT | `@` | `v=spf1 include:_spf.protonmail.ch ~all` | SPF |
 | TXT | `_dmarc` | `v=DMARC1; p=quarantine;` | Politique DMARC |
 | CAA | `@` | `0 issue "letsencrypt.org"` | Autorise Let’s Encrypt |
 
-Tu peux ainsi :
-
-- Servir ton **frontend** sur `quickdata.dev`.
-- Servir ton **backend / API** sur `api.quickdata.dev`.
-- Servir une **interface NocoDB** sur `noco.quickdata.dev`.
-- Gérer tes **emails** via les **MX** et **TXT**.
-
 ---
 
-## 10. Outil de diagnostic : `dig`
+## 13. Outils de diagnostic : `dig` & `nslookup` 🛠️
 
-`dig` (**Domain Information Groper**) interroge les DNS et affiche ce qu’ils répondent. Très utilisé pour debug.
+### 13.1 `dig` (Domain Information Groper)
 
-### 10.1 Commandes de base
+`dig` interroge les DNS et affiche ce qu’ils répondent. Très utilisé pour debug.
+
+### Commandes de base
 
 ```bash
 # Enregistrement A par défaut
@@ -250,11 +331,14 @@ dig google.com NS
 dig +short google.com
 dig +short google.com MX
 
+# Voir toute la chaîne de résolution
+dig +trace google.com
+
 ```
 
 Avec `dig example.com` tu vois :
 
-- la **section ANSWER** : le record trouvé (IP, MX…),
+- la **section ANSWER** : les records trouvés (IP, MX…),
 - le **serveur interrogé**,
 - le **temps de réponse**,
 - le **TTL** restant.
@@ -264,64 +348,79 @@ Utilisations typiques :
 - Vérifier qu’un **nouveau record** est bien propagé.
 - Vérifier que les **MX** sont corrects (problèmes de mail).
 - Comparer la réponse de ton **DNS provider** et celle de ton **résolveur FAI**.
+- Visualiser la hiérarchie (avec `+trace`).
+
+### 13.2 `nslookup`
+
+Outil plus ancien, très courant surtout sous Windows.
+
+```bash
+# Requête simple
+nslookup example.com
+
+# Spécifier le type d’enregistrement
+nslookup -type=MX example.com
+
+# Interroger un DNS précis (ici Google DNS)
+nslookup example.com 8.8.8.8
+
+```
 
 ---
 
-## 11. Certificats SSL/TLS & HTTPS
+## 14. Certificats SSL/TLS & HTTPS 🔒
 
-### 11.1 Pourquoi TLS ?
+### 14.1 Pourquoi TLS ?
 
 Un certificat SSL/TLS :
 
-- **Authentifie** le site (tu parles bien à `quickdata.dev`, pas à un imposteur).
+- **Authentifie** le site (tu parles bien au bon domaine, pas à un imposteur).
 - **Chiffre** les communications entre le client et le serveur.
 - Donne le fameux cadenas 🔒 et le `https://`.
 
-Analogie de tes notes :
+Analogie :
 
-- Sans SSL : ton message circule comme une **carte postale**.
-- Avec SSL : ton message est dans une **enveloppe verrouillée** que seul le destinataire peut ouvrir.
+- Sans SSL : ton message circule comme une **carte postale** (lisible par tous).
+- Avec SSL : c’est une **enveloppe fermée** que seul le destinataire peut ouvrir.
 
-### 11.2 Comment ça marche, en gros ?
+### 14.2 Comment ça marche, en gros ?
 
-1. Le navigateur se connecte à `https://quickdata.dev`.
-2. Le serveur envoie son **certificat** (qui contient la clé publique + le nom de domaine).
+1. Le navigateur se connecte à `https://monsite.com`.
+2. Le serveur envoie son **certificat** (clé publique + nom de domaine).
 3. Le navigateur vérifie que le certificat est :
     - signé par une **Autorité de Certification (CA)** de confiance (Let’s Encrypt, etc.),
     - valide dans le temps,
     - bien émis pour ce **nom de domaine**.
-4. Si tout est OK, ils établissent un **canal chiffré** (clé de session) et commencent à échanger des données.
+4. Si tout est OK, client et serveur établissent un **canal chiffré** (clé de session) et échangent des données.
 
----
-
-### 11.3 Let’s Encrypt & Certbot
+### 14.3 Let’s Encrypt & Certbot
 
 **Let’s Encrypt** : Autorité de Certification (CA) gratuite et automatisée.
 
 - Tu prouves que tu es **propriétaire** du domaine,
-- Let’s Encrypt te délivre un certifica **gratuit** valable 90 jours,
-- Tu automatises le **renouvellement** (Cron, systemd timer…).
+- Let’s Encrypt te délivre un certificat **gratuit** valable 90 jours,
+- Tu automatises le **renouvellement** (cron, systemd timer…).
 
 **Certbot** est l’outil le plus courant pour gérer ça.
 
-### 11.3.1 Principe HTTP-01 (le plus courant)
+### Principe HTTP-01 (le plus courant)
 
-1. Tu as un serveur web accessible sur `http://quickdata.dev`.
-2. Certbot demande à Let’s Encrypt un certificat pour `quickdata.dev`.
-3. Let’s Encrypt te donne un **challenge** : créer un fichier spécial sur `http://quickdata.dev/.well-known/acme-challenge/...`.
+1. Tu as un serveur web accessible sur `http://monsite.com`.
+2. Certbot demande à Let’s Encrypt un certificat pour `monsite.com`.
+3. Let’s Encrypt te donne un **challenge** : créer un fichier spécial sur `http://monsite.com/.well-known/acme-challenge/...`.
 4. Let’s Encrypt vérifie qu’il peut accéder à ce fichier → preuve que tu contrôles le domaine.
 5. Le certificat est généré et stocké sur ton serveur.
 6. Certbot configure ton serveur (Nginx/Apache) pour utiliser **HTTPS**.
 
-### 11.3.2 Exemple minimal (Nginx)
+### Exemple minimal (Nginx)
 
 ```bash
 # Installation (ex Ubuntu)
 sudo apt update
 sudo apt install certbot python3-certbot-nginx
 
-# Obtention d’un cert pour quickdata.dev + www.quickdata.dev
-sudo certbot --nginx -d quickdata.dev -d www.quickdata.dev
+# Obtention d’un cert pour monsite.com + www.monsite.com
+sudo certbot --nginx -d monsite.com -d www.monsite.com
 
 ```
 
@@ -329,30 +428,3 @@ Certbot :
 
 - Modifie Nginx pour activer **HTTPS**,
 - Met en place un **renouvellement automatique** via `cron` ou `systemd`.
-
----
-
-## 12. Lien avec tes projets DevOps (ex. NocoDB / QuickData)
-
-Dans ton projet QuickData/NocoDB, tu seras évalué sur :
-
-- **Nom de domaine personnalisé** pour :
-    - le **frontend** (ex. `app.quickdata.dev`),
-    - le **backend/API** (ex. `api.quickdata.dev`).
-- Avec ou sans **HTTPS** (objectif : *avec*).
-
-Concrètement, tu devras :
-
-1. **Acheter** un domaine (ex. `quickdata.dev`) chez un registrar.
-2. Configurer ta **zone DNS** :
-    - `A`/`CNAME` pour `app.quickdata.dev` → ton frontal (Nginx/Traefik, etc.).
-    - `A`/`CNAME` pour `api.quickdata.dev` → ton backend/NocoDB.
-3. Utiliser `dig` pour vérifier que :
-    - les noms résolvent vers la bonne IP,
-    - les records sont bien propagés.
-4. Installer des **certificats SSL** (Let’s Encrypt + Certbot) pour :
-    - `https://app.quickdata.dev`
-    - `https://api.quickdata.dev`
-5. Forcer les redirections de `http → https`.
-
-C’est exactement ce que vise la partie “Nom de domaine” de ta checklist projet (front/back avec HTTPS).
