@@ -3,3 +3,6 @@ prompt.txt
 Code/
 pratique/
 pipeline/
+Code/
+__pycache__/
+*.pyc
