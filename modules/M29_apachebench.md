@@ -2,7 +2,7 @@
 title: Apache Bench
 sujet: Hosting & Cloud
 type: module
-jour: 28
+jour: 29
 ordre: 2
 tags: cd, test, charge, devops
 ---
@@ -241,5 +241,5 @@ Mais ❗ **pas suffisant pour simuler des utilisateurs réels**.
 Il est parfait **pour établir des bases de performance, comparer des optimisations et tester des API statiques**.
 
 ---
-[← Module précédent](M28_monitoring-elb-aws.md) | [Module suivant →](M28_quiz-reponse.md)
+[← Module précédent](M29_paas-serverless.md)
 ---

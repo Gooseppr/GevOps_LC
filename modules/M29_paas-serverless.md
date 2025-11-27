@@ -226,3 +226,7 @@ Ces deux modèles simplifient :
 - la scalabilité,
 - les coûts,
 - la maintenance.
+
+---
+[Module suivant →](M29_apachebench.md)
+---
