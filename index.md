@@ -108,6 +108,7 @@ title: Accueil
 - Jour 32 / 02 : [M32_sécurité_des_application_pratique.md](modules/M32_sécurité_des_application_pratique.md)
 - Jour 33 / 01 : [M33_nom-de-domaine.md](modules/M33_nom-de-domaine.md)
 - Jour 34 / 01 : [M34_terraform.md](modules/M34_terraform.md)
+- Jour 34 / 02 : [M34_terraform-avancé.md](modules/M34_terraform-avancé.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)

@@ -593,7 +593,7 @@ Ces commandes couvrent ce dont tu as besoin pour les **exercices de base** (part
 Exemple classique avec une IP publique d’instance :
 
 ```
-resource "aws_instance" "web" {
+resource "aws_instance" "<nom de l'instance>" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t2.micro"
 }
@@ -628,6 +628,13 @@ terraform output -raw instance_public_ip
 
 ```
 
+- **Obtenir les valeurs en json :**
+
+```bash
+terraform output -json 
+
+```
+
 C’est cette forme qui est idéale pour l’utiliser dans un script Bash, par exemple :
 
 ```bash
@@ -636,7 +643,36 @@ echo "Je me connecte à $SERVER_IP"
 
 ```
 
-### 12.4. Bonnes pratiques avec `output`
+### 12.4. Déclaration d’un `output` sensible
+
+Exemple classique avec une IP publique d’instance :
+
+```
+resource "aws_instance" "<nom de l'instance>" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+  sensitive     = true
+}
+
+output "instance_public_ip" {
+  description = "Public IP of the web server"
+  value       = aws_instance.web.public_ip
+}
+
+```
+
+Avec ceci la sortie ne sort en clair que lorsque l'appel est identifié
+
+```bash
+
+terraform output # Réponse : instance_public_ip = <sensitive>
+
+terraform output instance_public_ip # Réponse : "xx.xx.x.xx"
+
+```
+
+
+### 12.5. Bonnes pratiques avec `output`
 
 - Exposer uniquement ce qui est **utile** : IP, URL, ID, noms de ressources.
 - Ne pas exposer de **secrets** (mots de passe, clés privées) en clair.
@@ -730,3 +766,7 @@ Tu connais maintenant **tous les fondamentaux Terraform**, et surtout :
 - les étapes du workflow Terraform
 - tous les types de blocs (bien maîtrisés !)
 - la logique modulaire
+
+---
+[Module suivant →](M34_terraform-avancé.md)
+---
