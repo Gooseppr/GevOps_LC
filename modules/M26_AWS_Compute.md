@@ -1,4 +1,5 @@
 ---
+layout: page
 title: AWS Compute
 sujet: Déploiement Continu (CD)
 type: module

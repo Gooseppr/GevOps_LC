@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Git — manipulation avancée de l’historique
 sujet: Versionning
 type: module

@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Vagrant — bases utiles et gestion SSH
 sujet: Python, Administration, Terminal & Scripting
 type: module

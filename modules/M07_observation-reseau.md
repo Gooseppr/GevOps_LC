@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Mise en place & observation réseau
 sujet: Réseaux
 type: module

@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Git — manipulation sans stress
 sujet: Versionning
 type: module

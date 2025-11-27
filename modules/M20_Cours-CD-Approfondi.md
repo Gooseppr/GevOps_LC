@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Déploiement continu
 sujet: Déploiement Continu (CD)
 type: module

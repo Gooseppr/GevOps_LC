@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Configuration réseaux
 sujet: Réseaux
 type: module

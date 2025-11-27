@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Les bases de données
 sujet: Bases de données
 type: module

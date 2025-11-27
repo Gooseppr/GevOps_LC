@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Gestion des droits sous Linux
 sujet: Terminal & Scripting
 type: module

@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Terraform
 sujet: Cloud publique, Hosting & Cloud
 type: module

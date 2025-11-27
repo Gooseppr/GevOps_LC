@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Kubernetes
 sujet: Orchestration
 type: module

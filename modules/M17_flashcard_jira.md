@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Flashcard Jira
 sujet: Versionning
 type: module

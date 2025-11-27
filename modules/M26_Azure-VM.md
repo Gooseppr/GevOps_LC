@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Azure Virtual Machine
 sujet: Déploiement Continu (CD)
 type: module

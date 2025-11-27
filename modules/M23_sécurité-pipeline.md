@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Sécurité des pipelines
 sujet: Déploiement Continu (CD)
 type: module

@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Kubernetes avancés
 sujet: Orchestration
 type: module

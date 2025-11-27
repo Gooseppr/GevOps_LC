@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Docker Compose
 sujet: Conteneurisation
 type: module

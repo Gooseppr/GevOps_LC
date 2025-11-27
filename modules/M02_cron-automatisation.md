@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Automatiser avec cron
 sujet: Terminal & Scripting
 type: module

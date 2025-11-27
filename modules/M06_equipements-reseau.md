@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Les équipements réseaux
 sujet: Réseaux
 type: module

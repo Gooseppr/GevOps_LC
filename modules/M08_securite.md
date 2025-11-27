@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Sécurité & Attaques
 sujet: Administration, Sécurité
 type: module

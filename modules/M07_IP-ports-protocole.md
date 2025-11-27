@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Adresse IP, port & protocole.
 sujet: Réseaux
 type: module

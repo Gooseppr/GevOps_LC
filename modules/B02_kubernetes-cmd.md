@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Kubectl cmd
 jour: 13|14|15
 type: bonus

@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Intégration continue
 sujet: Intégration continue (CI)
 type: module

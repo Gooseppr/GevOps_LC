@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Git — Workflows collaboratifs et stratégies DevOps
 sujet: Versionning
 type: module

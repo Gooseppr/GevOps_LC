@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Amazon Storage
 sujet: Hosting & Cloud
 type: module

@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Pratique Docker Compose
 sujet: Conteneurisation
 type: module

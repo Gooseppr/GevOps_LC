@@ -1,4 +1,5 @@
 ---
+layout: page
 title: PaaS & Serverless
 sujet: Hosting & Cloud
 type: module

@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Serveurs Web & Reverse Proxy
 sujet: Cloud publique, Hosting & Cloud
 type: module

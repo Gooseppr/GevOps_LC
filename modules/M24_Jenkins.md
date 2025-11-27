@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Sécurité des pipelines
 sujet: Intégration continue (CI)
 type: module

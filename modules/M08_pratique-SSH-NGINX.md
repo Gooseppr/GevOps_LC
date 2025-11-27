@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Pratique - SSH et NGINX
 sujet: Administration, Sécurité
 type: module

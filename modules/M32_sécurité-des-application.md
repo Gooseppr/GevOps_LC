@@ -1,4 +1,5 @@
 ---
+layout: page
 title: La sécurité des application en production
 sujet: Cloud publique, Hosting & Cloud
 type: module

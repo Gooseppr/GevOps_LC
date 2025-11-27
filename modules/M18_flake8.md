@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Intégration continue - GitLab Runner
 sujet: Intégration continue (CI)
 type: module

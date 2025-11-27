@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Content Delivery Network
 sujet: Hosting & Cloud
 type: module

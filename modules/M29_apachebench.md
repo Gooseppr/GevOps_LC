@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Apache Bench
 sujet: Hosting & Cloud
 type: module

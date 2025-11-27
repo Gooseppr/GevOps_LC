@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Scripting Bash
 sujet: Terminal & Scripting
 type: module

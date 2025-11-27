@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Les noms de domaine
 sujet: Cloud publique, Hosting & Cloud
 type: module

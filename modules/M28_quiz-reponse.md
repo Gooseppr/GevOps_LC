@@ -1,4 +1,5 @@
 ---
+layout: page
 title: AWS Monitoring, Load Blancing & Scaling
 sujet: Hosting & Cloud
 type: module

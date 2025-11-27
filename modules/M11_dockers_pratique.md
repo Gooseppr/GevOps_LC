@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Docker, mise en pratique
 sujet: Conteneurisation
 type: module

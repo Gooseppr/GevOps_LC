@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Le scripting Bash pour base de données relationnelles
 jour: 02|10
 type: bonus

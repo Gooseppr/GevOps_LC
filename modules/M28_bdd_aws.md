@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Bases de données AWS
 sujet: Hosting & Cloud
 type: module

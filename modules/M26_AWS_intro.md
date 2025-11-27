@@ -1,4 +1,5 @@
 ---
+layout: page
 title: AWS - Introduction
 sujet: Déploiement Continu (CD)
 type: module

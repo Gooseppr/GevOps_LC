@@ -1,4 +1,5 @@
 ---
+layout: page
 title: ESLint
 sujet: Déploiement Continu (CD)
 type: module

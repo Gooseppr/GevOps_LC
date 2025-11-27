@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Quizz AWS Storage
 sujet: Hosting & Cloud
 type: module

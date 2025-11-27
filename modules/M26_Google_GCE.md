@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Google Compute Engine
 sujet: Déploiement Continu (CD)
 type: module

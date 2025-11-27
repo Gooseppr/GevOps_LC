@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Le Terminal (Bash)
 sujet: Python, Administration, Terminal & Scripting
 type: module

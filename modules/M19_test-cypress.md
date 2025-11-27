@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Framework de test Cypress
 sujet: Intégration continue (CI)
 type: module

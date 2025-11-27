@@ -1,4 +1,5 @@
 ---
+layout: page
 title: La virtualisation
 sujet: Conteneurisation
 type: module

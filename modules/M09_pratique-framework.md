@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Backend & API
 sujet: Backend
 type: module

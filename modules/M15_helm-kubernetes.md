@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Helm pour Kubernetes
 sujet: Orchestration, Conteneurisation
 type: module

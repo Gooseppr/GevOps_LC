@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Python — le cours Python
 sujet: Python
 type: module
