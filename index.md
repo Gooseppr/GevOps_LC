@@ -34,6 +34,7 @@ title: Accueil
 - 👉 [Jour 31](jours/jour-31)
 - 👉 [Jour 32](jours/jour-32)
 - 👉 [Jour 33](jours/jour-33)
+- 👉 [Jour 34](jours/jour-34)
 
 
 ---
@@ -106,6 +107,7 @@ title: Accueil
 - Jour 32 / 01 : [M32_sécurité-des-application.md](modules/M32_sécurité-des-application.md)
 - Jour 32 / 02 : [M32_sécurité_des_application_pratique.md](modules/M32_sécurité_des_application_pratique.md)
 - Jour 33 / 01 : [M33_nom-de-domaine.md](modules/M33_nom-de-domaine.md)
+- Jour 34 / 01 : [M34_terraform.md](modules/M34_terraform.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
