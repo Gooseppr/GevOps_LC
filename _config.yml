@@ -5,3 +5,9 @@ minima:
   skin: dark
 header_pages:
   - index.md        # Accueil
+jekyll:
+  plugins:
+    - jekyll-seo-tag
+    - jekyll-sitemap
+    - jekyll-feed
+    - jekyll-mermaid
