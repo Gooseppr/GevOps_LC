@@ -108,9 +108,195 @@ mindmap
 
 ```
 
+## 4. Installation d’Ansible — la base indispensable
+
+Ansible est disponible :
+
+- via `apt` (Debian/Ubuntu),
+- via `pip` (méthode universelle),
+- via `brew` (macOS),
+- via **WSL2** pour Windows (recommandé),
+- via le module Windows “Ansible Automation Platform” (moins utilisé pour débuter).
+
+Dans une stack DevOps standard, **on installe toujours Ansible sur la machine de contrôle**, jamais sur les serveurs cibles.
+
 ---
 
-# 🧱 4. L’inventaire Ansible (source de vérité)
+### 🟦 Installation sur Debian / Ubuntu (méthode recommandée)
+
+#### ✔️ Option 1 — Installation officielle via APT (PPA Ansible)
+
+C’est la méthode la plus propre.
+
+##### 1️⃣ Ajouter le dépôt officiel Ansible
+
+```bash
+sudo apt update
+sudo apt install -y software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+
+```
+
+##### 2️⃣ Installer Ansible
+
+```bash
+sudo apt install -y ansible
+
+```
+
+##### 3️⃣ Vérifier
+
+```bash
+ansible --version
+
+```
+
+Tu dois voir quelque chose comme :
+
+```
+ansible [core 2.16.x]
+
+```
+
+---
+
+#### ✔️ Option 2 — Installation via `pip` (flexible, pour environnements custom)
+
+```bash
+sudo apt update
+sudo apt install -y python3 python3-pip
+pip3 install ansible
+
+```
+
+Vérification :
+
+```bash
+ansible --version
+
+```
+
+👉 Avantage : tu peux gérer tes versions via `pip install ansible==2.15.0`.
+
+---
+
+### 🟧 Installation sur Windows
+
+**Important** :
+
+👉 **Ansible ne tourne pas nativement sur Windows.**
+
+La méthode *propre, industrielle et recommandée* : **installer Ansible dans WSL2 (Ubuntu)**.
+
+---
+
+#### ✔️ Option 1 — Installation via WSL2 + Ubuntu (recommandé)
+
+##### 1️⃣ Activer WSL2
+
+Dans PowerShell admin :
+
+```powershell
+wsl --install
+
+```
+
+(Windows redémarre)
+
+##### 2️⃣ Installer Ubuntu
+
+Dans Microsoft Store : **Ubuntu 22.04 LTS**
+
+##### 3️⃣ Dans Ubuntu → installer Ansible (méthode APT)
+
+```bash
+sudo apt update
+sudo apt install -y software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install -y ansible
+
+```
+
+Vérification :
+
+```bash
+ansible --version
+
+```
+
+Et tu peux piloter toute ton infra cloud directement depuis Windows 🤝 grâce à Ubuntu sous WSL2.
+
+---
+
+#### ✔️ Option 2 — Par Python sur Windows (possible mais déconseillé)
+
+Si tu veux absolument l’installer directement sur Windows :
+
+```powershell
+pip install ansible
+
+```
+
+**MAIS** :
+
+- certains modules ne fonctionnent pas
+- SSH via Windows est moins stable
+- tu ne peux pas lancer ansible-lint correctement
+
+Donc → pas idéal pour du DevOps sérieux.
+
+---
+
+### 🟩 Installation sur macOS (Homebrew)
+
+Super simple :
+
+```bash
+brew update
+brew install ansible
+
+```
+
+Vérification :
+
+```bash
+ansible --version
+
+```
+
+---
+
+### 🟨 Installation dans Docker (pour CI/CD)
+
+Pratique quand tu veux exécuter Ansible dans un pipeline :
+
+```bash
+docker run -it --rm \
+  -v $(pwd):/work \
+  ubuntu:22.04 bash
+
+```
+
+Dans le conteneur :
+
+```bash
+apt update
+apt install -y software-properties-common
+add-apt-repository --yes --update ppa:ansible/ansible
+apt install -y ansible
+
+```
+
+Ou : image prête à l’emploi :
+
+```bash
+docker pull cytopia/ansible
+
+```
+
+---
+
+# 🧱 5. L’inventaire Ansible (source de vérité)
 
 L’inventaire est **le cœur d’Ansible**.
 
@@ -118,7 +304,7 @@ Il recense **toutes les machines cibles** : serveurs, bastion, docker hosts, VM 
 
 Ansible sait *où* agir grâce à lui.
 
-### 4.1 Inventaire simple (INI)
+### 5.1 Inventaire simple (INI)
 
 ```
 mail.example.com
@@ -133,7 +319,7 @@ database.example.com
 
 ```
 
-### 4.2 Inventaire avec variables par hôte
+### 5.2 Inventaire avec variables par hôte
 
 ```
 [webservers]
@@ -142,7 +328,7 @@ web2 ansible_host=54.12.88.11 ansible_user=admin
 
 ```
 
-### 4.3 Inventaire structuré en YAML (recommandé)
+### 5.3 Inventaire structuré en YAML (recommandé)
 
 ```yaml
 all:
@@ -165,7 +351,7 @@ all:
 
 ```
 
-### 4.4 Variables dans host_vars / group_vars
+### 5.4 Variables dans host_vars / group_vars
 
 Arborescence :
 
@@ -200,7 +386,7 @@ postgres_version: 15
 
 ---
 
-# 🧱 5. Playbooks — le “programme” qu’Ansible exécute
+# 🧱 6. Playbooks — le “programme” qu’Ansible exécute
 
 Un playbook est un fichier **YAML** qui décrit :
 
@@ -223,7 +409,7 @@ Format minimal :
 
 ```
 
-### 5.1 Structure d’un Playbook (schéma simple)
+### 6.1 Structure d’un Playbook (schéma simple)
 
 ```mermaid
 flowchart TD
@@ -237,7 +423,7 @@ flowchart TD
 
 ---
 
-# 🧱 6. Tasks — l’unité d’action
+# 🧱 7. Tasks — l’unité d’action
 
 Une **task** = une action idempotente.
 
@@ -276,7 +462,7 @@ Exemples :
 
 ---
 
-# 🧱 7. Modules Ansible — les “fonctions” à appeler
+# 🧱 8. Modules Ansible — les “fonctions” à appeler
 
 Quelques modules essentiels :
 
@@ -303,7 +489,7 @@ Exemple avec `template` (Jinja2) :
 
 ---
 
-# 🧱 8. Handlers — exécutés uniquement lorsqu’un changement survient
+# 🧱 9. Handlers — exécutés uniquement lorsqu’un changement survient
 
 Exemple :
 
@@ -329,7 +515,7 @@ Si le fichier n’a pas changé → handler non appelé.
 
 ---
 
-# 🧱 9. Exécution d’un playbook
+# 🧱 10. Exécution d’un playbook
 
 Commandes :
 
@@ -361,7 +547,7 @@ ansible-playbook --check
 
 ---
 
-# 🧱 10. Commandes ad-hoc (actions rapides)
+# 🧱 11. Commandes ad-hoc (actions rapides)
 
 Pour tester, sans écrire de playbook :
 
@@ -388,7 +574,7 @@ ansible dbservers -m apt -a "name=htop state=present" -b
 
 ---
 
-# 🧱 11. Variables : rendre la configuration dynamique
+# 🧱 12. Variables : rendre la configuration dynamique
 
 Définition dans un playbook :
 
@@ -413,7 +599,7 @@ ansible-playbook -e "env=prod region=eu-west-1"
 
 ---
 
-# 🧱 12. Ansible Vault — gérer les secrets
+# 🧱 13. Ansible Vault — gérer les secrets
 
 Vault permet de **chiffrer** des fichiers YAML :
 
@@ -422,28 +608,28 @@ Vault permet de **chiffrer** des fichiers YAML :
 - credentials DB,
 - secrets cloud…
 
-### 12.1 Créer un fichier chiffré
+### 13.1 Créer un fichier chiffré
 
 ```bash
 ansible-vault create secrets.yml
 
 ```
 
-### 12.2 Chiffrer un fichier existant
+### 13.2 Chiffrer un fichier existant
 
 ```bash
 ansible-vault encrypt vars.yml
 
 ```
 
-### 12.3 Modifier un fichier
+### 13.3 Modifier un fichier
 
 ```bash
 ansible-vault edit vars.yml
 
 ```
 
-### 12.4 Déchiffrer temporairement lors d’un playbook
+### 13.4 Déchiffrer temporairement lors d’un playbook
 
 ```bash
 ansible-playbook site.yml --ask-vault-pass
@@ -459,7 +645,7 @@ ansible-playbook site.yml --vault-password-file .vault-pass
 
 ---
 
-# 🧱 13. Qualité : Ansible Lint
+# 🧱 14. Qualité : Ansible Lint
 
 Outil indispensable dans une démarche DevOps CI/CD.
 
@@ -487,11 +673,11 @@ Cela détecte :
 
 ---
 
-# 🧱 14. Interaction Terraform ↔ Ansible (essentiel)
+# 🧱 15. Interaction Terraform ↔ Ansible (essentiel)
 
 Voici la manière **propre** d’enchaîner les deux outils.
 
-### 14.1 Terraform crée l’infra…
+### 15.1 Terraform crée l’infra…
 
 Exemple :
 
@@ -511,7 +697,7 @@ output "web_ip" {
 
 ```
 
-### 14.2 … puis génère un inventaire Ansible
+### 15.2 … puis génère un inventaire Ansible
 
 On peut générer automatiquement :
 
@@ -520,14 +706,14 @@ terraform output -raw web_ip > inventory/hosts
 
 ```
 
-### 14.3 Et lancer Ansible ensuite
+### 15.3 Et lancer Ansible ensuite
 
 ```bash
 ansible-playbook -i inventory/hosts playbook.yml
 
 ```
 
-### 14.4 Graphique de complémentarité Terraform ↔ Ansible
+### 15.4 Graphique de complémentarité Terraform ↔ Ansible
 
 ```mermaid
 sequenceDiagram
@@ -546,7 +732,7 @@ sequenceDiagram
 
 ---
 
-# 🧱 15. Projet type DevOps (Terraform + Ansible)
+# 🧱 16. Projet type DevOps (Terraform + Ansible)
 
 Un cycle réel dans un projet DevOps/S1000D :
 
@@ -566,7 +752,7 @@ Un cycle réel dans un projet DevOps/S1000D :
 
 ---
 
-# 🧱 16. Exemple complet de playbook (simple & propre)
+# 🧱 17. Exemple complet de playbook (simple & propre)
 
 ```yaml
 - hosts: webservers
@@ -605,7 +791,7 @@ Un cycle réel dans un projet DevOps/S1000D :
 
 ---
 
-# 🧱 17. Check-list pour bien structurer un projet Ansible
+# 🧱 18. Check-list pour bien structurer un projet Ansible
 
 ```
 project/
