@@ -3,8 +3,9 @@ description: "Cours journaliers accessibles partout"
 theme: minima
 header_pages:
   - index.md        # Accueil
+include:
+  - _includes
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
-  - jekyll-mermaid
