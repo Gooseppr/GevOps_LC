@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Terraform
-sujet: Cloud publique, Hosting & Cloud
+sujet: Automatisation IaC
 type: module
 jour: 34
 ordre: 1
