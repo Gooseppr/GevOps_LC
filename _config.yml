@@ -1,13 +1,10 @@
 title: "Mes Cours"
 description: "Cours journaliers accessibles partout"
 theme: minima
-minima:
-  skin: dark
 header_pages:
   - index.md        # Accueil
-jekyll:
-  plugins:
-    - jekyll-seo-tag
-    - jekyll-sitemap
-    - jekyll-feed
-    - jekyll-mermaid
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-mermaid
