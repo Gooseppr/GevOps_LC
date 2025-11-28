@@ -837,3 +837,7 @@ Ton module avancé pourra ensuite couvrir :
 - la création d’un **Ansible Controller**,
 - la gestion d’environnements multi-cloud,
 - la structure **production-grade**.
+
+---
+[Module suivant →](M35_ansible-avancé.md)
+---

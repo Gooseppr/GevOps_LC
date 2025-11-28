@@ -111,6 +111,7 @@ title: Accueil
 - Jour 34 / 01 : [M34_terraform.md](modules/M34_terraform.md)
 - Jour 34 / 02 : [M34_terraform-avancé.md](modules/M34_terraform-avancé.md)
 - Jour 35 / 01 : [M35_ansible.md](modules/M35_ansible.md)
+- Jour 35 / 02 : [M35_ansible-avancé.md](modules/M35_ansible-avancé.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
