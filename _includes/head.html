@@ -1,11 +1,20 @@
-<head>
 <!-- Chargement de Mermaid -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    if (window.mermaid) {
-      mermaid.initialize({ startOnLoad: true });
-    }
+    if (!window.mermaid) return;
+
+    // 1) Transformer les blocs ```mermaid``` générés par Jekyll
+    //    (pre > code.language-mermaid) en <div class="mermaid">...</div>
+    document.querySelectorAll('pre > code.language-mermaid').forEach(function (code) {
+      var pre = code.parentElement;
+      var container = document.createElement('div');
+      container.className = 'mermaid';
+      container.textContent = code.textContent;
+      pre.replaceWith(container);
+    });
+
+    // 2) Initialiser Mermaid
+    mermaid.initialize({ startOnLoad: true });
   });
 </script>
-</head>
