@@ -8,313 +8,448 @@ ordre: 2
 tags: linux, bash, permissions, droits
 ---
 
-# Cours — Gestion des droits sous Linux
-
-## 1) Pourquoi c’est crucial
-
-Linux est **multi-utilisateurs** : plusieurs personnes/processus cohabitent. Les droits servent à :
-
-- **protéger** (confidentialité, intégrité),
-- **partager** (travail d’équipe via les groupes),
-- **limiter** l’impact d’une erreur (principe du moindre privilège).
+# 🔐 Cours — Comprendre & maîtriser les droits Linux
 
 ---
 
-## 2) Vocabulaire de base
+# 0. Vue d’ensemble du module 🧠
 
-### Utilisateurs & groupes
+```mermaid
+mindmap
+  root((Droits Linux))
+    fondamentaux
+      utilisateurs
+      groupes
+      modèle u-g-o
+      r w x
+    lecture
+      ls -l
+      stat
+      symbolique
+      octal
+    récursivité
+      option -R
+    gestion
+      chmod
+        -R
+        modes 3 chiffres
+        modes 4 chiffres
+      chown
+        -R
+      chgrp
+    bits spéciaux
+      SUID
+      SGID
+      Sticky bit
+    droits par défaut
+      umask
+    ACL
+      getfacl
+      setfacl
+        -m
+        -d
+    audits
+      find -perm
+    cas pratiques
 
-- **root** : super-utilisateur (quasi sans limites). À utiliser **rarement**, via `sudo`, pour des actions administratives.
-- **user (u)** : propriétaire d’un fichier.
-- **group (g)** : groupe associé au fichier.
-- **others (o)** : tous les autres.
-
-### Types de droits
-
-- **r** (read) : lire un **fichier** ; lister le contenu d’un **dossier**.
-- **w** (write) : écrire un **fichier** ; **créer/supprimer/renommer** dans un **dossier** (si `x` aussi).
-- **x** (execute) : exécuter un **fichier binaire/script** ; **traverser** un **dossier** (y entrer).
-
-> ⚠️ Sur un dossier, x ne signifie pas “exécuter”, mais “traverser / accéder au contenu”.
-> 
-> 
-> Pour **supprimer** un fichier dans un répertoire : il faut `w` **et** `x` sur le **répertoire**, pas forcément sur le fichier.
-> 
+```
 
 ---
 
-## 3) Lire les droits
+# 1. Pourquoi Linux utilise des permissions ? 🎯
 
-### Vue courte
+Linux gère plusieurs utilisateurs *simultanément* (humains + services).
+
+Les permissions servent à :
+
+- protéger les fichiers sensibles ;
+- éviter qu’un service écrase le travail d’un autre ;
+- limiter les dégâts si un utilisateur se trompe (rm, écriture, script…) ;
+- organiser la collaboration via les groupes.
+
+En DevOps, comprendre les permissions est **indispensable** pour :
+
+- sécuriser un serveur,
+- configurer un conteneur,
+- restreindre des accès,
+- déployer des projets collaboratifs,
+- manipuler /var/www, /etc, /srv, ~/.ssh…
+
+---
+
+# 2. Utilisateurs, groupes, modèle u/g/o 👤👥
+
+Chaque fichier/dossier possède :
+
+- **Un propriétaire** → “user” (u)
+- **Un groupe** → “group” (g)
+- **Les autres utilisateurs** → “others” (o)
+
+### Les droits possibles (r, w, x)
+
+| Lettre | Sur un fichier | Sur un dossier |
+| --- | --- | --- |
+| **r** | lire | lister le contenu |
+| **w** | écrire, modifier | créer, renommer, supprimer des fichiers |
+| **x** | exécuter script/binaire | **traverser** (entrer dans le dossier) |
+
+💡 Sur un dossier, **x ≠ exécution**, mais **accès au contenu**.
+
+---
+
+# 3. Lire les permissions 🔍
+
+### `ls -l`
 
 ```bash
-ls -l              # fichiers
-ls -ld mon_dossier # le dossier lui-même
+ls -l script.sh
 
 ```
 
 Exemple :
 
 ```
-drwxr-xr-x  2 joe  devops  4096 Oct 15 10:20 projet
-- rwxr-xr-- 1 joe  devops   512 Oct 15 10:20 script.sh
+-rwxr-xr-- 1 alice devops 812 Nov 30 10:00 script.sh
 ^ ^^^ ^^^ ^^^
-| |   |   └─ others (o) : r--
-| |   └──── group  (g) : r-x
-| └──────── user   (u) : rwx
-└────────── type: d (dir) / - (file) / l (link) ...
+| |   |   └ others = r--
+| |   └──── group  = r-x
+| └──────── user   = rwx
+└────────── type (- = fichier)
 
 ```
 
-### Vue détaillée
+### `stat`
 
 ```bash
 stat script.sh
 
 ```
 
-Affiche mode octal, propriétaire, groupe, dates…
+Affiche :
+
+- permissions octales
+- propriétaire, groupe
+- dates
+- type exact du fichier
 
 ---
 
-## 4) Modes symboliques et octaux
+# 4. Permissions symboliques 🧩
 
-### Symbolique
+### Syntaxe
 
 ```bash
-chmod u+x,g-w script.sh   # +x pour user ; -w pour group
-chmod o=r script.sh       # others : lecture seulement
-chmod a-rwx fichier       # a = all (u,g,o)
+chmod u+rwx fichier
+chmod g-w fichier
+chmod o=r fichier
+chmod a-rwx fichier   # a = all (u, g, o)
 
 ```
 
-### Octal (r=4, w=2, x=1)
+Chaque lettre est expliquée :
 
-- `644` → `rw-r--r--` (fichier lisible par tous, modifiable par le propriétaire)
-- `600` → `rw-------` (privé)
-- `755` → `rwxr-xr-x` (script exécutable par tous)
-- `750` → `rwxr-x---` (équipe via groupe)
+- **u** = propriétaire (user)
+- **g** = groupe
+- **o** = autres
+- **a** = tous
+- **+** → ajouter un droit
+- → retirer un droit
+- **=** → remplacer tous les droits
+
+---
+
+# 5. Permissions octales (3 chiffres et 4 chiffres) 🔢
+
+## 5.1 Conversion rwx → octal
+
+```
+r = 4
+w = 2
+x = 1
+
+```
+
+| Forme | Valeur | Signification |
+| --- | --- | --- |
+| --- | 0 | aucun droit |
+| r-- | 4 | lecture |
+| rw- | 6 | lecture + écriture |
+| rwx | 7 | lecture + écriture + exécution |
+
+### Exemple
 
 ```bash
 chmod 755 script.sh
 
 ```
 
+→ user : 7 (rwx)
+
+→ group : 5 (r-x)
+
+→ others : 5 (r-x)
+
+## 5.2 Pourquoi parfois 4 chiffres ? 🤔
+
+Parce que Linux peut appliquer des **permissions spéciales** :
+
+| Bit spécial | Valeur | Rôle |
+| --- | --- | --- |
+| **SUID** | 4 | exécuter avec l’UID du propriétaire |
+| **SGID** | 2 | exécuter avec GID du groupe / hériter du groupe |
+| **Sticky** | 1 | empêcher de supprimer les fichiers des autres |
+
+Donc un mode **à 4 chiffres** :
+
+```
+[SPÉCIAL] [USER] [GROUP] [OTHERS]
+
+```
+
+### Exemple :
+
+```bash
+chmod 4755 programme
+
+```
+
+= SUID (4) + 755
+
+= `rwsr-xr-x`
+
+Schéma :
+
+```mermaid
+graph LR
+  A[4 chiffres] --> B[SUID=4]
+  A --> C[SGID=2]
+  A --> D[Sticky=1]
+  A --> E[user rwx]
+  A --> F[group r-x]
+  A --> G[others r-x]
+
+```
+
+---
+
+# 6. Récursivité `R` (super important) 🌲
+
+L’option **`-R`** signifie :
+
+> appliquer l’action au dossier ET à tout son contenu, à tous les niveaux.
+> 
+
+Elle existe dans :
+
+- `chmod -R`
+- `chown -R`
+- `chgrp -R`
+- `cp -R`
+- `rm -R`
+
+### Exemple :
+
+```bash
+chmod -R 755 /srv/app
+
+```
+
+→ modifie `/srv/app`
+
+→ tous les sous-dossiers
+
+→ tous les fichiers
+
+→ etc.
+
+⚠️ Danger réel :
+
+```bash
+sudo chmod -R 755 /
+
+```
+
+→ système détruit.
+
+---
+
+# 7. chown & chgrp 🧑‍🔧
+
+### Changer propriétaire
+
+```bash
+sudo chown alice fichier
+
+```
+
+### Changer propriétaire + groupe
+
+```bash
+sudo chown alice:devops fichier
+
+```
+
+### Changer groupe
+
+```bash
+sudo chgrp devops fichier
+
+```
+
 ### Récursif
 
 ```bash
-chmod -R 755 dir/
+sudo chown -R www-data:www-data /var/www
 
 ```
 
 ---
 
-## 5) Propriété & groupes
+# 8. Bits spéciaux 🔥
 
-### Changer propriétaire/groupe
+## 8.1 SUID (4xxx)
+
+Un programme s’exécute avec les droits du **propriétaire**.
 
 ```bash
-sudo chown paul script.sh          # propriétaire
-sudo chown paul:devops script.sh   # propriétaire + groupe
-sudo chgrp devops script.sh        # groupe
-sudo chown -R user:group dir/      # récursif
+chmod 4755 /usr/bin/outil
 
 ```
 
-### Qui suis-je / de quel groupe ?
+Affiché :
 
-```bash
-whoami
-id                # identités & groupes
-id -ng            # groupe principal
-id -nG            # tous les groupes
-groups user
+```
+rwsr-xr-x
 
 ```
 
-### Gérer les groupes (administration de base)
+Le `s` remplace le `x` dans la colonne user.
+
+## 8.2 SGID (2xxx)
+
+### Sur fichier
+
+→ exécution avec le **GID du groupe**.
+
+### Sur dossier
+
+→ **héritage automatique du groupe**.
+
+Super utile en équipe :
 
 ```bash
-# (selon distro)
-sudo groupadd devops
-sudo usermod -aG devops paul   # ajouter 'paul' au groupe 'devops' (sans retirer les autres)
-getent group devops            # afficher membres d’un groupe
-newgrp devops                  # prendre le groupe sans se déconnecter
+sudo chgrp -R devops /srv/projet
+sudo chmod 2775 /srv/projet
+
+```
+
+## 8.3 Sticky bit (1xxx)
+
+Empêche les suppressions croisées.
+
+```bash
+chmod 1777 /srv/partage
+
+```
+
+Comme `/tmp`.
+
+---
+
+# 9. UMASK — droits par défaut 🎯
+
+Voir la valeur :
+
+```bash
+umask
+
+```
+
+Exemple : `umask 022`
+
+- fichiers → 666 - 022 = **644**
+- dossiers → 777 - 022 = **755**
+
+Changer :
+
+```bash
+umask 027
 
 ```
 
 ---
 
-## 6) Droits spéciaux : SUID, SGID, Sticky
+# 10. ACL — Access Control Lists (droits avancés) 🎛️
 
-Ces bits **complètent** `rwx` et s’affichent comme `s` ou `t`.
+ACL permet des droits **granulaires** : par utilisateur ou groupe spécifique.
 
-- **SUID** (sur fichier, bit 4xxx) : exécution avec l’**UID du propriétaire** du fichier.
-    - Affichage : `rwsr-xr-x` (`s` à la place de `x` chez **user**).
-    - Ex : programme système qui a besoin d’un accès root.
-    - **Risqué** si mal géré → à limiter.
-- **SGID** (sur fichier, bit 2xxx) : exécution avec le **GID du groupe** du fichier.
-    - Affichage : `rwxr-sr-x` (`s` chez **group**).
-- **SGID** (sur **répertoire**) : **héritage de groupe** : les nouveaux fichiers/dossiers héritent du groupe du dossier.
-    - Recette *projet d’équipe* :
-        
-        ```bash
-        sudo chgrp -R devops /srv/projet
-        sudo chmod 2775 /srv/projet        # 2 = SGID sur dossier
-        
-        ```
-        
-- **Sticky bit** (sur **répertoire**, bit 1xxx) : seuls le **propriétaire du fichier** (ou root) peut le supprimer, même si le dossier est `rwx` pour tous.
-    - Affichage : `drwxrwxrwt` (le `t` final).
-    - Ex : `/tmp`
-
-**En octal :**
-
-- `chmod 4755 fichier` # SUID + 755
-- `chmod 2755 dossier` # SGID + 755
-- `chmod 1777 /partage` # Sticky + 777
-
----
-
-## 7) Umask : droits **par défaut** à la création
-
-**Umask** définit **ce qu’on retire** des droits par défaut :
-
-- Valeur courante :
-    
-    ```bash
-    umask
-    
-    ```
-    
-- Exemple : `umask 022` → nouveaux **fichiers** ≈ `644`, **dossiers** ≈ `755`
-    - Fichier : base 666 − 022 = **644**
-    - Dossier : base 777 − 022 = **755**
-
-Changer temporairement :
-
-```bash
-umask 027   # fichier ~640, dossier ~750
-
-```
-
----
-
-## 8) ACL (Access Control Lists) — pour aller au-delà de u/g/o
-
-Quand `u/g/o` ne suffit pas (droits **granulaires** par utilisateur/groupe), utilise les **ACL**.
-
-### Voir / appliquer des ACL
+## 10.1 Lire l’ACL
 
 ```bash
 getfacl fichier
-setfacl -m u:alice:rw fichier      # donner rw à alice
-setfacl -m g:devops:rwx dossier    # groupe devops rwx sur le dossier
-setfacl -x u:alice fichier         # retirer l’ACL d’alice
-
-# ACL par défaut (héritées par les nouveaux fichiers/dossiers)
-setfacl -d -m g:devops:rwx dossier
-getfacl dossier
 
 ```
 
-> Les ACL s’ajoutent au-dessus du modèle u/g/o. Elles nécessitent que le système de fichiers les supporte (ext4, xfs, …).
-> 
+## 10.2 Modifier une ACL → option **`m`**
+
+- `m` = **modify** (modifier / ajouter une entrée ACL)
+
+```bash
+setfacl -m u:alice:r fichier
+setfacl -m g:devops:rw dossier
+
+```
+
+Signification :
+
+- **u:** → utilisateur
+- **g:** → groupe
+- **rwx** → droits
+- **m** → modifier l’ACL
+
+## 10.3 ACL par défaut → option **`d`**
+
+- `d` = **default ACL** (héritage pour les nouveaux fichiers dans un dossier)
+
+```bash
+setfacl -d -m g:devops:rwx /srv/projet
+
+```
+
+Ce que ça signifie :
+
+- tous les *nouveaux* fichiers créés dans `/srv/projet` reçoivent automatiquement `rwx` pour `devops`.
+
+## 10.4 Retirer une ACL
+
+```bash
+setfacl -x u:alice fichier
+
+```
+
+- `x` = **remove** (supprime une entrée ACL).
 
 ---
 
-## 9) Trouver & corriger des permissions
+# 11. Trouver des permissions problématiques (audit) 🛡️
 
-### Rechercher par permissions
+### Fichiers world-writable
 
 ```bash
-find . -type f -perm -o+w         # fichiers world-writable
-find / -type f -perm -4000 2>/dev/null   # fichiers SUID (audit)
+find . -type f -perm -o+w
 
 ```
 
-### Fixer récursivement (répertoires vs fichiers)
+### Fichiers SUID
 
 ```bash
-# Dossiers : 755 (SGID si projet d’équipe)
-find /srv/projet -type d -exec chmod 2755 {} \;
-
-# Fichiers : 644 (ou 640 si privé au groupe)
-find /srv/projet -type f -exec chmod 0644 {} \;
+find / -type f -perm -4000 2>/dev/null
 
 ```
 
----
-
-## 10) Exécution d’un script : conditions requises
-
-Pour exécuter `./script.sh` :
-
-1. Le **fichier** doit être **exécutable** (`chmod +x`), **et**
-2. Tous les **répertoires** du chemin (`.` → `/`, `/home`, `/home/user`, …) doivent être **traversables** (`x`) pour toi.
-
-> Alternative : bash script.sh n’a pas besoin du bit x (mais a besoin des droits de lecture).
-> 
-
----
-
-## 11) Sudo : élever ses privilèges proprement
-
-- **Principe** : exécuter ponctuellement une commande avec des droits supérieurs.
-- **Fichier de config** : `/etc/sudoers` (éditer avec `visudo`).
-- Exemples :
-    
-    ```bash
-    sudo chown paul:devops script.sh
-    sudo chgrp devops script.sh
-    sudo -u postgres psql         # se faire passer pour 'postgres'
-    
-    ```
-    
-- **Moindre privilège** : donne le minimum nécessaire, pas `NOPASSWD` partout.
-
----
-
-## 12) Cas réels & recettes
-
-### A) Dossier de projet partagé (héritage de groupe + ACL)
+### Remettre une arborescence propre
 
 ```bash
-sudo groupadd devops
-sudo mkdir -p /srv/projet
-sudo chgrp -R devops /srv/projet
-sudo chmod 2775 /srv/projet                     # SGID pour héritage de groupe
-sudo setfacl -d -m g:devops:rwx /srv/projet     # ACL par défaut pour le groupe
-sudo usermod -aG devops alice
-sudo usermod -aG devops bob
-
-```
-
-### B) Rendre un script exécutable par tous, modifiable par le propriétaire
-
-```bash
-chmod 755 deploy.sh
-
-```
-
-### C) Sécuriser un fichier de clé privée
-
-```bash
-chmod 600 ~/.ssh/id_rsa
-
-```
-
-### D) Empêcher la suppression mutuelle dans un répertoire partagé
-
-```bash
-sudo chmod 1777 /srv/partage   # sticky bit (comme /tmp)
-
-```
-
-### E) Corriger une arborescence “cassée”
-
-```bash
-# Dossiers 755, fichiers 644
 find site/ -type d -exec chmod 755 {} \;
 find site/ -type f -exec chmod 644 {} \;
 
@@ -322,96 +457,132 @@ find site/ -type f -exec chmod 644 {} \;
 
 ---
 
-## 13) Aller (un peu) plus loin
+# 12. Conditions pour exécuter un script 🧩
 
-- **Capabilities Linux** (droits par capacité fine sur un binaire) :
-    
-    ```bash
-    getcap /usr/bin/ping
-    sudo setcap cap_net_raw+ep /usr/local/bin/monoutil
-    
-    ```
-    
-    Permet d’éviter un SUID root dangereux.
-    
-- **Attributs immuables (chattr)** :
-    
-    ```bash
-    sudo chattr +i fichier_critique   # impossible à modifier/supprimer (même root doit retirer le +i)
-    lsattr fichier_critique
-    sudo chattr -i fichier_critique
-    
-    ```
-    
-- **Confinements MAC (SELinux/AppArmor)** : couches supplémentaires de sécurité (hors scope de base, mais sache que ça peut **bloquer** même si les permissions POSIX semblent correctes).
-
----
-
-## 14) Checklist “droits” (avant prod)
-
-- Propriétaire/groupe **corrects** ? (`ls -l`, `stat`)
-- Permissions **minimales** nécessaires ? (`chmod` ; éviter `777`)
-- Dossier d’équipe : **SGID** + **ACL par défaut** si besoin d’héritage propre ?
-- Fichiers sensibles (clés, secrets) : `600` ou `640` ?
-- Pas de fichiers **SUID** inutiles ? (`find / -perm -4000`)
-- Pas de **world-writable** non voulus ? (`find . -perm -o+w`)
-- Umask adapté (`umask 027` sur serveurs) ?
-- Sudo : règles **précises** via `visudo`, principe du moindre privilège.
-
----
-
-## 15) Exercices rapides (à faire)
-
-1. **Lire & comprendre** :
-    - Que signifie `rwxr-sr-x` ? (Réponse : SGID sur fichier, `s` dans le triplet group.)
-2. **Partage d’équipe** :
-    - Crée `/srv/projet` partagé avec héritage de groupe `devops` et ACL par défaut `rwx` pour `devops`.
-3. **Audit** :
-    - Trouve tous les fichiers world-writable dans `/var/www` et corrige-les.
-4. **Sécurise** :
-    - Mets `~/.ssh/id_rsa` en `600` et explique **pourquoi** c’est requis.
-
----
-
-## 16) Tes commandes (corrigées & consolidées)
+Pour faire :
 
 ```bash
-# Voir les droits
-ls -l            # fichiers
-ls -ld dossier   # le dossier lui-même
-stat fichier
-
-# Changer droits (symbolique / octal)
-chmod o=r -- script.sh
-chmod u+x,g-w -- script.sh
-chmod 755 -- script.sh
-
-# Propriétaire / groupe
-sudo chown paul:devops script.sh
-sudo chgrp devops script.sh
-id -ng           # groupe principal
-id -nG           # groupes de l'utilisateur
-
-# Récursif
-sudo chown -R paul:devops /srv/projet
-chmod -R 755 /srv/projet
-
-# Bits spéciaux
-chmod 4755 /usr/local/bin/out      # SUID
-chmod 2755 /srv/projet             # SGID (héritage de groupe)
-chmod 1777 /srv/partage            # sticky
-
-# ACL
-setfacl -m u:alice:rw fichier
-setfacl -m g:devops:rwx dossier
-setfacl -d -m g:devops:rwx dossier
-getfacl dossier
-
-# Trouver des permissions “dangereuses”
-find . -type f -perm -o+w
-find / -type f -perm -4000 2>/dev/null
+./script.sh
 
 ```
+
+Il faut :
+
+1. le fichier a le droit **x**.
+2. tous les dossiers du chemin ont **x**.
+
+Ou :
+
+```bash
+bash script.sh
+
+```
+
+→ nécessite seulement la lecture.
+
+---
+
+# 13. Sudo & sudoers 🔐
+
+Toujours éditer avec :
+
+```bash
+sudo visudo
+
+```
+
+Exemples :
+
+```bash
+sudo systemctl restart nginx
+sudo -u postgres psql
+sudo chown alice:devops fichier
+
+```
+
+Objectif : privilégier **le moindre privilège**.
+
+---
+
+# 14. Cas pratiques (scénarios complets) 🧪
+
+### Cas 1 : projet collaboratif
+
+```bash
+sudo groupadd devops
+sudo mkdir -p /srv/projet
+sudo chgrp -R devops /srv/projet
+sudo chmod 2775 /srv/projet        # SGID
+sudo setfacl -d -m g:devops:rwx /srv/projet
+
+```
+
+### Cas 2 : sécurisation clé SSH
+
+```bash
+chmod 600 ~/.ssh/id_rsa
+
+```
+
+### Cas 3 : limiter les suppressions
+
+```bash
+chmod 1777 /srv/partage
+
+```
+
+### Cas 4 : corriger permissions d’une app
+
+```bash
+find /var/www/site -type d -exec chmod 755 {} \;
+find /var/www/site -type f -exec chmod 644 {} \;
+
+```
+
+---
+
+# 15. Feuille mémoire des commandes 📄
+
+```bash
+# Lecture
+ls -l
+ls -ld dossier
+stat fichier
+
+# chmod
+chmod u+x fichier
+chmod 755 fichier
+chmod 4755 fichier
+chmod -R 755 dossier/
+
+# chown / chgrp
+sudo chown alice fichier
+sudo chown alice:devops fichier
+sudo chgrp devops fichier
+sudo chown -R www-data:www-data /var/www
+
+# ACL
+getfacl fichier
+setfacl -m u:alice:rw fichier
+setfacl -d -m g:devops:rwx dossier
+setfacl -x u:alice fichier
+
+# Audit
+find . -perm -o+w
+find / -perm -4000 2>/dev/null
+
+```
+
+# 16. Checklist sécurité avant production ✔️
+
+- Aucun fichier `777`
+- Clés privées → `600`
+- Dossiers de projet → SGID & ACL par défaut
+- Aucun SUID inutile
+- Aucun fichier world-writable
+- `umask` correct (022 ou 027)
+- sudo → règles strictes, pas de `NOPASSWD` global
+- Les bons groupes affectés aux bons utilisateurs
 
 ---
 [← Module précédent](M02_scripting-bash.md) | [Module suivant →](M02_cron-automatisation.md)
