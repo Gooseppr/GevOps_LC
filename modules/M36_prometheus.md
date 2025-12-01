@@ -71,7 +71,7 @@ mindmap
       Performance
       Alertes
       Capacité
-``` :contentReference[oaicite:0]{index=0}
+```
 
 **Prometheus** se place clairement dans la branche **Métriques** : c’est un système qui **scrape** des endpoints, stocke les données en **séries temporelles**, et expose une API + un langage de requêtes (**PromQL**). :contentReference[oaicite:1]{index=1}
 
