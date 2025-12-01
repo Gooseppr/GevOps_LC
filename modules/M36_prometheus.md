@@ -170,6 +170,14 @@ cd prometheus-*-linux-amd64
 
 ```
 
+Exemple :
+```bash
+wget https://github.com/prometheus/prometheus/releases/download/v3.8.0-rc.1/prometheus-3.8.0-rc.1.linux-amd64.tar.gz
+tar xvf prometheus-3.8.0-rc.1.linux-amd64.tar.gz
+cd prometheus-3.8.0-rc.1.linux-amd64
+```
+
+
 Tu obtiens :
 
 - `prometheus` (binaire),
@@ -838,3 +846,7 @@ node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes
     - écrire des **scrape_configs** pour ajouter des targets,
     - utiliser les fonctions PromQL les plus courantes (`rate`, `increase`, `sum`, `avg`…),
     - définir des **règles d’alertes** et les envoyer à Alertmanager.
+
+---
+[Module suivant →](M36_prometheus-pratique.md)
+---

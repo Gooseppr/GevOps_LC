@@ -114,6 +114,7 @@ title: Accueil
 - Jour 35 / 01 : [M35_ansible.md](modules/M35_ansible.md)
 - Jour 35 / 02 : [M35_ansible-avancé.md](modules/M35_ansible-avancé.md)
 - Jour 36 / 01 : [M36_prometheus.md](modules/M36_prometheus.md)
+- Jour 36 / 02 : [M36_prometheus-pratique.md](modules/M36_prometheus-pratique.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
