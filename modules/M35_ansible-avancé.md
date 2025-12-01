@@ -724,11 +724,9 @@ Impossible de déchiffrer le prod avec le mot de passe dev.
 
 ### 4.1. Syntaxe de base
 
-```txt
 - `{{ ... }}` → afficher une valeur (expression)
-- `{% ... %}` → exécuter une instruction (for, if, etc.)
+- `{pourcent ... pourcent}` → exécuter une instruction (for, if, etc.)
 - `{# ... #}` → commentaire dans le template (non rendu)
-```
 
 ---
 
