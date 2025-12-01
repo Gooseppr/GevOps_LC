@@ -95,7 +95,7 @@ graph LR
   P -->|PromQL| G[Grafana / UI]
   P -->|Alertes| AM[Alertmanager]
   AM -->|Slack / Mail / Discord| TEAM[Equipe]
-``` :contentReference[oaicite:2]{index=2}
+```
 
 **Rôles :**
 
