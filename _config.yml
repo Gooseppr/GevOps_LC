@@ -9,3 +9,5 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-coffeescript
+  - jekyll-relative-links
