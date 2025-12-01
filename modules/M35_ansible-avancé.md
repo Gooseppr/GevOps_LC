@@ -716,6 +716,7 @@ Impossible de déchiffrer le prod avec le mot de passe dev.
 - les fichiers *chiffrés* (`vault.yml`) peuvent aller dans Git,
 - **les fichiers avec les mots de passe** (`.vault-pass` éventuels) ne doivent **jamais** être commit,
 - utiliser des mots de passe solides,
+- en équipe : passer par un gestionnaire de secrets (1Password, Vault HashiCorp…) pour partager les passwords Vault.
 
 ---
 
@@ -723,9 +724,11 @@ Impossible de déchiffrer le prod avec le mot de passe dev.
 
 ### 4.1. Syntaxe de base
 
+```txt
 - `{{ ... }}` → afficher une valeur (expression)
 - `{% ... %}` → exécuter une instruction (for, if, etc.)
 - `{# ... #}` → commentaire dans le template (non rendu)
+```
 
 ---
 
