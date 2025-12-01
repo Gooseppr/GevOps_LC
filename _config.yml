@@ -5,4 +5,15 @@ header_pages:
   - index.md        # Accueil
 include:
   - _includes
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+defaults:
+  - scope:
+      path: "modules"
+      type: "pages"
+    values:
+      render_with_liquid: false
 

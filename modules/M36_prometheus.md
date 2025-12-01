@@ -717,7 +717,6 @@ groups:
 ### 12.2 Référence dans `prometheus.yml`
 
 ```yaml
-
 rule_files:
   - "/etc/prometheus/alerts.yml"
 
