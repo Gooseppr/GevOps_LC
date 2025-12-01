@@ -160,7 +160,7 @@ node_cpu_seconds_total{instance="app-01", mode="idle"}          12345  171837320
 
 Prometheus fournit des binaires précompilés pour Linux, Windows, etc. [prometheus.io](https://prometheus.io/download/?utm_source=chatgpt.com)
 
-1. **Téléchargement**
+#### 1. **Téléchargement**
 
 ```bash
 cd /tmp
@@ -175,7 +175,8 @@ Tu obtiens :
 - `prometheus` (binaire),
 - `promtool` (outil de validation),
 - des fichiers d’exemple (`prometheus.yml`, consoles…).
-1. **Création d’un utilisateur système**
+
+#### 2. **Création d’un utilisateur système**
 
 ```bash
 sudo useradd --no-create-home --shell /usr/sbin/nologin prometheus
@@ -185,7 +186,7 @@ sudo chown prometheus:prometheus /etc/prometheus /var/lib/prometheus
 
 ```
 
-1. **Copier les binaires et la config**
+#### 3. **Copier les binaires et la config**
 
 ```bash
 sudo cp prometheus promtool /usr/local/bin/
@@ -197,7 +198,7 @@ sudo chown -R prometheus:prometheus /etc/prometheus
 
 ```
 
-1. **Service systemd**
+#### 4. **Service systemd**
 
 `/etc/systemd/system/prometheus.service` :
 
@@ -230,7 +231,8 @@ WantedBy=multi-user.target
 - `-storage.tsdb.path` : dossier où la TSDB va stocker les données.
 - `-web.listen-address` : IP:port d’écoute HTTP (par défaut `:9090`).
 - `-storage.tsdb.retention.time` : durée de conservation des données (15 jours ici).
-1. **Activer et démarrer**
+
+#### 5. **Activer et démarrer**
 
 ```bash
 sudo systemctl daemon-reload
