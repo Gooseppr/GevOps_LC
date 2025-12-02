@@ -37,6 +37,7 @@ title: Accueil
 - 👉 [Jour 34](jours/jour-34)
 - 👉 [Jour 35](jours/jour-35)
 - 👉 [Jour 36](jours/jour-36)
+- 👉 [Jour 37](jours/jour-37)
 
 
 ---
@@ -115,6 +116,7 @@ title: Accueil
 - Jour 35 / 02 : [M35_ansible-avancé.md](modules/M35_ansible-avancé.md)
 - Jour 36 / 01 : [M36_prometheus.md](modules/M36_prometheus.md)
 - Jour 36 / 02 : [M36_prometheus-pratique.md](modules/M36_prometheus-pratique.md)
+- Jour 37 / 01 : [M37_grafana.md](modules/M37_grafana.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
