@@ -38,6 +38,7 @@ title: Accueil
 - 👉 [Jour 35](jours/jour-35)
 - 👉 [Jour 36](jours/jour-36)
 - 👉 [Jour 37](jours/jour-37)
+- 👉 [Jour 39](jours/jour-39)
 - 👉 [Jour 40](jours/jour-40)
 
 
@@ -118,6 +119,7 @@ title: Accueil
 - Jour 36 / 01 : [M36_prometheus.md](modules/M36_prometheus.md)
 - Jour 36 / 02 : [M36_prometheus-pratique.md](modules/M36_prometheus-pratique.md)
 - Jour 37 / 01 : [M37_grafana.md](modules/M37_grafana.md)
+- Jour 39 / 01 : [M39_schema-dinfrastructure.md](modules/M39_schema-dinfrastructure.md)
 - Jour 40 / 01 : [M38_monotoring-avancé.md](modules/M38_monotoring-avancé.md)
 
 ## Pipeline

@@ -9,7 +9,7 @@ tags: prometheus, grafana, alertmanager, blackbox, observabilité, monitoring
 
 # 🎓 Monitoring avancé – Prometheus & Grafana
 
-## 0. Ce que tu sauras faire
+## Ce que tu sauras faire
 
 À la fin de ce cours, tu sauras :
 
