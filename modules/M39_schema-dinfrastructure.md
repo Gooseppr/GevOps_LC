@@ -76,7 +76,7 @@ flowchart TD
     U1[Déploiement réel<br/>VM, conteneurs, ports]
   end
 
-  M1 --> S1 --> U1
+  Macro --> Meso --> Micro
 ```
 - **Macro** : raconte l’histoire de ton système pour un public large.
 - **Méso** : zoom sur les **modules techniques**.
