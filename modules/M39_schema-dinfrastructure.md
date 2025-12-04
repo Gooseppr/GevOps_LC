@@ -77,6 +77,7 @@ flowchart TD
   end
 
   M1 --> S1 --> U1
+```
 - **Macro** : raconte l’histoire de ton système pour un public large.
 - **Méso** : zoom sur les **modules techniques**.
 - **Micro** : détail du **déploiement réel**, adressé aux **DevOps / infra**.
@@ -293,12 +294,11 @@ Ici tu montres :
 
 ```mermaid
 flowchart LR
-  CL[Client] -->|HTTPS| API_GW[API Gateway]
-  API_GW -->|HTTP REST| AUTH[Auth Service]
-  API_GW -->|HTTP REST| ORDERS[Orders Service]
-  ORDERS -->|SQL (TCP 5432)| DB[(PostgreSQL)]
-  API_GW -->|gRPC| INVENTORY[Service Stock]
-
+  CL[Client] -->|HTTPS| API_GW["API Gateway"]
+  API_GW -->|HTTP REST| AUTH["Auth Service"]
+  API_GW -->|HTTP REST| ORDERS["Orders Service"]
+  ORDERS -->|SQL TCP 5432| DB["PostgreSQL"]
+  API_GW -->|gRPC| INVENTORY["Service Stock"]
 ```
 
 Tu peux indiquer :
@@ -544,12 +544,12 @@ Tu peux copier/coller ces snippets et les adapter à ton projet.
 
 ```mermaid
 flowchart LR
-  User[Utilisateur] --> WEB[Frontend (Web / Mobile)]
-  Admin[Admin] --> BO[Back Office]
-  WEB --> API[Backend / API]
+  User["Utilisateur"] --> WEB["Frontend Web ou Mobile"]
+  Admin["Admin"] --> BO["Back Office"]
+  WEB --> API["Backend / API"]
   BO --> API
-  API --> DB[(Base de données principale)]
-  API --> EXT[Service externe (paiement / email)]
+  API --> DB["Base de donnees principale"]
+  API --> EXT["Service externe (paiement ou email)"]
 
 ```
 
