@@ -376,5 +376,5 @@ L’Agile et SCRUM permettent de :
 Chaque sprint est une **mini-aventure complète** : planification → réalisation → tests → démonstration → amélioration.
 
 ---
-[← Module précédent](M40.projet-test.md)
+[Module suivant →](M40.projet-test.md)
 ---
