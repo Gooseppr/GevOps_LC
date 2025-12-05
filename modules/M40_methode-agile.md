@@ -1,3 +1,11 @@
+---
+title: Méthode agile
+sujet: Gestion de projet
+type: module
+jour: 40
+ordre: 1
+tags: gestion de projet, scrum, agile, kanban, gantt
+---
 
 # 🎓 **Cours complet : Gestion de Projet Agile — approche SCRUM**
 

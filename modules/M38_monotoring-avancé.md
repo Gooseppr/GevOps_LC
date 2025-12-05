@@ -2,7 +2,7 @@
 title: Monitoring avancé
 sujet: Observabilité
 type: module
-jour: 40
+jour: 38
 ordre: 1
 tags: prometheus, grafana, alertmanager, blackbox, observabilité, monitoring
 ---
