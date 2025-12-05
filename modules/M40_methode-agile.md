@@ -343,8 +343,8 @@ gantt
     section Sprint 3
     Dev + Intégrations            :c1, 2025-12-12, 2d
 
-    section Milestone
-    Review de mi-projet           :mil1, milestone, 2025-12-15, 1d
+    section Jalons
+    Review de mi-projet           :milestone, m1, 2025-12-15, 0d
 
     section Sprint 4
     Finalisation des fonctionnalités :d1, 2025-12-16, 2d
@@ -353,8 +353,8 @@ gantt
     Debug & Préparation finale    :e1, 2025-12-18, 1d
 
     section Livraison
-    Dossier projet (matin)        :f1, 2025-12-19, 0.5d
-    Soutenance (après-midi)       :f2, after f1, 0.5d
+    Dossier projet (matin)        :f1, 2025-12-19, 4h
+    Soutenance (après-midi)       :f2, after f1, 4h
 
 ```
 
