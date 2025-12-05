@@ -1,7 +1,7 @@
 ---
 layout: page
 title: La sécurité des application en production
-sujet: Cloud publique, Hosting & Cloud
+sujet: Sécurité
 type: module
 jour: 32
 ordre: 1

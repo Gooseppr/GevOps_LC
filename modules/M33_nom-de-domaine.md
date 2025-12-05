@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Les noms de domaine
-sujet: Cloud publique, Hosting & Cloud
+sujet: Hosting & Cloud
 type: module
 jour: 33
 ordre: 1

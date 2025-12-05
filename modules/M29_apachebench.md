@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Apache Bench
-sujet: Hosting & Cloud
+sujet: Cloud publique, Hosting & Cloud
 type: module
 jour: 29
 ordre: 2

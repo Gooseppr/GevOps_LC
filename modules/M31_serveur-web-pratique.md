@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Serveurs Web & Reverse Proxy - Pratique
-sujet: Cloud publique, Hosting & Cloud
+sujet: Administration
 type: module
 jour: 31
 ordre: 2

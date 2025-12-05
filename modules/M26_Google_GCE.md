@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Google Compute Engine
-sujet: Déploiement Continu (CD)
+sujet: Hosting & Cloud
 type: module
 jour: 26
 ordre: 5

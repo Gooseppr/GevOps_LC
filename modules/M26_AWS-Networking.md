@@ -1,7 +1,7 @@
 ---
 layout: page
 title: AWS - Introduction
-sujet: Déploiement Continu (CD)
+sujet: Hosting & Cloud
 type: module
 jour: 26
 ordre: 1

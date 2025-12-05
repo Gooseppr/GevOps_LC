@@ -1,6 +1,6 @@
 ---
 title: Monitoring avancé
-sujet: Observabilité
+sujet: Monitoring
 type: module
 jour: 38
 ordre: 1

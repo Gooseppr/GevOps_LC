@@ -1,6 +1,6 @@
 ---
 title: Schémas d’infrastructure
-sujet: Cloud publique, Hosting & Cloud
+sujet: Gestion de projet
 type: module
 jour: 39
 ordre: 1
