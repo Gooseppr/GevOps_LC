@@ -121,6 +121,7 @@ title: Accueil
 - Jour 37 / 01 : [M37_grafana.md](modules/M37_grafana.md)
 - Jour 39 / 01 : [M39_schema-dinfrastructure.md](modules/M39_schema-dinfrastructure.md)
 - Jour 40 / 01 : [M38_monotoring-avancé.md](modules/M38_monotoring-avancé.md)
+-  : [M40_methode-agile.md](modules/M40_methode-agile.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
