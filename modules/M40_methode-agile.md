@@ -374,3 +374,7 @@ L’Agile et SCRUM permettent de :
 - garder une vision claire de l’avancement.
 
 Chaque sprint est une **mini-aventure complète** : planification → réalisation → tests → démonstration → amélioration.
+
+---
+[← Module précédent](M40.projet-test.md)
+---
