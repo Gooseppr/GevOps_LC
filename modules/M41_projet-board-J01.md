@@ -47,15 +47,15 @@ pie showData
 ```mermaid
 pie showData
     title Colonnes du board
-    "backlog" : 24
-    "open" : 4
+    "backlog" : 23
+    "open" : 5
     "in-progress" : 5
     "closed" : 1
 ```
 
 > Lecture :
-> - **backlog** : 24 issues (70.6 %)
-> - **open** : 4 issues (11.8 %)
+> - **backlog** : 23 issues (67.6 %)
+> - **open** : 5 issues (14.7 %)
 > - **in-progress** : 5 issues (14.7 %)
 > - **closed** : 1 issues (2.9 %)
 
@@ -63,8 +63,8 @@ pie showData
 ```mermaid
 timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
-    backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer la VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : ... (+13 de plus)
-    open : Test API gateway : Test de la creation des sous reseaux : Creation du pipeline de compilation de l'image de NocoDB : Test de l'image localement de NocoDB
+    backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer la VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : Ansible - Playbook pour configurer la VM Grafana : ... (+12 de plus)
+    open : Reseau (IaC) - Definir et tester le VPC : Test API gateway : Test de la creation des sous reseaux : Creation du pipeline de compilation de l'image de NocoDB : Test de l'image localement de NocoDB
     in-progress : Ansible - Playbook pour le SSH Hardening : Test du bastion : Test de la stack : Test de fck-nat : Compilation de l'image localement de NocoDB
     closed : Clone du code NocoDB
 ```
