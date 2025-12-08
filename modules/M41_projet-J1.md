@@ -229,7 +229,21 @@ Remarques importantes :
 
 ---
 
-# 8) Déployer la stack
+# 8) Définir les variables sur la machine
+
+Toujours sur la VM Manager (`app-vm`) :
+
+```bash
+export DB_NAME=nocodb_db
+export DB_USER=admin
+export DB_PASSWORD='le mot de passe'
+export DB_HOST=root_db
+
+```
+
+---
+
+# 9) Déployer la stack
 
 Toujours sur la VM Manager (`app-vm`) :
 
@@ -247,9 +261,53 @@ docker stack ps mystack
 
 ```
 
+##  le Bon réflexe pour la prochaine fois : init en 1 replica, puis scale
+
+Pour éviter ces erreurs de migration concurrentes (et faire bien “pro”), tu peux adopter ce pattern :
+
+1. **Pour le premier déploiement NocoDB** :
+    
+    Dans `compose.yml` :
+    
+    ```yaml
+    nocodb:
+      deploy:
+        replicas: 1
+    
+    ```
+    
+2. Tu déploies :
+    
+    ```bash
+    docker stack deploy -c compose.yml mystack
+    docker stack ps mystack
+    docker service logs mystack_nocodb
+    
+    ```
+    
+    → Tu attends de voir les logs de migrations se terminer + `Nest application successfully started`.
+    
+3. Ensuite tu montes à 2 replicas :
+    
+    ```bash
+    docker service scale mystack_nocodb=2
+    
+    ```
+    
+4. Et tu vérifies :
+    
+    ```bash
+    docker stack ps mystack
+    
+    ```
+    
+
+> Grâce à ça on limite la concurrence lors de l’initialisation du schéma NocoDB en démarrant d’abord avec un seul replica pour que les migrations soient idempotentes, puis on scale ensuite à 2 services une fois la base prête.”
+
+
 ---
 
-# 9) Tester la répartition et les replicas
+# 10) Tester la répartition et les replicas
 
 ### Services dans la stack :
 
@@ -273,7 +331,7 @@ Résultats attendus :
 
 ---
 
-# 10) Tester le scaling du service
+# 11) Tester le scaling du service
 
 ```bash
 docker service scale mystack_nocodb=4
@@ -289,7 +347,7 @@ docker service ps mystack_nocodb
 
 ---
 
-# 11) Tester l’accès à NocoDB
+# 12) Tester l’accès à NocoDB
 
 Depuis ton navigateur :
 

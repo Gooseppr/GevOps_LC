@@ -6,21 +6,34 @@ jour: 41
 ordre: 0
 tags: projet
 ---
-# Tableau de bord GitLab (v2 - enrichi)
+# Tableau de bord GitLab – Projet QuickData (v3)
 
-## Sante du projet (qualite des donnees)
-- Issues: 35 | Milestones: 0 | Projets: 2
-- Labels uniques: 7 (issues sans label: 0)
+> Objectif : en un coup d'œil, répondre à 3 questions :
+> 1. Où en est le projet ?
+> 2. Quelle est la qualité de nos données (backlog, assignees, due_date) ?
+> 3. Qui fait quoi, sur quels scopes ?
 
-### % issues assignees
+---
+
+## 1. Sante du projet (qualite des donnees)
+Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sans due_date, sans milestones, on ne peut pas parler de charge, de retard ou de priorites.
+
+**KPIs globaux**
+- Issues : **35**
+- Milestones : **0**
+- Projets couverts : **2**
+- Labels uniques : **7**
+- Issues sans label : **0**
+
+### 1.1. % d'issues assignees
 ```mermaid
 pie showData
     title Issues assignees
     "assignees" : 4
-    "non assigne" : 31
+    "non assignees" : 31
 ```
 
-### % issues avec due_date
+### 1.2. % d'issues avec due_date
 ```mermaid
 pie showData
     title Issues avec due_date
@@ -28,7 +41,8 @@ pie showData
     "sans due_date" : 35
 ```
 
-## Avancement
+## 2. Avancement (flux de travail & temps)
+### 2.1 Repartition par colonne du board
 ```mermaid
 pie showData
     title Colonnes du board
@@ -38,14 +52,14 @@ pie showData
     "closed" : 0
 ```
 
-| Colonne | Description | Compte | % du total |
+Colonne | Description | Nb issues | % du total
 |---------|-------------|--------|------------|
 | backlog | Task to be picked up during sprint planning | 26 | 74.3% |
 | open | Issues within a sprint, awating to be taken for development | 5 | 14.3% |
 | in-progress | On-going work (must be assigned to somebody) | 4 | 11.4% |
 | closed | Issue reached completion | 0 | 0.0% |
 
-### Kanban (timeline Mermaid)
+### 2.2 Kanban (vue synthetique)
 ```mermaid
 timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
@@ -55,14 +69,14 @@ timeline
     closed : -
 ```
 
-### Timeline des creations (par jour)
+### 2.3 Timeline des creations
 
 | Date | Issues creees |
 |------|---------------|
 | 05-12-2025 | 35 |
 
 
-### Aging des issues (temps depuis creation)
+### 2.4 Aging des issues (anciennete)
 
 | Tranche | Nb issues |
 |---------|-----------|
@@ -72,7 +86,7 @@ timeline
 | 30j+ | 0 |
 
 
-### Gantt (approximatif)
+### 2.5 Gantt des taches (approximatif)
 Utilise start_date si renseignee, sinon created_at comme debut, et due_date/closed_at ou une duree par defaut.
 ```mermaid
 gantt
@@ -152,7 +166,7 @@ pie showData
     "scope::infra" : 24
     "scope::backup" : 2
     "open" : 5
-    "scoped::monitoring" : 4
+    "scope::monitoring" : 4
     "in-progress" : 4
     "scope::image" : 4
 ```
@@ -172,7 +186,13 @@ pie showData
 | backlog | 26 |
 | scope::infra | 24 |
 | open | 5 |
-| scoped::monitoring | 4 |
+| scope::monitoring | 4 |
 | in-progress | 4 |
 | scope::image | 4 |
 | scope::backup | 2 |
+
+## 4. Limites actuelles & pistes d'amelioration
+- Assigner toutes les issues actives (open / in-progress) pour piloter la charge.
+- Renseigner des due_date sur les taches critiques (infra, bastion, NAT, monitoring, etc.).
+- Ajouter des milestones (MVP, demo, soutenance) avec start/end pour suivre les echeances.
+- Enrichir les labels scopes pour mieux segmenter (scope::infra, scope::monitoring, etc.).
