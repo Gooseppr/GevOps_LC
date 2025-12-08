@@ -182,9 +182,10 @@ services:
     env_file:
       - .env
     environment:
-      NC_DB: "pg://${DB_HOST}:5432?u=${DB_USER}&p=${DB_PASSWORD}&d=${DB_NAME}"
+      NC_DB: "pg://${DB_HOST}:5432?u=${DB_USER}&p=${DB_PASSWORD}&d=${DB_NAME}" # variables du .env
+      # variables JWT, SSH et autres peuvent être ajoutées ici
     ports:
-      - "8080:8080"
+      - "8080:8080" 
     volumes:
       - nc_data:/usr/app/data
     deploy:
@@ -198,22 +199,22 @@ services:
   root_db:
     image: postgres:16
     environment:
-      POSTGRES_DB: root_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\""]
       interval: 10s
       timeout: 2s
       retries: 10
-    volumes:
-      - db_data:/var/lib/postgresql/data
+    volumes: 
+      - "db_data:/var/lib/postgresql/data"
     deploy:
       placement:
         constraints:
           - node.labels.role == db
 
-volumes:
+volumes: 
   db_data: {}
   nc_data: {}
 
