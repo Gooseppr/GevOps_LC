@@ -312,3 +312,7 @@ Avec ce process, tu es capable de :
 - vérifier la répartition,
 - scaler les services,
 - valider le fonctionnement complet de NocoDB + PostgreSQL.
+
+---
+[Module suivant →](M41_projet-board-J01.md)
+---

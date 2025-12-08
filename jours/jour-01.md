@@ -4,7 +4,6 @@ title: Jour 01
 ---
 
 ## Modules du jour
-- [M41_projet-board-J01.md](../modules/M41_projet-board-J01.md)
 - [M01_vagrant-bases-utiles.md](../modules/M01_vagrant-bases-utiles.md)
 - [M01_terminal-bash.md](../modules/M01_terminal-bash.md)
 - [M01_sed-utilisation.md](../modules/M01_sed-utilisation.md)

@@ -2,8 +2,8 @@
 title: Projet J01
 sujet: Projet
 type: module
-jour: 01
-ordre: A
+jour: 41
+ordre: 0
 tags: projet
 ---
 # Tableau de bord GitLab (v2 - enrichi)
