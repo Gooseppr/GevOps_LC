@@ -77,23 +77,23 @@ Voici un schéma clair :
 
 ```mermaid
 flowchart LR
-    subgraph Manager_1[Manager Node]
-        A1[Swarm Manager\nscheduler, control plane]
-        A2[Services Definition]
+    subgraph Manager_1["Manager Node"]
+        A1["Swarm Manager<br/>scheduler, control plane"]
+        A2["Services Definition"]
     end
 
-    subgraph Worker_1[Worker Node]
-        B1[Task 1\n(NocoDB)]
-        B2[Task 2\n(Node Exporter)]
+    subgraph Worker_1["Worker Node"]
+        B1["Task 1<br/>(NocoDB)"]
+        B2["Task 2<br/>(Node Exporter)"]
     end
 
-    subgraph Worker_2[Worker Node]
-        C1[Task 3\n(Promtail)]
+    subgraph Worker_2["Worker Node"]
+        C1["Task 3<br/>(Promtail)"]
     end
 
-    Manager_1 -- contrôle --> Worker_1
-    Manager_1 -- contrôle --> Worker_2
-    Worker_1 <-- overlay network --> Worker_2
+    Manager_1 -->|contrôle| Worker_1
+    Manager_1 -->|contrôle| Worker_2
+    Worker_1 <-->|overlay network| Worker_2
 
 ```
 
