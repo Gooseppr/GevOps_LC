@@ -147,3 +147,7 @@ pie showData
 - Renseigner des due_date sur les taches critiques (infra, bastion, NAT, monitoring, etc.).
 - Ajouter des milestones (MVP, demo, soutenance) avec start/end pour suivre les echeances.
 - Enrichir et normaliser les labels scopes (scope::infra, scope::monitoring, scope::image, scope::backup, etc.).
+
+---
+[Module suivant →](M41_projet-J1.md)
+---
