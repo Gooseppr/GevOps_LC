@@ -8,6 +8,9 @@ title: Jour 11
 - [M11_dockers.md](../modules/M11_dockers.md)
 - [M11_dockers_pratique.md](../modules/M11_dockers_pratique.md)
 
+## Bonus
+- [B03_dockers-swarm.md](../modules/B03_dockers-swarm.md)
+
 ## Tags du jour
 - devops
 - docker

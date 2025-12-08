@@ -133,4 +133,5 @@ title: Accueil
 ## Bonus
 - [B01_bash-bdd-rel.md](modules/B01_bash-bdd-rel.md) (jour: 02, 10)
 - [B02_kubernetes-cmd.md](modules/B02_kubernetes-cmd.md) (jour: 13, 14, 15)
+- [B03_dockers-swarm.md](modules/B03_dockers-swarm.md) (jour: 11, 12)
 
