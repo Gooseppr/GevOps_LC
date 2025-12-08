@@ -159,3 +159,7 @@ gantt
 | in-progress | 4 |
 | scope::image | 4 |
 | scope::backup | 2 |
+
+---
+[Module suivant →](M41_projet-J1.md)
+---

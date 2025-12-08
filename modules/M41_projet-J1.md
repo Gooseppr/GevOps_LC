@@ -314,5 +314,5 @@ Avec ce process, tu es capable de :
 - valider le fonctionnement complet de NocoDB + PostgreSQL.
 
 ---
-[Module suivant →](M41_projet-board-J01.md)
+[← Module précédent](M41_projet-board-J01.md)
 ---

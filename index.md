@@ -125,8 +125,8 @@ title: Accueil
 - Jour 39 / 01 : [M39_schema-dinfrastructure.md](modules/M39_schema-dinfrastructure.md)
 - Jour 40 / 01 : [M40_methode-agile.md](modules/M40_methode-agile.md)
 - Jour 40 / 02 : [M40.projet-test.md](modules/M40.projet-test.md)
+- Jour 41 / 00 : [M41_projet-board-J01.md](modules/M41_projet-board-J01.md)
 - Jour 41 / 01 : [M41_projet-J1.md](modules/M41_projet-J1.md)
-- Jour 41 / 10 : [M41_projet-board-J01.md](modules/M41_projet-board-J01.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
