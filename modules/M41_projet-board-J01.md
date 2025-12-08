@@ -19,10 +19,10 @@ tags: projet
 Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sans due_date, sans milestones, on ne peut pas parler de charge, de retard ou de priorites.
 
 **KPIs globaux**
-- Issues : **35**
+- Issues : **34**
 - Milestones : **0**
-- Projets couverts : **2**
-- Labels uniques : **7**
+- Projets couverts : **1**
+- Labels uniques : **8**
 - Issues sans label : **0**
 - Issues prêtes (assignee + due_date) : **0**
 
@@ -30,8 +30,8 @@ Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sa
 ```mermaid
 pie showData
     title Issues assignees
-    "assignees" : 4
-    "non assignees" : 31
+    "assignees" : 6
+    "non assignees" : 28
 ```
 
 ### 1.2. Pourcentage d'issues avec due_date
@@ -39,7 +39,7 @@ pie showData
 pie showData
     title Issues avec due_date
     "avec due_date" : 0
-    "sans due_date" : 35
+    "sans due_date" : 34
 ```
 
 ## 2. Avancement (flux de travail & temps)
@@ -47,42 +47,42 @@ pie showData
 ```mermaid
 pie showData
     title Colonnes du board
-    "backlog" : 26
-    "open" : 5
-    "in-progress" : 4
-    "closed" : 0
+    "backlog" : 24
+    "open" : 4
+    "in-progress" : 5
+    "closed" : 1
 ```
 
 > Lecture :
-> - **backlog** : 26 issues (74.3 %)
-> - **open** : 5 issues (14.3 %)
-> - **in-progress** : 4 issues (11.4 %)
+> - **backlog** : 24 issues (70.6 %)
+> - **open** : 4 issues (11.8 %)
+> - **in-progress** : 5 issues (14.7 %)
+> - **closed** : 1 issues (2.9 %)
 
 ### 2.2. Kanban (vue synthetique)
 ```mermaid
 timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
-    backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer la VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : ... (+15 de plus)
-    open : Test API gateway : Test de la creation des sous reseaux : Creation du pipeline de compilation de l'image de NocoDB : Test de l'image localement de NocoDB : Compilation de l'image localement de NocoDB
-    in-progress : Test du bastion : Test de la stack : Test de fck-nat : Clone du code NocoDB
-    closed : -
+    backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer la VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : ... (+13 de plus)
+    open : Test API gateway : Test de la creation des sous reseaux : Creation du pipeline de compilation de l'image de NocoDB : Test de l'image localement de NocoDB
+    in-progress : Ansible - Playbook pour le SSH Hardening : Test du bastion : Test de la stack : Test de fck-nat : Compilation de l'image localement de NocoDB
+    closed : Clone du code NocoDB
 ```
 
 ### 2.3. Timeline des creations
 
 | Date | Issues creees |
 |------|---------------|
-| 05-12-2025 | 35 |
+| 05-12-2025 | 34 |
 
 
 ### 2.4. Aging des issues (anciennete)
 
 | Tranche | Nb issues |
 |---------|-----------|
-| 0-1j | 0 |
-| 2-3j | 35 |
-| 4-7j | 0 |
-| 8-14j | 0 |
+| 0-2j | 0 |
+| 3-8j | 34 |
+| 9-14j | 0 |
 | 15j+ | 0 |
 
 
@@ -93,25 +93,24 @@ timeline
 pie showData
     title Issues par projet
     "Management" : 34
-    "inconnu" : 1
 ```
 
 ### 3.2. Charge par assigne (pie hors non assigne)
 ```mermaid
 pie showData
     title Assigne
-    "Philippe-BAHEUX" : 1
+    "Philippe-BAHEUX" : 2
     "gregoire.elmacin" : 1
     "jeagra" : 1
-    "gregoireuesteban" : 1
+    "gregoireuesteban" : 2
 ```
 
 | Assigne | Nb issues | % du total |
 |---------|-----------|------------|
-| non assigne | 31 | 88.6% |
-| Philippe-BAHEUX | 1 | 2.9% |
+| non assigne | 28 | 82.4% |
+| Philippe-BAHEUX | 2 | 5.9% |
+| gregoireuesteban | 2 | 5.9% |
 | gregoire.elmacin | 1 | 2.9% |
-| gregoireuesteban | 1 | 2.9% |
 | jeagra | 1 | 2.9% |
 
 ### 3.3. Distribution des labels (scopes fonctionnels)
@@ -124,16 +123,16 @@ pie showData
     "scope::image" : 4
 ```
 
-### 3.4. Top labels par assigne (max 3)
+### 3.4. Top labels par assigne (max 2, sans labels d'etat)
 
-| Assigne | Top labels (label:count) |
-|---------|--------------------------|
-| Philippe-BAHEUX | in-progress:1, scope::infra:1 |
-| gregoire.elmacin | in-progress:1, scope::infra:1 |
-| gregoireuesteban | in-progress:1, scope::image:1 |
-| jeagra | in-progress:1, scope::infra:1 |
+| Assigne | Label #1 | Label #2 |
+|---------|----------|----------|
+| Philippe-BAHEUX | in-progress (2) | scope::infra (2) |
+| gregoire.elmacin | in-progress (1) | scope::infra (1) |
+| gregoireuesteban | scope::image (2) | in-progress (1) |
+| jeagra | in-progress (1) | scope::infra (1) |
 
-### 3.5. Top labels globaux (fonctionnels, max 12)
+### 3.5. Top labels globaux (fonctionnels, max 5)
 
 | Label | Nb issues |
 |-------|-----------|
@@ -147,7 +146,3 @@ pie showData
 - Renseigner des due_date sur les taches critiques (infra, bastion, NAT, monitoring, etc.).
 - Ajouter des milestones (MVP, demo, soutenance) avec start/end pour suivre les echeances.
 - Enrichir et normaliser les labels scopes (scope::infra, scope::monitoring, scope::image, scope::backup, etc.).
-
----
-[Module suivant →](M41_projet-J1.md)
----
