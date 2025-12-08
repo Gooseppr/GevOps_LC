@@ -127,10 +127,10 @@ pie showData
 
 | Assigne | Label #1 | Label #2 |
 |---------|----------|----------|
-| Philippe-BAHEUX | in-progress (2) | scope::infra (2) |
-| gregoire.elmacin | in-progress (1) | scope::infra (1) |
-| gregoireuesteban | scope::image (2) | in-progress (1) |
-| jeagra | in-progress (1) | scope::infra (1) |
+| Philippe-BAHEUX | scope::infra (2) |  |
+| gregoire.elmacin | scope::infra (1) |  |
+| gregoireuesteban | scope::image (2) |  |
+| jeagra | scope::infra (1) |  |
 
 ### 3.5. Top labels globaux (fonctionnels, max 5)
 
@@ -140,9 +140,3 @@ pie showData
 | scope::monitoring | 4 |
 | scope::image | 4 |
 | scope::backup | 2 |
-
-## 4. Limites actuelles & pistes d'amelioration
-- Assigner toutes les issues actives (open / in-progress) pour piloter la charge.
-- Renseigner des due_date sur les taches critiques (infra, bastion, NAT, monitoring, etc.).
-- Ajouter des milestones (MVP, demo, soutenance) avec start/end pour suivre les echeances.
-- Enrichir et normaliser les labels scopes (scope::infra, scope::monitoring, scope::image, scope::backup, etc.).
