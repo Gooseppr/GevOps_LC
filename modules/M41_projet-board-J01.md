@@ -1,6 +1,6 @@
 ---
 title: Projet J01
-sujet: Python, Administration, Terminal & Scripting
+sujet: Projet
 type: module
 jour: 01
 ordre: 0
@@ -159,7 +159,3 @@ gantt
 | in-progress | 4 |
 | scope::image | 4 |
 | scope::backup | 2 |
-
----
-[Module suivant →](M01_vagrant-bases-utiles.md)
----
