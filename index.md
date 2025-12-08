@@ -41,11 +41,13 @@ title: Accueil
 - 👉 [Jour 38](jours/jour-38)
 - 👉 [Jour 39](jours/jour-39)
 - 👉 [Jour 40](jours/jour-40)
+- 👉 [Jour 41](jours/jour-41)
 
 
 ---
 
 ## Tous les modules (ordre global)
+- Jour 01 / 00 : [M41_projet-board-J01.md](modules/M41_projet-board-J01.md)
 - Jour 01 / 01 : [M01_vagrant-bases-utiles.md](modules/M01_vagrant-bases-utiles.md)
 - Jour 01 / 02 : [M01_terminal-bash.md](modules/M01_terminal-bash.md)
 - Jour 01 / 03 : [M01_sed-utilisation.md](modules/M01_sed-utilisation.md)
@@ -124,6 +126,7 @@ title: Accueil
 - Jour 39 / 01 : [M39_schema-dinfrastructure.md](modules/M39_schema-dinfrastructure.md)
 - Jour 40 / 01 : [M40_methode-agile.md](modules/M40_methode-agile.md)
 - Jour 40 / 02 : [M40.projet-test.md](modules/M40.projet-test.md)
+- Jour 41 / 01 : [M41_projet-J1.md](modules/M41_projet-J1.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)

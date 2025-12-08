@@ -257,5 +257,5 @@ vagrant resume                   # relance une VM suspendue
 [Module suivant →](001_terminal-bash.md)
 
 ---
-[Module suivant →](M01_terminal-bash.md)
+[← Module précédent](M41_projet-board-J01.md) | [Module suivant →](M01_terminal-bash.md)
 ---
