@@ -30,8 +30,8 @@ Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sa
 ```mermaid
 pie showData
     title Issues assignees
-    "assignees" : 6
-    "non assignees" : 28
+    "assignees" : 9
+    "non assignees" : 25
 ```
 
 ### 1.2. Pourcentage d'issues avec due_date
@@ -47,26 +47,26 @@ pie showData
 ```mermaid
 pie showData
     title Colonnes du board
-    "backlog" : 23
-    "open" : 5
-    "in-progress" : 4
-    "closed" : 2
+    "backlog" : 22
+    "open" : 3
+    "in-progress" : 6
+    "closed" : 3
 ```
 
 > Lecture :
-> - **backlog** : 23 issues (67.6 %)
-> - **open** : 5 issues (14.7 %)
-> - **in-progress** : 4 issues (11.8 %)
-> - **closed** : 2 issues (5.9 %)
+> - **backlog** : 22 issues (64.7 %)
+> - **open** : 3 issues (8.8 %)
+> - **in-progress** : 6 issues (17.6 %)
+> - **closed** : 3 issues (8.8 %)
 
 ### 2.2. Kanban (vue synthetique)
 ```mermaid
 timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
-    backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer la VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : Ansible - Playbook pour configurer la VM Grafana : ... (+12 de plus)
-    open : Reseau (IaC) - Definir et tester le VPC : Test API gateway : Test de la creation des sous reseaux : Creation du pipeline de compilation de l'image de NocoDB : Test de l'image localement de NocoDB
-    in-progress : Ansible - Playbook pour le SSH Hardening : Test du bastion : Test de la stack : Compilation de l'image localement de NocoDB
-    closed : Test de fck-nat : Clone du code NocoDB
+    backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer la VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : Ansible - Playbook pour configurer la VM Grafana : ... (+11 de plus)
+    open : Reseau (IaC) - Definir et tester le VPC : Test de la creation des sous reseaux : Test de l'image localement de NocoDB
+    in-progress : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Docker Swarm : Test API gateway : Test du bastion : Test de la stack : Creation du pipeline de compilation de l'image de NocoDB
+    closed : Test de fck-nat : Compilation de l'image de NocoDB : Clone du code NocoDB
 ```
 
 ### 2.3. Timeline des creations
@@ -100,18 +100,18 @@ pie showData
 pie showData
     title Assigne
     "Philippe-BAHEUX" : 2
-    "gregoire.elmacin" : 1
-    "jeagra" : 1
-    "gregoireuesteban" : 2
+    "gregoire.elmacin" : 2
+    "jeagra" : 2
+    "gregoireuesteban" : 3
 ```
 
 | Assigne | Nb issues | % du total |
 |---------|-----------|------------|
-| non assigne | 28 | 82.4% |
+| non assigne | 25 | 73.5% |
+| gregoireuesteban | 3 | 8.8% |
 | Philippe-BAHEUX | 2 | 5.9% |
-| gregoireuesteban | 2 | 5.9% |
-| gregoire.elmacin | 1 | 2.9% |
-| jeagra | 1 | 2.9% |
+| gregoire.elmacin | 2 | 5.9% |
+| jeagra | 2 | 5.9% |
 
 ### 3.3. Distribution des labels (scopes fonctionnels)
 ```mermaid
@@ -128,9 +128,9 @@ pie showData
 | Assigne | Label #1 | Label #2 |
 |---------|----------|----------|
 | Philippe-BAHEUX | scope::infra (2) |  |
-| gregoire.elmacin | scope::infra (1) |  |
-| gregoireuesteban | scope::image (2) |  |
-| jeagra | scope::infra (1) |  |
+| gregoire.elmacin | scope::infra (2) |  |
+| gregoireuesteban | scope::image (3) |  |
+| jeagra | scope::infra (2) |  |
 
 ### 3.5. Top labels globaux (fonctionnels, max 5)
 
