@@ -1,5 +1,5 @@
 ---
-title: Projet J1
+title: Projet J1 - Docker Swarm
 sujet: Projet
 type: module
 jour: 41

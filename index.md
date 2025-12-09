@@ -130,6 +130,7 @@ title: Accueil
 - Jour 41 / 01 : [M41_projet-J1-swarm.md](modules/M41_projet-J1-swarm.md)
 - Jour 41 / 02 : [M41_projet-J1-swarm-ansible.md](modules/M41_projet-J1-swarm-ansible.md)
 - Jour 42 / 00 : [M42_projet-board-J02.md](modules/M42_projet-board-J02.md)
+- Jour 42 / 01 : [M42_ansible-pro.md](modules/M42_ansible-pro.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
