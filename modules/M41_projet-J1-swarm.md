@@ -21,7 +21,7 @@ Il correspond exactement à l’architecture NocoDB (VM applicative ↔ VM datab
 
 ---
 
-# 1) (Optionnel mais recommandé) Donner un hostname clair à chaque VM
+# 1. (Optionnel mais recommandé) Donner un hostname clair à chaque VM
 
 Sur chaque VM Linux :
 
@@ -58,7 +58,7 @@ hostname
 
 ---
 
-# 2) Installer Docker sur chaque VM
+# 2. Installer Docker sur chaque VM
 
 ```bash
 sudo apt update
@@ -71,7 +71,7 @@ sudo systemctl enable --now docker
 
 ---
 
-# 3) Initialiser le Swarm sur la VM “leader”
+# 3. Initialiser le Swarm sur la VM “leader”
 
 Sur **app-vm** (ou la VM que tu choisis comme Manager) :
 
@@ -91,7 +91,7 @@ Cette commande sera utilisée sur les autres VMs pour les ajouter au cluster.
 
 ---
 
-# 4) Ajouter les autres VMs au Swarm
+# 4. Ajouter les autres VMs au Swarm
 
 Sur **db-vm** :
 
@@ -109,7 +109,7 @@ docker swarm join --token <TOKEN> <IP_MANAGER>:2377
 
 ---
 
-# 5) Vérifier l'état des nœuds
+# 5. Vérifier l'état des nœuds
 
 Retour sur le Manager (`app-vm`) :
 
@@ -133,7 +133,7 @@ qrst9012uvwx                  monitoring-vm   Ready   Active
 
 ---
 
-# 6) Assigner des rôles aux nœuds (labels)
+# 6. Assigner des rôles aux nœuds (labels)
 
 Toujours depuis le Manager (`app-vm`) :
 
@@ -169,7 +169,7 @@ Les labels apparaissent dans la section *Labels*.
 
 ---
 
-# 7) Préparer le fichier `compose.yml` pour Swarm
+# 7. Préparer le fichier `compose.yml` pour Swarm
 
 Voici un fichier compatible Docker Swarm, propre et corrigé :
 
@@ -229,7 +229,7 @@ Remarques importantes :
 
 ---
 
-# 8) Définir les variables sur la machine
+# 8. Définir les variables sur la machine
 
 Toujours sur la VM Manager (`app-vm`) :
 
@@ -243,7 +243,7 @@ export DB_HOST=root_db
 
 ---
 
-# 9) Déployer la stack
+# 9. Déployer la stack
 
 Toujours sur la VM Manager (`app-vm`) :
 
@@ -307,7 +307,7 @@ Pour éviter ces erreurs de migration concurrentes (et faire bien “pro”), tu
 
 ---
 
-# 10) Tester la répartition et les replicas
+# 10. Tester la répartition et les replicas
 
 ### Services dans la stack :
 
@@ -331,7 +331,7 @@ Résultats attendus :
 
 ---
 
-# 11) Tester le scaling du service
+# 11. Tester le scaling du service
 
 ```bash
 docker service scale mystack_nocodb=4
@@ -347,7 +347,7 @@ docker service ps mystack_nocodb
 
 ---
 
-# 12) Tester l’accès à NocoDB
+# 12. Tester l’accès à NocoDB
 
 Depuis ton navigateur :
 
