@@ -34,12 +34,12 @@ pie showData
     "non assignees" : 25
 ```
 
-### 1.2. Pourcentage d'issues avec due_date
+### 1.2. Pourcentage d'issues en closed (label)
 ```mermaid
 pie showData
-    title Issues avec due_date
-    "avec due_date" : 0
-    "sans due_date" : 34
+    title Issues closed (label)
+    "closed" : 3
+    "non closed" : 31
 ```
 
 ## 2. Avancement (flux de travail & temps)
