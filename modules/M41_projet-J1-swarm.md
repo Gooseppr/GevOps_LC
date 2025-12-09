@@ -9,7 +9,7 @@ tags: projet, docker, docker swarm, stack
 
 # 🚀 Déployer et Tester une Stack Docker Swarm (Processus Complet)
 
-Ce guide explique **pas à pas** comment :
+Ce guide explique **pas à pas** comment j'ai fais pour :
 
 - préparer les VMs,
 - initialiser un cluster Docker Swarm,

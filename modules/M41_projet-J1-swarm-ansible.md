@@ -7,11 +7,18 @@ ordre: 2
 tags: projet, docker, docker swarm, stack, ansible
 ---
 
-# 🚀 Récapitulatif complet : Automatisation du déploiement NocoDB + Postgres via Docker Swarm + Ansible
+# 🚀 Automatisation du déploiement NocoDB + Postgres via Docker Swarm + Ansible
+
+Ce guide explique **pas à pas** comment j'ai fait pour :
+
+- préparer les fichiers de configuration Ansible
+- Ajuster le fichier compose.yml
+- ajouter le network
+- tester la bonne connexion entre l'applicatif et la base de donnée
 
 ---
 
-# 1️⃣ Objectif du projet
+# 1. Objectif du projet
 
 Automatiser entièrement un déploiement de production :
 
@@ -24,7 +31,7 @@ Automatiser entièrement un déploiement de production :
 
 ---
 
-# 2️⃣ Les problèmes rencontrés et comment tu les as résolus
+# 2. Les problèmes rencontrés et comment tu les as résolus
 
 Je te détaille **tous les blocages**, avec **ce qui n'allait pas**, **comment tu l’as compris**, et **la solution que tu as mise en place**.
 
@@ -192,7 +199,7 @@ networks:
 
 ---
 
-# 3️⃣ Ajustements du plan initial avant d’ajouter les workers
+# 3. Ajustements du plan initial avant d’ajouter les workers
 
 Avant de passer à l’étape « 3. Joindre les workers au Swarm », j’ai dû adapter plusieurs éléments de mon plan de départ pour que le déploiement soit réellement **reproductible** et **fiable** avec Ansible.
 
@@ -482,7 +489,7 @@ NC_DB=pg://root_db:5432?u=admin&p=passwordSécur1té&d=nocodb_db
 
 ---
 
-# 4️⃣ Ce que ton playbook Ansible fait maintenant (de bout en bout)
+# 4. Ce que ton playbook Ansible fait maintenant (de bout en bout)
 
 Voici l’explication pédagogique complète de ton automatisation :
 
@@ -567,7 +574,7 @@ Cette étape est maintenant **stable et reproductible**.
 
 ---
 
-# 5️⃣ Résultat final
+# 5. Résultat final
 
 ✔ Swarm fonctionnel
 
@@ -589,7 +596,7 @@ Tu peux désormais provisionner **n’importe quel cluster AWS**, lancer ton pla
 
 ---
 
-# 6️⃣ Conclusion pédagogique
+# 6. Conclusion pédagogique
 
 🎯 **Ce que tu as réellement accompli :**
 
