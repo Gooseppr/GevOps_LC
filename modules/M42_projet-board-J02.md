@@ -1,8 +1,8 @@
 ---
-title: Projet J01
+title: Projet J02
 sujet: Projet
 type: module
-jour: 41
+jour: 42
 ordre: 0
 tags: projet
 ---
@@ -49,15 +49,15 @@ pie showData
     title Colonnes du board
     "backlog" : 23
     "open" : 5
-    "in-progress" : 5
-    "closed" : 1
+    "in-progress" : 4
+    "closed" : 2
 ```
 
 > Lecture :
 > - **backlog** : 23 issues (67.6 %)
 > - **open** : 5 issues (14.7 %)
-> - **in-progress** : 5 issues (14.7 %)
-> - **closed** : 1 issues (2.9 %)
+> - **in-progress** : 4 issues (11.8 %)
+> - **closed** : 2 issues (5.9 %)
 
 ### 2.2. Kanban (vue synthetique)
 ```mermaid
@@ -65,8 +65,8 @@ timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
     backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer la VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : Ansible - Playbook pour configurer la VM Grafana : ... (+12 de plus)
     open : Reseau (IaC) - Definir et tester le VPC : Test API gateway : Test de la creation des sous reseaux : Creation du pipeline de compilation de l'image de NocoDB : Test de l'image localement de NocoDB
-    in-progress : Ansible - Playbook pour le SSH Hardening : Test du bastion : Test de la stack : Test de fck-nat : Compilation de l'image localement de NocoDB
-    closed : Clone du code NocoDB
+    in-progress : Ansible - Playbook pour le SSH Hardening : Test du bastion : Test de la stack : Compilation de l'image localement de NocoDB
+    closed : Test de fck-nat : Clone du code NocoDB
 ```
 
 ### 2.3. Timeline des creations
@@ -140,7 +140,3 @@ pie showData
 | scope::monitoring | 4 |
 | scope::image | 4 |
 | scope::backup | 2 |
-
----
-[Module suivant →](M41_projet-J1-swarm.md)
----

@@ -126,7 +126,8 @@ title: Accueil
 - Jour 40 / 01 : [M40_methode-agile.md](modules/M40_methode-agile.md)
 - Jour 40 / 02 : [M40.projet-test.md](modules/M40.projet-test.md)
 - Jour 41 / 00 : [M41_projet-board-J01.md](modules/M41_projet-board-J01.md)
-- Jour 41 / 01 : [M41_projet-J1.md](modules/M41_projet-J1.md)
+- Jour 41 / 01 : [M41_projet-J1-swarm.md](modules/M41_projet-J1-swarm.md)
+- Jour 41 / 02 : [M41_projet-J1-swarm-ansible.md](modules/M41_projet-J1-swarm-ansible.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
