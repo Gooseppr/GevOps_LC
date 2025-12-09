@@ -7,11 +7,11 @@ ordre: 2
 tags: projet, docker, docker swarm, stack, ansible
 ---
 
-# 🚀 **Récapitulatif complet : Automatisation du déploiement NocoDB + Postgres via Docker Swarm + Ansible**
+# 🚀 Récapitulatif complet : Automatisation du déploiement NocoDB + Postgres via Docker Swarm + Ansible
 
 ---
 
-# 1️⃣ **Objectif du projet**
+# 1️⃣ Objectif du projet
 
 Automatiser entièrement un déploiement de production :
 
@@ -24,13 +24,13 @@ Automatiser entièrement un déploiement de production :
 
 ---
 
-# 2️⃣ **Les problèmes rencontrés et comment tu les as résolus**
+# 2️⃣ Les problèmes rencontrés et comment tu les as résolus
 
 Je te détaille **tous les blocages**, avec **ce qui n'allait pas**, **comment tu l’as compris**, et **la solution que tu as mise en place**.
 
 ---
 
-## 🧩 **Problème 1 — Le worker ne rejoignait pas le Swarm**
+## 🧩 Problème 1 — Le worker ne rejoignait pas le Swarm
 
 ### ❌ Symptômes
 
@@ -55,7 +55,7 @@ Tu as renforcé l'étape Ansible de join :
 
 ---
 
-## 🧩 **Problème 2 — Les labels Swarm ne s’appliquaient pas**
+## 🧩 Problème 2 — Les labels Swarm ne s’appliquaient pas
 
 ### ❌ Symptôme
 
@@ -84,7 +84,7 @@ Et les placements fonctionnent 🎯
 
 ---
 
-## 🧩 **Problème 3 — Postgres ne démarrait pas**
+## 🧩 Problème 3 — Postgres ne démarrait pas
 
 ### ❌ Symptômes
 
@@ -121,7 +121,7 @@ networks:
 
 ---
 
-## 🧩 **Problème 4 — NocoDB ne trouvait pas Postgres (ENOTFOUND root_db)**
+## 🧩 Problème 4 — NocoDB ne trouvait pas Postgres (ENOTFOUND root_db)
 
 ### ❌ Symptômes
 
@@ -164,7 +164,7 @@ NocoDB démarre et se connecte à Postgres comme prévu 🎉
 
 ---
 
-## 🧩 **Problème 5 — Ansible échouait lors du `docker stack deploy`**
+## 🧩 Problème 5 — Ansible échouait lors du `docker stack deploy`
 
 ### ❌ Symptôme
 
@@ -192,7 +192,7 @@ networks:
 
 ---
 
-# 3️⃣ **Ajustements du plan initial avant d’ajouter les workers**
+# 3️⃣ Ajustements du plan initial avant d’ajouter les workers
 
 Avant de passer à l’étape « 3. Joindre les workers au Swarm », j’ai dû adapter plusieurs éléments de mon plan de départ pour que le déploiement soit réellement **reproductible** et **fiable** avec Ansible.
 
@@ -482,13 +482,13 @@ NC_DB=pg://root_db:5432?u=admin&p=passwordSécur1té&d=nocodb_db
 
 ---
 
-# 4️⃣ **Ce que ton playbook Ansible fait maintenant (de bout en bout)**
+# 4️⃣ Ce que ton playbook Ansible fait maintenant (de bout en bout)
 
 Voici l’explication pédagogique complète de ton automatisation :
 
 ---
 
-## 🏁 **Étape 0 — Configuration des hostnames**
+## 🏁 Étape 0 — Configuration des hostnames
 
 Tu imposes une cohérence système :
 
@@ -499,7 +499,7 @@ C’est indispensable pour que Swarm ne duplique pas les nœuds.
 
 ---
 
-## ⚙️ **Étape 1 — Installation de Docker**
+## ⚙️ Étape 1 — Installation de Docker
 
 - Mise à jour apt
 - Installation de Docker
@@ -509,7 +509,7 @@ Pré-requis absolu pour Swarm et les stacks.
 
 ---
 
-## 🐳 **Étape 2 — Initialisation du Manager**
+## 🐳 Étape 2 — Initialisation du Manager
 
 - Vérification de l’état Swarm
 - Initialisation si nécessaire
@@ -520,7 +520,7 @@ Pré-requis absolu pour Swarm et les stacks.
 
 ---
 
-## 🧩 **Étape 3 — Join des workers**
+## 🧩 Étape 3 — Join des workers
 
 Vérifications robustes :
 
@@ -533,7 +533,7 @@ C’est une étape clé et tu l’as sécurisée au maximum.
 
 ---
 
-## 🏷️ **Étape 4 — Application des labels**
+## 🏷️ Étape 4 — Application des labels
 
 Tu appliques :
 
@@ -548,7 +548,7 @@ Avec :
 
 ---
 
-## 🚀 **Étape 5 — Déploiement de la stack**
+## 🚀 Étape 5 — Déploiement de la stack
 
 Tu déploies automatiquement :
 
@@ -567,7 +567,7 @@ Cette étape est maintenant **stable et reproductible**.
 
 ---
 
-# 5️⃣ **Résultat final**
+# 5️⃣ Résultat final
 
 ✔ Swarm fonctionnel
 
@@ -589,7 +589,7 @@ Tu peux désormais provisionner **n’importe quel cluster AWS**, lancer ton pla
 
 ---
 
-# 6️⃣ **Conclusion pédagogique**
+# 6️⃣ Conclusion pédagogique
 
 🎯 **Ce que tu as réellement accompli :**
 
