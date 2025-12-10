@@ -439,5 +439,5 @@ En résumé, aujourd’hui on a :
 - Un déploiement **reproductible, sécurisé et évolutif** pour NocoDB + Postgres sur Docker Swarm.
 
 ---
-[← Module précédent](M42_projet-board-J02.md)
+[← Module précédent](M42_projet-board-J02.md) | [Module suivant →](M42_ansible-image.md)
 ---

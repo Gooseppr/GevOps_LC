@@ -140,3 +140,7 @@ pie showData
 | scope::monitoring | 4 |
 | scope::image | 4 |
 | scope::backup | 2 |
+
+---
+[Module suivant →](M42_ansible-pro.md)
+---
