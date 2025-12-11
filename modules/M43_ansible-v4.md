@@ -292,3 +292,7 @@ volumes:
 > Elle a corrigé les rôles, les labels, le réseau overlay, l’initialisation Swarm, les mécanismes de reset et la logique de déploiement.
 > 
 > Résultat : un environnement capable d’ajouter ou remplacer une VM automatiquement, et de déployer NocoDB + Postgres de manière prédictible.
+
+---
+[← Module précédent](M44_ansible-avancés.md)
+---

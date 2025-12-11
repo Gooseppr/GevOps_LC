@@ -133,6 +133,8 @@ title: Accueil
 - Jour 42 / 00 : [M42_projet-board-J02.md](modules/M42_projet-board-J02.md)
 - Jour 42 / 01 : [M42_ansible-pro.md](modules/M42_ansible-pro.md)
 - Jour 42 / 02 : [M42_ansible-image.md](modules/M42_ansible-image.md)
+- Jour 43 / 00 : [M43_projet-board-J03.md](modules/M43_projet-board-J03.md)
+- Jour 43 / 00 : [M44_ansible-avancés.md](modules/M44_ansible-avancés.md)
 - Jour 43 / 01 : [M43_ansible-v4.md](modules/M43_ansible-v4.md)
 
 ## Pipeline

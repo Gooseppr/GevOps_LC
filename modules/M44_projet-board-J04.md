@@ -1,12 +1,11 @@
 ---
-title: Projet J03
+title: Projet J04
 sujet: Projet
 type: module
-jour: 43
+jour: 44
 ordre: 0
 tags: projet
 ---
-
 # Tableau de bord GitLab – Projet QuickData (v3)
 
 > Objectif : en un coup d'œil, répondre à 3 questions :
@@ -20,7 +19,7 @@ tags: projet
 Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sans due_date, sans milestones, on ne peut pas parler de charge, de retard ou de priorites.
 
 **KPIs globaux**
-- Issues : **36**
+- Issues : **37**
 - Milestones : **0**
 - Projets couverts : **1**
 - Labels uniques : **8**
@@ -31,15 +30,15 @@ Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sa
 ```mermaid
 pie showData
     title Issues assignees
-    "assignees" : 9
-    "non assignees" : 27
+    "assignees" : 15
+    "non assignees" : 22
 ```
 
 ### 1.2. Pourcentage d'issues en closed (label)
 ```mermaid
 pie showData
     title Issues closed (label)
-    "closed" : 5
+    "closed" : 6
     "non closed" : 31
 ```
 
@@ -48,26 +47,26 @@ pie showData
 ```mermaid
 pie showData
     title Colonnes du board
-    "backlog" : 18
-    "open" : 6
-    "in-progress" : 7
-    "closed" : 5
+    "backlog" : 19
+    "open" : 3
+    "in-progress" : 9
+    "closed" : 6
 ```
 
 > Lecture :
-> - **backlog** : 18 issues (50.0 %)
-> - **open** : 6 issues (16.7 %)
-> - **in-progress** : 7 issues (19.4 %)
-> - **closed** : 5 issues (13.9 %)
+> - **backlog** : 19 issues (51.4 %)
+> - **open** : 3 issues (8.1 %)
+> - **in-progress** : 9 issues (24.3 %)
+> - **closed** : 6 issues (16.2 %)
 
 ### 2.2. Kanban (vue synthetique)
 ```mermaid
 timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
-    backlog : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer les VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : Ansible - Playbook pour configurer la VM Grafana : Ansible - Playbook pour configurer la VM du bastion : Ansible - Playbook pour configurer la VM Gateway : Ansible - Playbook pour deployer Traefik : ... (+7 de plus)
-    open : Terraform - monitoring : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Test de la creation des sous reseaux
-    in-progress : Test de Traefik : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Docker Swarm : Test API gateway : Ansible - Playbook pour deployer Postgres : Test du bastion : Creation du pipeline de compilation de l'image de NocoDB
-    closed : Test de la stack : Test de fck-nat : Test de l'image localement de NocoDB : Compilation de l'image de NocoDB : Clone du code NocoDB
+    backlog : Premiere mise en prod infra (checklist) : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer les VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM Prometheus / Loki : Ansible - Playbook pour configurer la VM Grafana : Ansible - Playbook pour configurer la VM du bastion : Ansible - Playbook pour configurer la VM Gateway : ... (+8 de plus)
+    open : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Test de la creation des sous reseaux
+    in-progress : Terraform - monitoring : Test de Traefik : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Docker Swarm : Test API gateway : Ansible - Playbook pour deployer Postgres : Test du bastion
+    closed : Test de la stack : Test de fck-nat : Creation du pipeline de compilation de l'image de NocoDB : Test de l'image localement de NocoDB : Compilation de l'image de NocoDB : Clone du code NocoDB
 ```
 
 ### 2.3. Timeline des creations
@@ -76,13 +75,14 @@ timeline
 |------|---------------|
 | 05-12-2025 | 34 |
 | 10-12-2025 | 2 |
+| 11-12-2025 | 1 |
 
 
 ### 2.4. Aging des issues (anciennete)
 
 | Tranche | Nb issues |
 |---------|-----------|
-| 0-2j | 2 |
+| 0-2j | 3 |
 | 3-8j | 34 |
 | 9-14j | 0 |
 | 15j+ | 0 |
@@ -94,32 +94,32 @@ timeline
 ```mermaid
 pie showData
     title Issues par projet
-    "Management" : 36
+    "Management" : 37
 ```
 
 ### 3.2. Charge par assigne (pie hors non assigne)
 ```mermaid
 pie showData
     title Assigne
-    "jeagra" : 3
+    "gregoireuesteban" : 5
+    "jeagra" : 5
     "Philippe-BAHEUX" : 2
     "gregoire.elmacin" : 3
-    "gregoireuesteban" : 1
 ```
 
 | Assigne | Nb issues | % du total |
 |---------|-----------|------------|
-| non assigne | 27 | 75.0% |
-| gregoire.elmacin | 3 | 8.3% |
-| jeagra | 3 | 8.3% |
-| Philippe-BAHEUX | 2 | 5.6% |
-| gregoireuesteban | 1 | 2.8% |
+| non assigne | 22 | 59.5% |
+| gregoireuesteban | 5 | 13.5% |
+| jeagra | 5 | 13.5% |
+| gregoire.elmacin | 3 | 8.1% |
+| Philippe-BAHEUX | 2 | 5.4% |
 
 ### 3.3. Distribution des labels (scopes fonctionnels)
 ```mermaid
 pie showData
     title Labels
-    "scope::infra" : 25
+    "scope::infra" : 26
     "scope::monitoring" : 5
     "scope::backup" : 2
     "scope::image" : 4
@@ -131,18 +131,14 @@ pie showData
 |---------|----------|----------|
 | Philippe-BAHEUX | scope::infra (2) |  |
 | gregoire.elmacin | scope::infra (3) |  |
-| gregoireuesteban | scope::image (1) |  |
-| jeagra | scope::infra (2) |  |
+| gregoireuesteban | scope::image (4) | scope::infra (1) |
+| jeagra | scope::infra (4) |  |
 
 ### 3.5. Top labels globaux (fonctionnels, max 5)
 
 | Label | Nb issues |
 |-------|-----------|
-| scope::infra | 25 |
+| scope::infra | 26 |
 | scope::monitoring | 5 |
 | scope::image | 4 |
 | scope::backup | 2 |
-
----
-[Module suivant →](M44_ansible-avancés.md)
----
