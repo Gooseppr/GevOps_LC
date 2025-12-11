@@ -142,3 +142,7 @@ pie showData
 | scope::monitoring | 5 |
 | scope::image | 4 |
 | scope::backup | 2 |
+
+---
+[← Module précédent](M44_ansible-avancés.md)
+---

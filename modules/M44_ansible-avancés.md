@@ -2,7 +2,7 @@
 title: Projet J03
 sujet: Projet
 type: module
-jour: 43
+jour: 44
 ordre: 0
 tags: projet
 ---
@@ -562,5 +562,5 @@ En résumé, avec cette v5 :
     - **rejouer** facilement (playbooks ciblés).
 
 ---
-[← Module précédent](M43_projet-board-J03.md) | [Module suivant →](M43_ansible-v4.md)
+[Module suivant →](M44_projet-board-J04.md)
 ---

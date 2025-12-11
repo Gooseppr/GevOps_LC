@@ -294,5 +294,5 @@ volumes:
 > Résultat : un environnement capable d’ajouter ou remplacer une VM automatiquement, et de déployer NocoDB + Postgres de manière prédictible.
 
 ---
-[← Module précédent](M44_ansible-avancés.md)
+[← Module précédent](M43_projet-board-J03.md)
 ---
