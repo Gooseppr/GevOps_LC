@@ -530,3 +530,318 @@ mindmap
 - Parfait pour ton stack AWS :
     
     **1 VM DB + 1 VM Swarm Manager + 1 Worker**.
+
+# 17. 🔧 Commandes utiles pour débugger Docker Swarm
+
+## 1️⃣ Vérifier l’état général du cluster
+
+### Infos globales
+
+```bash
+docker info
+
+```
+
+➜ Te dit si le nœud est `Swarm: active` ou `inactive`, et s’il est `Manager` ou `Worker`.
+
+---
+
+### Liste des nœuds du Swarm
+
+```bash
+docker node ls
+
+```
+
+➜ Indispensable pour voir :
+
+- Quel nœud est `Leader`
+- Quels nœuds sont `Ready` / `Down`
+- L’`Availability` : `Active`, `Drain`…
+
+---
+
+### Détails sur un nœud
+
+```bash
+docker node inspect <node-id-ou-hostname> --pretty
+
+```
+
+Exemple :
+
+```bash
+docker node inspect app-vm --pretty
+docker node inspect db-vm --pretty
+
+```
+
+➜ Te permet de vérifier :
+
+- les labels (`Labels:`),
+- le rôle (manager/worker),
+- l’état (`Status:`),
+- l’IP utilisée dans le Swarm.
+
+---
+
+## 2️⃣ Debug des services et tasks
+
+### Liste de tous les services
+
+```bash
+docker service ls
+
+```
+
+➜ Pour voir rapidement :
+
+- combien de services,
+- combien de replicas (ex : `1/1`, `3/3`, `0/1`…).
+
+---
+
+### Voir les tasks d’un service (avec les erreurs)
+
+```bash
+docker service ps <service>
+docker service ps <service> --no-trunc
+
+```
+
+Exemples :
+
+```bash
+docker service ps mystack_nocodb
+docker service ps mystack_root_db --no-trunc
+
+```
+
+➜ Super utile pour voir :
+
+- sur **quel nœud** chaque task tourne,
+- `CURRENT STATE` (Running, Failed, Rejected…),
+- la colonne `ERROR` quand un conteneur n’arrive pas à démarrer.
+
+---
+
+### Inspecter la spec complète d’un service
+
+```bash
+docker service inspect mystack_nocodb --pretty
+docker service inspect mystack_nocodb --format '{{json .Spec.TaskTemplate.ContainerSpec.Env}}'
+
+```
+
+➜ Tu l’utilises déjà pour vérifier les **variables d’environnement** propagées par Swarm (`NC_DB`, `POSTGRES_*`, etc.).
+
+---
+
+### Logs d’un service
+
+```bash
+docker service logs mystack_nocodb
+docker service logs mystack_nocodb --tail 100
+docker service logs mystack_nocodb -f
+
+```
+
+➜ C’est ce qui t’a donné l’erreur :
+
+> getaddrinfo ENOTFOUND root_db
+> 
+
+et permet de confirmer :
+
+- problème de **résolution DNS**,
+- problème de **connexion DB**,
+- crash loop.
+
+---
+
+## 3️⃣ Debug des stacks
+
+### Liste des stacks
+
+```bash
+docker stack ls
+
+```
+
+---
+
+### Services dans une stack
+
+```bash
+docker stack services mystack
+
+```
+
+➜ Vue rapide : `REPLICAS`, `IMAGE`, `PORTS`.
+
+---
+
+### Tasks de tous les services d’une stack
+
+```bash
+docker stack ps mystack
+docker stack ps mystack --no-trunc
+
+```
+
+➜ Vue globale du Swarm pour cette stack : où tournent les tasks, état global.
+
+---
+
+### Re-déployer une stack
+
+```bash
+docker stack deploy -c compose.yml mystack
+
+```
+
+Tu l’utilises déjà dans Ansible :
+
+```yaml
+- name: Déployer la stack Docker Swarm
+  shell: docker stack deploy -c {{ deploy_path }}/compose.yml {{ stack_name }}
+  args:
+    chdir: "{{ deploy_path }}"
+
+```
+
+---
+
+## 4️⃣ Debug par nœud (tasks sur un node spécifique)
+
+### Voir ce qui tourne sur un nœud
+
+```bash
+docker node ps app-vm
+docker node ps db-vm
+
+```
+
+➜ Très pratique quand tu as plusieurs workers app (app-vm, app-replica, app-replica2…) pour voir **quels services sont planifiés où**.
+
+---
+
+## 5️⃣ Réseau & DNS dans Swarm
+
+Tu as déjà utilisé ce pattern, c’est un des meilleurs outils de debug réseau dans Swarm 👇
+
+### Lister les networks
+
+```bash
+docker network ls
+
+```
+
+---
+
+### Inspecter un network overlay
+
+```bash
+docker network inspect mystack_backend
+docker network inspect mystack_default
+
+```
+
+➜ Pour voir :
+
+- quels services / conteneurs sont connectés,
+- l’`IPAM`,
+- les nœuds où le réseau existe.
+
+---
+
+### Tester la résolution DNS dans le réseau de la stack
+
+```bash
+docker run --rm --network mystack_backend alpine nslookup root_db
+docker run --rm --network mystack_backend alpine ping -c 3 root_db
+
+```
+
+➜ C’est ce qui t’aurait permis de vérifier si `root_db` est **résoluble** depuis le réseau overlay et d’attraper ton bug plus vite.
+
+---
+
+## 6️⃣ Debug conteneur “classique” (si besoin de zoomer)
+
+Même si on est dans Swarm, parfois tu veux descendre au niveau **conteneur**.
+
+### Voir les conteneurs sur une VM
+
+```bash
+docker ps
+docker ps -a
+
+```
+
+---
+
+### Inspecter & log d’un conteneur particulier
+
+```bash
+docker logs <container-id>
+docker logs -f <container-id>
+
+docker inspect <container-id>
+
+```
+
+---
+
+### Entrer dans un conteneur
+
+```bash
+docker exec -it <container-id> sh
+# ou bash selon l'image
+
+```
+
+---
+
+## 7️⃣ Diagnostic Docker / système
+
+Quand tu suspectes un souci plus bas niveau :
+
+```bash
+systemctl status docker
+journalctl -u docker --since "10 minutes ago"
+docker events --since 10m
+
+```
+
+---
+
+## 8️⃣ Résumé “kit de base”
+
+Pour ton projet actuel (NocoDB + Postgres sur Swarm), les **commandes que tu vas utiliser tout le temps** :
+
+```bash
+# Vue cluster
+docker info
+docker node ls
+docker node inspect app-vm --pretty
+
+# Vue stack & services
+docker stack ls
+docker stack services mystack
+docker stack ps mystack
+
+docker service ls
+docker service ps mystack_nocodb --no-trunc
+docker service logs mystack_nocodb --tail 50
+
+# Vue par node
+docker node ps app-vm
+docker node ps db-vm
+
+# Réseau & DNS
+docker network ls
+docker network inspect mystack_backend
+docker run --rm --network mystack_backend alpine nslookup root_db
+
+```
