@@ -6,6 +6,7 @@ jour: 44
 ordre: 0
 tags: projet
 ---
+
 # Tableau de bord GitLab – Projet QuickData (v3)
 
 > Objectif : en un coup d'œil, répondre à 3 questions :
