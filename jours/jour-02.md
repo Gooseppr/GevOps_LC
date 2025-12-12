@@ -9,6 +9,7 @@ title: Jour 02
 - [M02_cron-automatisation.md](../modules/M02_cron-automatisation.md)
 
 ## Bonus
+- [B00_activité-4.md](../modules/B00_activité-4.md)
 - [B01_bash-bdd-rel.md](../modules/B01_bash-bdd-rel.md)
 
 ## Tags du jour
