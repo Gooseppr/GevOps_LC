@@ -19,7 +19,7 @@ tags: projet
 Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sans due_date, sans milestones, on ne peut pas parler de charge, de retard ou de priorites.
 
 **KPIs globaux**
-- Issues : **34**
+- Issues : **33**
 - Milestones : **0**
 - Projets couverts : **1**
 - Labels uniques : **8**
@@ -30,8 +30,8 @@ Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sa
 ```mermaid
 pie showData
     title Issues assignees
-    "assignees" : 20
-    "non assignees" : 14
+    "assignees" : 24
+    "non assignees" : 9
 ```
 
 ### 1.2. Pourcentage d'issues en closed (label)
@@ -39,7 +39,7 @@ pie showData
 pie showData
     title Issues closed (label)
     "closed" : 17
-    "non closed" : 17
+    "non closed" : 16
 ```
 
 ## 2. Avancement (flux de travail & temps)
@@ -48,24 +48,24 @@ pie showData
 pie showData
     title Colonnes du board
     "backlog" : 6
-    "open" : 7
-    "in-progress" : 4
+    "open" : 3
+    "in-progress" : 7
     "closed" : 17
 ```
 
 > Lecture :
-> - **backlog** : 6 issues (17.6 %)
-> - **open** : 7 issues (20.6 %)
-> - **in-progress** : 4 issues (11.8 %)
-> - **closed** : 17 issues (50.0 %)
+> - **backlog** : 6 issues (18.2 %)
+> - **open** : 3 issues (9.1 %)
+> - **in-progress** : 7 issues (21.2 %)
+> - **closed** : 17 issues (51.5 %)
 
 ### 2.2. Kanban (vue synthetique)
 ```mermaid
 timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
     backlog : Premiere mise en prod infra (checklist) : Creation d'un pipeline pour deployer l'infrastructure : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour deployer Grafana : Ansible - Playbook pour deployer les exporters generiques
-    open : Ansible - Playbook pour configurer les VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour configurer la VM du bastion : Ansible - Playbook pour configurer la VM Gateway : Ansible - Playbook pour deployer fck-nat : Ansible - Playbook pour deployer Loki : Ansible - Playbook pour deployer Prometheus
-    in-progress : CI jobs pour le code Noco DB (tests) : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Ansible - Playbook pour le SSH Hardening : Test du bastion
+    open : Ansible - Playbook pour configurer la VM du bastion : Ansible - Playbook pour deployer fck-nat : Ansible - Playbook pour deployer Loki
+    in-progress : CI jobs pour le code Noco DB (tests) : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Ansible - Playbook pour configurer les VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Prometheus : Test du bastion
     closed : Terraform - monitoring : Test de Traefik : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour deployer Docker Swarm : Ansible - Playbook pour deployer Traefik : Test API gateway : Ansible - Playbook pour deployer Postgres : Test de la creation des sous reseaux : ... (+6 de plus)
 ```
 
@@ -73,7 +73,7 @@ timeline
 
 | Date | Issues creees |
 |------|---------------|
-| 05-12-2025 | 30 |
+| 05-12-2025 | 29 |
 | 10-12-2025 | 2 |
 | 11-12-2025 | 1 |
 | 15-12-2025 | 1 |
@@ -85,7 +85,7 @@ timeline
 |---------|-----------|
 | 0-2j | 1 |
 | 3-8j | 3 |
-| 9-14j | 30 |
+| 9-14j | 29 |
 | 15j+ | 0 |
 
 
@@ -95,33 +95,33 @@ timeline
 ```mermaid
 pie showData
     title Issues par projet
-    "Management" : 34
+    "Management" : 33
 ```
 
 ### 3.2. Charge par assigne (pie hors non assigne)
 ```mermaid
 pie showData
     title Assigne
-    "gregoireuesteban" : 6
-    "jeagra" : 8
-    "gregoire.elmacin" : 4
+    "gregoireuesteban" : 7
+    "jeagra" : 10
+    "gregoire.elmacin" : 5
     "Philippe-BAHEUX" : 2
 ```
 
 | Assigne | Nb issues | % du total |
 |---------|-----------|------------|
-| non assigne | 14 | 41.2% |
-| jeagra | 8 | 23.5% |
-| gregoireuesteban | 6 | 17.6% |
-| gregoire.elmacin | 4 | 11.8% |
-| Philippe-BAHEUX | 2 | 5.9% |
+| jeagra | 10 | 30.3% |
+| non assigne | 9 | 27.3% |
+| gregoireuesteban | 7 | 21.2% |
+| gregoire.elmacin | 5 | 15.2% |
+| Philippe-BAHEUX | 2 | 6.1% |
 
 ### 3.3. Distribution des labels (scopes fonctionnels)
 ```mermaid
 pie showData
     title Labels
     "scope::image" : 5
-    "scope::infra" : 22
+    "scope::infra" : 21
     "scope::monitoring" : 5
     "scope::backup" : 2
 ```
@@ -131,15 +131,15 @@ pie showData
 | Assigne | Label #1 | Label #2 |
 |---------|----------|----------|
 | Philippe-BAHEUX | scope::infra (2) |  |
-| gregoire.elmacin | scope::infra (3) | scope::backup (1) |
-| gregoireuesteban | scope::image (5) | scope::infra (1) |
-| jeagra | scope::infra (7) |  |
+| gregoire.elmacin | scope::infra (4) | scope::backup (1) |
+| gregoireuesteban | scope::image (5) | scope::monitoring (2) |
+| jeagra | scope::infra (9) |  |
 
 ### 3.5. Top labels globaux (fonctionnels, max 5)
 
 | Label | Nb issues |
 |-------|-----------|
-| scope::infra | 22 |
+| scope::infra | 21 |
 | scope::image | 5 |
 | scope::monitoring | 5 |
 | scope::backup | 2 |

@@ -47,6 +47,7 @@ title: Accueil
 - 👉 [Jour 43](jours/jour-43)
 - 👉 [Jour 44](jours/jour-44)
 - 👉 [Jour 45](jours/jour-45)
+- 👉 [Jour 49](jours/jour-49)
 
 
 ---
@@ -142,6 +143,7 @@ title: Accueil
 - Jour 44 / 00 : [M44_projet-board-J04.md](modules/M44_projet-board-J04.md)
 - Jour 45 / 00 : [M45_ansible-backup.md](modules/M45_ansible-backup.md)
 - Jour 45 / 00 : [M45_projet-board-J05.md](modules/M45_projet-board-J05.md)
+- Jour 49 / 00 : [M49_projet-board-J09.md](modules/M49_projet-board-J09.md)
 
 ## Pipeline
 - [P01_audit_server.md](modules/P01_audit_server.md) (tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx)
