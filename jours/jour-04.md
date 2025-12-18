@@ -4,7 +4,7 @@ title: Jour 04
 ---
 
 ## Modules du jour
-- [M04_python-cours.md](../modules/M04_python-cours.md)
+- [Python — le cours Python](../modules/M04_python-cours.md)
 
 ## Tags du jour
 - devops

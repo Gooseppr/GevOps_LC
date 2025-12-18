@@ -4,8 +4,8 @@ title: Jour 43
 ---
 
 ## Modules du jour
-- [M43_projet-board-J03.md](../modules/M43_projet-board-J03.md)
-- [M43_ansible-v4.md](../modules/M43_ansible-v4.md)
+- [Projet J03](../modules/M43_projet-board-J03.md)
+- [Projet J3 - Ansible avancé](../modules/M43_ansible-v4.md)
 
 ## Tags du jour
 - ansible

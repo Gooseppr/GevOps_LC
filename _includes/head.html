@@ -7,11 +7,11 @@
         // 1) Transformer les blocs ```mermaid``` générés par Jekyll
         //    (pre > code.language-mermaid) en <div class="mermaid">...</div>
         document.querySelectorAll('pre > code.language-mermaid').forEach(function (code) {
-        var pre = code.parentElement;
-        var container = document.createElement('div');
-        container.className = 'mermaid';
-        container.textContent = code.textContent;
-        pre.replaceWith(container);
+            var pre = code.parentElement;
+            var container = document.createElement('div');
+            container.className = 'mermaid';
+            container.textContent = code.textContent;
+            pre.replaceWith(container);
         });
 
         // 2) Initialiser Mermaid
@@ -19,4 +19,9 @@
     });
     </script>
     <link rel="stylesheet" href="/GevOps_LC/assets/main.css">
+    <link rel="stylesheet" href="{{ '/assets/nav.css' | relative_url }}">
+    <script>
+        window.__GEVOPS_BASEURL = "{{ '/' | relative_url }}".replace(/\/$/, '');
+    </script>
+    <script defer src="{{ '/assets/nav.js' | relative_url }}"></script>
 </head>

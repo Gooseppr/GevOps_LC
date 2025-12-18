@@ -1,0 +1,309 @@
+:root {
+  --nav-bg: #0f172a;
+  --nav-surface: #11192f;
+  --nav-text: #e5e7eb;
+  --nav-muted: #94a3b8;
+  --nav-accent: #4ade80;
+  --nav-border: #1f2a44;
+}
+
+body.with-course-nav {
+  font-family: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  padding-left: 280px;
+  transition: padding 0.2s ease;
+}
+
+#course-nav {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 260px;
+  background: linear-gradient(180deg, var(--nav-bg) 0%, #0b1224 100%);
+  color: var(--nav-text);
+  border-right: 1px solid var(--nav-border);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transform: translateZ(0);
+}
+
+#course-nav .nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--nav-border);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(4px);
+}
+
+#course-nav .nav-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 1rem;
+}
+
+#course-nav .nav-close {
+  appearance: none;
+  border: 1px solid var(--nav-border);
+  background: transparent;
+  color: var(--nav-text);
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+#course-nav .nav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem 1rem 1.25rem;
+}
+
+#course-nav .nav-section {
+  margin-bottom: 1rem;
+}
+
+#course-nav .nav-section-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--nav-muted);
+  margin-bottom: 0.35rem;
+}
+
+#course-nav details {
+  background: var(--nav-surface);
+  border: 1px solid var(--nav-border);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  padding: 0.35rem 0.6rem;
+}
+
+#course-nav summary {
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  outline: none;
+}
+
+#course-nav .nav-node-id {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 24px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  background: rgba(74, 222, 128, 0.14);
+  color: var(--nav-accent);
+}
+
+#course-nav .nav-sub {
+  padding: 0.25rem 0.4rem 0.5rem 0.6rem;
+}
+
+#course-nav .nav-sub-title {
+  color: var(--nav-muted);
+  font-size: 0.9rem;
+  margin: 0.15rem 0 0.25rem;
+}
+
+#course-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.1rem 0 0.35rem 0;
+}
+
+#course-nav li {
+  margin: 0.1rem 0;
+}
+
+#course-nav a {
+  color: var(--nav-text);
+  text-decoration: none;
+  display: block;
+  padding: 0.25rem 0.35rem;
+  border-radius: 6px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+#course-nav a:hover {
+  background: rgba(74, 222, 128, 0.12);
+  color: #e9f7ee;
+}
+
+#course-nav .tagline {
+  color: var(--nav-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+#course-nav .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
+  color: var(--nav-text);
+  font-size: 0.85rem;
+}
+
+#course-nav .pill small {
+  color: var(--nav-muted);
+}
+
+#course-nav .nav-loading,
+#course-nav .nav-error {
+  color: var(--nav-muted);
+  padding: 0.5rem 0.25rem;
+}
+
+#course-nav-toggle {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 1300;
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--nav-border);
+  border-radius: 10px;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  body.with-course-nav {
+    padding-left: 0;
+  }
+  #course-nav {
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+  body.nav-open #course-nav {
+    transform: translateX(0);
+  }
+  #course-nav-toggle {
+    display: inline-flex;
+  }
+}
+
+.page-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.page-main {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+}
+
+.page-main .lead {
+  font-size: 1.05rem;
+  color: #475569;
+}
+
+.day-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.day-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.day-pill:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}
+
+details.cat-block {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
+}
+
+details.cat-block summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cat-block .cat-id {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 24px;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.cat-block .sub-block {
+  margin: 0.35rem 0 0.65rem 0.4rem;
+  padding-left: 0.35rem;
+  border-left: 2px solid #e2e8f0;
+}
+
+.cat-block .sub-header {
+  color: #475569;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.cat-block .module-list {
+  list-style: none;
+  padding: 0.1rem 0 0 0.2rem;
+  margin: 0;
+}
+
+.cat-block .module-list li {
+  margin: 0.1rem 0;
+}
+
+.cat-block .module-list a {
+  text-decoration: none;
+  color: #0f172a;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.cat-block .module-list a:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+}

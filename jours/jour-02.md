@@ -4,12 +4,12 @@ title: Jour 02
 ---
 
 ## Modules du jour
-- [M02_scripting-bash.md](../modules/M02_scripting-bash.md)
-- [M02_droits-linux.md](../modules/M02_droits-linux.md)
-- [M02_cron-automatisation.md](../modules/M02_cron-automatisation.md)
+- [Scripting Bash](../modules/M02_scripting-bash.md)
+- [Gestion des droits sous Linux](../modules/M02_droits-linux.md)
+- [Automatiser avec cron](../modules/M02_cron-automatisation.md)
 
 ## Bonus
-- [B01_bash-bdd-rel.md](../modules/B01_bash-bdd-rel.md)
+- [Le scripting Bash pour base de données relationnelles](../modules/B01_bash-bdd-rel.md)
 
 ## Tags du jour
 - automatisation

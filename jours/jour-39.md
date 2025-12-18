@@ -4,7 +4,7 @@ title: Jour 39
 ---
 
 ## Modules du jour
-- [M39_schema-dinfrastructure.md](../modules/M39_schema-dinfrastructure.md)
+- [Schémas d’infrastructure](../modules/M39_schema-dinfrastructure.md)
 
 ## Tags du jour
 - architecture

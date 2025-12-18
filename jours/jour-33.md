@@ -4,7 +4,7 @@ title: Jour 33
 ---
 
 ## Modules du jour
-- [M33_nom-de-domaine.md](../modules/M33_nom-de-domaine.md)
+- [Les noms de domaine](../modules/M33_nom-de-domaine.md)
 
 ## Tags du jour
 - certificat

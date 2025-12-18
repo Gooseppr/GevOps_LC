@@ -4,9 +4,9 @@ title: Jour 08
 ---
 
 ## Modules du jour
-- [M08_serveur-SSH.md](../modules/M08_serveur-SSH.md)
-- [M08_securite.md](../modules/M08_securite.md)
-- [M08_pratique-SSH-NGINX.md](../modules/M08_pratique-SSH-NGINX.md)
+- [Administration de serveur SSH](../modules/M08_serveur-SSH.md)
+- [Sécurité & Attaques](../modules/M08_securite.md)
+- [Pratique - SSH et NGINX](../modules/M08_pratique-SSH-NGINX.md)
 
 ## Tags du jour
 - devops

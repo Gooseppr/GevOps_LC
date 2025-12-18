@@ -4,7 +4,7 @@ title: Jour 24
 ---
 
 ## Modules du jour
-- [M24_Jenkins.md](../modules/M24_Jenkins.md)
+- [Sécurité des pipelines](../modules/M24_Jenkins.md)
 
 ## Tags du jour
 - cd

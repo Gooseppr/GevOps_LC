@@ -4,9 +4,9 @@ title: Jour 42
 ---
 
 ## Modules du jour
-- [M42_projet-board-J02.md](../modules/M42_projet-board-J02.md)
-- [M42_ansible-pro.md](../modules/M42_ansible-pro.md)
-- [M42_ansible-image.md](../modules/M42_ansible-image.md)
+- [Projet J02](../modules/M42_projet-board-J02.md)
+- [Projet J2 - Ansible avancé](../modules/M42_ansible-pro.md)
+- [Projet J1 - Utilisation d'une Image privée](../modules/M42_ansible-image.md)
 
 ## Tags du jour
 - ansible

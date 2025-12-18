@@ -4,12 +4,12 @@ title: Jour 26
 ---
 
 ## Modules du jour
-- [M26_AWS-Networking.md](../modules/M26_AWS-Networking.md)
-- [M26_AWS_intro.md](../modules/M26_AWS_intro.md)
-- [M26_AWS_Compute.md](../modules/M26_AWS_Compute.md)
-- [M26_AWS_reponse-quizz.md](../modules/M26_AWS_reponse-quizz.md)
-- [M26_Google_GCE.md](../modules/M26_Google_GCE.md)
-- [M26_Azure-VM.md](../modules/M26_Azure-VM.md)
+- [AWS - Introduction](../modules/M26_AWS-Networking.md)
+- [AWS - Introduction](../modules/M26_AWS_intro.md)
+- [AWS Compute](../modules/M26_AWS_Compute.md)
+- [AWS - Réponse Quiz](../modules/M26_AWS_reponse-quizz.md)
+- [Google Compute Engine](../modules/M26_Google_GCE.md)
+- [Azure Virtual Machine](../modules/M26_Azure-VM.md)
 
 ## Tags du jour
 - aws

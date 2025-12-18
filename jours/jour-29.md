@@ -4,8 +4,8 @@ title: Jour 29
 ---
 
 ## Modules du jour
-- [M29_paas-serverless.md](../modules/M29_paas-serverless.md)
-- [M29_apachebench.md](../modules/M29_apachebench.md)
+- [PaaS & Serverless](../modules/M29_paas-serverless.md)
+- [Apache Bench](../modules/M29_apachebench.md)
 
 ## Tags du jour
 - aws

@@ -4,10 +4,10 @@ title: Jour 10
 ---
 
 ## Modules du jour
-- [M10_bases-de-données.md](../modules/M10_bases-de-données.md)
+- [Les bases de données](../modules/M10_bases-de-données.md)
 
 ## Bonus
-- [B01_bash-bdd-rel.md](../modules/B01_bash-bdd-rel.md)
+- [Le scripting Bash pour base de données relationnelles](../modules/B01_bash-bdd-rel.md)
 
 ## Tags du jour
 - bdd

@@ -4,8 +4,8 @@ title: Jour 21
 ---
 
 ## Modules du jour
-- [M21_Tests_Charge_Locust.md](../modules/M21_Tests_Charge_Locust.md)
-- [M21_Artillery.md](../modules/M21_Artillery.md)
+- [Test de montée en charge - Locust & Artillery](../modules/M21_Tests_Charge_Locust.md)
+- [Test de montée en charge - Locust & Artillery](../modules/M21_Artillery.md)
 
 ## Tags du jour
 - artillery

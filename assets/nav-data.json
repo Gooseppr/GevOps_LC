@@ -1,0 +1,804 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "title": "Automatiser le déploiement d’une infrastructure dans le cloud",
+      "submodules": [
+        {
+          "id": "1.1",
+          "jours": [
+            "01",
+            "02",
+            "04",
+            "05",
+            "09"
+          ],
+          "modules": [
+            {
+              "jour": "01",
+              "ordre": 1,
+              "title": "Vagrant — bases utiles et gestion SSH",
+              "path": "modules/M01_vagrant-bases-utiles.md"
+            },
+            {
+              "jour": "01",
+              "ordre": 2,
+              "title": "Le Terminal (Bash)",
+              "path": "modules/M01_terminal-bash.md"
+            },
+            {
+              "jour": "01",
+              "ordre": 3,
+              "title": "SED",
+              "path": "modules/M01_sed-utilisation.md"
+            },
+            {
+              "jour": "01",
+              "ordre": 4,
+              "title": "AWK",
+              "path": "modules/M01_awk-utilisation.md"
+            },
+            {
+              "jour": "02",
+              "ordre": 1,
+              "title": "Scripting Bash",
+              "path": "modules/M02_scripting-bash.md"
+            },
+            {
+              "jour": "02",
+              "ordre": 2,
+              "title": "Gestion des droits sous Linux",
+              "path": "modules/M02_droits-linux.md"
+            },
+            {
+              "jour": "02",
+              "ordre": 3,
+              "title": "Automatiser avec cron",
+              "path": "modules/M02_cron-automatisation.md"
+            },
+            {
+              "jour": "04",
+              "ordre": 1,
+              "title": "Python — le cours Python",
+              "path": "modules/M04_python-cours.md"
+            },
+            {
+              "jour": "05",
+              "ordre": 1,
+              "title": "Python — le cours Python",
+              "path": "modules/M05_python-systeme.md"
+            },
+            {
+              "jour": "09",
+              "ordre": 1,
+              "title": "Backend & API",
+              "path": "modules/M09_backend-API.md"
+            },
+            {
+              "jour": "09",
+              "ordre": 2,
+              "title": "Backend & API",
+              "path": "modules/M09_pratique-framework.md"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "jours": [
+            "34",
+            "35"
+          ],
+          "modules": [
+            {
+              "jour": "34",
+              "ordre": 1,
+              "title": "Terraform",
+              "path": "modules/M34_terraform.md"
+            },
+            {
+              "jour": "34",
+              "ordre": 2,
+              "title": "Terraform avancé",
+              "path": "modules/M34_terraform-avancé.md"
+            },
+            {
+              "jour": "35",
+              "ordre": 1,
+              "title": "Ansible",
+              "path": "modules/M35_ansible.md"
+            },
+            {
+              "jour": "35",
+              "ordre": 2,
+              "title": "Ansible – Version avancée",
+              "path": "modules/M35_ansible-avancé.md"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "jours": [
+            "06",
+            "07",
+            "08",
+            "10",
+            "32"
+          ],
+          "modules": [
+            {
+              "jour": "06",
+              "ordre": 1,
+              "title": "Les équipements réseaux",
+              "path": "modules/M06_equipements-reseau.md"
+            },
+            {
+              "jour": "06",
+              "ordre": 2,
+              "title": "Configuration réseaux",
+              "path": "modules/M06_configuration-reseau.md"
+            },
+            {
+              "jour": "07",
+              "ordre": 1,
+              "title": "Adresse IP, port & protocole.",
+              "path": "modules/M07_IP-ports-protocole.md"
+            },
+            {
+              "jour": "07",
+              "ordre": 2,
+              "title": "Mise en place & observation réseau",
+              "path": "modules/M07_observation-reseau.md"
+            },
+            {
+              "jour": "08",
+              "ordre": 1,
+              "title": "Administration de serveur SSH",
+              "path": "modules/M08_serveur-SSH.md"
+            },
+            {
+              "jour": "08",
+              "ordre": 2,
+              "title": "Sécurité & Attaques",
+              "path": "modules/M08_securite.md"
+            },
+            {
+              "jour": "08",
+              "ordre": 3,
+              "title": "Pratique - SSH et NGINX",
+              "path": "modules/M08_pratique-SSH-NGINX.md"
+            },
+            {
+              "jour": "10",
+              "ordre": 1,
+              "title": "Les bases de données",
+              "path": "modules/M10_bases-de-données.md"
+            },
+            {
+              "jour": "32",
+              "ordre": 1,
+              "title": "La sécurité des application en production",
+              "path": "modules/M32_sécurité-des-application.md"
+            },
+            {
+              "jour": "32",
+              "ordre": 2,
+              "title": "La sécurité des application en production - Pratique",
+              "path": "modules/M32_sécurité_des_application_pratique.md"
+            }
+          ]
+        },
+        {
+          "id": "1.4",
+          "jours": [
+            "14",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "33"
+          ],
+          "modules": [
+            {
+              "jour": "14",
+              "ordre": 1,
+              "title": "Kubernetes avancés",
+              "path": "modules/M14_kubernetes-yaml.md"
+            },
+            {
+              "jour": "26",
+              "ordre": 1,
+              "title": "AWS - Introduction",
+              "path": "modules/M26_AWS-Networking.md"
+            },
+            {
+              "jour": "26",
+              "ordre": 1,
+              "title": "AWS - Introduction",
+              "path": "modules/M26_AWS_intro.md"
+            },
+            {
+              "jour": "26",
+              "ordre": 2,
+              "title": "AWS Compute",
+              "path": "modules/M26_AWS_Compute.md"
+            },
+            {
+              "jour": "26",
+              "ordre": 4,
+              "title": "AWS - Réponse Quiz",
+              "path": "modules/M26_AWS_reponse-quizz.md"
+            },
+            {
+              "jour": "26",
+              "ordre": 5,
+              "title": "Google Compute Engine",
+              "path": "modules/M26_Google_GCE.md"
+            },
+            {
+              "jour": "26",
+              "ordre": 6,
+              "title": "Azure Virtual Machine",
+              "path": "modules/M26_Azure-VM.md"
+            },
+            {
+              "jour": "27",
+              "ordre": 1,
+              "title": "Amazon Storage",
+              "path": "modules/M27_aws-storage.md"
+            },
+            {
+              "jour": "27",
+              "ordre": 2,
+              "title": "Content Delivery Network",
+              "path": "modules/M27_Content-delivery-network.md"
+            },
+            {
+              "jour": "27",
+              "ordre": 3,
+              "title": "Flashcard Hoting & Cloud",
+              "path": "modules/M27_flashcard_aws_storage.md"
+            },
+            {
+              "jour": "27",
+              "ordre": 3,
+              "title": "Quizz AWS Storage",
+              "path": "modules/M27_quizz_aws_storage.md"
+            },
+            {
+              "jour": "28",
+              "ordre": 1,
+              "title": "Bases de données AWS",
+              "path": "modules/M28_bdd_aws.md"
+            },
+            {
+              "jour": "28",
+              "ordre": 2,
+              "title": "AWS Monitoring, Load Balancing & Scaling",
+              "path": "modules/M28_monitoring-elb-aws.md"
+            },
+            {
+              "jour": "28",
+              "ordre": 3,
+              "title": "AWS Monitoring, Load Blancing & Scaling",
+              "path": "modules/M28_quiz-reponse.md"
+            },
+            {
+              "jour": "29",
+              "ordre": 1,
+              "title": "PaaS & Serverless",
+              "path": "modules/M29_paas-serverless.md"
+            },
+            {
+              "jour": "29",
+              "ordre": 2,
+              "title": "Apache Bench",
+              "path": "modules/M29_apachebench.md"
+            },
+            {
+              "jour": "30",
+              "ordre": 1,
+              "title": "Hackathon 21/11/2025",
+              "path": "modules/M30_hackathon.md"
+            },
+            {
+              "jour": "31",
+              "ordre": 1,
+              "title": "Serveurs Web & Reverse Proxy",
+              "path": "modules/M31_serveur-web.md"
+            },
+            {
+              "jour": "31",
+              "ordre": 2,
+              "title": "Serveurs Web & Reverse Proxy - Pratique",
+              "path": "modules/M31_serveur-web-pratique.md"
+            },
+            {
+              "jour": "33",
+              "ordre": 1,
+              "title": "Les noms de domaine",
+              "path": "modules/M33_nom-de-domaine.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Déployer en continu une application",
+      "submodules": [
+        {
+          "id": "2.1",
+          "jours": [
+            "03",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25"
+          ],
+          "modules": [
+            {
+              "jour": "03",
+              "ordre": 1,
+              "title": "Git — le guide “manipulation sans stress”",
+              "path": "modules/M03_git-manipulation.md"
+            },
+            {
+              "jour": "03",
+              "ordre": 1,
+              "title": "Git — manipulation sans stress",
+              "path": "modules/M03_Git_Manipulation_sans_stress.md"
+            },
+            {
+              "jour": "03",
+              "ordre": 2,
+              "title": "Git — manipulation avancée de l’historique",
+              "path": "modules/M03_Git_Manipulation_avancee_historique.md"
+            },
+            {
+              "jour": "03",
+              "ordre": 2,
+              "title": "Git — manipulation avancée de l’historique",
+              "path": "modules/M03_git-historique-avance.md"
+            },
+            {
+              "jour": "03",
+              "ordre": 3,
+              "title": "Git — Workflows collaboratifs et stratégies DevOps",
+              "path": "modules/M03_Git_Workflows_DevOps.md"
+            },
+            {
+              "jour": "17",
+              "ordre": 1,
+              "title": "Flashcard Jira",
+              "path": "modules/M17_flashcard_jira.md"
+            },
+            {
+              "jour": "18",
+              "ordre": 1,
+              "title": "Intégration continue",
+              "path": "modules/M18_intégration-continue.md"
+            },
+            {
+              "jour": "18",
+              "ordre": 2,
+              "title": "Intégration continue - GitLab Runner",
+              "path": "modules/M18_Cours_GitLab_Runner.md"
+            },
+            {
+              "jour": "18",
+              "ordre": 3,
+              "title": "Intégration continue - GitLab Runner",
+              "path": "modules/M18_azure_devops.md"
+            },
+            {
+              "jour": "18",
+              "ordre": 3,
+              "title": "Intégration continue - GitLab Runner",
+              "path": "modules/M18_flake8.md"
+            },
+            {
+              "jour": "19",
+              "ordre": 1,
+              "title": "Framework de test Cypress",
+              "path": "modules/M19_test-cypress.md"
+            },
+            {
+              "jour": "19",
+              "ordre": 2,
+              "title": "Framework de test Jest",
+              "path": "modules/M19_test-jest.md"
+            },
+            {
+              "jour": "20",
+              "ordre": 1,
+              "title": "Déploiement continu",
+              "path": "modules/M20_Cours-CD-Approfondi.md"
+            },
+            {
+              "jour": "20",
+              "ordre": 2,
+              "title": "ESLint",
+              "path": "modules/M20_eslint.md"
+            },
+            {
+              "jour": "21",
+              "ordre": 1,
+              "title": "Test de montée en charge - Locust & Artillery",
+              "path": "modules/M21_Tests_Charge_Locust.md"
+            },
+            {
+              "jour": "21",
+              "ordre": 2,
+              "title": "Test de montée en charge - Locust & Artillery",
+              "path": "modules/M21_Artillery.md"
+            },
+            {
+              "jour": "22",
+              "ordre": 1,
+              "title": "Test de montée en charge - Locust & Artillery",
+              "path": "modules/M22_Test-qualité-Sonarqube.md"
+            },
+            {
+              "jour": "23",
+              "ordre": 1,
+              "title": "Sécurité des pipelines",
+              "path": "modules/M23_sécurité-pipeline.md"
+            },
+            {
+              "jour": "24",
+              "ordre": 1,
+              "title": "Sécurité des pipelines",
+              "path": "modules/M24_Jenkins.md"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "jours": [
+            "10",
+            "28"
+          ],
+          "modules": [
+            {
+              "jour": "10",
+              "ordre": 1,
+              "title": "Les bases de données",
+              "path": "modules/M10_bases-de-données.md"
+            },
+            {
+              "jour": "28",
+              "ordre": 1,
+              "title": "Bases de données AWS",
+              "path": "modules/M28_bdd_aws.md"
+            },
+            {
+              "jour": "28",
+              "ordre": 2,
+              "title": "AWS Monitoring, Load Balancing & Scaling",
+              "path": "modules/M28_monitoring-elb-aws.md"
+            },
+            {
+              "jour": "28",
+              "ordre": 3,
+              "title": "AWS Monitoring, Load Blancing & Scaling",
+              "path": "modules/M28_quiz-reponse.md"
+            }
+          ]
+        },
+        {
+          "id": "2.3",
+          "jours": [
+            "11",
+            "12",
+            "16"
+          ],
+          "modules": [
+            {
+              "jour": "11",
+              "ordre": 1,
+              "title": "La virtualisation",
+              "path": "modules/M11_Virtualisation.md"
+            },
+            {
+              "jour": "11",
+              "ordre": 2,
+              "title": "Docker & la conteneurisation",
+              "path": "modules/M11_dockers.md"
+            },
+            {
+              "jour": "11",
+              "ordre": 3,
+              "title": "Docker, mise en pratique",
+              "path": "modules/M11_dockers_pratique.md"
+            },
+            {
+              "jour": "12",
+              "ordre": 1,
+              "title": "Docker Compose",
+              "path": "modules/M12_docker-compose.md"
+            },
+            {
+              "jour": "12",
+              "ordre": 2,
+              "title": "Pratique Docker Compose",
+              "path": "modules/M12_pratique-docker-compose.md"
+            }
+          ]
+        },
+        {
+          "id": "2.4",
+          "jours": [
+            "13",
+            "14",
+            "15",
+            "16"
+          ],
+          "modules": [
+            {
+              "jour": "13",
+              "ordre": 1,
+              "title": "Kubernetes",
+              "path": "modules/M13_kubernetes.md"
+            },
+            {
+              "jour": "14",
+              "ordre": 1,
+              "title": "Kubernetes avancés",
+              "path": "modules/M14_kubernetes-yaml.md"
+            },
+            {
+              "jour": "15",
+              "ordre": 1,
+              "title": "Helm pour Kubernetes",
+              "path": "modules/M15_helm-kubernetes.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Superviser les services déployés",
+      "submodules": [
+        {
+          "id": "3.1",
+          "jours": [
+            "37",
+            "38"
+          ],
+          "modules": [
+            {
+              "jour": "37",
+              "ordre": 1,
+              "title": "Grafana",
+              "path": "modules/M37_grafana.md"
+            },
+            {
+              "jour": "38",
+              "ordre": 1,
+              "title": "Monitoring avancé",
+              "path": "modules/M38_monotoring-avancé.md"
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "jours": [
+            "36",
+            "38"
+          ],
+          "modules": [
+            {
+              "jour": "36",
+              "ordre": 1,
+              "title": "Prometheus – Monitoring et métriques",
+              "path": "modules/M36_prometheus.md"
+            },
+            {
+              "jour": "36",
+              "ordre": 2,
+              "title": "Monitoring avec Prometheus – Pratique",
+              "path": "modules/M36_prometheus-pratique.md"
+            },
+            {
+              "jour": "38",
+              "ordre": 1,
+              "title": "Monitoring avancé",
+              "path": "modules/M38_monotoring-avancé.md"
+            }
+          ]
+        },
+        {
+          "id": "3.3",
+          "jours": [
+            "19"
+          ],
+          "modules": [
+            {
+              "jour": "19",
+              "ordre": 1,
+              "title": "Framework de test Cypress",
+              "path": "modules/M19_test-cypress.md"
+            },
+            {
+              "jour": "19",
+              "ordre": 2,
+              "title": "Framework de test Jest",
+              "path": "modules/M19_test-jest.md"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "uncategorized": [
+    {
+      "jour": "39",
+      "ordre": 1,
+      "title": "Schémas d’infrastructure",
+      "path": "modules/M39_schema-dinfrastructure.md"
+    },
+    {
+      "jour": "40",
+      "ordre": 1,
+      "title": "Méthode agile",
+      "path": "modules/M40_methode-agile.md"
+    },
+    {
+      "jour": "40",
+      "ordre": 2,
+      "title": "Projet test de rapport",
+      "path": "modules/M40.projet-test.md"
+    },
+    {
+      "jour": "41",
+      "ordre": 0,
+      "title": "Projet J01",
+      "path": "modules/M41_projet-board-J01.md"
+    },
+    {
+      "jour": "41",
+      "ordre": 1,
+      "title": "Projet J1 - Ansible",
+      "path": "modules/M41_projet-J1-swarm.md"
+    },
+    {
+      "jour": "41",
+      "ordre": 2,
+      "title": "Projet J1 - Docker Swarm",
+      "path": "modules/M41_projet-J1-swarm-ansible.md"
+    },
+    {
+      "jour": "42",
+      "ordre": 0,
+      "title": "Projet J02",
+      "path": "modules/M42_projet-board-J02.md"
+    },
+    {
+      "jour": "42",
+      "ordre": 1,
+      "title": "Projet J2 - Ansible avancé",
+      "path": "modules/M42_ansible-pro.md"
+    },
+    {
+      "jour": "42",
+      "ordre": 2,
+      "title": "Projet J1 - Utilisation d'une Image privée",
+      "path": "modules/M42_ansible-image.md"
+    },
+    {
+      "jour": "43",
+      "ordre": 0,
+      "title": "Projet J03",
+      "path": "modules/M43_projet-board-J03.md"
+    },
+    {
+      "jour": "43",
+      "ordre": 1,
+      "title": "Projet J3 - Ansible avancé",
+      "path": "modules/M43_ansible-v4.md"
+    },
+    {
+      "jour": "44",
+      "ordre": 0,
+      "title": "Projet J04",
+      "path": "modules/M44_projet-board-J04.md"
+    },
+    {
+      "jour": "44",
+      "ordre": 0,
+      "title": "Projet J04 - Ansible avancé (rôles)",
+      "path": "modules/M44_ansible-avancés.md"
+    },
+    {
+      "jour": "45",
+      "ordre": 0,
+      "title": "Projet J05",
+      "path": "modules/M45_ansible-backup.md"
+    },
+    {
+      "jour": "45",
+      "ordre": 0,
+      "title": "Projet J05",
+      "path": "modules/M45_projet-board-J05.md"
+    },
+    {
+      "jour": "49",
+      "ordre": 0,
+      "title": "Projet J09",
+      "path": "modules/M49_projet-board-J09.md"
+    }
+  ],
+  "pipeline": [
+    {
+      "title": "Arrêt controlé",
+      "path": "modules/P02_arret-controle.md",
+      "tags": [
+        "linux",
+        "docker",
+        "mariadb",
+        "postgresql",
+        "redis",
+        "nginx",
+        "kubernetes",
+        "devops"
+      ]
+    },
+    {
+      "title": "Audit de serveur",
+      "path": "modules/P01_audit_server.md",
+      "tags": [
+        "linux",
+        "ssh",
+        "docker",
+        "devops",
+        "network",
+        "security",
+        "mariadb",
+        "postgresql",
+        "nginx"
+      ]
+    }
+  ],
+  "bonus": [
+    {
+      "title": "Activité-type 4 : Mettre à disposition une API en ligne",
+      "path": "modules/B00_activité-4.md",
+      "jours": [
+        "00"
+      ]
+    },
+    {
+      "title": "Kubectl cmd",
+      "path": "modules/B02_kubernetes-cmd.md",
+      "jours": [
+        "13",
+        "14",
+        "15"
+      ]
+    },
+    {
+      "title": "Kubectl cmd",
+      "path": "modules/B03_dockers-swarm.md",
+      "jours": [
+        "11",
+        "12"
+      ]
+    },
+    {
+      "title": "Le scripting Bash pour base de données relationnelles",
+      "path": "modules/B01_bash-bdd-rel.md",
+      "jours": [
+        "02",
+        "10"
+      ]
+    }
+  ]
+}
