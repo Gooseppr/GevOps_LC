@@ -30,8 +30,8 @@ Ces indicateurs servent à savoir si le board est pilotable : sans assignees, sa
 ```mermaid
 pie showData
     title Issues assignees
-    "assignees" : 26
-    "non assignees" : 7
+    "assignees" : 27
+    "non assignees" : 6
 ```
 
 ### 1.2. Pourcentage d'issues en closed (label)
@@ -48,15 +48,15 @@ pie showData
 pie showData
     title Colonnes du board
     "backlog" : 2
-    "open" : 5
-    "in-progress" : 4
+    "open" : 4
+    "in-progress" : 5
     "closed" : 22
 ```
 
 > Lecture :
 > - **backlog** : 2 issues (6.1 %)
-> - **open** : 5 issues (15.2 %)
-> - **in-progress** : 4 issues (12.1 %)
+> - **open** : 4 issues (12.1 %)
+> - **in-progress** : 5 issues (15.2 %)
 > - **closed** : 22 issues (66.7 %)
 
 ### 2.2. Kanban (vue synthetique)
@@ -64,8 +64,8 @@ pie showData
 timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
     backlog : Premiere mise en prod infra (checklist) : Creation d'un pipeline pour deployer l'infrastructure
-    open : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour configurer la VM du bastion : Ansible - Playbook pour deployer Loki : Ansible - Playbook pour deployer Grafana : Ansible - Playbook pour deployer les exporters generiques
-    in-progress : CI jobs pour le code Noco DB (tests) : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Prometheus : Test du bastion
+    open : Ansible - Playbook pour configurer la VM du bastion : Ansible - Playbook pour deployer Loki : Ansible - Playbook pour deployer Grafana : Ansible - Playbook pour deployer les exporters generiques
+    in-progress : CI jobs pour le code Noco DB (tests) : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Prometheus : Test du bastion
     closed : Terraform - monitoring : Test de Traefik : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer les VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour deployer Docker Swarm : ... (+11 de plus)
 ```
 
@@ -104,7 +104,7 @@ pie showData
     title Assigne
     "gregoireuesteban" : 7
     "jeagra" : 12
-    "gregoire.elmacin" : 5
+    "gregoire.elmacin" : 6
     "Philippe-BAHEUX" : 2
 ```
 
@@ -112,8 +112,8 @@ pie showData
 |---------|-----------|------------|
 | jeagra | 12 | 36.4% |
 | gregoireuesteban | 7 | 21.2% |
-| non assigne | 7 | 21.2% |
-| gregoire.elmacin | 5 | 15.2% |
+| gregoire.elmacin | 6 | 18.2% |
+| non assigne | 6 | 18.2% |
 | Philippe-BAHEUX | 2 | 6.1% |
 
 ### 3.3. Distribution des labels (scopes fonctionnels)
@@ -131,7 +131,7 @@ pie showData
 | Assigne | Label #1 | Label #2 |
 |---------|----------|----------|
 | Philippe-BAHEUX | scope::infra (2) |  |
-| gregoire.elmacin | scope::infra (4) | scope::backup (1) |
+| gregoire.elmacin | scope::infra (4) | scope::backup (2) |
 | gregoireuesteban | scope::image (5) | scope::monitoring (2) |
 | jeagra | scope::infra (11) |  |
 
