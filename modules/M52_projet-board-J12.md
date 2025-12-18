@@ -1,8 +1,8 @@
 ---
-title: Projet J11
+title: Projet J12
 sujet: Projet NocoDb NocoDb
 type: module
-jour: 51
+jour: 52
 ordre: 0
 tags: projet, board
 ---
@@ -38,8 +38,8 @@ pie showData
 ```mermaid
 pie showData
     title Issues closed (label)
-    "closed" : 22
-    "non closed" : 11
+    "closed" : 23
+    "non closed" : 10
 ```
 
 ## 2. Avancement (flux de travail & temps)
@@ -49,15 +49,15 @@ pie showData
     title Colonnes du board
     "backlog" : 2
     "open" : 4
-    "in-progress" : 5
-    "closed" : 22
+    "in-progress" : 4
+    "closed" : 23
 ```
 
 > Lecture :
 > - **backlog** : 2 issues (6.1 %)
 > - **open** : 4 issues (12.1 %)
-> - **in-progress** : 5 issues (15.2 %)
-> - **closed** : 22 issues (66.7 %)
+> - **in-progress** : 4 issues (12.1 %)
+> - **closed** : 23 issues (69.7 %)
 
 ### 2.2. Kanban (vue synthetique)
 ```mermaid
@@ -65,8 +65,8 @@ timeline
     title "Kanban (labels backlog/open/in-progress/closed)"
     backlog : Premiere mise en prod infra (checklist) : Creation d'un pipeline pour deployer l'infrastructure
     open : Ansible - Playbook pour configurer la VM du bastion : Ansible - Playbook pour deployer Loki : Ansible - Playbook pour deployer Grafana : Ansible - Playbook pour deployer les exporters generiques
-    in-progress : CI jobs pour le code Noco DB (tests) : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Prometheus : Test du bastion
-    closed : Terraform - monitoring : Test de Traefik : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer les VM Application : Ansible - Playbook pour configurer la VM Database : Ansible - Playbook pour deployer Docker Swarm : ... (+11 de plus)
+    in-progress : CI jobs pour le code Noco DB (tests) : Ansible - Playbook pour le SSH Hardening : Ansible - Playbook pour deployer Prometheus : Test du bastion
+    closed : Terraform - monitoring : Test de Traefik : Terraform - Creation du S3 pour les backups de les bases de donnees : Ansible - Playbook pour la tache CRON dediee au backup de la base de ... : Terraform - Creation de l'inventaire Ansible : Reseau (IaC) - Definir et tester le VPC : Terraform - Deploiement des VM : Terraform - Deploiement du reseau et des subnets : Ansible - Playbook pour configurer la VM NAT : Ansible - Playbook pour configurer les VM Application : Ansible - Playbook pour configurer la VM Database : ... (+12 de plus)
 ```
 
 ### 2.3. Timeline des creations
@@ -143,7 +143,3 @@ pie showData
 | scope::image | 5 |
 | scope::monitoring | 5 |
 | scope::backup | 2 |
-
----
-[← Module précédent](M51_image-infra.md)
----
