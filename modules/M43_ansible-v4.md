@@ -1,6 +1,6 @@
 ---
 title: Projet J3 - Ansible avancé
-sujet: Projet
+sujet: Projet NocoDb
 type: module
 jour: 43
 ordre: 1

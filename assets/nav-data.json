@@ -18,67 +18,78 @@
               "jour": "01",
               "ordre": 1,
               "title": "Vagrant — bases utiles et gestion SSH",
-              "path": "/GevOps_LC/modules/M01_vagrant-bases-utiles.html"
+              "path": "/GevOps_LC/modules/M01_vagrant-bases-utiles.html",
+              "subject": "Python, Administration, Terminal & Scripting"
             },
             {
               "jour": "01",
               "ordre": 2,
               "title": "Le Terminal (Bash)",
-              "path": "/GevOps_LC/modules/M01_terminal-bash.html"
+              "path": "/GevOps_LC/modules/M01_terminal-bash.html",
+              "subject": "Python, Administration, Terminal & Scripting"
             },
             {
               "jour": "01",
               "ordre": 3,
               "title": "SED",
-              "path": "/GevOps_LC/modules/M01_sed-utilisation.html"
+              "path": "/GevOps_LC/modules/M01_sed-utilisation.html",
+              "subject": "Python, Administration, Terminal & Scripting"
             },
             {
               "jour": "01",
               "ordre": 4,
               "title": "AWK",
-              "path": "/GevOps_LC/modules/M01_awk-utilisation.html"
+              "path": "/GevOps_LC/modules/M01_awk-utilisation.html",
+              "subject": "Python, Administration, Terminal & Scripting"
             },
             {
               "jour": "02",
               "ordre": 1,
               "title": "Scripting Bash",
-              "path": "/GevOps_LC/modules/M02_scripting-bash.html"
+              "path": "/GevOps_LC/modules/M02_scripting-bash.html",
+              "subject": "Terminal & Scripting"
             },
             {
               "jour": "02",
               "ordre": 2,
               "title": "Gestion des droits sous Linux",
-              "path": "/GevOps_LC/modules/M02_droits-linux.html"
+              "path": "/GevOps_LC/modules/M02_droits-linux.html",
+              "subject": "Terminal & Scripting"
             },
             {
               "jour": "02",
               "ordre": 3,
               "title": "Automatiser avec cron",
-              "path": "/GevOps_LC/modules/M02_cron-automatisation.html"
+              "path": "/GevOps_LC/modules/M02_cron-automatisation.html",
+              "subject": "Terminal & Scripting"
             },
             {
               "jour": "04",
               "ordre": 1,
               "title": "Python — le cours Python",
-              "path": "/GevOps_LC/modules/M04_python-cours.html"
+              "path": "/GevOps_LC/modules/M04_python-cours.html",
+              "subject": "Python"
             },
             {
               "jour": "05",
               "ordre": 1,
               "title": "Python — le cours Python",
-              "path": "/GevOps_LC/modules/M05_python-systeme.html"
+              "path": "/GevOps_LC/modules/M05_python-systeme.html",
+              "subject": "Python"
             },
             {
               "jour": "09",
               "ordre": 1,
               "title": "Backend & API",
-              "path": "/GevOps_LC/modules/M09_backend-API.html"
+              "path": "/GevOps_LC/modules/M09_backend-API.html",
+              "subject": "Backend"
             },
             {
               "jour": "09",
               "ordre": 2,
               "title": "Backend & API",
-              "path": "/GevOps_LC/modules/M09_pratique-framework.html"
+              "path": "/GevOps_LC/modules/M09_pratique-framework.html",
+              "subject": "Backend"
             }
           ]
         },
@@ -93,25 +104,29 @@
               "jour": "34",
               "ordre": 1,
               "title": "Terraform",
-              "path": "/GevOps_LC/modules/M34_terraform.html"
+              "path": "/GevOps_LC/modules/M34_terraform.html",
+              "subject": "Automatisation IaC"
             },
             {
               "jour": "34",
               "ordre": 2,
               "title": "Terraform avancé",
-              "path": "/GevOps_LC/modules/M34_terraform-avancé.html"
+              "path": "/GevOps_LC/modules/M34_terraform-avancé.html",
+              "subject": "Automatisation IaC"
             },
             {
               "jour": "35",
               "ordre": 1,
               "title": "Ansible",
-              "path": "/GevOps_LC/modules/M35_ansible.html"
+              "path": "/GevOps_LC/modules/M35_ansible.html",
+              "subject": "Automatisation IaC"
             },
             {
               "jour": "35",
               "ordre": 2,
               "title": "Ansible – Version avancée",
-              "path": "/GevOps_LC/modules/M35_ansible-avancé.html"
+              "path": "/GevOps_LC/modules/M35_ansible-avancé.html",
+              "subject": "Automatisation IaC"
             }
           ]
         },
@@ -129,61 +144,71 @@
               "jour": "06",
               "ordre": 1,
               "title": "Les équipements réseaux",
-              "path": "/GevOps_LC/modules/M06_equipements-reseau.html"
+              "path": "/GevOps_LC/modules/M06_equipements-reseau.html",
+              "subject": "Réseaux"
             },
             {
               "jour": "06",
               "ordre": 2,
               "title": "Configuration réseaux",
-              "path": "/GevOps_LC/modules/M06_configuration-reseau.html"
+              "path": "/GevOps_LC/modules/M06_configuration-reseau.html",
+              "subject": "Réseaux"
             },
             {
               "jour": "07",
               "ordre": 1,
               "title": "Adresse IP, port & protocole.",
-              "path": "/GevOps_LC/modules/M07_IP-ports-protocole.html"
+              "path": "/GevOps_LC/modules/M07_IP-ports-protocole.html",
+              "subject": "Réseaux"
             },
             {
               "jour": "07",
               "ordre": 2,
               "title": "Mise en place & observation réseau",
-              "path": "/GevOps_LC/modules/M07_observation-reseau.html"
+              "path": "/GevOps_LC/modules/M07_observation-reseau.html",
+              "subject": "Réseaux"
             },
             {
               "jour": "08",
               "ordre": 1,
               "title": "Administration de serveur SSH",
-              "path": "/GevOps_LC/modules/M08_serveur-SSH.html"
+              "path": "/GevOps_LC/modules/M08_serveur-SSH.html",
+              "subject": "Administration, Sécurité"
             },
             {
               "jour": "08",
               "ordre": 2,
               "title": "Sécurité & Attaques",
-              "path": "/GevOps_LC/modules/M08_securite.html"
+              "path": "/GevOps_LC/modules/M08_securite.html",
+              "subject": "Administration, Sécurité"
             },
             {
               "jour": "08",
               "ordre": 3,
               "title": "Pratique - SSH et NGINX",
-              "path": "/GevOps_LC/modules/M08_pratique-SSH-NGINX.html"
+              "path": "/GevOps_LC/modules/M08_pratique-SSH-NGINX.html",
+              "subject": "Administration, Sécurité"
             },
             {
               "jour": "10",
               "ordre": 1,
               "title": "Les bases de données",
-              "path": "/GevOps_LC/modules/M10_bases-de-données.html"
+              "path": "/GevOps_LC/modules/M10_bases-de-données.html",
+              "subject": "Bases de données"
             },
             {
               "jour": "32",
               "ordre": 1,
               "title": "La sécurité des application en production",
-              "path": "/GevOps_LC/modules/M32_sécurité-des-application.html"
+              "path": "/GevOps_LC/modules/M32_sécurité-des-application.html",
+              "subject": "Sécurité"
             },
             {
               "jour": "32",
               "ordre": 2,
               "title": "La sécurité des application en production - Pratique",
-              "path": "/GevOps_LC/modules/M32_sécurité_des_application_pratique.html"
+              "path": "/GevOps_LC/modules/M32_sécurité_des_application_pratique.html",
+              "subject": "Sécurité"
             }
           ]
         },
@@ -204,121 +229,141 @@
               "jour": "14",
               "ordre": 1,
               "title": "Kubernetes avancés",
-              "path": "/GevOps_LC/modules/M14_kubernetes-yaml.html"
+              "path": "/GevOps_LC/modules/M14_kubernetes-yaml.html",
+              "subject": "Orchestration"
             },
             {
               "jour": "26",
               "ordre": 1,
               "title": "AWS - Introduction",
-              "path": "/GevOps_LC/modules/M26_AWS-Networking.html"
+              "path": "/GevOps_LC/modules/M26_AWS-Networking.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "26",
               "ordre": 1,
               "title": "AWS - Introduction",
-              "path": "/GevOps_LC/modules/M26_AWS_intro.html"
+              "path": "/GevOps_LC/modules/M26_AWS_intro.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "26",
               "ordre": 2,
               "title": "AWS Compute",
-              "path": "/GevOps_LC/modules/M26_AWS_Compute.html"
+              "path": "/GevOps_LC/modules/M26_AWS_Compute.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "26",
               "ordre": 4,
               "title": "AWS - Réponse Quiz",
-              "path": "/GevOps_LC/modules/M26_AWS_reponse-quizz.html"
+              "path": "/GevOps_LC/modules/M26_AWS_reponse-quizz.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "26",
               "ordre": 5,
               "title": "Google Compute Engine",
-              "path": "/GevOps_LC/modules/M26_Google_GCE.html"
+              "path": "/GevOps_LC/modules/M26_Google_GCE.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "26",
               "ordre": 6,
               "title": "Azure Virtual Machine",
-              "path": "/GevOps_LC/modules/M26_Azure-VM.html"
+              "path": "/GevOps_LC/modules/M26_Azure-VM.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "27",
               "ordre": 1,
               "title": "Amazon Storage",
-              "path": "/GevOps_LC/modules/M27_aws-storage.html"
+              "path": "/GevOps_LC/modules/M27_aws-storage.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "27",
               "ordre": 2,
               "title": "Content Delivery Network",
-              "path": "/GevOps_LC/modules/M27_Content-delivery-network.html"
+              "path": "/GevOps_LC/modules/M27_Content-delivery-network.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "27",
               "ordre": 3,
               "title": "Flashcard Hoting & Cloud",
-              "path": "/GevOps_LC/modules/M27_flashcard_aws_storage.html"
+              "path": "/GevOps_LC/modules/M27_flashcard_aws_storage.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "27",
               "ordre": 3,
               "title": "Quizz AWS Storage",
-              "path": "/GevOps_LC/modules/M27_quizz_aws_storage.html"
+              "path": "/GevOps_LC/modules/M27_quizz_aws_storage.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "28",
               "ordre": 1,
               "title": "Bases de données AWS",
-              "path": "/GevOps_LC/modules/M28_bdd_aws.html"
+              "path": "/GevOps_LC/modules/M28_bdd_aws.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "28",
               "ordre": 2,
               "title": "AWS Monitoring, Load Balancing & Scaling",
-              "path": "/GevOps_LC/modules/M28_monitoring-elb-aws.html"
+              "path": "/GevOps_LC/modules/M28_monitoring-elb-aws.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "28",
               "ordre": 3,
               "title": "AWS Monitoring, Load Blancing & Scaling",
-              "path": "/GevOps_LC/modules/M28_quiz-reponse.html"
+              "path": "/GevOps_LC/modules/M28_quiz-reponse.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "29",
               "ordre": 1,
               "title": "PaaS & Serverless",
-              "path": "/GevOps_LC/modules/M29_paas-serverless.html"
+              "path": "/GevOps_LC/modules/M29_paas-serverless.html",
+              "subject": "Cloud publique, Hosting & Cloud"
             },
             {
               "jour": "29",
               "ordre": 2,
               "title": "Apache Bench",
-              "path": "/GevOps_LC/modules/M29_apachebench.html"
+              "path": "/GevOps_LC/modules/M29_apachebench.html",
+              "subject": "Cloud publique, Hosting & Cloud"
             },
             {
               "jour": "30",
               "ordre": 1,
               "title": "Hackathon 21/11/2025",
-              "path": "/GevOps_LC/modules/M30_hackathon.html"
+              "path": "/GevOps_LC/modules/M30_hackathon.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "31",
               "ordre": 1,
               "title": "Serveurs Web & Reverse Proxy",
-              "path": "/GevOps_LC/modules/M31_serveur-web.html"
+              "path": "/GevOps_LC/modules/M31_serveur-web.html",
+              "subject": "Administration"
             },
             {
               "jour": "31",
               "ordre": 2,
               "title": "Serveurs Web & Reverse Proxy - Pratique",
-              "path": "/GevOps_LC/modules/M31_serveur-web-pratique.html"
+              "path": "/GevOps_LC/modules/M31_serveur-web-pratique.html",
+              "subject": "Administration"
             },
             {
               "jour": "33",
               "ordre": 1,
               "title": "Les noms de domaine",
-              "path": "/GevOps_LC/modules/M33_nom-de-domaine.html"
+              "path": "/GevOps_LC/modules/M33_nom-de-domaine.html",
+              "subject": "Hosting & Cloud"
             }
           ]
         }
@@ -347,115 +392,134 @@
               "jour": "03",
               "ordre": 1,
               "title": "Git — le guide “manipulation sans stress”",
-              "path": "/GevOps_LC/modules/M03_git-manipulation.html"
+              "path": "/GevOps_LC/modules/M03_git-manipulation.html",
+              "subject": "Versionning"
             },
             {
               "jour": "03",
               "ordre": 1,
               "title": "Git — manipulation sans stress",
-              "path": "/GevOps_LC/modules/M03_Git_Manipulation_sans_stress.html"
+              "path": "/GevOps_LC/modules/M03_Git_Manipulation_sans_stress.html",
+              "subject": "Versionning"
             },
             {
               "jour": "03",
               "ordre": 2,
               "title": "Git — manipulation avancée de l’historique",
-              "path": "/GevOps_LC/modules/M03_Git_Manipulation_avancee_historique.html"
+              "path": "/GevOps_LC/modules/M03_Git_Manipulation_avancee_historique.html",
+              "subject": "Versionning"
             },
             {
               "jour": "03",
               "ordre": 2,
               "title": "Git — manipulation avancée de l’historique",
-              "path": "/GevOps_LC/modules/M03_git-historique-avance.html"
+              "path": "/GevOps_LC/modules/M03_git-historique-avance.html",
+              "subject": "Versionning"
             },
             {
               "jour": "03",
               "ordre": 3,
               "title": "Git — Workflows collaboratifs et stratégies DevOps",
-              "path": "/GevOps_LC/modules/M03_Git_Workflows_DevOps.html"
+              "path": "/GevOps_LC/modules/M03_Git_Workflows_DevOps.html",
+              "subject": "Versionning"
             },
             {
               "jour": "17",
               "ordre": 1,
               "title": "Flashcard Jira",
-              "path": "/GevOps_LC/modules/M17_flashcard_jira.html"
+              "path": "/GevOps_LC/modules/M17_flashcard_jira.html",
+              "subject": "Versionning"
             },
             {
               "jour": "18",
               "ordre": 1,
               "title": "Intégration continue",
-              "path": "/GevOps_LC/modules/M18_intégration-continue.html"
+              "path": "/GevOps_LC/modules/M18_intégration-continue.html",
+              "subject": "Intégration continue (CI)"
             },
             {
               "jour": "18",
               "ordre": 2,
               "title": "Intégration continue - GitLab Runner",
-              "path": "/GevOps_LC/modules/M18_Cours_GitLab_Runner.html"
+              "path": "/GevOps_LC/modules/M18_Cours_GitLab_Runner.html",
+              "subject": "Intégration continue (CI)"
             },
             {
               "jour": "18",
               "ordre": 3,
               "title": "Intégration continue - GitLab Runner",
-              "path": "/GevOps_LC/modules/M18_azure_devops.html"
+              "path": "/GevOps_LC/modules/M18_azure_devops.html",
+              "subject": "Intégration continue (CI)"
             },
             {
               "jour": "18",
               "ordre": 3,
               "title": "Intégration continue - GitLab Runner",
-              "path": "/GevOps_LC/modules/M18_flake8.html"
+              "path": "/GevOps_LC/modules/M18_flake8.html",
+              "subject": "Intégration continue (CI)"
             },
             {
               "jour": "19",
               "ordre": 1,
               "title": "Framework de test Cypress",
-              "path": "/GevOps_LC/modules/M19_test-cypress.html"
+              "path": "/GevOps_LC/modules/M19_test-cypress.html",
+              "subject": "Intégration continue (CI)"
             },
             {
               "jour": "19",
               "ordre": 2,
               "title": "Framework de test Jest",
-              "path": "/GevOps_LC/modules/M19_test-jest.html"
+              "path": "/GevOps_LC/modules/M19_test-jest.html",
+              "subject": "Intégration continue (CI)"
             },
             {
               "jour": "20",
               "ordre": 1,
               "title": "Déploiement continu",
-              "path": "/GevOps_LC/modules/M20_Cours-CD-Approfondi.html"
+              "path": "/GevOps_LC/modules/M20_Cours-CD-Approfondi.html",
+              "subject": "Déploiement Continu (CD)"
             },
             {
               "jour": "20",
               "ordre": 2,
               "title": "ESLint",
-              "path": "/GevOps_LC/modules/M20_eslint.html"
+              "path": "/GevOps_LC/modules/M20_eslint.html",
+              "subject": "Déploiement Continu (CD)"
             },
             {
               "jour": "21",
               "ordre": 1,
               "title": "Test de montée en charge - Locust & Artillery",
-              "path": "/GevOps_LC/modules/M21_Tests_Charge_Locust.html"
+              "path": "/GevOps_LC/modules/M21_Tests_Charge_Locust.html",
+              "subject": "Déploiement Continu (CD), Versionning, Intégration continue (CI)"
             },
             {
               "jour": "21",
               "ordre": 2,
               "title": "Test de montée en charge - Locust & Artillery",
-              "path": "/GevOps_LC/modules/M21_Artillery.html"
+              "path": "/GevOps_LC/modules/M21_Artillery.html",
+              "subject": "Déploiement Continu (CD), Versionning, Intégration continue (CI)"
             },
             {
               "jour": "22",
               "ordre": 1,
               "title": "Test de montée en charge - Locust & Artillery",
-              "path": "/GevOps_LC/modules/M22_Test-qualité-Sonarqube.html"
+              "path": "/GevOps_LC/modules/M22_Test-qualité-Sonarqube.html",
+              "subject": "Déploiement Continu (CD), Intégration continue (CI)"
             },
             {
               "jour": "23",
               "ordre": 1,
               "title": "Sécurité des pipelines",
-              "path": "/GevOps_LC/modules/M23_sécurité-pipeline.html"
+              "path": "/GevOps_LC/modules/M23_sécurité-pipeline.html",
+              "subject": "Déploiement Continu (CD)"
             },
             {
               "jour": "24",
               "ordre": 1,
               "title": "Sécurité des pipelines",
-              "path": "/GevOps_LC/modules/M24_Jenkins.html"
+              "path": "/GevOps_LC/modules/M24_Jenkins.html",
+              "subject": "Intégration continue (CI)"
             }
           ]
         },
@@ -470,25 +534,29 @@
               "jour": "10",
               "ordre": 1,
               "title": "Les bases de données",
-              "path": "/GevOps_LC/modules/M10_bases-de-données.html"
+              "path": "/GevOps_LC/modules/M10_bases-de-données.html",
+              "subject": "Bases de données"
             },
             {
               "jour": "28",
               "ordre": 1,
               "title": "Bases de données AWS",
-              "path": "/GevOps_LC/modules/M28_bdd_aws.html"
+              "path": "/GevOps_LC/modules/M28_bdd_aws.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "28",
               "ordre": 2,
               "title": "AWS Monitoring, Load Balancing & Scaling",
-              "path": "/GevOps_LC/modules/M28_monitoring-elb-aws.html"
+              "path": "/GevOps_LC/modules/M28_monitoring-elb-aws.html",
+              "subject": "Hosting & Cloud"
             },
             {
               "jour": "28",
               "ordre": 3,
               "title": "AWS Monitoring, Load Blancing & Scaling",
-              "path": "/GevOps_LC/modules/M28_quiz-reponse.html"
+              "path": "/GevOps_LC/modules/M28_quiz-reponse.html",
+              "subject": "Hosting & Cloud"
             }
           ]
         },
@@ -504,31 +572,36 @@
               "jour": "11",
               "ordre": 1,
               "title": "La virtualisation",
-              "path": "/GevOps_LC/modules/M11_Virtualisation.html"
+              "path": "/GevOps_LC/modules/M11_Virtualisation.html",
+              "subject": "Conteneurisation"
             },
             {
               "jour": "11",
               "ordre": 2,
               "title": "Docker & la conteneurisation",
-              "path": "/GevOps_LC/modules/M11_dockers.html"
+              "path": "/GevOps_LC/modules/M11_dockers.html",
+              "subject": "Conteneurisation"
             },
             {
               "jour": "11",
               "ordre": 3,
               "title": "Docker, mise en pratique",
-              "path": "/GevOps_LC/modules/M11_dockers_pratique.html"
+              "path": "/GevOps_LC/modules/M11_dockers_pratique.html",
+              "subject": "Conteneurisation"
             },
             {
               "jour": "12",
               "ordre": 1,
               "title": "Docker Compose",
-              "path": "/GevOps_LC/modules/M12_docker-compose.html"
+              "path": "/GevOps_LC/modules/M12_docker-compose.html",
+              "subject": "Conteneurisation"
             },
             {
               "jour": "12",
               "ordre": 2,
               "title": "Pratique Docker Compose",
-              "path": "/GevOps_LC/modules/M12_pratique-docker-compose.html"
+              "path": "/GevOps_LC/modules/M12_pratique-docker-compose.html",
+              "subject": "Conteneurisation"
             }
           ]
         },
@@ -545,19 +618,22 @@
               "jour": "13",
               "ordre": 1,
               "title": "Kubernetes",
-              "path": "/GevOps_LC/modules/M13_kubernetes.html"
+              "path": "/GevOps_LC/modules/M13_kubernetes.html",
+              "subject": "Orchestration"
             },
             {
               "jour": "14",
               "ordre": 1,
               "title": "Kubernetes avancés",
-              "path": "/GevOps_LC/modules/M14_kubernetes-yaml.html"
+              "path": "/GevOps_LC/modules/M14_kubernetes-yaml.html",
+              "subject": "Orchestration"
             },
             {
               "jour": "15",
               "ordre": 1,
               "title": "Helm pour Kubernetes",
-              "path": "/GevOps_LC/modules/M15_helm-kubernetes.html"
+              "path": "/GevOps_LC/modules/M15_helm-kubernetes.html",
+              "subject": "Orchestration, Conteneurisation"
             }
           ]
         }
@@ -578,13 +654,15 @@
               "jour": "37",
               "ordre": 1,
               "title": "Grafana",
-              "path": "/GevOps_LC/modules/M37_grafana.html"
+              "path": "/GevOps_LC/modules/M37_grafana.html",
+              "subject": "Monitoring"
             },
             {
               "jour": "38",
               "ordre": 1,
               "title": "Monitoring avancé",
-              "path": "/GevOps_LC/modules/M38_monotoring-avancé.html"
+              "path": "/GevOps_LC/modules/M38_monotoring-avancé.html",
+              "subject": "Monitoring"
             }
           ]
         },
@@ -599,19 +677,22 @@
               "jour": "36",
               "ordre": 1,
               "title": "Prometheus – Monitoring et métriques",
-              "path": "/GevOps_LC/modules/M36_prometheus.html"
+              "path": "/GevOps_LC/modules/M36_prometheus.html",
+              "subject": "Monitoring"
             },
             {
               "jour": "36",
               "ordre": 2,
               "title": "Monitoring avec Prometheus – Pratique",
-              "path": "/GevOps_LC/modules/M36_prometheus-pratique.html"
+              "path": "/GevOps_LC/modules/M36_prometheus-pratique.html",
+              "subject": "Monitoring"
             },
             {
               "jour": "38",
               "ordre": 1,
               "title": "Monitoring avancé",
-              "path": "/GevOps_LC/modules/M38_monotoring-avancé.html"
+              "path": "/GevOps_LC/modules/M38_monotoring-avancé.html",
+              "subject": "Monitoring"
             }
           ]
         },
@@ -625,13 +706,148 @@
               "jour": "19",
               "ordre": 1,
               "title": "Framework de test Cypress",
-              "path": "/GevOps_LC/modules/M19_test-cypress.html"
+              "path": "/GevOps_LC/modules/M19_test-cypress.html",
+              "subject": "Intégration continue (CI)"
             },
             {
               "jour": "19",
               "ordre": 2,
               "title": "Framework de test Jest",
-              "path": "/GevOps_LC/modules/M19_test-jest.html"
+              "path": "/GevOps_LC/modules/M19_test-jest.html",
+              "subject": "Intégration continue (CI)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PN",
+      "title": "Projet NocoDb",
+      "submodules": [
+        {
+          "id": "NC",
+          "jours": [
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "48",
+            "49",
+            "51"
+          ],
+          "modules": [
+            {
+              "jour": "41",
+              "ordre": 0,
+              "title": "Projet J01",
+              "path": "/GevOps_LC/modules/M41_projet-board-J01.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "41",
+              "ordre": 1,
+              "title": "Projet J1 - Ansible",
+              "path": "/GevOps_LC/modules/M41_projet-J1-swarm.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "41",
+              "ordre": 2,
+              "title": "Projet J1 - Docker Swarm",
+              "path": "/GevOps_LC/modules/M41_projet-J1-swarm-ansible.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "42",
+              "ordre": 0,
+              "title": "Projet J02",
+              "path": "/GevOps_LC/modules/M42_projet-board-J02.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "42",
+              "ordre": 1,
+              "title": "Projet J2 - Ansible avancé",
+              "path": "/GevOps_LC/modules/M42_ansible-pro.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "42",
+              "ordre": 2,
+              "title": "Projet J1 - Utilisation d'une Image privée",
+              "path": "/GevOps_LC/modules/M42_ansible-image.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "43",
+              "ordre": 0,
+              "title": "Projet J03",
+              "path": "/GevOps_LC/modules/M43_projet-board-J03.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "43",
+              "ordre": 1,
+              "title": "Projet J3 - Ansible avancé",
+              "path": "/GevOps_LC/modules/M43_ansible-v4.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "44",
+              "ordre": 0,
+              "title": "Projet J04",
+              "path": "/GevOps_LC/modules/M44_projet-board-J04.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "44",
+              "ordre": 0,
+              "title": "Projet J04 - Ansible avancé (rôles)",
+              "path": "/GevOps_LC/modules/M44_ansible-avancés.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "45",
+              "ordre": 0,
+              "title": "Projet J05",
+              "path": "/GevOps_LC/modules/M45_ansible-backup.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "45",
+              "ordre": 0,
+              "title": "Projet J05",
+              "path": "/GevOps_LC/modules/M45_projet-board-J05.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "48",
+              "ordre": 0,
+              "title": "Projet J08 - Mise en commun Terraform et Ansible",
+              "path": "/GevOps_LC/modules/M48_mise-en-commun.html",
+              "subject": "Projet NocoDb NocoDb"
+            },
+            {
+              "jour": "49",
+              "ordre": 0,
+              "title": "Projet J09",
+              "path": "/GevOps_LC/modules/M49_projet-board-J09.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "51",
+              "ordre": 0,
+              "title": "Projet J11",
+              "path": "/GevOps_LC/modules/M51_projet-board-J11.html",
+              "subject": "Projet NocoDb NocoDb"
+            },
+            {
+              "jour": "51",
+              "ordre": 0,
+              "title": "Projet J11 - Backup S3 et manipulation de terraform",
+              "path": "/GevOps_LC/modules/M51_backup-S3-terra.html",
+              "subject": "Projet NocoDb NocoDb"
             }
           ]
         }
@@ -643,115 +859,22 @@
       "jour": "39",
       "ordre": 1,
       "title": "Schémas d’infrastructure",
-      "path": "/GevOps_LC/modules/M39_schema-dinfrastructure.html"
+      "path": "/GevOps_LC/modules/M39_schema-dinfrastructure.html",
+      "subject": "Gestion de projet"
     },
     {
       "jour": "40",
       "ordre": 1,
       "title": "Méthode agile",
-      "path": "/GevOps_LC/modules/M40_methode-agile.html"
+      "path": "/GevOps_LC/modules/M40_methode-agile.html",
+      "subject": "Gestion de projet"
     },
     {
       "jour": "40",
       "ordre": 2,
       "title": "Projet test de rapport",
-      "path": "/GevOps_LC/modules/M40.projet-test.html"
-    },
-    {
-      "jour": "41",
-      "ordre": 0,
-      "title": "Projet J01",
-      "path": "/GevOps_LC/modules/M41_projet-board-J01.html"
-    },
-    {
-      "jour": "41",
-      "ordre": 1,
-      "title": "Projet J1 - Ansible",
-      "path": "/GevOps_LC/modules/M41_projet-J1-swarm.html"
-    },
-    {
-      "jour": "41",
-      "ordre": 2,
-      "title": "Projet J1 - Docker Swarm",
-      "path": "/GevOps_LC/modules/M41_projet-J1-swarm-ansible.html"
-    },
-    {
-      "jour": "42",
-      "ordre": 0,
-      "title": "Projet J02",
-      "path": "/GevOps_LC/modules/M42_projet-board-J02.html"
-    },
-    {
-      "jour": "42",
-      "ordre": 1,
-      "title": "Projet J2 - Ansible avancé",
-      "path": "/GevOps_LC/modules/M42_ansible-pro.html"
-    },
-    {
-      "jour": "42",
-      "ordre": 2,
-      "title": "Projet J1 - Utilisation d'une Image privée",
-      "path": "/GevOps_LC/modules/M42_ansible-image.html"
-    },
-    {
-      "jour": "43",
-      "ordre": 0,
-      "title": "Projet J03",
-      "path": "/GevOps_LC/modules/M43_projet-board-J03.html"
-    },
-    {
-      "jour": "43",
-      "ordre": 1,
-      "title": "Projet J3 - Ansible avancé",
-      "path": "/GevOps_LC/modules/M43_ansible-v4.html"
-    },
-    {
-      "jour": "44",
-      "ordre": 0,
-      "title": "Projet J04",
-      "path": "/GevOps_LC/modules/M44_projet-board-J04.html"
-    },
-    {
-      "jour": "44",
-      "ordre": 0,
-      "title": "Projet J04 - Ansible avancé (rôles)",
-      "path": "/GevOps_LC/modules/M44_ansible-avancés.html"
-    },
-    {
-      "jour": "45",
-      "ordre": 0,
-      "title": "Projet J05",
-      "path": "/GevOps_LC/modules/M45_ansible-backup.html"
-    },
-    {
-      "jour": "45",
-      "ordre": 0,
-      "title": "Projet J05",
-      "path": "/GevOps_LC/modules/M45_projet-board-J05.html"
-    },
-    {
-      "jour": "48",
-      "ordre": 0,
-      "title": "Projet J08 - Mise en commun Terraform et Ansible",
-      "path": "/GevOps_LC/modules/M48_mise-en-commun.html"
-    },
-    {
-      "jour": "49",
-      "ordre": 0,
-      "title": "Projet J09",
-      "path": "/GevOps_LC/modules/M49_projet-board-J09.html"
-    },
-    {
-      "jour": "51",
-      "ordre": 0,
-      "title": "Projet J11",
-      "path": "/GevOps_LC/modules/M51_projet-board-J11.html"
-    },
-    {
-      "jour": "51",
-      "ordre": 0,
-      "title": "Projet J11 - Backup S3 et manipulation de terraform",
-      "path": "/GevOps_LC/modules/M51_backup-S3-terra.html"
+      "path": "/GevOps_LC/modules/M40.projet-test.html",
+      "subject": "Gestion de projet"
     }
   ],
   "pipeline": [

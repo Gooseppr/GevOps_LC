@@ -60,7 +60,7 @@ title: Accueil
 
 <h2 class="section-title">Parcours par catégories</h2>
 
-<details class="cat-block" open>
+<details class="cat-block">
   <summary><span class="cat-id">1</span> Automatiser le déploiement d’une infrastructure dans le cloud</summary>
   <div class="sub-block">
     <div class="sub-header">Sous-module 1.1 - Jours 01, 02, 04, 05, 09</div>
@@ -129,7 +129,7 @@ title: Accueil
   </div>
 </details>
 
-<details class="cat-block" open>
+<details class="cat-block">
   <summary><span class="cat-id">2</span> Déployer en continu une application</summary>
   <div class="sub-block">
     <div class="sub-header">Sous-module 2.1 - Jours 03, 17, 18, 19, 20, 21, 22, 23, 24, 25</div>
@@ -184,7 +184,7 @@ title: Accueil
   </div>
 </details>
 
-<details class="cat-block" open>
+<details class="cat-block">
   <summary><span class="cat-id">3</span> Superviser les services déployés</summary>
   <div class="sub-block">
     <div class="sub-header">Sous-module 3.1 - Jours 37, 38</div>
@@ -210,28 +210,37 @@ title: Accueil
   </div>
 </details>
 
-<details class="cat-block" open>
+<details class="cat-block">
+  <summary><span class="cat-id">PN</span> Projet NocoDb</summary>
+  <div class="sub-block">
+    <div class="sub-header">Sous-module NC - Jours 41, 42, 43, 44, 45, 48, 49, 51</div>
+    <ul class="module-list">
+      <li><a href="/GevOps_LC/modules/M41_projet-board-J01.html" title="Projet J01">Jour 41 - Projet J01</a></li>
+      <li><a href="/GevOps_LC/modules/M41_projet-J1-swarm.html" title="Projet J1 - Ansible">Jour 41 - Projet J1 - Ansible</a></li>
+      <li><a href="/GevOps_LC/modules/M41_projet-J1-swarm-ansible.html" title="Projet J1 - Docker Swarm">Jour 41 - Projet J1 - Docker Swarm</a></li>
+      <li><a href="/GevOps_LC/modules/M42_projet-board-J02.html" title="Projet J02">Jour 42 - Projet J02</a></li>
+      <li><a href="/GevOps_LC/modules/M42_ansible-pro.html" title="Projet J2 - Ansible avancé">Jour 42 - Projet J2 - Ansible avancé</a></li>
+      <li><a href="/GevOps_LC/modules/M42_ansible-image.html" title="Projet J1 - Utilisation d'une Image privée">Jour 42 - Projet J1 - Utilisation d'une Image privée</a></li>
+      <li><a href="/GevOps_LC/modules/M43_projet-board-J03.html" title="Projet J03">Jour 43 - Projet J03</a></li>
+      <li><a href="/GevOps_LC/modules/M43_ansible-v4.html" title="Projet J3 - Ansible avancé">Jour 43 - Projet J3 - Ansible avancé</a></li>
+      <li><a href="/GevOps_LC/modules/M44_projet-board-J04.html" title="Projet J04">Jour 44 - Projet J04</a></li>
+      <li><a href="/GevOps_LC/modules/M44_ansible-avancés.html" title="Projet J04 - Ansible avancé (rôles)">Jour 44 - Projet J04 - Ansible avancé (rôles)</a></li>
+      <li><a href="/GevOps_LC/modules/M45_ansible-backup.html" title="Projet J05">Jour 45 - Projet J05</a></li>
+      <li><a href="/GevOps_LC/modules/M45_projet-board-J05.html" title="Projet J05">Jour 45 - Projet J05</a></li>
+      <li><a href="/GevOps_LC/modules/M48_mise-en-commun.html" title="Projet J08 - Mise en commun Terraform et Ansible">Jour 48 - Projet J08 - Mise en commun Terraform et Ansible</a></li>
+      <li><a href="/GevOps_LC/modules/M49_projet-board-J09.html" title="Projet J09">Jour 49 - Projet J09</a></li>
+      <li><a href="/GevOps_LC/modules/M51_projet-board-J11.html" title="Projet J11">Jour 51 - Projet J11</a></li>
+      <li><a href="/GevOps_LC/modules/M51_backup-S3-terra.html" title="Projet J11 - Backup S3 et manipulation de terraform">Jour 51 - Projet J11 - Backup S3 et manipulation de terraform</a></li>
+    </ul>
+  </div>
+</details>
+
+<details class="cat-block">
   <summary>Modules non catégorisés</summary>
   <ul class="module-list">
     <li><a href="/GevOps_LC/modules/M39_schema-dinfrastructure.html" title="Schémas d’infrastructure">Jour 39 - Schémas d’infrastructure</a></li>
     <li><a href="/GevOps_LC/modules/M40_methode-agile.html" title="Méthode agile">Jour 40 - Méthode agile</a></li>
     <li><a href="/GevOps_LC/modules/M40.projet-test.html" title="Projet test de rapport">Jour 40 - Projet test de rapport</a></li>
-    <li><a href="/GevOps_LC/modules/M41_projet-board-J01.html" title="Projet J01">Jour 41 - Projet J01</a></li>
-    <li><a href="/GevOps_LC/modules/M41_projet-J1-swarm.html" title="Projet J1 - Ansible">Jour 41 - Projet J1 - Ansible</a></li>
-    <li><a href="/GevOps_LC/modules/M41_projet-J1-swarm-ansible.html" title="Projet J1 - Docker Swarm">Jour 41 - Projet J1 - Docker Swarm</a></li>
-    <li><a href="/GevOps_LC/modules/M42_projet-board-J02.html" title="Projet J02">Jour 42 - Projet J02</a></li>
-    <li><a href="/GevOps_LC/modules/M42_ansible-pro.html" title="Projet J2 - Ansible avancé">Jour 42 - Projet J2 - Ansible avancé</a></li>
-    <li><a href="/GevOps_LC/modules/M42_ansible-image.html" title="Projet J1 - Utilisation d'une Image privée">Jour 42 - Projet J1 - Utilisation d'une Image privée</a></li>
-    <li><a href="/GevOps_LC/modules/M43_projet-board-J03.html" title="Projet J03">Jour 43 - Projet J03</a></li>
-    <li><a href="/GevOps_LC/modules/M43_ansible-v4.html" title="Projet J3 - Ansible avancé">Jour 43 - Projet J3 - Ansible avancé</a></li>
-    <li><a href="/GevOps_LC/modules/M44_projet-board-J04.html" title="Projet J04">Jour 44 - Projet J04</a></li>
-    <li><a href="/GevOps_LC/modules/M44_ansible-avancés.html" title="Projet J04 - Ansible avancé (rôles)">Jour 44 - Projet J04 - Ansible avancé (rôles)</a></li>
-    <li><a href="/GevOps_LC/modules/M45_ansible-backup.html" title="Projet J05">Jour 45 - Projet J05</a></li>
-    <li><a href="/GevOps_LC/modules/M45_projet-board-J05.html" title="Projet J05">Jour 45 - Projet J05</a></li>
-    <li><a href="/GevOps_LC/modules/M48_mise-en-commun.html" title="Projet J08 - Mise en commun Terraform et Ansible">Jour 48 - Projet J08 - Mise en commun Terraform et Ansible</a></li>
-    <li><a href="/GevOps_LC/modules/M49_projet-board-J09.html" title="Projet J09">Jour 49 - Projet J09</a></li>
-    <li><a href="/GevOps_LC/modules/M51_projet-board-J11.html" title="Projet J11">Jour 51 - Projet J11</a></li>
-    <li><a href="/GevOps_LC/modules/M51_backup-S3-terra.html" title="Projet J11 - Backup S3 et manipulation de terraform">Jour 51 - Projet J11 - Backup S3 et manipulation de terraform</a></li>
   </ul>
 </details>
 

@@ -8,4 +8,5 @@ title: Jour 51
 - [Projet J11](../modules/M51_projet-board-J11.html)
 
 ## Tags du jour
+- board
 - projet

@@ -1,6 +1,6 @@
 ---
 title: Projet J11
-sujet: Projet NocoDb
+sujet: Projet NocoDb NocoDb
 type: module
 jour: 51
 ordre: 0
@@ -143,3 +143,7 @@ pie showData
 | scope::image | 5 |
 | scope::monitoring | 5 |
 | scope::backup | 2 |
+
+---
+[← Module précédent](M51_backup-S3-terra.md)
+---

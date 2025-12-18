@@ -1,6 +1,6 @@
 ---
 title: Projet J1 - Utilisation d'une Image privée
-sujet: Projet
+sujet: Projet NocoDb
 type: module
 jour: 42
 ordre: 2

@@ -2,8 +2,14 @@
   const baseUrl = (window.__GEVOPS_BASEURL || "").replace(/\/$/, "");
 
   function withBase(path) {
+    if (!path) return "#";
+    if (/^https?:\/\//i.test(path)) return path;
+    if (path.startsWith(baseUrl)) return path;
+    if (path.startsWith("/")) {
+      return (baseUrl || "") + path;
+    }
     const normalized = path.startsWith("/") ? path : "/" + path;
-    return (baseUrl + normalized).replace(/\/{2,}/g, "/");
+    return (baseUrl || "") + normalized;
   }
 
   function createNavShell() {

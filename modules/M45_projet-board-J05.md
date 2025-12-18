@@ -1,6 +1,6 @@
 ---
 title: Projet J05
-sujet: Projet
+sujet: Projet NocoDb
 type: module
 jour: 45
 ordre: 0

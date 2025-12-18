@@ -1,6 +1,6 @@
 ---
 title: Projet J1 - Docker Swarm
-sujet: Projet
+sujet: Projet NocoDb
 type: module
 jour: 41
 ordre: 2
