@@ -4,8 +4,8 @@ title: Jour 31
 ---
 
 ## Modules du jour
-- [Serveurs Web & Reverse Proxy](../modules/M31_serveur-web.md)
-- [Serveurs Web & Reverse Proxy - Pratique](../modules/M31_serveur-web-pratique.md)
+- [Serveurs Web & Reverse Proxy](../modules/M31_serveur-web.html)
+- [Serveurs Web & Reverse Proxy - Pratique](../modules/M31_serveur-web-pratique.html)
 
 ## Tags du jour
 - apache

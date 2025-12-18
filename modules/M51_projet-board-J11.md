@@ -1,10 +1,10 @@
 ---
 title: Projet J11
-sujet: Projet
+sujet: Projet NocoDb
 type: module
 jour: 51
 ordre: 0
-tags: projet
+tags: projet, board
 ---
 # Tableau de bord GitLab – Projet QuickData (v3)
 

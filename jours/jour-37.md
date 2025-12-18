@@ -4,7 +4,7 @@ title: Jour 37
 ---
 
 ## Modules du jour
-- [Grafana](../modules/M37_grafana.md)
+- [Grafana](../modules/M37_grafana.html)
 
 ## Tags du jour
 - alerting

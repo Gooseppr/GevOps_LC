@@ -4,8 +4,8 @@ title: Jour 36
 ---
 
 ## Modules du jour
-- [Prometheus – Monitoring et métriques](../modules/M36_prometheus.md)
-- [Monitoring avec Prometheus – Pratique](../modules/M36_prometheus-pratique.md)
+- [Prometheus – Monitoring et métriques](../modules/M36_prometheus.html)
+- [Monitoring avec Prometheus – Pratique](../modules/M36_prometheus-pratique.html)
 
 ## Tags du jour
 - alerting

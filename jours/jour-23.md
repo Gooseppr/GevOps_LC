@@ -4,7 +4,7 @@ title: Jour 23
 ---
 
 ## Modules du jour
-- [Sécurité des pipelines](../modules/M23_sécurité-pipeline.md)
+- [Sécurité des pipelines](../modules/M23_sécurité-pipeline.html)
 
 ## Tags du jour
 - cd

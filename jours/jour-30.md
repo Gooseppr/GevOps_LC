@@ -4,7 +4,7 @@ title: Jour 30
 ---
 
 ## Modules du jour
-- [Hackathon 21/11/2025](../modules/M30_hackathon.md)
+- [Hackathon 21/11/2025](../modules/M30_hackathon.html)
 
 ## Tags du jour
 - aws

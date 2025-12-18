@@ -4,10 +4,10 @@ title: Jour 14
 ---
 
 ## Modules du jour
-- [Kubernetes avancés](../modules/M14_kubernetes-yaml.md)
+- [Kubernetes avancés](../modules/M14_kubernetes-yaml.html)
 
 ## Bonus
-- [Kubectl cmd](../modules/B02_kubernetes-cmd.md)
+- [Kubectl cmd](../modules/B02_kubernetes-cmd.html)
 
 ## Tags du jour
 - kubectl

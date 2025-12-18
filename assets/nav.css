@@ -219,6 +219,7 @@ body.with-course-nav {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0.75rem 0 1rem;
+  align-items: stretch;
 }
 
 .day-pill {
@@ -226,6 +227,10 @@ body.with-course-nav {
   align-items: center;
   justify-content: center;
   padding: 0.4rem 0.8rem;
+  min-width: 110px;
+  flex: 1 0 120px;
+  box-sizing: border-box;
+  text-align: center;
   border-radius: 10px;
   border: 1px solid #e2e8f0;
   background: #fff;
