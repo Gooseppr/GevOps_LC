@@ -50,52 +50,14 @@
       const li = document.createElement("li");
       const a = document.createElement("a");
       a.href = withBase(mod.path);
-      a.textContent = mod.jour ? `Jour ${mod.jour} · ${mod.title}` : mod.title;
+      const prefix = mod.jour ? `Jour ${mod.jour}` : "Jour --";
+      const order = typeof mod.ordre === "number" ? ` / ${String(mod.ordre).padStart(2, "0")}` : "";
+      a.textContent = `${prefix}${order} – ${mod.title}`;
       a.title = mod.title;
       li.appendChild(a);
       list.appendChild(li);
     });
     return list;
-  }
-
-  function buildCategories(categories) {
-    if (!categories || !categories.length) return null;
-    const section = document.createElement("div");
-    section.className = "nav-section";
-
-    const title = document.createElement("div");
-    title.className = "nav-section-title";
-    title.textContent = "Catégories";
-    section.appendChild(title);
-
-    categories.forEach((cat) => {
-      const details = document.createElement("details");
-      details.open = true;
-      details.className = "nav-node";
-
-      const summary = document.createElement("summary");
-      const badge = document.createElement("span");
-      badge.className = "nav-node-id";
-      badge.textContent = cat.id;
-      summary.appendChild(badge);
-      summary.appendChild(document.createTextNode(" " + cat.title));
-      details.appendChild(summary);
-
-      cat.submodules.forEach((sub) => {
-        const subDiv = document.createElement("div");
-        subDiv.className = "nav-sub";
-        const subTitle = document.createElement("div");
-        subTitle.className = "nav-sub-title";
-        subTitle.textContent = `Sous-module ${sub.id} · Jours ${sub.jours.join(", ")}`;
-        subDiv.appendChild(subTitle);
-        subDiv.appendChild(buildModuleList(sub.modules));
-        details.appendChild(subDiv);
-      });
-
-      section.appendChild(details);
-    });
-
-    return section;
   }
 
   function buildSimpleSection(label, items, formatter) {
@@ -120,18 +82,16 @@
     const scroll = nav.querySelector(".nav-scroll");
     scroll.innerHTML = "";
 
-    const catSection = buildCategories(data.categories);
-    if (catSection) scroll.appendChild(catSection);
-
-    const uncat = buildSimpleSection("Non catégorisés", data.uncategorized, (item) => {
+    const modulesSection = buildSimpleSection("Modules (ordre global)", data.modules, (item) => {
       const a = document.createElement("a");
       a.href = withBase(item.path);
-      const prefix = item.jour ? `Jour ${item.jour} · ` : "";
-      a.textContent = prefix + item.title;
+      const prefix = item.jour ? `Jour ${item.jour}` : "Jour --";
+      const order = typeof item.ordre === "number" ? ` / ${String(item.ordre).padStart(2, "0")}` : "";
+      a.textContent = `${prefix}${order} – ${item.title}`;
       a.title = item.title;
       return a;
     });
-    if (uncat) scroll.appendChild(uncat);
+    if (modulesSection) scroll.appendChild(modulesSection);
 
     const pipeline = buildSimpleSection("Pipeline", data.pipeline, (item) => {
       const a = document.createElement("a");
