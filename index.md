@@ -229,6 +229,7 @@ title: Accueil
       <li><a href="/GevOps_LC/modules/M45_projet-board-J05.html" title="Projet J05">Jour 45 - Projet J05</a></li>
       <li><a href="/GevOps_LC/modules/M48_mise-en-commun.html" title="Projet J08 - Mise en commun Terraform et Ansible">Jour 48 - Projet J08 - Mise en commun Terraform et Ansible</a></li>
       <li><a href="/GevOps_LC/modules/M49_projet-board-J09.html" title="Projet J09">Jour 49 - Projet J09</a></li>
+      <li><a href="/GevOps_LC/modules/M51_image-infra.html" title="Projet J11">Jour 51 - Projet J11</a></li>
       <li><a href="/GevOps_LC/modules/M51_projet-board-J11.html" title="Projet J11">Jour 51 - Projet J11</a></li>
       <li><a href="/GevOps_LC/modules/M51_backup-S3-terra.html" title="Projet J11 - Backup S3 et manipulation de terraform">Jour 51 - Projet J11 - Backup S3 et manipulation de terraform</a></li>
     </ul>
@@ -339,6 +340,7 @@ title: Accueil
 <li>Jour 48 / 00 : <a href="/GevOps_LC/modules/M48_mise-en-commun.html" title="Projet J08 - Mise en commun Terraform et Ansible">Projet J08 - Mise en commun Terraform et Ansible</a></li>
 <li>Jour 49 / 00 : <a href="/GevOps_LC/modules/M49_projet-board-J09.html" title="Projet J09">Projet J09</a></li>
 <li>Jour 51 / 00 : <a href="/GevOps_LC/modules/M51_backup-S3-terra.html" title="Projet J11 - Backup S3 et manipulation de terraform">Projet J11 - Backup S3 et manipulation de terraform</a></li>
+<li>Jour 51 / 00 : <a href="/GevOps_LC/modules/M51_image-infra.html" title="Projet J11">Projet J11</a></li>
 <li>Jour 51 / 00 : <a href="/GevOps_LC/modules/M51_projet-board-J11.html" title="Projet J11">Projet J11</a></li>
 </ul>
 <h2 class="section-title">Pipeline</h2>

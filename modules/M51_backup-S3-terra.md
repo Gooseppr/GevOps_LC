@@ -344,5 +344,5 @@ sequenceDiagram
 on ne parle plus seulement de backup, mais de **gestion durable des données**, intégrée proprement à une chaîne DevOps complète.
 
 ---
-[Module suivant →](M51_projet-board-J11.md)
+[Module suivant →](M51_image-infra.md)
 ---
