@@ -1,6 +1,6 @@
 ---
 title: Projet J11
-sujet: Projet NocoDb NocoDb
+sujet: Projet NocoDb
 type: module
 jour: 51
 ordre: 0

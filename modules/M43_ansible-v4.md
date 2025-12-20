@@ -1,5 +1,5 @@
 ---
-title: Projet J3 - Ansible avancé
+title: Projet J3 - Ansible avancé (stabilisation)
 sujet: Projet NocoDb
 type: module
 jour: 43

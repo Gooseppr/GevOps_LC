@@ -143,3 +143,7 @@ pie showData
 | scope::image | 5 |
 | scope::monitoring | 5 |
 | scope::backup | 2 |
+
+---
+[← Module précédent](M52_idempotence.md)
+---

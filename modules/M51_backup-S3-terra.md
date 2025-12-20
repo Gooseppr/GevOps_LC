@@ -1,6 +1,6 @@
 ---
 title: Projet J11 - Backup S3 et manipulation de terraform
-sujet: Projet NocoDb NocoDb
+sujet: Projet NocoDb
 type: module
 jour: 51
 ordre: 0

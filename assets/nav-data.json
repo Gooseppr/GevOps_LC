@@ -734,7 +734,8 @@
             "45",
             "48",
             "49",
-            "51"
+            "51",
+            "52"
           ],
           "modules": [
             {
@@ -747,14 +748,14 @@
             {
               "jour": "41",
               "ordre": 1,
-              "title": "Projet J1 - Ansible",
+              "title": "Projet J1 - Docker Swarm",
               "path": "/GevOps_LC/modules/M41_projet-J1-swarm.html",
               "subject": "Projet NocoDb"
             },
             {
               "jour": "41",
               "ordre": 2,
-              "title": "Projet J1 - Docker Swarm",
+              "title": "Projet J1 - Docker Swarm et Ansible",
               "path": "/GevOps_LC/modules/M41_projet-J1-swarm-ansible.html",
               "subject": "Projet NocoDb"
             },
@@ -789,7 +790,7 @@
             {
               "jour": "43",
               "ordre": 1,
-              "title": "Projet J3 - Ansible avancé",
+              "title": "Projet J3 - Ansible avancé (stabilisation)",
               "path": "/GevOps_LC/modules/M43_ansible-v4.html",
               "subject": "Projet NocoDb"
             },
@@ -811,14 +812,14 @@
               "jour": "45",
               "ordre": 0,
               "title": "Projet J05",
-              "path": "/GevOps_LC/modules/M45_ansible-backup.html",
+              "path": "/GevOps_LC/modules/M45_projet-board-J05.html",
               "subject": "Projet NocoDb"
             },
             {
               "jour": "45",
               "ordre": 0,
-              "title": "Projet J05",
-              "path": "/GevOps_LC/modules/M45_projet-board-J05.html",
+              "title": "Projet J05 - Sépation app/bdd et mise en place du backup S3",
+              "path": "/GevOps_LC/modules/M45_ansible-backup.html",
               "subject": "Projet NocoDb"
             },
             {
@@ -839,22 +840,36 @@
               "jour": "51",
               "ordre": 0,
               "title": "Projet J11",
-              "path": "/GevOps_LC/modules/M51_image-infra.html",
-              "subject": "Projet NocoDb NocoDb"
-            },
-            {
-              "jour": "51",
-              "ordre": 0,
-              "title": "Projet J11",
               "path": "/GevOps_LC/modules/M51_projet-board-J11.html",
-              "subject": "Projet NocoDb NocoDb"
+              "subject": "Projet NocoDb"
             },
             {
               "jour": "51",
               "ordre": 0,
               "title": "Projet J11 - Backup S3 et manipulation de terraform",
               "path": "/GevOps_LC/modules/M51_backup-S3-terra.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "51",
+              "ordre": 0,
+              "title": "Projet J11 - Image du projet avant le Demoday",
+              "path": "/GevOps_LC/modules/M51_image-infra.html",
+              "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "52",
+              "ordre": 0,
+              "title": "Projet J12",
+              "path": "/GevOps_LC/modules/M52_projet-board-J12.html",
               "subject": "Projet NocoDb NocoDb"
+            },
+            {
+              "jour": "52",
+              "ordre": 0,
+              "title": "Projet J12 - Idempotence dans le déploiement ansible",
+              "path": "/GevOps_LC/modules/M52_idempotence.html",
+              "subject": "Projet NocoDb"
             }
           ]
         }
@@ -1427,13 +1442,13 @@
     {
       "jour": "41",
       "ordre": 1,
-      "title": "Projet J1 - Ansible",
+      "title": "Projet J1 - Docker Swarm",
       "path": "/GevOps_LC/modules/M41_projet-J1-swarm.html"
     },
     {
       "jour": "41",
       "ordre": 2,
-      "title": "Projet J1 - Docker Swarm",
+      "title": "Projet J1 - Docker Swarm et Ansible",
       "path": "/GevOps_LC/modules/M41_projet-J1-swarm-ansible.html"
     },
     {
@@ -1463,7 +1478,7 @@
     {
       "jour": "43",
       "ordre": 1,
-      "title": "Projet J3 - Ansible avancé",
+      "title": "Projet J3 - Ansible avancé (stabilisation)",
       "path": "/GevOps_LC/modules/M43_ansible-v4.html"
     },
     {
@@ -1481,7 +1496,7 @@
     {
       "jour": "45",
       "ordre": 0,
-      "title": "Projet J05",
+      "title": "Projet J05 - Sépation app/bdd et mise en place du backup S3",
       "path": "/GevOps_LC/modules/M45_ansible-backup.html"
     },
     {
@@ -1511,7 +1526,7 @@
     {
       "jour": "51",
       "ordre": 0,
-      "title": "Projet J11",
+      "title": "Projet J11 - Image du projet avant le Demoday",
       "path": "/GevOps_LC/modules/M51_image-infra.html"
     },
     {
@@ -1519,6 +1534,18 @@
       "ordre": 0,
       "title": "Projet J11",
       "path": "/GevOps_LC/modules/M51_projet-board-J11.html"
+    },
+    {
+      "jour": "52",
+      "ordre": 0,
+      "title": "Projet J12 - Idempotence dans le déploiement ansible",
+      "path": "/GevOps_LC/modules/M52_idempotence.html"
+    },
+    {
+      "jour": "52",
+      "ordre": 0,
+      "title": "Projet J12",
+      "path": "/GevOps_LC/modules/M52_projet-board-J12.html"
     }
   ]
 }

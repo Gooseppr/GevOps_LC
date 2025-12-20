@@ -1,6 +1,6 @@
 ---
-title: Projet J11
-sujet: Projet NocoDb NocoDb
+title: Projet J11 - Image du projet avant le Demoday
+sujet: Projet NocoDb
 type: module
 jour: 51
 ordre: 0
