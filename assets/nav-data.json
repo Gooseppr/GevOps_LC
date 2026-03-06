@@ -1595,6 +1595,38 @@
           ]
         }
       ]
+    },
+    {
+      "id": "kafka",
+      "title": "Kafka",
+      "description": "Architecture événementielle, brokers, topics et consumers.",
+      "index_path": "/GevOps_LC/courses/kafka/index.html",
+      "themes": [
+        {
+          "id": "streaming-de-donn-es",
+          "title": "Streaming de données",
+          "modules": [
+            {
+              "title": "Introduction à Apache Kafka",
+              "path": "/GevOps_LC/courses/kafka/kafka_intro_module.html",
+              "file": "kafka_intro_module.md",
+              "theme": "Streaming de données",
+              "chapter": 1,
+              "section": 1,
+              "tags": [
+                "kafka",
+                "streaming",
+                "data-engineering",
+                "distributed-systems"
+              ],
+              "type": "lesson",
+              "difficulty": "beginner",
+              "duration": "45",
+              "mermaid": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

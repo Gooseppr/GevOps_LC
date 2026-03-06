@@ -1,7 +1,13 @@
 ---
 layout: page
-title: n8n — Automatisation
+title: n8n
 description: Workflows d'automatisation avec n8n, intégrations API et pipelines no-code.
+theme_icon: "🔄"
+theme_group: Automatisation
+theme_group_icon: "⚙️"
+theme_group_order: 30
+theme_order: 10
+status: "En construction"
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">

@@ -1,7 +1,13 @@
 ---
 layout: page
-title: Kafka — Streaming de données
-description: Architecture événementielle, Kafka, brokers, topics et consumers.
+title: Kafka
+description: Architecture événementielle, brokers, topics et consumers.
+theme_icon: "📊"
+theme_group: Event
+theme_group_icon: "📨"
+theme_group_order: 40
+theme_order: 10
+status: "En construction"
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">

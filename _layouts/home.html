@@ -34,59 +34,42 @@ layout: default
   </div>
 </section>
 
-<!-- ===== THÈMES ===== -->
+<!-- ===== THÈMES (auto-générés depuis _data/themes.json) ===== -->
+{% if site.data.themes %}
 <section class="themes-section">
   <h2 class="courses-heading">Thèmes</h2>
   <div class="themes-grid">
 
-    <!-- Cours standalone -->
-    <a class="theme-card" href="{{ '/courses/cloud-aws' | relative_url }}">
-      <span class="theme-icon">&#x2601;&#xFE0F;</span>
-      <span class="theme-name">Cloud &amp; AWS</span>
-      <span class="theme-status">En construction</span>
+    {% for course in site.data.themes.standalone %}
+    <a class="theme-card" href="{{ course.path | relative_url }}">
+      <span class="theme-icon">{{ course.icon }}</span>
+      <span class="theme-name">{{ course.title }}</span>
+      <span class="theme-status">{{ course.status }}</span>
     </a>
+    {% endfor %}
 
-    <a class="theme-card" href="{{ '/courses/python' | relative_url }}">
-      <span class="theme-icon">&#x1F40D;</span>
-      <span class="theme-name">Python</span>
-      <span class="theme-status">En construction</span>
-    </a>
-
-    <!-- Catégorie : Automatisation -->
-    <button class="theme-card theme-group-btn" data-group="automation">
-      <span class="theme-icon">&#x2699;&#xFE0F;</span>
-      <span class="theme-name">Automatisation</span>
+    {% for group in site.data.themes.groups %}
+    <button class="theme-card theme-group-btn" data-group="{{ group.id }}">
+      <span class="theme-icon">{{ group.icon }}</span>
+      <span class="theme-name">{{ group.title }}</span>
       <span class="theme-caret">&#x25B8;</span>
     </button>
-    <div class="theme-group-panel" id="tg-automation" hidden>
-      <div class="theme-group-label">Automatisation</div>
+    <div class="theme-group-panel" id="tg-{{ group.id }}" hidden>
+      <div class="theme-group-label">{{ group.title }}</div>
       <div class="theme-group-cards">
-        <a class="theme-card" href="{{ '/courses/n8n' | relative_url }}">
-          <span class="theme-icon">&#x1F504;</span>
-          <span class="theme-name">n8n</span>
-          <span class="theme-status">En construction</span>
+        {% for course in group.courses %}
+        <a class="theme-card" href="{{ course.path | relative_url }}">
+          <span class="theme-icon">{{ course.icon }}</span>
+          <span class="theme-name">{{ course.title }}</span>
+          <span class="theme-status">{{ course.status }}</span>
         </a>
+        {% endfor %}
       </div>
     </div>
-
-    <!-- Catégorie : Event -->
-    <button class="theme-card theme-group-btn" data-group="event">
-      <span class="theme-icon">&#x1F4E8;</span>
-      <span class="theme-name">Event</span>
-      <span class="theme-caret">&#x25B8;</span>
-    </button>
-    <div class="theme-group-panel" id="tg-event" hidden>
-      <div class="theme-group-label">Event</div>
-      <div class="theme-group-cards">
-        <a class="theme-card" href="{{ '/courses/kafka' | relative_url }}">
-          <span class="theme-icon">&#x1F4CA;</span>
-          <span class="theme-name">Kafka</span>
-          <span class="theme-status">En construction</span>
-        </a>
-      </div>
-    </div>
+    {% endfor %}
 
   </div>
 </section>
+{% endif %}
 
 {{ content }}

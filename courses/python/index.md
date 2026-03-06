@@ -1,7 +1,10 @@
 ---
 layout: page
-title: Python — Scripting & Automatisation
+title: Python
 description: Python appliqué à l'automatisation, les APIs, les scripts DevOps et la data.
+theme_icon: "🐍"
+theme_order: 20
+status: "En construction"
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">

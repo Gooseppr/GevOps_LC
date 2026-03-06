@@ -2,6 +2,9 @@
 layout: page
 title: Cloud & AWS
 description: Infrastructure cloud, services AWS, déploiements et bonnes pratiques.
+theme_icon: "☁️"
+theme_order: 10
+status: "En construction"
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">
