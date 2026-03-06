@@ -311,3 +311,392 @@ details.cat-block summary {
   border-color: #cbd5e1;
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
 }
+
+/* =====================================================
+   SECTION TITLES
+   ===================================================== */
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* =====================================================
+   HOME — HERO
+   ===================================================== */
+.home-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #162544 50%, #0b1a38 100%);
+  border-radius: 16px;
+  padding: 3.5rem 2.5rem 3rem;
+  color: #fff;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -5%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.home-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: 20%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(99, 179, 237, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.6rem;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: #94a3b8;
+  margin: 0 0 2rem;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 1.5rem;
+}
+
+.hero-stat:first-child {
+  padding-left: 0;
+}
+
+.hs-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #4ade80;
+  line-height: 1;
+}
+
+.hs-label {
+  font-size: 0.78rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.2rem;
+}
+
+.hero-stat-sep {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 640px) {
+  .hero-title { font-size: 1.8rem; }
+  .home-hero { padding: 2.5rem 1.5rem 2rem; }
+  .hero-stat-sep { display: none; }
+  .hero-stat { padding: 0.5rem 0; }
+  .hero-stats { gap: 0.5rem; }
+}
+
+/* =====================================================
+   HOME — COURSE CARDS
+   ===================================================== */
+.courses-section {
+  margin-bottom: 2.5rem;
+}
+
+.courses-heading {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin: 0 0 1rem;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.course-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.course-card.course-active {
+  border-color: rgba(74, 222, 128, 0.4);
+  box-shadow: 0 4px 20px rgba(74, 222, 128, 0.12);
+}
+
+.course-card.course-active:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(74, 222, 128, 0.18);
+}
+
+.course-card.course-soon {
+  opacity: 0.65;
+  background: #f8fafc;
+}
+
+.cc-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.cc-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.15rem;
+}
+
+.cc-meta {
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+.cc-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.1rem;
+}
+
+.cc-pills span {
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.course-active .cc-pills span {
+  background: rgba(74, 222, 128, 0.08);
+  color: #166534;
+}
+
+.cc-btn {
+  display: inline-block;
+  background: #0f172a;
+  color: #4ade80 !important;
+  text-decoration: none !important;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: auto;
+  transition: background 0.18s ease;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.cc-btn:hover {
+  background: #1e293b;
+}
+
+.cc-badge {
+  display: inline-block;
+  background: #e2e8f0;
+  color: #94a3b8;
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  width: fit-content;
+  margin-top: auto;
+}
+
+/* =====================================================
+   MERMAID DIAGRAMS
+   ===================================================== */
+.mermaid {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Large diagrams get a scroll container */
+.mermaid-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  margin: 1.5rem 0;
+}
+
+/* =====================================================
+   RESPONSIVE — SIDEBAR INTEGRATION
+   ===================================================== */
+@media (min-width: 961px) {
+  .wrapper {
+    max-width: 900px !important;
+  }
+}
+
+/* =====================================================
+   ACTIVE NAV LINK HIGHLIGHT
+   ===================================================== */
+#course-nav a[aria-current="page"],
+#course-nav a.nav-active {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  font-weight: 600;
+}
+
+/* =====================================================
+   MULTI-COURS — SÉPARATEUR & LABELS
+   ===================================================== */
+.nav-separator {
+  height: 1px;
+  background: var(--nav-border);
+  margin: 1rem 0 0.75rem;
+}
+
+.nav-course-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--nav-muted);
+  font-weight: 700;
+  padding: 0 0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* =====================================================
+   COURS THÉMATIQUES — BLOCS & THÈMES
+   ===================================================== */
+.nav-course-block {
+  margin-bottom: 0.75rem;
+}
+
+.nav-course-title {
+  color: var(--nav-text) !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+}
+
+.nav-course-title:hover {
+  color: var(--nav-accent) !important;
+}
+
+#course-nav .nav-theme {
+  background: var(--nav-surface);
+  border: 1px solid var(--nav-border);
+  border-radius: 8px;
+  margin: 0.3rem 0;
+  padding: 0.3rem 0.5rem;
+}
+
+#course-nav .nav-theme summary {
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--nav-muted);
+  outline: none;
+  padding: 0.1rem 0;
+}
+
+#course-nav .nav-theme summary:hover {
+  color: var(--nav-text);
+}
+
+#course-nav .nav-theme ul {
+  padding: 0.25rem 0 0.1rem 0.5rem;
+}
+
+#course-nav .nav-theme li a {
+  font-size: 0.88rem;
+  padding: 0.2rem 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* =====================================================
+   BADGES DIFFICULTÉ
+   ===================================================== */
+.nav-difficulty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.nav-diff-beginner   { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
+.nav-diff-intermediate { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+.nav-diff-advanced   { background: rgba(248, 113, 113, 0.15); color: #f87171; }

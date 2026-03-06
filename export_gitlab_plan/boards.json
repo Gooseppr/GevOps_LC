@@ -1,0 +1,72 @@
+[
+  {
+    "id": 9949283,
+    "name": "Development",
+    "lists": [
+      {
+        "id": 23077018,
+        "position": 0,
+        "kind": "label",
+        "label": {
+          "id": 46513490,
+          "name": "backlog",
+          "description": "Task to be picked up during sprint planning",
+          "description_html": "Task to be picked up during sprint planning",
+          "text_color": "#FFFFFF",
+          "color": "#36454f",
+          "archived": false
+        },
+        "milestone": null,
+        "assignee": null
+      },
+      {
+        "id": 23077215,
+        "position": 1,
+        "kind": "label",
+        "label": {
+          "id": 46514178,
+          "name": "open",
+          "description": "Issues within a sprint, awating to be taken for development",
+          "description_html": "Issues within a sprint, awating to be taken for development",
+          "text_color": "#FFFFFF",
+          "color": "#cd5b45",
+          "archived": false
+        },
+        "milestone": null,
+        "assignee": null
+      },
+      {
+        "id": 23076872,
+        "position": 2,
+        "kind": "label",
+        "label": {
+          "id": 46513123,
+          "name": "in-progress",
+          "description": "On-going work (must be assigned to somebody)",
+          "description_html": "On-going work (must be assigned to somebody)",
+          "text_color": "#FFFFFF",
+          "color": "#6699cc",
+          "archived": false
+        },
+        "milestone": null,
+        "assignee": null
+      },
+      {
+        "id": 23077218,
+        "position": 3,
+        "kind": "label",
+        "label": {
+          "id": 46514193,
+          "name": "closed",
+          "description": "Issue reached completion",
+          "description_html": "Issue reached completion",
+          "text_color": "#FFFFFF",
+          "color": "#009966",
+          "archived": false
+        },
+        "milestone": null,
+        "assignee": null
+      }
+    ]
+  }
+]

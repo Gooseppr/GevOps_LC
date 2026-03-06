@@ -1,8 +1,10 @@
-title: "Mes Cours"
-description: "Cours journaliers accessibles partout"
+title: "Coursite"
+description: "Mes formations en ligne — DevOps, Cloud, Scripting"
+url: "https://gooseppr.github.io"
+baseurl: "/GevOps_LC"
 theme: minima
 header_pages:
-  - index.md        # Accueil
+  - index.md
 include:
   - _includes
 plugins:
@@ -16,4 +18,3 @@ defaults:
       type: "pages"
     values:
       render_with_liquid: false
-

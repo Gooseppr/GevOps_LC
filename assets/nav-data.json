@@ -1547,5 +1547,40 @@
       "title": "Projet J12",
       "path": "/GevOps_LC/modules/M52_projet-board-J12.html"
     }
+  ],
+  "courses": [
+    {
+      "id": "automation",
+      "title": "Automatisation",
+      "description": "\"Scripts, outils et orchestration pour automatiser vos infrastructures\"",
+      "index_path": "/GevOps_LC/courses/automation/index.html",
+      "themes": [
+        {
+          "id": "orchestration",
+          "title": "Orchestration",
+          "modules": [
+            {
+              "title": "\"Ansible — Introduction et concepts fondamentaux\"",
+              "path": "/GevOps_LC/courses/automation/ansible-introduction.html",
+              "file": "ansible-introduction.md",
+              "theme": "Orchestration",
+              "chapter": 1,
+              "section": 1,
+              "tags": [
+                "ansible",
+                "yaml",
+                "ssh",
+                "automation",
+                "idempotence"
+              ],
+              "type": "lesson",
+              "difficulty": "beginner",
+              "duration": "60",
+              "mermaid": true
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
