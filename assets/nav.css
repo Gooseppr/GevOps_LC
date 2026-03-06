@@ -835,55 +835,59 @@ details.cat-block summary {
 /* =====================================================
    HOME — THEME GROUPS (catégories expandables)
    ===================================================== */
-.theme-group {
-  grid-column: 1 / -1;
-  background: #f8fafc;
+
+/* Le bouton-catégorie : identique visuellement à .theme-card */
+.theme-group-btn {
+  appearance: none;
+  -webkit-appearance: none;
   border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 0.75rem 1.25rem 0.75rem;
-}
-
-.theme-group > summary {
+  background: #fff;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  list-style: none;
-  outline: none;
-  padding: 0.25rem 0;
-  user-select: none;
+  font-family: inherit;
+  position: relative;
 }
 
-.theme-group > summary::-webkit-details-marker { display: none; }
-
-.theme-group-name {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #0f172a;
+.theme-group-btn.is-open {
+  border-color: #94a3b8;
+  background: #f8fafc;
 }
 
-.theme-group > summary .theme-icon {
-  font-size: 1.3rem;
-}
-
-/* Arrow indicator */
-.theme-group > summary::after {
-  content: '\25B8';
-  margin-left: auto;
+/* Flèche tournante */
+.theme-caret {
+  font-size: 0.7rem;
   color: #94a3b8;
-  font-size: 0.75rem;
+  display: block;
   transition: transform 0.18s ease;
+  margin-top: auto;
 }
 
-.theme-group[open] > summary::after {
+.theme-group-btn.is-open .theme-caret {
   transform: rotate(90deg);
+}
+
+/* Panel full-width qui s'insère sous le bouton */
+.theme-group-panel {
+  grid-column: 1 / -1;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 1rem 1.25rem 1.1rem;
+}
+
+.theme-group-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 0.75rem;
 }
 
 .theme-group-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  padding-top: 0.85rem;
 }
 
 .theme-group-cards .theme-card {

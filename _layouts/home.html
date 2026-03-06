@@ -53,11 +53,13 @@ layout: default
     </a>
 
     <!-- Catégorie : Automatisation -->
-    <details class="theme-group">
-      <summary>
-        <span class="theme-icon">&#x2699;&#xFE0F;</span>
-        <span class="theme-group-name">Automatisation</span>
-      </summary>
+    <button class="theme-card theme-group-btn" data-group="automation">
+      <span class="theme-icon">&#x2699;&#xFE0F;</span>
+      <span class="theme-name">Automatisation</span>
+      <span class="theme-caret">&#x25B8;</span>
+    </button>
+    <div class="theme-group-panel" id="tg-automation" hidden>
+      <div class="theme-group-label">Automatisation</div>
       <div class="theme-group-cards">
         <a class="theme-card" href="{{ '/courses/n8n' | relative_url }}">
           <span class="theme-icon">&#x1F504;</span>
@@ -65,14 +67,16 @@ layout: default
           <span class="theme-status">En construction</span>
         </a>
       </div>
-    </details>
+    </div>
 
     <!-- Catégorie : Event -->
-    <details class="theme-group">
-      <summary>
-        <span class="theme-icon">&#x1F4E8;</span>
-        <span class="theme-group-name">Event</span>
-      </summary>
+    <button class="theme-card theme-group-btn" data-group="event">
+      <span class="theme-icon">&#x1F4E8;</span>
+      <span class="theme-name">Event</span>
+      <span class="theme-caret">&#x25B8;</span>
+    </button>
+    <div class="theme-group-panel" id="tg-event" hidden>
+      <div class="theme-group-label">Event</div>
       <div class="theme-group-cards">
         <a class="theme-card" href="{{ '/courses/kafka' | relative_url }}">
           <span class="theme-icon">&#x1F4CA;</span>
@@ -80,7 +84,7 @@ layout: default
           <span class="theme-status">En construction</span>
         </a>
       </div>
-    </details>
+    </div>
 
   </div>
 </section>

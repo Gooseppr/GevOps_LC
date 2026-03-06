@@ -252,6 +252,18 @@
     markActiveLink(nav);
   }
 
+  // ── Theme group toggles (home page) ───────────────────────────────────────
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest(".theme-group-btn");
+    if (!btn) return;
+    var panelId = "tg-" + btn.dataset.group;
+    var panel = document.getElementById(panelId);
+    if (!panel) return;
+    var willOpen = panel.hidden;
+    panel.hidden = !willOpen;
+    btn.classList.toggle("is-open", willOpen);
+  });
+
   // ── Init ───────────────────────────────────────────────────────────────────
   var nav = createNavShell();
 
