@@ -26,10 +26,7 @@ layout: default
           <span>Linux</span><span>Docker</span><span>Kubernetes</span>
           <span>AWS</span><span>CI/CD</span><span>Terraform</span><span>Ansible</span>
         </div>
-        <p class="cc-desc">
-          Cours complet issu de la formation DevOps chez La Capsule.
-          Organisé par jours et catégories de compétences.
-        </p>
+        <p class="cc-desc">Cours complet issu de la formation DevOps chez La Capsule.</p>
       </div>
       <a class="cc-btn" href="{{ '/courses/devops-lacapsule' | relative_url }}">Accéder au cours &rarr;</a>
     </div>
@@ -42,21 +39,10 @@ layout: default
   <h2 class="courses-heading">Thèmes</h2>
   <div class="themes-grid">
 
+    <!-- Cours standalone -->
     <a class="theme-card" href="{{ '/courses/cloud-aws' | relative_url }}">
       <span class="theme-icon">&#x2601;&#xFE0F;</span>
       <span class="theme-name">Cloud &amp; AWS</span>
-      <span class="theme-status">En construction</span>
-    </a>
-
-    <a class="theme-card" href="{{ '/courses/n8n' | relative_url }}">
-      <span class="theme-icon">&#x1F504;</span>
-      <span class="theme-name">n8n</span>
-      <span class="theme-status">En construction</span>
-    </a>
-
-    <a class="theme-card" href="{{ '/courses/kafka' | relative_url }}">
-      <span class="theme-icon">&#x1F4E8;</span>
-      <span class="theme-name">Kafka</span>
       <span class="theme-status">En construction</span>
     </a>
 
@@ -66,11 +52,35 @@ layout: default
       <span class="theme-status">En construction</span>
     </a>
 
-    <a class="theme-card" href="{{ '/courses/automation' | relative_url }}">
-      <span class="theme-icon">&#x2699;&#xFE0F;</span>
-      <span class="theme-name">Automatisation</span>
-      <span class="theme-status">En construction</span>
-    </a>
+    <!-- Catégorie : Automatisation -->
+    <details class="theme-group">
+      <summary>
+        <span class="theme-icon">&#x2699;&#xFE0F;</span>
+        <span class="theme-group-name">Automatisation</span>
+      </summary>
+      <div class="theme-group-cards">
+        <a class="theme-card" href="{{ '/courses/n8n' | relative_url }}">
+          <span class="theme-icon">&#x1F504;</span>
+          <span class="theme-name">n8n</span>
+          <span class="theme-status">En construction</span>
+        </a>
+      </div>
+    </details>
+
+    <!-- Catégorie : Event -->
+    <details class="theme-group">
+      <summary>
+        <span class="theme-icon">&#x1F4E8;</span>
+        <span class="theme-group-name">Event</span>
+      </summary>
+      <div class="theme-group-cards">
+        <a class="theme-card" href="{{ '/courses/kafka' | relative_url }}">
+          <span class="theme-icon">&#x1F4CA;</span>
+          <span class="theme-name">Kafka</span>
+          <span class="theme-status">En construction</span>
+        </a>
+      </div>
+    </details>
 
   </div>
 </section>
