@@ -1,6 +1,7 @@
 ---
-layout: page
+layout: course-index
 title: Kafka
+course_id: kafka
 description: Architecture événementielle, brokers, topics et consumers.
 theme_icon: "📊"
 theme_group: Event
@@ -11,9 +12,7 @@ status: "En construction"
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">
-  <div class="hero-eyebrow">En construction</div>
-  <h1 class="hero-title">Kafka &mdash; Streaming</h1>
+  <div class="hero-eyebrow">Streaming de données</div>
+  <h1 class="hero-title">Kafka</h1>
   <p class="hero-desc">Architecture événementielle, brokers, topics et consumers.</p>
 </div>
-
-<p>Les modules de ce cours seront disponibles prochainement.</p>

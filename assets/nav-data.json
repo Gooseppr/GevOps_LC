@@ -736,7 +736,8 @@
             "49",
             "51",
             "52",
-            "129"
+            "129",
+            "130"
           ],
           "modules": [
             {
@@ -877,6 +878,13 @@
               "ordre": 0,
               "title": "Projet J89",
               "path": "/GevOps_LC/modules/M129_projet-board-J89.html",
+              "subject": "Projet NocoDb NocoDb"
+            },
+            {
+              "jour": "130",
+              "ordre": 0,
+              "title": "Projet J90",
+              "path": "/GevOps_LC/modules/M130_projet-board-J90.html",
               "subject": "Projet NocoDb NocoDb"
             }
           ]
@@ -1560,6 +1568,12 @@
       "ordre": 0,
       "title": "Projet J89",
       "path": "/GevOps_LC/modules/M129_projet-board-J89.html"
+    },
+    {
+      "jour": "130",
+      "ordre": 0,
+      "title": "Projet J90",
+      "path": "/GevOps_LC/modules/M130_projet-board-J90.html"
     }
   ],
   "courses": [

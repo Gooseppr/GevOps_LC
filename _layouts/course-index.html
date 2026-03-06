@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+{{ content }}
+
+{% assign course_mods = site.pages | where: "course", page.course_id | sort: "section" | sort: "chapter" %}
+
+{% if course_mods.size > 0 %}
+  {% assign themes = course_mods | map: "theme" | uniq %}
+
+  <h2 class="section-title">Modules du cours</h2>
+
+  {% for theme in themes %}
+  {% assign theme_mods = course_mods | where: "theme", theme %}
+  <details class="cat-block" open>
+    <summary><span class="cat-id">{{ forloop.index }}</span> {{ theme | default: "Général" }}</summary>
+    <ul class="module-list">
+      {% assign sorted_theme_mods = theme_mods | sort: "section" | sort: "chapter" %}
+      {% for mod in sorted_theme_mods %}
+      <li>
+        <a href="{{ mod.url | relative_url }}" title="{{ mod.title }}">
+          {% if mod.chapter %}Ch.{{ mod.chapter }}{% if mod.section %}.{{ mod.section }}{% endif %} &mdash; {% endif %}
+          {{ mod.title }}
+          {% if mod.difficulty %}<span class="mod-badge mod-{{ mod.difficulty }}">{{ mod.difficulty }}</span>{% endif %}
+          {% if mod.duration %}<span class="mod-duration">{{ mod.duration }} min</span>{% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </details>
+  {% endfor %}
+
+{% else %}
+<p class="lead" style="color:#94a3b8;">Aucun module disponible pour ce cours pour l'instant.</p>
+{% endif %}

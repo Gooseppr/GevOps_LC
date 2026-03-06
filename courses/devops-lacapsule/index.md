@@ -56,6 +56,7 @@ description: Formation DevOps complète — La Capsule
 <a class="day-pill" href="{{ '/jours/jour-51' | relative_url }}" title="Jour 51">Jour 51</a>
 <a class="day-pill" href="{{ '/jours/jour-52' | relative_url }}" title="Jour 52">Jour 52</a>
 <a class="day-pill" href="{{ '/jours/jour-129' | relative_url }}" title="Jour 129">Jour 129</a>
+<a class="day-pill" href="{{ '/jours/jour-130' | relative_url }}" title="Jour 130">Jour 130</a>
 </div>
 
 
@@ -214,7 +215,7 @@ description: Formation DevOps complète — La Capsule
 <details class="cat-block">
   <summary><span class="cat-id">PN</span> Projet NocoDb</summary>
   <div class="sub-block">
-    <div class="sub-header">Sous-module NC - Jours 41, 42, 43, 44, 45, 48, 49, 51, 52, 129</div>
+    <div class="sub-header">Sous-module NC - Jours 41, 42, 43, 44, 45, 48, 49, 51, 52, 129, 130</div>
     <ul class="module-list">
       <li><a href="{{ '/modules/M41_projet-board-J01' | relative_url }}" title="Projet J01">Jour 41 — Projet J01</a></li>
       <li><a href="{{ '/modules/M41_projet-J1-swarm' | relative_url }}" title="Projet J1 - Docker Swarm">Jour 41 — Projet J1 - Docker Swarm</a></li>
@@ -236,6 +237,7 @@ description: Formation DevOps complète — La Capsule
       <li><a href="{{ '/modules/M52_projet-board-J12' | relative_url }}" title="Projet J12">Jour 52 — Projet J12</a></li>
       <li><a href="{{ '/modules/M52_idempotence' | relative_url }}" title="Projet J12 - Idempotence dans le déploiement ansible">Jour 52 — Projet J12 - Idempotence dans le déploiement ansible</a></li>
       <li><a href="{{ '/modules/M129_projet-board-J89' | relative_url }}" title="Projet J89">Jour 129 — Projet J89</a></li>
+      <li><a href="{{ '/modules/M130_projet-board-J90' | relative_url }}" title="Projet J90">Jour 130 — Projet J90</a></li>
     </ul>
   </div>
 </details>

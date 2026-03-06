@@ -54,6 +54,11 @@
     document.body.appendChild(toggle);
     document.body.classList.add("with-course-nav");
 
+    // Ouvrir par défaut sur desktop
+    if (window.innerWidth > 960) {
+      document.body.classList.add("nav-open");
+    }
+
     toggle.addEventListener("click", function () {
       document.body.classList.toggle("nav-open");
     });
