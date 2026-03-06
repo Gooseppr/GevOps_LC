@@ -1,25 +1,34 @@
 (function () {
-  const baseUrl = (window.__SITE_BASEURL || window.__GEVOPS_BASEURL || "").replace(/\/$/, "");
+  var baseUrl = (window.__SITE_BASEURL || window.__GEVOPS_BASEURL || "").replace(/\/$/, "");
 
   function withBase(path) {
     if (!path) return "#";
     if (/^https?:\/\//i.test(path)) return path;
     if (path.startsWith(baseUrl)) return path;
-    if (path.startsWith("/")) {
-      return (baseUrl || "") + path;
-    }
-    const normalized = path.startsWith("/") ? path : "/" + path;
-    return (baseUrl || "") + normalized;
+    if (path.startsWith("/")) return (baseUrl || "") + path;
+    return (baseUrl || "") + "/" + path;
   }
 
-  // ── Highlight active link ──────────────────────────────────────────────────
+  function el(tag, cls) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    return e;
+  }
+
+  // ── Highlight active link & auto-open parent <details> ────────────────────
   function markActiveLink(nav) {
-    const current = window.location.pathname;
+    var current = window.location.pathname;
     nav.querySelectorAll("a").forEach(function (a) {
       try {
-        const href = new URL(a.href).pathname;
+        var href = new URL(a.href).pathname;
         if (href && href !== "/" && current.startsWith(href)) {
           a.classList.add("nav-active");
+          // Open all ancestor <details> elements
+          var node = a.parentElement;
+          while (node && node !== nav) {
+            if (node.tagName === "DETAILS") node.open = true;
+            node = node.parentElement;
+          }
         }
       } catch (_) {}
     });
@@ -27,19 +36,16 @@
 
   // ── Shell ──────────────────────────────────────────────────────────────────
   function createNavShell() {
-    const nav = document.createElement("nav");
+    var nav = el("nav");
     nav.id = "course-nav";
-    nav.innerHTML = `
-      <div class="nav-header">
-        <div class="nav-brand">Coursite — Navigation</div>
-        <button class="nav-close" aria-label="Fermer la navigation">✕</button>
-      </div>
-      <div class="nav-scroll">
-        <div class="nav-loading">Chargement de la navigation…</div>
-      </div>
-    `;
+    nav.innerHTML =
+      '<div class="nav-header">' +
+        '<div class="nav-brand">Coursite</div>' +
+        '<button class="nav-close" aria-label="Fermer">&#x2715;</button>' +
+      '</div>' +
+      '<div class="nav-scroll"><div class="nav-loading">Chargement\u2026</div></div>';
 
-    const toggle = document.createElement("button");
+    var toggle = el("button");
     toggle.id = "course-nav-toggle";
     toggle.setAttribute("aria-label", "Ouvrir la navigation");
     toggle.innerHTML = "&#9776; Navigation";
@@ -58,45 +64,130 @@
     return nav;
   }
 
-  // ── Builders — La Capsule (jour-based) ────────────────────────────────────
-  function buildSimpleSection(label, items, formatter) {
-    if (!items || !items.length) return null;
-    const section = document.createElement("div");
-    section.className = "nav-section";
-    const title = document.createElement("div");
-    title.className = "nav-section-title";
-    title.textContent = label;
-    section.appendChild(title);
-    const list = document.createElement("ul");
-    items.forEach(function (item) {
-      const li = document.createElement("li");
-      li.appendChild(formatter(item));
-      list.appendChild(li);
+  // ── La Capsule: category → submodule → modules ────────────────────────────
+  function buildLaCapsuleSection(data) {
+    var categories = data.categories || [];
+    if (!categories.length) return null;
+
+    var wrapper = el("div", "nav-section");
+
+    // Label section
+    var label = el("div", "nav-section-title nav-course-label");
+    label.textContent = "DevOps \u2014 La Capsule";
+    wrapper.appendChild(label);
+
+    categories.forEach(function (cat) {
+      var hasMods = (cat.submodules || []).some(function (s) { return s.modules && s.modules.length; });
+      if (!hasMods) return;
+
+      // Category <details>
+      var catDet = el("details", "nav-cat");
+      var catSum = el("summary");
+
+      var badge = el("span", "nav-node-id");
+      badge.textContent = cat.id;
+      catSum.appendChild(badge);
+
+      var catTitle = document.createTextNode(" " + cat.title);
+      catSum.appendChild(catTitle);
+      catDet.appendChild(catSum);
+
+      (cat.submodules || []).forEach(function (sub) {
+        if (!sub.modules || !sub.modules.length) return;
+
+        var jourRange = (sub.jours || []).join(", ");
+        var subLabel = "Sous-module " + sub.id + (jourRange ? " \u2014 J." + jourRange : "");
+
+        var subDet = el("details", "nav-subcat");
+        var subSum = el("summary", "nav-sub-title");
+        subSum.textContent = subLabel;
+        subDet.appendChild(subSum);
+
+        var list = el("ul");
+        sub.modules.forEach(function (mod) {
+          var li = el("li");
+          var a = el("a");
+          a.href = withBase(mod.path);
+          a.title = mod.title;
+          var jourStr = mod.jour ? "J." + mod.jour : "J.--";
+          a.textContent = jourStr + " \u2013 " + mod.title;
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+        subDet.appendChild(list);
+        catDet.appendChild(subDet);
+      });
+
+      wrapper.appendChild(catDet);
     });
-    section.appendChild(list);
-    return section;
+
+    // Pipeline
+    if (data.pipeline && data.pipeline.length) {
+      var pipDet = el("details", "nav-cat");
+      var pipSum = el("summary");
+      var pipBadge = el("span", "nav-node-id");
+      pipBadge.textContent = "CI";
+      pipSum.appendChild(pipBadge);
+      pipSum.appendChild(document.createTextNode(" Pipeline & Audit"));
+      pipDet.appendChild(pipSum);
+
+      var pipList = el("ul");
+      data.pipeline.forEach(function (item) {
+        var li = el("li");
+        var a = el("a");
+        a.href = withBase(item.path);
+        a.textContent = item.title;
+        li.appendChild(a);
+        pipList.appendChild(li);
+      });
+      pipDet.appendChild(pipList);
+      wrapper.appendChild(pipDet);
+    }
+
+    // Bonus
+    if (data.bonus && data.bonus.length) {
+      var bonDet = el("details", "nav-cat");
+      var bonSum = el("summary");
+      var bonBadge = el("span", "nav-node-id");
+      bonBadge.textContent = "+";
+      bonSum.appendChild(bonBadge);
+      bonSum.appendChild(document.createTextNode(" Bonus"));
+      bonDet.appendChild(bonSum);
+
+      var bonList = el("ul");
+      data.bonus.forEach(function (item) {
+        var li = el("li");
+        var a = el("a");
+        a.href = withBase(item.path);
+        a.textContent = item.title;
+        li.appendChild(a);
+        bonList.appendChild(li);
+      });
+      bonDet.appendChild(bonList);
+      wrapper.appendChild(bonDet);
+    }
+
+    return wrapper;
   }
 
-  // ── Builders — Cours thématiques (theme-based) ────────────────────────────
+  // ── Thematic courses: theme → modules ─────────────────────────────────────
   function buildThemeDetails(theme) {
-    const det = document.createElement("details");
-    det.className = "nav-theme";
-    const sum = document.createElement("summary");
+    var det = el("details", "nav-theme");
+    var sum = el("summary");
     sum.textContent = theme.title;
     det.appendChild(sum);
-    const list = document.createElement("ul");
+
+    var list = el("ul");
     (theme.modules || []).forEach(function (mod) {
-      const li = document.createElement("li");
-      const a = document.createElement("a");
+      var li = el("li");
+      var a = el("a");
       a.href = withBase(mod.path);
       a.title = mod.title;
-      // Affichage compact : "Ch.1 – Titre"
-      const chap = mod.chapter ? `Ch.${mod.chapter} – ` : "";
+      var chap = mod.chapter ? "Ch." + mod.chapter + " \u2013 " : "";
       a.textContent = chap + mod.title;
       if (mod.difficulty) {
-        const badge = document.createElement("span");
-        badge.className = "nav-difficulty nav-diff-" + mod.difficulty;
-        badge.textContent = mod.difficulty[0].toUpperCase(); // B / I / A
+        var badge = el("span", "nav-difficulty nav-diff-" + mod.difficulty);
+        badge.textContent = mod.difficulty[0].toUpperCase();
         a.appendChild(badge);
       }
       li.appendChild(a);
@@ -109,20 +200,15 @@
   function buildCourseSection(course) {
     if (!course || !course.themes || !course.themes.length) return null;
 
-    const section = document.createElement("div");
-    section.className = "nav-section nav-course-block";
+    var section = el("div", "nav-section nav-course-block");
 
-    // En-tête du cours (lien vers l'index du cours)
-    const header = document.createElement("div");
-    header.className = "nav-section-title";
-    const courseLink = document.createElement("a");
+    var header = el("div", "nav-section-title");
+    var courseLink = el("a", "nav-course-title");
     courseLink.href = withBase(course.index_path || "#");
     courseLink.textContent = course.title;
-    courseLink.className = "nav-course-title";
     header.appendChild(courseLink);
     section.appendChild(header);
 
-    // Un <details> par thème
     course.themes.forEach(function (theme) {
       section.appendChild(buildThemeDetails(theme));
     });
@@ -130,61 +216,35 @@
     return section;
   }
 
-  // ── Render complet ─────────────────────────────────────────────────────────
+  // ── Render ─────────────────────────────────────────────────────────────────
   function renderNav(nav, data) {
-    const scroll = nav.querySelector(".nav-scroll");
+    var scroll = nav.querySelector(".nav-scroll");
     scroll.innerHTML = "";
 
-    // ── Section 1 : La Capsule DevOps ──────────────────────────────────────
-    if (data.modules && data.modules.length) {
-      const capsuleHeader = document.createElement("div");
-      capsuleHeader.className = "nav-section-title nav-course-label";
-      capsuleHeader.textContent = "DevOps — La Capsule";
-      scroll.appendChild(capsuleHeader);
+    // Home link
+    var homeLink = el("a", "nav-home-link");
+    homeLink.href = withBase("/");
+    homeLink.textContent = "\u2302 Accueil";
+    scroll.appendChild(homeLink);
 
-      const modulesSection = buildSimpleSection("Modules (ordre global)", data.modules, function (item) {
-        const a = document.createElement("a");
-        a.href = withBase(item.path);
-        const prefix = item.jour ? "Jour " + item.jour : "Jour --";
-        const order = typeof item.ordre === "number" ? " / " + String(item.ordre).padStart(2, "0") : "";
-        a.textContent = prefix + order + " – " + item.title;
-        a.title = item.title;
-        return a;
-      });
-      if (modulesSection) scroll.appendChild(modulesSection);
+    var sep0 = el("div", "nav-separator");
+    scroll.appendChild(sep0);
 
-      const pipeline = buildSimpleSection("Pipeline", data.pipeline, function (item) {
-        const a = document.createElement("a");
-        a.href = withBase(item.path);
-        a.textContent = item.title;
-        a.title = item.title;
-        return a;
-      });
-      if (pipeline) scroll.appendChild(pipeline);
+    // La Capsule section (category tree)
+    var capsule = buildLaCapsuleSection(data);
+    if (capsule) scroll.appendChild(capsule);
 
-      const bonus = buildSimpleSection("Bonus", data.bonus, function (item) {
-        const a = document.createElement("a");
-        a.href = withBase(item.path);
-        a.textContent = item.title;
-        a.title = item.title;
-        return a;
-      });
-      if (bonus) scroll.appendChild(bonus);
-    }
-
-    // ── Section 2 : Cours thématiques (nouveaux) ───────────────────────────
+    // Thematic courses
     if (data.courses && data.courses.length) {
-      const sep = document.createElement("div");
-      sep.className = "nav-separator";
+      var sep = el("div", "nav-separator");
       scroll.appendChild(sep);
 
-      const coursesHeader = document.createElement("div");
-      coursesHeader.className = "nav-section-title nav-course-label";
-      coursesHeader.textContent = "Cours thématiques";
-      scroll.appendChild(coursesHeader);
+      var coursesLabel = el("div", "nav-section-title nav-course-label");
+      coursesLabel.textContent = "Cours th\u00e9matiques";
+      scroll.appendChild(coursesLabel);
 
       data.courses.forEach(function (course) {
-        const block = buildCourseSection(course);
+        var block = buildCourseSection(course);
         if (block) scroll.appendChild(block);
       });
     }
@@ -193,19 +253,16 @@
   }
 
   // ── Init ───────────────────────────────────────────────────────────────────
-  const nav = createNavShell();
-  const dataUrl = withBase("/assets/nav-data.json");
+  var nav = createNavShell();
 
-  fetch(dataUrl)
-    .then(function (response) {
-      if (!response.ok) throw new Error("Nav data not found");
-      return response.json();
+  fetch(withBase("/assets/nav-data.json"))
+    .then(function (r) {
+      if (!r.ok) throw new Error("not found");
+      return r.json();
     })
-    .then(function (data) {
-      renderNav(nav, data);
-    })
+    .then(function (data) { renderNav(nav, data); })
     .catch(function () {
-      const scroll = nav.querySelector(".nav-scroll");
+      var scroll = nav.querySelector(".nav-scroll");
       scroll.innerHTML = '<div class="nav-error">Navigation indisponible.</div>';
     });
 })();

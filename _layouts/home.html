@@ -7,78 +7,72 @@ layout: default
   <div class="hero-eyebrow">Plateforme de formation</div>
   <h1 class="hero-title">Mes cours techniques</h1>
   <p class="hero-desc">
-    DevOps &middot; Cloud &middot; Scripting &middot; Automatisation<br>
+    DevOps &middot; Cloud &middot; Automatisation &middot; Data<br>
     Des cours structurés, des exercices pratiques, des schémas Mermaid interactifs.
   </p>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <span class="hs-num">90+</span>
-      <span class="hs-label">Modules</span>
-    </div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat">
-      <span class="hs-num">52</span>
-      <span class="hs-label">Jours</span>
-    </div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat">
-      <span class="hs-num">4</span>
-      <span class="hs-label">Catégories</span>
-    </div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat">
-      <span class="hs-num">Mermaid</span>
-      <span class="hs-label">Intégré</span>
-    </div>
-  </div>
 </div>
 
-<!-- ===== FORMATIONS ===== -->
+<!-- ===== FORMATION ===== -->
 <section class="courses-section">
-  <h2 class="courses-heading">Formations disponibles</h2>
+  <h2 class="courses-heading">Formation</h2>
   <div class="courses-grid">
 
     <div class="course-card course-active">
       <div class="cc-icon">&#x1F527;</div>
       <div class="cc-body">
-        <div class="cc-name">DevOps</div>
-        <div class="cc-meta">52 jours &middot; 90+ modules</div>
+        <div class="cc-name">DevOps — La Capsule</div>
+        <div class="cc-meta">Formation intensive &middot; 52 jours &middot; organisme certifié</div>
         <div class="cc-pills">
           <span>Linux</span><span>Docker</span><span>Kubernetes</span>
-          <span>AWS</span><span>CI/CD</span><span>Terraform</span>
+          <span>AWS</span><span>CI/CD</span><span>Terraform</span><span>Ansible</span>
         </div>
+        <p class="cc-desc">
+          Cours complet issu de la formation DevOps chez La Capsule.
+          Organisé par jours et catégories de compétences.
+        </p>
       </div>
-      <a class="cc-btn" href="#devops-index">Voir le cours &rarr;</a>
-    </div>
-
-    <div class="course-card course-soon">
-      <div class="cc-icon">&#x2601;&#xFE0F;</div>
-      <div class="cc-body">
-        <div class="cc-name">Cloud Architecture</div>
-        <div class="cc-meta">En préparation</div>
-        <div class="cc-pills">
-          <span>AWS</span><span>GCP</span><span>Azure</span>
-        </div>
-      </div>
-      <span class="cc-badge">Bientôt</span>
-    </div>
-
-    <div class="course-card course-soon">
-      <div class="cc-icon">&#x1F40D;</div>
-      <div class="cc-body">
-        <div class="cc-name">Python Avancé</div>
-        <div class="cc-meta">En préparation</div>
-        <div class="cc-pills">
-          <span>Scripting</span><span>Automatisation</span><span>API</span>
-        </div>
-      </div>
-      <span class="cc-badge">Bientôt</span>
+      <a class="cc-btn" href="{{ '/courses/devops-lacapsule' | relative_url }}">Accéder au cours &rarr;</a>
     </div>
 
   </div>
 </section>
 
-<!-- ===== CONTENU DE LA PAGE (index.md) ===== -->
-<div id="devops-index">
-  {{ content }}
-</div>
+<!-- ===== THÈMES ===== -->
+<section class="themes-section">
+  <h2 class="courses-heading">Thèmes</h2>
+  <div class="themes-grid">
+
+    <a class="theme-card" href="{{ '/courses/cloud-aws' | relative_url }}">
+      <span class="theme-icon">&#x2601;&#xFE0F;</span>
+      <span class="theme-name">Cloud &amp; AWS</span>
+      <span class="theme-status">En construction</span>
+    </a>
+
+    <a class="theme-card" href="{{ '/courses/n8n' | relative_url }}">
+      <span class="theme-icon">&#x1F504;</span>
+      <span class="theme-name">n8n</span>
+      <span class="theme-status">En construction</span>
+    </a>
+
+    <a class="theme-card" href="{{ '/courses/kafka' | relative_url }}">
+      <span class="theme-icon">&#x1F4E8;</span>
+      <span class="theme-name">Kafka</span>
+      <span class="theme-status">En construction</span>
+    </a>
+
+    <a class="theme-card" href="{{ '/courses/python' | relative_url }}">
+      <span class="theme-icon">&#x1F40D;</span>
+      <span class="theme-name">Python</span>
+      <span class="theme-status">En construction</span>
+    </a>
+
+    <a class="theme-card" href="{{ '/courses/automation' | relative_url }}">
+      <span class="theme-icon">&#x2699;&#xFE0F;</span>
+      <span class="theme-name">Automatisation</span>
+      <span class="theme-status">En construction</span>
+    </a>
+
+  </div>
+</section>
+
+{{ content }}

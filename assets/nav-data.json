@@ -735,7 +735,8 @@
             "48",
             "49",
             "51",
-            "52"
+            "52",
+            "129"
           ],
           "modules": [
             {
@@ -870,6 +871,13 @@
               "title": "Projet J12 - Idempotence dans le déploiement ansible",
               "path": "/GevOps_LC/modules/M52_idempotence.html",
               "subject": "Projet NocoDb"
+            },
+            {
+              "jour": "129",
+              "ordre": 0,
+              "title": "Projet J89",
+              "path": "/GevOps_LC/modules/M129_projet-board-J89.html",
+              "subject": "Projet NocoDb NocoDb"
             }
           ]
         }
@@ -1546,6 +1554,12 @@
       "ordre": 0,
       "title": "Projet J12",
       "path": "/GevOps_LC/modules/M52_projet-board-J12.html"
+    },
+    {
+      "jour": "129",
+      "ordre": 0,
+      "title": "Projet J89",
+      "path": "/GevOps_LC/modules/M129_projet-board-J89.html"
     }
   ],
   "courses": [
