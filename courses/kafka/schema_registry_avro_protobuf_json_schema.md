@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Schema Registry et formats Avro / Protobuf / JSON Schema"
-course: Data Engineering
+course: kafka
 theme: "Streaming de données"
 type: lesson
 

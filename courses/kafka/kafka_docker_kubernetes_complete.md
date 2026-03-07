@@ -1,9 +1,8 @@
-
 ---
 layout: page
 title: "Kafka avec Docker et Kubernetes"
 
-course: Data Engineering
+course: kafka
 theme: "Streaming de données"
 type: lesson
 

@@ -1621,6 +1621,117 @@
           "title": "\"Streaming de données\"",
           "modules": [
             {
+              "title": "\"Introduction à Apache Kafka\"",
+              "path": "/GevOps_LC/courses/kafka/kafka_intro_complete.html",
+              "file": "kafka_intro_complete.md",
+              "theme": "\"Streaming de données\"",
+              "chapter": 1,
+              "section": 1,
+              "tags": [
+                "kafka",
+                "streaming",
+                "data-engineering",
+                "distributed-systems"
+              ],
+              "type": "lesson",
+              "difficulty": "beginner",
+              "duration": "70 min",
+              "mermaid": true
+            },
+            {
+              "title": "\"Kafka en profondeur\"",
+              "path": "/GevOps_LC/courses/kafka/kafka_deep_dive_complete.html",
+              "file": "kafka_deep_dive_complete.md",
+              "theme": "\"Streaming de données\"",
+              "chapter": 1,
+              "section": 2,
+              "tags": [
+                "kafka",
+                "partitions",
+                "replication",
+                "offsets",
+                "distributed-systems"
+              ],
+              "type": "lesson",
+              "difficulty": "intermediate",
+              "duration": "90 min",
+              "mermaid": true
+            },
+            {
+              "title": "\"Kafka Streams\"",
+              "path": "/GevOps_LC/courses/kafka/kafka_streams_complete.html",
+              "file": "kafka_streams_complete.md",
+              "theme": "\"Streaming de données\"",
+              "chapter": 1,
+              "section": 3,
+              "tags": [
+                "kafka",
+                "kafka-streams",
+                "streaming",
+                "data-engineering"
+              ],
+              "type": "lesson",
+              "difficulty": "intermediate",
+              "duration": "90 min",
+              "mermaid": true
+            },
+            {
+              "title": "\"Kafka Connect\"",
+              "path": "/GevOps_LC/courses/kafka/kafka_connect_complete.html",
+              "file": "kafka_connect_complete.md",
+              "theme": "\"Streaming de données\"",
+              "chapter": 1,
+              "section": 4,
+              "tags": [
+                "kafka",
+                "kafka-connect",
+                "data-engineering",
+                "ingestion",
+                "cdc"
+              ],
+              "type": "lesson",
+              "difficulty": "intermediate",
+              "duration": "95",
+              "mermaid": true
+            },
+            {
+              "title": "\"Kafka avec Docker et Kubernetes\"",
+              "path": "/GevOps_LC/courses/kafka/kafka_docker_kubernetes_complete.html",
+              "file": "kafka_docker_kubernetes_complete.md",
+              "theme": "\"Streaming de données\"",
+              "chapter": 1,
+              "section": 5,
+              "tags": [
+                "kafka",
+                "docker",
+                "kubernetes",
+                "devops"
+              ],
+              "type": "lesson",
+              "difficulty": "intermediate",
+              "duration": "100 min",
+              "mermaid": true
+            },
+            {
+              "title": "\"Kafka dans une architecture Data Engineering\"",
+              "path": "/GevOps_LC/courses/kafka/kafka_data_architecture_complete.html",
+              "file": "kafka_data_architecture_complete.md",
+              "theme": "\"Streaming de données\"",
+              "chapter": 1,
+              "section": 6,
+              "tags": [
+                "kafka",
+                "architecture",
+                "data-engineering",
+                "event-driven",
+                "pipelines"
+              ],
+              "type": "lesson",
+              "difficulty": "advanced",
+              "duration": "110 min",
+              "mermaid": true
+            },
+            {
               "title": "\"Schema Registry et formats Avro / Protobuf / JSON Schema\"",
               "path": "/GevOps_LC/courses/kafka/schema_registry_avro_protobuf_json_schema.html",
               "file": "schema_registry_avro_protobuf_json_schema.md",
@@ -1640,90 +1751,6 @@
               "difficulty": "intermediate",
               "duration": "105 min",
               "mermaid": true
-            }
-          ]
-        },
-        {
-          "id": "g-n-ral",
-          "title": "Général",
-          "modules": [
-            {
-              "title": "Kafka_Connect_Complete",
-              "path": "/GevOps_LC/courses/kafka/kafka_connect_complete.html",
-              "file": "kafka_connect_complete.md",
-              "theme": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "type": "lesson",
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
-            },
-            {
-              "title": "Kafka_Data_Architecture_Complete",
-              "path": "/GevOps_LC/courses/kafka/kafka_data_architecture_complete.html",
-              "file": "kafka_data_architecture_complete.md",
-              "theme": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "type": "lesson",
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
-            },
-            {
-              "title": "Kafka_Deep_Dive_Complete",
-              "path": "/GevOps_LC/courses/kafka/kafka_deep_dive_complete.html",
-              "file": "kafka_deep_dive_complete.md",
-              "theme": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "type": "lesson",
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
-            },
-            {
-              "title": "Kafka_Docker_Kubernetes_Complete",
-              "path": "/GevOps_LC/courses/kafka/kafka_docker_kubernetes_complete.html",
-              "file": "kafka_docker_kubernetes_complete.md",
-              "theme": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "type": "lesson",
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
-            },
-            {
-              "title": "Kafka_Intro_Complete",
-              "path": "/GevOps_LC/courses/kafka/kafka_intro_complete.html",
-              "file": "kafka_intro_complete.md",
-              "theme": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "type": "lesson",
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
-            },
-            {
-              "title": "Kafka_Streams_Complete",
-              "path": "/GevOps_LC/courses/kafka/kafka_streams_complete.html",
-              "file": "kafka_streams_complete.md",
-              "theme": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "type": "lesson",
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
             }
           ]
         }

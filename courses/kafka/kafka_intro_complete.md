@@ -1,9 +1,8 @@
-
 ---
 layout: page
 title: "Introduction à Apache Kafka"
 
-course: Data Engineering
+course: kafka
 theme: "Streaming de données"
 type: lesson
 

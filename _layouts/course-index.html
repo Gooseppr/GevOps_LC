@@ -4,7 +4,8 @@ layout: default
 
 {{ content }}
 
-{% assign course_mods = site.pages | where: "course", page.course_id | sort: "section" | sort: "chapter" %}
+{% assign course_prefix = "/GevOps_LC/courses/" | append: page.course_id | append: "/" %}
+{% assign course_mods = site.pages | where_exp: "p", "p.url contains course_prefix and p.name != 'index.md'" | sort: "section" | sort: "chapter" %}
 
 {% if course_mods.size > 0 %}
   {% assign themes = course_mods | map: "theme" | uniq %}

@@ -1,9 +1,8 @@
-
 ---
 layout: page
 title: "Kafka dans une architecture Data Engineering"
 
-course: Data Engineering
+course: kafka
 theme: "Streaming de données"
 type: lesson
 

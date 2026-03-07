@@ -1,23 +1,15 @@
-
 ---
 layout: page
 title: "Kafka Connect"
-
-course: Data Engineering
+course: kafka
 theme: "Streaming de données"
 type: lesson
-
 chapter: 1
 section: 4
-
 tags: kafka, kafka-connect, data-engineering, ingestion, cdc
 difficulty: intermediate
-duration: 95 min
+duration: 95
 mermaid: true
-
-theme_icon: "📡"
-theme_group: Data Streaming
-theme_group_icon: "⚙️"
 theme_order: 4
 status: "En construction"
 ---
