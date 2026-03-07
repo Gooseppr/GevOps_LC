@@ -1,9 +1,8 @@
 ref_cours.py
-prompt.txt
+prompt/
 Code/
 pratique/
 pipeline/
-Code/
 __pycache__/
 *.pyc
 .env

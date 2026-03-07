@@ -34,38 +34,43 @@ layout: default
   </div>
 </section>
 
-<!-- ===== THÈMES (auto-générés depuis _data/themes.json) ===== -->
-{% if site.data.themes %}
+<!-- ===== THÈMES (auto-générés depuis _data/courses.json) ===== -->
+{% if site.data.courses and site.data.courses.size > 0 %}
 <section class="themes-section">
   <h2 class="courses-heading">Thèmes</h2>
   <div class="themes-grid">
 
-    {% for course in site.data.themes.standalone %}
-    <a class="theme-card" href="{{ course.path | relative_url }}">
-      <span class="theme-icon">{{ course.icon }}</span>
-      <span class="theme-name">{{ course.title }}</span>
-      <span class="theme-status">{{ course.status }}</span>
-    </a>
-    {% endfor %}
-
-    {% for group in site.data.themes.groups %}
-    <button class="theme-card theme-group-btn" data-group="{{ group.id }}">
-      <span class="theme-icon">{{ group.icon }}</span>
-      <span class="theme-name">{{ group.title }}</span>
-      <span class="theme-caret">&#x25B8;</span>
-    </button>
-    <div class="theme-group-panel" id="tg-{{ group.id }}" hidden>
-      <div class="theme-group-label">{{ group.title }}</div>
-      <div class="theme-group-cards">
-        {% for course in group.courses %}
+    {% assign course_groups = site.data.courses | group_by: "theme_group" %}
+    {% for group in course_groups %}
+      {% if group.name == "" %}
+        {% for course in group.items %}
         <a class="theme-card" href="{{ course.path | relative_url }}">
           <span class="theme-icon">{{ course.icon }}</span>
           <span class="theme-name">{{ course.title }}</span>
           <span class="theme-status">{{ course.status }}</span>
         </a>
         {% endfor %}
-      </div>
-    </div>
+      {% else %}
+        {% assign group_id = group.name | downcase | replace: ' ', '-' %}
+        {% assign group_icon = group.items[0].theme_group_icon %}
+        <button class="theme-card theme-group-btn" data-group="{{ group_id }}">
+          <span class="theme-icon">{{ group_icon }}</span>
+          <span class="theme-name">{{ group.name }}</span>
+          <span class="theme-caret">&#x25B8;</span>
+        </button>
+        <div class="theme-group-panel" id="tg-{{ group_id }}" hidden>
+          <div class="theme-group-label">{{ group.name }}</div>
+          <div class="theme-group-cards">
+            {% for course in group.items %}
+            <a class="theme-card" href="{{ course.path | relative_url }}">
+              <span class="theme-icon">{{ course.icon }}</span>
+              <span class="theme-name">{{ course.title }}</span>
+              <span class="theme-status">{{ course.status }}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
     {% endfor %}
 
   </div>
