@@ -1,0 +1,191 @@
+[
+  {
+    "id": "automation",
+    "title": "Automatisation",
+    "description": "Scripts, outils et orchestration pour automatiser vos infrastructures",
+    "icon": "⚙️",
+    "status": "En construction",
+    "theme_group": "Automatisation",
+    "theme_group_icon": "⚙️",
+    "path": "/courses/automation/",
+    "index_path": "/GevOps_LC/courses/automation/index.html",
+    "themes": [
+      {
+        "id": "orchestration",
+        "title": "Orchestration",
+        "modules": [
+          {
+            "title": "Ansible — Introduction et concepts fondamentaux",
+            "path": "/GevOps_LC/courses/automation/ansible-introduction.html",
+            "file": "ansible-introduction.md",
+            "theme": "Orchestration",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "ansible",
+              "yaml",
+              "ssh",
+              "automation",
+              "idempotence"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kafka",
+    "title": "Kafka",
+    "description": "Architecture événementielle, brokers, topics et consumers.",
+    "icon": "📊",
+    "status": "En construction",
+    "theme_group": "Event",
+    "theme_group_icon": "📨",
+    "path": "/courses/kafka/",
+    "index_path": "/GevOps_LC/courses/kafka/index.html",
+    "themes": [
+      {
+        "id": "streaming-de-donnees",
+        "title": "Streaming de données",
+        "modules": [
+          {
+            "title": "Introduction à Apache Kafka",
+            "path": "/GevOps_LC/courses/kafka/kafka_intro_complete.html",
+            "file": "kafka_intro_complete.md",
+            "theme": "Streaming de données",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "kafka",
+              "streaming",
+              "data-engineering",
+              "distributed-systems"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "70",
+            "mermaid": true
+          },
+          {
+            "title": "Kafka en profondeur",
+            "path": "/GevOps_LC/courses/kafka/kafka_deep_dive_complete.html",
+            "file": "kafka_deep_dive_complete.md",
+            "theme": "Streaming de données",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "kafka",
+              "partitions",
+              "replication",
+              "offsets",
+              "distributed-systems"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Kafka Streams",
+            "path": "/GevOps_LC/courses/kafka/kafka_streams_complete.html",
+            "file": "kafka_streams_complete.md",
+            "theme": "Streaming de données",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "kafka",
+              "kafka-streams",
+              "streaming",
+              "data-engineering"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Kafka Connect",
+            "path": "/GevOps_LC/courses/kafka/kafka_connect_complete.html",
+            "file": "kafka_connect_complete.md",
+            "theme": "Streaming de données",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "kafka",
+              "kafka-connect",
+              "data-engineering",
+              "ingestion",
+              "cdc"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "95",
+            "mermaid": true
+          },
+          {
+            "title": "Kafka avec Docker et Kubernetes",
+            "path": "/GevOps_LC/courses/kafka/kafka_docker_kubernetes_complete.html",
+            "file": "kafka_docker_kubernetes_complete.md",
+            "theme": "Streaming de données",
+            "chapter": 1,
+            "section": 5,
+            "tags": [
+              "kafka",
+              "docker",
+              "kubernetes",
+              "devops"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "100",
+            "mermaid": true
+          },
+          {
+            "title": "Kafka dans une architecture Data Engineering",
+            "path": "/GevOps_LC/courses/kafka/kafka_data_architecture_complete.html",
+            "file": "kafka_data_architecture_complete.md",
+            "theme": "Streaming de données",
+            "chapter": 1,
+            "section": 6,
+            "tags": [
+              "kafka",
+              "architecture",
+              "data-engineering",
+              "event-driven",
+              "pipelines"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Schema Registry et formats Avro / Protobuf / JSON Schema",
+            "path": "/GevOps_LC/courses/kafka/schema_registry_avro_protobuf_json_schema.html",
+            "file": "schema_registry_avro_protobuf_json_schema.md",
+            "theme": "Streaming de données",
+            "chapter": 1,
+            "section": 7,
+            "tags": [
+              "kafka",
+              "schema-registry",
+              "avro",
+              "protobuf",
+              "json-schema",
+              "data-contracts",
+              "data-engineering"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "105",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  }
+]
