@@ -11,13 +11,9 @@ section: 5
 
 tags: kafka, docker, kubernetes, devops
 difficulty: intermediate
-duration: 100 min
+duration: 100
 mermaid: true
 
-theme_icon: "📡"
-theme_group: Data Streaming
-theme_group_icon: "⚙️"
-theme_order: 5
 status: "En construction"
 ---
 

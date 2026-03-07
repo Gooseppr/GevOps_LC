@@ -11,13 +11,9 @@ section: 1
 
 tags: kafka, streaming, data-engineering, distributed-systems
 difficulty: beginner
-duration: 70 min
+duration: 70
 mermaid: true
 
-theme_icon: "📡"
-theme_group: Data Streaming
-theme_group_icon: "⚙️"
-theme_order: 1
 status: "En construction"
 ---
 

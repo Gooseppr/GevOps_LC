@@ -11,13 +11,9 @@ section: 3
 
 tags: kafka, kafka-streams, streaming, data-engineering
 difficulty: intermediate
-duration: 90 min
+duration: 90
 mermaid: true
 
-theme_icon: "📡"
-theme_group: Data Streaming
-theme_group_icon: "⚙️"
-theme_order: 3
 status: "En construction"
 ---
 

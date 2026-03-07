@@ -1635,7 +1635,7 @@
               ],
               "type": "lesson",
               "difficulty": "beginner",
-              "duration": "70 min",
+              "duration": "70",
               "mermaid": true
             },
             {
@@ -1654,7 +1654,7 @@
               ],
               "type": "lesson",
               "difficulty": "intermediate",
-              "duration": "90 min",
+              "duration": "90",
               "mermaid": true
             },
             {
@@ -1672,7 +1672,7 @@
               ],
               "type": "lesson",
               "difficulty": "intermediate",
-              "duration": "90 min",
+              "duration": "90",
               "mermaid": true
             },
             {
@@ -1709,7 +1709,7 @@
               ],
               "type": "lesson",
               "difficulty": "intermediate",
-              "duration": "100 min",
+              "duration": "100",
               "mermaid": true
             },
             {
@@ -1728,7 +1728,7 @@
               ],
               "type": "lesson",
               "difficulty": "advanced",
-              "duration": "110 min",
+              "duration": "110",
               "mermaid": true
             },
             {
@@ -1749,7 +1749,7 @@
               ],
               "type": "lesson",
               "difficulty": "intermediate",
-              "duration": "105 min",
+              "duration": "105",
               "mermaid": true
             }
           ]

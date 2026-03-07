@@ -10,7 +10,6 @@ tags: kafka, kafka-connect, data-engineering, ingestion, cdc
 difficulty: intermediate
 duration: 95
 mermaid: true
-theme_order: 4
 status: "En construction"
 ---
 

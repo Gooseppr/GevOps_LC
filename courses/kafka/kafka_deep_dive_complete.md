@@ -11,13 +11,9 @@ section: 2
 
 tags: kafka, partitions, replication, offsets, distributed-systems
 difficulty: intermediate
-duration: 90 min
+duration: 90
 mermaid: true
 
-theme_icon: "📡"
-theme_group: Data Streaming
-theme_group_icon: "⚙️"
-theme_order: 2
 status: "En construction"
 ---
 

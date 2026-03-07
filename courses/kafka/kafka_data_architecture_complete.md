@@ -11,13 +11,9 @@ section: 6
 
 tags: kafka, architecture, data-engineering, event-driven, pipelines
 difficulty: advanced
-duration: 110 min
+duration: 110
 mermaid: true
 
-theme_icon: "📡"
-theme_group: Data Streaming
-theme_group_icon: "⚙️"
-theme_order: 6
 status: "En construction"
 ---
 

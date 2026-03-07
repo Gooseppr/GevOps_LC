@@ -10,13 +10,9 @@ section: 7
 
 tags: kafka, schema-registry, avro, protobuf, json-schema, data-contracts, data-engineering
 difficulty: intermediate
-duration: 105 min
+duration: 105
 mermaid: true
 
-theme_icon: "📡"
-theme_group: Data Streaming
-theme_group_icon: "⚙️"
-theme_order: 7
 status: "En construction"
 ---
 

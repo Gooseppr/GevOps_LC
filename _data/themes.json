@@ -27,6 +27,13 @@
           "icon": "🔄",
           "status": "En construction",
           "path": "/courses/n8n/"
+        },
+        {
+          "id": "automation",
+          "title": "Automatisation",
+          "icon": "⚙️",
+          "status": "En construction",
+          "path": "/courses/automation/"
         }
       ]
     },
