@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: course-index
+course_id: python
 title: Python
 description: Python appliqué à l'automatisation, les APIs, les scripts DevOps et la data.
 theme_icon: "🐍"

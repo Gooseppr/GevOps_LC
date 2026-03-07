@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: course-index
+course_id: n8n
 title: n8n
 description: Workflows d'automatisation avec n8n, intégrations API et pipelines no-code.
 theme_icon: "🔄"

@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: course-index
+course_id: cloud-aws
 title: Cloud & AWS
 description: Infrastructure cloud, services AWS, déploiements et bonnes pratiques.
 theme_icon: "☁️"
