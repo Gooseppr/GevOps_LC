@@ -1637,6 +1637,43 @@
               "difficulty": "beginner",
               "duration": "45",
               "mermaid": true
+            },
+            {
+              "title": "Kafka en profondeur",
+              "path": "/GevOps_LC/courses/kafka/kafka_deep_dive.html",
+              "file": "kafka_deep_dive.md",
+              "theme": "Streaming de données",
+              "chapter": 1,
+              "section": 2,
+              "tags": [
+                "kafka",
+                "partitions",
+                "replication",
+                "offsets",
+                "distributed-systems"
+              ],
+              "type": "lesson",
+              "difficulty": "intermediate",
+              "duration": "60 min",
+              "mermaid": true
+            },
+            {
+              "title": "Kafka Streams",
+              "path": "/GevOps_LC/courses/kafka/kafka_streams_module.html",
+              "file": "kafka_streams_module.md",
+              "theme": "Streaming de données",
+              "chapter": 1,
+              "section": 3,
+              "tags": [
+                "kafka",
+                "kafka-streams",
+                "streaming",
+                "data-engineering"
+              ],
+              "type": "lesson",
+              "difficulty": "intermediate",
+              "duration": "60 min",
+              "mermaid": true
             }
           ]
         }
