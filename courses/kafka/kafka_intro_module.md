@@ -9,6 +9,8 @@ type: lesson
 difficulty: beginner
 duration: 45
 tags: kafka, streaming, data-engineering, distributed-systems
+theme: Streaming de données
+theme_group: Data Streaming
 mermaid: true
 ---
 
