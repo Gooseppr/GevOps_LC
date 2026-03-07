@@ -394,3 +394,7 @@ Ces mécanismes permettent :
 Dans le prochain module nous verrons :
 
 Kafka Streams.
+
+---
+[← Module précédent](kafka_intro_complete.md) | [Module suivant →](kafka_streams_complete.md)
+---

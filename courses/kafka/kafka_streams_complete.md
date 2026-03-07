@@ -486,3 +486,7 @@ Dans le prochain module nous verrons :
 Kafka Connect.
 
 Kafka Connect permet d'**ingérer et d'exporter les données automatiquement** entre Kafka et les systèmes externes.
+
+---
+[← Module précédent](kafka_deep_dive_complete.md) | [Module suivant →](kafka_connect_complete.md)
+---

@@ -435,3 +435,7 @@ Vous avez maintenant une vision complète :
 4. Kafka Connect
 5. Kafka deployment
 6. Kafka architecture data
+
+---
+[← Module précédent](kafka_docker_kubernetes_complete.md) | [Module suivant →](schema_registry_avro_protobuf_json_schema.md)
+---

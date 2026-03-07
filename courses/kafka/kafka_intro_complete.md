@@ -275,3 +275,7 @@ Kafka est :
 Le modèle principal :
 
 Producer → Kafka → Consumer
+
+---
+[Module suivant →](kafka_deep_dive_complete.md)
+---

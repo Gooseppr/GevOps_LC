@@ -361,3 +361,7 @@ Nous verrons comment Kafka s'intègre dans :
 - pipelines analytics
 - machine learning
 - architectures event-driven
+
+---
+[← Module précédent](kafka_connect_complete.md) | [Module suivant →](kafka_data_architecture_complete.md)
+---

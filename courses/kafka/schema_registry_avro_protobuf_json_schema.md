@@ -1349,3 +1349,7 @@ Avec cette couche, elle devient beaucoup plus industrialisable.
 
 Le vrai gain n’est pas seulement technique.  
 Le vrai gain est organisationnel : les équipes peuvent évoluer plus vite sans casser tout le monde.
+
+---
+[← Module précédent](kafka_data_architecture_complete.md)
+---
