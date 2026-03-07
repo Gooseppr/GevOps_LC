@@ -4,23 +4,19 @@ layout: default
 
 {{ content }}
 
-{% assign course_prefix = "/courses/" | append: page.course_id | append: "/" %}
-{% assign course_mods = site.pages | where_exp: "p", "p.url contains course_prefix and p.name != 'index.md'" | sort: "section" | sort: "chapter" %}
+{% assign course_data = site.data.courses | where: "id", page.course_id | first %}
 
-{% if course_mods.size > 0 %}
-  {% assign themes = course_mods | map: "theme" | uniq %}
+{% if course_data and course_data.themes and course_data.themes.size > 0 %}
 
   <h2 class="section-title">Modules du cours</h2>
 
-  {% for theme in themes %}
-  {% assign theme_mods = course_mods | where: "theme", theme %}
+  {% for theme in course_data.themes %}
   <details class="cat-block" open>
-    <summary><span class="cat-id">{{ forloop.index }}</span> {{ theme | default: "Général" }}</summary>
+    <summary><span class="cat-id">{{ forloop.index }}</span> {{ theme.title | default: "Général" }}</summary>
     <ul class="module-list">
-      {% assign sorted_theme_mods = theme_mods | sort: "section" | sort: "chapter" %}
-      {% for mod in sorted_theme_mods %}
+      {% for mod in theme.modules %}
       <li>
-        <a href="{{ mod.url | relative_url }}" title="{{ mod.title }}">
+        <a href="{{ mod.path }}" title="{{ mod.title }}">
           {% if mod.chapter %}Ch.{{ mod.chapter }}{% if mod.section %}.{{ mod.section }}{% endif %} &mdash; {% endif %}
           {{ mod.title }}
           {% if mod.difficulty %}<span class="mod-badge mod-{{ mod.difficulty }}">{{ mod.difficulty }}</span>{% endif %}
