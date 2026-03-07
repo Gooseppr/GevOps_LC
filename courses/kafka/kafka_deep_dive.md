@@ -1,6 +1,6 @@
 ---
 chapter: 1
-course: Data Engineering
+course: kafka
 difficulty: intermediate
 duration: 60 min
 layout: page
