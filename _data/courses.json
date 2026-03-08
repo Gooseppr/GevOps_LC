@@ -204,9 +204,9 @@
         "title": "Fondations du langage R",
         "modules": [
           {
-            "title": "Bloc 1 -- R les Fondations",
-            "path": "/GevOps_LC/courses/R/R01_Fondations_R.html",
-            "file": "R01_Fondations_R.md",
+            "title": "Module 1 --- Environnement et écosystème R",
+            "path": "/GevOps_LC/courses/R/R01_environnement_ecosysteme_R.html",
+            "file": "R01_environnement_ecosysteme_R.md",
             "theme": "Fondations du langage R",
             "chapter": 1,
             "section": 1,
@@ -218,8 +218,68 @@
               "environnement"
             ],
             "type": "lesson",
-            "difficulty": "beginner",
+            "difficulty": "débutant",
             "duration": "45",
+            "mermaid": true
+          },
+          {
+            "title": "Module 2 --- Syntaxe fondamentale du langage R",
+            "path": "/GevOps_LC/courses/R/R02_syntaxe_fondamentale_R.html",
+            "file": "R02_syntaxe_fondamentale_R.md",
+            "theme": "Fondations du langage R",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "R",
+              "syntaxe",
+              "variables",
+              "types",
+              "conditions",
+              "boucles"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Module 3 --- Structures de données en R",
+            "path": "/GevOps_LC/courses/R/R03_structures_donnees_R.html",
+            "file": "R03_structures_donnees_R.md",
+            "theme": "Fondations du langage R",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "R",
+              "data structures",
+              "vector",
+              "matrix",
+              "list",
+              "dataframe",
+              "tibble"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Module 4 --- Programmation en R",
+            "path": "/GevOps_LC/courses/R/R04_programmation_R.html",
+            "file": "R04_programmation_R.md",
+            "theme": "Fondations du langage R",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "R",
+              "fonctions",
+              "programmation",
+              "apply",
+              "functional programming"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant-intermédiaire",
+            "duration": "75",
             "mermaid": true
           }
         ]
@@ -229,12 +289,12 @@
         "title": "Spécialisation Data Engineer",
         "modules": [
           {
-            "title": "Bloc 4 -- R pour le Data Engineer",
-            "path": "/GevOps_LC/courses/R/R14_Data_Engineer_R.html",
-            "file": "R14_Data_Engineer_R.md",
+            "title": "Module 14 --- Gestion de données volumineuses",
+            "path": "/GevOps_LC/courses/R/R14_donnees_volumineuses_R.html",
+            "file": "R14_donnees_volumineuses_R.md",
             "theme": "Spécialisation Data Engineer",
-            "chapter": 1,
-            "section": 4,
+            "chapter": 4,
+            "section": 14,
             "tags": [
               "R",
               "big data",
@@ -243,7 +303,124 @@
               "parquet"
             ],
             "type": "lesson",
-            "difficulty": "intermediate",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 15 --- Bases de données",
+            "path": "/GevOps_LC/courses/R/R15_bases_de_donnees_R.html",
+            "file": "R15_bases_de_donnees_R.md",
+            "theme": "Spécialisation Data Engineer",
+            "chapter": 4,
+            "section": 15,
+            "tags": [
+              "R",
+              "SQL",
+              "database",
+              "DBI",
+              "PostgreSQL",
+              "MySQL",
+              "SQLite"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 16 --- API et ingestion de données",
+            "path": "/GevOps_LC/courses/R/R16_API_ingestion_R.html",
+            "file": "R16_API_ingestion_R.md",
+            "theme": "Spécialisation Data Engineer",
+            "chapter": 4,
+            "section": 16,
+            "tags": [
+              "R",
+              "API",
+              "ingestion",
+              "REST",
+              "httr",
+              "jsonlite"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 17 --- Parallélisation",
+            "path": "/GevOps_LC/courses/R/R17_parallelisation_R.html",
+            "file": "R17_parallelisation_R.md",
+            "theme": "Spécialisation Data Engineer",
+            "chapter": 4,
+            "section": 17,
+            "tags": [
+              "R",
+              "parallel computing",
+              "future",
+              "parallel"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 18 --- Pipelines de données",
+            "path": "/GevOps_LC/courses/R/R18_pipelines_donnees_R.html",
+            "file": "R18_pipelines_donnees_R.md",
+            "theme": "Spécialisation Data Engineer",
+            "chapter": 4,
+            "section": 18,
+            "tags": [
+              "R",
+              "pipelines",
+              "ETL",
+              "data engineering"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 19 --- Orchestration des pipelines",
+            "path": "/GevOps_LC/courses/R/R19_orchestration_R.html",
+            "file": "R19_orchestration_R.md",
+            "theme": "Spécialisation Data Engineer",
+            "chapter": 4,
+            "section": 19,
+            "tags": [
+              "R",
+              "orchestration",
+              "pipelines",
+              "airflow",
+              "dagster",
+              "cron"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Module 20 --- Production",
+            "path": "/GevOps_LC/courses/R/R20_production_R.html",
+            "file": "R20_production_R.md",
+            "theme": "Spécialisation Data Engineer",
+            "chapter": 4,
+            "section": 20,
+            "tags": [
+              "R",
+              "production",
+              "deployment",
+              "reporting",
+              "shiny",
+              "rmarkdown"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
           }
@@ -254,12 +431,12 @@
         "title": "Spécialisation Data Scientist",
         "modules": [
           {
-            "title": "Bloc 3 - R pour le Data Scientist",
-            "path": "/GevOps_LC/courses/R/R09_Data_Scientist_R.html",
-            "file": "R09_Data_Scientist_R.md",
+            "title": "Module 9 --- Probabilités et statistiques",
+            "path": "/GevOps_LC/courses/R/R09_probabilites_statistiques_R.html",
+            "file": "R09_probabilites_statistiques_R.md",
             "theme": "Spécialisation Data Scientist",
-            "chapter": 1,
-            "section": 3,
+            "chapter": 3,
+            "section": 9,
             "tags": [
               "R",
               "probabilités",
@@ -267,7 +444,85 @@
               "distributions"
             ],
             "type": "lesson",
-            "difficulty": "intermediate",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 10 --- Tests statistiques",
+            "path": "/GevOps_LC/courses/R/R10_tests_statistiques_R.html",
+            "file": "R10_tests_statistiques_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 10,
+            "tags": [
+              "R",
+              "statistiques",
+              "tests",
+              "t-test",
+              "chi-square",
+              "ANOVA"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 11 --- Modélisation statistique",
+            "path": "/GevOps_LC/courses/R/R11_modelisation_statistique_R.html",
+            "file": "R11_modelisation_statistique_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 11,
+            "tags": [
+              "R",
+              "modélisation",
+              "régression",
+              "statistiques",
+              "glm"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 12 --- Machine Learning",
+            "path": "/GevOps_LC/courses/R/R12_machine_learning_R.html",
+            "file": "R12_machine_learning_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 12,
+            "tags": [
+              "R",
+              "machine learning",
+              "caret",
+              "tidymodels",
+              "random forest",
+              "clustering"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Module 13 --- Validation et Feature Engineering",
+            "path": "/GevOps_LC/courses/R/R13_validation_feature_engineering_R.html",
+            "file": "R13_validation_feature_engineering_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 13,
+            "tags": [
+              "R",
+              "machine learning",
+              "validation",
+              "cross validation",
+              "feature"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
           }
@@ -278,12 +533,12 @@
         "title": "Tronc commun Data",
         "modules": [
           {
-            "title": "Bloc 2 -- Tronc Commun R",
-            "path": "/GevOps_LC/courses/R/R05_Tronc_commun_Data_R.html",
-            "file": "R05_Tronc_commun_Data_R.md",
+            "title": "Module 5 --- Import et export de données",
+            "path": "/GevOps_LC/courses/R/R05_import_export_R.html",
+            "file": "R05_import_export_R.md",
             "theme": "Tronc commun Data",
-            "chapter": 1,
-            "section": 2,
+            "chapter": 2,
+            "section": 5,
             "tags": [
               "R",
               "import",
@@ -295,8 +550,64 @@
               "database"
             ],
             "type": "lesson",
-            "difficulty": "beginner",
+            "difficulty": "débutant",
             "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Module 6 --- Manipulation de données avec dplyr et tidyr",
+            "path": "/GevOps_LC/courses/R/R06_manipulation_donnees_R.html",
+            "file": "R06_manipulation_donnees_R.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "R",
+              "dplyr",
+              "tidyr",
+              "data manipulation",
+              "tidyverse"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant-intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 7 --- Visualisation de données avec ggplot2",
+            "path": "/GevOps_LC/courses/R/R07_visualisation_ggplot2.html",
+            "file": "R07_visualisation_ggplot2.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "R",
+              "ggplot2",
+              "visualisation",
+              "dataviz"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 8 --- Analyse exploratoire de données (EDA)",
+            "path": "/GevOps_LC/courses/R/R08_EDA_R.html",
+            "file": "R08_EDA_R.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "R",
+              "EDA",
+              "statistiques descriptives",
+              "corrélation",
+              "outliers"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "90",
             "mermaid": true
           }
         ]
