@@ -1,7 +1,7 @@
 ---
 chapter: 1
 course: R
-difficulty: débutant
+difficulty: beginner
 duration: 45
 layout: page
 mermaid: true

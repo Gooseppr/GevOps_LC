@@ -1,7 +1,7 @@
 ---
 chapter: 3
 course: R
-difficulty: intermédiaire
+difficulty: intermediate
 duration: 90
 layout: page
 mermaid: true

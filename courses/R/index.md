@@ -5,7 +5,7 @@ course_id: R
 description: Utilisation de R dans le Data.
 theme_icon: "📊"
 theme_group: Data
-theme_group_icon: "📨"
+theme_group_icon: "📈"
 theme_group_order: 40
 theme_order: 10
 status: "En construction"
