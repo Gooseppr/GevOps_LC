@@ -187,5 +187,120 @@
         ]
       }
     ]
+  },
+  {
+    "id": "R",
+    "title": "R",
+    "description": "",
+    "icon": "",
+    "status": "En construction",
+    "theme_group": "",
+    "theme_group_icon": "",
+    "path": "/courses/R/",
+    "index_path": "/GevOps_LC/courses/R/index.html",
+    "themes": [
+      {
+        "id": "fondations-du-langage-r",
+        "title": "Fondations du langage R",
+        "modules": [
+          {
+            "title": "Bloc 1 -- R les Fondations",
+            "path": "/GevOps_LC/courses/R/R01_Fondations_R.html",
+            "file": "R01_Fondations_R.md",
+            "theme": "Fondations du langage R",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "R",
+              "CRAN",
+              "RStudio",
+              "packages",
+              "environnement"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "45",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "specialisation-data-engineer",
+        "title": "Spécialisation Data Engineer",
+        "modules": [
+          {
+            "title": "Bloc 4 -- R pour le Data Engineer",
+            "path": "/GevOps_LC/courses/R/R14_Data_Engineer_R.html",
+            "file": "R14_Data_Engineer_R.md",
+            "theme": "Spécialisation Data Engineer",
+            "chapter": 4,
+            "section": 4,
+            "tags": [
+              "R",
+              "big data",
+              "data.table",
+              "arrow",
+              "parquet"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "specialisation-data-scientist",
+        "title": "Spécialisation Data Scientist",
+        "modules": [
+          {
+            "title": "Bloc 3 - R pour le Data Scientist",
+            "path": "/GevOps_LC/courses/R/R09_Data_Scientist_R.html",
+            "file": "R09_Data_Scientist_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 3,
+            "tags": [
+              "R",
+              "probabilités",
+              "statistiques",
+              "distributions"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "tronc-commun-data",
+        "title": "Tronc commun Data",
+        "modules": [
+          {
+            "title": "Bloc 2 -- Tronc Commun R",
+            "path": "/GevOps_LC/courses/R/R05_Tronc_commun_Data_R.html",
+            "file": "R05_Tronc_commun_Data_R.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "R",
+              "import",
+              "export",
+              "csv",
+              "excel",
+              "json",
+              "api",
+              "database"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
   }
 ]
