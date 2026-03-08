@@ -1769,11 +1769,11 @@
     {
       "id": "R",
       "title": "R",
-      "description": "",
-      "icon": "",
+      "description": "Utilisation de R dans le Data.",
+      "icon": "📊",
       "status": "En construction",
-      "theme_group": "",
-      "theme_group_icon": "",
+      "theme_group": "Data",
+      "theme_group_icon": "📨",
       "path": "/courses/R/",
       "index_path": "/GevOps_LC/courses/R/index.html",
       "themes": [
