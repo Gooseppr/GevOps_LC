@@ -1,5 +1,5 @@
 ---
-chapter: 2
+chapter: 1
 course: R
 difficulty: beginner
 duration: 75
