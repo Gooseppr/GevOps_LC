@@ -12,7 +12,7 @@ status: "En construction"
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">
-  <div class="hero-eyebrow">Streaming de données</div>
-  <h1 class="hero-title">Kafka</h1>
-  <p class="hero-desc">Architecture événementielle, brokers, topics et consumers.</p>
+  <div class="hero-eyebrow">Fondation du langage R</div>
+  <h1 class="hero-title">R</h1>
+  <p class="hero-desc">Utilisation de R dans le Data.</p>
 </div>
