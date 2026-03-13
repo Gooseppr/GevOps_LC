@@ -178,20 +178,20 @@ body.nav-open #course-nav {
   z-index: 1300;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.75rem;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   border: 1px solid var(--nav-border);
   border-radius: 8px;
   background: var(--nav-bg);
   color: var(--nav-text);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 1rem;
   transition: background 0.15s ease, left 0.25s ease;
 }
 
-/* Quand la sidebar est ouverte : décale le bouton pour ne pas couvrir le titre */
+/* Quand la sidebar est ouverte : décale le bouton */
 body.nav-open #course-nav-toggle {
   left: 272px;
 }
@@ -767,19 +767,93 @@ details.cat-block summary {
 
 /* Home link at top of nav */
 #course-nav .nav-home-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--nav-muted);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   text-decoration: none;
-  padding: 0.3rem 0.35rem;
+  padding: 0.4rem 0.5rem;
   border-radius: 6px;
+  border: 1px solid var(--nav-border);
   margin-bottom: 0.25rem;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 #course-nav .nav-home-link:hover {
   color: var(--nav-text);
   background: rgba(255, 255, 255, 0.05);
+}
+
+/* En-tête du cours dans la sidebar */
+#course-nav .nav-course-header {
+  margin: 0.1rem 0 0.25rem;
+}
+
+#course-nav .nav-course-title {
+  display: block;
+  color: var(--nav-text) !important;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none !important;
+  padding: 0.3rem 0.35rem;
+  border-radius: 6px;
+  line-height: 1.3;
+}
+
+#course-nav .nav-course-title:hover {
+  color: var(--nav-accent) !important;
+  background: rgba(74, 222, 128, 0.06);
+}
+
+/* Liste de modules */
+#course-nav .nav-module-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#course-nav .nav-module-list li {
+  margin: 0.1rem 0;
+}
+
+#course-nav .nav-module-list a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: background 0.15s ease, color 0.15s ease;
+  border-left: 2px solid transparent;
+}
+
+#course-nav .nav-module-list a:hover {
+  background: rgba(74, 222, 128, 0.08);
+  color: #e9f7ee;
+}
+
+#course-nav .nav-module-list a.nav-active {
+  background: rgba(74, 222, 128, 0.14);
+  color: #4ade80;
+  font-weight: 600;
+  border-left-color: var(--nav-accent);
+}
+
+#course-nav .nav-mod-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#course-nav .nav-empty {
+  color: var(--nav-muted);
+  font-size: 0.88rem;
+  padding: 0.5rem 0.35rem;
 }
 
 /* =====================================================

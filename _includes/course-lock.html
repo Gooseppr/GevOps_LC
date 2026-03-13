@@ -1,0 +1,119 @@
+{% comment %}
+  Include de protection par mot de passe.
+  Paramètre : include.course_id  (ex: "kafka")
+  Usage : {% include course-lock.html course_id=page.course %}
+{% endcomment %}
+
+{% assign _pw = site.data.course_passwords[include.course_id] %}
+{% if _pw %}
+
+<div id="course-lock-overlay">
+  <div id="course-lock-box">
+    <div id="course-lock-icon">🔒</div>
+    <h2>Cours protégé</h2>
+    <p>Ce cours nécessite un mot de passe pour y accéder.</p>
+    <div id="course-lock-form">
+      <input type="password" id="course-lock-input" placeholder="Mot de passe" autocomplete="current-password">
+      <button id="course-lock-btn" onclick="courseLockUnlock()">Déverrouiller</button>
+    </div>
+    <p id="course-lock-error">Mot de passe incorrect.</p>
+  </div>
+</div>
+
+<style>
+#course-lock-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10, 14, 26, 0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#course-lock-box {
+  background: #151c2e;
+  border: 1px solid #2d3a56;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+#course-lock-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+#course-lock-box h2 { margin: 0 0 0.5rem; font-size: 1.4rem; color: #e2e8f0; }
+#course-lock-box p { color: #94a3b8; font-size: 0.95rem; margin: 0 0 1.5rem; }
+#course-lock-form { display: flex; gap: 0.5rem; }
+#course-lock-input {
+  flex: 1;
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #2d3a56;
+  background: #0d1117;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  outline: none;
+}
+#course-lock-input:focus { border-color: #4f8ef7; }
+#course-lock-btn {
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  border: none;
+  background: #4f8ef7;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#course-lock-btn:hover { background: #3a7ae8; }
+#course-lock-error {
+  display: none;
+  color: #f87171;
+  font-size: 0.85rem;
+  margin: 0.75rem 0 0;
+}
+</style>
+
+<script>
+(function () {
+  var COURSE_ID = {{ include.course_id | jsonify }};
+  var HASH = {{ _pw.hash | jsonify }};
+  var KEY = "course_unlock_" + COURSE_ID;
+
+  // Vérification synchrone : masque l'overlay immédiatement si déjà déverrouillé
+  if (localStorage.getItem(KEY) === HASH) {
+    document.getElementById("course-lock-overlay").style.display = "none";
+  }
+
+  async function sha256(str) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2, "0"); }).join("");
+  }
+
+  window.courseLockUnlock = async function () {
+    var input = document.getElementById("course-lock-input");
+    var error = document.getElementById("course-lock-error");
+    var h = await sha256(input.value);
+    if (h === HASH) {
+      localStorage.setItem(KEY, HASH);
+      document.getElementById("course-lock-overlay").style.display = "none";
+    } else {
+      error.style.display = "block";
+      input.value = "";
+      input.focus();
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var input = document.getElementById("course-lock-input");
+    if (input) {
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") window.courseLockUnlock();
+      });
+      input.focus();
+    }
+  });
+})();
+</script>
+
+{% endif %}

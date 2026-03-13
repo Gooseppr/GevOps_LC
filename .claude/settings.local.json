@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -m1 \"^# \" \"c:/Users/grego/Documents/Coursite/courses/SQL/\"sql_chapitre_*.md)",
+      "Bash(python3 -c \"import hashlib; print\\(hashlib.sha256\\(''kafka2026''.encode\\(\\)\\).hexdigest\\(\\)\\)\")"
+    ]
+  }
+}

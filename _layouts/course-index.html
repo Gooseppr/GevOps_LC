@@ -2,6 +2,10 @@
 layout: default
 ---
 
+{% if page.course_id %}<script>window.__COURSE_ID = {{ page.course_id | jsonify }};</script>{% endif %}
+
+{% include course-lock.html course_id=page.course_id %}
+
 {{ content }}
 
 {% assign course_data = site.data.courses | where: "id", page.course_id | first %}
