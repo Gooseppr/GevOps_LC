@@ -4,6 +4,7 @@ course: SQL
 difficulty: intermediate
 duration: 75
 layout: page
+theme: "Conception et structure"
 section: 4
 status: published
 title: "Relations entre tables et normalisation"

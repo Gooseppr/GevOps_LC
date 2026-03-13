@@ -4,6 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
+theme: "Optimisation et administration"
 section: 3
 status: published
 title: "Les triggers"

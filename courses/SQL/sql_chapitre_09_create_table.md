@@ -4,6 +4,7 @@ course: SQL
 difficulty: intermediate
 duration: 75
 layout: page
+theme: "Conception et structure"
 section: 1
 status: published
 title: "Création de tables : CREATE TABLE"

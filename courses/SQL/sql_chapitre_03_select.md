@@ -4,6 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
+theme: "Requêtes et manipulation"
 section: 3
 status: published
 title: "SELECT : lire les données"

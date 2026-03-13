@@ -4,6 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
+theme: "Requêtes et manipulation"
 section: 7
 status: published
 title: "Les JOIN"

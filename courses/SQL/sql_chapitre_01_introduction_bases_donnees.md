@@ -4,6 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
+theme: "Requêtes et manipulation"
 section: 1
 status: published
 title: "Introduction aux bases de données"

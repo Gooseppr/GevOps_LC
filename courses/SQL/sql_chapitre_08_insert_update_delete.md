@@ -4,6 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
+theme: "Requêtes et manipulation"
 section: 8
 status: published
 title: "INSERT, UPDATE et DELETE"

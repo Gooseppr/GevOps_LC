@@ -4,6 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
+theme: "Optimisation et administration"
 section: 1
 status: published
 title: "Optimisation des requêtes"

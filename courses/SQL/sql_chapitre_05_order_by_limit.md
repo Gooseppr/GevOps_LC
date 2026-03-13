@@ -4,6 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
+theme: "Requêtes et manipulation"
 section: 5
 status: published
 title: "Trier et limiter les résultats"

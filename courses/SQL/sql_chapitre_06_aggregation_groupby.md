@@ -4,6 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
+theme: "Requêtes et manipulation"
 section: 6
 status: published
 title: "Fonctions d'agrégation et GROUP BY"
