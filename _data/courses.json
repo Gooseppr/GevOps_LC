@@ -285,6 +285,192 @@
         ]
       },
       {
+        "id": "tronc-commun-data",
+        "title": "Tronc commun Data",
+        "modules": [
+          {
+            "title": "Module 5 --- Import et export de données",
+            "path": "/GevOps_LC/courses/R/R05_import_export_R.html",
+            "file": "R05_import_export_R.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "R",
+              "import",
+              "export",
+              "csv",
+              "excel",
+              "json",
+              "api",
+              "database"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Module 6 --- Manipulation de données avec dplyr et tidyr",
+            "path": "/GevOps_LC/courses/R/R06_manipulation_donnees_R.html",
+            "file": "R06_manipulation_donnees_R.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "R",
+              "dplyr",
+              "tidyr",
+              "data manipulation",
+              "tidyverse"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant-intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 7 --- Visualisation de données avec ggplot2",
+            "path": "/GevOps_LC/courses/R/R07_visualisation_ggplot2.html",
+            "file": "R07_visualisation_ggplot2.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "R",
+              "ggplot2",
+              "visualisation",
+              "dataviz"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 8 --- Analyse exploratoire de données (EDA)",
+            "path": "/GevOps_LC/courses/R/R08_EDA_R.html",
+            "file": "R08_EDA_R.md",
+            "theme": "Tronc commun Data",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "R",
+              "EDA",
+              "statistiques descriptives",
+              "corrélation",
+              "outliers"
+            ],
+            "type": "lesson",
+            "difficulty": "débutant",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "specialisation-data-scientist",
+        "title": "Spécialisation Data Scientist",
+        "modules": [
+          {
+            "title": "Module 9 --- Probabilités et statistiques",
+            "path": "/GevOps_LC/courses/R/R09_probabilites_statistiques_R.html",
+            "file": "R09_probabilites_statistiques_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 9,
+            "tags": [
+              "R",
+              "probabilités",
+              "statistiques",
+              "distributions"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 10 --- Tests statistiques",
+            "path": "/GevOps_LC/courses/R/R10_tests_statistiques_R.html",
+            "file": "R10_tests_statistiques_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 10,
+            "tags": [
+              "R",
+              "statistiques",
+              "tests",
+              "t-test",
+              "chi-square",
+              "ANOVA"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 11 --- Modélisation statistique",
+            "path": "/GevOps_LC/courses/R/R11_modelisation_statistique_R.html",
+            "file": "R11_modelisation_statistique_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 11,
+            "tags": [
+              "R",
+              "modélisation",
+              "régression",
+              "statistiques",
+              "glm"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Module 12 --- Machine Learning",
+            "path": "/GevOps_LC/courses/R/R12_machine_learning_R.html",
+            "file": "R12_machine_learning_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 12,
+            "tags": [
+              "R",
+              "machine learning",
+              "caret",
+              "tidymodels",
+              "random forest",
+              "clustering"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Module 13 --- Validation et Feature Engineering",
+            "path": "/GevOps_LC/courses/R/R13_validation_feature_engineering_R.html",
+            "file": "R13_validation_feature_engineering_R.md",
+            "theme": "Spécialisation Data Scientist",
+            "chapter": 3,
+            "section": 13,
+            "tags": [
+              "R",
+              "machine learning",
+              "validation",
+              "cross validation",
+              "feature"
+            ],
+            "type": "lesson",
+            "difficulty": "intermédiaire",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
         "id": "specialisation-data-engineer",
         "title": "Spécialisation Data Engineer",
         "modules": [
@@ -425,192 +611,6 @@
             "mermaid": true
           }
         ]
-      },
-      {
-        "id": "specialisation-data-scientist",
-        "title": "Spécialisation Data Scientist",
-        "modules": [
-          {
-            "title": "Module 9 --- Probabilités et statistiques",
-            "path": "/GevOps_LC/courses/R/R09_probabilites_statistiques_R.html",
-            "file": "R09_probabilites_statistiques_R.md",
-            "theme": "Spécialisation Data Scientist",
-            "chapter": 3,
-            "section": 9,
-            "tags": [
-              "R",
-              "probabilités",
-              "statistiques",
-              "distributions"
-            ],
-            "type": "lesson",
-            "difficulty": "intermédiaire",
-            "duration": "90",
-            "mermaid": true
-          },
-          {
-            "title": "Module 10 --- Tests statistiques",
-            "path": "/GevOps_LC/courses/R/R10_tests_statistiques_R.html",
-            "file": "R10_tests_statistiques_R.md",
-            "theme": "Spécialisation Data Scientist",
-            "chapter": 3,
-            "section": 10,
-            "tags": [
-              "R",
-              "statistiques",
-              "tests",
-              "t-test",
-              "chi-square",
-              "ANOVA"
-            ],
-            "type": "lesson",
-            "difficulty": "intermédiaire",
-            "duration": "90",
-            "mermaid": true
-          },
-          {
-            "title": "Module 11 --- Modélisation statistique",
-            "path": "/GevOps_LC/courses/R/R11_modelisation_statistique_R.html",
-            "file": "R11_modelisation_statistique_R.md",
-            "theme": "Spécialisation Data Scientist",
-            "chapter": 3,
-            "section": 11,
-            "tags": [
-              "R",
-              "modélisation",
-              "régression",
-              "statistiques",
-              "glm"
-            ],
-            "type": "lesson",
-            "difficulty": "intermédiaire",
-            "duration": "90",
-            "mermaid": true
-          },
-          {
-            "title": "Module 12 --- Machine Learning",
-            "path": "/GevOps_LC/courses/R/R12_machine_learning_R.html",
-            "file": "R12_machine_learning_R.md",
-            "theme": "Spécialisation Data Scientist",
-            "chapter": 3,
-            "section": 12,
-            "tags": [
-              "R",
-              "machine learning",
-              "caret",
-              "tidymodels",
-              "random forest",
-              "clustering"
-            ],
-            "type": "lesson",
-            "difficulty": "intermédiaire",
-            "duration": "120",
-            "mermaid": true
-          },
-          {
-            "title": "Module 13 --- Validation et Feature Engineering",
-            "path": "/GevOps_LC/courses/R/R13_validation_feature_engineering_R.html",
-            "file": "R13_validation_feature_engineering_R.md",
-            "theme": "Spécialisation Data Scientist",
-            "chapter": 3,
-            "section": 13,
-            "tags": [
-              "R",
-              "machine learning",
-              "validation",
-              "cross validation",
-              "feature"
-            ],
-            "type": "lesson",
-            "difficulty": "intermédiaire",
-            "duration": "90",
-            "mermaid": true
-          }
-        ]
-      },
-      {
-        "id": "tronc-commun-data",
-        "title": "Tronc commun Data",
-        "modules": [
-          {
-            "title": "Module 5 --- Import et export de données",
-            "path": "/GevOps_LC/courses/R/R05_import_export_R.html",
-            "file": "R05_import_export_R.md",
-            "theme": "Tronc commun Data",
-            "chapter": 2,
-            "section": 5,
-            "tags": [
-              "R",
-              "import",
-              "export",
-              "csv",
-              "excel",
-              "json",
-              "api",
-              "database"
-            ],
-            "type": "lesson",
-            "difficulty": "débutant",
-            "duration": "75",
-            "mermaid": true
-          },
-          {
-            "title": "Module 6 --- Manipulation de données avec dplyr et tidyr",
-            "path": "/GevOps_LC/courses/R/R06_manipulation_donnees_R.html",
-            "file": "R06_manipulation_donnees_R.md",
-            "theme": "Tronc commun Data",
-            "chapter": 2,
-            "section": 6,
-            "tags": [
-              "R",
-              "dplyr",
-              "tidyr",
-              "data manipulation",
-              "tidyverse"
-            ],
-            "type": "lesson",
-            "difficulty": "débutant-intermédiaire",
-            "duration": "90",
-            "mermaid": true
-          },
-          {
-            "title": "Module 7 --- Visualisation de données avec ggplot2",
-            "path": "/GevOps_LC/courses/R/R07_visualisation_ggplot2.html",
-            "file": "R07_visualisation_ggplot2.md",
-            "theme": "Tronc commun Data",
-            "chapter": 2,
-            "section": 7,
-            "tags": [
-              "R",
-              "ggplot2",
-              "visualisation",
-              "dataviz"
-            ],
-            "type": "lesson",
-            "difficulty": "débutant",
-            "duration": "90",
-            "mermaid": true
-          },
-          {
-            "title": "Module 8 --- Analyse exploratoire de données (EDA)",
-            "path": "/GevOps_LC/courses/R/R08_EDA_R.html",
-            "file": "R08_EDA_R.md",
-            "theme": "Tronc commun Data",
-            "chapter": 2,
-            "section": 8,
-            "tags": [
-              "R",
-              "EDA",
-              "statistiques descriptives",
-              "corrélation",
-              "outliers"
-            ],
-            "type": "lesson",
-            "difficulty": "débutant",
-            "duration": "90",
-            "mermaid": true
-          }
-        ]
       }
     ]
   },
@@ -625,6 +625,116 @@
     "path": "/courses/SQL/",
     "index_path": "/GevOps_LC/courses/SQL/index.html",
     "themes": [
+      {
+        "id": "requetes-et-manipulation",
+        "title": "Requêtes et manipulation",
+        "modules": [
+          {
+            "title": "Introduction aux bases de données",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_01_introduction_bases_donnees.html",
+            "file": "sql_chapitre_01_introduction_bases_donnees.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 1,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "Le modèle relationnel",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_02_modele_relationnel.html",
+            "file": "sql_chapitre_02_modele_relationnel.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 2,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "SELECT : lire les données",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_03_select.html",
+            "file": "sql_chapitre_03_select.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 3,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "Filtrer les données avec WHERE",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_04_where.html",
+            "file": "sql_chapitre_04_where.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 4,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "Trier et limiter les résultats",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_05_order_by_limit.html",
+            "file": "sql_chapitre_05_order_by_limit.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 5,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "Fonctions d'agrégation et GROUP BY",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_06_aggregation_groupby.html",
+            "file": "sql_chapitre_06_aggregation_groupby.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 6,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "Les JOIN",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_07_join.html",
+            "file": "sql_chapitre_07_join.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 7,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "INSERT, UPDATE et DELETE",
+            "path": "/GevOps_LC/courses/SQL/sql_chapitre_08_insert_update_delete.html",
+            "file": "sql_chapitre_08_insert_update_delete.md",
+            "theme": "Requêtes et manipulation",
+            "chapter": 1,
+            "section": 8,
+            "tags": [],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          }
+        ]
+      },
       {
         "id": "conception-et-structure",
         "title": "Conception et structure",
@@ -828,116 +938,6 @@
             "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
-            "mermaid": false
-          }
-        ]
-      },
-      {
-        "id": "requetes-et-manipulation",
-        "title": "Requêtes et manipulation",
-        "modules": [
-          {
-            "title": "Introduction aux bases de données",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_01_introduction_bases_donnees.html",
-            "file": "sql_chapitre_01_introduction_bases_donnees.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 1,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
-            "mermaid": false
-          },
-          {
-            "title": "Le modèle relationnel",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_02_modele_relationnel.html",
-            "file": "sql_chapitre_02_modele_relationnel.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 2,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
-            "mermaid": false
-          },
-          {
-            "title": "SELECT : lire les données",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_03_select.html",
-            "file": "sql_chapitre_03_select.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 3,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
-            "mermaid": false
-          },
-          {
-            "title": "Filtrer les données avec WHERE",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_04_where.html",
-            "file": "sql_chapitre_04_where.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 4,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
-            "mermaid": false
-          },
-          {
-            "title": "Trier et limiter les résultats",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_05_order_by_limit.html",
-            "file": "sql_chapitre_05_order_by_limit.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 5,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
-            "mermaid": false
-          },
-          {
-            "title": "Fonctions d'agrégation et GROUP BY",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_06_aggregation_groupby.html",
-            "file": "sql_chapitre_06_aggregation_groupby.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 6,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
-            "mermaid": false
-          },
-          {
-            "title": "Les JOIN",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_07_join.html",
-            "file": "sql_chapitre_07_join.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 7,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
-            "mermaid": false
-          },
-          {
-            "title": "INSERT, UPDATE et DELETE",
-            "path": "/GevOps_LC/courses/SQL/sql_chapitre_08_insert_update_delete.html",
-            "file": "sql_chapitre_08_insert_update_delete.md",
-            "theme": "Requêtes et manipulation",
-            "chapter": 1,
-            "section": 8,
-            "tags": [],
-            "type": "lesson",
-            "difficulty": "beginner",
-            "duration": "60",
             "mermaid": false
           }
         ]
