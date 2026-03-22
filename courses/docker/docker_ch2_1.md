@@ -1,0 +1,183 @@
+---
+layout: page
+title: "Introduction au Dockerfile"
+
+course: docker
+theme: "Dockerfile et images"
+type: lesson
+
+chapter: 2
+section: 1
+
+tags: docker,dockerfile,image,build,conteneur
+difficulty: intermediate
+duration: 35
+mermaid: true
+
+status: "published"
+---
+
+# Introduction au Dockerfile
+
+## Objectifs pédagogiques
+
+- Comprendre pourquoi utiliser un Dockerfile  
+- Comprendre ce qu’est une image personnalisée  
+- Comprendre le lien entre Dockerfile, image et conteneur  
+- Construire sa première image  
+
+---
+
+## Contexte et problématique
+
+Dans le module précédent, tu as utilisé des images existantes :
+
+```bash
+docker run nginx
+docker run postgres
+```
+
+👉 Mais dans la réalité :
+
+- tu as ton propre code  
+- ton propre projet  
+- ta propre configuration  
+
+👉 Tu ne peux pas dépendre uniquement d’images existantes
+
+---
+
+## Définition
+
+### Dockerfile*
+
+Un Dockerfile est un fichier texte qui permet de :
+
+👉 **décrire comment construire une image Docker**
+
+Il contient une suite d’instructions :
+
+- installer des dépendances  
+- copier des fichiers  
+- configurer une application  
+
+---
+
+## Architecture
+
+Composant | Rôle | Exemple
+----------|------|--------
+Dockerfile | recette | instructions de build
+Image | résultat | application prête
+Conteneur | exécution | application lancée
+
+```mermaid
+flowchart LR
+    A[Dockerfile] --> B[Build]
+    B --> C[Image]
+    C --> D[Conteneur]
+```
+
+---
+
+## Commandes essentielles
+
+### Construire une image
+
+```bash
+docker build -t mon-app .
+```
+
+👉 Explication :
+
+- `build` = construire une image  
+- `-t` = nom de l’image  
+- `.` = dossier courant  
+
+---
+
+### Lancer l’image construite
+
+```bash
+docker run mon-app
+```
+
+---
+
+## Exemple simple
+
+Créer un fichier `Dockerfile` :
+
+```Dockerfile
+FROM nginx
+COPY index.html /usr/share/nginx/html/index.html
+```
+
+👉 Explication :
+
+- `FROM` = image de base  
+- `COPY` = copie un fichier  
+
+---
+
+## Fonctionnement interne
+
+💡 Astuce  
+Chaque ligne du Dockerfile crée une “couche” (layer)
+
+⚠️ Erreur fréquente  
+Modifier un conteneur au lieu de modifier le Dockerfile
+
+💣 Piège classique  
+Modifier directement un conteneur pour corriger un problème, puis oublier de reproduire ces modifications dans le Dockerfile.  
+👉 Résultat : dès que le conteneur est supprimé ou recréé, toutes les modifications sont perdues.  
+👉 En pratique, cela crée des comportements incohérents entre environnements et rend le déploiement instable.
+
+🧠 Concept clé  
+Le Dockerfile est la source de vérité de ton application
+
+---
+
+## Cas réel en entreprise
+
+Un développeur veut déployer son application web :
+
+- il écrit un Dockerfile  
+- il construit une image  
+- il la déploie  
+
+👉 Résultat :
+
+- même comportement partout  
+- déploiement simplifié  
+- moins d’erreurs  
+
+---
+
+## Bonnes pratiques
+
+- Toujours versionner son Dockerfile  
+- Ne jamais modifier directement un conteneur  
+- Rebuild après chaque modification  
+
+---
+
+## Résumé
+
+Le Dockerfile permet de :
+
+- créer ses propres images  
+- automatiser le build  
+- standardiser les applications  
+
+👉 C’est l’outil central de Docker en production  
+
+---
+
+## Notes
+
+*Dockerfile : fichier décrivant les étapes pour construire une image Docker
+
+---
+[← Module précédent](docker_ch1_8.md) | [Module suivant →](docker_ch2_2.md)
+---

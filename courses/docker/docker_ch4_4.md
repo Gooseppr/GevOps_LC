@@ -1,0 +1,190 @@
+---
+layout: page
+title: "Volumes et networks dans Compose"
+
+course: docker
+theme: "Docker Compose"
+type: lesson
+
+chapter: 4
+section: 4
+
+tags: docker,compose,volumes,networks,architecture
+difficulty: intermediate
+duration: 50
+mermaid: true
+
+status: "published"
+---
+
+# Volumes et networks dans Compose
+
+## Objectifs pédagogiques
+
+- Déclarer et utiliser des volumes dans Compose  
+- Comprendre les réseaux implicites et explicites  
+- Partager des données entre services  
+- Structurer une architecture complète  
+
+---
+
+## Contexte et problématique
+
+Tu sais définir des services.
+
+👉 Mais une application réelle nécessite aussi :
+
+- du stockage  
+- de la communication réseau  
+
+👉 Compose permet de gérer tout ça dans un seul fichier.
+
+---
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[API] -->|network| B[(DB)]
+    A -->|volume| C[Data]
+    B -->|volume| C
+```
+
+---
+
+## Volumes dans Compose
+
+### Déclaration
+
+```yaml
+volumes:
+  db-data:
+```
+
+---
+
+### Utilisation
+
+```yaml
+services:
+  db:
+    image: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+```
+
+👉 Le volume est partagé et persistant
+
+---
+
+## Networks dans Compose
+
+### Réseau implicite
+
+👉 Par défaut, Compose crée un réseau automatique
+
+👉 Tous les services peuvent communiquer
+
+---
+
+### Réseau explicite
+
+```yaml
+networks:
+  app-net:
+
+services:
+  api:
+    networks:
+      - app-net
+
+  db:
+    networks:
+      - app-net
+```
+
+---
+
+## Exemple complet
+
+```yaml
+version: "3"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  db-data:
+```
+
+---
+
+## Fonctionnement interne
+
+💡 Astuce  
+Tu n’as pas besoin de définir un réseau dans la plupart des cas.
+
+⚠️ Erreur fréquente  
+Déclarer des volumes sans les utiliser correctement.
+
+💣 Piège classique  
+Penser que chaque service a ses propres volumes automatiquement.  
+👉 En réalité, il faut déclarer explicitement les volumes partagés.  
+👉 Sinon, les données ne seront pas persistantes ou accessibles entre services.
+
+🧠 Concept clé  
+Compose centralise réseau et stockage
+
+---
+
+## Cas réel
+
+Application classique :
+
+- API  
+- base de données  
+- stockage persistant  
+
+👉 Tout est géré dans le même fichier
+
+---
+
+## Bonnes pratiques
+
+- déclarer les volumes en bas du fichier  
+- utiliser les réseaux implicites sauf besoin spécifique  
+- structurer clairement les services  
+- éviter les configurations inutiles  
+
+---
+
+## Résumé
+
+Compose permet de :
+
+- gérer le stockage  
+- gérer le réseau  
+- centraliser l’architecture  
+
+👉 Un seul fichier = tout ton système  
+
+---
+
+## Notes
+
+*Volume : stockage persistant partagé  
+*Network : communication entre services
+
+---
+[← Module précédent](docker_ch4_3.md) | [Module suivant →](docker_ch4_5.md)
+---

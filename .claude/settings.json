@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -m1 \"^#\" c:/Users/grego/Documents/Coursite/courses/docker/docker_ch*.md)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Bash(sed -n '1,/^---$/p' \"c:/Users/grego/Documents/Coursite/courses/docker/$f.md\")",
+      "Bash(python pipeline/Z0_courses_prec_suiv.py)"
+    ]
+  }
+}
