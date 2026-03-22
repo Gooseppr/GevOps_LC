@@ -1621,7 +1621,7 @@
       "description": "Maîtriser Docker — des bases jusqu'à l'orchestration et le CI/CD.",
       "icon": "🐳",
       "status": "published",
-      "theme_group": "DevOps",
+      "theme_group": "Conteneur",
       "theme_group_icon": "🐳",
       "path": "/courses/docker/",
       "index_path": "/GevOps_LC/courses/docker/index.html",
