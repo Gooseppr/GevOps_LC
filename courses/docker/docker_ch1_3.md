@@ -48,7 +48,7 @@ Si cette différence n’est pas claire, tu risques :
 
 ## Définition
 
-### Image*
+### **Image**
 
 Une image est un modèle, une base.
 
@@ -61,7 +61,7 @@ Une image est un modèle, une base.
 
 ---
 
-### Conteneur*
+### **Conteneur**
 
 Un conteneur est une instance d’une image.
 
