@@ -8,6 +8,10 @@ theme: "Optimisation et administration"
 section: 1
 status: published
 title: "Optimisation des requêtes"
+prev_module: "/courses/SQL/sql_chapitre_16_transactions.html"
+prev_module_title: "Les transactions"
+next_module: "/courses/SQL/sql_chapitre_18_procedures_stockees.html"
+next_module_title: "Procédures stockées et fonctions"
 ---
 
 # Chapitre 17 — Optimisation des requêtes
@@ -235,7 +239,3 @@ L’optimisation SQL consiste à :
 - utiliser les index correctement
 
 Dans le prochain chapitre nous verrons **les procédures stockées**, qui permettent d'exécuter de la logique directement dans la base de données.
-
----
-[← Module précédent](sql_chapitre_16_transactions.md) | [Module suivant →](sql_chapitre_18_procedures_stockees.md)
----

@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 1
 status: published
 title: "Création de tables : CREATE TABLE"
+prev_module: "/courses/SQL/sql_chapitre_08_insert_update_delete.html"
+prev_module_title: "INSERT, UPDATE et DELETE"
+next_module: "/courses/SQL/sql_chapitre_10_types_donnees.html"
+next_module_title: "Les types de données"
 ---
 
 # Chapitre 9 — Création de tables : CREATE TABLE
@@ -226,7 +230,3 @@ Les éléments importants sont :
 - la clé primaire
 
 Dans le prochain chapitre nous verrons **les types de données SQL**, qui permettent de stocker correctement les informations.
-
----
-[← Module précédent](sql_chapitre_08_insert_update_delete.md) | [Module suivant →](sql_chapitre_10_types_donnees.md)
----

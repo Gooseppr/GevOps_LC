@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 5
 status: published
 title: "Les index"
+prev_module: "/courses/SQL/sql_chapitre_12_relations_normalisation.html"
+prev_module_title: "Relations entre tables et normalisation"
+next_module: "/courses/SQL/sql_chapitre_14_vues.html"
+next_module_title: "Les vues"
 ---
 
 # Chapitre 13 — Les index
@@ -189,7 +193,3 @@ Concepts importants :
 - index composite
 
 Dans le prochain chapitre nous verrons **les vues**, qui permettent de simplifier les requêtes complexes.
-
----
-[← Module précédent](sql_chapitre_12_relations_normalisation.md) | [Module suivant →](sql_chapitre_14_vues.md)
----

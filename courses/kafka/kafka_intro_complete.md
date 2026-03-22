@@ -15,6 +15,8 @@ duration: 70
 mermaid: true
 
 status: "En construction"
+next_module: "/courses/kafka/kafka_deep_dive_complete.html"
+next_module_title: "Kafka en profondeur"
 ---
 
 # Introduction à Apache Kafka
@@ -275,7 +277,3 @@ Kafka est :
 Le modèle principal :
 
 Producer → Kafka → Consumer
-
----
-[Module suivant →](kafka_deep_dive_complete.md)
----

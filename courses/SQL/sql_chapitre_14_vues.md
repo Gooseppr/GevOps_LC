@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 6
 status: published
 title: "Les vues"
+prev_module: "/courses/SQL/sql_chapitre_13_index.html"
+prev_module_title: "Les index"
+next_module: "/courses/SQL/sql_chapitre_15_sous_requetes.html"
+next_module_title: "Les sous-requêtes"
 ---
 
 # Chapitre 14 — Les vues
@@ -209,7 +213,3 @@ Les vues permettent de :
 - structurer les couches d’accès aux données
 
 Dans le prochain chapitre nous verrons **les sous‑requêtes**, qui permettent d’imbriquer des requêtes SQL.
-
----
-[← Module précédent](sql_chapitre_13_index.md) | [Module suivant →](sql_chapitre_15_sous_requetes.md)
----

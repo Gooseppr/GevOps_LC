@@ -8,6 +8,10 @@ theme: "Optimisation et administration"
 section: 2
 status: published
 title: "Procédures stockées et fonctions"
+prev_module: "/courses/SQL/sql_chapitre_17_optimisation_requetes.html"
+prev_module_title: "Optimisation des requêtes"
+next_module: "/courses/SQL/sql_chapitre_19_triggers.html"
+next_module_title: "Les triggers"
 ---
 
 # Chapitre 18 — Procédures stockées et fonctions
@@ -242,7 +246,3 @@ Les procédures stockées permettent :
 - de centraliser les règles métier
 
 Dans le prochain chapitre nous verrons **les triggers**, qui permettent d’exécuter du code automatiquement lors d’événements dans la base.
-
----
-[← Module précédent](sql_chapitre_17_optimisation_requetes.md) | [Module suivant →](sql_chapitre_19_triggers.md)
----

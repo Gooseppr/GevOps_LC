@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 3
 status: published
 title: "Les contraintes"
+prev_module: "/courses/SQL/sql_chapitre_10_types_donnees.html"
+prev_module_title: "Les types de données"
+next_module: "/courses/SQL/sql_chapitre_12_relations_normalisation.html"
+next_module_title: "Relations entre tables et normalisation"
 ---
 
 # Chapitre 11 — Les contraintes
@@ -226,7 +230,3 @@ Les principales contraintes sont :
 - DEFAULT
 
 Dans le prochain chapitre nous verrons **les relations entre tables et la normalisation**, qui permettent de structurer correctement une base de données.
-
----
-[← Module précédent](sql_chapitre_10_types_donnees.md) | [Module suivant →](sql_chapitre_12_relations_normalisation.md)
----

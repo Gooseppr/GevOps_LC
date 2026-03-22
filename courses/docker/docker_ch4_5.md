@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch4_4.html"
+prev_module_title: "Volumes et networks dans Compose"
+next_module: "/courses/docker/docker_ch4_6.html"
+next_module_title: "Variables d’environnement dans Docker Compose"
 ---
 
 # Lancer et gérer une stack Docker Compose
@@ -174,7 +178,3 @@ Docker Compose permet de :
 ## Notes
 
 *Stack : ensemble de services définis dans docker-compose.yml
-
----
-[← Module précédent](docker_ch4_4.md) | [Module suivant →](docker_ch4_6.md)
----

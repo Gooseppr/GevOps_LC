@@ -15,6 +15,10 @@ duration: 40
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch2_2.html"
+prev_module_title: "Instructions Dockerfile"
+next_module: "/courses/docker/docker_ch2_4.html"
+next_module_title: "Optimiser les images (layers et cache)"
 ---
 
 # Construire une image
@@ -161,7 +165,3 @@ Le build permet de :
 ## Notes
 
 *Build : processus de création d’une image Docker
-
----
-[← Module précédent](docker_ch2_2.md) | [Module suivant →](docker_ch2_4.md)
----

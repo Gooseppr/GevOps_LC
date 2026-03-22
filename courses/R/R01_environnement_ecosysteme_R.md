@@ -11,6 +11,8 @@ tags: R, CRAN, RStudio, packages, environnement
 theme: Fondations du langage R
 title: Module 1 --- Environnement et écosystème R
 type: lesson
+next_module: "/courses/R/R02_syntaxe_fondamentale_R.html"
+next_module_title: "Module 2 --- Syntaxe fondamentale du langage R"
 ---
 
 # Module 1 --- Environnement et écosystème R
@@ -351,7 +353,3 @@ help()
 ```
 
 Ce socle est indispensable pour commencer à travailler avec R.
-
----
-[Module suivant →](R02_syntaxe_fondamentale_R.md)
----

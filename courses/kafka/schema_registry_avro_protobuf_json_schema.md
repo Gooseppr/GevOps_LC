@@ -14,6 +14,8 @@ duration: 105
 mermaid: true
 
 status: "En construction"
+prev_module: "/courses/kafka/kafka_data_architecture_complete.html"
+prev_module_title: "Kafka dans une architecture Data Engineering"
 ---
 
 # Schema Registry et formats Avro / Protobuf / JSON Schema
@@ -1349,7 +1351,3 @@ Avec cette couche, elle devient beaucoup plus industrialisable.
 
 Le vrai gain n’est pas seulement technique.  
 Le vrai gain est organisationnel : les équipes peuvent évoluer plus vite sans casser tout le monde.
-
----
-[← Module précédent](kafka_data_architecture_complete.md)
----

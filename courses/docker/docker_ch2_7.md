@@ -15,6 +15,10 @@ duration: 40
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch2_6.html"
+prev_module_title: "Gestion des dépendances"
+next_module: "/courses/docker/docker_ch3_1.html"
+next_module_title: "Réseau Docker — communication entre conteneurs"
 ---
 
 # Bonnes pratiques Dockerfile
@@ -150,7 +154,3 @@ Un bon Dockerfile permet de :
 ## Notes
 
 *Bonnes pratiques : règles permettant d’améliorer qualité et performance
-
----
-[← Module précédent](docker_ch2_6.md) | [Module suivant →](docker_ch3_1.md)
----

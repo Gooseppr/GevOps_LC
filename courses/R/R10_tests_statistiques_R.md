@@ -11,6 +11,10 @@ tags: R, statistiques, tests, t-test, chi-square, ANOVA
 theme: Spécialisation Data Scientist
 title: Module 10 --- Tests statistiques
 type: lesson
+prev_module: "/courses/R/R09_probabilites_statistiques_R.html"
+prev_module_title: "Module 9 --- Probabilités et statistiques"
+next_module: "/courses/R/R11_modelisation_statistique_R.html"
+next_module_title: "Module 11 --- Modélisation statistique"
 ---
 
 # Module 10 --- Tests statistiques
@@ -273,7 +277,3 @@ aov()
 
 Ces tests permettent de **valider statistiquement les observations dans
 les données**.
-
----
-[← Module précédent](R09_probabilites_statistiques_R.md) | [Module suivant →](R11_modelisation_statistique_R.md)
----

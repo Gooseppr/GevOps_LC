@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_2.html"
+prev_module_title: "Initialiser un cluster Docker Swarm"
+next_module: "/courses/docker/docker_ch6_4.html"
+next_module_title: "Scaling et haute disponibilité"
 ---
 
 # Déployer un service avec Docker Swarm
@@ -184,7 +188,3 @@ Un service permet de :
 ## Notes
 
 *Service : abstraction permettant de gérer plusieurs conteneurs automatiquement
-
----
-[← Module précédent](docker_ch6_2.md) | [Module suivant →](docker_ch6_4.md)
----

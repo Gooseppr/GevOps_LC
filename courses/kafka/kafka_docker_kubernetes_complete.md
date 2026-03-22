@@ -15,6 +15,10 @@ duration: 100
 mermaid: true
 
 status: "En construction"
+prev_module: "/courses/kafka/kafka_connect_complete.html"
+prev_module_title: "Kafka Connect"
+next_module: "/courses/kafka/kafka_data_architecture_complete.html"
+next_module_title: "Kafka dans une architecture Data Engineering"
 ---
 
 # Kafka avec Docker et Kubernetes
@@ -361,7 +365,3 @@ Nous verrons comment Kafka s'intègre dans :
 - pipelines analytics
 - machine learning
 - architectures event-driven
-
----
-[← Module précédent](kafka_connect_complete.md) | [Module suivant →](kafka_data_architecture_complete.md)
----

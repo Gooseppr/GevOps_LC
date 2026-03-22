@@ -15,6 +15,10 @@ duration: 35
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_3.html"
+prev_module_title: "Comprendre images et conteneurs"
+next_module: "/courses/docker/docker_ch1_5.html"
+next_module_title: "Exposer des ports"
 ---
 
 # Exécuter et gérer des conteneurs
@@ -198,7 +202,3 @@ Un conteneur a un cycle de vie simple :
 
 *lifecycle : cycle de vie d’un conteneur  
 *graceful stop : arrêt propre sans couper brutalement
-
----
-[← Module précédent](docker_ch1_3.md) | [Module suivant →](docker_ch1_5.md)
----

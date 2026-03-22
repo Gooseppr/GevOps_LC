@@ -8,6 +8,10 @@ theme: "Optimisation et administration"
 section: 6
 status: published
 title: "Administration des bases de données"
+prev_module: "/courses/SQL/sql_chapitre_21_securite.html"
+prev_module_title: "Sécurité des bases de données"
+next_module: "/courses/SQL/sql_chapitre_23_sql_avance.html"
+next_module_title: "SQL avancé"
 ---
 
 # Chapitre 22 — Administration des bases de données
@@ -250,7 +254,3 @@ Dans le prochain chapitre nous verrons **le SQL avancé**, notamment :
 - requêtes récursives
 - window functions
 - SQL analytique.
-
----
-[← Module précédent](sql_chapitre_21_securite.md) | [Module suivant →](sql_chapitre_23_sql_avance.md)
----

@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch5_3.html"
+prev_module_title: "Vulnérabilités et scan des images"
+next_module: "/courses/docker/docker_ch6_1.html"
+next_module_title: "Introduction à Docker Swarm"
 ---
 
 # Optimisation avancée des images
@@ -154,7 +158,3 @@ Optimiser une image permet de :
 ## Notes
 
 *Optimisation : amélioration des performances et réduction des ressources utilisées
-
----
-[← Module précédent](docker_ch5_3.md) | [Module suivant →](docker_ch6_1.md)
----

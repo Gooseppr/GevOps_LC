@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch3_6.html"
+prev_module_title: "Stratégies de stockage"
+next_module: "/courses/docker/docker_ch4_2.html"
+next_module_title: "Structure du docker-compose.yml"
 ---
 
 # Docker Compose — Introduction par un projet réel
@@ -169,7 +173,3 @@ Docker Compose permet de :
 ## Notes
 
 *Docker Compose : outil permettant de gérer plusieurs conteneurs avec un fichier YAML
-
----
-[← Module précédent](docker_ch3_6.md) | [Module suivant →](docker_ch4_2.md)
----

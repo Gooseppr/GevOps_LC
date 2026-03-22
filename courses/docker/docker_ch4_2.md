@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch4_1.html"
+prev_module_title: "Docker Compose — Introduction par un projet réel"
+next_module: "/courses/docker/docker_ch4_3.html"
+next_module_title: "Définir des services (approfondi)"
 ---
 
 # Structure du docker-compose.yml
@@ -219,7 +223,3 @@ Le fichier docker-compose.yml permet de :
 ## Notes
 
 *YAML : format de fichier basé sur l’indentation pour structurer des données
-
----
-[← Module précédent](docker_ch4_1.md) | [Module suivant →](docker_ch4_3.md)
----

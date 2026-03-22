@@ -8,6 +8,10 @@ theme: "Requêtes et manipulation"
 section: 2
 status: published
 title: "Le modèle relationnel"
+prev_module: "/courses/SQL/sql_chapitre_01_introduction_bases_donnees.html"
+prev_module_title: "Introduction aux bases de données"
+next_module: "/courses/SQL/sql_chapitre_03_select.html"
+next_module_title: "SELECT : lire les données"
 ---
 
 # Chapitre 2 — Le modèle relationnel
@@ -279,7 +283,3 @@ Le modèle relationnel repose sur :
 Ces concepts sont indispensables pour comprendre les **JOIN** et écrire des requêtes SQL efficaces.
 
 Dans le prochain chapitre nous verrons **la première commande SQL : SELECT**, qui permet de lire les données.
-
----
-[← Module précédent](sql_chapitre_01_introduction_bases_donnees.md) | [Module suivant →](sql_chapitre_03_select.md)
----

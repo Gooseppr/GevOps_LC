@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_5.html"
+prev_module_title: "Déployer une stack avec Docker Swarm"
+next_module: "/courses/docker/docker_ch6_7.html"
+next_module_title: "Gestion des nodes et services"
 ---
 
 # Réseau Swarm (overlay network)
@@ -154,7 +158,3 @@ Le réseau overlay permet de :
 ## Notes
 
 *Overlay network : réseau permettant la communication entre conteneurs sur plusieurs machines
-
----
-[← Module précédent](docker_ch6_5.md) | [Module suivant →](docker_ch6_7.md)
----

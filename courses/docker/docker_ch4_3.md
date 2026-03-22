@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch4_2.html"
+prev_module_title: "Structure du docker-compose.yml"
+next_module: "/courses/docker/docker_ch4_4.html"
+next_module_title: "Volumes et networks dans Compose"
 ---
 
 # Définir des services (approfondi)
@@ -189,7 +193,3 @@ Définir un service permet de :
 ## Notes
 
 *Service : conteneur défini dans Docker Compose
-
----
-[← Module précédent](docker_ch4_2.md) | [Module suivant →](docker_ch4_4.md)
----

@@ -15,6 +15,10 @@ duration: 45
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_7.html"
+prev_module_title: "Gestion des nodes et services"
+next_module: "/courses/docker/docker_ch7_1.html"
+next_module_title: "Introduction au CI/CD avec Docker"
 ---
 
 # Bonnes pratiques Docker Swarm
@@ -154,7 +158,3 @@ Docker Swarm permet :
 ## Notes
 
 *Quorum : majorité nécessaire pour valider une décision dans un cluster
-
----
-[← Module précédent](docker_ch6_7.md) | [Module suivant →](docker_ch7_1.md)
----

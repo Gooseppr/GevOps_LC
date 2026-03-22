@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_1.html"
+prev_module_title: "Introduction à Docker Swarm"
+next_module: "/courses/docker/docker_ch6_3.html"
+next_module_title: "Déployer un service avec Docker Swarm"
 ---
 
 # Initialiser un cluster Docker Swarm
@@ -154,7 +158,3 @@ Initialiser un cluster permet de :
 
 *Manager : nœud qui contrôle le cluster  
 *Worker : nœud qui exécute les conteneurs
-
----
-[← Module précédent](docker_ch6_1.md) | [Module suivant →](docker_ch6_3.md)
----

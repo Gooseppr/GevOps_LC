@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_6.html"
+prev_module_title: "Réseau Swarm (overlay network)"
+next_module: "/courses/docker/docker_ch6_8.html"
+next_module_title: "Bonnes pratiques Docker Swarm"
 ---
 
 # Gestion des nodes et services
@@ -164,7 +168,3 @@ Swarm permet de :
 
 *Node : machine dans le cluster  
 *Rollback : retour à une version précédente
-
----
-[← Module précédent](docker_ch6_6.md) | [Module suivant →](docker_ch6_8.md)
----

@@ -11,6 +11,10 @@ tags: R, orchestration, pipelines, airflow, dagster, cron
 theme: Spécialisation Data Engineer
 title: Module 19 --- Orchestration des pipelines
 type: lesson
+prev_module: "/courses/R/R18_pipelines_donnees_R.html"
+prev_module_title: "Module 18 --- Pipelines de données"
+next_module: "/courses/R/R20_production_R.html"
+next_module_title: "Module 20 --- Production"
 ---
 
 # Module 19 --- Orchestration
@@ -250,7 +254,3 @@ Exemples d'outils :
 
 L'orchestration permet d'**automatiser, planifier et superviser les
 pipelines data**.
-
----
-[← Module précédent](R18_pipelines_donnees_R.md) | [Module suivant →](R20_production_R.md)
----

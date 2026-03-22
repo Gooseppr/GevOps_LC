@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch5_4.html"
+prev_module_title: "Optimisation avancée des images"
+next_module: "/courses/docker/docker_ch6_2.html"
+next_module_title: "Initialiser un cluster Docker Swarm"
 ---
 
 # Introduction à Docker Swarm
@@ -146,7 +150,3 @@ Docker Swarm permet de :
 
 *Docker Swarm : orchestrateur natif de Docker  
 *Orchestrateur : outil de gestion automatisée de conteneurs
-
----
-[← Module précédent](docker_ch5_4.md) | [Module suivant →](docker_ch6_2.md)
----

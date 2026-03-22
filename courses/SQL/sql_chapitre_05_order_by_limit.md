@@ -8,6 +8,10 @@ theme: "Requêtes et manipulation"
 section: 5
 status: published
 title: "Trier et limiter les résultats"
+prev_module: "/courses/SQL/sql_chapitre_04_where.html"
+prev_module_title: "Filtrer les données avec WHERE"
+next_module: "/courses/SQL/sql_chapitre_06_aggregation_groupby.html"
+next_module_title: "Fonctions d'agrégation et GROUP BY"
 ---
 
 # Chapitre 5 — Trier et limiter les résultats
@@ -323,7 +327,3 @@ Dans le prochain chapitre nous verrons **les fonctions d'agrégation** :
 - MIN
 - MAX
 - GROUP BY
-
----
-[← Module précédent](sql_chapitre_04_where.md) | [Module suivant →](sql_chapitre_06_aggregation_groupby.md)
----

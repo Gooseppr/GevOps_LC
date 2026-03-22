@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch5_1.html"
+prev_module_title: "Multi-stage build"
+next_module: "/courses/docker/docker_ch5_3.html"
+next_module_title: "Vulnérabilités et scan des images"
 ---
 
 # Sécurité des conteneurs
@@ -154,7 +158,3 @@ La sécurité Docker repose sur :
 ## Notes
 
 *Root : utilisateur avec tous les privilèges sur un système
-
----
-[← Module précédent](docker_ch5_1.md) | [Module suivant →](docker_ch5_3.md)
----

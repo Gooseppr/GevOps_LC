@@ -11,6 +11,10 @@ tags: R, parallel computing, future, parallel
 theme: Spécialisation Data Engineer
 title: Module 17 --- Parallélisation
 type: lesson
+prev_module: "/courses/R/R16_API_ingestion_R.html"
+prev_module_title: "Module 16 --- API et ingestion de données"
+next_module: "/courses/R/R18_pipelines_donnees_R.html"
+next_module_title: "Module 18 --- Pipelines de données"
 ---
 
 # Module 17 --- Parallélisation
@@ -283,7 +287,3 @@ future_lapply()
 
 La parallélisation permet d'**optimiser les pipelines data et réduire le
 temps de calcul**.
-
----
-[← Module précédent](R16_API_ingestion_R.md) | [Module suivant →](R18_pipelines_donnees_R.md)
----

@@ -11,6 +11,10 @@ tags: R, probabilités, statistiques, distributions
 theme: Spécialisation Data Scientist
 title: Module 9 --- Probabilités et statistiques
 type: lesson
+prev_module: "/courses/R/R08_EDA_R.html"
+prev_module_title: "Module 8 --- Analyse exploratoire de données (EDA)"
+next_module: "/courses/R/R10_tests_statistiques_R.html"
+next_module_title: "Module 10 --- Tests statistiques"
 ---
 
 # Module 9 --- Probabilités et statistiques
@@ -293,7 +297,3 @@ rbinom()
 
 Ces notions constituent la base de la **statistique et du machine
 learning**.
-
----
-[← Module précédent](R08_EDA_R.md) | [Module suivant →](R10_tests_statistiques_R.md)
----

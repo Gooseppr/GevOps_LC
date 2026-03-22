@@ -11,6 +11,10 @@ tags: R, big data, data.table, arrow, parquet
 theme: Spécialisation Data Engineer
 title: Module 14 --- Gestion de données volumineuses
 type: lesson
+prev_module: "/courses/R/R13_validation_feature_engineering_R.html"
+prev_module_title: "Module 13 --- Validation et Feature Engineering"
+next_module: "/courses/R/R15_bases_de_donnees_R.html"
+next_module_title: "Module 15 --- Bases de données"
 ---
 
 # Module 14 --- Gestion de données volumineuses
@@ -268,7 +272,3 @@ Concepts essentiels :
 -   performance
 -   gestion mémoire
 -   datasets massifs
-
----
-[← Module précédent](R13_validation_feature_engineering_R.md) | [Module suivant →](R15_bases_de_donnees_R.md)
----

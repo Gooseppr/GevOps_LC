@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch5_2.html"
+prev_module_title: "Sécurité des conteneurs"
+next_module: "/courses/docker/docker_ch5_4.html"
+next_module_title: "Optimisation avancée des images"
 ---
 
 # Vulnérabilités et scan des images
@@ -147,7 +151,3 @@ Le scan permet de :
 
 *Vulnérabilité : faille de sécurité exploitable  
 *Scan : analyse automatique de sécurité
-
----
-[← Module précédent](docker_ch5_2.md) | [Module suivant →](docker_ch5_4.md)
----

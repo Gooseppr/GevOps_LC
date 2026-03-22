@@ -11,6 +11,10 @@ tags: R, pipelines, ETL, data engineering
 theme: Spécialisation Data Engineer
 title: Module 18 --- Pipelines de données
 type: lesson
+prev_module: "/courses/R/R17_parallelisation_R.html"
+prev_module_title: "Module 17 --- Parallélisation"
+next_module: "/courses/R/R19_orchestration_R.html"
+next_module_title: "Module 19 --- Orchestration des pipelines"
 ---
 
 # Module 18 --- Pipelines de données
@@ -253,7 +257,3 @@ Concepts clés :
 
 Les pipelines sont essentiels pour **industrialiser le traitement des
 données**.
-
----
-[← Module précédent](R17_parallelisation_R.md) | [Module suivant →](R19_orchestration_R.md)
----

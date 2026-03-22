@@ -15,6 +15,10 @@ duration: 90
 mermaid: true
 
 status: "En construction"
+prev_module: "/courses/kafka/kafka_deep_dive_complete.html"
+prev_module_title: "Kafka en profondeur"
+next_module: "/courses/kafka/kafka_connect_complete.html"
+next_module_title: "Kafka Connect"
 ---
 
 # Kafka Streams
@@ -486,7 +490,3 @@ Dans le prochain module nous verrons :
 Kafka Connect.
 
 Kafka Connect permet d'**ingérer et d'exporter les données automatiquement** entre Kafka et les systèmes externes.
-
----
-[← Module précédent](kafka_deep_dive_complete.md) | [Module suivant →](kafka_connect_complete.md)
----

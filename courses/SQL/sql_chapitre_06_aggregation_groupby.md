@@ -8,6 +8,10 @@ theme: "Requêtes et manipulation"
 section: 6
 status: published
 title: "Fonctions d'agrégation et GROUP BY"
+prev_module: "/courses/SQL/sql_chapitre_05_order_by_limit.html"
+prev_module_title: "Trier et limiter les résultats"
+next_module: "/courses/SQL/sql_chapitre_07_join.html"
+next_module_title: "Les JOIN"
 ---
 
 # Chapitre 6 — Fonctions d’agrégation et GROUP BY
@@ -279,7 +283,3 @@ Concepts clés :
 - HAVING
 
 Dans le prochain chapitre nous verrons **les JOIN**, qui permettent de combiner plusieurs tables.
-
----
-[← Module précédent](sql_chapitre_05_order_by_limit.md) | [Module suivant →](sql_chapitre_07_join.md)
----

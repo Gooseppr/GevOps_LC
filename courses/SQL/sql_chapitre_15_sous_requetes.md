@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 7
 status: published
 title: "Les sous-requêtes"
+prev_module: "/courses/SQL/sql_chapitre_14_vues.html"
+prev_module_title: "Les vues"
+next_module: "/courses/SQL/sql_chapitre_16_transactions.html"
+next_module_title: "Les transactions"
 ---
 
 # Chapitre 15 — Les sous‑requêtes
@@ -214,7 +218,3 @@ Les sous‑requêtes permettent de :
 - filtrer des résultats à partir d'autres tables
 
 Dans le prochain chapitre nous verrons **les transactions**, qui permettent de garantir la cohérence des opérations dans une base de données.
-
----
-[← Module précédent](sql_chapitre_14_vues.md) | [Module suivant →](sql_chapitre_16_transactions.md)
----

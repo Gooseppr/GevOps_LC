@@ -12,6 +12,10 @@ tags: R, machine learning, validation, cross validation, feature
 theme: Spécialisation Data Scientist
 title: Module 13 --- Validation et Feature Engineering
 type: lesson
+prev_module: "/courses/R/R12_machine_learning_R.html"
+prev_module_title: "Module 12 --- Machine Learning"
+next_module: "/courses/R/R14_donnees_volumineuses_R.html"
+next_module_title: "Module 14 --- Gestion de données volumineuses"
 ---
 
 # Module 13 --- Validation et Feature Engineering
@@ -288,7 +292,3 @@ Dans ce module nous avons vu :
 
 Ces techniques permettent de construire des **modèles robustes et
 fiables**.
-
----
-[← Module précédent](R12_machine_learning_R.md) | [Module suivant →](R14_donnees_volumineuses_R.md)
----

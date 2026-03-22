@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch2_7.html"
+prev_module_title: "Bonnes pratiques Dockerfile"
+next_module: "/courses/docker/docker_ch3_2.html"
+next_module_title: "Communication entre conteneurs (approfondie)"
 ---
 
 # Réseau Docker — communication entre conteneurs
@@ -161,7 +165,3 @@ Les réseaux Docker permettent de :
 ## Notes
 
 *Réseau Docker : mécanisme permettant la communication entre conteneurs
-
----
-[← Module précédent](docker_ch2_7.md) | [Module suivant →](docker_ch3_2.md)
----

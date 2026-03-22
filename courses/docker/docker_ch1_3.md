@@ -15,6 +15,10 @@ duration: 30
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_2.html"
+prev_module_title: "Lancer son premier conteneur"
+next_module: "/courses/docker/docker_ch1_4.html"
+next_module_title: "Exécuter et gérer des conteneurs"
 ---
 
 # Comprendre images et conteneurs
@@ -184,7 +188,3 @@ Ensuite :
 *Image : modèle immuable servant à créer des conteneurs  
 *Conteneur : instance en cours d’exécution d’une image  
 *Immuable : qui ne change pas
-
----
-[← Module précédent](docker_ch1_2.md) | [Module suivant →](docker_ch1_4.md)
----

@@ -11,6 +11,10 @@ tags: R, machine learning, caret, tidymodels, random forest, clustering
 theme: Spécialisation Data Scientist
 title: Module 12 --- Machine Learning
 type: lesson
+prev_module: "/courses/R/R11_modelisation_statistique_R.html"
+prev_module_title: "Module 11 --- Modélisation statistique"
+next_module: "/courses/R/R13_validation_feature_engineering_R.html"
+next_module_title: "Module 13 --- Validation et Feature Engineering"
 ---
 
 # Module 12 --- Machine Learning
@@ -295,7 +299,3 @@ Algorithmes étudiés :
 
 Ces outils permettent de **prédire et découvrir des patterns dans les
 données**.
-
----
-[← Module précédent](R11_modelisation_statistique_R.md) | [Module suivant →](R13_validation_feature_engineering_R.md)
----

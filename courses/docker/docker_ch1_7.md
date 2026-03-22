@@ -15,6 +15,10 @@ duration: 30
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_6.html"
+prev_module_title: "Persister les données (volumes)"
+next_module: "/courses/docker/docker_ch1_8.html"
+next_module_title: "Logs et debug"
 ---
 
 # Interagir avec un conteneur
@@ -144,7 +148,3 @@ cat config.json
 - analyser un problème  
 
 👉 C’est un outil essentiel pour comprendre et debug Docker
-
----
-[← Module précédent](docker_ch1_6.md) | [Module suivant →](docker_ch1_8.md)
----

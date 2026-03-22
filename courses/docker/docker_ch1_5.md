@@ -15,6 +15,10 @@ duration: 30
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_4.html"
+prev_module_title: "Exécuter et gérer des conteneurs"
+next_module: "/courses/docker/docker_ch1_6.html"
+next_module_title: "Persister les données (volumes)"
 ---
 
 # Exposer des ports
@@ -174,7 +178,3 @@ Exposer un port permet de :
 ## Notes
 
 *Port : point d’accès réseau permettant de communiquer avec une application
-
----
-[← Module précédent](docker_ch1_4.md) | [Module suivant →](docker_ch1_6.md)
----

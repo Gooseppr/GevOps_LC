@@ -15,6 +15,10 @@ duration: 45
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch4_5.html"
+prev_module_title: "Lancer et gérer une stack Docker Compose"
+next_module: "/courses/docker/docker_ch4_7.html"
+next_module_title: "Debug et logs avec Docker Compose"
 ---
 
 # Variables d’environnement dans Docker Compose
@@ -153,7 +157,3 @@ Les variables dans Compose permettent de :
 ## Notes
 
 *Variable d’environnement : valeur utilisée pour configurer une application
-
----
-[← Module précédent](docker_ch4_5.md) | [Module suivant →](docker_ch4_7.md)
----

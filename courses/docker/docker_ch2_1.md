@@ -15,6 +15,10 @@ duration: 35
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_8.html"
+prev_module_title: "Logs et debug"
+next_module: "/courses/docker/docker_ch2_2.html"
+next_module_title: "Instructions Dockerfile"
 ---
 
 # Introduction au Dockerfile
@@ -177,7 +181,3 @@ Le Dockerfile permet de :
 ## Notes
 
 *Dockerfile : fichier décrivant les étapes pour construire une image Docker
-
----
-[← Module précédent](docker_ch1_8.md) | [Module suivant →](docker_ch2_2.md)
----

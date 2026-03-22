@@ -15,6 +15,10 @@ duration: 45
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch2_1.html"
+prev_module_title: "Introduction au Dockerfile"
+next_module: "/courses/docker/docker_ch2_3.html"
+next_module_title: "Construire une image"
 ---
 
 # Instructions Dockerfile
@@ -170,7 +174,3 @@ Les instructions Dockerfile permettent de :
 *RUN : exécute une commande  
 *COPY : copie des fichiers  
 *CMD : commande de démarrage
-
----
-[← Module précédent](docker_ch2_1.md) | [Module suivant →](docker_ch2_3.md)
----

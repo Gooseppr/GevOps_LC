@@ -15,6 +15,10 @@ duration: 60
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch7_1.html"
+prev_module_title: "Introduction au CI/CD avec Docker"
+next_module: "/courses/docker/docker_ch7_3.html"
+next_module_title: "Push vers un Docker Registry"
 ---
 
 # Pipeline CI avec GitHub Actions et Docker
@@ -169,7 +173,3 @@ GitHub Actions permet de :
 ## Notes
 
 *GitHub Actions : outil CI/CD intégré à GitHub
-
----
-[← Module précédent](docker_ch7_1.md) | [Module suivant →](docker_ch7_3.md)
----

@@ -11,6 +11,10 @@ tags: R, syntaxe, variables, types, conditions, boucles
 theme: Fondations du langage R
 title: Module 2 --- Syntaxe fondamentale du langage R
 type: lesson
+prev_module: "/courses/R/R01_environnement_ecosysteme_R.html"
+prev_module_title: "Module 1 --- Environnement et écosystème R"
+next_module: "/courses/R/R03_structures_donnees_R.html"
+next_module_title: "Module 3 --- Structures de données en R"
 ---
 
 # Module 2 --- Syntaxe fondamentale du langage R
@@ -399,7 +403,3 @@ Dans ce module nous avons appris :
 Ces éléments constituent la **syntaxe fondamentale du langage R**.
 
 Ils seront utilisés dans tous les modules suivants.
-
----
-[← Module précédent](R01_environnement_ecosysteme_R.md) | [Module suivant →](R03_structures_donnees_R.md)
----

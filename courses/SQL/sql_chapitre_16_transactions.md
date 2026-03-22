@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 8
 status: published
 title: "Les transactions"
+prev_module: "/courses/SQL/sql_chapitre_15_sous_requetes.html"
+prev_module_title: "Les sous-requêtes"
+next_module: "/courses/SQL/sql_chapitre_17_optimisation_requetes.html"
+next_module_title: "Optimisation des requêtes"
 ---
 
 # Chapitre 16 — Les transactions
@@ -212,7 +216,3 @@ Concepts importants :
 - propriétés **ACID**
 
 Dans le prochain chapitre nous entrerons dans le niveau avancé avec **l’optimisation des requêtes SQL**.
-
----
-[← Module précédent](sql_chapitre_15_sous_requetes.md) | [Module suivant →](sql_chapitre_17_optimisation_requetes.md)
----

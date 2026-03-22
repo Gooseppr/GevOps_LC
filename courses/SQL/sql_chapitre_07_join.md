@@ -8,6 +8,10 @@ theme: "Requêtes et manipulation"
 section: 7
 status: published
 title: "Les JOIN"
+prev_module: "/courses/SQL/sql_chapitre_06_aggregation_groupby.html"
+prev_module_title: "Fonctions d'agrégation et GROUP BY"
+next_module: "/courses/SQL/sql_chapitre_08_insert_update_delete.html"
+next_module_title: "INSERT, UPDATE et DELETE"
 ---
 
 # Chapitre 7 — Les JOIN
@@ -280,7 +284,3 @@ Types principaux :
 C'est un concept essentiel pour exploiter **les bases de données relationnelles**.
 
 Dans le prochain chapitre nous verrons **la manipulation des données : INSERT, UPDATE et DELETE**.
-
----
-[← Module précédent](sql_chapitre_06_aggregation_groupby.md) | [Module suivant →](sql_chapitre_08_insert_update_delete.md)
----

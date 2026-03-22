@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch3_3.html"
+prev_module_title: "Types de réseaux Docker"
+next_module: "/courses/docker/docker_ch3_5.html"
+next_module_title: "Partage de données entre conteneurs"
 ---
 
 # Volumes avancés
@@ -162,7 +166,3 @@ Docker propose deux types de stockage :
 
 *Volume : stockage géré par Docker  
 *Bind mount : lien direct avec un dossier local
-
----
-[← Module précédent](docker_ch3_3.md) | [Module suivant →](docker_ch3_5.md)
----

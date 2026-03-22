@@ -11,6 +11,10 @@ tags: R, ggplot2, visualisation, dataviz
 theme: Tronc commun Data
 title: Module 7 --- Visualisation de données avec ggplot2
 type: lesson
+prev_module: "/courses/R/R06_manipulation_donnees_R.html"
+prev_module_title: "Module 6 --- Manipulation de données avec dplyr et tidyr"
+next_module: "/courses/R/R08_EDA_R.html"
+next_module_title: "Module 8 --- Analyse exploratoire de données (EDA)"
 ---
 
 # Module 7 --- Visualisation de données
@@ -281,7 +285,3 @@ geom_boxplot()
 
 La visualisation est essentielle pour **explorer et communiquer les
 données**.
-
----
-[← Module précédent](R06_manipulation_donnees_R.md) | [Module suivant →](R08_EDA_R.md)
----

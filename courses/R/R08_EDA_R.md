@@ -11,6 +11,10 @@ tags: R, EDA, statistiques descriptives, corrélation, outliers
 theme: Tronc commun Data
 title: Module 8 --- Analyse exploratoire de données (EDA)
 type: lesson
+prev_module: "/courses/R/R07_visualisation_ggplot2.html"
+prev_module_title: "Module 7 --- Visualisation de données avec ggplot2"
+next_module: "/courses/R/R09_probabilites_statistiques_R.html"
+next_module_title: "Module 9 --- Probabilités et statistiques"
 ---
 
 # Module 8 --- Analyse exploratoire de données (EDA)
@@ -278,7 +282,3 @@ summary()
 ```
 
 L'EDA permet de **comprendre les données avant toute analyse avancée**.
-
----
-[← Module précédent](R07_visualisation_ggplot2.md) | [Module suivant →](R09_probabilites_statistiques_R.md)
----

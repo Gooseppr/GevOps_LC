@@ -15,6 +15,8 @@ duration: 60
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch7_3.html"
+prev_module_title: "Push vers un Docker Registry"
 ---
 
 # Déploiement automatique (CD)
@@ -153,7 +155,3 @@ Le CD permet de :
 ## Notes
 
 *CD : déploiement continu
-
----
-[← Module précédent](docker_ch7_3.md)
----

@@ -8,6 +8,10 @@ theme: "Optimisation et administration"
 section: 5
 status: published
 title: "Sécurité des bases de données"
+prev_module: "/courses/SQL/sql_chapitre_20_concurrence.html"
+prev_module_title: "Gestion de la concurrence"
+next_module: "/courses/SQL/sql_chapitre_22_administration_bdd.html"
+next_module_title: "Administration des bases de données"
 ---
 
 # Chapitre 21 — Sécurité des bases de données
@@ -206,7 +210,3 @@ Dans le prochain chapitre nous verrons **l’administration des bases de donnée
 - réplication
 - partitionnement
 - maintenance des bases.
-
----
-[← Module précédent](sql_chapitre_20_concurrence.md) | [Module suivant →](sql_chapitre_22_administration_bdd.md)
----

@@ -15,6 +15,10 @@ duration: 90
 mermaid: true
 
 status: "En construction"
+prev_module: "/courses/kafka/kafka_intro_complete.html"
+prev_module_title: "Introduction à Apache Kafka"
+next_module: "/courses/kafka/kafka_streams_complete.html"
+next_module_title: "Kafka Streams"
 ---
 
 # Kafka en profondeur
@@ -394,7 +398,3 @@ Ces mécanismes permettent :
 Dans le prochain module nous verrons :
 
 Kafka Streams.
-
----
-[← Module précédent](kafka_intro_complete.md) | [Module suivant →](kafka_streams_complete.md)
----

@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch4_6.html"
+prev_module_title: "Variables d’environnement dans Docker Compose"
+next_module: "/courses/docker/docker_ch5_1.html"
+next_module_title: "Multi-stage build"
 ---
 
 # Debug et logs avec Docker Compose
@@ -158,7 +162,3 @@ Docker Compose permet de :
 ## Notes
 
 *Logs : messages générés par les services pour indiquer leur état
-
----
-[← Module précédent](docker_ch4_6.md) | [Module suivant →](docker_ch5_1.md)
----

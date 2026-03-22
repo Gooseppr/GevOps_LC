@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch3_1.html"
+prev_module_title: "Réseau Docker — communication entre conteneurs"
+next_module: "/courses/docker/docker_ch3_3.html"
+next_module_title: "Types de réseaux Docker"
 ---
 
 # Communication entre conteneurs (approfondie)
@@ -167,7 +171,3 @@ Docker permet une communication simple entre conteneurs :
 ## Notes
 
 *DNS Docker : système interne de résolution de noms entre conteneurs
-
----
-[← Module précédent](docker_ch3_1.md) | [Module suivant →](docker_ch3_3.md)
----

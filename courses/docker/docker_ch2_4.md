@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch2_3.html"
+prev_module_title: "Construire une image"
+next_module: "/courses/docker/docker_ch2_5.html"
+next_module_title: "Variables d’environnement"
 ---
 
 # Optimiser les images (layers et cache)
@@ -179,7 +183,3 @@ Optimiser une image permet de :
 
 *Layer : couche créée à chaque instruction  
 *Cache : mécanisme de réutilisation des couches
-
----
-[← Module précédent](docker_ch2_3.md) | [Module suivant →](docker_ch2_5.md)
----

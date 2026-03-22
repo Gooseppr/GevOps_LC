@@ -11,6 +11,10 @@ tags: R, SQL, database, DBI, PostgreSQL, MySQL, SQLite
 theme: Spécialisation Data Engineer
 title: Module 15 --- Bases de données
 type: lesson
+prev_module: "/courses/R/R14_donnees_volumineuses_R.html"
+prev_module_title: "Module 14 --- Gestion de données volumineuses"
+next_module: "/courses/R/R16_API_ingestion_R.html"
+next_module_title: "Module 16 --- API et ingestion de données"
 ---
 
 # Module 15 --- Bases de données
@@ -321,7 +325,3 @@ dbDisconnect()
 
 Ces outils permettent d'intégrer R dans des **pipelines data connectés
 aux bases SQL**.
-
----
-[← Module précédent](R14_donnees_volumineuses_R.md) | [Module suivant →](R16_API_ingestion_R.md)
----

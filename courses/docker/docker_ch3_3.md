@@ -15,6 +15,10 @@ duration: 40
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch3_2.html"
+prev_module_title: "Communication entre conteneurs (approfondie)"
+next_module: "/courses/docker/docker_ch3_4.html"
+next_module_title: "Volumes avancés"
 ---
 
 # Types de réseaux Docker
@@ -148,7 +152,3 @@ Docker propose plusieurs types de réseaux :
 *Bridge : réseau par défaut avec isolation  
 *Host : réseau partagé avec la machine  
 *None : aucun réseau
-
----
-[← Module précédent](docker_ch3_2.md) | [Module suivant →](docker_ch3_4.md)
----

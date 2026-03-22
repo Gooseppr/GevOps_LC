@@ -15,6 +15,10 @@ duration: 110
 mermaid: true
 
 status: "En construction"
+prev_module: "/courses/kafka/kafka_docker_kubernetes_complete.html"
+prev_module_title: "Kafka avec Docker et Kubernetes"
+next_module: "/courses/kafka/schema_registry_avro_protobuf_json_schema.html"
+next_module_title: "Schema Registry et formats Avro / Protobuf / JSON Schema"
 ---
 
 # Kafka dans une architecture Data Engineering
@@ -435,7 +439,3 @@ Vous avez maintenant une vision complète :
 4. Kafka Connect
 5. Kafka deployment
 6. Kafka architecture data
-
----
-[← Module précédent](kafka_docker_kubernetes_complete.md) | [Module suivant →](schema_registry_avro_protobuf_json_schema.md)
----

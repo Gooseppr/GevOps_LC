@@ -8,6 +8,10 @@ theme: "Requêtes et manipulation"
 section: 3
 status: published
 title: "SELECT : lire les données"
+prev_module: "/courses/SQL/sql_chapitre_02_modele_relationnel.html"
+prev_module_title: "Le modèle relationnel"
+next_module: "/courses/SQL/sql_chapitre_04_where.html"
+next_module_title: "Filtrer les données avec WHERE"
 ---
 
 # Chapitre 3 — SELECT : lire les données
@@ -269,7 +273,3 @@ Les éléments fondamentaux sont :
 - les alias
 
 Dans le prochain chapitre nous verrrons **le filtrage des données avec WHERE**, qui permet de récupérer seulement certaines lignes.
-
----
-[← Module précédent](sql_chapitre_02_modele_relationnel.md) | [Module suivant →](sql_chapitre_04_where.md)
----

@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_4.html"
+prev_module_title: "Scaling et haute disponibilité"
+next_module: "/courses/docker/docker_ch6_6.html"
+next_module_title: "Réseau Swarm (overlay network)"
 ---
 
 # Déployer une stack avec Docker Swarm
@@ -179,7 +183,3 @@ Une stack permet de :
 ## Notes
 
 *Stack : ensemble de services déployés ensemble en Swarm
-
----
-[← Module précédent](docker_ch6_4.md) | [Module suivant →](docker_ch6_6.md)
----

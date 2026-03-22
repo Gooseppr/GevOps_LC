@@ -15,6 +15,10 @@ duration: 35
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_5.html"
+prev_module_title: "Exposer des ports"
+next_module: "/courses/docker/docker_ch1_7.html"
+next_module_title: "Interagir avec un conteneur"
 ---
 
 # Persister les données (volumes)
@@ -173,7 +177,3 @@ Les volumes permettent de :
 
 *Persistance : capacité à conserver des données dans le temps  
 *Volume : espace de stockage indépendant du conteneur
-
----
-[← Module précédent](docker_ch1_5.md) | [Module suivant →](docker_ch1_7.md)
----

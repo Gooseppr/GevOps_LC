@@ -15,6 +15,10 @@ duration: 30
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_1.html"
+prev_module_title: "Introduction à Docker"
+next_module: "/courses/docker/docker_ch1_3.html"
+next_module_title: "Comprendre images et conteneurs"
 ---
 
 # Lancer son premier conteneur
@@ -167,7 +171,3 @@ Elle permet de :
 - tester rapidement un service  
 
 👉 C’est le point d’entrée principal dans Docker
-
----
-[← Module précédent](docker_ch1_1.md) | [Module suivant →](docker_ch1_3.md)
----

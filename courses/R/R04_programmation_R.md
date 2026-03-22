@@ -11,6 +11,10 @@ tags: R, fonctions, programmation, apply, functional programming
 theme: Fondations du langage R
 title: Module 4 --- Programmation en R
 type: lesson
+prev_module: "/courses/R/R03_structures_donnees_R.html"
+prev_module_title: "Module 3 --- Structures de données en R"
+next_module: "/courses/R/R05_import_export_R.html"
+next_module_title: "Module 5 --- Import et export de données"
 ---
 
 # Module 4 --- Programmation en R
@@ -410,7 +414,3 @@ Dans ce module nous avons appris :
 -   appliquer la **programmation fonctionnelle**
 
 Ces concepts permettent de créer du **code R propre et réutilisable**.
-
----
-[← Module précédent](R03_structures_donnees_R.md) | [Module suivant →](R05_import_export_R.md)
----

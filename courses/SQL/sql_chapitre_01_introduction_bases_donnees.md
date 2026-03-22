@@ -8,6 +8,8 @@ theme: "Requêtes et manipulation"
 section: 1
 status: published
 title: "Introduction aux bases de données"
+next_module: "/courses/SQL/sql_chapitre_02_modele_relationnel.html"
+next_module_title: "Le modèle relationnel"
 ---
 
 # Chapitre 1 — Introduction aux bases de données
@@ -210,7 +212,3 @@ Dans ce chapitre nous avons vu :
 - comment une application interagit avec une base de données
 
 Dans le prochain chapitre nous verrons **le modèle relationnel**, qui est la base théorique du SQL.
-
----
-[Module suivant →](sql_chapitre_02_modele_relationnel.md)
----

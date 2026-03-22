@@ -15,6 +15,10 @@ duration: 60
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch7_2.html"
+prev_module_title: "Pipeline CI avec GitHub Actions et Docker"
+next_module: "/courses/docker/docker_ch7_4.html"
+next_module_title: "Déploiement automatique (CD)"
 ---
 
 # Push vers un Docker Registry
@@ -172,7 +176,3 @@ Le registry permet de :
 ## Notes
 
 *Registry : service de stockage d’images Docker
-
----
-[← Module précédent](docker_ch7_2.md) | [Module suivant →](docker_ch7_4.md)
----

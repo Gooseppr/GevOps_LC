@@ -15,6 +15,8 @@ duration: 20
 mermaid: false
 
 status: "published"
+next_module: "/courses/docker/docker_ch1_1.html"
+next_module_title: "Introduction à Docker"
 ---
 
 # D'où vient Docker
@@ -127,7 +129,3 @@ L’idée est née à Montrouge, en France, dans la startup dotCloud.
 ## Résumé
 
 Docker permet de rendre les applications portables, simples à déployer et fiables.
-
----
-[Module suivant →](docker_ch1_1.md)
----

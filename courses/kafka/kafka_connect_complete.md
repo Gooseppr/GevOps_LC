@@ -11,6 +11,10 @@ difficulty: intermediate
 duration: 95
 mermaid: true
 status: "En construction"
+prev_module: "/courses/kafka/kafka_streams_complete.html"
+prev_module_title: "Kafka Streams"
+next_module: "/courses/kafka/kafka_docker_kubernetes_complete.html"
+next_module_title: "Kafka avec Docker et Kubernetes"
 ---
 
 # Kafka Connect
@@ -441,7 +445,3 @@ Nous verrons comment :
 - gérer un cluster
 - monitorer Kafka
 - exploiter Kafka en production.
-
----
-[← Module précédent](kafka_streams_complete.md) | [Module suivant →](kafka_docker_kubernetes_complete.md)
----

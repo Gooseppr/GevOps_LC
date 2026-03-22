@@ -15,6 +15,10 @@ duration: 40
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch3_4.html"
+prev_module_title: "Volumes avancés"
+next_module: "/courses/docker/docker_ch3_6.html"
+next_module_title: "Stratégies de stockage"
 ---
 
 # Partage de données entre conteneurs
@@ -144,7 +148,3 @@ Le partage de données permet de :
 ## Notes
 
 *Volume partagé : volume utilisé par plusieurs conteneurs
-
----
-[← Module précédent](docker_ch3_4.md) | [Module suivant →](docker_ch3_6.md)
----

@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 4
 status: published
 title: "Relations entre tables et normalisation"
+prev_module: "/courses/SQL/sql_chapitre_11_contraintes.html"
+prev_module_title: "Les contraintes"
+next_module: "/courses/SQL/sql_chapitre_13_index.html"
+next_module_title: "Les index"
 ---
 
 # Chapitre 12 — Relations entre tables et normalisation
@@ -240,7 +244,3 @@ Les relations et la normalisation permettent de :
 - faciliter les évolutions du système
 
 Dans le prochain chapitre nous verrons **les index**, qui permettent d’améliorer les performances des requêtes SQL.
-
----
-[← Module précédent](sql_chapitre_11_contraintes.md) | [Module suivant →](sql_chapitre_13_index.md)
----

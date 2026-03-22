@@ -8,6 +8,10 @@ theme: "Requêtes et manipulation"
 section: 4
 status: published
 title: "Filtrer les données avec WHERE"
+prev_module: "/courses/SQL/sql_chapitre_03_select.html"
+prev_module_title: "SELECT : lire les données"
+next_module: "/courses/SQL/sql_chapitre_05_order_by_limit.html"
+next_module_title: "Trier et limiter les résultats"
 ---
 
 # Chapitre 4 — Filtrer les données avec WHERE
@@ -305,7 +309,3 @@ Les concepts clés sont :
 - NULL
 
 Dans le prochain chapitre nous verrons **le tri des résultats avec ORDER BY et la limitation avec LIMIT**.
-
----
-[← Module précédent](sql_chapitre_03_select.md) | [Module suivant →](sql_chapitre_05_order_by_limit.md)
----

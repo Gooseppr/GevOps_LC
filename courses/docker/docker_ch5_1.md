@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch4_7.html"
+prev_module_title: "Debug et logs avec Docker Compose"
+next_module: "/courses/docker/docker_ch5_2.html"
+next_module_title: "Sécurité des conteneurs"
 ---
 
 # Multi-stage build
@@ -167,7 +171,3 @@ Le multi-stage build permet de :
 ## Notes
 
 *Multi-stage build : technique utilisant plusieurs étapes pour construire une image optimisée
-
----
-[← Module précédent](docker_ch4_7.md) | [Module suivant →](docker_ch5_2.md)
----

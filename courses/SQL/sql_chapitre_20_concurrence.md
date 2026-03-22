@@ -8,6 +8,10 @@ theme: "Optimisation et administration"
 section: 4
 status: published
 title: "Gestion de la concurrence"
+prev_module: "/courses/SQL/sql_chapitre_19_triggers.html"
+prev_module_title: "Les triggers"
+next_module: "/courses/SQL/sql_chapitre_21_securite.html"
+next_module_title: "Sécurité des bases de données"
 ---
 
 # Chapitre 20 — Gestion de la concurrence
@@ -214,7 +218,3 @@ Concepts importants :
 - transactions concurrentes
 
 Dans le prochain chapitre nous verrons **la sécurité des bases de données**, notamment la gestion des utilisateurs et des permissions.
-
----
-[← Module précédent](sql_chapitre_19_triggers.md) | [Module suivant →](sql_chapitre_21_securite.md)
----

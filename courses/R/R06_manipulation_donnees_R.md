@@ -11,6 +11,10 @@ tags: R, dplyr, tidyr, data manipulation, tidyverse
 theme: Tronc commun Data
 title: Module 6 --- Manipulation de données avec dplyr et tidyr
 type: lesson
+prev_module: "/courses/R/R05_import_export_R.html"
+prev_module_title: "Module 5 --- Import et export de données"
+next_module: "/courses/R/R07_visualisation_ggplot2.html"
+next_module_title: "Module 7 --- Visualisation de données avec ggplot2"
 ---
 
 # Module 6 --- Manipulation de données
@@ -326,7 +330,3 @@ summarise()
 ```
 
 Ces outils sont au cœur de la **data analysis en R**.
-
----
-[← Module précédent](R05_import_export_R.md) | [Module suivant →](R07_visualisation_ggplot2.md)
----

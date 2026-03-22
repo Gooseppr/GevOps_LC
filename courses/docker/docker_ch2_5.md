@@ -15,6 +15,10 @@ duration: 35
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch2_4.html"
+prev_module_title: "Optimiser les images (layers et cache)"
+next_module: "/courses/docker/docker_ch2_6.html"
+next_module_title: "Gestion des dépendances"
 ---
 
 # Variables d’environnement
@@ -138,7 +142,3 @@ Les variables d’environnement permettent de :
 ## Notes
 
 *Variable d’environnement : valeur utilisée pour configurer une application
-
----
-[← Module précédent](docker_ch2_4.md) | [Module suivant →](docker_ch2_6.md)
----

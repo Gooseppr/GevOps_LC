@@ -15,6 +15,10 @@ duration: 40
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch2_5.html"
+prev_module_title: "Variables d’environnement"
+next_module: "/courses/docker/docker_ch2_7.html"
+next_module_title: "Bonnes pratiques Dockerfile"
 ---
 
 # Gestion des dépendances
@@ -147,7 +151,3 @@ La gestion des dépendances permet de :
 ## Notes
 
 *Dépendances : éléments nécessaires au fonctionnement d’une application
-
----
-[← Module précédent](docker_ch2_5.md) | [Module suivant →](docker_ch2_7.md)
----

@@ -14,3 +14,29 @@ layout: default
     {{ content }}
   </div>
 </article>
+
+{% if page.prev_module or page.next_module %}
+<nav class="module-nav" aria-label="Navigation entre modules">
+  {% if page.prev_module %}
+  <a class="module-nav-btn module-nav-prev" href="{{ page.prev_module | relative_url }}">
+    <span class="module-nav-arrow">←</span>
+    <span class="module-nav-text">
+      <span class="module-nav-hint">Module précédent</span>
+      <span class="module-nav-title">{{ page.prev_module_title }}</span>
+    </span>
+  </a>
+  {% else %}
+  <div></div>
+  {% endif %}
+
+  {% if page.next_module %}
+  <a class="module-nav-btn module-nav-next" href="{{ page.next_module | relative_url }}">
+    <span class="module-nav-text">
+      <span class="module-nav-hint">Module suivant</span>
+      <span class="module-nav-title">{{ page.next_module_title }}</span>
+    </span>
+    <span class="module-nav-arrow">→</span>
+  </a>
+  {% endif %}
+</nav>
+{% endif %}

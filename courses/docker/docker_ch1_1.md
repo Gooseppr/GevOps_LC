@@ -15,6 +15,10 @@ duration: 25
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_0.html"
+prev_module_title: "D'où vient Docker"
+next_module: "/courses/docker/docker_ch1_2.html"
+next_module_title: "Lancer son premier conteneur"
 ---
 
 # Introduction à Docker
@@ -185,7 +189,3 @@ Docker permet de lancer des applications dans des conteneurs.
 
 *Conteneur : environnement isolé pour exécuter une application  
 *Image : modèle servant à créer des conteneurs
-
----
-[← Module précédent](docker_ch1_0.md) | [Module suivant →](docker_ch1_2.md)
----

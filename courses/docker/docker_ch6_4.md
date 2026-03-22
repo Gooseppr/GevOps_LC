@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_3.html"
+prev_module_title: "Déployer un service avec Docker Swarm"
+next_module: "/courses/docker/docker_ch6_5.html"
+next_module_title: "Déployer une stack avec Docker Swarm"
 ---
 
 # Scaling et haute disponibilité
@@ -169,7 +173,3 @@ Le scaling permet :
 *Scaling : ajustement du nombre d’instances  
 *Haute disponibilité : capacité à rester fonctionnel malgré les pannes  
 *Stateless : application sans état stocké localement
-
----
-[← Module précédent](docker_ch6_3.md) | [Module suivant →](docker_ch6_5.md)
----

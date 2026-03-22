@@ -15,6 +15,10 @@ duration: 30
 mermaid: false
 
 status: "published"
+prev_module: "/courses/docker/docker_ch1_7.html"
+prev_module_title: "Interagir avec un conteneur"
+next_module: "/courses/docker/docker_ch2_1.html"
+next_module_title: "Introduction au Dockerfile"
 ---
 
 # Logs et debug
@@ -159,7 +163,3 @@ Les logs permettent de :
 ## Notes
 
 *Logs : messages générés par une application pour indiquer son état et ses erreurs
-
----
-[← Module précédent](docker_ch1_7.md) | [Module suivant →](docker_ch2_1.md)
----

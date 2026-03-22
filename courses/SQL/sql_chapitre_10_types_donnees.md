@@ -8,6 +8,10 @@ theme: "Conception et structure"
 section: 2
 status: published
 title: "Les types de données"
+prev_module: "/courses/SQL/sql_chapitre_09_create_table.html"
+prev_module_title: "Création de tables : CREATE TABLE"
+next_module: "/courses/SQL/sql_chapitre_11_contraintes.html"
+next_module_title: "Les contraintes"
 ---
 
 # Chapitre 10 — Les types de données
@@ -225,7 +229,3 @@ Les principaux types sont :
 - JSON
 
 Dans le prochain chapitre nous verrons **les contraintes**, qui permettent de garantir l’intégrité des données.
-
----
-[← Module précédent](sql_chapitre_09_create_table.md) | [Module suivant →](sql_chapitre_11_contraintes.md)
----

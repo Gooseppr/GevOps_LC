@@ -11,6 +11,10 @@ tags: R, import, export, csv, excel, json, api, database
 theme: Tronc commun Data
 title: Module 5 --- Import et export de données
 type: lesson
+prev_module: "/courses/R/R04_programmation_R.html"
+prev_module_title: "Module 4 --- Programmation en R"
+next_module: "/courses/R/R06_manipulation_donnees_R.html"
+next_module_title: "Module 6 --- Manipulation de données avec dplyr et tidyr"
 ---
 
 # Module 5 --- Import et export de données
@@ -300,7 +304,3 @@ Nous avons utilisé les packages :
 -   **DBI**
 
 Ces outils constituent la base de tout workflow Data.
-
----
-[← Module précédent](R04_programmation_R.md) | [Module suivant →](R06_manipulation_donnees_R.md)
----

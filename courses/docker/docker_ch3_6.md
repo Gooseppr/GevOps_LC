@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch3_5.html"
+prev_module_title: "Partage de données entre conteneurs"
+next_module: "/courses/docker/docker_ch4_1.html"
+next_module_title: "Docker Compose — Introduction par un projet réel"
 ---
 
 # Stratégies de stockage
@@ -170,7 +174,3 @@ Une bonne stratégie de stockage permet de :
 ## Notes
 
 *Stratégie de stockage : manière de gérer les données d’une application
-
----
-[← Module précédent](docker_ch3_5.md) | [Module suivant →](docker_ch4_1.md)
----

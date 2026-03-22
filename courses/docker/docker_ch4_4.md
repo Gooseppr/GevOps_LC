@@ -15,6 +15,10 @@ duration: 50
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch4_3.html"
+prev_module_title: "Définir des services (approfondi)"
+next_module: "/courses/docker/docker_ch4_5.html"
+next_module_title: "Lancer et gérer une stack Docker Compose"
 ---
 
 # Volumes et networks dans Compose
@@ -184,7 +188,3 @@ Compose permet de :
 
 *Volume : stockage persistant partagé  
 *Network : communication entre services
-
----
-[← Module précédent](docker_ch4_3.md) | [Module suivant →](docker_ch4_5.md)
----

@@ -8,6 +8,10 @@ theme: "Requêtes et manipulation"
 section: 8
 status: published
 title: "INSERT, UPDATE et DELETE"
+prev_module: "/courses/SQL/sql_chapitre_07_join.html"
+prev_module_title: "Les JOIN"
+next_module: "/courses/SQL/sql_chapitre_09_create_table.html"
+next_module_title: "Création de tables : CREATE TABLE"
 ---
 
 # Chapitre 8 — Manipulation des données : INSERT, UPDATE et DELETE
@@ -260,7 +264,3 @@ Les commandes de manipulation permettent de modifier les données :
 Ces commandes doivent être utilisées **avec prudence**.
 
 Dans la suite de la formation nous passerons au **niveau intermédiaire**, où nous verrons comment **concevoir et structurer une base de données**.
-
----
-[← Module précédent](sql_chapitre_07_join.md) | [Module suivant →](sql_chapitre_09_create_table.md)
----

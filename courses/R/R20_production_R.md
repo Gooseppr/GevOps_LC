@@ -11,6 +11,8 @@ tags: R, production, deployment, reporting, shiny, rmarkdown
 theme: Spécialisation Data Engineer
 title: Module 20 --- Production
 type: lesson
+prev_module: "/courses/R/R19_orchestration_R.html"
+prev_module_title: "Module 19 --- Orchestration des pipelines"
 ---
 
 # Module 20 --- Production
@@ -267,7 +269,3 @@ Concepts clés :
 -   automatisation
 -   génération de rapports
 -   déploiement d'applications data
-
----
-[← Module précédent](R19_orchestration_R.md)
----

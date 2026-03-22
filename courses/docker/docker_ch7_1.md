@@ -15,6 +15,10 @@ duration: 45
 mermaid: true
 
 status: "published"
+prev_module: "/courses/docker/docker_ch6_8.html"
+prev_module_title: "Bonnes pratiques Docker Swarm"
+next_module: "/courses/docker/docker_ch7_2.html"
+next_module_title: "Pipeline CI avec GitHub Actions et Docker"
 ---
 
 # Introduction au CI/CD avec Docker
@@ -161,7 +165,3 @@ CI/CD permet de :
 *CI : intégration continue  
 *CD : déploiement continu  
 *Registry : stockage d’images Docker
-
----
-[← Module précédent](docker_ch6_8.md) | [Module suivant →](docker_ch7_2.md)
----

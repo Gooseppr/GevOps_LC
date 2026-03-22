@@ -8,6 +8,8 @@ theme: "Optimisation et administration"
 section: 7
 status: published
 title: "SQL avancé"
+prev_module: "/courses/SQL/sql_chapitre_22_administration_bdd.html"
+prev_module_title: "Administration des bases de données"
 ---
 
 # Chapitre 23 — SQL avancé
@@ -254,7 +256,3 @@ Ces techniques sont largement utilisées dans :
 - **Data Engineering**
 - **Data Analytics**
 - **Business Intelligence**
-
----
-[← Module précédent](sql_chapitre_22_administration_bdd.md)
----

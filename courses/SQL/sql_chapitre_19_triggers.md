@@ -8,6 +8,10 @@ theme: "Optimisation et administration"
 section: 3
 status: published
 title: "Les triggers"
+prev_module: "/courses/SQL/sql_chapitre_18_procedures_stockees.html"
+prev_module_title: "Procédures stockées et fonctions"
+next_module: "/courses/SQL/sql_chapitre_20_concurrence.html"
+next_module_title: "Gestion de la concurrence"
 ---
 
 # Chapitre 19 — Les triggers
@@ -234,7 +238,3 @@ Concepts importants :
 - `NEW` et `OLD`
 
 Dans le prochain chapitre nous verrons **la gestion de la concurrence**, qui explique comment les bases gèrent plusieurs utilisateurs simultanément.
-
----
-[← Module précédent](sql_chapitre_18_procedures_stockees.md) | [Module suivant →](sql_chapitre_20_concurrence.md)
----
