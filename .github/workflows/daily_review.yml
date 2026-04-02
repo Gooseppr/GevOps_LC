@@ -1,0 +1,41 @@
+name: Daily Review Email
+
+on:
+  schedule:
+    # Tous les jours à 10h00 heure de Paris
+    # UTC+2 (été, mars→oct)  → 08:00 UTC  ✓
+    # UTC+1 (hiver, oct→mar) → 09:00 UTC  (soit 10h heure locale)
+    - cron: '0 8 * * *'
+  workflow_dispatch:   # Permet aussi de lancer manuellement depuis GitHub
+
+jobs:
+  send-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install keyring keyrings.alt
+
+      - name: Extract snippets (mise à jour du cache)
+        run: python pipeline/Z0_extract_snippets.py
+
+      - name: Send daily review email
+        env:
+          YAHOO_APP_PASSWORD: ${{ secrets.YAHOO_APP_PASSWORD }}
+        run: python pipeline/ZZ_daily_review.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name  "Coursite Bot"
+          git config user.email "actions@github.com"
+          git add _data/snippets.json pipeline/review_state.json
+          git diff --cached --quiet || git commit -m "chore: daily review state $(date +%Y-%m-%d)"
+          git push
