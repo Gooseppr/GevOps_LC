@@ -2,24 +2,29 @@
   "users": {
     "austinpwr@yahoo.com": {
       "sent_ids": [
-        "cron_redirection_logs",
-        "docker_run_interactif",
-        "sql_cle_etrangere_relation",
-        "bash_set_strict",
-        "sql_update_delete_sans_where",
-        "sql_where_parentheses_and_or",
-        "docker_rm_conteneur",
-        "docker_stop_conteneur",
-        "sql_join_sans_on_cartesien",
-        "bash_shebang_strict",
-        "docker_run_hello_world",
-        "sql_cle_primaire_proprietes",
-        "docker_ps_actifs",
         "sql_definition_langage",
-        "docker_run_detache"
+        "bash_shebang_strict",
+        "docker_run_interactif",
+        "cron_redirection_logs",
+        "sql_where_vs_having",
+        "bash_set_strict",
+        "docker_run_hello_world",
+        "sql_update_delete_sans_where",
+        "sql_join_sans_on_cartesien",
+        "sql_where_parentheses_and_or",
+        "sql_cle_etrangere_relation",
+        "docker_run_detache",
+        "docker_ps_actifs",
+        "git_decide_command_tip",
+        "docker_stop_conteneur",
+        "sql_cle_primaire_proprietes",
+        "docker_run_port_mapping",
+        "sql_float_argent_interdit",
+        "docker_start_conteneur",
+        "docker_rm_conteneur"
       ],
       "cycle": 1,
-      "last_sent": "2026-04-02"
+      "last_sent": "2026-04-03"
     }
   }
 }
