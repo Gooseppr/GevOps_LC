@@ -557,11 +557,12 @@ def build_email_html(snippets, today_str, user_name, cycle, total_seen, total_av
 def send_email(html_body, to_email, user_name, smtp_cfg, subject_template, password):
     today_str = date.today().strftime('%d/%m/%Y')
     subject   = subject_template.format(date=today_str, name=user_name)
-    from_addr = smtp_cfg['login']
+    from_addr    = smtp_cfg['login']
+    from_display = smtp_cfg.get('from_email', from_addr)
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject
-    msg['From']    = from_addr
+    msg['From']    = from_display
     msg['To']      = to_email
     msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 

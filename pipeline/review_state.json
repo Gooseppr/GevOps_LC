@@ -1,41 +1,25 @@
 {
   "users": {
     "austinpwr@yahoo.com": {
+      "sent_ids": [],
+      "cycle": 1,
+      "last_sent": null
+    },
+    "austinpwr@zohomail.eu": {
       "sent_ids": [
-        "sql_definition_langage",
-        "bash_shebang_strict",
-        "docker_run_interactif",
-        "cron_redirection_logs",
-        "sql_where_vs_having",
-        "bash_set_strict",
-        "docker_run_hello_world",
-        "sql_update_delete_sans_where",
-        "sql_join_sans_on_cartesien",
-        "sql_where_parentheses_and_or",
-        "sql_cle_etrangere_relation",
-        "docker_run_detache",
-        "docker_ps_actifs",
-        "git_decide_command_tip",
-        "docker_stop_conteneur",
-        "sql_cle_primaire_proprietes",
-        "docker_run_port_mapping",
-        "sql_float_argent_interdit",
-        "docker_start_conteneur",
-        "docker_rm_conteneur"
+        "ansible_pro_overlay_network_stack",
+        "aws_ec2_user_data_tip",
+        "aws_iam_cli_list_users",
+        "ansible_pro_overlay_external_network",
+        "agile_scrum_sprint_cycle"
       ],
       "cycle": 1,
       "last_sent": "2026-04-03"
     },
-    "austinpwr@zohomail.eu": {
-      "sent_ids": [
-        "agile_scrum_sprint_cycle",
-        "ansible_pro_overlay_network_stack",
-        "aws_iam_cli_list_users",
-        "ansible_pro_tags_playbook",
-        "aws_iam_role_usage"
-      ],
+    "gregoire.elmacin@gmail.com": {
+      "sent_ids": [],
       "cycle": 1,
-      "last_sent": "2026-04-03"
+      "last_sent": null
     }
   }
 }
