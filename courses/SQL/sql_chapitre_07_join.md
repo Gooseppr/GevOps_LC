@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 7
 status: published
 title: "Les JOIN"
@@ -287,7 +287,6 @@ Dans le prochain chapitre nous verrons **la manipulation des données : INSERT, 
 
 <!-- snippet
 id: sql_inner_vs_left_join
-type: concept
 tech: sql
 level: beginner
 importance: high
@@ -302,7 +301,6 @@ description: Utiliser INNER JOIN quand la correspondance est garantie, LEFT JOIN
 
 <!-- snippet
 id: sql_join_sans_on_cartesien
-type: warning
 tech: sql
 level: beginner
 importance: high

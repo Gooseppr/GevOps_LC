@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 6
 status: published
 title: "Fonctions d'agrégation et GROUP BY"
@@ -286,7 +286,6 @@ Dans le prochain chapitre nous verrons **les JOIN**, qui permettent de combiner 
 
 <!-- snippet
 id: sql_where_vs_having
-type: concept
 tech: sql
 level: beginner
 importance: high
@@ -301,7 +300,6 @@ description: Utiliser HAVING à la place de WHERE sur une colonne non agrégée 
 
 <!-- snippet
 id: sql_group_by_colonne_non_agregee
-type: error
 tech: sql
 level: beginner
 importance: high

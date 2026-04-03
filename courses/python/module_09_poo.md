@@ -3,8 +3,7 @@ layout: page
 title: "Programmation orientée objet (POO) en Python"
 
 course: python
-theme: "POO, Qualité & Tests"
-type: lesson
+chapter_title: "POO, Qualité & Tests"
 
 chapter: 2
 section: 1
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 90
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 9
-status: "draft"
+status: draft
 ---
 
 # Programmation orientée objet (POO) en Python
@@ -147,7 +142,6 @@ Chaque classe représente une entité métier.
 
 <!-- snippet
 id: python_class_definition
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -160,7 +154,6 @@ description: Base de la POO
 
 <!-- snippet
 id: python_object_instance
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -173,7 +166,6 @@ description: Utilisation réelle
 
 <!-- snippet
 id: python_poo_overengineering
-type: warning
 tech: python
 level: intermediate
 importance: high
@@ -186,7 +178,6 @@ description: piège fréquent
 
 <!-- snippet
 id: python_composition_vs_inheritance
-type: concept
 tech: python
 level: intermediate
 importance: medium

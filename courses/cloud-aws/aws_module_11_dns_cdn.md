@@ -3,8 +3,7 @@ layout: page
 title: "DNS & CDN — Route 53 et CloudFront"
 
 course: cloud-aws
-theme: "Services & Architecture"
-type: lesson
+chapter_title: "Services & Architecture"
 
 chapter: 2
 section: 3
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 85
 mermaid: true
 
-theme_icon: "globe"
-theme_group: 2
-theme_group_icon: "cloud"
-theme_order: 11
-status: "published"
+status: published
 ---
 
 # DNS & CDN — Route 53 et CloudFront
@@ -129,7 +124,6 @@ Ensemble, ils améliorent performance et disponibilité.
 
 <!-- snippet
 id: aws_dns_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -142,7 +136,6 @@ description: Base réseau
 
 <!-- snippet
 id: aws_route53_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -155,7 +148,6 @@ description: DNS AWS
 
 <!-- snippet
 id: aws_cloudfront_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -168,7 +160,6 @@ description: CDN AWS
 
 <!-- snippet
 id: aws_dns_ttl_warning
-type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -181,7 +172,6 @@ description: Piège DNS classique
 
 <!-- snippet
 id: aws_route53_command
-type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -194,7 +184,6 @@ description: Permet de voir les zones DNS
 
 <!-- snippet
 id: aws_cdn_tip
-type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -207,7 +196,6 @@ description: Optimisation clé web
 
 <!-- snippet
 id: aws_dns_error
-type: error
 tech: aws
 level: intermediate
 importance: high

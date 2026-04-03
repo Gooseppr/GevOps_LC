@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 8
 status: published
 title: "INSERT, UPDATE et DELETE"
@@ -267,7 +267,6 @@ Dans la suite de la formation nous passerons au **niveau intermédiaire**, où n
 
 <!-- snippet
 id: sql_update_delete_sans_where
-type: warning
 tech: sql
 level: beginner
 importance: high
@@ -283,7 +282,6 @@ description: Erreur irréversible si aucune transaction n'est ouverte. Tester d'
 
 <!-- snippet
 id: sql_tester_select_avant_update
-type: tip
 tech: sql
 level: beginner
 importance: high

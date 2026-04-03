@@ -40,7 +40,7 @@ layout: default
   <h2 class="courses-heading">Thèmes</h2>
   <div class="themes-grid">
 
-    {% assign course_groups = site.data.courses | group_by: "theme_group" %}
+    {% assign course_groups = site.data.courses | group_by: "domain" %}
     {% for group in course_groups %}
       {% if group.name == "" %}
         {% for course in group.items %}
@@ -52,7 +52,7 @@ layout: default
         {% endfor %}
       {% else %}
         {% assign group_id = group.name | downcase | replace: ' ', '-' %}
-        {% assign group_icon = group.items[0].theme_group_icon %}
+        {% assign group_icon = group.items[0].domain_icon %}
         <button class="theme-card theme-group-btn" data-group="{{ group_id }}">
           <span class="theme-icon">{{ group_icon }}</span>
           <span class="theme-name">{{ group.name }}</span>

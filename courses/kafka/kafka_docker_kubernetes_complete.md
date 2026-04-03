@@ -3,8 +3,7 @@ layout: page
 title: "Kafka avec Docker et Kubernetes"
 
 course: kafka
-theme: "Streaming de données"
-type: lesson
+chapter_title: "Streaming de données"
 
 chapter: 1
 section: 5
@@ -14,7 +13,7 @@ difficulty: intermediate
 duration: 100
 mermaid: true
 
-status: "En construction"
+status: En construction
 prev_module: "/courses/kafka/kafka_connect_complete.html"
 prev_module_title: "Kafka Connect"
 next_module: "/courses/kafka/kafka_data_architecture_complete.html"

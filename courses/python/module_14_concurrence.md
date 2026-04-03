@@ -3,8 +3,7 @@ layout: page
 title: "Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)"
 
 course: python
-theme: "Concurrence, Logging & Données"
-type: lesson
+chapter_title: "Concurrence, Logging & Données"
 
 chapter: 2
 section: 6
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 110
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 14
-status: "draft"
+status: draft
 ---
 
 # Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)
@@ -214,7 +209,6 @@ Phrase clé : **Le bon modèle de concurrence dépend du type de charge (I/O vs 
 
 <!-- snippet
 id: python_gil_definition
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -227,7 +221,6 @@ description: Utiliser multiprocessing pour CPU-bound
 
 <!-- snippet
 id: python_io_cpu_choice
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -240,7 +233,6 @@ description: Décision clé pour performance
 
 <!-- snippet
 id: python_thread_example
-type: command
 tech: python
 level: intermediate
 importance: medium
@@ -253,7 +245,6 @@ description: Démarre un thread et attend sa fin
 
 <!-- snippet
 id: python_asyncio_run
-type: command
 tech: python
 level: intermediate
 importance: medium
@@ -266,7 +257,6 @@ description: Lance une coroutine avec l'event loop
 
 <!-- snippet
 id: python_race_condition_warning
-type: warning
 tech: python
 level: intermediate
 importance: high
@@ -279,7 +269,6 @@ description: Bug critique en concurrence
 
 <!-- snippet
 id: python_async_tip
-type: tip
 tech: python
 level: intermediate
 importance: medium
@@ -292,7 +281,6 @@ description: Meilleure scalabilité I/O
 
 <!-- snippet
 id: python_multiprocessing_tip
-type: tip
 tech: python
 level: intermediate
 importance: high
@@ -305,7 +293,6 @@ description: Contourne le GIL
 
 <!-- snippet
 id: python_thread_warning_cpu
-type: warning
 tech: python
 level: intermediate
 importance: high

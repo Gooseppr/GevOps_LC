@@ -4,7 +4,7 @@ course: SQL
 difficulty: intermediate
 duration: 75
 layout: page
-theme: "Conception et structure"
+chapter_title: "Conception et structure"
 section: 7
 status: published
 title: "Les sous-requêtes"
@@ -221,7 +221,6 @@ Dans le prochain chapitre nous verrons **les transactions**, qui permettent de g
 
 <!-- snippet
 id: sql_sous_requete_from_table_temp
-type: tip
 tech: sql
 level: intermediate
 importance: medium
@@ -242,7 +241,6 @@ description: Alternative aux CTE (WITH) pour les cas simples d'une seule sous-re
 
 <!-- snippet
 id: sql_exists_vs_in_performance
-type: tip
 tech: sql
 level: intermediate
 importance: medium

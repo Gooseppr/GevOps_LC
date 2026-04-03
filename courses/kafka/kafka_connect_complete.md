@@ -2,15 +2,14 @@
 layout: page
 title: "Kafka Connect"
 course: kafka
-theme: "Streaming de données"
-type: lesson
+chapter_title: "Streaming de données"
 chapter: 1
 section: 4
 tags: kafka, kafka-connect, data-engineering, ingestion, cdc
 difficulty: intermediate
 duration: 95
 mermaid: true
-status: "En construction"
+status: En construction
 prev_module: "/courses/kafka/kafka_streams_complete.html"
 prev_module_title: "Kafka Streams"
 next_module: "/courses/kafka/kafka_docker_kubernetes_complete.html"

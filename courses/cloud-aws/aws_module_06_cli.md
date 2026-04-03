@@ -3,8 +3,7 @@ layout: page
 title: "AWS CLI — Outils et automatisation"
 
 course: cloud-aws
-theme: "Fondations AWS"
-type: lesson
+chapter_title: "Fondations AWS"
 
 chapter: 1
 section: 6
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 70
 mermaid: false
 
-theme_icon: "terminal"
-theme_group: 1
-theme_group_icon: "cloud"
-theme_order: 6
-status: "published"
+status: published
 ---
 
 # AWS CLI — Outils et automatisation
@@ -136,7 +131,6 @@ Il remplace la console pour les usages professionnels.
 
 <!-- snippet
 id: aws_cli_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -149,7 +143,6 @@ description: Outil central DevOps AWS
 
 <!-- snippet
 id: aws_cli_configure_command
-type: command
 tech: aws
 level: beginner
 importance: high
@@ -162,7 +155,6 @@ description: Permet de configurer les credentials AWS
 
 <!-- snippet
 id: aws_cli_profile_usage
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -175,7 +167,6 @@ description: Indispensable en entreprise
 
 <!-- snippet
 id: aws_cli_access_denied_error
-type: error
 tech: aws
 level: beginner
 importance: high
@@ -188,7 +179,6 @@ description: Erreur fréquente AWS CLI
 
 <!-- snippet
 id: aws_cli_security_tip
-type: tip
 tech: aws
 level: beginner
 importance: medium

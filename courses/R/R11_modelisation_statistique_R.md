@@ -8,9 +8,8 @@ mermaid: true
 section: 11
 status: published
 tags: R, modélisation, régression, statistiques, glm
-theme: Spécialisation Data Scientist
+chapter_title: Spécialisation Data Scientist
 title: Module 11 --- Modélisation statistique
-type: lesson
 prev_module: "/courses/R/R10_tests_statistiques_R.html"
 prev_module_title: "Module 10 --- Tests statistiques"
 next_module: "/courses/R/R12_machine_learning_R.html"

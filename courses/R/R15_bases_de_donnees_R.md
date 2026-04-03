@@ -8,9 +8,8 @@ mermaid: true
 section: 15
 status: published
 tags: R, SQL, database, DBI, PostgreSQL, MySQL, SQLite
-theme: Spécialisation Data Engineer
+chapter_title: Spécialisation Data Engineer
 title: Module 15 --- Bases de données
-type: lesson
 prev_module: "/courses/R/R14_donnees_volumineuses_R.html"
 prev_module_title: "Module 14 --- Gestion de données volumineuses"
 next_module: "/courses/R/R16_API_ingestion_R.html"

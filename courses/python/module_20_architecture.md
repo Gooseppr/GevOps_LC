@@ -3,8 +3,7 @@ layout: page
 title: "Architecture Python (Clean Architecture & Hexagonale)"
 
 course: python
-theme: "Architecture & Performance"
-type: lesson
+chapter_title: "Architecture & Performance"
 
 chapter: 3
 section: 1
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 20
-status: "draft"
+status: draft
 ---
 
 # Architecture Python (Clean Architecture & Hexagonale)
@@ -132,7 +127,6 @@ Phrase clé : **Un bon code sans architecture devient un mauvais projet.**
 
 <!-- snippet
 id: python_clean_architecture
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -145,7 +139,6 @@ description: base architecture moderne
 
 <!-- snippet
 id: python_domain_logic
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -158,7 +151,6 @@ description: principe fondamental
 
 <!-- snippet
 id: python_architecture_warning
-type: warning
 tech: python
 level: advanced
 importance: high

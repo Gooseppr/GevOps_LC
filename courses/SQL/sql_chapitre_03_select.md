@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 3
 status: published
 title: "SELECT : lire les données"
@@ -276,7 +276,6 @@ Dans le prochain chapitre nous verrrons **le filtrage des données avec WHERE**,
 
 <!-- snippet
 id: sql_select_colonnes
-type: command
 tech: sql
 level: beginner
 importance: high
@@ -289,7 +288,6 @@ description: Récupère uniquement les colonnes listées. Préférer cette forme
 
 <!-- snippet
 id: sql_select_star_warning
-type: warning
 tech: sql
 level: beginner
 importance: medium
@@ -306,7 +304,6 @@ description: Réservé à l'exploration rapide, jamais dans du code de productio
 
 <!-- snippet
 id: sql_alias_colonne
-type: tip
 tech: sql
 level: beginner
 importance: medium

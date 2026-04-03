@@ -5,8 +5,9 @@
     "description": "Scripts, outils et orchestration pour automatiser vos infrastructures",
     "icon": "⚙️",
     "status": "En construction",
-    "theme_group": "Automatisation",
-    "theme_group_icon": "⚙️",
+    "domain": "Automatisation",
+    "domain_icon": "⚙️",
+    "domain_order": "30",
     "path": "/courses/automation/",
     "index_path": "/GevOps_LC/courses/automation/index.html",
     "themes": [
@@ -18,7 +19,7 @@
             "title": "Ansible — Introduction et concepts fondamentaux",
             "path": "/GevOps_LC/courses/automation/ansible-introduction.html",
             "file": "ansible-introduction.md",
-            "theme": "Orchestration",
+            "chapter_title": "Orchestration",
             "chapter": 1,
             "section": 1,
             "tags": [
@@ -28,7 +29,6 @@
               "automation",
               "idempotence"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": true
@@ -43,8 +43,9 @@
     "description": "Infrastructure cloud, services AWS, déploiements et bonnes pratiques.",
     "icon": "☁️",
     "status": "En construction",
-    "theme_group": "",
-    "theme_group_icon": "",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
     "path": "/courses/cloud-aws/",
     "index_path": "/GevOps_LC/courses/cloud-aws/index.html",
     "themes": [
@@ -56,7 +57,7 @@
             "title": "Concepts Cloud & Modèles AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_01_concepts_cloud.html",
             "file": "aws_module_01_concepts_cloud.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 1,
             "tags": [
@@ -67,7 +68,6 @@
               "paas",
               "saas"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "45",
             "mermaid": true
@@ -76,7 +76,7 @@
             "title": "IAM — Gestion des identités AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_02_iam.html",
             "file": "aws_module_02_iam.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 2,
             "tags": [
@@ -86,7 +86,6 @@
               "authentication",
               "authorization"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": true
@@ -95,7 +94,7 @@
             "title": "EC2 — Compute AWS (instances, réseau, bootstrap)",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_03_ec2.html",
             "file": "aws_module_03_ec2.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 3,
             "tags": [
@@ -105,7 +104,6 @@
               "network",
               "security"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "75",
             "mermaid": true
@@ -114,7 +112,7 @@
             "title": "Stockage AWS — S3 / EBS / EFS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_04_storage.html",
             "file": "aws_module_04_storage.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 4,
             "tags": [
@@ -124,7 +122,6 @@
               "ebs",
               "efs"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "80",
             "mermaid": true
@@ -133,7 +130,7 @@
             "title": "Réseau AWS — VPC, Subnets, Routing",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_05_vpc.html",
             "file": "aws_module_05_vpc.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 5,
             "tags": [
@@ -143,7 +140,6 @@
               "subnet",
               "nat"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "90",
             "mermaid": true
@@ -152,7 +148,7 @@
             "title": "AWS CLI — Outils et automatisation",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_06_cli.html",
             "file": "aws_module_06_cli.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 6,
             "tags": [
@@ -162,7 +158,6 @@
               "devops",
               "tools"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "70",
             "mermaid": false
@@ -171,7 +166,7 @@
             "title": "Monitoring AWS — CloudWatch (metrics, logs, alerting)",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_07_cloudwatch.html",
             "file": "aws_module_07_cloudwatch.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 7,
             "tags": [
@@ -181,7 +176,6 @@
               "logs",
               "metrics"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "80",
             "mermaid": true
@@ -190,7 +184,7 @@
             "title": "Sécurité AWS — IAM, MFA, Encryption",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_08_security.html",
             "file": "aws_module_08_security.md",
-            "theme": "Fondations AWS",
+            "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 8,
             "tags": [
@@ -200,7 +194,6 @@
               "encryption",
               "iam"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "85",
             "mermaid": true
@@ -215,7 +208,7 @@
             "title": "Load Balancer & Auto Scaling — Scalabilité AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_09_load_balancing.html",
             "file": "aws_module_09_load_balancing.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 1,
             "tags": [
@@ -225,7 +218,6 @@
               "scalability",
               "highavailability"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "90",
             "mermaid": true
@@ -234,7 +226,7 @@
             "title": "Bases de données AWS — RDS, Aurora, DynamoDB",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_10_databases.html",
             "file": "aws_module_10_databases.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 2,
             "tags": [
@@ -244,7 +236,6 @@
               "dynamodb",
               "database"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "95",
             "mermaid": true
@@ -253,7 +244,7 @@
             "title": "DNS & CDN — Route 53 et CloudFront",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_11_dns_cdn.html",
             "file": "aws_module_11_dns_cdn.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 3,
             "tags": [
@@ -263,7 +254,6 @@
               "cloudfront",
               "cdn"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "85",
             "mermaid": true
@@ -272,7 +262,7 @@
             "title": "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_12_security_advanced.html",
             "file": "aws_module_12_security_advanced.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 4,
             "tags": [
@@ -283,7 +273,6 @@
               "waf",
               "shield"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "95",
             "mermaid": true
@@ -292,7 +281,7 @@
             "title": "Infrastructure as Code — Terraform & CloudFormation",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_13_iac.html",
             "file": "aws_module_13_iac.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 5,
             "tags": [
@@ -302,7 +291,6 @@
               "iac",
               "devops"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "100",
             "mermaid": true
@@ -311,7 +299,7 @@
             "title": "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_14_cicd.html",
             "file": "aws_module_14_cicd.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 6,
             "tags": [
@@ -321,7 +309,6 @@
               "codebuild",
               "codedeploy"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "100",
             "mermaid": true
@@ -330,7 +317,7 @@
             "title": "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_15_observability.html",
             "file": "aws_module_15_observability.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 7,
             "tags": [
@@ -341,7 +328,6 @@
               "logs",
               "tracing"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "110",
             "mermaid": true
@@ -350,7 +336,7 @@
             "title": "Multi-environnement AWS — dev, staging, prod & multi-account",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_16_multi_env.html",
             "file": "aws_module_16_multi_env.md",
-            "theme": "Services & Architecture",
+            "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 8,
             "tags": [
@@ -361,7 +347,6 @@
               "prod",
               "multiaccount"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "90",
             "mermaid": true
@@ -376,7 +361,7 @@
             "title": "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_17_ha.html",
             "file": "aws_module_17_ha.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 1,
             "tags": [
@@ -386,7 +371,6 @@
               "failover",
               "dr"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -395,7 +379,7 @@
             "title": "Architecture Serverless — Lambda, API Gateway, Event-driven",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_18_serverless.html",
             "file": "aws_module_18_serverless.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 2,
             "tags": [
@@ -405,7 +389,6 @@
               "serverless",
               "eventdriven"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -414,7 +397,7 @@
             "title": "Performance & optimisation — Caching, Latence, Tuning AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_19_performance.html",
             "file": "aws_module_19_performance.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 3,
             "tags": [
@@ -424,7 +407,6 @@
               "latency",
               "optimization"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -433,7 +415,7 @@
             "title": "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_20_security_zero_trust.html",
             "file": "aws_module_20_security_zero_trust.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 4,
             "tags": [
@@ -443,7 +425,6 @@
               "network",
               "cloudtrail"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -452,7 +433,7 @@
             "title": "FinOps & optimisation des coûts AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_21_finops.html",
             "file": "aws_module_21_finops.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 5,
             "tags": [
@@ -462,7 +443,6 @@
               "pricing",
               "optimization"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "100",
             "mermaid": true
@@ -471,7 +451,7 @@
             "title": "Architectures distribuées — Microservices, SQS, SNS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_22_distributed.html",
             "file": "aws_module_22_distributed.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 6,
             "tags": [
@@ -481,7 +461,6 @@
               "sns",
               "architecture"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -490,7 +469,7 @@
             "title": "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_23_resilience.html",
             "file": "aws_module_23_resilience.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 7,
             "tags": [
@@ -500,7 +479,6 @@
               "retry",
               "circuitbreaker"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -509,7 +487,7 @@
             "title": "Gouvernance AWS — Organizations, Tagging, Compliance",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_24_governance.html",
             "file": "aws_module_24_governance.md",
-            "theme": "Architecture Avancée",
+            "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 8,
             "tags": [
@@ -519,7 +497,6 @@
               "tagging",
               "compliance"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -534,8 +511,9 @@
     "description": "Maîtriser Docker — des bases jusqu'à l'orchestration et le CI/CD.",
     "icon": "🐳",
     "status": "published",
-    "theme_group": "Conteneur",
-    "theme_group_icon": "🐳",
+    "domain": "Conteneur",
+    "domain_icon": "🐳",
+    "domain_order": "10",
     "path": "/courses/docker/",
     "index_path": "/GevOps_LC/courses/docker/index.html",
     "themes": [
@@ -547,7 +525,7 @@
             "title": "D'où vient Docker",
             "path": "/GevOps_LC/courses/docker/docker_ch1_0.html",
             "file": "docker_ch1_0.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 0,
             "tags": [
@@ -556,7 +534,6 @@
               "introduction",
               "histoire"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "20",
             "mermaid": false
@@ -565,7 +542,7 @@
             "title": "Introduction à Docker",
             "path": "/GevOps_LC/courses/docker/docker_ch1_1.html",
             "file": "docker_ch1_1.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 1,
             "tags": [
@@ -575,7 +552,6 @@
               "image",
               "commande"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "25",
             "mermaid": false
@@ -584,7 +560,7 @@
             "title": "Lancer son premier conteneur",
             "path": "/GevOps_LC/courses/docker/docker_ch1_2.html",
             "file": "docker_ch1_2.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 2,
             "tags": [
@@ -594,7 +570,6 @@
               "run",
               "terminal"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "30",
             "mermaid": false
@@ -603,7 +578,7 @@
             "title": "Comprendre images et conteneurs",
             "path": "/GevOps_LC/courses/docker/docker_ch1_3.html",
             "file": "docker_ch1_3.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 3,
             "tags": [
@@ -613,7 +588,6 @@
               "concepts",
               "run"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "30",
             "mermaid": true
@@ -622,7 +596,7 @@
             "title": "Exécuter et gérer des conteneurs",
             "path": "/GevOps_LC/courses/docker/docker_ch1_4.html",
             "file": "docker_ch1_4.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 4,
             "tags": [
@@ -632,7 +606,6 @@
               "lifecycle",
               "commandes"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "35",
             "mermaid": true
@@ -641,7 +614,7 @@
             "title": "Exposer des ports",
             "path": "/GevOps_LC/courses/docker/docker_ch1_5.html",
             "file": "docker_ch1_5.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 5,
             "tags": [
@@ -651,7 +624,6 @@
               "run",
               "nginx"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "30",
             "mermaid": true
@@ -660,7 +632,7 @@
             "title": "Persister les données (volumes)",
             "path": "/GevOps_LC/courses/docker/docker_ch1_6.html",
             "file": "docker_ch1_6.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 6,
             "tags": [
@@ -670,7 +642,6 @@
               "persistance",
               "data"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "35",
             "mermaid": true
@@ -679,7 +650,7 @@
             "title": "Interagir avec un conteneur",
             "path": "/GevOps_LC/courses/docker/docker_ch1_7.html",
             "file": "docker_ch1_7.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 7,
             "tags": [
@@ -689,7 +660,6 @@
               "terminal",
               "debug"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "30",
             "mermaid": false
@@ -698,7 +668,7 @@
             "title": "Logs et debug",
             "path": "/GevOps_LC/courses/docker/docker_ch1_8.html",
             "file": "docker_ch1_8.md",
-            "theme": "Prise en main",
+            "chapter_title": "Prise en main",
             "chapter": 1,
             "section": 8,
             "tags": [
@@ -708,7 +678,6 @@
               "monitoring",
               "commandes"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "30",
             "mermaid": false
@@ -723,7 +692,7 @@
             "title": "Introduction au Dockerfile",
             "path": "/GevOps_LC/courses/docker/docker_ch2_1.html",
             "file": "docker_ch2_1.md",
-            "theme": "Dockerfile et images",
+            "chapter_title": "Dockerfile et images",
             "chapter": 2,
             "section": 1,
             "tags": [
@@ -733,7 +702,6 @@
               "build",
               "conteneur"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "35",
             "mermaid": true
@@ -742,7 +710,7 @@
             "title": "Instructions Dockerfile",
             "path": "/GevOps_LC/courses/docker/docker_ch2_2.html",
             "file": "docker_ch2_2.md",
-            "theme": "Dockerfile et images",
+            "chapter_title": "Dockerfile et images",
             "chapter": 2,
             "section": 2,
             "tags": [
@@ -753,7 +721,6 @@
               "copy",
               "cmd"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "45",
             "mermaid": false
@@ -762,7 +729,7 @@
             "title": "Construire une image",
             "path": "/GevOps_LC/courses/docker/docker_ch2_3.html",
             "file": "docker_ch2_3.md",
-            "theme": "Dockerfile et images",
+            "chapter_title": "Dockerfile et images",
             "chapter": 2,
             "section": 3,
             "tags": [
@@ -772,7 +739,6 @@
               "dockerfile",
               "context"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "40",
             "mermaid": true
@@ -781,7 +747,7 @@
             "title": "Optimiser les images (layers et cache)",
             "path": "/GevOps_LC/courses/docker/docker_ch2_4.html",
             "file": "docker_ch2_4.md",
-            "theme": "Dockerfile et images",
+            "chapter_title": "Dockerfile et images",
             "chapter": 2,
             "section": 4,
             "tags": [
@@ -791,7 +757,6 @@
               "optimisation",
               "performance"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "45",
             "mermaid": true
@@ -800,7 +765,7 @@
             "title": "Variables d’environnement",
             "path": "/GevOps_LC/courses/docker/docker_ch2_5.html",
             "file": "docker_ch2_5.md",
-            "theme": "Dockerfile et images",
+            "chapter_title": "Dockerfile et images",
             "chapter": 2,
             "section": 5,
             "tags": [
@@ -809,7 +774,6 @@
               "configuration",
               "variables"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "35",
             "mermaid": false
@@ -818,7 +782,7 @@
             "title": "Gestion des dépendances",
             "path": "/GevOps_LC/courses/docker/docker_ch2_6.html",
             "file": "docker_ch2_6.md",
-            "theme": "Dockerfile et images",
+            "chapter_title": "Dockerfile et images",
             "chapter": 2,
             "section": 6,
             "tags": [
@@ -828,7 +792,6 @@
               "python",
               "build"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "40",
             "mermaid": false
@@ -837,7 +800,7 @@
             "title": "Bonnes pratiques Dockerfile",
             "path": "/GevOps_LC/courses/docker/docker_ch2_7.html",
             "file": "docker_ch2_7.md",
-            "theme": "Dockerfile et images",
+            "chapter_title": "Dockerfile et images",
             "chapter": 2,
             "section": 7,
             "tags": [
@@ -846,7 +809,6 @@
               "bonnes-pratiques",
               "optimisation"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "40",
             "mermaid": false
@@ -861,7 +823,7 @@
             "title": "Réseau Docker — communication entre conteneurs",
             "path": "/GevOps_LC/courses/docker/docker_ch3_1.html",
             "file": "docker_ch3_1.md",
-            "theme": "Réseau et volumes",
+            "chapter_title": "Réseau et volumes",
             "chapter": 3,
             "section": 1,
             "tags": [
@@ -871,7 +833,6 @@
               "communication",
               "network"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "45",
             "mermaid": true
@@ -880,7 +841,7 @@
             "title": "Communication entre conteneurs (approfondie)",
             "path": "/GevOps_LC/courses/docker/docker_ch3_2.html",
             "file": "docker_ch3_2.md",
-            "theme": "Réseau et volumes",
+            "chapter_title": "Réseau et volumes",
             "chapter": 3,
             "section": 2,
             "tags": [
@@ -890,7 +851,6 @@
               "ports",
               "communication"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "50",
             "mermaid": true
@@ -899,7 +859,7 @@
             "title": "Types de réseaux Docker",
             "path": "/GevOps_LC/courses/docker/docker_ch3_3.html",
             "file": "docker_ch3_3.md",
-            "theme": "Réseau et volumes",
+            "chapter_title": "Réseau et volumes",
             "chapter": 3,
             "section": 3,
             "tags": [
@@ -909,7 +869,6 @@
               "host",
               "none"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "40",
             "mermaid": true
@@ -918,7 +877,7 @@
             "title": "Volumes avancés",
             "path": "/GevOps_LC/courses/docker/docker_ch3_4.html",
             "file": "docker_ch3_4.md",
-            "theme": "Réseau et volumes",
+            "chapter_title": "Réseau et volumes",
             "chapter": 3,
             "section": 4,
             "tags": [
@@ -928,7 +887,6 @@
               "stockage",
               "data"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "45",
             "mermaid": true
@@ -937,7 +895,7 @@
             "title": "Partage de données entre conteneurs",
             "path": "/GevOps_LC/courses/docker/docker_ch3_5.html",
             "file": "docker_ch3_5.md",
-            "theme": "Réseau et volumes",
+            "chapter_title": "Réseau et volumes",
             "chapter": 3,
             "section": 5,
             "tags": [
@@ -947,7 +905,6 @@
               "conteneurs",
               "data"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "40",
             "mermaid": true
@@ -956,7 +913,7 @@
             "title": "Stratégies de stockage",
             "path": "/GevOps_LC/courses/docker/docker_ch3_6.html",
             "file": "docker_ch3_6.md",
-            "theme": "Réseau et volumes",
+            "chapter_title": "Réseau et volumes",
             "chapter": 3,
             "section": 6,
             "tags": [
@@ -966,7 +923,6 @@
               "bind-mount",
               "architecture"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "45",
             "mermaid": true
@@ -981,7 +937,7 @@
             "title": "Docker Compose — Introduction par un projet réel",
             "path": "/GevOps_LC/courses/docker/docker_ch4_1.html",
             "file": "docker_ch4_1.md",
-            "theme": "Docker Compose",
+            "chapter_title": "Docker Compose",
             "chapter": 4,
             "section": 1,
             "tags": [
@@ -992,7 +948,6 @@
               "api",
               "db"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "50",
             "mermaid": true
@@ -1001,7 +956,7 @@
             "title": "Structure du docker-compose.yml",
             "path": "/GevOps_LC/courses/docker/docker_ch4_2.html",
             "file": "docker_ch4_2.md",
-            "theme": "Docker Compose",
+            "chapter_title": "Docker Compose",
             "chapter": 4,
             "section": 2,
             "tags": [
@@ -1011,7 +966,6 @@
               "services",
               "configuration"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "50",
             "mermaid": true
@@ -1020,7 +974,7 @@
             "title": "Définir des services (approfondi)",
             "path": "/GevOps_LC/courses/docker/docker_ch4_3.html",
             "file": "docker_ch4_3.md",
-            "theme": "Docker Compose",
+            "chapter_title": "Docker Compose",
             "chapter": 4,
             "section": 3,
             "tags": [
@@ -1031,7 +985,6 @@
               "depends_on",
               "restart"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "50",
             "mermaid": true
@@ -1040,7 +993,7 @@
             "title": "Volumes et networks dans Compose",
             "path": "/GevOps_LC/courses/docker/docker_ch4_4.html",
             "file": "docker_ch4_4.md",
-            "theme": "Docker Compose",
+            "chapter_title": "Docker Compose",
             "chapter": 4,
             "section": 4,
             "tags": [
@@ -1050,7 +1003,6 @@
               "networks",
               "architecture"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "50",
             "mermaid": true
@@ -1059,7 +1011,7 @@
             "title": "Lancer et gérer une stack Docker Compose",
             "path": "/GevOps_LC/courses/docker/docker_ch4_5.html",
             "file": "docker_ch4_5.md",
-            "theme": "Docker Compose",
+            "chapter_title": "Docker Compose",
             "chapter": 4,
             "section": 5,
             "tags": [
@@ -1071,7 +1023,6 @@
               "build",
               "lifecycle"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "50",
             "mermaid": true
@@ -1080,7 +1031,7 @@
             "title": "Variables d'environnement dans Docker Compose",
             "path": "/GevOps_LC/courses/docker/docker_ch4_6.html",
             "file": "docker_ch4_6.md",
-            "theme": "Docker Compose",
+            "chapter_title": "Docker Compose",
             "chapter": 4,
             "section": 6,
             "tags": [
@@ -1090,7 +1041,6 @@
               "configuration",
               "yaml"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "45",
             "mermaid": false
@@ -1099,7 +1049,7 @@
             "title": "Debug et logs avec Docker Compose",
             "path": "/GevOps_LC/courses/docker/docker_ch4_7.html",
             "file": "docker_ch4_7.md",
-            "theme": "Docker Compose",
+            "chapter_title": "Docker Compose",
             "chapter": 4,
             "section": 7,
             "tags": [
@@ -1109,7 +1059,6 @@
               "debug",
               "monitoring"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "45",
             "mermaid": true
@@ -1124,7 +1073,7 @@
             "title": "Multi-stage build",
             "path": "/GevOps_LC/courses/docker/docker_ch5_1.html",
             "file": "docker_ch5_1.md",
-            "theme": "Optimisation et sécurité",
+            "chapter_title": "Optimisation et sécurité",
             "chapter": 5,
             "section": 1,
             "tags": [
@@ -1134,7 +1083,6 @@
               "optimisation",
               "images"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1143,7 +1091,7 @@
             "title": "Sécurité des conteneurs",
             "path": "/GevOps_LC/courses/docker/docker_ch5_2.html",
             "file": "docker_ch5_2.md",
-            "theme": "Optimisation et sécurité",
+            "chapter_title": "Optimisation et sécurité",
             "chapter": 5,
             "section": 2,
             "tags": [
@@ -1153,7 +1101,6 @@
               "users",
               "production"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1162,7 +1109,7 @@
             "title": "Vulnérabilités et scan des images",
             "path": "/GevOps_LC/courses/docker/docker_ch5_3.html",
             "file": "docker_ch5_3.md",
-            "theme": "Optimisation et sécurité",
+            "chapter_title": "Optimisation et sécurité",
             "chapter": 5,
             "section": 3,
             "tags": [
@@ -1172,7 +1119,6 @@
               "scan",
               "images"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1181,7 +1127,7 @@
             "title": "Optimisation avancée des images",
             "path": "/GevOps_LC/courses/docker/docker_ch5_4.html",
             "file": "docker_ch5_4.md",
-            "theme": "Optimisation et sécurité",
+            "chapter_title": "Optimisation et sécurité",
             "chapter": 5,
             "section": 4,
             "tags": [
@@ -1191,7 +1137,6 @@
               "performance",
               "production"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1206,7 +1151,7 @@
             "title": "Introduction à Docker Swarm",
             "path": "/GevOps_LC/courses/docker/docker_ch6_1.html",
             "file": "docker_ch6_1.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 1,
             "tags": [
@@ -1215,7 +1160,6 @@
               "orchestration",
               "cluster"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "45",
             "mermaid": true
@@ -1224,7 +1168,7 @@
             "title": "Initialiser un cluster Docker Swarm",
             "path": "/GevOps_LC/courses/docker/docker_ch6_2.html",
             "file": "docker_ch6_2.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 2,
             "tags": [
@@ -1234,7 +1178,6 @@
               "init",
               "join"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "45",
             "mermaid": true
@@ -1243,7 +1186,7 @@
             "title": "Déployer un service avec Docker Swarm",
             "path": "/GevOps_LC/courses/docker/docker_ch6_3.html",
             "file": "docker_ch6_3.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 3,
             "tags": [
@@ -1253,7 +1196,6 @@
               "replicas",
               "scaling"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1262,7 +1204,7 @@
             "title": "Scaling et haute disponibilité",
             "path": "/GevOps_LC/courses/docker/docker_ch6_4.html",
             "file": "docker_ch6_4.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 4,
             "tags": [
@@ -1272,7 +1214,6 @@
               "haute-disponibilite",
               "load-balancing"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1281,7 +1222,7 @@
             "title": "Déployer une stack avec Docker Swarm",
             "path": "/GevOps_LC/courses/docker/docker_ch6_5.html",
             "file": "docker_ch6_5.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 5,
             "tags": [
@@ -1291,7 +1232,6 @@
               "compose",
               "deploy"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1300,7 +1240,7 @@
             "title": "Réseau Swarm (overlay network)",
             "path": "/GevOps_LC/courses/docker/docker_ch6_6.html",
             "file": "docker_ch6_6.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 6,
             "tags": [
@@ -1310,7 +1250,6 @@
               "overlay",
               "cluster"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1319,7 +1258,7 @@
             "title": "Gestion des nodes et services",
             "path": "/GevOps_LC/courses/docker/docker_ch6_7.html",
             "file": "docker_ch6_7.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 7,
             "tags": [
@@ -1330,7 +1269,6 @@
               "update",
               "rollback"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "50",
             "mermaid": true
@@ -1339,7 +1277,7 @@
             "title": "Bonnes pratiques Docker Swarm",
             "path": "/GevOps_LC/courses/docker/docker_ch6_8.html",
             "file": "docker_ch6_8.md",
-            "theme": "Docker Swarm",
+            "chapter_title": "Docker Swarm",
             "chapter": 6,
             "section": 8,
             "tags": [
@@ -1349,7 +1287,6 @@
               "architecture",
               "limites"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "45",
             "mermaid": false
@@ -1364,7 +1301,7 @@
             "title": "Introduction au CI/CD avec Docker",
             "path": "/GevOps_LC/courses/docker/docker_ch7_1.html",
             "file": "docker_ch7_1.md",
-            "theme": "CI/CD",
+            "chapter_title": "CI/CD",
             "chapter": 7,
             "section": 1,
             "tags": [
@@ -1375,7 +1312,6 @@
               "pipeline",
               "devops"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "45",
             "mermaid": true
@@ -1384,7 +1320,7 @@
             "title": "Pipeline CI avec GitHub Actions et Docker",
             "path": "/GevOps_LC/courses/docker/docker_ch7_2.html",
             "file": "docker_ch7_2.md",
-            "theme": "CI/CD",
+            "chapter_title": "CI/CD",
             "chapter": 7,
             "section": 2,
             "tags": [
@@ -1394,7 +1330,6 @@
               "pipeline",
               "ci"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "60",
             "mermaid": true
@@ -1403,7 +1338,7 @@
             "title": "Push vers un Docker Registry",
             "path": "/GevOps_LC/courses/docker/docker_ch7_3.html",
             "file": "docker_ch7_3.md",
-            "theme": "CI/CD",
+            "chapter_title": "CI/CD",
             "chapter": 7,
             "section": 3,
             "tags": [
@@ -1414,7 +1349,6 @@
               "github-actions",
               "dockerhub"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "60",
             "mermaid": true
@@ -1423,7 +1357,7 @@
             "title": "Déploiement automatique (CD)",
             "path": "/GevOps_LC/courses/docker/docker_ch7_4.html",
             "file": "docker_ch7_4.md",
-            "theme": "CI/CD",
+            "chapter_title": "CI/CD",
             "chapter": 7,
             "section": 4,
             "tags": [
@@ -1433,7 +1367,6 @@
               "swarm",
               "pipeline"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "60",
             "mermaid": true
@@ -1448,8 +1381,9 @@
     "description": "Architecture événementielle, brokers, topics et consumers.",
     "icon": "📊",
     "status": "En construction",
-    "theme_group": "Event",
-    "theme_group_icon": "📨",
+    "domain": "Event",
+    "domain_icon": "📨",
+    "domain_order": "40",
     "path": "/courses/kafka/",
     "index_path": "/GevOps_LC/courses/kafka/index.html",
     "themes": [
@@ -1461,7 +1395,7 @@
             "title": "Introduction à Apache Kafka",
             "path": "/GevOps_LC/courses/kafka/kafka_intro_complete.html",
             "file": "kafka_intro_complete.md",
-            "theme": "Streaming de données",
+            "chapter_title": "Streaming de données",
             "chapter": 1,
             "section": 1,
             "tags": [
@@ -1470,7 +1404,6 @@
               "data-engineering",
               "distributed-systems"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "70",
             "mermaid": true
@@ -1479,7 +1412,7 @@
             "title": "Kafka en profondeur",
             "path": "/GevOps_LC/courses/kafka/kafka_deep_dive_complete.html",
             "file": "kafka_deep_dive_complete.md",
-            "theme": "Streaming de données",
+            "chapter_title": "Streaming de données",
             "chapter": 1,
             "section": 2,
             "tags": [
@@ -1489,7 +1422,6 @@
               "offsets",
               "distributed-systems"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "90",
             "mermaid": true
@@ -1498,7 +1430,7 @@
             "title": "Kafka Streams",
             "path": "/GevOps_LC/courses/kafka/kafka_streams_complete.html",
             "file": "kafka_streams_complete.md",
-            "theme": "Streaming de données",
+            "chapter_title": "Streaming de données",
             "chapter": 1,
             "section": 3,
             "tags": [
@@ -1507,7 +1439,6 @@
               "streaming",
               "data-engineering"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "90",
             "mermaid": true
@@ -1516,7 +1447,7 @@
             "title": "Kafka Connect",
             "path": "/GevOps_LC/courses/kafka/kafka_connect_complete.html",
             "file": "kafka_connect_complete.md",
-            "theme": "Streaming de données",
+            "chapter_title": "Streaming de données",
             "chapter": 1,
             "section": 4,
             "tags": [
@@ -1526,7 +1457,6 @@
               "ingestion",
               "cdc"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "95",
             "mermaid": true
@@ -1535,7 +1465,7 @@
             "title": "Kafka avec Docker et Kubernetes",
             "path": "/GevOps_LC/courses/kafka/kafka_docker_kubernetes_complete.html",
             "file": "kafka_docker_kubernetes_complete.md",
-            "theme": "Streaming de données",
+            "chapter_title": "Streaming de données",
             "chapter": 1,
             "section": 5,
             "tags": [
@@ -1544,7 +1474,6 @@
               "kubernetes",
               "devops"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "100",
             "mermaid": true
@@ -1553,7 +1482,7 @@
             "title": "Kafka dans une architecture Data Engineering",
             "path": "/GevOps_LC/courses/kafka/kafka_data_architecture_complete.html",
             "file": "kafka_data_architecture_complete.md",
-            "theme": "Streaming de données",
+            "chapter_title": "Streaming de données",
             "chapter": 1,
             "section": 6,
             "tags": [
@@ -1563,7 +1492,6 @@
               "event-driven",
               "pipelines"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -1572,7 +1500,7 @@
             "title": "Schema Registry et formats Avro / Protobuf / JSON Schema",
             "path": "/GevOps_LC/courses/kafka/schema_registry_avro_protobuf_json_schema.html",
             "file": "schema_registry_avro_protobuf_json_schema.md",
-            "theme": "Streaming de données",
+            "chapter_title": "Streaming de données",
             "chapter": 1,
             "section": 7,
             "tags": [
@@ -1584,7 +1512,6 @@
               "data-contracts",
               "data-engineering"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "105",
             "mermaid": true
@@ -1599,8 +1526,9 @@
     "description": "Python appliqué à l'automatisation, les APIs, les scripts DevOps et la data.",
     "icon": "🐍",
     "status": "En construction",
-    "theme_group": "",
-    "theme_group_icon": "",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
     "path": "/courses/python/",
     "index_path": "/GevOps_LC/courses/python/index.html",
     "themes": [
@@ -1612,7 +1540,7 @@
             "title": "Environnement Python & Toolchain",
             "path": "/GevOps_LC/courses/python/module_01_environnement_python.html",
             "file": "module_01_environnement_python.md",
-            "theme": "Environnement & Toolchain",
+            "chapter_title": "Environnement & Toolchain",
             "chapter": 1,
             "section": 1,
             "tags": [
@@ -1622,7 +1550,6 @@
               "pip",
               "setup"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "45",
             "mermaid": false
@@ -1637,7 +1564,7 @@
             "title": "Syntaxe de base & types Python",
             "path": "/GevOps_LC/courses/python/module_02_syntaxe_types.html",
             "file": "module_02_syntaxe_types.md",
-            "theme": "Syntaxe, Types & Structures",
+            "chapter_title": "Syntaxe, Types & Structures",
             "chapter": 1,
             "section": 2,
             "tags": [
@@ -1646,7 +1573,6 @@
               "variables",
               "syntaxe"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -1655,7 +1581,7 @@
             "title": "Structures de données Python",
             "path": "/GevOps_LC/courses/python/module_03_structures_donnees.html",
             "file": "module_03_structures_donnees.md",
-            "theme": "Syntaxe, Types & Structures",
+            "chapter_title": "Syntaxe, Types & Structures",
             "chapter": 1,
             "section": 3,
             "tags": [
@@ -1666,7 +1592,6 @@
               "set",
               "tuple"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "70",
             "mermaid": false
@@ -1675,7 +1600,7 @@
             "title": "Modules & organisation du code Python",
             "path": "/GevOps_LC/courses/python/module_04_modules_organisation.html",
             "file": "module_04_modules_organisation.md",
-            "theme": "Syntaxe, Types & Structures",
+            "chapter_title": "Syntaxe, Types & Structures",
             "chapter": 1,
             "section": 4,
             "tags": [
@@ -1685,7 +1610,6 @@
               "organisation",
               "package"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "65",
             "mermaid": false
@@ -1700,7 +1624,7 @@
             "title": "Gestion des erreurs en Python",
             "path": "/GevOps_LC/courses/python/module_05_gestion_erreurs.html",
             "file": "module_05_gestion_erreurs.md",
-            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter_title": "Erreurs, Fichiers & Scripting",
             "chapter": 1,
             "section": 5,
             "tags": [
@@ -1710,7 +1634,6 @@
               "try",
               "except"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "70",
             "mermaid": false
@@ -1719,7 +1642,7 @@
             "title": "I/O & manipulation de fichiers en Python",
             "path": "/GevOps_LC/courses/python/module_06_io_fichiers.html",
             "file": "module_06_io_fichiers.md",
-            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter_title": "Erreurs, Fichiers & Scripting",
             "chapter": 1,
             "section": 6,
             "tags": [
@@ -1729,7 +1652,6 @@
               "csv",
               "io"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "75",
             "mermaid": false
@@ -1738,7 +1660,7 @@
             "title": "CLI & scripting Python",
             "path": "/GevOps_LC/courses/python/module_07_cli_scripting.html",
             "file": "module_07_cli_scripting.md",
-            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter_title": "Erreurs, Fichiers & Scripting",
             "chapter": 1,
             "section": 7,
             "tags": [
@@ -1748,7 +1670,6 @@
               "scripting",
               "automation"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "80",
             "mermaid": false
@@ -1757,7 +1678,7 @@
             "title": "Debugging & introspection en Python",
             "path": "/GevOps_LC/courses/python/module_08_debugging.html",
             "file": "module_08_debugging.md",
-            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter_title": "Erreurs, Fichiers & Scripting",
             "chapter": 1,
             "section": 8,
             "tags": [
@@ -1767,7 +1688,6 @@
               "pdb",
               "logging"
             ],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "75",
             "mermaid": false
@@ -1782,7 +1702,7 @@
             "title": "Programmation orientée objet (POO) en Python",
             "path": "/GevOps_LC/courses/python/module_09_poo.html",
             "file": "module_09_poo.md",
-            "theme": "POO, Qualité & Tests",
+            "chapter_title": "POO, Qualité & Tests",
             "chapter": 2,
             "section": 1,
             "tags": [
@@ -1792,7 +1712,6 @@
               "objets",
               "architecture"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "90",
             "mermaid": false
@@ -1801,7 +1720,7 @@
             "title": "Typage & qualité de code en Python",
             "path": "/GevOps_LC/courses/python/module_10_typage_qualite.html",
             "file": "module_10_typage_qualite.md",
-            "theme": "POO, Qualité & Tests",
+            "chapter_title": "POO, Qualité & Tests",
             "chapter": 2,
             "section": 2,
             "tags": [
@@ -1811,7 +1730,6 @@
               "mypy",
               "lint"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "85",
             "mermaid": false
@@ -1820,7 +1738,7 @@
             "title": "Gestion des dépendances & packaging Python",
             "path": "/GevOps_LC/courses/python/module_11_dependencies_packaging.html",
             "file": "module_11_dependencies_packaging.md",
-            "theme": "POO, Qualité & Tests",
+            "chapter_title": "POO, Qualité & Tests",
             "chapter": 2,
             "section": 3,
             "tags": [
@@ -1830,7 +1748,6 @@
               "poetry",
               "pip"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "90",
             "mermaid": false
@@ -1839,7 +1756,7 @@
             "title": "Tests en Python avec pytest",
             "path": "/GevOps_LC/courses/python/module_12_tests_pytest.html",
             "file": "module_12_tests_pytest.md",
-            "theme": "POO, Qualité & Tests",
+            "chapter_title": "POO, Qualité & Tests",
             "chapter": 2,
             "section": 4,
             "tags": [
@@ -1849,7 +1766,6 @@
               "unittest",
               "quality"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "95",
             "mermaid": false
@@ -1864,7 +1780,7 @@
             "title": "Logging & observabilité en Python",
             "path": "/GevOps_LC/courses/python/module_13_logging.html",
             "file": "module_13_logging.md",
-            "theme": "Concurrence, Logging & Données",
+            "chapter_title": "Concurrence, Logging & Données",
             "chapter": 2,
             "section": 5,
             "tags": [
@@ -1874,7 +1790,6 @@
               "logs",
               "monitoring"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "85",
             "mermaid": false
@@ -1883,7 +1798,7 @@
             "title": "Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)",
             "path": "/GevOps_LC/courses/python/module_14_concurrence.html",
             "file": "module_14_concurrence.md",
-            "theme": "Concurrence, Logging & Données",
+            "chapter_title": "Concurrence, Logging & Données",
             "chapter": 2,
             "section": 6,
             "tags": [
@@ -1894,7 +1809,6 @@
               "asyncio",
               "gil"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "110",
             "mermaid": true
@@ -1903,7 +1817,7 @@
             "title": "Accès données & bases en Python (SQL, ORM, transactions)",
             "path": "/GevOps_LC/courses/python/module_15_bases_donnees.html",
             "file": "module_15_bases_donnees.md",
-            "theme": "Concurrence, Logging & Données",
+            "chapter_title": "Concurrence, Logging & Données",
             "chapter": 2,
             "section": 7,
             "tags": [
@@ -1913,7 +1827,6 @@
               "postgresql",
               "transactions"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "100",
             "mermaid": true
@@ -1928,7 +1841,7 @@
             "title": "APIs & backend Python avec FastAPI",
             "path": "/GevOps_LC/courses/python/module_16_api_fastapi.html",
             "file": "module_16_api_fastapi.md",
-            "theme": "APIs, Sécurité & Configuration",
+            "chapter_title": "APIs, Sécurité & Configuration",
             "chapter": 2,
             "section": 8,
             "tags": [
@@ -1938,7 +1851,6 @@
               "http",
               "backend"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "110",
             "mermaid": true
@@ -1947,7 +1859,7 @@
             "title": "Sécurité applicative en Python",
             "path": "/GevOps_LC/courses/python/module_17_securite.html",
             "file": "module_17_securite.md",
-            "theme": "APIs, Sécurité & Configuration",
+            "chapter_title": "APIs, Sécurité & Configuration",
             "chapter": 2,
             "section": 9,
             "tags": [
@@ -1958,7 +1870,6 @@
               "jwt",
               "owasp"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "110",
             "mermaid": true
@@ -1967,7 +1878,7 @@
             "title": "Multi-environnement & configuration en Python",
             "path": "/GevOps_LC/courses/python/module_18_configuration.html",
             "file": "module_18_configuration.md",
-            "theme": "APIs, Sécurité & Configuration",
+            "chapter_title": "APIs, Sécurité & Configuration",
             "chapter": 2,
             "section": 10,
             "tags": [
@@ -1977,7 +1888,6 @@
               "env",
               "dotenv"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "85",
             "mermaid": true
@@ -1986,7 +1896,7 @@
             "title": "Git & travail en équipe pour développeur Python",
             "path": "/GevOps_LC/courses/python/module_19_git.html",
             "file": "module_19_git.md",
-            "theme": "APIs, Sécurité & Configuration",
+            "chapter_title": "APIs, Sécurité & Configuration",
             "chapter": 2,
             "section": 11,
             "tags": [
@@ -1996,7 +1906,6 @@
               "branch",
               "merge"
             ],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "95",
             "mermaid": true
@@ -2011,7 +1920,7 @@
             "title": "Architecture Python (Clean Architecture & Hexagonale)",
             "path": "/GevOps_LC/courses/python/module_20_architecture.html",
             "file": "module_20_architecture.md",
-            "theme": "Architecture & Performance",
+            "chapter_title": "Architecture & Performance",
             "chapter": 3,
             "section": 1,
             "tags": [
@@ -2021,7 +1930,6 @@
               "hexagonal",
               "design"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -2030,7 +1938,7 @@
             "title": "Performance & optimisation en Python",
             "path": "/GevOps_LC/courses/python/module_21_performance.html",
             "file": "module_21_performance.md",
-            "theme": "Architecture & Performance",
+            "chapter_title": "Architecture & Performance",
             "chapter": 3,
             "section": 2,
             "tags": [
@@ -2040,7 +1948,6 @@
               "optimisation",
               "memory"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "95",
             "mermaid": false
@@ -2049,7 +1956,7 @@
             "title": "Asynchrone avancé & systèmes distribués en Python",
             "path": "/GevOps_LC/courses/python/module_22_async_distributed.html",
             "file": "module_22_async_distributed.md",
-            "theme": "Architecture & Performance",
+            "chapter_title": "Architecture & Performance",
             "chapter": 3,
             "section": 3,
             "tags": [
@@ -2060,7 +1967,6 @@
               "celery",
               "kafka"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "120",
             "mermaid": true
@@ -2075,7 +1981,7 @@
             "title": "Conteneurisation & déploiement Python avec Docker",
             "path": "/GevOps_LC/courses/python/module_23_docker.html",
             "file": "module_23_docker.md",
-            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter_title": "DevOps, CI/CD & Observabilité",
             "chapter": 3,
             "section": 4,
             "tags": [
@@ -2085,7 +1991,6 @@
               "deploy",
               "devops"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -2094,7 +1999,7 @@
             "title": "CI/CD Python (intégration & déploiement continus)",
             "path": "/GevOps_LC/courses/python/module_24_cicd.html",
             "file": "module_24_cicd.md",
-            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter_title": "DevOps, CI/CD & Observabilité",
             "chapter": 3,
             "section": 5,
             "tags": [
@@ -2105,7 +2010,6 @@
               "automation",
               "pipeline"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -2114,7 +2018,7 @@
             "title": "Observabilité avancée en Python (metrics, tracing, monitoring)",
             "path": "/GevOps_LC/courses/python/module_25_observabilite.html",
             "file": "module_25_observabilite.md",
-            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter_title": "DevOps, CI/CD & Observabilité",
             "chapter": 3,
             "section": 6,
             "tags": [
@@ -2125,7 +2029,6 @@
               "monitoring",
               "prometheus"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -2134,7 +2037,7 @@
             "title": "Sécurité avancée Python (audit, dépendances, hardening)",
             "path": "/GevOps_LC/courses/python/module_26_securite_avancee.html",
             "file": "module_26_securite_avancee.md",
-            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter_title": "DevOps, CI/CD & Observabilité",
             "chapter": 3,
             "section": 7,
             "tags": [
@@ -2144,7 +2047,6 @@
               "hardening",
               "dependencies"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -2159,7 +2061,7 @@
             "title": "Data & pipelines en Python (pandas, ETL, Airflow)",
             "path": "/GevOps_LC/courses/python/module_27_data_pipeline.html",
             "file": "module_27_data_pipeline.md",
-            "theme": "Data, Pipelines & Distribution",
+            "chapter_title": "Data, Pipelines & Distribution",
             "chapter": 3,
             "section": 8,
             "tags": [
@@ -2169,7 +2071,6 @@
               "etl",
               "airflow"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -2178,7 +2079,7 @@
             "title": "Python pour DevOps (automation, API cloud, scripts infra)",
             "path": "/GevOps_LC/courses/python/module_28_python_devops.html",
             "file": "module_28_python_devops.md",
-            "theme": "Data, Pipelines & Distribution",
+            "chapter_title": "Data, Pipelines & Distribution",
             "chapter": 3,
             "section": 9,
             "tags": [
@@ -2188,7 +2089,6 @@
               "cloud",
               "boto3"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "105",
             "mermaid": true
@@ -2197,7 +2097,7 @@
             "title": "Packaging avancé & distribution Python (wheels, CLI, publication)",
             "path": "/GevOps_LC/courses/python/module_29_packaging_distribution.html",
             "file": "module_29_packaging_distribution.md",
-            "theme": "Data, Pipelines & Distribution",
+            "chapter_title": "Data, Pipelines & Distribution",
             "chapter": 3,
             "section": 10,
             "tags": [
@@ -2208,7 +2108,6 @@
               "distribution",
               "pypi"
             ],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "105",
             "mermaid": true
@@ -2223,8 +2122,9 @@
     "description": "Utilisation de R dans le Data.",
     "icon": "📊",
     "status": "En construction",
-    "theme_group": "Data",
-    "theme_group_icon": "📈",
+    "domain": "Data",
+    "domain_icon": "📈",
+    "domain_order": "40",
     "path": "/courses/R/",
     "index_path": "/GevOps_LC/courses/R/index.html",
     "themes": [
@@ -2236,7 +2136,7 @@
             "title": "Module 1 --- Environnement et écosystème R",
             "path": "/GevOps_LC/courses/R/R01_environnement_ecosysteme_R.html",
             "file": "R01_environnement_ecosysteme_R.md",
-            "theme": "Fondations du langage R",
+            "chapter_title": "Fondations du langage R",
             "chapter": 1,
             "section": 1,
             "tags": [
@@ -2246,8 +2146,7 @@
               "packages",
               "environnement"
             ],
-            "type": "lesson",
-            "difficulty": "débutant",
+            "difficulty": "beginner",
             "duration": "45",
             "mermaid": true
           },
@@ -2255,7 +2154,7 @@
             "title": "Module 2 --- Syntaxe fondamentale du langage R",
             "path": "/GevOps_LC/courses/R/R02_syntaxe_fondamentale_R.html",
             "file": "R02_syntaxe_fondamentale_R.md",
-            "theme": "Fondations du langage R",
+            "chapter_title": "Fondations du langage R",
             "chapter": 1,
             "section": 2,
             "tags": [
@@ -2266,8 +2165,7 @@
               "conditions",
               "boucles"
             ],
-            "type": "lesson",
-            "difficulty": "débutant",
+            "difficulty": "beginner",
             "duration": "60",
             "mermaid": true
           },
@@ -2275,7 +2173,7 @@
             "title": "Module 3 --- Structures de données en R",
             "path": "/GevOps_LC/courses/R/R03_structures_donnees_R.html",
             "file": "R03_structures_donnees_R.md",
-            "theme": "Fondations du langage R",
+            "chapter_title": "Fondations du langage R",
             "chapter": 1,
             "section": 3,
             "tags": [
@@ -2287,8 +2185,7 @@
               "dataframe",
               "tibble"
             ],
-            "type": "lesson",
-            "difficulty": "débutant",
+            "difficulty": "beginner",
             "duration": "75",
             "mermaid": true
           },
@@ -2296,7 +2193,7 @@
             "title": "Module 4 --- Programmation en R",
             "path": "/GevOps_LC/courses/R/R04_programmation_R.html",
             "file": "R04_programmation_R.md",
-            "theme": "Fondations du langage R",
+            "chapter_title": "Fondations du langage R",
             "chapter": 1,
             "section": 4,
             "tags": [
@@ -2306,8 +2203,7 @@
               "apply",
               "functional programming"
             ],
-            "type": "lesson",
-            "difficulty": "débutant-intermédiaire",
+            "difficulty": "beginner-intermédiaire",
             "duration": "75",
             "mermaid": true
           }
@@ -2321,7 +2217,7 @@
             "title": "Module 5 --- Import et export de données",
             "path": "/GevOps_LC/courses/R/R05_import_export_R.html",
             "file": "R05_import_export_R.md",
-            "theme": "Tronc commun Data",
+            "chapter_title": "Tronc commun Data",
             "chapter": 2,
             "section": 5,
             "tags": [
@@ -2334,8 +2230,7 @@
               "api",
               "database"
             ],
-            "type": "lesson",
-            "difficulty": "débutant",
+            "difficulty": "beginner",
             "duration": "75",
             "mermaid": true
           },
@@ -2343,7 +2238,7 @@
             "title": "Module 6 --- Manipulation de données avec dplyr et tidyr",
             "path": "/GevOps_LC/courses/R/R06_manipulation_donnees_R.html",
             "file": "R06_manipulation_donnees_R.md",
-            "theme": "Tronc commun Data",
+            "chapter_title": "Tronc commun Data",
             "chapter": 2,
             "section": 6,
             "tags": [
@@ -2353,8 +2248,7 @@
               "data manipulation",
               "tidyverse"
             ],
-            "type": "lesson",
-            "difficulty": "débutant-intermédiaire",
+            "difficulty": "beginner-intermédiaire",
             "duration": "90",
             "mermaid": true
           },
@@ -2362,7 +2256,7 @@
             "title": "Module 7 --- Visualisation de données avec ggplot2",
             "path": "/GevOps_LC/courses/R/R07_visualisation_ggplot2.html",
             "file": "R07_visualisation_ggplot2.md",
-            "theme": "Tronc commun Data",
+            "chapter_title": "Tronc commun Data",
             "chapter": 2,
             "section": 7,
             "tags": [
@@ -2371,8 +2265,7 @@
               "visualisation",
               "dataviz"
             ],
-            "type": "lesson",
-            "difficulty": "débutant",
+            "difficulty": "beginner",
             "duration": "90",
             "mermaid": true
           },
@@ -2380,7 +2273,7 @@
             "title": "Module 8 --- Analyse exploratoire de données (EDA)",
             "path": "/GevOps_LC/courses/R/R08_EDA_R.html",
             "file": "R08_EDA_R.md",
-            "theme": "Tronc commun Data",
+            "chapter_title": "Tronc commun Data",
             "chapter": 2,
             "section": 8,
             "tags": [
@@ -2390,8 +2283,7 @@
               "corrélation",
               "outliers"
             ],
-            "type": "lesson",
-            "difficulty": "débutant",
+            "difficulty": "beginner",
             "duration": "90",
             "mermaid": true
           }
@@ -2405,7 +2297,7 @@
             "title": "Module 9 --- Probabilités et statistiques",
             "path": "/GevOps_LC/courses/R/R09_probabilites_statistiques_R.html",
             "file": "R09_probabilites_statistiques_R.md",
-            "theme": "Spécialisation Data Scientist",
+            "chapter_title": "Spécialisation Data Scientist",
             "chapter": 3,
             "section": 9,
             "tags": [
@@ -2414,7 +2306,6 @@
               "statistiques",
               "distributions"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2423,7 +2314,7 @@
             "title": "Module 10 --- Tests statistiques",
             "path": "/GevOps_LC/courses/R/R10_tests_statistiques_R.html",
             "file": "R10_tests_statistiques_R.md",
-            "theme": "Spécialisation Data Scientist",
+            "chapter_title": "Spécialisation Data Scientist",
             "chapter": 3,
             "section": 10,
             "tags": [
@@ -2434,7 +2325,6 @@
               "chi-square",
               "ANOVA"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2443,7 +2333,7 @@
             "title": "Module 11 --- Modélisation statistique",
             "path": "/GevOps_LC/courses/R/R11_modelisation_statistique_R.html",
             "file": "R11_modelisation_statistique_R.md",
-            "theme": "Spécialisation Data Scientist",
+            "chapter_title": "Spécialisation Data Scientist",
             "chapter": 3,
             "section": 11,
             "tags": [
@@ -2453,7 +2343,6 @@
               "statistiques",
               "glm"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2462,7 +2351,7 @@
             "title": "Module 12 --- Machine Learning",
             "path": "/GevOps_LC/courses/R/R12_machine_learning_R.html",
             "file": "R12_machine_learning_R.md",
-            "theme": "Spécialisation Data Scientist",
+            "chapter_title": "Spécialisation Data Scientist",
             "chapter": 3,
             "section": 12,
             "tags": [
@@ -2473,7 +2362,6 @@
               "random forest",
               "clustering"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "120",
             "mermaid": true
@@ -2482,7 +2370,7 @@
             "title": "Module 13 --- Validation et Feature Engineering",
             "path": "/GevOps_LC/courses/R/R13_validation_feature_engineering_R.html",
             "file": "R13_validation_feature_engineering_R.md",
-            "theme": "Spécialisation Data Scientist",
+            "chapter_title": "Spécialisation Data Scientist",
             "chapter": 3,
             "section": 13,
             "tags": [
@@ -2492,7 +2380,6 @@
               "cross validation",
               "feature"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2507,7 +2394,7 @@
             "title": "Module 14 --- Gestion de données volumineuses",
             "path": "/GevOps_LC/courses/R/R14_donnees_volumineuses_R.html",
             "file": "R14_donnees_volumineuses_R.md",
-            "theme": "Spécialisation Data Engineer",
+            "chapter_title": "Spécialisation Data Engineer",
             "chapter": 4,
             "section": 14,
             "tags": [
@@ -2517,7 +2404,6 @@
               "arrow",
               "parquet"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2526,7 +2412,7 @@
             "title": "Module 15 --- Bases de données",
             "path": "/GevOps_LC/courses/R/R15_bases_de_donnees_R.html",
             "file": "R15_bases_de_donnees_R.md",
-            "theme": "Spécialisation Data Engineer",
+            "chapter_title": "Spécialisation Data Engineer",
             "chapter": 4,
             "section": 15,
             "tags": [
@@ -2538,7 +2424,6 @@
               "MySQL",
               "SQLite"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2547,7 +2432,7 @@
             "title": "Module 16 --- API et ingestion de données",
             "path": "/GevOps_LC/courses/R/R16_API_ingestion_R.html",
             "file": "R16_API_ingestion_R.md",
-            "theme": "Spécialisation Data Engineer",
+            "chapter_title": "Spécialisation Data Engineer",
             "chapter": 4,
             "section": 16,
             "tags": [
@@ -2558,7 +2443,6 @@
               "httr",
               "jsonlite"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2567,7 +2451,7 @@
             "title": "Module 17 --- Parallélisation",
             "path": "/GevOps_LC/courses/R/R17_parallelisation_R.html",
             "file": "R17_parallelisation_R.md",
-            "theme": "Spécialisation Data Engineer",
+            "chapter_title": "Spécialisation Data Engineer",
             "chapter": 4,
             "section": 17,
             "tags": [
@@ -2576,7 +2460,6 @@
               "future",
               "parallel"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2585,7 +2468,7 @@
             "title": "Module 18 --- Pipelines de données",
             "path": "/GevOps_LC/courses/R/R18_pipelines_donnees_R.html",
             "file": "R18_pipelines_donnees_R.md",
-            "theme": "Spécialisation Data Engineer",
+            "chapter_title": "Spécialisation Data Engineer",
             "chapter": 4,
             "section": 18,
             "tags": [
@@ -2594,7 +2477,6 @@
               "ETL",
               "data engineering"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2603,7 +2485,7 @@
             "title": "Module 19 --- Orchestration des pipelines",
             "path": "/GevOps_LC/courses/R/R19_orchestration_R.html",
             "file": "R19_orchestration_R.md",
-            "theme": "Spécialisation Data Engineer",
+            "chapter_title": "Spécialisation Data Engineer",
             "chapter": 4,
             "section": 19,
             "tags": [
@@ -2614,7 +2496,6 @@
               "dagster",
               "cron"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "75",
             "mermaid": true
@@ -2623,7 +2504,7 @@
             "title": "Module 20 --- Production",
             "path": "/GevOps_LC/courses/R/R20_production_R.html",
             "file": "R20_production_R.md",
-            "theme": "Spécialisation Data Engineer",
+            "chapter_title": "Spécialisation Data Engineer",
             "chapter": 4,
             "section": 20,
             "tags": [
@@ -2634,7 +2515,6 @@
               "shiny",
               "rmarkdown"
             ],
-            "type": "lesson",
             "difficulty": "intermédiaire",
             "duration": "90",
             "mermaid": true
@@ -2649,8 +2529,9 @@
     "description": "Maîtriser le langage SQL pour interroger et gérer des bases de données relationnelles.",
     "icon": "🗄️",
     "status": "published",
-    "theme_group": "Data",
-    "theme_group_icon": "📈",
+    "domain": "Data",
+    "domain_icon": "📈",
+    "domain_order": "40",
     "path": "/courses/SQL/",
     "index_path": "/GevOps_LC/courses/SQL/index.html",
     "themes": [
@@ -2662,11 +2543,10 @@
             "title": "Introduction aux bases de données",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_01_introduction_bases_donnees.html",
             "file": "sql_chapitre_01_introduction_bases_donnees.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 1,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2675,11 +2555,10 @@
             "title": "Le modèle relationnel",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_02_modele_relationnel.html",
             "file": "sql_chapitre_02_modele_relationnel.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 2,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2688,11 +2567,10 @@
             "title": "SELECT : lire les données",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_03_select.html",
             "file": "sql_chapitre_03_select.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 3,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2701,11 +2579,10 @@
             "title": "Filtrer les données avec WHERE",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_04_where.html",
             "file": "sql_chapitre_04_where.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 4,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2714,11 +2591,10 @@
             "title": "Trier et limiter les résultats",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_05_order_by_limit.html",
             "file": "sql_chapitre_05_order_by_limit.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 5,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2727,11 +2603,10 @@
             "title": "Fonctions d'agrégation et GROUP BY",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_06_aggregation_groupby.html",
             "file": "sql_chapitre_06_aggregation_groupby.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 6,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2740,11 +2615,10 @@
             "title": "Les JOIN",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_07_join.html",
             "file": "sql_chapitre_07_join.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 7,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2753,11 +2627,10 @@
             "title": "INSERT, UPDATE et DELETE",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_08_insert_update_delete.html",
             "file": "sql_chapitre_08_insert_update_delete.md",
-            "theme": "Requêtes et manipulation",
+            "chapter_title": "Requêtes et manipulation",
             "chapter": 1,
             "section": 8,
             "tags": [],
-            "type": "lesson",
             "difficulty": "beginner",
             "duration": "60",
             "mermaid": false
@@ -2772,11 +2645,10 @@
             "title": "Création de tables : CREATE TABLE",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_09_create_table.html",
             "file": "sql_chapitre_09_create_table.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 1,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2785,11 +2657,10 @@
             "title": "Les types de données",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_10_types_donnees.html",
             "file": "sql_chapitre_10_types_donnees.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 2,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2798,11 +2669,10 @@
             "title": "Les contraintes",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_11_contraintes.html",
             "file": "sql_chapitre_11_contraintes.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 3,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2811,11 +2681,10 @@
             "title": "Relations entre tables et normalisation",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_12_relations_normalisation.html",
             "file": "sql_chapitre_12_relations_normalisation.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 4,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2824,11 +2693,10 @@
             "title": "Les index",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_13_index.html",
             "file": "sql_chapitre_13_index.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 5,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2837,11 +2705,10 @@
             "title": "Les vues",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_14_vues.html",
             "file": "sql_chapitre_14_vues.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 6,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2850,11 +2717,10 @@
             "title": "Les sous-requêtes",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_15_sous_requetes.html",
             "file": "sql_chapitre_15_sous_requetes.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 7,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2863,11 +2729,10 @@
             "title": "Les transactions",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_16_transactions.html",
             "file": "sql_chapitre_16_transactions.md",
-            "theme": "Conception et structure",
+            "chapter_title": "Conception et structure",
             "chapter": 2,
             "section": 8,
             "tags": [],
-            "type": "lesson",
             "difficulty": "intermediate",
             "duration": "75",
             "mermaid": false
@@ -2882,11 +2747,10 @@
             "title": "Optimisation des requêtes",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_17_optimisation_requetes.html",
             "file": "sql_chapitre_17_optimisation_requetes.md",
-            "theme": "Optimisation et administration",
+            "chapter_title": "Optimisation et administration",
             "chapter": 3,
             "section": 1,
             "tags": [],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false
@@ -2895,11 +2759,10 @@
             "title": "Procédures stockées et fonctions",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_18_procedures_stockees.html",
             "file": "sql_chapitre_18_procedures_stockees.md",
-            "theme": "Optimisation et administration",
+            "chapter_title": "Optimisation et administration",
             "chapter": 3,
             "section": 2,
             "tags": [],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false
@@ -2908,11 +2771,10 @@
             "title": "Les triggers",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_19_triggers.html",
             "file": "sql_chapitre_19_triggers.md",
-            "theme": "Optimisation et administration",
+            "chapter_title": "Optimisation et administration",
             "chapter": 3,
             "section": 3,
             "tags": [],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false
@@ -2921,11 +2783,10 @@
             "title": "Gestion de la concurrence",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_20_concurrence.html",
             "file": "sql_chapitre_20_concurrence.md",
-            "theme": "Optimisation et administration",
+            "chapter_title": "Optimisation et administration",
             "chapter": 3,
             "section": 4,
             "tags": [],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false
@@ -2934,11 +2795,10 @@
             "title": "Sécurité des bases de données",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_21_securite.html",
             "file": "sql_chapitre_21_securite.md",
-            "theme": "Optimisation et administration",
+            "chapter_title": "Optimisation et administration",
             "chapter": 3,
             "section": 5,
             "tags": [],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false
@@ -2947,11 +2807,10 @@
             "title": "Administration des bases de données",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_22_administration_bdd.html",
             "file": "sql_chapitre_22_administration_bdd.md",
-            "theme": "Optimisation et administration",
+            "chapter_title": "Optimisation et administration",
             "chapter": 3,
             "section": 6,
             "tags": [],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false
@@ -2960,11 +2819,10 @@
             "title": "SQL avancé",
             "path": "/GevOps_LC/courses/SQL/sql_chapitre_23_sql_avance.html",
             "file": "sql_chapitre_23_sql_avance.md",
-            "theme": "Optimisation et administration",
+            "chapter_title": "Optimisation et administration",
             "chapter": 3,
             "section": 7,
             "tags": [],
-            "type": "lesson",
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false

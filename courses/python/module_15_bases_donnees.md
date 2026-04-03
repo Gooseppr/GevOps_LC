@@ -3,8 +3,7 @@ layout: page
 title: "Accès données & bases en Python (SQL, ORM, transactions)"
 
 course: python
-theme: "Concurrence, Logging & Données"
-type: lesson
+chapter_title: "Concurrence, Logging & Données"
 
 chapter: 2
 section: 7
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 100
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 15
-status: "draft"
+status: draft
 ---
 
 # Accès données & bases en Python (SQL, ORM, transactions)
@@ -203,7 +198,6 @@ Phrase clé : **Une mauvaise gestion DB = corruption de données.**
 
 <!-- snippet
 id: python_sql_connection
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -216,7 +210,6 @@ description: Base interaction DB
 
 <!-- snippet
 id: python_transaction_commit
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -229,7 +222,6 @@ description: Piège critique
 
 <!-- snippet
 id: python_sql_injection_warning
-type: warning
 tech: python
 level: intermediate
 importance: high
@@ -242,7 +234,6 @@ description: faille critique
 
 <!-- snippet
 id: python_orm_usage
-type: concept
 tech: python
 level: intermediate
 importance: medium

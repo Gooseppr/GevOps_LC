@@ -3,8 +3,7 @@ layout: page
 title: "Introduction à Docker"
 
 course: docker
-theme: "Prise en main"
-type: lesson
+chapter_title: "Prise en main"
 
 chapter: 1
 section: 1
@@ -14,7 +13,7 @@ difficulty: beginner
 duration: 25
 mermaid: false
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch1_0.html"
 prev_module_title: "D'où vient Docker"
 next_module: "/courses/docker/docker_ch1_2.html"
@@ -194,7 +193,6 @@ Docker permet de lancer des applications dans des conteneurs.
 
 <!-- snippet
 id: docker_conteneur_definition
-type: concept
 tech: docker
 level: beginner
 importance: high
@@ -207,7 +205,6 @@ description: Différent d'une machine virtuelle : le conteneur partage le systè
 
 <!-- snippet
 id: docker_image_definition
-type: concept
 tech: docker
 level: beginner
 importance: high
@@ -219,7 +216,6 @@ content: Une image est un modèle utilisé pour créer un conteneur. Comme une r
 
 <!-- snippet
 id: docker_run_hello_world
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -232,7 +228,6 @@ description: Télécharge l'image hello-world, crée un conteneur et exécute un
 
 <!-- snippet
 id: docker_ps_actifs
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -245,7 +240,6 @@ description: Affiche uniquement les conteneurs en cours d'exécution.
 
 <!-- snippet
 id: docker_ps_tous
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -258,7 +252,6 @@ description: Inclut les conteneurs arrêtés en plus des conteneurs actifs.
 
 <!-- snippet
 id: docker_conteneur_vs_vm
-type: warning
 tech: docker
 level: beginner
 importance: high
@@ -270,7 +263,6 @@ content: Un conteneur n'est pas une machine virtuelle. Il ne crée pas un systè
 
 <!-- snippet
 id: docker_run_nginx_exemple
-type: command
 tech: docker
 level: beginner
 importance: medium

@@ -1,16 +1,15 @@
 ---
 chapter: 1
 course: R
-difficulty: débutant
+difficulty: beginner
 duration: 60
 layout: page
 mermaid: true
 section: 2
 status: published
 tags: R, syntaxe, variables, types, conditions, boucles
-theme: Fondations du langage R
+chapter_title: Fondations du langage R
 title: Module 2 --- Syntaxe fondamentale du langage R
-type: lesson
 prev_module: "/courses/R/R01_environnement_ecosysteme_R.html"
 prev_module_title: "Module 1 --- Environnement et écosystème R"
 next_module: "/courses/R/R03_structures_donnees_R.html"

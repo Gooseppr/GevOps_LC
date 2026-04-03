@@ -8,9 +8,8 @@ mermaid: true
 section: 20
 status: published
 tags: R, production, deployment, reporting, shiny, rmarkdown
-theme: Spécialisation Data Engineer
+chapter_title: Spécialisation Data Engineer
 title: Module 20 --- Production
-type: lesson
 prev_module: "/courses/R/R19_orchestration_R.html"
 prev_module_title: "Module 19 --- Orchestration des pipelines"
 ---

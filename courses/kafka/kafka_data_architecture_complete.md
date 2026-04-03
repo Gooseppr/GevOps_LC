@@ -3,8 +3,7 @@ layout: page
 title: "Kafka dans une architecture Data Engineering"
 
 course: kafka
-theme: "Streaming de données"
-type: lesson
+chapter_title: "Streaming de données"
 
 chapter: 1
 section: 6
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-status: "En construction"
+status: En construction
 prev_module: "/courses/kafka/kafka_docker_kubernetes_complete.html"
 prev_module_title: "Kafka avec Docker et Kubernetes"
 next_module: "/courses/kafka/schema_registry_avro_protobuf_json_schema.html"

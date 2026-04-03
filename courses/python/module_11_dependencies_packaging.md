@@ -3,8 +3,7 @@ layout: page
 title: "Gestion des dépendances & packaging Python"
 
 course: python
-theme: "POO, Qualité & Tests"
-type: lesson
+chapter_title: "POO, Qualité & Tests"
 
 chapter: 2
 section: 3
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 90
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 11
-status: "draft"
+status: draft
 ---
 
 # Gestion des dépendances & packaging Python
@@ -145,7 +140,6 @@ requests==2.31.0
 
 <!-- snippet
 id: python_pip_install
-type: command
 tech: python
 level: intermediate
 importance: high
@@ -158,7 +152,6 @@ description: Installe une librairie Python
 
 <!-- snippet
 id: python_requirements_freeze
-type: command
 tech: python
 level: intermediate
 importance: high
@@ -171,7 +164,6 @@ description: Sauvegarde les dépendances du projet
 
 <!-- snippet
 id: python_dependency_warning
-type: warning
 tech: python
 level: intermediate
 importance: high
@@ -184,7 +176,6 @@ description: piège fréquent
 
 <!-- snippet
 id: python_poetry_usage
-type: concept
 tech: python
 level: intermediate
 importance: medium

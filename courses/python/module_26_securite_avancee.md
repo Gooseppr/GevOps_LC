@@ -3,8 +3,7 @@ layout: page
 title: "Sécurité avancée Python (audit, dépendances, hardening)"
 
 course: python
-theme: "DevOps, CI/CD & Observabilité"
-type: lesson
+chapter_title: "DevOps, CI/CD & Observabilité"
 
 chapter: 3
 section: 7
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 26
-status: "draft"
+status: draft
 ---
 
 # Sécurité avancée Python (audit, dépendances, hardening)
@@ -133,7 +128,6 @@ Phrase clé : **La sécurité est un processus continu, pas une étape.**
 
 <!-- snippet
 id: python_pip_audit
-type: command
 tech: python
 level: advanced
 importance: high
@@ -146,7 +140,6 @@ description: détecte vulnérabilités dans les librairies
 
 <!-- snippet
 id: python_dependency_security
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -159,7 +152,6 @@ description: risque majeur
 
 <!-- snippet
 id: python_security_warning
-type: warning
 tech: python
 level: advanced
 importance: high

@@ -4,7 +4,7 @@ course: SQL
 difficulty: intermediate
 duration: 75
 layout: page
-theme: "Conception et structure"
+chapter_title: "Conception et structure"
 section: 2
 status: published
 title: "Les types de données"
@@ -232,7 +232,6 @@ Dans le prochain chapitre nous verrons **les contraintes**, qui permettent de ga
 
 <!-- snippet
 id: sql_float_argent_interdit
-type: warning
 tech: sql
 level: intermediate
 importance: high
@@ -248,7 +247,6 @@ description: Cause de bugs comptables impossibles à déboguer en production.
 
 <!-- snippet
 id: sql_types_recommandes
-type: concept
 tech: sql
 level: intermediate
 importance: medium
@@ -264,7 +262,6 @@ description: Stocker un nombre en TEXT empêche les calculs et trie par ordre al
 
 <!-- snippet
 id: sql_types_recommandes_nombres_dates
-type: concept
 tech: sql
 level: intermediate
 importance: medium

@@ -3,8 +3,7 @@ layout: page
 title: "Git & travail en équipe pour développeur Python"
 
 course: python
-theme: "APIs, Sécurité & Configuration"
-type: lesson
+chapter_title: "APIs, Sécurité & Configuration"
 
 chapter: 2
 section: 11
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 95
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 19
-status: "draft"
+status: draft
 ---
 
 # Git & travail en équipe pour développeur Python
@@ -160,7 +155,6 @@ Phrase clé : **Git n’est pas un outil, c’est une méthode de travail.**
 
 <!-- snippet
 id: git_commit_basic
-type: command
 tech: git
 level: intermediate
 importance: high
@@ -173,7 +167,6 @@ description: Enregistre un snapshot du code
 
 <!-- snippet
 id: git_branch_usage
-type: concept
 tech: git
 level: intermediate
 importance: high
@@ -186,7 +179,6 @@ description: Base collaboration
 
 <!-- snippet
 id: git_merge_warning
-type: warning
 tech: git
 level: intermediate
 importance: high
@@ -199,7 +191,6 @@ description: erreur fréquente
 
 <!-- snippet
 id: git_workflow_tip
-type: tip
 tech: git
 level: intermediate
 importance: medium

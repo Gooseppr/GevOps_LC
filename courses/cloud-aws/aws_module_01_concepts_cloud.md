@@ -3,8 +3,7 @@ layout: page
 title: "Concepts Cloud & Modèles AWS"
 
 course: cloud-aws
-theme: "Fondations AWS"
-type: lesson
+chapter_title: "Fondations AWS"
 
 chapter: 1
 section: 1
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 45
 mermaid: true
 
-theme_icon: "cloud"
-theme_group: 1
-theme_group_icon: "cloud"
-theme_order: 1
-status: "published"
+status: published
 ---
 
 # Concepts Cloud & Modèles AWS

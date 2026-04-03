@@ -3,8 +3,7 @@ layout: page
 title: "Gestion des erreurs en Python"
 
 course: python
-theme: "Erreurs, Fichiers & Scripting"
-type: lesson
+chapter_title: "Erreurs, Fichiers & Scripting"
 
 chapter: 1
 section: 5
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 70
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 5
-status: "draft"
+status: draft
 ---
 
 # Gestion des erreurs en Python
@@ -156,7 +151,6 @@ except ValueError as e:
 
 <!-- snippet
 id: python_try_except
-type: concept
 tech: python
 level: beginner
 importance: high
@@ -169,7 +163,6 @@ description: Base de la gestion des erreurs
 
 <!-- snippet
 id: python_except_warning
-type: warning
 tech: python
 level: beginner
 importance: high
@@ -182,7 +175,6 @@ description: Piège critique
 
 <!-- snippet
 id: python_raise_usage
-type: concept
 tech: python
 level: beginner
 importance: high
@@ -195,7 +187,6 @@ description: Contrôle du flux
 
 <!-- snippet
 id: python_fail_fast
-type: tip
 tech: python
 level: beginner
 importance: high

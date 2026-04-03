@@ -3,8 +3,7 @@ layout: page
 title: "Sécurité des conteneurs"
 
 course: docker
-theme: "Optimisation et sécurité"
-type: lesson
+chapter_title: "Optimisation et sécurité"
 
 chapter: 5
 section: 2
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 50
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch5_1.html"
 prev_module_title: "Multi-stage build"
 next_module: "/courses/docker/docker_ch5_3.html"
@@ -163,7 +162,6 @@ La sécurité Docker repose sur :
 
 <!-- snippet
 id: docker_security_root_concept
-type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -176,7 +174,6 @@ description: Principe de sécurité fondamental : moins de privilèges = moins d
 
 <!-- snippet
 id: docker_security_adduser
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -189,7 +186,6 @@ description: Crée un utilisateur sans mot de passe (-D) pour exécuter l'applic
 
 <!-- snippet
 id: docker_security_user_directive
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -202,7 +198,6 @@ description: Toutes les instructions suivantes et le processus final s'exécuter
 
 <!-- snippet
 id: docker_security_chown
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -215,7 +210,6 @@ description: Nécessaire pour que l'utilisateur non-root puisse lire et écrire 
 
 <!-- snippet
 id: docker_security_root_production_warning
-type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -227,7 +221,6 @@ content: Laisser un conteneur s'exécuter en root en production est dangereux. E
 
 <!-- snippet
 id: docker_security_not_secure_by_default
-type: warning
 tech: docker
 level: intermediate
 importance: medium

@@ -2,11 +2,10 @@
 layout: page
 title: "Ansible — Introduction et concepts fondamentaux"
 course: automation
-theme: Orchestration
+chapter_title: Orchestration
 chapter: 1
 section: 1
 tags: ansible, yaml, ssh, automation, idempotence
-type: lesson
 difficulty: beginner
 duration: 60
 mermaid: true

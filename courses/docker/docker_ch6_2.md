@@ -3,8 +3,7 @@ layout: page
 title: "Initialiser un cluster Docker Swarm"
 
 course: docker
-theme: "Docker Swarm"
-type: lesson
+chapter_title: "Docker Swarm"
 
 chapter: 6
 section: 2
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 45
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch6_1.html"
 prev_module_title: "Introduction à Docker Swarm"
 next_module: "/courses/docker/docker_ch6_3.html"
@@ -163,7 +162,6 @@ Initialiser un cluster permet de :
 
 <!-- snippet
 id: docker_swarm_init
-type: command
 tech: docker
 level: advanced
 importance: high
@@ -176,7 +174,6 @@ description: Transforme la machine courante en nœud manager et initialise le cl
 
 <!-- snippet
 id: docker_swarm_join_worker
-type: command
 tech: docker
 level: advanced
 importance: high
@@ -190,7 +187,6 @@ description: Rejoint le cluster Swarm en tant que worker. Le token est fourni ap
 
 <!-- snippet
 id: docker_swarm_node_ls
-type: command
 tech: docker
 level: advanced
 importance: high
@@ -203,7 +199,6 @@ description: Affiche tous les nœuds du cluster avec leur rôle (manager/worker)
 
 <!-- snippet
 id: docker_swarm_manager_perte
-type: warning
 tech: docker
 level: advanced
 importance: high
@@ -215,7 +210,6 @@ content: Si le seul manager tombe, le cluster devient inutilisable. En productio
 
 <!-- snippet
 id: docker_swarm_manager_worker_roles
-type: concept
 tech: docker
 level: advanced
 importance: medium

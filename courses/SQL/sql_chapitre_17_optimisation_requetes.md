@@ -4,7 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
-theme: "Optimisation et administration"
+chapter_title: "Optimisation et administration"
 section: 1
 status: published
 title: "Optimisation des requêtes"
@@ -242,7 +242,6 @@ Dans le prochain chapitre nous verrons **les procédures stockées**, qui permet
 
 <!-- snippet
 id: sql_explain_plan_execution
-type: command
 tech: sql
 level: advanced
 importance: high
@@ -255,7 +254,6 @@ description: Affiche comment la base exécute la requête. Chercher Seq Scan sur
 
 <!-- snippet
 id: sql_seq_scan_vs_index_scan
-type: concept
 tech: sql
 level: advanced
 importance: high
@@ -271,7 +269,6 @@ description: Visible dans la sortie de EXPLAIN. Créer un index sur la colonne d
 
 <!-- snippet
 id: sql_indexer_cles_etrangeres
-type: tip
 tech: sql
 level: advanced
 importance: high

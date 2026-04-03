@@ -8,9 +8,8 @@ mermaid: true
 section: 12
 status: published
 tags: R, machine learning, caret, tidymodels, random forest, clustering
-theme: Spécialisation Data Scientist
+chapter_title: Spécialisation Data Scientist
 title: Module 12 --- Machine Learning
-type: lesson
 prev_module: "/courses/R/R11_modelisation_statistique_R.html"
 prev_module_title: "Module 11 --- Modélisation statistique"
 next_module: "/courses/R/R13_validation_feature_engineering_R.html"

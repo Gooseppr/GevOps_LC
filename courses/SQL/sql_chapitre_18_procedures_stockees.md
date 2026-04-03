@@ -4,7 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
-theme: "Optimisation et administration"
+chapter_title: "Optimisation et administration"
 section: 2
 status: published
 title: "Procédures stockées et fonctions"
@@ -249,7 +249,6 @@ Dans le prochain chapitre nous verrons **les triggers**, qui permettent d’exé
 
 <!-- snippet
 id: sql_fonction_vs_procedure
-type: concept
 tech: sql
 level: advanced
 importance: medium
@@ -264,7 +263,6 @@ description: En PostgreSQL, une fonction peut aussi modifier des données via pl
 
 <!-- snippet
 id: sql_logique_bdd_avec_moderation
-type: warning
 tech: sql
 level: advanced
 importance: medium

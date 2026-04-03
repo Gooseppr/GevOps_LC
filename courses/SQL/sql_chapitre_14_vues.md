@@ -4,7 +4,7 @@ course: SQL
 difficulty: intermediate
 duration: 75
 layout: page
-theme: "Conception et structure"
+chapter_title: "Conception et structure"
 section: 6
 status: published
 title: "Les vues"
@@ -216,7 +216,6 @@ Dans le prochain chapitre nous verrons **les sous‑requêtes**, qui permettent 
 
 <!-- snippet
 id: sql_create_view
-type: command
 tech: sql
 level: intermediate
 importance: high
@@ -229,7 +228,6 @@ description: Enregistre une requête comme table virtuelle. Utiliser CREATE OR R
 
 <!-- snippet
 id: sql_vue_vs_vue_materialisee
-type: concept
 tech: sql
 level: intermediate
 importance: medium

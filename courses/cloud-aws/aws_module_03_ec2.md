@@ -3,8 +3,7 @@ layout: page
 title: "EC2 — Compute AWS (instances, réseau, bootstrap)"
 
 course: cloud-aws
-theme: "Fondations AWS"
-type: lesson
+chapter_title: "Fondations AWS"
 
 chapter: 1
 section: 3
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 75
 mermaid: true
 
-theme_icon: "server"
-theme_group: 1
-theme_group_icon: "cloud"
-theme_order: 3
-status: "published"
+status: published
 ---
 
 # EC2 — Compute AWS (instances, réseau, bootstrap)
@@ -152,7 +147,6 @@ C’est la base de nombreuses architectures AWS.
 
 <!-- snippet
 id: aws_ec2_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -165,7 +159,6 @@ description: Base du compute AWS
 
 <!-- snippet
 id: aws_ec2_security_group
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -178,7 +171,6 @@ description: Élément critique de sécurité
 
 <!-- snippet
 id: aws_ec2_open_port_warning
-type: warning
 tech: aws
 level: beginner
 importance: high
@@ -191,7 +183,6 @@ description: Risque majeur de sécurité
 
 <!-- snippet
 id: aws_ec2_launch_command
-type: command
 tech: aws
 level: beginner
 importance: medium
@@ -204,7 +195,6 @@ description: Permet de créer une instance EC2 via CLI
 
 <!-- snippet
 id: aws_ec2_user_data_tip
-type: tip
 tech: aws
 level: beginner
 importance: medium
@@ -217,7 +207,6 @@ description: Automatisation clé en DevOps
 
 <!-- snippet
 id: aws_ec2_ssh_error
-type: error
 tech: aws
 level: beginner
 importance: high

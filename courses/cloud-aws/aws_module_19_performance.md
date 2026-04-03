@@ -3,8 +3,7 @@ layout: page
 title: "Performance & optimisation — Caching, Latence, Tuning AWS"
 
 course: cloud-aws
-theme: "Architecture Avancée"
-type: lesson
+chapter_title: "Architecture Avancée"
 
 chapter: 3
 section: 3
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "speed"
-theme_group: 3
-theme_group_icon: "cloud"
-theme_order: 19
-status: "published"
+status: published
 ---
 
 # Performance & optimisation — Caching, Latence, Tuning AWS
@@ -144,7 +139,6 @@ Une bonne architecture optimise coût et rapidité.
 
 <!-- snippet
 id: aws_caching_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -157,7 +151,6 @@ description: Base optimisation
 
 <!-- snippet
 id: aws_cloudfront_performance
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -170,7 +163,6 @@ description: Optimisation globale
 
 <!-- snippet
 id: aws_cache_warning
-type: warning
 tech: aws
 level: advanced
 importance: high
@@ -183,7 +175,6 @@ description: Piège fréquent
 
 <!-- snippet
 id: aws_elasticache_command
-type: command
 tech: aws
 level: advanced
 importance: medium
@@ -196,7 +187,6 @@ description: Permet de voir les clusters cache
 
 <!-- snippet
 id: aws_performance_tip
-type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -209,7 +199,6 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_latency_error
-type: error
 tech: aws
 level: advanced
 importance: high

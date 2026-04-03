@@ -8,9 +8,8 @@ mermaid: true
 section: 10
 status: published
 tags: R, statistiques, tests, t-test, chi-square, ANOVA
-theme: Spécialisation Data Scientist
+chapter_title: Spécialisation Data Scientist
 title: Module 10 --- Tests statistiques
-type: lesson
 prev_module: "/courses/R/R09_probabilites_statistiques_R.html"
 prev_module_title: "Module 9 --- Probabilités et statistiques"
 next_module: "/courses/R/R11_modelisation_statistique_R.html"

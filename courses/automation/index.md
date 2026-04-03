@@ -3,12 +3,11 @@ layout: course-index
 title: Automatisation
 course_id: automation
 description: "Scripts, outils et orchestration pour automatiser vos infrastructures"
-theme_icon: "⚙️"
-theme_group: Automatisation
-theme_group_icon: "⚙️"
-theme_group_order: 30
-theme_order: 20
-status: "En construction"
+icon: "⚙️"
+domain: Automatisation
+domain_icon: "⚙️"
+domain_order: 30
+status: En construction
 tags: ansible, terraform, bash, python, automation
 ---
 

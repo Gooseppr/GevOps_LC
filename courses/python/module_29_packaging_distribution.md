@@ -3,8 +3,7 @@ layout: page
 title: "Packaging avancé & distribution Python (wheels, CLI, publication)"
 
 course: python
-theme: "Data, Pipelines & Distribution"
-type: lesson
+chapter_title: "Data, Pipelines & Distribution"
 
 chapter: 3
 section: 10
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 105
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 29
-status: "draft"
+status: draft
 ---
 
 # Packaging avancé & distribution Python (wheels, CLI, publication)
@@ -229,7 +224,6 @@ Phrase clé : **Un bon package transforme ton code en produit réutilisable.**
 
 <!-- snippet
 id: python_build_package
-type: command
 tech: python
 level: advanced
 importance: high
@@ -242,7 +236,6 @@ description: Génère les artefacts wheel et sdist dans dist/
 
 <!-- snippet
 id: python_wheel_definition
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -255,7 +248,6 @@ description: Standard de distribution
 
 <!-- snippet
 id: python_entrypoints_cli
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -268,7 +260,6 @@ description: Créer des outils distribuables
 
 <!-- snippet
 id: python_packaging_warning
-type: warning
 tech: python
 level: advanced
 importance: high
@@ -281,7 +272,6 @@ description: Piège critique
 
 <!-- snippet
 id: python_versioning_tip
-type: tip
 tech: python
 level: advanced
 importance: medium

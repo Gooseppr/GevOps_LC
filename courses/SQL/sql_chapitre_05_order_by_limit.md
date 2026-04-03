@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 5
 status: published
 title: "Trier et limiter les résultats"
@@ -323,7 +323,6 @@ Dans le prochain chapitre nous verrons **les fonctions d'agrégation** :
 
 <!-- snippet
 id: sql_order_by_limit_top
-type: command
 tech: sql
 level: beginner
 importance: high
@@ -336,7 +335,6 @@ description: Récupère les N premières lignes dans l'ordre décroissant. Utile
 
 <!-- snippet
 id: sql_limit_sans_order_by
-type: warning
 tech: sql
 level: beginner
 importance: medium
@@ -349,7 +347,6 @@ description: Toujours coupler LIMIT avec ORDER BY pour des résultats stables et
 
 <!-- snippet
 id: sql_offset_pagination
-type: tip
 tech: sql
 level: beginner
 importance: medium

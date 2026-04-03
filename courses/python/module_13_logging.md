@@ -3,8 +3,7 @@ layout: page
 title: "Logging & observabilité en Python"
 
 course: python
-theme: "Concurrence, Logging & Données"
-type: lesson
+chapter_title: "Concurrence, Logging & Données"
 
 chapter: 2
 section: 5
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 85
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 13
-status: "draft"
+status: draft
 ---
 
 # Logging & observabilité en Python
@@ -130,7 +125,6 @@ API backend :
 
 <!-- snippet
 id: python_logging_basic
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -143,7 +137,6 @@ description: Base observabilité
 
 <!-- snippet
 id: python_logging_levels
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -156,7 +149,6 @@ description: Permet filtrage
 
 <!-- snippet
 id: python_print_warning
-type: warning
 tech: python
 level: intermediate
 importance: high

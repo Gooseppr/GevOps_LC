@@ -3,8 +3,7 @@ layout: page
 title: "Structures de données Python"
 
 course: python
-theme: "Syntaxe, Types & Structures"
-type: lesson
+chapter_title: "Syntaxe, Types & Structures"
 
 chapter: 1
 section: 3
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 70
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 3
-status: "draft"
+status: draft
 ---
 
 # Structures de données Python
@@ -166,7 +161,6 @@ user.get("email")
 
 <!-- snippet
 id: python_dict_usage
-type: concept
 tech: python
 level: beginner
 importance: high
@@ -179,7 +173,6 @@ description: Structure la plus utilisée en Python
 
 <!-- snippet
 id: python_set_performance
-type: concept
 tech: python
 level: beginner
 importance: high
@@ -192,7 +185,6 @@ description: Important pour performance
 
 <!-- snippet
 id: python_keyerror_warning
-type: warning
 tech: python
 level: beginner
 importance: high
@@ -205,7 +197,6 @@ description: Eviter crash en production
 
 <!-- snippet
 id: python_list_vs_set
-type: concept
 tech: python
 level: beginner
 importance: medium

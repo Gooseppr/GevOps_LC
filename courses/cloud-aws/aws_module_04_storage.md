@@ -3,8 +3,7 @@ layout: page
 title: "Stockage AWS — S3 / EBS / EFS"
 
 course: cloud-aws
-theme: "Fondations AWS"
-type: lesson
+chapter_title: "Fondations AWS"
 
 chapter: 1
 section: 4
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 80
 mermaid: true
 
-theme_icon: "database"
-theme_group: 1
-theme_group_icon: "cloud"
-theme_order: 4
-status: "published"
+status: published
 ---
 
 # Stockage AWS — S3 / EBS / EFS
@@ -138,7 +133,6 @@ S3 est le plus utilisé mais souvent mal compris.
 
 <!-- snippet
 id: aws_s3_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -151,7 +145,6 @@ description: Base du stockage AWS
 
 <!-- snippet
 id: aws_ebs_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -164,7 +157,6 @@ description: Stockage bloc AWS
 
 <!-- snippet
 id: aws_s3_public_warning
-type: warning
 tech: aws
 level: beginner
 importance: high
@@ -177,7 +169,6 @@ description: Risque critique sécurité
 
 <!-- snippet
 id: aws_s3_upload_command
-type: command
 tech: aws
 level: beginner
 importance: medium
@@ -190,7 +181,6 @@ description: Permet d’envoyer un fichier vers S3
 
 <!-- snippet
 id: aws_s3_lifecycle_tip
-type: tip
 tech: aws
 level: beginner
 importance: medium

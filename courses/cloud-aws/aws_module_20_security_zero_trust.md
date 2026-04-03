@@ -3,8 +3,7 @@ layout: page
 title: "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS"
 
 course: cloud-aws
-theme: "Architecture Avancée"
-type: lesson
+chapter_title: "Architecture Avancée"
 
 chapter: 3
 section: 4
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "shield"
-theme_group: 3
-theme_group_icon: "cloud"
-theme_order: 20
-status: "published"
+status: published
 ---
 
 # Sécurité avancée — Zero Trust, segmentation réseau, audit AWS
@@ -147,7 +142,6 @@ AWS fournit les outils mais la configuration est clé.
 
 <!-- snippet
 id: aws_zero_trust_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -160,7 +154,6 @@ description: Modèle sécurité moderne
 
 <!-- snippet
 id: aws_cloudtrail_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -173,7 +166,6 @@ description: Audit AWS
 
 <!-- snippet
 id: aws_network_segmentation
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -186,7 +178,6 @@ description: Base sécurité réseau
 
 <!-- snippet
 id: aws_security_group_command
-type: command
 tech: aws
 level: advanced
 importance: medium
@@ -199,7 +190,6 @@ description: Permet de voir les règles réseau AWS
 
 <!-- snippet
 id: aws_open_network_warning
-type: warning
 tech: aws
 level: advanced
 importance: high
@@ -212,7 +202,6 @@ description: Piège critique
 
 <!-- snippet
 id: aws_security_tip
-type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -225,7 +214,6 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_security_incident
-type: error
 tech: aws
 level: advanced
 importance: high

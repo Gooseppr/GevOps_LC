@@ -8,9 +8,8 @@ mermaid: true
 section: 17
 status: published
 tags: R, parallel computing, future, parallel
-theme: Spécialisation Data Engineer
+chapter_title: Spécialisation Data Engineer
 title: Module 17 --- Parallélisation
-type: lesson
 prev_module: "/courses/R/R16_API_ingestion_R.html"
 prev_module_title: "Module 16 --- API et ingestion de données"
 next_module: "/courses/R/R18_pipelines_donnees_R.html"

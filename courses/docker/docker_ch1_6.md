@@ -3,8 +3,7 @@ layout: page
 title: "Persister les données (volumes)"
 
 course: docker
-theme: "Prise en main"
-type: lesson
+chapter_title: "Prise en main"
 
 chapter: 1
 section: 6
@@ -14,7 +13,7 @@ difficulty: beginner
 duration: 35
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch1_5.html"
 prev_module_title: "Exposer des ports"
 next_module: "/courses/docker/docker_ch1_7.html"
@@ -182,7 +181,6 @@ Les volumes permettent de :
 
 <!-- snippet
 id: docker_volume_definition
-type: concept
 tech: docker
 level: beginner
 importance: high
@@ -195,7 +193,6 @@ description: Les volumes sont stockés par Docker sur la machine hôte, dans un 
 
 <!-- snippet
 id: docker_donnees_disparaissent_warning
-type: warning
 tech: docker
 level: beginner
 importance: high
@@ -207,7 +204,6 @@ content: Par défaut, toutes les données créées dans un conteneur (fichiers, 
 
 <!-- snippet
 id: docker_run_volume
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -220,7 +216,6 @@ description: -v monte le volume nommé sur le chemin /data dans le conteneur. Le
 
 <!-- snippet
 id: docker_volume_ls
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -233,7 +228,6 @@ description: Affiche la liste de tous les volumes gérés par Docker sur la mach
 
 <!-- snippet
 id: docker_volume_inspect
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -246,7 +240,6 @@ description: Affiche les détails d'un volume : emplacement sur la machine hôte
 
 <!-- snippet
 id: docker_volume_rm
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -259,7 +252,6 @@ description: Supprime définitivement un volume et les données qu'il contient. 
 
 <!-- snippet
 id: docker_volume_postgres_exemple
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -272,7 +264,6 @@ description: Monte un volume sur le répertoire de données de PostgreSQL. Les d
 
 <!-- snippet
 id: docker_volume_piege
-type: warning
 tech: docker
 level: beginner
 importance: high

@@ -3,8 +3,7 @@ layout: page
 title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
 
 course: cloud-aws
-theme: "Services & Architecture"
-type: lesson
+chapter_title: "Services & Architecture"
 
 chapter: 2
 section: 4
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 95
 mermaid: true
 
-theme_icon: "shield"
-theme_group: 2
-theme_group_icon: "cloud"
-theme_order: 12
-status: "published"
+status: published
 ---
 
 # Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield
@@ -141,7 +136,6 @@ WAF et Shield protègent contre les attaques externes.
 
 <!-- snippet
 id: aws_kms_role
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -154,7 +148,6 @@ description: Base du chiffrement AWS
 
 <!-- snippet
 id: aws_secrets_manager_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -167,7 +160,6 @@ description: Gestion sécurisée des secrets
 
 <!-- snippet
 id: aws_waf_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -180,7 +172,6 @@ description: Protection applicative
 
 <!-- snippet
 id: aws_secret_warning
-type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -193,7 +184,6 @@ description: Erreur critique sécurité
 
 <!-- snippet
 id: aws_kms_command
-type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -206,7 +196,6 @@ description: Permet de voir les clés KMS disponibles
 
 <!-- snippet
 id: aws_security_layer_tip
-type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -219,7 +208,6 @@ description: Bonne pratique sécurité
 
 <!-- snippet
 id: aws_ddos_error
-type: error
 tech: aws
 level: intermediate
 importance: high

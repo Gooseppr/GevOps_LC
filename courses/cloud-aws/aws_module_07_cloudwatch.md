@@ -3,8 +3,7 @@ layout: page
 title: "Monitoring AWS — CloudWatch (metrics, logs, alerting)"
 
 course: cloud-aws
-theme: "Fondations AWS"
-type: lesson
+chapter_title: "Fondations AWS"
 
 chapter: 1
 section: 7
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 80
 mermaid: true
 
-theme_icon: "chart"
-theme_group: 1
-theme_group_icon: "cloud"
-theme_order: 7
-status: "published"
+status: published
 ---
 
 # Monitoring AWS — CloudWatch (metrics, logs, alerting)
@@ -140,7 +135,6 @@ Sans monitoring, aucune infra n’est viable.
 
 <!-- snippet
 id: aws_cloudwatch_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -153,7 +147,6 @@ description: Base observabilité AWS
 
 <!-- snippet
 id: aws_cloudwatch_metrics
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -166,7 +159,6 @@ description: Indicateurs clés infra
 
 <!-- snippet
 id: aws_cloudwatch_alarm_warning
-type: warning
 tech: aws
 level: beginner
 importance: high
@@ -179,7 +171,6 @@ description: Piège fréquent monitoring
 
 <!-- snippet
 id: aws_cloudwatch_command
-type: command
 tech: aws
 level: beginner
 importance: medium
@@ -192,7 +183,6 @@ description: Permet de voir les métriques disponibles
 
 <!-- snippet
 id: aws_logs_tip
-type: tip
 tech: aws
 level: beginner
 importance: medium
@@ -205,7 +195,6 @@ description: Bonne pratique production
 
 <!-- snippet
 id: aws_monitoring_error
-type: error
 tech: aws
 level: beginner
 importance: high

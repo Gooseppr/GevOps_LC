@@ -8,9 +8,8 @@ mermaid: true
 section: 19
 status: published
 tags: R, orchestration, pipelines, airflow, dagster, cron
-theme: Spécialisation Data Engineer
+chapter_title: Spécialisation Data Engineer
 title: Module 19 --- Orchestration des pipelines
-type: lesson
 prev_module: "/courses/R/R18_pipelines_donnees_R.html"
 prev_module_title: "Module 18 --- Pipelines de données"
 next_module: "/courses/R/R20_production_R.html"

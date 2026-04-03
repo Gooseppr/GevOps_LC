@@ -3,8 +3,7 @@ layout: page
 title: "Performance & optimisation en Python"
 
 course: python
-theme: "Architecture & Performance"
-type: lesson
+chapter_title: "Architecture & Performance"
 
 chapter: 3
 section: 2
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 95
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 21
-status: "draft"
+status: draft
 ---
 
 # Performance & optimisation en Python
@@ -133,7 +128,6 @@ Phrase clé : **Optimiser sans mesurer est une perte de temps.**
 
 <!-- snippet
 id: python_cprofile_command
-type: command
 tech: python
 level: advanced
 importance: high
@@ -146,7 +140,6 @@ description: Identifie les parties lentes du code
 
 <!-- snippet
 id: python_optimization_warning
-type: warning
 tech: python
 level: advanced
 importance: high
@@ -159,7 +152,6 @@ description: erreur fréquente
 
 <!-- snippet
 id: python_datastructure_perf
-type: concept
 tech: python
 level: advanced
 importance: high

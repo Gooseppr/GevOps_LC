@@ -3,8 +3,7 @@ layout: page
 title: "Load Balancer & Auto Scaling — Scalabilité AWS"
 
 course: cloud-aws
-theme: "Services & Architecture"
-type: lesson
+chapter_title: "Services & Architecture"
 
 chapter: 2
 section: 1
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-theme_icon: "scale"
-theme_group: 2
-theme_group_icon: "cloud"
-theme_order: 9
-status: "published"
+status: published
 ---
 
 # Load Balancer & Auto Scaling — Scalabilité AWS
@@ -134,7 +129,6 @@ Ensemble, ils permettent une architecture scalable et résiliente.
 
 <!-- snippet
 id: aws_alb_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -147,7 +141,6 @@ description: Base du load balancing AWS
 
 <!-- snippet
 id: aws_autoscaling_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -160,7 +153,6 @@ description: Élément clé scalabilité
 
 <!-- snippet
 id: aws_health_check_warning
-type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -173,7 +165,6 @@ description: Piège critique en prod
 
 <!-- snippet
 id: aws_elb_command
-type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -186,7 +177,6 @@ description: Permet de voir les load balancers AWS
 
 <!-- snippet
 id: aws_scaling_tip
-type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -199,7 +189,6 @@ description: Bonne pratique architecture
 
 <!-- snippet
 id: aws_scaling_error
-type: error
 tech: aws
 level: intermediate
 importance: high

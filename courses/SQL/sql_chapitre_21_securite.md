@@ -4,7 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
-theme: "Optimisation et administration"
+chapter_title: "Optimisation et administration"
 section: 5
 status: published
 title: "Sécurité des bases de données"
@@ -213,7 +213,6 @@ Dans le prochain chapitre nous verrons **l’administration des bases de donnée
 
 <!-- snippet
 id: sql_grant_revoke
-type: command
 tech: sql
 level: advanced
 importance: high
@@ -226,7 +225,6 @@ description: GRANT attribue le droit, REVOKE le retire. Les permissions s’appl
 
 <!-- snippet
 id: sql_moindre_privilege
-type: tip
 tech: sql
 level: advanced
 importance: high

@@ -1,16 +1,15 @@
 ---
 chapter: 2
 course: R
-difficulty: débutant
+difficulty: beginner
 duration: 75
 layout: page
 mermaid: true
 section: 5
 status: published
 tags: R, import, export, csv, excel, json, api, database
-theme: Tronc commun Data
+chapter_title: Tronc commun Data
 title: Module 5 --- Import et export de données
-type: lesson
 prev_module: "/courses/R/R04_programmation_R.html"
 prev_module_title: "Module 4 --- Programmation en R"
 next_module: "/courses/R/R06_manipulation_donnees_R.html"

@@ -3,8 +3,7 @@ layout: page
 title: "Réseau Docker — communication entre conteneurs"
 
 course: docker
-theme: "Réseau et volumes"
-type: lesson
+chapter_title: "Réseau et volumes"
 
 chapter: 3
 section: 1
@@ -14,7 +13,7 @@ difficulty: intermediate
 duration: 45
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch2_7.html"
 prev_module_title: "Bonnes pratiques Dockerfile"
 next_module: "/courses/docker/docker_ch3_2.html"
@@ -170,7 +169,6 @@ Les réseaux Docker permettent de :
 
 <!-- snippet
 id: docker_network_create
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -183,7 +181,6 @@ description: Crée un réseau Docker personnalisé utilisable pour connecter plu
 
 <!-- snippet
 id: docker_network_run_conteneur
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -196,7 +193,6 @@ description: Lance un conteneur en l'attachant directement à un réseau Docker,
 
 <!-- snippet
 id: docker_network_ls
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -209,7 +205,6 @@ description: Affiche la liste de tous les réseaux Docker existants avec leur no
 
 <!-- snippet
 id: docker_network_inspect
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -222,7 +217,6 @@ description: Affiche les détails complets d'un réseau Docker : configuration, 
 
 <!-- snippet
 id: docker_network_dns_nom_conteneur
-type: tip
 tech: docker
 level: intermediate
 importance: high
@@ -234,7 +228,6 @@ content: Les conteneurs sur le même réseau Docker peuvent se contacter directe
 
 <!-- snippet
 id: docker_network_localhost_erreur
-type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -246,7 +239,6 @@ content: Utiliser localhost entre deux conteneurs est une erreur fréquente. loc
 
 <!-- snippet
 id: docker_network_isolation_piege
-type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -258,7 +250,6 @@ content: Par défaut, les conteneurs sont isolés. Sans réseau partagé, ils ne
 
 <!-- snippet
 id: docker_network_concept_pont
-type: concept
 tech: docker
 level: intermediate
 importance: high

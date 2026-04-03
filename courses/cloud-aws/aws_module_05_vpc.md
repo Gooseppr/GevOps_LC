@@ -3,8 +3,7 @@ layout: page
 title: "Réseau AWS — VPC, Subnets, Routing"
 
 course: cloud-aws
-theme: "Fondations AWS"
-type: lesson
+chapter_title: "Fondations AWS"
 
 chapter: 1
 section: 5
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 90
 mermaid: true
 
-theme_icon: "network"
-theme_group: 1
-theme_group_icon: "cloud"
-theme_order: 5
-status: "published"
+status: published
 ---
 
 # Réseau AWS — VPC, Subnets, Routing
@@ -139,7 +134,6 @@ Une mauvaise config réseau bloque tout.
 
 <!-- snippet
 id: aws_vpc_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -152,7 +146,6 @@ description: Base du réseau AWS
 
 <!-- snippet
 id: aws_subnet_public_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -165,7 +158,6 @@ description: Différence clé public vs privé
 
 <!-- snippet
 id: aws_nat_gateway_usage
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -178,7 +170,6 @@ description: Élément critique sécurité
 
 <!-- snippet
 id: aws_route_table_command
-type: command
 tech: aws
 level: beginner
 importance: medium
@@ -191,7 +182,6 @@ description: Permet de vérifier les routes réseau
 
 <!-- snippet
 id: aws_network_debug_error
-type: error
 tech: aws
 level: beginner
 importance: high

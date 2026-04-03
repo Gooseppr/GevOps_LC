@@ -1,16 +1,15 @@
 ---
 chapter: 1
 course: R
-difficulty: débutant-intermédiaire
+difficulty: beginner-intermédiaire
 duration: 75
 layout: page
 mermaid: true
 section: 4
 status: published
 tags: R, fonctions, programmation, apply, functional programming
-theme: Fondations du langage R
+chapter_title: Fondations du langage R
 title: Module 4 --- Programmation en R
-type: lesson
 prev_module: "/courses/R/R03_structures_donnees_R.html"
 prev_module_title: "Module 3 --- Structures de données en R"
 next_module: "/courses/R/R05_import_export_R.html"

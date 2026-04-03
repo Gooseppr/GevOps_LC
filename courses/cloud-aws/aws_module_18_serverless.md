@@ -3,8 +3,7 @@ layout: page
 title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
 
 course: cloud-aws
-theme: "Architecture Avancée"
-type: lesson
+chapter_title: "Architecture Avancée"
 
 chapter: 3
 section: 2
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "bolt"
-theme_group: 3
-theme_group_icon: "cloud"
-theme_order: 18
-status: "published"
+status: published
 ---
 
 # Architecture Serverless — Lambda, API Gateway, Event-driven
@@ -133,7 +128,6 @@ Idéal pour workloads dynamiques.
 
 <!-- snippet
 id: aws_lambda_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -146,7 +140,6 @@ description: Base serverless AWS
 
 <!-- snippet
 id: aws_apigateway_role
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -159,7 +152,6 @@ description: Interface API AWS
 
 <!-- snippet
 id: aws_lambda_command
-type: command
 tech: aws
 level: advanced
 importance: medium
@@ -172,7 +164,6 @@ description: Permet de voir les fonctions Lambda
 
 <!-- snippet
 id: aws_cold_start_warning
-type: warning
 tech: aws
 level: advanced
 importance: high
@@ -185,7 +176,6 @@ description: Piège serverless
 
 <!-- snippet
 id: aws_serverless_tip
-type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -198,7 +188,6 @@ description: Bonne pratique serverless
 
 <!-- snippet
 id: aws_serverless_error
-type: error
 tech: aws
 level: advanced
 importance: high

@@ -3,8 +3,7 @@ layout: page
 title: "Bases de données AWS — RDS, Aurora, DynamoDB"
 
 course: cloud-aws
-theme: "Services & Architecture"
-type: lesson
+chapter_title: "Services & Architecture"
 
 chapter: 2
 section: 2
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 95
 mermaid: true
 
-theme_icon: "database"
-theme_group: 2
-theme_group_icon: "cloud"
-theme_order: 10
-status: "published"
+status: published
 ---
 
 # Bases de données AWS — RDS, Aurora, DynamoDB
@@ -140,7 +135,6 @@ Le choix impacte fortement performance et scalabilité.
 
 <!-- snippet
 id: aws_rds_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -153,7 +147,6 @@ description: Base SQL AWS
 
 <!-- snippet
 id: aws_aurora_advantage
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -166,7 +159,6 @@ description: Optimisation AWS
 
 <!-- snippet
 id: aws_dynamodb_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -179,7 +171,6 @@ description: Base NoSQL AWS
 
 <!-- snippet
 id: aws_db_wrong_choice_warning
-type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -192,7 +183,6 @@ description: Erreur fréquente architecture
 
 <!-- snippet
 id: aws_rds_command
-type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -205,7 +195,6 @@ description: Permet de voir les instances RDS
 
 <!-- snippet
 id: aws_db_scaling_tip
-type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -218,7 +207,6 @@ description: Bonne pratique DB
 
 <!-- snippet
 id: aws_db_failure_error
-type: error
 tech: aws
 level: intermediate
 importance: high

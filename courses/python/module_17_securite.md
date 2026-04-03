@@ -3,8 +3,7 @@ layout: page
 title: "Sécurité applicative en Python"
 
 course: python
-theme: "APIs, Sécurité & Configuration"
-type: lesson
+chapter_title: "APIs, Sécurité & Configuration"
 
 chapter: 2
 section: 9
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 110
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 17
-status: "draft"
+status: draft
 ---
 
 # Sécurité applicative en Python
@@ -192,7 +187,6 @@ Phrase clé : **Une application non sécurisée est une application déjà compr
 
 <!-- snippet
 id: python_bcrypt_hash
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -205,7 +199,6 @@ description: standard sécurité
 
 <!-- snippet
 id: python_jwt_usage
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -218,7 +211,6 @@ description: auth stateless
 
 <!-- snippet
 id: python_password_warning
-type: warning
 tech: python
 level: intermediate
 importance: high
@@ -231,7 +223,6 @@ description: fail majeur
 
 <!-- snippet
 id: python_env_secret
-type: concept
 tech: python
 level: intermediate
 importance: high

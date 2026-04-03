@@ -3,8 +3,7 @@ layout: page
 title: "Architectures distribuées — Microservices, SQS, SNS"
 
 course: cloud-aws
-theme: "Architecture Avancée"
-type: lesson
+chapter_title: "Architecture Avancée"
 
 chapter: 3
 section: 6
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "network"
-theme_group: 3
-theme_group_icon: "cloud"
-theme_order: 22
-status: "published"
+status: published
 ---
 
 # Architectures distribuées — Microservices, SQS, SNS
@@ -144,7 +139,6 @@ C’est un standard des architectures modernes.
 
 <!-- snippet
 id: aws_microservices_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -157,7 +151,6 @@ description: Base architecture moderne
 
 <!-- snippet
 id: aws_sqs_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -170,7 +163,6 @@ description: Découplage services
 
 <!-- snippet
 id: aws_sns_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -183,7 +175,6 @@ description: Pub/Sub AWS
 
 <!-- snippet
 id: aws_sqs_command
-type: command
 tech: aws
 level: advanced
 importance: medium
@@ -196,7 +187,6 @@ description: Permet d'envoyer un message dans une queue
 
 <!-- snippet
 id: aws_coupling_warning
-type: warning
 tech: aws
 level: advanced
 importance: high
@@ -209,7 +199,6 @@ description: Piège critique
 
 <!-- snippet
 id: aws_async_tip
-type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -222,7 +211,6 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_distributed_error
-type: error
 tech: aws
 level: advanced
 importance: high

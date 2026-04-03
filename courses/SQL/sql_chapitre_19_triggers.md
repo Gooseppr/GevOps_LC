@@ -4,7 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
-theme: "Optimisation et administration"
+chapter_title: "Optimisation et administration"
 section: 3
 status: published
 title: "Les triggers"
@@ -241,7 +241,6 @@ Dans le prochain chapitre nous verrons **la gestion de la concurrence**, qui exp
 
 <!-- snippet
 id: sql_trigger_new_old
-type: concept
 tech: sql
 level: advanced
 importance: high
@@ -257,7 +256,6 @@ description: OLD est NULL sur un INSERT, NEW est NULL sur un DELETE.
 
 <!-- snippet
 id: sql_trigger_logique_cachee
-type: warning
 tech: sql
 level: advanced
 importance: high

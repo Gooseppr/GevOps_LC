@@ -3,8 +3,7 @@ layout: page
 title: "Introduction à Docker Swarm"
 
 course: docker
-theme: "Docker Swarm"
-type: lesson
+chapter_title: "Docker Swarm"
 
 chapter: 6
 section: 1
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 45
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch5_4.html"
 prev_module_title: "Optimisation avancée des images"
 next_module: "/courses/docker/docker_ch6_2.html"
@@ -155,7 +154,6 @@ Docker Swarm permet de :
 
 <!-- snippet
 id: docker_swarm_definition
-type: concept
 tech: docker
 level: advanced
 importance: high
@@ -168,7 +166,6 @@ description: Swarm est intégré directement dans Docker, aucune installation su
 
 <!-- snippet
 id: docker_swarm_vs_compose
-type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -180,7 +177,6 @@ content: Compose gère plusieurs conteneurs sur une seule machine. Swarm orchest
 
 <!-- snippet
 id: docker_swarm_orchestrateur
-type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -192,7 +188,6 @@ content: Un orchestrateur gère automatiquement des conteneurs à grande échell
 
 <!-- snippet
 id: docker_swarm_complexite_prerequis
-type: warning
 tech: docker
 level: advanced
 importance: low
@@ -204,7 +199,6 @@ content: Utiliser Swarm sans comprendre les concepts de base Docker (réseau, vo
 
 <!-- snippet
 id: docker_swarm_roles_manager_worker
-type: concept
 tech: docker
 level: advanced
 importance: high

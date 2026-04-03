@@ -4,7 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
-theme: "Optimisation et administration"
+chapter_title: "Optimisation et administration"
 section: 7
 status: published
 title: "SQL avancé"
@@ -259,7 +259,6 @@ Ces techniques sont largement utilisées dans :
 
 <!-- snippet
 id: sql_cte_with
-type: command
 tech: sql
 level: advanced
 importance: high
@@ -272,7 +271,6 @@ description: La CTE agit comme une table temporaire dans la requête. Améliore 
 
 <!-- snippet
 id: sql_window_function_over
-type: concept
 tech: sql
 level: advanced
 importance: high
@@ -287,7 +285,6 @@ description: Indispensable pour les analyses où on veut comparer chaque ligne a
 
 <!-- snippet
 id: sql_rank_classement
-type: tip
 tech: sql
 level: advanced
 importance: medium

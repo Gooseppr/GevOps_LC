@@ -1,16 +1,15 @@
 ---
 chapter: 1
 course: R
-difficulty: débutant
+difficulty: beginner
 duration: 45
 layout: page
 mermaid: true
 section: 1
 status: published
 tags: R, CRAN, RStudio, packages, environnement
-theme: Fondations du langage R
+chapter_title: Fondations du langage R
 title: Module 1 --- Environnement et écosystème R
-type: lesson
 next_module: "/courses/R/R02_syntaxe_fondamentale_R.html"
 next_module_title: "Module 2 --- Syntaxe fondamentale du langage R"
 ---

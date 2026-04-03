@@ -2,8 +2,7 @@
 layout: page
 title: "Schema Registry et formats Avro / Protobuf / JSON Schema"
 course: kafka
-theme: "Streaming de données"
-type: lesson
+chapter_title: "Streaming de données"
 
 chapter: 1
 section: 7
@@ -13,7 +12,7 @@ difficulty: intermediate
 duration: 105
 mermaid: true
 
-status: "En construction"
+status: En construction
 prev_module: "/courses/kafka/kafka_data_architecture_complete.html"
 prev_module_title: "Kafka dans une architecture Data Engineering"
 ---

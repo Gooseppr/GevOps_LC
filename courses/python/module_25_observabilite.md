@@ -3,8 +3,7 @@ layout: page
 title: "Observabilité avancée en Python (metrics, tracing, monitoring)"
 
 course: python
-theme: "DevOps, CI/CD & Observabilité"
-type: lesson
+chapter_title: "DevOps, CI/CD & Observabilité"
 
 chapter: 3
 section: 6
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 25
-status: "draft"
+status: draft
 ---
 
 # Observabilité avancée en Python (metrics, tracing, monitoring)
@@ -121,7 +116,6 @@ Phrase clé : **Ce que tu ne mesures pas, tu ne peux pas le corriger.**
 
 <!-- snippet
 id: observability_three_pillars
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -134,7 +128,6 @@ description: base monitoring
 
 <!-- snippet
 id: observability_metrics
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -147,7 +140,6 @@ description: surveillance système
 
 <!-- snippet
 id: observability_logs_only_warning
-type: warning
 tech: python
 level: advanced
 importance: high

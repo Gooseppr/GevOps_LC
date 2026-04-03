@@ -4,7 +4,7 @@ course: SQL
 difficulty: advanced
 duration: 90
 layout: page
-theme: "Optimisation et administration"
+chapter_title: "Optimisation et administration"
 section: 6
 status: published
 title: "Administration des bases de données"
@@ -257,7 +257,6 @@ Dans le prochain chapitre nous verrons **le SQL avancé**, notamment :
 
 <!-- snippet
 id: sql_pg_dump_backup
-type: command
 tech: sql
 level: advanced
 importance: high
@@ -271,7 +270,6 @@ description: pg_dump exporte la structure et les données en SQL. psql les réim
 
 <!-- snippet
 id: sql_backup_non_teste_inutile
-type: warning
 tech: sql
 level: advanced
 importance: high

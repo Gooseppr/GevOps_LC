@@ -8,9 +8,8 @@ mermaid: true
 section: 16
 status: published
 tags: R, API, ingestion, REST, httr, jsonlite
-theme: Spécialisation Data Engineer
+chapter_title: Spécialisation Data Engineer
 title: Module 16 --- API et ingestion de données
-type: lesson
 prev_module: "/courses/R/R15_bases_de_donnees_R.html"
 prev_module_title: "Module 15 --- Bases de données"
 next_module: "/courses/R/R17_parallelisation_R.html"

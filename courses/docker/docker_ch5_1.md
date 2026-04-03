@@ -3,8 +3,7 @@ layout: page
 title: "Multi-stage build"
 
 course: docker
-theme: "Optimisation et sécurité"
-type: lesson
+chapter_title: "Optimisation et sécurité"
 
 chapter: 5
 section: 1
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 50
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch4_7.html"
 prev_module_title: "Debug et logs avec Docker Compose"
 next_module: "/courses/docker/docker_ch5_2.html"
@@ -176,7 +175,6 @@ Le multi-stage build permet de :
 
 <!-- snippet
 id: docker_multistage_concept
-type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -189,7 +187,6 @@ description: Technique essentielle pour séparer environnement de build et envir
 
 <!-- snippet
 id: docker_multistage_copy_from
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -202,7 +199,6 @@ description: Copie uniquement les fichiers compilés depuis le stage nommé "bui
 
 <!-- snippet
 id: docker_multistage_build_runtime_separation
-type: tip
 tech: docker
 level: intermediate
 importance: high
@@ -215,7 +211,6 @@ description: Bonne pratique fondamentale : Build ≠ Runtime
 
 <!-- snippet
 id: docker_multistage_missing_files_warning
-type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -227,7 +222,6 @@ content: Oublier de copier les bons fichiers depuis le stage de build rend l'app
 
 <!-- snippet
 id: docker_multistage_full_example
-type: concept
 tech: docker
 level: intermediate
 importance: low

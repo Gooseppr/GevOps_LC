@@ -3,8 +3,7 @@ layout: page
 title: "CI/CD Python (intégration & déploiement continus)"
 
 course: python
-theme: "DevOps, CI/CD & Observabilité"
-type: lesson
+chapter_title: "DevOps, CI/CD & Observabilité"
 
 chapter: 3
 section: 5
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 24
-status: "draft"
+status: draft
 ---
 
 # CI/CD Python (intégration & déploiement continus)
@@ -143,7 +138,6 @@ Phrase clé : **Un bon pipeline remplace les erreurs humaines.**
 
 <!-- snippet
 id: cicd_pipeline_definition
-type: concept
 tech: cicd
 level: advanced
 importance: high
@@ -156,7 +150,6 @@ description: base DevOps
 
 <!-- snippet
 id: cicd_tests_block
-type: concept
 tech: cicd
 level: advanced
 importance: high
@@ -169,7 +162,6 @@ description: sécurité qualité
 
 <!-- snippet
 id: cicd_manual_warning
-type: warning
 tech: cicd
 level: advanced
 importance: high

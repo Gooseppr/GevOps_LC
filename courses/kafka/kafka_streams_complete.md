@@ -3,8 +3,7 @@ layout: page
 title: "Kafka Streams"
 
 course: kafka
-theme: "Streaming de données"
-type: lesson
+chapter_title: "Streaming de données"
 
 chapter: 1
 section: 3
@@ -14,7 +13,7 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-status: "En construction"
+status: En construction
 prev_module: "/courses/kafka/kafka_deep_dive_complete.html"
 prev_module_title: "Kafka en profondeur"
 next_module: "/courses/kafka/kafka_connect_complete.html"

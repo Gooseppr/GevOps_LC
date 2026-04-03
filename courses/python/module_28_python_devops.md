@@ -3,8 +3,7 @@ layout: page
 title: "Python pour DevOps (automation, API cloud, scripts infra)"
 
 course: python
-theme: "Data, Pipelines & Distribution"
-type: lesson
+chapter_title: "Data, Pipelines & Distribution"
 
 chapter: 3
 section: 9
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 105
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 28
-status: "draft"
+status: draft
 ---
 
 # Python pour DevOps (automation, API cloud, scripts infra)
@@ -139,7 +134,6 @@ Phrase clé : **Automatiser = gagner du temps et réduire les erreurs.**
 
 <!-- snippet
 id: python_devops_automation
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -152,7 +146,6 @@ description: outil clé DevOps
 
 <!-- snippet
 id: python_boto3_usage
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -165,7 +158,6 @@ description: API cloud
 
 <!-- snippet
 id: python_script_warning
-type: warning
 tech: python
 level: advanced
 importance: high

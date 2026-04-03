@@ -3,8 +3,7 @@ layout: page
 title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
 
 course: cloud-aws
-theme: "Architecture Avancée"
-type: lesson
+chapter_title: "Architecture Avancée"
 
 chapter: 3
 section: 1
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "server"
-theme_group: 3
-theme_group_icon: "cloud"
-theme_order: 17
-status: "published"
+status: published
 ---
 
 # Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery
@@ -147,7 +142,6 @@ C’est indispensable en production critique.
 
 <!-- snippet
 id: aws_ha_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -160,7 +154,6 @@ description: Concept critique production
 
 <!-- snippet
 id: aws_multi_az_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -173,7 +166,6 @@ description: Base résilience AWS
 
 <!-- snippet
 id: aws_failover_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -186,7 +178,6 @@ description: Mécanisme clé HA
 
 <!-- snippet
 id: aws_ha_single_az_warning
-type: warning
 tech: aws
 level: advanced
 importance: high
@@ -199,7 +190,6 @@ description: Piège critique
 
 <!-- snippet
 id: aws_ha_command
-type: command
 tech: aws
 level: advanced
 importance: medium
@@ -212,7 +202,6 @@ description: Permet de vérifier les instances derrière un load balancer
 
 <!-- snippet
 id: aws_ha_tip
-type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -225,7 +214,6 @@ description: Bonne pratique HA
 
 <!-- snippet
 id: aws_ha_error
-type: error
 tech: aws
 level: advanced
 importance: high

@@ -3,12 +3,11 @@ layout: course-index
 title: Kafka
 course_id: kafka
 description: Architecture événementielle, brokers, topics et consumers.
-theme_icon: "📊"
-theme_group: Event
-theme_group_icon: "📨"
-theme_group_order: 40
-theme_order: 10
-status: "En construction"
+icon: "📊"
+domain: Event
+domain_icon: "📨"
+domain_order: 40
+status: En construction
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">

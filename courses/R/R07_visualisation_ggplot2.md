@@ -1,16 +1,15 @@
 ---
 chapter: 2
 course: R
-difficulty: débutant
+difficulty: beginner
 duration: 90
 layout: page
 mermaid: true
 section: 7
 status: published
 tags: R, ggplot2, visualisation, dataviz
-theme: Tronc commun Data
+chapter_title: Tronc commun Data
 title: Module 7 --- Visualisation de données avec ggplot2
-type: lesson
 prev_module: "/courses/R/R06_manipulation_donnees_R.html"
 prev_module_title: "Module 6 --- Manipulation de données avec dplyr et tidyr"
 next_module: "/courses/R/R08_EDA_R.html"

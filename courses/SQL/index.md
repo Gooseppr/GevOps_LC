@@ -3,11 +3,10 @@ layout: course-index
 title: SQL
 course_id: SQL
 description: Maîtriser le langage SQL pour interroger et gérer des bases de données relationnelles.
-theme_icon: "🗄️"
-theme_group: Data
-theme_group_icon: "📈"
-theme_group_order: 40
-theme_order: 20
+icon: "🗄️"
+domain: Data
+domain_icon: "📈"
+domain_order: 40
 status: published
 ---
 

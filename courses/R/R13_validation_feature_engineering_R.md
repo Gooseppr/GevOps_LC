@@ -9,9 +9,8 @@ section: 13
 status: published
 tags: R, machine learning, validation, cross validation, feature
   engineering
-theme: Spécialisation Data Scientist
+chapter_title: Spécialisation Data Scientist
 title: Module 13 --- Validation et Feature Engineering
-type: lesson
 prev_module: "/courses/R/R12_machine_learning_R.html"
 prev_module_title: "Module 12 --- Machine Learning"
 next_module: "/courses/R/R14_donnees_volumineuses_R.html"

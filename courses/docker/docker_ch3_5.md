@@ -3,8 +3,7 @@ layout: page
 title: "Partage de données entre conteneurs"
 
 course: docker
-theme: "Réseau et volumes"
-type: lesson
+chapter_title: "Réseau et volumes"
 
 chapter: 3
 section: 5
@@ -14,7 +13,7 @@ difficulty: intermediate
 duration: 40
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch3_4.html"
 prev_module_title: "Volumes avancés"
 next_module: "/courses/docker/docker_ch3_6.html"
@@ -153,7 +152,6 @@ Le partage de données permet de :
 
 <!-- snippet
 id: docker_volume_create_shared
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -166,7 +164,6 @@ description: Crée un volume Docker nommé "shared-data" qui peut ensuite être 
 
 <!-- snippet
 id: docker_run_volume_shared_api
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -179,7 +176,6 @@ description: Lance un conteneur et monte le volume shared-data dans /data, perme
 
 <!-- snippet
 id: docker_run_volume_shared_worker
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -192,7 +188,6 @@ description: Lance un second conteneur en montant le même volume shared-data da
 
 <!-- snippet
 id: docker_volume_partage_concept
-type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -204,7 +199,6 @@ content: Un volume Docker peut être monté simultanément dans plusieurs conten
 
 <!-- snippet
 id: docker_volume_ecriture_concurrente_piege
-type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -216,7 +210,6 @@ content: Si plusieurs conteneurs écrivent en même temps sur le même volume sa
 
 <!-- snippet
 id: docker_volume_ecriture_concurrente_piege_b
-type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -228,7 +221,6 @@ content: Il faut prévoir des mécanismes de coordination (verrou, file d'attent
 
 <!-- snippet
 id: docker_volume_partage_tip
-type: tip
 tech: docker
 level: intermediate
 importance: low

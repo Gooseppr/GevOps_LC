@@ -3,8 +3,7 @@ layout: page
 title: "Interagir avec un conteneur"
 
 course: docker
-theme: "Prise en main"
-type: lesson
+chapter_title: "Prise en main"
 
 chapter: 1
 section: 7
@@ -14,7 +13,7 @@ difficulty: beginner
 duration: 30
 mermaid: false
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch1_6.html"
 prev_module_title: "Persister les données (volumes)"
 next_module: "/courses/docker/docker_ch1_8.html"
@@ -153,7 +152,6 @@ cat config.json
 
 <!-- snippet
 id: docker_exec_bash
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -166,7 +164,6 @@ description: Ouvre un terminal interactif dans le conteneur. -i = interactif, -t
 
 <!-- snippet
 id: docker_exec_sh
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -179,7 +176,6 @@ description: Utile quand bash n’est pas disponible dans l’image (ex : images
 
 <!-- snippet
 id: docker_exec_commande_directe
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -192,7 +188,6 @@ description: Exécute la commande directement dans le conteneur et affiche le r�
 
 <!-- snippet
 id: docker_exec_conteneur_arrete_warning
-type: warning
 tech: docker
 level: beginner
 importance: high
@@ -204,7 +199,6 @@ content: La commande docker exec ne fonctionne que sur un conteneur en cours d�
 
 <!-- snippet
 id: docker_exec_modifications_temporaires
-type: warning
 tech: docker
 level: beginner
 importance: high
@@ -216,7 +210,6 @@ content: Toute modification faite via docker exec (fichiers, paquets) est tempor
 
 <!-- snippet
 id: docker_exec_usage_debug
-type: tip
 tech: docker
 level: beginner
 importance: medium

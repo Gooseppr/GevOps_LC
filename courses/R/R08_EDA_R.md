@@ -1,16 +1,15 @@
 ---
 chapter: 2
 course: R
-difficulty: débutant
+difficulty: beginner
 duration: 90
 layout: page
 mermaid: true
 section: 8
 status: published
 tags: R, EDA, statistiques descriptives, corrélation, outliers
-theme: Tronc commun Data
+chapter_title: Tronc commun Data
 title: Module 8 --- Analyse exploratoire de données (EDA)
-type: lesson
 prev_module: "/courses/R/R07_visualisation_ggplot2.html"
 prev_module_title: "Module 7 --- Visualisation de données avec ggplot2"
 next_module: "/courses/R/R09_probabilites_statistiques_R.html"

@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 1
 status: published
 title: "Introduction aux bases de données"
@@ -215,7 +215,6 @@ Dans le prochain chapitre nous verrons **le modèle relationnel**, qui est la ba
 
 <!-- snippet
 id: sql_definition_langage
-type: concept
 tech: sql
 level: beginner
 importance: high

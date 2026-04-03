@@ -3,8 +3,7 @@ layout: page
 title: "Typage & qualité de code en Python"
 
 course: python
-theme: "POO, Qualité & Tests"
-type: lesson
+chapter_title: "POO, Qualité & Tests"
 
 chapter: 2
 section: 2
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 85
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 10
-status: "draft"
+status: draft
 ---
 
 # Typage & qualité de code en Python
@@ -139,7 +134,6 @@ Correction : respecter types
 
 <!-- snippet
 id: python_type_hint_basic
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -152,7 +146,6 @@ description: Améliore la qualité du code
 
 <!-- snippet
 id: python_mypy_command
-type: command
 tech: python
 level: intermediate
 importance: high
@@ -165,7 +158,6 @@ description: Analyse les erreurs de type sans exécuter le code
 
 <!-- snippet
 id: python_typing_warning
-type: warning
 tech: python
 level: intermediate
 importance: high

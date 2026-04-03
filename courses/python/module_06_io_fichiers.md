@@ -3,8 +3,7 @@ layout: page
 title: "I/O & manipulation de fichiers en Python"
 
 course: python
-theme: "Erreurs, Fichiers & Scripting"
-type: lesson
+chapter_title: "Erreurs, Fichiers & Scripting"
 
 chapter: 1
 section: 6
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 75
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 6
-status: "draft"
+status: draft
 ---
 
 # I/O & manipulation de fichiers en Python
@@ -155,7 +150,6 @@ Correction : vérifier path
 
 <!-- snippet
 id: python_open_file
-type: command
 tech: python
 level: beginner
 importance: high
@@ -168,7 +162,6 @@ description: Ouvre un fichier en lecture
 
 <!-- snippet
 id: python_with_usage
-type: concept
 tech: python
 level: beginner
 importance: high
@@ -181,7 +174,6 @@ description: Bonne pratique essentielle
 
 <!-- snippet
 id: python_json_dump
-type: concept
 tech: python
 level: beginner
 importance: medium
@@ -194,7 +186,6 @@ description: Standard data exchange
 
 <!-- snippet
 id: python_file_error
-type: error
 tech: python
 level: beginner
 importance: high

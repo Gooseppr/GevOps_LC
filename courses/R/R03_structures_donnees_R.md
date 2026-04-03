@@ -1,16 +1,15 @@
 ---
 chapter: 1
 course: R
-difficulty: débutant
+difficulty: beginner
 duration: 75
 layout: page
 mermaid: true
 section: 3
 status: published
 tags: R, data structures, vector, matrix, list, dataframe, tibble
-theme: Fondations du langage R
+chapter_title: Fondations du langage R
 title: Module 3 --- Structures de données en R
-type: lesson
 prev_module: "/courses/R/R02_syntaxe_fondamentale_R.html"
 prev_module_title: "Module 2 --- Syntaxe fondamentale du langage R"
 next_module: "/courses/R/R04_programmation_R.html"

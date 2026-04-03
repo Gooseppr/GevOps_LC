@@ -3,8 +3,7 @@ layout: page
 title: "Gouvernance AWS — Organizations, Tagging, Compliance"
 
 course: cloud-aws
-theme: "Architecture Avancée"
-type: lesson
+chapter_title: "Architecture Avancée"
 
 chapter: 3
 section: 8
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "organization"
-theme_group: 3
-theme_group_icon: "cloud"
-theme_order: 24
-status: "published"
+status: published
 ---
 
 # Gouvernance AWS — Organizations, Tagging, Compliance
@@ -155,7 +150,6 @@ C’est indispensable en entreprise.
 
 <!-- snippet
 id: aws_governance_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -168,7 +162,6 @@ description: Base entreprise
 
 <!-- snippet
 id: aws_organizations_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -181,7 +174,6 @@ description: Multi-account management
 
 <!-- snippet
 id: aws_scp_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -194,7 +186,6 @@ description: Sécurité globale
 
 <!-- snippet
 id: aws_tagging_definition
-type: concept
 tech: aws
 level: advanced
 importance: high
@@ -207,7 +198,6 @@ description: Gestion et FinOps
 
 <!-- snippet
 id: aws_tagging_warning
-type: warning
 tech: aws
 level: advanced
 importance: high
@@ -220,7 +210,6 @@ description: Piège fréquent entreprise
 
 <!-- snippet
 id: aws_org_command
-type: command
 tech: aws
 level: advanced
 importance: medium
@@ -233,7 +222,6 @@ description: Permet de voir les comptes dans une organisation
 
 <!-- snippet
 id: aws_governance_tip
-type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -246,7 +234,6 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_governance_error
-type: error
 tech: aws
 level: advanced
 importance: high

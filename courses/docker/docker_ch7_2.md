@@ -3,8 +3,7 @@ layout: page
 title: "Pipeline CI avec GitHub Actions et Docker"
 
 course: docker
-theme: "CI/CD"
-type: lesson
+chapter_title: "CI/CD"
 
 chapter: 7
 section: 2
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 60
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch7_1.html"
 prev_module_title: "Introduction au CI/CD avec Docker"
 next_module: "/courses/docker/docker_ch7_3.html"
@@ -178,7 +177,6 @@ GitHub Actions permet de :
 
 <!-- snippet
 id: docker_github_actions_concept
-type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -191,7 +189,6 @@ description: Aucune infrastructure tierce nécessaire : le pipeline vit dans le 
 
 <!-- snippet
 id: docker_github_actions_build_image
-type: command
 tech: docker
 level: advanced
 importance: medium
@@ -204,7 +201,6 @@ description: Construit l'image Docker à partir du Dockerfile présent à la rac
 
 <!-- snippet
 id: docker_github_actions_run_container
-type: command
 tech: docker
 level: advanced
 importance: medium
@@ -217,7 +213,6 @@ description: Exécute le conteneur construit pour valider le fonctionnement de l
 
 <!-- snippet
 id: docker_github_actions_pipeline_concept
-type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -230,7 +225,6 @@ description: Isoler chaque étape garantit la reproductibilité et facilite le d
 
 <!-- snippet
 id: docker_github_actions_warning_test_apres_build
-type: warning
 tech: docker
 level: advanced
 importance: medium
@@ -242,7 +236,6 @@ content: Builder l'image sans la tester laisse passer une image cassée vers le 
 
 <!-- snippet
 id: docker_github_actions_warning_erreurs_pipeline
-type: warning
 tech: docker
 level: advanced
 importance: medium

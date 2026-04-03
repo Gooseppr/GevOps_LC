@@ -3,8 +3,7 @@ layout: page
 title: "Variables d'environnement dans Docker Compose"
 
 course: docker
-theme: "Docker Compose"
-type: lesson
+chapter_title: "Docker Compose"
 
 chapter: 4
 section: 6
@@ -14,7 +13,7 @@ difficulty: intermediate
 duration: 45
 mermaid: false
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch4_5.html"
 prev_module_title: "Lancer et gérer une stack Docker Compose"
 next_module: "/courses/docker/docker_ch4_7.html"
@@ -162,7 +161,6 @@ Les variables dans Compose permettent de :
 
 <!-- snippet
 id: docker_compose_env_inline
-type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -174,7 +172,6 @@ content: La clé `environment` permet d'injecter des variables directement dans 
 
 <!-- snippet
 id: docker_compose_dotenv_file
-type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -187,7 +184,6 @@ description: Ne pas confondre avec `env_file:` qui injecte des variables dans le
 
 <!-- snippet
 id: docker_compose_env_interpolation
-type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -199,7 +195,6 @@ content: La syntaxe `${VARIABLE}` est remplacée par la valeur de la variable au
 
 <!-- snippet
 id: docker_compose_env_undefined_warning
-type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -212,7 +207,6 @@ description: Toujours définir des valeurs par défaut ou documenter les variabl
 
 <!-- snippet
 id: docker_compose_multi_env
-type: tip
 tech: docker
 level: intermediate
 importance: medium
@@ -224,7 +218,6 @@ content: Différents fichiers `.env` par environnement (dev, prod) permettent d'
 
 <!-- snippet
 id: docker_compose_no_hardcode
-type: tip
 tech: docker
 level: intermediate
 importance: high

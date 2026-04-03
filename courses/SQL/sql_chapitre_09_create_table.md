@@ -4,7 +4,7 @@ course: SQL
 difficulty: intermediate
 duration: 75
 layout: page
-theme: "Conception et structure"
+chapter_title: "Conception et structure"
 section: 1
 status: published
 title: "Création de tables : CREATE TABLE"
@@ -233,7 +233,6 @@ Dans le prochain chapitre nous verrons **les types de données SQL**, qui permet
 
 <!-- snippet
 id: sql_create_table_primary_key
-type: command
 tech: sql
 level: intermediate
 importance: high
@@ -246,7 +245,6 @@ description: Définit la structure d'une table avec ses colonnes et leur type. P
 
 <!-- snippet
 id: sql_nommage_snake_case
-type: tip
 tech: sql
 level: intermediate
 importance: medium

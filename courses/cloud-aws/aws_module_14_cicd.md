@@ -3,8 +3,7 @@ layout: page
 title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
 
 course: cloud-aws
-theme: "Services & Architecture"
-type: lesson
+chapter_title: "Services & Architecture"
 
 chapter: 2
 section: 6
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 100
 mermaid: true
 
-theme_icon: "pipeline"
-theme_group: 2
-theme_group_icon: "cloud"
-theme_order: 14
-status: "published"
+status: published
 ---
 
 # CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy
@@ -134,7 +129,6 @@ Un pipeline bien conçu améliore fiabilité et vitesse.
 
 <!-- snippet
 id: aws_cicd_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -147,7 +141,6 @@ description: Base DevOps
 
 <!-- snippet
 id: aws_codepipeline_role
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -160,7 +153,6 @@ description: Orchestrateur AWS
 
 <!-- snippet
 id: aws_codedeploy_definition
-type: concept
 tech: aws
 level: intermediate
 importance: medium
@@ -173,7 +165,6 @@ description: Déploiement AWS
 
 <!-- snippet
 id: aws_pipeline_command
-type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -186,7 +177,6 @@ description: Permet de voir les pipelines existants
 
 <!-- snippet
 id: aws_pipeline_warning
-type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -199,7 +189,6 @@ description: Piège critique
 
 <!-- snippet
 id: aws_pipeline_tip
-type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -212,7 +201,6 @@ description: Bonne pratique CI/CD
 
 <!-- snippet
 id: aws_pipeline_error
-type: error
 tech: aws
 level: intermediate
 importance: high

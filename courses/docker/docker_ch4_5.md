@@ -3,8 +3,7 @@ layout: page
 title: "Lancer et gérer une stack Docker Compose"
 
 course: docker
-theme: "Docker Compose"
-type: lesson
+chapter_title: "Docker Compose"
 
 chapter: 4
 section: 5
@@ -14,7 +13,7 @@ difficulty: intermediate
 duration: 50
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch4_4.html"
 prev_module_title: "Volumes et networks dans Compose"
 next_module: "/courses/docker/docker_ch4_6.html"
@@ -183,7 +182,6 @@ Docker Compose permet de :
 
 <!-- snippet
 id: docker_compose_up_foreground
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -196,7 +194,6 @@ description: Lance tous les services définis dans le docker-compose.yml en mode
 
 <!-- snippet
 id: docker_compose_up_build_flag
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -209,7 +206,6 @@ description: Reconstruit les images avant de lancer les services — à utiliser
 
 <!-- snippet
 id: docker_compose_up_detached_build
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -222,7 +218,6 @@ description: Combinaison recommandée lors d'un déploiement : rebuild + mode d�
 
 <!-- snippet
 id: docker_compose_logs_follow
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -235,7 +230,6 @@ description: Affiche les logs de tous les services et reste attaché pour affich
 
 <!-- snippet
 id: docker_compose_ps_status
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -248,7 +242,6 @@ description: Affiche la liste des services avec leur état (running, exited…)
 
 <!-- snippet
 id: docker_compose_down_data_loss
-type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -260,7 +253,6 @@ content: `docker compose down` supprime les conteneurs et le réseau créé. Les
 
 <!-- snippet
 id: docker_compose_lifecycle
-type: concept
 tech: docker
 level: intermediate
 importance: medium

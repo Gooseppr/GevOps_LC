@@ -3,8 +3,7 @@ layout: page
 title: "D'où vient Docker"
 
 course: docker
-theme: "Prise en main"
-type: lesson
+chapter_title: "Prise en main"
 
 chapter: 1
 section: 0
@@ -14,7 +13,7 @@ difficulty: beginner
 duration: 20
 mermaid: false
 
-status: "published"
+status: published
 next_module: "/courses/docker/docker_ch1_1.html"
 next_module_title: "Introduction à Docker"
 ---
@@ -134,7 +133,6 @@ Docker permet de rendre les applications portables, simples à déployer et fiab
 
 <!-- snippet
 id: docker_definition_conteneurisation
-type: concept
 tech: docker
 level: beginner
 importance: high
@@ -147,7 +145,6 @@ description: Créé en 2013 par Solomon Hykes, Docker résout le problème class
 
 <!-- snippet
 id: docker_probleme_ca_marche_ma_machine
-type: warning
 tech: docker
 level: beginner
 importance: high
@@ -160,7 +157,6 @@ description: Docker résout ce problème en standardisant et en rendant les envi
 
 <!-- snippet
 id: docker_image_conteneur_principe
-type: concept
 tech: docker
 level: beginner
 importance: medium

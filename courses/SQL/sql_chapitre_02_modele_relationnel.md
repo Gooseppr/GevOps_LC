@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 2
 status: published
 title: "Le modèle relationnel"
@@ -286,7 +286,6 @@ Dans le prochain chapitre nous verrons **la première commande SQL : SELECT**, q
 
 <!-- snippet
 id: sql_cle_primaire_proprietes
-type: concept
 tech: sql
 level: beginner
 importance: high
@@ -303,7 +302,6 @@ description: En pratique, on utilise un INTEGER auto-increment ou un UUID comme 
 
 <!-- snippet
 id: sql_cle_etrangere_relation
-type: concept
 tech: sql
 level: beginner
 importance: high

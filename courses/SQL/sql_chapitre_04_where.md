@@ -4,7 +4,7 @@ course: SQL
 difficulty: beginner
 duration: 60
 layout: page
-theme: "Requêtes et manipulation"
+chapter_title: "Requêtes et manipulation"
 section: 4
 status: published
 title: "Filtrer les données avec WHERE"
@@ -312,7 +312,6 @@ Dans le prochain chapitre nous verrons **le tri des résultats avec ORDER BY et 
 
 <!-- snippet
 id: sql_where_is_null
-type: error
 tech: sql
 level: beginner
 importance: high
@@ -328,7 +327,6 @@ description: NULL représente l'absence de valeur. L'opérateur = ne fonctionne 
 
 <!-- snippet
 id: sql_where_parentheses_and_or
-type: warning
 tech: sql
 level: beginner
 importance: high

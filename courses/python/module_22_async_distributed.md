@@ -3,8 +3,7 @@ layout: page
 title: "Asynchrone avancé & systèmes distribués en Python"
 
 course: python
-theme: "Architecture & Performance"
-type: lesson
+chapter_title: "Architecture & Performance"
 
 chapter: 3
 section: 3
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 120
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 22
-status: "draft"
+status: draft
 ---
 
 # Asynchrone avancé & systèmes distribués en Python
@@ -130,7 +125,6 @@ Phrase clé : **Découpler = scaler.**
 
 <!-- snippet
 id: python_async_advanced
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -143,7 +137,6 @@ description: base performance réseau
 
 <!-- snippet
 id: python_queue_concept
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -156,7 +149,6 @@ description: base architecture distribuée
 
 <!-- snippet
 id: python_worker_tip
-type: tip
 tech: python
 level: advanced
 importance: medium
@@ -169,7 +161,6 @@ description: améliore performance
 
 <!-- snippet
 id: python_monolith_warning
-type: warning
 tech: python
 level: advanced
 importance: high

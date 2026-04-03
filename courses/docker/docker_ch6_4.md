@@ -3,8 +3,7 @@ layout: page
 title: "Scaling et haute disponibilité"
 
 course: docker
-theme: "Docker Swarm"
-type: lesson
+chapter_title: "Docker Swarm"
 
 chapter: 6
 section: 4
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 50
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch6_3.html"
 prev_module_title: "Déployer un service avec Docker Swarm"
 next_module: "/courses/docker/docker_ch6_5.html"
@@ -178,7 +177,6 @@ Le scaling permet :
 
 <!-- snippet
 id: docker_swarm_scaling_definition
-type: concept
 tech: docker
 level: advanced
 importance: high
@@ -190,7 +188,6 @@ content: Le scaling augmente ou diminue le nombre de replicas d’un service. Sw
 
 <!-- snippet
 id: docker_swarm_haute_dispo_definition
-type: concept
 tech: docker
 level: advanced
 importance: high
@@ -202,7 +199,6 @@ content: La haute disponibilité maintient le service actif même en cas de pann
 
 <!-- snippet
 id: docker_swarm_scale_ha
-type: command
 tech: docker
 level: advanced
 importance: high
@@ -215,7 +211,6 @@ description: Augmente ou diminue le nombre de replicas du service. La modificati
 
 <!-- snippet
 id: docker_swarm_load_balancer_interne
-type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -227,7 +222,6 @@ content: Swarm intègre un load balancer interne qui répartit automatiquement l
 
 <!-- snippet
 id: docker_swarm_stateless_requis
-type: tip
 tech: docker
 level: advanced
 importance: medium
@@ -239,7 +233,6 @@ content: Pour scaler efficacement, les applications doivent être stateless. Si 
 
 <!-- snippet
 id: docker_swarm_panne_non_testee
-type: warning
 tech: docker
 level: advanced
 importance: medium

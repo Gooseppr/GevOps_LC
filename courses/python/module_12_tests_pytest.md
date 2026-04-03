@@ -3,8 +3,7 @@ layout: page
 title: "Tests en Python avec pytest"
 
 course: python
-theme: "POO, Qualité & Tests"
-type: lesson
+chapter_title: "POO, Qualité & Tests"
 
 chapter: 2
 section: 4
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 95
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 12
-status: "draft"
+status: draft
 ---
 
 # Tests en Python avec pytest
@@ -144,7 +139,6 @@ Backend API :
 
 <!-- snippet
 id: python_pytest_install
-type: command
 tech: python
 level: intermediate
 importance: high
@@ -157,7 +151,6 @@ description: Installe le framework de test Python
 
 <!-- snippet
 id: python_test_basic
-type: concept
 tech: python
 level: intermediate
 importance: high
@@ -170,7 +163,6 @@ description: Base des tests
 
 <!-- snippet
 id: python_fixture_usage
-type: concept
 tech: python
 level: intermediate
 importance: medium
@@ -183,7 +175,6 @@ description: Réutilisation efficace
 
 <!-- snippet
 id: python_test_warning
-type: warning
 tech: python
 level: intermediate
 importance: high

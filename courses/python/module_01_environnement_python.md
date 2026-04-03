@@ -3,8 +3,7 @@ layout: page
 title: "Environnement Python & Toolchain"
 
 course: python
-theme: "Environnement & Toolchain"
-type: lesson
+chapter_title: "Environnement & Toolchain"
 
 chapter: 1
 section: 1
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 45
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 1
-status: "draft"
+status: draft
 ---
 
 # Environnement Python & Toolchain
@@ -115,7 +110,6 @@ Correction : activer le bon venv
 
 <!-- snippet
 id: python_venv_creation
-type: command
 tech: python
 level: beginner
 importance: high
@@ -128,7 +122,6 @@ description: Crée un environnement isolé pour un projet Python
 
 <!-- snippet
 id: python_venv_activation
-type: command
 tech: python
 level: beginner
 importance: high
@@ -141,7 +134,6 @@ description: Active l'environnement virtuel sous Linux/Mac
 
 <!-- snippet
 id: python_env_concept
-type: concept
 tech: python
 level: beginner
 importance: high
@@ -154,7 +146,6 @@ description: Évite les conflits entre projets
 
 <!-- snippet
 id: python_global_warning
-type: warning
 tech: python
 level: beginner
 importance: high

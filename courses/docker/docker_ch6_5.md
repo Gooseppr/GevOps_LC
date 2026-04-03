@@ -3,8 +3,7 @@ layout: page
 title: "Déployer une stack avec Docker Swarm"
 
 course: docker
-theme: "Docker Swarm"
-type: lesson
+chapter_title: "Docker Swarm"
 
 chapter: 6
 section: 5
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 50
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch6_4.html"
 prev_module_title: "Scaling et haute disponibilité"
 next_module: "/courses/docker/docker_ch6_6.html"
@@ -188,7 +187,6 @@ Une stack permet de :
 
 <!-- snippet
 id: docker_swarm_stack_definition
-type: concept
 tech: docker
 level: advanced
 importance: high
@@ -200,7 +198,6 @@ content: Une stack est un ensemble de services déployés ensemble en Swarm. C'e
 
 <!-- snippet
 id: docker_swarm_stack_deploy
-type: command
 tech: docker
 level: advanced
 importance: high
@@ -213,7 +210,6 @@ description: Déploie l'ensemble des services définis dans le fichier docker-co
 
 <!-- snippet
 id: docker_swarm_stack_ls
-type: command
 tech: docker
 level: advanced
 importance: medium
@@ -226,7 +222,6 @@ description: Affiche la liste de toutes les stacks déployées sur le cluster Sw
 
 <!-- snippet
 id: docker_swarm_stack_services
-type: command
 tech: docker
 level: advanced
 importance: medium
@@ -239,7 +234,6 @@ description: Liste les services appartenant à la stack avec leur état, le nomb
 
 <!-- snippet
 id: docker_swarm_stack_rm
-type: command
 tech: docker
 level: advanced
 importance: medium
@@ -252,7 +246,6 @@ description: Supprime la stack et arrête tous les services associés sur le clu
 
 <!-- snippet
 id: docker_swarm_depends_on_ignore
-type: warning
 tech: docker
 level: advanced
 importance: medium
@@ -264,7 +257,6 @@ content: L'option `depends_on` est ignorée en Swarm. Gérer les dépendances vi
 
 <!-- snippet
 id: docker_swarm_section_deploy
-type: tip
 tech: docker
 level: advanced
 importance: medium

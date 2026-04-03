@@ -3,8 +3,7 @@ layout: page
 title: "Déploiement automatique (CD)"
 
 course: docker
-theme: "CI/CD"
-type: lesson
+chapter_title: "CI/CD"
 
 chapter: 7
 section: 4
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 60
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch7_3.html"
 prev_module_title: "Push vers un Docker Registry"
 ---
@@ -160,7 +159,6 @@ Le CD permet de :
 
 <!-- snippet
 id: docker_cd_concept_definition
-type: concept
 tech: docker
 level: advanced
 importance: high
@@ -173,7 +171,6 @@ description: Le CD est le niveau ultime d'automatisation DevOps.
 
 <!-- snippet
 id: docker_cd_service_update
-type: command
 tech: docker
 level: advanced
 importance: high
@@ -186,7 +183,6 @@ description: Met à jour l'image d'un service Swarm en production depuis un pipe
 
 <!-- snippet
 id: docker_cd_pipeline_complet_concept
-type: concept
 tech: docker
 level: advanced
 importance: high
@@ -198,7 +194,6 @@ content: Pipeline complet : git push → build Docker → push registry → SSH 
 
 <!-- snippet
 id: docker_cd_tip_automatisation_rapide
-type: tip
 tech: docker
 level: advanced
 importance: medium
@@ -210,7 +205,6 @@ content: Un CD fiable repose sur des environnements distincts (dev / staging / p
 
 <!-- snippet
 id: docker_cd_warning_sans_validation
-type: warning
 tech: docker
 level: advanced
 importance: high
@@ -222,7 +216,6 @@ content: Déclencher un déploiement sans étape de validation permet aux régre
 
 <!-- snippet
 id: docker_cd_warning_staging_manquant
-type: warning
 tech: docker
 level: advanced
 importance: high

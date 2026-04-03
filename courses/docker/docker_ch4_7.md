@@ -3,8 +3,7 @@ layout: page
 title: "Debug et logs avec Docker Compose"
 
 course: docker
-theme: "Docker Compose"
-type: lesson
+chapter_title: "Docker Compose"
 
 chapter: 4
 section: 7
@@ -14,7 +13,7 @@ difficulty: intermediate
 duration: 45
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch4_6.html"
 prev_module_title: "Variables d'environnement dans Docker Compose"
 next_module: "/courses/docker/docker_ch5_1.html"
@@ -167,7 +166,6 @@ Docker Compose permet de :
 
 <!-- snippet
 id: docker_compose_logs_all
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -180,7 +178,6 @@ description: Affiche les logs de tous les services en une seule commande
 
 <!-- snippet
 id: docker_compose_logs_service
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -194,7 +191,6 @@ description: Isole les logs d'un service précis dans une stack multi-conteneurs
 
 <!-- snippet
 id: docker_compose_restart_service
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -207,7 +203,6 @@ description: Redémarre uniquement le service ciblé sans toucher au reste de la
 
 <!-- snippet
 id: docker_compose_logs_db_debug
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -220,7 +215,6 @@ description: Utile lorsqu'une erreur de connexion apparaît côté API — la ca
 
 <!-- snippet
 id: docker_compose_wrong_service_debug
-type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -232,7 +226,6 @@ content: Une erreur visible dans les logs de l'API (ex : "Connection refused") p
 
 <!-- snippet
 id: docker_compose_multi_log_sources
-type: concept
 tech: docker
 level: intermediate
 importance: medium

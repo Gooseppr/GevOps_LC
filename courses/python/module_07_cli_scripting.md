@@ -3,8 +3,7 @@ layout: page
 title: "CLI & scripting Python"
 
 course: python
-theme: "Erreurs, Fichiers & Scripting"
-type: lesson
+chapter_title: "Erreurs, Fichiers & Scripting"
 
 chapter: 1
 section: 7
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 80
 mermaid: false
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 7
-status: "draft"
+status: draft
 ---
 
 # CLI & scripting Python
@@ -136,7 +131,6 @@ Correction : required=True
 
 <!-- snippet
 id: python_argparse_basic
-type: concept
 tech: python
 level: beginner
 importance: high
@@ -149,7 +143,6 @@ description: outil standard Python
 
 <!-- snippet
 id: python_sys_argv
-type: concept
 tech: python
 level: beginner
 importance: medium
@@ -162,7 +155,6 @@ description: bas niveau CLI
 
 <!-- snippet
 id: python_cli_warning
-type: warning
 tech: python
 level: beginner
 importance: high

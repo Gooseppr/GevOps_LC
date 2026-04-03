@@ -3,8 +3,7 @@ layout: page
 title: "Vulnérabilités et scan des images"
 
 course: docker
-theme: "Optimisation et sécurité"
-type: lesson
+chapter_title: "Optimisation et sécurité"
 
 chapter: 5
 section: 3
@@ -14,7 +13,7 @@ difficulty: advanced
 duration: 50
 mermaid: true
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch5_2.html"
 prev_module_title: "Sécurité des conteneurs"
 next_module: "/courses/docker/docker_ch5_4.html"
@@ -156,7 +155,6 @@ Le scan permet de :
 
 <!-- snippet
 id: docker_vulnerability_concept
-type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -168,7 +166,6 @@ content: Une vulnérabilité est une faille exploitable dans une image Docker, s
 
 <!-- snippet
 id: docker_scan_builtin
-type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -181,7 +178,6 @@ description: Outil de scan intégré à Docker pour détecter les vulnérabilit�
 
 <!-- snippet
 id: docker_scan_trivy
-type: command
 tech: docker
 level: intermediate
 importance: high
@@ -194,7 +190,6 @@ description: Trivy est un outil open-source de scan de sécurité fournissant un
 
 <!-- snippet
 id: docker_scan_regular_tip
-type: tip
 tech: docker
 level: intermediate
 importance: medium
@@ -206,7 +201,6 @@ content: Scanner ses images régulièrement détecte de nouvelles vulnérabilit�
 
 <!-- snippet
 id: docker_scan_official_image_warning
-type: warning
 tech: docker
 level: intermediate
 importance: medium

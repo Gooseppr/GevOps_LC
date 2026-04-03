@@ -3,8 +3,7 @@ layout: page
 title: "Data & pipelines en Python (pandas, ETL, Airflow)"
 
 course: python
-theme: "Data, Pipelines & Distribution"
-type: lesson
+chapter_title: "Data, Pipelines & Distribution"
 
 chapter: 3
 section: 8
@@ -14,11 +13,7 @@ difficulty: advanced
 duration: 110
 mermaid: true
 
-theme_icon: "🐍"
-theme_group: programming
-theme_group_icon: "💻"
-theme_order: 27
-status: "draft"
+status: draft
 ---
 
 # Data & pipelines en Python (pandas, ETL, Airflow)
@@ -140,7 +135,6 @@ Phrase clé : **Les données brutes doivent être transformées pour être utile
 
 <!-- snippet
 id: python_etl_definition
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -153,7 +147,6 @@ description: base data engineering
 
 <!-- snippet
 id: python_pandas_usage
-type: concept
 tech: python
 level: advanced
 importance: high
@@ -166,7 +159,6 @@ description: outil clé data
 
 <!-- snippet
 id: python_data_warning
-type: warning
 tech: python
 level: advanced
 importance: high

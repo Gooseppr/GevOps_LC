@@ -3,8 +3,7 @@ layout: page
 title: "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)"
 
 course: cloud-aws
-theme: "Services & Architecture"
-type: lesson
+chapter_title: "Services & Architecture"
 
 chapter: 2
 section: 7
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 110
 mermaid: true
 
-theme_icon: "chart"
-theme_group: 2
-theme_group_icon: "cloud"
-theme_order: 15
-status: "published"
+status: published
 ---
 
 # Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)
@@ -156,7 +151,6 @@ C’est indispensable pour diagnostiquer en production.
 
 <!-- snippet
 id: aws_observability_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -169,7 +163,6 @@ description: Concept clé DevOps
 
 <!-- snippet
 id: aws_logs_metrics_traces
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -182,7 +175,6 @@ description: Différence fondamentale
 
 <!-- snippet
 id: aws_logs_tail_command
-type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -195,7 +187,6 @@ description: Permet de voir les logs en temps réel
 
 <!-- snippet
 id: aws_logs_structure_warning
-type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -208,7 +199,6 @@ description: Piège fréquent observabilité
 
 <!-- snippet
 id: aws_tracing_tip
-type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -221,7 +211,6 @@ description: Outil clé debugging
 
 <!-- snippet
 id: aws_missing_observability_error
-type: error
 tech: aws
 level: intermediate
 importance: high

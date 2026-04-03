@@ -3,8 +3,7 @@ layout: page
 title: "IAM — Gestion des identités AWS"
 
 course: cloud-aws
-theme: "Fondations AWS"
-type: lesson
+chapter_title: "Fondations AWS"
 
 chapter: 1
 section: 2
@@ -14,11 +13,7 @@ difficulty: beginner
 duration: 60
 mermaid: true
 
-theme_icon: "lock"
-theme_group: 1
-theme_group_icon: "shield"
-theme_order: 2
-status: "published"
+status: published
 ---
 
 # IAM — Gestion des identités AWS
@@ -131,7 +126,6 @@ La sécurité repose sur une bonne gestion des identités.
 
 <!-- snippet
 id: aws_iam_definition
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -144,7 +138,6 @@ description: Base de toute sécurité AWS
 
 <!-- snippet
 id: aws_iam_least_privilege
-type: concept
 tech: aws
 level: beginner
 importance: high
@@ -157,7 +150,6 @@ description: Principe fondamental IAM
 
 <!-- snippet
 id: aws_iam_admin_warning
-type: warning
 tech: aws
 level: beginner
 importance: high
@@ -170,7 +162,6 @@ description: Erreur critique en entreprise
 
 <!-- snippet
 id: aws_iam_cli_list_users
-type: command
 tech: aws
 level: beginner
 importance: medium
@@ -183,7 +174,6 @@ description: Permet de voir tous les utilisateurs IAM configurés
 
 <!-- snippet
 id: aws_iam_role_usage
-type: tip
 tech: aws
 level: beginner
 importance: medium

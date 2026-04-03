@@ -3,8 +3,7 @@ layout: page
 title: "Lancer son premier conteneur"
 
 course: docker
-theme: "Prise en main"
-type: lesson
+chapter_title: "Prise en main"
 
 chapter: 1
 section: 2
@@ -14,7 +13,7 @@ difficulty: beginner
 duration: 30
 mermaid: false
 
-status: "published"
+status: published
 prev_module: "/courses/docker/docker_ch1_1.html"
 prev_module_title: "Introduction à Docker"
 next_module: "/courses/docker/docker_ch1_3.html"
@@ -176,7 +175,6 @@ Elle permet de :
 
 <!-- snippet
 id: docker_run_interactif
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -189,7 +187,6 @@ description: -i = mode interactif, -t = terminal, ubuntu = image, bash = command
 
 <!-- snippet
 id: docker_run_detache
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -202,7 +199,6 @@ description: L’option -d (detached) fait tourner le conteneur en fond sans blo
 
 <!-- snippet
 id: docker_run_nom_conteneur
-type: command
 tech: docker
 level: beginner
 importance: medium
@@ -215,7 +211,6 @@ description: Nommer un conteneur permet de le retrouver et de le manipuler plus 
 
 <!-- snippet
 id: docker_stop_conteneur
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -228,7 +223,6 @@ description: Envoie un signal d’arrêt propre au conteneur. Le conteneur s’a
 
 <!-- snippet
 id: docker_rm_conteneur
-type: command
 tech: docker
 level: beginner
 importance: high
@@ -241,7 +235,6 @@ description: Supprime un conteneur arrêté. Le conteneur doit être stoppé ava
 
 <!-- snippet
 id: docker_run_telecharge_auto
-type: tip
 tech: docker
 level: beginner
 importance: medium
@@ -253,7 +246,6 @@ content: Si l’image n’existe pas en local, Docker la télécharge automatiqu
 
 <!-- snippet
 id: docker_run_multiple_conteneurs_warning
-type: warning
 tech: docker
 level: beginner
 importance: medium

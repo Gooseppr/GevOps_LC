@@ -3,8 +3,7 @@ layout: page
 title: "Infrastructure as Code — Terraform & CloudFormation"
 
 course: cloud-aws
-theme: "Services & Architecture"
-type: lesson
+chapter_title: "Services & Architecture"
 
 chapter: 2
 section: 5
@@ -14,11 +13,7 @@ difficulty: intermediate
 duration: 100
 mermaid: true
 
-theme_icon: "code"
-theme_group: 2
-theme_group_icon: "cloud"
-theme_order: 13
-status: "published"
+status: published
 ---
 
 # Infrastructure as Code — Terraform & CloudFormation
@@ -157,7 +152,6 @@ C’est un pilier du DevOps moderne.
 
 <!-- snippet
 id: aws_iac_definition
-type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -170,7 +164,6 @@ description: Base DevOps moderne
 
 <!-- snippet
 id: terraform_plan_command
-type: command
 tech: aws
 level: intermediate
 importance: high
@@ -183,7 +176,6 @@ description: Permet de voir les changements avant application
 
 <!-- snippet
 id: terraform_state_warning
-type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -196,7 +188,6 @@ description: Piège critique Terraform
 
 <!-- snippet
 id: terraform_vs_cf
-type: concept
 tech: aws
 level: intermediate
 importance: medium
@@ -209,7 +200,6 @@ description: Choix outil IaC
 
 <!-- snippet
 id: iac_best_practice_tip
-type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -222,7 +212,6 @@ description: Bonne pratique IaC
 
 <!-- snippet
 id: iac_manual_change_error
-type: error
 tech: aws
 level: intermediate
 importance: high
