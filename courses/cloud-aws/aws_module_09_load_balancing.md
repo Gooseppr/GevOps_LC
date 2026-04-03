@@ -3,7 +3,7 @@ layout: page
 title: "Load Balancer & Auto Scaling — Scalabilité AWS"
 
 course: cloud-aws
-theme: "scaling"
+theme: "Services & Architecture"
 type: lesson
 
 chapter: 2

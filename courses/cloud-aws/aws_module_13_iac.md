@@ -3,7 +3,7 @@ layout: page
 title: "Infrastructure as Code — Terraform & CloudFormation"
 
 course: cloud-aws
-theme: "devops"
+theme: "Services & Architecture"
 type: lesson
 
 chapter: 2

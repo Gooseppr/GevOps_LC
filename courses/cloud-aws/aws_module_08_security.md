@@ -3,7 +3,7 @@ layout: page
 title: "Sécurité AWS — IAM, MFA, Encryption"
 
 course: cloud-aws
-theme: "security"
+theme: "Fondations AWS"
 type: lesson
 
 chapter: 1

@@ -3,7 +3,7 @@ layout: page
 title: "FinOps & optimisation des coûts AWS"
 
 course: cloud-aws
-theme: "finops"
+theme: "Architecture Avancée"
 type: lesson
 
 chapter: 3

@@ -3,7 +3,7 @@ layout: page
 title: "Multi-environnement AWS — dev, staging, prod & multi-account"
 
 course: cloud-aws
-theme: "architecture"
+theme: "Services & Architecture"
 type: lesson
 
 chapter: 2

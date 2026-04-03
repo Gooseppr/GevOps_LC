@@ -3,7 +3,7 @@ layout: page
 title: "IAM — Gestion des identités AWS"
 
 course: cloud-aws
-theme: "security"
+theme: "Fondations AWS"
 type: lesson
 
 chapter: 1

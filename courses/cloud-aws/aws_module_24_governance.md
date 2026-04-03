@@ -3,7 +3,7 @@ layout: page
 title: "Gouvernance AWS — Organizations, Tagging, Compliance"
 
 course: cloud-aws
-theme: "governance"
+theme: "Architecture Avancée"
 type: lesson
 
 chapter: 3

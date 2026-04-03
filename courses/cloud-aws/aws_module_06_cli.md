@@ -3,7 +3,7 @@ layout: page
 title: "AWS CLI — Outils et automatisation"
 
 course: cloud-aws
-theme: "devops"
+theme: "Fondations AWS"
 type: lesson
 
 chapter: 1

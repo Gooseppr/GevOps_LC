@@ -3,7 +3,7 @@ layout: page
 title: "Architectures distribuées — Microservices, SQS, SNS"
 
 course: cloud-aws
-theme: "architecture"
+theme: "Architecture Avancée"
 type: lesson
 
 chapter: 3

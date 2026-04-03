@@ -3,7 +3,7 @@ layout: page
 title: "Bases de données AWS — RDS, Aurora, DynamoDB"
 
 course: cloud-aws
-theme: "database"
+theme: "Services & Architecture"
 type: lesson
 
 chapter: 2

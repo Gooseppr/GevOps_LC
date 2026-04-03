@@ -3,7 +3,7 @@ layout: page
 title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
 
 course: cloud-aws
-theme: "devops"
+theme: "Services & Architecture"
 type: lesson
 
 chapter: 2

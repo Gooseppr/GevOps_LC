@@ -3,7 +3,7 @@ layout: page
 title: "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS"
 
 course: cloud-aws
-theme: "security"
+theme: "Architecture Avancée"
 type: lesson
 
 chapter: 3

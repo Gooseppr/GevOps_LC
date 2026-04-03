@@ -3,7 +3,7 @@ layout: page
 title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
 
 course: cloud-aws
-theme: "serverless"
+theme: "Architecture Avancée"
 type: lesson
 
 chapter: 3

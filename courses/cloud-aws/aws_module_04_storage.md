@@ -3,7 +3,7 @@ layout: page
 title: "Stockage AWS — S3 / EBS / EFS"
 
 course: cloud-aws
-theme: "storage"
+theme: "Fondations AWS"
 type: lesson
 
 chapter: 1

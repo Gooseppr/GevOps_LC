@@ -3,7 +3,7 @@ layout: page
 title: "Performance & optimisation — Caching, Latence, Tuning AWS"
 
 course: cloud-aws
-theme: "performance"
+theme: "Architecture Avancée"
 type: lesson
 
 chapter: 3

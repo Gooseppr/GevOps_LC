@@ -3,7 +3,7 @@ layout: page
 title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 
 course: cloud-aws
-theme: "resilience"
+theme: "Architecture Avancée"
 type: lesson
 
 chapter: 3

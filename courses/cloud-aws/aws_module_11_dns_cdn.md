@@ -3,7 +3,7 @@ layout: page
 title: "DNS & CDN — Route 53 et CloudFront"
 
 course: cloud-aws
-theme: "network"
+theme: "Services & Architecture"
 type: lesson
 
 chapter: 2

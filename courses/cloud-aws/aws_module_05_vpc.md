@@ -3,7 +3,7 @@ layout: page
 title: "Réseau AWS — VPC, Subnets, Routing"
 
 course: cloud-aws
-theme: "network"
+theme: "Fondations AWS"
 type: lesson
 
 chapter: 1

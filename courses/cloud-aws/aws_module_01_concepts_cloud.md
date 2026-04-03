@@ -3,7 +3,7 @@ layout: page
 title: "Concepts Cloud & Modèles AWS"
 
 course: cloud-aws
-theme: "cloud fundamentals"
+theme: "Fondations AWS"
 type: lesson
 
 chapter: 1
