@@ -5166,7 +5166,7 @@
       "integrite"
     ],
     "title": "Propriétés d'une clé primaire SQL",
-    "content": "|\nUne clé primaire doit être :\n- **unique** : pas deux lignes avec la même valeur\n- **non NULL** : obligatoirement renseignée\n- **stable** : ne change pas au fil du temps",
+    "content": "Une clé primaire doit être :\n- **unique** : pas deux lignes avec la même valeur\n- **non NULL** : obligatoirement renseignée\n- **stable** : ne change pas au fil du temps",
     "description": "En pratique, on utilise un INTEGER auto-increment ou un UUID comme clé primaire.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_02_modele_relationnel.md"
@@ -5223,7 +5223,7 @@
       "bonne_pratique"
     ],
     "title": "Éviter SELECT * dans le code applicatif",
-    "content": "|\n`SELECT *` ramène toutes les colonnes, même inutiles.\n- ralentit les requêtes sur grandes tables\n- peut casser l'application si la structure change\nPréférer : `SELECT id, name, email FROM customers;`",
+    "content": "`SELECT *` ramène toutes les colonnes, même inutiles.\n- ralentit les requêtes sur grandes tables\n- peut casser l'application si la structure change\nPréférer : `SELECT id, name, email FROM customers;`",
     "description": "Réservé à l'exploration rapide, jamais dans du code de production.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_03_select.md"
@@ -5261,7 +5261,7 @@
       "erreur"
     ],
     "title": "Tester NULL avec IS NULL, pas avec = NULL",
-    "content": "|\nErreur : `WHERE email = NULL` — ne retourne jamais rien\nCorrect : `WHERE email IS NULL`\nPour l'inverse : `WHERE email IS NOT NULL`",
+    "content": "Erreur : `WHERE email = NULL` — ne retourne jamais rien\nCorrect : `WHERE email IS NULL`\nPour l'inverse : `WHERE email IS NOT NULL`",
     "description": "NULL représente l'absence de valeur. L'opérateur = ne fonctionne pas avec NULL en SQL.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_04_where.md"
@@ -5281,7 +5281,7 @@
       "priorite"
     ],
     "title": "Utiliser des parenthèses avec AND et OR",
-    "content": "|\nSans parenthèses, AND est prioritaire sur OR.\n`WHERE a = 1 OR b = 2 AND c = 3` ≠ `WHERE (a = 1 OR b = 2) AND c = 3`\nToujours parenthéser les combinaisons AND/OR pour éviter les surprises.",
+    "content": "Sans parenthèses, AND est prioritaire sur OR.\n`WHERE a = 1 OR b = 2 AND c = 3` ≠ `WHERE (a = 1 OR b = 2) AND c = 3`\nToujours parenthéser les combinaisons AND/OR pour éviter les surprises.",
     "description": "Cause fréquente de filtres qui retournent trop ou pas assez de lignes.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_04_where.md"
@@ -5338,7 +5338,7 @@
       "pagination"
     ],
     "title": "Implémenter une pagination avec LIMIT/OFFSET",
-    "content": "|\nPage 1 : `LIMIT 10 OFFSET 0`\nPage 2 : `LIMIT 10 OFFSET 10`\nPage N : `LIMIT 10 OFFSET (N-1)*10`",
+    "content": "Page 1 : `LIMIT 10 OFFSET 0`\nPage 2 : `LIMIT 10 OFFSET 10`\nPage N : `LIMIT 10 OFFSET (N-1)*10`",
     "description": "Pattern standard pour paginer des résultats dans une API ou interface web.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_05_order_by_limit.md"
@@ -5358,7 +5358,7 @@
       "aggregation"
     ],
     "title": "WHERE filtre les lignes, HAVING filtre les groupes",
-    "content": "|\n- `WHERE` s'applique **avant** GROUP BY → filtre les lignes brutes\n- `HAVING` s'applique **après** GROUP BY → filtre les résultats agrégés",
+    "content": "- `WHERE` s'applique **avant** GROUP BY → filtre les lignes brutes\n- `HAVING` s'applique **après** GROUP BY → filtre les résultats agrégés",
     "description": "Utiliser HAVING à la place de WHERE sur une colonne non agrégée est une erreur fréquente.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_06_aggregation_groupby.md"
@@ -5378,7 +5378,7 @@
       "erreur"
     ],
     "title": "Toute colonne SELECT non agrégée doit être dans GROUP BY",
-    "content": "|\nErreur : `SELECT customer_id, name, COUNT(*) FROM orders GROUP BY customer_id`\n`name` n'est ni agrégé ni dans GROUP BY → erreur SQL.\nCorrect : inclure `name` dans GROUP BY ou supprimer la colonne.",
+    "content": "Erreur : `SELECT customer_id, name, COUNT(*) FROM orders GROUP BY customer_id`\n`name` n'est ni agrégé ni dans GROUP BY → erreur SQL.\nCorrect : inclure `name` dans GROUP BY ou supprimer la colonne.",
     "description": "La base ne sait pas quelle valeur de `name` retourner par groupe sans instruction explicite.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_06_aggregation_groupby.md"
@@ -5397,7 +5397,7 @@
       "left_join"
     ],
     "title": "INNER JOIN vs LEFT JOIN",
-    "content": "|\n- `INNER JOIN` : retourne seulement les lignes avec correspondance dans les deux tables\n- `LEFT JOIN` : retourne toutes les lignes de gauche, NULL pour les non-correspondances",
+    "content": "- `INNER JOIN` : retourne seulement les lignes avec correspondance dans les deux tables\n- `LEFT JOIN` : retourne toutes les lignes de gauche, NULL pour les non-correspondances",
     "description": "Utiliser INNER JOIN quand la correspondance est garantie, LEFT JOIN pour détecter les absences.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_07_join.md"
@@ -5437,7 +5437,7 @@
       "danger"
     ],
     "title": "UPDATE ou DELETE sans WHERE modifie toutes les lignes",
-    "content": "|\n`UPDATE customers SET email = 'test@test.com';` → modifie TOUS les clients\n`DELETE FROM customers;` → vide TOUTE la table\nToujours ajouter une clause WHERE ciblée avant d'exécuter.",
+    "content": "`UPDATE customers SET email = 'test@test.com';` → modifie TOUS les clients\n`DELETE FROM customers;` → vide TOUTE la table\nToujours ajouter une clause WHERE ciblée avant d'exécuter.",
     "description": "Erreur irréversible si aucune transaction n'est ouverte. Tester d'abord avec un SELECT.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_08_insert_update_delete.md"
@@ -5457,7 +5457,7 @@
       "bonne_pratique"
     ],
     "title": "Tester avec SELECT avant un UPDATE ou DELETE",
-    "content": "|\n1. Écrire et exécuter le SELECT avec le même WHERE\n2. Vérifier les lignes retournées\n3. Remplacer SELECT par UPDATE ou DELETE",
+    "content": "1. Écrire et exécuter le SELECT avec le même WHERE\n2. Vérifier les lignes retournées\n3. Remplacer SELECT par UPDATE ou DELETE",
     "description": "Réflexe indispensable pour éviter de modifier les mauvaises lignes.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_08_insert_update_delete.md"
@@ -5495,7 +5495,7 @@
       "convention"
     ],
     "title": "Nommer tables et colonnes en snake_case",
-    "content": "|\nPréférer : `order_items`, `created_at`, `customer_id`\nÉviter : `OrderItems`, `date1`, `customerTable`\nUtiliser des noms pluriels pour les tables, snake_case pour les colonnes.",
+    "content": "Préférer : `order_items`, `created_at`, `customer_id`\nÉviter : `OrderItems`, `date1`, `customerTable`\nUtiliser des noms pluriels pour les tables, snake_case pour les colonnes.",
     "description": "Convention standard dans PostgreSQL et la majorité des projets SQL professionnels.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_09_create_table.md"
@@ -5515,7 +5515,7 @@
       "argent"
     ],
     "title": "Ne jamais stocker de l’argent en FLOAT",
-    "content": "|\nFLOAT introduit des erreurs d’arrondi dues à la représentation binaire.\n`0.1 + 0.2 = 0.30000000000000004` en virgule flottante.\nUtiliser `NUMERIC` (ou `DECIMAL`) pour tous les montants financiers.",
+    "content": "FLOAT introduit des erreurs d’arrondi dues à la représentation binaire.\n`0.1 + 0.2 = 0.30000000000000004` en virgule flottante.\nUtiliser `NUMERIC` (ou `DECIMAL`) pour tous les montants financiers.",
     "description": "Cause de bugs comptables impossibles à déboguer en production.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_10_types_donnees.md"
@@ -5535,7 +5535,7 @@
       "varchar"
     ],
     "title": "Choisir le bon type SQL : texte et identifiants",
-    "content": "|\n- identifiant → `INTEGER`\n- texte libre → `TEXT`\n- email/code → `VARCHAR(n)`",
+    "content": "- identifiant → `INTEGER`\n- texte libre → `TEXT`\n- email/code → `VARCHAR(n)`",
     "description": "Stocker un nombre en TEXT empêche les calculs et trie par ordre alphabétique, pas numérique.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_10_types_donnees.md"
@@ -5555,7 +5555,7 @@
       "timestamp"
     ],
     "title": "Choisir le bon type SQL : nombres et dates",
-    "content": "|\n- montant → `NUMERIC`\n- date seule → `DATE`\n- date + heure → `TIMESTAMP`",
+    "content": "- montant → `NUMERIC`\n- date seule → `DATE`\n- date + heure → `TIMESTAMP`",
     "description": "Utiliser NUMERIC pour les calculs financiers exacts, TIMESTAMP pour les événements horodatés.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_10_types_donnees.md"
@@ -5575,7 +5575,7 @@
       "foreign_key"
     ],
     "title": "Contraintes SQL : clés et unicité",
-    "content": "|\n- `PRIMARY KEY` : unicité + non NULL sur l'identifiant\n- `UNIQUE` : pas de doublon sur la colonne\n- `FOREIGN KEY` : intégrité référentielle entre tables",
+    "content": "- `PRIMARY KEY` : unicité + non NULL sur l'identifiant\n- `UNIQUE` : pas de doublon sur la colonne\n- `FOREIGN KEY` : intégrité référentielle entre tables",
     "description": "Les contraintes sont garanties par la base, pas seulement par l'application.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_11_contraintes.md"
@@ -5595,7 +5595,7 @@
       "default"
     ],
     "title": "Contraintes SQL : valeurs et défauts",
-    "content": "|\n- `NOT NULL` : valeur obligatoire\n- `CHECK` : condition à respecter (`price > 0`)\n- `DEFAULT` : valeur automatique si absente",
+    "content": "- `NOT NULL` : valeur obligatoire\n- `CHECK` : condition à respecter (`price > 0`)\n- `DEFAULT` : valeur automatique si absente",
     "description": "Ces contraintes contrôlent le contenu des colonnes, garanties par le moteur SQL.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_11_contraintes.md"
@@ -5634,7 +5634,7 @@
       "normalisation"
     ],
     "title": "Relation N-N = table de liaison obligatoire",
-    "content": "|\nUne commande peut avoir plusieurs produits, un produit peut être dans plusieurs commandes.\nOn ne peut pas stocker ça dans deux colonnes → créer une table intermédiaire :\n`order_items(order_id, product_id, quantity)`",
+    "content": "Une commande peut avoir plusieurs produits, un produit peut être dans plusieurs commandes.\nOn ne peut pas stocker ça dans deux colonnes → créer une table intermédiaire :\n`order_items(order_id, product_id, quantity)`",
     "description": "Sans table de liaison, les relations N-N forcent à dupliquer des données ou à stocker des listes dans une colonne.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_12_relations_normalisation.md"
@@ -5654,7 +5654,7 @@
       "modele"
     ],
     "title": "3NF : chaque colonne dépend uniquement de la clé",
-    "content": "|\nSi `customer_name` dépend de `customer_id`, pas de `order_id`, il ne doit pas être dans la table `orders`.\nSigne d’une violation 3NF : même information répétée dans plusieurs lignes.",
+    "content": "Si `customer_name` dépend de `customer_id`, pas de `order_id`, il ne doit pas être dans la table `orders`.\nSigne d’une violation 3NF : même information répétée dans plusieurs lignes.",
     "description": "La solution est de déplacer la colonne dans sa propre table liée par clé étrangère.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_12_relations_normalisation.md"
@@ -5693,7 +5693,7 @@
       "update"
     ],
     "title": "Trop d'index ralentit les insertions et mises à jour",
-    "content": "|\nChaque INSERT, UPDATE ou DELETE doit mettre à jour tous les index de la table.\nPlus il y a d'index, plus les écritures sont lentes.\nIndexer uniquement les colonnes réellement utilisées en lecture.",
+    "content": "Chaque INSERT, UPDATE ou DELETE doit mettre à jour tous les index de la table.\nPlus il y a d'index, plus les écritures sont lentes.\nIndexer uniquement les colonnes réellement utilisées en lecture.",
     "description": "Sur des tables à fort volume d'écriture, les index inutiles peuvent dégrader significativement les performances.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_13_index.md"
@@ -5752,7 +5752,7 @@
       "postgresql"
     ],
     "title": "Vue classique vs vue matérialisée (PostgreSQL)",
-    "content": "|\n- **Vue classique** : exécute la requête à chaque appel, données toujours fraîches\n- **Vue matérialisée** : stocke les résultats, plus rapide mais nécessite `REFRESH MATERIALIZED VIEW`",
+    "content": "- **Vue classique** : exécute la requête à chaque appel, données toujours fraîches\n- **Vue matérialisée** : stocke les résultats, plus rapide mais nécessite `REFRESH MATERIALIZED VIEW`",
     "description": "Utiliser les vues matérialisées pour les agrégations coûteuses qui n’ont pas besoin d’être temps réel.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_14_vues.md"
@@ -5772,7 +5772,7 @@
       "table_temporaire"
     ],
     "title": "Sous-requête dans FROM comme table temporaire",
-    "content": "|\n```sql\nSELECT * FROM (\nSELECT customer_id, SUM(total) AS total_spent\nFROM orders GROUP BY customer_id\n) AS spending\nWHERE total_spent > 1000;\n```\nLa sous-requête crée une table intermédiaire utilisable dans la requête principale.",
+    "content": "```sql\nSELECT * FROM (\nSELECT customer_id, SUM(total) AS total_spent\nFROM orders GROUP BY customer_id\n) AS spending\nWHERE total_spent > 1000;\n```\nLa sous-requête crée une table intermédiaire utilisable dans la requête principale.",
     "description": "Alternative aux CTE (WITH) pour les cas simples d'une seule sous-requête imbriquée.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_15_sous_requetes.md"
@@ -5792,7 +5792,7 @@
       "sous_requete"
     ],
     "title": "EXISTS est plus efficace que IN pour tester l'existence",
-    "content": "|\n`EXISTS` s'arrête dès qu'une ligne correspond (court-circuit).\n`IN` récupère toutes les valeurs avant de comparer.\nPréférer `WHERE EXISTS (SELECT 1 FROM ...)` pour les tests d'existence.",
+    "content": "`EXISTS` s'arrête dès qu'une ligne correspond (court-circuit).\n`IN` récupère toutes les valeurs avant de comparer.\nPréférer `WHERE EXISTS (SELECT 1 FROM ...)` pour les tests d'existence.",
     "description": "La différence est significative sur de grandes tables avec beaucoup de valeurs distinctes.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_15_sous_requetes.md"
@@ -5832,7 +5832,7 @@
       "isolation"
     ],
     "title": "Les 4 propriétés ACID d’une transaction",
-    "content": "|\n- **A**tomicity : tout ou rien\n- **C**onsistency : les règles de la base sont respectées\n- **I**solation + **D**urability : les transactions ne se perturbent pas, les données validées sont permanentes",
+    "content": "- **A**tomicity : tout ou rien\n- **C**onsistency : les règles de la base sont respectées\n- **I**solation + **D**urability : les transactions ne se perturbent pas, les données validées sont permanentes",
     "description": "Ces propriétés garantissent la fiabilité des opérations même en cas de panne ou d’accès concurrent.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_16_transactions.md"
@@ -5892,7 +5892,7 @@
       "performance"
     ],
     "title": "Seq Scan vs Index Scan dans EXPLAIN",
-    "content": "|\n- **Seq Scan** : lit toute la table ligne par ligne (lent sur grandes tables)\n- **Index Scan** : utilise un index pour accéder directement aux lignes\nUn Seq Scan sur une table de millions de lignes = requête candidate à l'optimisation.",
+    "content": "- **Seq Scan** : lit toute la table ligne par ligne (lent sur grandes tables)\n- **Index Scan** : utilise un index pour accéder directement aux lignes\nUn Seq Scan sur une table de millions de lignes = requête candidate à l'optimisation.",
     "description": "Visible dans la sortie de EXPLAIN. Créer un index sur la colonne du WHERE pour passer en Index Scan.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_17_optimisation_requetes.md"
@@ -5932,7 +5932,7 @@
       "postgresql"
     ],
     "title": "Fonction SQL vs procédure stockée",
-    "content": "|\n- **Fonction** : retourne une valeur, utilisable dans SELECT\n- **Procédure** : exécute des actions (UPDATE, INSERT…), appelée avec CALL",
+    "content": "- **Fonction** : retourne une valeur, utilisable dans SELECT\n- **Procédure** : exécute des actions (UPDATE, INSERT…), appelée avec CALL",
     "description": "En PostgreSQL, une fonction peut aussi modifier des données via plpgsql, mais la distinction reste utile conceptuellement.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_18_procedures_stockees.md"
@@ -5973,7 +5973,7 @@
       "plpgsql"
     ],
     "title": "Variables NEW et OLD dans un trigger",
-    "content": "|\n- `NEW` : valeur après l'opération (INSERT, UPDATE)\n- `OLD` : valeur avant l'opération (UPDATE, DELETE)\n`NEW.price` et `OLD.price` permettent de comparer avant/après dans la fonction du trigger.",
+    "content": "- `NEW` : valeur après l'opération (INSERT, UPDATE)\n- `OLD` : valeur avant l'opération (UPDATE, DELETE)\n`NEW.price` et `OLD.price` permettent de comparer avant/après dans la fonction du trigger.",
     "description": "OLD est NULL sur un INSERT, NEW est NULL sur un DELETE.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_19_triggers.md"
@@ -6013,7 +6013,7 @@
       "dirty_read"
     ],
     "title": "Les 4 niveaux d'isolation des transactions",
-    "content": "|\n- **Read Committed** : lit seulement les données validées (défaut PostgreSQL)\n- **Repeatable Read** : les lignes lues restent stables pendant la transaction\n- **Serializable** : isolation totale, transactions comme si séquentielles",
+    "content": "- **Read Committed** : lit seulement les données validées (défaut PostgreSQL)\n- **Repeatable Read** : les lignes lues restent stables pendant la transaction\n- **Serializable** : isolation totale, transactions comme si séquentielles",
     "description": "Plus le niveau est fort, plus la cohérence est garantie, mais les performances peuvent baisser.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_20_concurrence.md"
@@ -6033,7 +6033,7 @@
       "transaction"
     ],
     "title": "Les transactions longues provoquent des deadlocks",
-    "content": "|\nDeux transactions qui attendent chacune que l'autre libère un verrou → deadlock.\n- Garder les transactions courtes\n- Verrouiller les ressources dans le même ordre\n- Éviter le verrouillage de tables entières",
+    "content": "Deux transactions qui attendent chacune que l'autre libère un verrou → deadlock.\n- Garder les transactions courtes\n- Verrouiller les ressources dans le même ordre\n- Éviter le verrouillage de tables entières",
     "description": "PostgreSQL détecte les deadlocks automatiquement et annule une des transactions, mais c'est une erreur à éviter.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_20_concurrence.md"
@@ -6073,7 +6073,7 @@
       "bonne_pratique"
     ],
     "title": "Principe du moindre privilège pour les utilisateurs SQL",
-    "content": "|\nUn compte applicatif n’a besoin que de SELECT/INSERT/UPDATE/DELETE sur ses tables.\nNe jamais utiliser le compte admin (`postgres`, `root`) pour l’application.\nCréer un rôle dédié avec uniquement les permissions nécessaires.",
+    "content": "Un compte applicatif n’a besoin que de SELECT/INSERT/UPDATE/DELETE sur ses tables.\nNe jamais utiliser le compte admin (`postgres`, `root`) pour l’application.\nCréer un rôle dédié avec uniquement les permissions nécessaires.",
     "description": "Si le compte applicatif est compromis, l’attaquant ne peut pas DROP TABLE ou accéder aux autres bases.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_21_securite.md"
@@ -6113,7 +6113,7 @@
       "dba"
     ],
     "title": "Une sauvegarde non testée est une sauvegarde inutile",
-    "content": "|\nSauvegarder régulièrement ne suffit pas. Il faut tester la restauration :\n- sur un environnement séparé\n- régulièrement (hebdomadaire ou mensuel)\n- en vérifiant que les données sont cohérentes après restauration.",
+    "content": "Sauvegarder régulièrement ne suffit pas. Il faut tester la restauration :\n- sur un environnement séparé\n- régulièrement (hebdomadaire ou mensuel)\n- en vérifiant que les données sont cohérentes après restauration.",
     "description": "De nombreuses équipes découvrent que leurs backups sont corrompus uniquement en cas d'incident réel.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_22_administration_bdd.md"
@@ -6153,7 +6153,7 @@
       "analytique"
     ],
     "title": "Window function OVER : calculer sans GROUP BY",
-    "content": "|\n`SUM(total) OVER (PARTITION BY customer_id)` calcule le total par client pour chaque ligne, sans supprimer les autres colonnes.\nContrairement à GROUP BY, toutes les lignes restent visibles.",
+    "content": "`SUM(total) OVER (PARTITION BY customer_id)` calcule le total par client pour chaque ligne, sans supprimer les autres colonnes.\nContrairement à GROUP BY, toutes les lignes restent visibles.",
     "description": "Indispensable pour les analyses où on veut comparer chaque ligne avec son groupe (ratio, rang, cumul).",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_23_sql_avance.md"

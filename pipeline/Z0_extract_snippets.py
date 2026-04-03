@@ -63,7 +63,9 @@ def parse_snippet_block(block, source_file):
             if current_key:
                 snippet[current_key] = '\n'.join(current_lines).strip()
             current_key = m.group(1)
-            current_lines = [m.group(2)]
+            val = m.group(2).strip()
+            # '|' = bloc scalaire YAML multiligne : ignorer le marqueur, lire les lignes suivantes
+            current_lines = [] if val == '|' else [val]
         elif current_key:
             current_lines.append(line.strip())
 
