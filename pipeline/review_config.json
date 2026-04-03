@@ -1,7 +1,8 @@
 {
   "smtp": {
-    "host": "smtp.mail.yahoo.com",
-    "port": 465
+    "host": "smtp-relay.brevo.com",
+    "port": 587,
+    "login": "a70f14001@smtp-brevo.com"
   },
   "subject_template": "Révision du {date} — {name}",
 

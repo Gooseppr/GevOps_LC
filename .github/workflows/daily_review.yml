@@ -32,16 +32,16 @@ jobs:
         run: |
           echo "=== pipeline/ ===" && ls -la pipeline/ || echo "pipeline/ introuvable"
           echo "=== _data/ ===" && ls -la _data/ || echo "_data/ introuvable"
-          echo "=== Secret défini ===" && [ -n "$YAHOO_APP_PASSWORD" ] && echo "OUI" || echo "NON"
+          echo "=== Secret défini ===" && [ -n "$BREVO_SMTP_KEY" ] && echo "OUI" || echo "NON"
         env:
-          YAHOO_APP_PASSWORD: ${{ secrets.YAHOO_APP_PASSWORD }}
+          BREVO_SMTP_KEY: ${{ secrets.BREVO_SMTP_KEY }}
 
       - name: Extract snippets (mise à jour du cache)
         run: python pipeline/Z0_extract_snippets.py
 
       - name: Send daily review email
         env:
-          YAHOO_APP_PASSWORD: ${{ secrets.YAHOO_APP_PASSWORD }}
+          BREVO_SMTP_KEY: ${{ secrets.BREVO_SMTP_KEY }}
         run: python pipeline/ZZ_daily_review.py
 
       - name: Commit updated state

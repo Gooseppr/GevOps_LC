@@ -34,7 +34,7 @@ except ImportError:
     KEYRING_AVAILABLE = False
 
 KEYRING_SERVICE = "coursite"
-KEYRING_ACCOUNT = "yahoo_app_password"
+KEYRING_ACCOUNT = "brevo_smtp_key"
 
 # Fix encodage console Windows
 if sys.stdout.encoding != 'utf-8':
@@ -557,7 +557,7 @@ def build_email_html(snippets, today_str, user_name, cycle, total_seen, total_av
 def send_email(html_body, to_email, user_name, smtp_cfg, subject_template, password):
     today_str = date.today().strftime('%d/%m/%Y')
     subject   = subject_template.format(date=today_str, name=user_name)
-    from_addr = to_email  # Yahoo : from = to (même compte)
+    from_addr = smtp_cfg['login']
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject
@@ -566,9 +566,11 @@ def send_email(html_body, to_email, user_name, smtp_cfg, subject_template, passw
     msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
     host = smtp_cfg['host']
-    port = smtp_cfg.get('port', 465)
-    print(f"  Connexion à {host}:{port} (SSL) …")
-    with smtplib.SMTP_SSL(host, port) as server:
+    port = smtp_cfg.get('port', 587)
+    print(f"  Connexion à {host}:{port} (STARTTLS) …")
+    with smtplib.SMTP(host, port) as server:
+        server.ehlo()
+        server.starttls()
         server.ehlo()
         server.login(from_addr, password)
         server.sendmail(from_addr, to_email, msg.as_string())
@@ -582,37 +584,37 @@ def send_email(html_body, to_email, user_name, smtp_cfg, subject_template, passw
 
 def _load_password(secrets):
     """
-    Charge le mot de passe Yahoo.
+    Charge la clé SMTP Brevo.
     Ordre de priorité :
-      1. Variable d'environnement YAHOO_APP_PASSWORD (GitHub Actions)
+      1. Variable d'environnement BREVO_SMTP_KEY (GitHub Actions)
       2. Windows Credential Manager (keyring) — usage local
       3. secrets.json — fallback legacy
     """
     # 1. Variable d'environnement (GitHub Actions / CI)
-    pwd = os.environ.get('YAHOO_APP_PASSWORD', '')
+    pwd = os.environ.get('BREVO_SMTP_KEY', '')
     if pwd:
-        print("  🔐 Mot de passe chargé depuis variable d'environnement")
+        print("  🔐 Clé Brevo chargée depuis variable d'environnement")
         return pwd
 
     # 2. Windows Credential Manager
     if KEYRING_AVAILABLE:
         pwd = keyring.get_password(KEYRING_SERVICE, KEYRING_ACCOUNT)
         if pwd:
-            print("  🔐 Mot de passe chargé depuis Windows Credential Manager")
+            print("  🔐 Clé Brevo chargée depuis Windows Credential Manager")
             return pwd
 
     # 3. Fallback secrets.json
-    pwd = secrets.get('yahoo_app_password', '')
+    pwd = secrets.get('brevo_smtp_key', '')
     if pwd and not pwd.startswith('REMPLACE'):
-        print("  ⚠️  Mot de passe chargé depuis secrets.json (pense à migrer vers keyring)")
+        print("  ⚠️  Clé Brevo chargée depuis secrets.json (pense à migrer vers keyring)")
         return pwd
 
-    print("❌ Mot de passe introuvable.")
+    print("❌ Clé SMTP Brevo introuvable.")
     if KEYRING_AVAILABLE:
         print("   → Lance : python pipeline/Z0_setup_password.py")
     else:
         print("   → pip install keyring  puis  python pipeline/Z0_setup_password.py")
-        print("   → Ou remplis pipeline/secrets.json avec 'yahoo_app_password'")
+        print("   → Ou remplis pipeline/secrets.json avec 'brevo_smtp_key'")
     return None
 
 
