@@ -2,7 +2,7 @@ ref_cours.py
 prompt/
 Code/
 pratique/
-pipeline/
+pipeline/*
 !pipeline/Z0_extract_snippets.py
 !pipeline/ZZ_daily_review.py
 !pipeline/review_config.json

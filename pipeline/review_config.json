@@ -1,0 +1,26 @@
+{
+  "smtp": {
+    "host": "smtp.mail.yahoo.com",
+    "port": 465
+  },
+  "subject_template": "Révision du {date} — {name}",
+
+  "users": [
+    {
+      "email": "austinpwr@yahoo.com",
+      "name": "Greg",
+      "active": true,
+      "daily_mix": [
+        { "type": "command", "count": 2 },
+        { "type": "concept", "count": 1 },
+        { "type": "warning", "count": 1 },
+        { "type": "tip",     "count": 1 }
+      ],
+      "filters": {
+        "tech":  null,
+        "level": null
+      },
+      "max_per_tech": 2
+    }
+  ]
+}

@@ -11,6 +11,8 @@ on:
 jobs:
   send-review:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repo
@@ -23,6 +25,14 @@ jobs:
 
       - name: Install dependencies
         run: pip install keyring keyrings.alt
+
+      - name: Debug — vérification des fichiers présents
+        run: |
+          echo "=== pipeline/ ===" && ls -la pipeline/ || echo "pipeline/ introuvable"
+          echo "=== _data/ ===" && ls -la _data/ || echo "_data/ introuvable"
+          echo "=== Secret défini ===" && [ -n "$YAHOO_APP_PASSWORD" ] && echo "OUI" || echo "NON"
+        env:
+          YAHOO_APP_PASSWORD: ${{ secrets.YAHOO_APP_PASSWORD }}
 
       - name: Extract snippets (mise à jour du cache)
         run: python pipeline/Z0_extract_snippets.py
