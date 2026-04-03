@@ -1,5 +1,2724 @@
 [
   {
+    "id": "aws_iam_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "iam",
+      "security"
+    ],
+    "title": "IAM rôle principal",
+    "content": "IAM permet de contrôler qui peut accéder à quelles ressources AWS et avec quelles permissions",
+    "description": "Base de toute sécurité AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_02_iam.md"
+  },
+  {
+    "id": "aws_iam_least_privilege",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "iam"
+    ],
+    "title": "Principe du least privilege",
+    "content": "Donner uniquement les permissions strictement nécessaires réduit fortement les risques de sécurité",
+    "description": "Principe fondamental IAM",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_02_iam.md"
+  },
+  {
+    "id": "aws_iam_admin_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "error"
+    ],
+    "title": "Donner admin access",
+    "content": "Donner des droits admin augmente le risque de compromission, utiliser des permissions minimales",
+    "description": "Erreur critique en entreprise",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_02_iam.md"
+  },
+  {
+    "id": "aws_iam_cli_list_users",
+    "type": "command",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "iam",
+      "cli"
+    ],
+    "title": "Lister les users IAM",
+    "command": "aws iam list-users",
+    "description": "Permet de voir tous les utilisateurs IAM configurés",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_02_iam.md"
+  },
+  {
+    "id": "aws_iam_role_usage",
+    "type": "tip",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "iam",
+      "role"
+    ],
+    "title": "Utiliser les roles IAM",
+    "content": "Utiliser des roles IAM au lieu de credentials statiques améliore la sécurité et la gestion des accès",
+    "description": "Bonne pratique AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_02_iam.md"
+  },
+  {
+    "id": "aws_ec2_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "ec2",
+      "compute"
+    ],
+    "title": "EC2 définition",
+    "content": "EC2 est un service AWS permettant de lancer des machines virtuelles à la demande",
+    "description": "Base du compute AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_03_ec2.md"
+  },
+  {
+    "id": "aws_ec2_security_group",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "network"
+    ],
+    "title": "Security Group rôle",
+    "content": "Un Security Group agit comme un firewall stateful contrôlant le trafic entrant et sortant d'une instance EC2",
+    "description": "Élément critique de sécurité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_03_ec2.md"
+  },
+  {
+    "id": "aws_ec2_open_port_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "error"
+    ],
+    "title": "Port ouvert 0.0.0.0",
+    "content": "Ouvrir un port à 0.0.0.0/0 expose ton instance à Internet, restreindre aux IP nécessaires",
+    "description": "Risque majeur de sécurité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_03_ec2.md"
+  },
+  {
+    "id": "aws_ec2_launch_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "ec2",
+      "cli"
+    ],
+    "title": "Lancer instance EC2",
+    "command": "aws ec2 run-instances --image-id <AMI_ID> --instance-type <TYPE>",
+    "description": "Permet de créer une instance EC2 via CLI",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_03_ec2.md"
+  },
+  {
+    "id": "aws_ec2_user_data_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "automation",
+      "ec2"
+    ],
+    "title": "Utiliser user data",
+    "content": "User Data permet d'exécuter automatiquement des scripts au démarrage de l'instance",
+    "description": "Automatisation clé en DevOps",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_03_ec2.md"
+  },
+  {
+    "id": "aws_ec2_ssh_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "ssh",
+      "debug"
+    ],
+    "title": "Impossible de se connecter en SSH",
+    "content": "Symptôme connexion refusée, cause port 22 fermé ou clé incorrecte, correction vérifier SG et key pair",
+    "description": "Problème fréquent EC2",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_03_ec2.md"
+  },
+  {
+    "id": "aws_s3_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "s3",
+      "storage"
+    ],
+    "title": "S3 stockage objet",
+    "content": "S3 est un service de stockage objet accessible via HTTP avec une très haute durabilité",
+    "description": "Base du stockage AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_04_storage.md"
+  },
+  {
+    "id": "aws_ebs_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "ebs",
+      "storage"
+    ],
+    "title": "EBS disque EC2",
+    "content": "EBS fournit un disque persistant attaché à une instance EC2",
+    "description": "Stockage bloc AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_04_storage.md"
+  },
+  {
+    "id": "aws_s3_public_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "s3",
+      "security"
+    ],
+    "title": "Bucket public dangereux",
+    "content": "Rendre un bucket public expose les données, toujours restreindre avec des policies",
+    "description": "Risque critique sécurité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_04_storage.md"
+  },
+  {
+    "id": "aws_s3_upload_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "s3",
+      "cli"
+    ],
+    "title": "Upload fichier S3",
+    "command": "aws s3 cp <FILE> s3://<BUCKET>/",
+    "description": "Permet d’envoyer un fichier vers S3",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_04_storage.md"
+  },
+  {
+    "id": "aws_s3_lifecycle_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "s3",
+      "cost"
+    ],
+    "title": "Lifecycle S3",
+    "content": "Utiliser les lifecycle policies permet de réduire automatiquement les coûts de stockage",
+    "description": "Optimisation essentielle AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_04_storage.md"
+  },
+  {
+    "id": "aws_vpc_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "vpc",
+      "network"
+    ],
+    "title": "VPC définition",
+    "content": "Un VPC est un réseau virtuel isolé dans AWS permettant de contrôler le trafic réseau",
+    "description": "Base du réseau AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_05_vpc.md"
+  },
+  {
+    "id": "aws_subnet_public_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "subnet",
+      "network"
+    ],
+    "title": "Subnet public définition",
+    "content": "Un subnet public possède une route vers une Internet Gateway permettant l'accès Internet",
+    "description": "Différence clé public vs privé",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_05_vpc.md"
+  },
+  {
+    "id": "aws_nat_gateway_usage",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "nat",
+      "network"
+    ],
+    "title": "NAT Gateway rôle",
+    "content": "Une NAT Gateway permet aux instances privées d'accéder à Internet sans être exposées",
+    "description": "Élément critique sécurité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_05_vpc.md"
+  },
+  {
+    "id": "aws_route_table_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "vpc",
+      "cli"
+    ],
+    "title": "Voir routes VPC",
+    "command": "aws ec2 describe-route-tables",
+    "description": "Permet de vérifier les routes réseau",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_05_vpc.md"
+  },
+  {
+    "id": "aws_network_debug_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "network",
+      "debug"
+    ],
+    "title": "Instance inaccessible",
+    "content": "Symptôme instance inaccessible, cause route ou security group mal configuré, correction vérifier IGW et rules",
+    "description": "Problème fréquent AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_05_vpc.md"
+  },
+  {
+    "id": "aws_cli_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "devops"
+    ],
+    "title": "AWS CLI définition",
+    "content": "AWS CLI est un outil permettant d'interagir avec les services AWS via ligne de commande",
+    "description": "Outil central DevOps AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_06_cli.md"
+  },
+  {
+    "id": "aws_cli_configure_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "setup"
+    ],
+    "title": "Configurer AWS CLI",
+    "command": "aws configure",
+    "description": "Permet de configurer les credentials AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_06_cli.md"
+  },
+  {
+    "id": "aws_cli_profile_usage",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "profile"
+    ],
+    "title": "Profil AWS CLI",
+    "content": "Un profil permet de gérer plusieurs comptes AWS avec des configurations séparées",
+    "description": "Indispensable en entreprise",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_06_cli.md"
+  },
+  {
+    "id": "aws_cli_access_denied_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "error"
+    ],
+    "title": "Erreur AccessDenied",
+    "content": "Symptôme AccessDenied, cause credentials ou permissions IAM incorrectes, correction vérifier profil et policies",
+    "description": "Erreur fréquente AWS CLI",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_06_cli.md"
+  },
+  {
+    "id": "aws_cli_security_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "cli"
+    ],
+    "title": "Sécuriser AWS CLI",
+    "content": "Ne jamais stocker les credentials en clair, utiliser variables d'environnement ou roles IAM",
+    "description": "Bonne pratique sécurité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_06_cli.md"
+  },
+  {
+    "id": "aws_cloudwatch_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "monitoring",
+      "cloudwatch"
+    ],
+    "title": "CloudWatch définition",
+    "content": "CloudWatch permet de collecter métriques, logs et créer des alertes sur AWS",
+    "description": "Base observabilité AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_07_cloudwatch.md"
+  },
+  {
+    "id": "aws_cloudwatch_metrics",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "metrics",
+      "monitoring"
+    ],
+    "title": "Metrics AWS",
+    "content": "Les metrics représentent des données chiffrées comme CPU, latence ou requêtes",
+    "description": "Indicateurs clés infra",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_07_cloudwatch.md"
+  },
+  {
+    "id": "aws_cloudwatch_alarm_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "monitoring",
+      "error"
+    ],
+    "title": "Trop d'alarmes",
+    "content": "Trop d'alarmes rend le monitoring inutile, définir uniquement des alertes pertinentes",
+    "description": "Piège fréquent monitoring",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_07_cloudwatch.md"
+  },
+  {
+    "id": "aws_cloudwatch_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "monitoring"
+    ],
+    "title": "Lister métriques CloudWatch",
+    "command": "aws cloudwatch list-metrics",
+    "description": "Permet de voir les métriques disponibles",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_07_cloudwatch.md"
+  },
+  {
+    "id": "aws_logs_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "logs",
+      "debug"
+    ],
+    "title": "Logs exploitables",
+    "content": "Des logs clairs et structurés permettent un debug rapide et efficace",
+    "description": "Bonne pratique production",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_07_cloudwatch.md"
+  },
+  {
+    "id": "aws_monitoring_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "monitoring",
+      "incident"
+    ],
+    "title": "Pas de monitoring",
+    "content": "Symptôme panne non détectée, cause absence monitoring, correction mettre en place CloudWatch",
+    "description": "Erreur critique en production",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_07_cloudwatch.md"
+  },
+  {
+    "id": "aws_security_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "cloud"
+    ],
+    "title": "Sécurité AWS principe",
+    "content": "La sécurité AWS repose sur la configuration des accès et non sur AWS seul",
+    "description": "Concept fondamental",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_08_security.md"
+  },
+  {
+    "id": "aws_mfa_importance",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "mfa",
+      "security"
+    ],
+    "title": "MFA importance",
+    "content": "Le MFA ajoute une couche de sécurité essentielle en plus du mot de passe",
+    "description": "Protection critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_08_security.md"
+  },
+  {
+    "id": "aws_root_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "error"
+    ],
+    "title": "Utiliser root",
+    "content": "Utiliser le compte root expose à des risques majeurs, utiliser IAM à la place",
+    "description": "Erreur critique AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_08_security.md"
+  },
+  {
+    "id": "aws_kms_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "kms",
+      "encryption"
+    ],
+    "title": "KMS rôle",
+    "content": "KMS permet de gérer les clés de chiffrement pour sécuriser les données AWS",
+    "description": "Base encryption AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_08_security.md"
+  },
+  {
+    "id": "aws_security_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "bestpractice"
+    ],
+    "title": "Sécuriser AWS",
+    "content": "Toujours combiner IAM, MFA et encryption pour une sécurité complète",
+    "description": "Bonne pratique globale",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_08_security.md"
+  },
+  {
+    "id": "aws_security_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "incident"
+    ],
+    "title": "Mauvaise config sécurité",
+    "content": "Symptôme accès non autorisé, cause mauvaise policy IAM, correction appliquer least privilege",
+    "description": "Incident fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_08_security.md"
+  },
+  {
+    "id": "aws_alb_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "alb",
+      "network"
+    ],
+    "title": "ALB rôle",
+    "content": "ALB distribue le trafic HTTP/HTTPS vers plusieurs instances backend",
+    "description": "Base du load balancing AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_09_load_balancing.md"
+  },
+  {
+    "id": "aws_autoscaling_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "autoscaling",
+      "scaling"
+    ],
+    "title": "Auto Scaling rôle",
+    "content": "Auto Scaling ajuste automatiquement le nombre d'instances selon la charge",
+    "description": "Élément clé scalabilité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_09_load_balancing.md"
+  },
+  {
+    "id": "aws_health_check_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "elb",
+      "error"
+    ],
+    "title": "Mauvais health check",
+    "content": "Un health check mal configuré supprime des instances saines, vérifier endpoint et délais",
+    "description": "Piège critique en prod",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_09_load_balancing.md"
+  },
+  {
+    "id": "aws_elb_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "elb"
+    ],
+    "title": "Lister load balancers",
+    "command": "aws elbv2 describe-load-balancers",
+    "description": "Permet de voir les load balancers AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_09_load_balancing.md"
+  },
+  {
+    "id": "aws_scaling_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "scaling",
+      "architecture"
+    ],
+    "title": "Instances stateless",
+    "content": "Utiliser des instances stateless permet un scaling efficace sans dépendance locale",
+    "description": "Bonne pratique architecture",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_09_load_balancing.md"
+  },
+  {
+    "id": "aws_scaling_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "scaling",
+      "incident"
+    ],
+    "title": "Pas de scaling",
+    "content": "Symptôme surcharge serveur, cause absence autoscaling, correction mettre ASG",
+    "description": "Problème fréquent prod",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_09_load_balancing.md"
+  },
+  {
+    "id": "aws_rds_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "rds",
+      "database"
+    ],
+    "title": "RDS définition",
+    "content": "RDS est un service de base de données relationnelle managée par AWS",
+    "description": "Base SQL AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_10_databases.md"
+  },
+  {
+    "id": "aws_aurora_advantage",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "aurora",
+      "database"
+    ],
+    "title": "Aurora avantage",
+    "content": "Aurora offre de meilleures performances et une haute disponibilité native comparée à RDS classique",
+    "description": "Optimisation AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_10_databases.md"
+  },
+  {
+    "id": "aws_dynamodb_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "dynamodb",
+      "nosql"
+    ],
+    "title": "DynamoDB définition",
+    "content": "DynamoDB est une base NoSQL entièrement managée et scalable automatiquement",
+    "description": "Base NoSQL AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_10_databases.md"
+  },
+  {
+    "id": "aws_db_wrong_choice_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "database",
+      "error"
+    ],
+    "title": "Mauvais choix DB",
+    "content": "Utiliser une base SQL pour un besoin NoSQL limite la scalabilité, analyser le besoin avant",
+    "description": "Erreur fréquente architecture",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_10_databases.md"
+  },
+  {
+    "id": "aws_rds_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "rds",
+      "cli"
+    ],
+    "title": "Lister bases RDS",
+    "command": "aws rds describe-db-instances",
+    "description": "Permet de voir les instances RDS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_10_databases.md"
+  },
+  {
+    "id": "aws_db_scaling_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "database",
+      "scaling"
+    ],
+    "title": "Utiliser read replicas",
+    "content": "Les read replicas permettent de répartir la charge de lecture et améliorer les performances",
+    "description": "Bonne pratique DB",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_10_databases.md"
+  },
+  {
+    "id": "aws_db_failure_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "database",
+      "incident"
+    ],
+    "title": "DB indisponible",
+    "content": "Symptôme DB inaccessible, cause absence Multi-AZ, correction activer haute disponibilité",
+    "description": "Incident critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_10_databases.md"
+  },
+  {
+    "id": "aws_dns_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "dns",
+      "route53"
+    ],
+    "title": "DNS définition",
+    "content": "Le DNS permet de traduire un nom de domaine en adresse IP",
+    "description": "Base réseau",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_11_dns_cdn.md"
+  },
+  {
+    "id": "aws_route53_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "route53",
+      "dns"
+    ],
+    "title": "Route53 rôle",
+    "content": "Route53 est le service DNS AWS permettant de gérer les noms de domaine et le routage",
+    "description": "DNS AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_11_dns_cdn.md"
+  },
+  {
+    "id": "aws_cloudfront_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cdn",
+      "cloudfront"
+    ],
+    "title": "CloudFront rôle",
+    "content": "CloudFront est un CDN permettant de distribuer du contenu avec faible latence via cache global",
+    "description": "CDN AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_11_dns_cdn.md"
+  },
+  {
+    "id": "aws_dns_ttl_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "dns",
+      "error"
+    ],
+    "title": "TTL trop élevé",
+    "content": "Un TTL élevé ralentit les changements DNS, réduire le TTL avant modification",
+    "description": "Piège DNS classique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_11_dns_cdn.md"
+  },
+  {
+    "id": "aws_route53_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "dns"
+    ],
+    "title": "Lister zones DNS",
+    "command": "aws route53 list-hosted-zones",
+    "description": "Permet de voir les zones DNS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_11_dns_cdn.md"
+  },
+  {
+    "id": "aws_cdn_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cdn",
+      "performance"
+    ],
+    "title": "Utiliser CDN",
+    "content": "Utiliser un CDN permet de réduire la latence et améliorer la performance utilisateur",
+    "description": "Optimisation clé web",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_11_dns_cdn.md"
+  },
+  {
+    "id": "aws_dns_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "dns",
+      "incident"
+    ],
+    "title": "Mauvaise résolution DNS",
+    "content": "Symptôme site inaccessible, cause mauvaise config DNS, correction vérifier records et propagation",
+    "description": "Incident fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_11_dns_cdn.md"
+  },
+  {
+    "id": "aws_kms_role",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "kms",
+      "encryption"
+    ],
+    "title": "KMS rôle",
+    "content": "KMS gère les clés de chiffrement utilisées pour sécuriser les données AWS",
+    "description": "Base du chiffrement AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_12_security_advanced.md"
+  },
+  {
+    "id": "aws_secrets_manager_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "secrets",
+      "security"
+    ],
+    "title": "Secrets Manager rôle",
+    "content": "Secrets Manager permet de stocker et gérer les credentials de manière sécurisée avec rotation automatique",
+    "description": "Gestion sécurisée des secrets",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_12_security_advanced.md"
+  },
+  {
+    "id": "aws_waf_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "waf",
+      "security"
+    ],
+    "title": "WAF rôle",
+    "content": "WAF filtre les requêtes HTTP pour bloquer les attaques comme SQL injection ou XSS",
+    "description": "Protection applicative",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_12_security_advanced.md"
+  },
+  {
+    "id": "aws_secret_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "error"
+    ],
+    "title": "Secret en clair",
+    "content": "Stocker un secret en clair expose à des fuites, utiliser Secrets Manager",
+    "description": "Erreur critique sécurité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_12_security_advanced.md"
+  },
+  {
+    "id": "aws_kms_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "kms",
+      "cli"
+    ],
+    "title": "Lister clés KMS",
+    "command": "aws kms list-keys",
+    "description": "Permet de voir les clés KMS disponibles",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_12_security_advanced.md"
+  },
+  {
+    "id": "aws_security_layer_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "architecture"
+    ],
+    "title": "Sécurité en couches",
+    "content": "Combiner KMS, WAF et IAM permet une défense en profondeur efficace",
+    "description": "Bonne pratique sécurité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_12_security_advanced.md"
+  },
+  {
+    "id": "aws_ddos_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "incident"
+    ],
+    "title": "Attaque DDoS",
+    "content": "Symptôme surcharge service, cause attaque DDoS, correction utiliser Shield et WAF",
+    "description": "Incident critique production",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_12_security_advanced.md"
+  },
+  {
+    "id": "aws_iac_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "iac",
+      "devops"
+    ],
+    "title": "IaC définition",
+    "content": "Infrastructure as Code permet de définir et gérer l’infrastructure via du code versionné",
+    "description": "Base DevOps moderne",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_13_iac.md"
+  },
+  {
+    "id": "terraform_plan_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "terraform",
+      "cli",
+      "devops"
+    ],
+    "title": "Terraform plan",
+    "command": "terraform plan",
+    "description": "Permet de voir les changements avant application",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_13_iac.md"
+  },
+  {
+    "id": "terraform_state_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "terraform",
+      "state",
+      "error"
+    ],
+    "title": "Perte du state",
+    "content": "Perdre le state Terraform désynchronise l’infrastructure, utiliser un stockage distant sécurisé",
+    "description": "Piège critique Terraform",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_13_iac.md"
+  },
+  {
+    "id": "terraform_vs_cf",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "terraform",
+      "cloudformation"
+    ],
+    "title": "Terraform vs CloudFormation",
+    "content": "Terraform est multi-cloud et flexible, CloudFormation est natif AWS et intégré",
+    "description": "Choix outil IaC",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_13_iac.md"
+  },
+  {
+    "id": "iac_best_practice_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "iac",
+      "bestpractice"
+    ],
+    "title": "Modulariser IaC",
+    "content": "Découper l’infrastructure en modules permet une meilleure maintenance et réutilisation",
+    "description": "Bonne pratique IaC",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_13_iac.md"
+  },
+  {
+    "id": "iac_manual_change_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "iac",
+      "incident"
+    ],
+    "title": "Modification manuelle infra",
+    "content": "Symptôme dérive infra, cause modification hors IaC, correction toujours passer par Terraform",
+    "description": "Erreur fréquente DevOps",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_13_iac.md"
+  },
+  {
+    "id": "aws_cicd_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cicd",
+      "devops"
+    ],
+    "title": "CI CD définition",
+    "content": "CI/CD automatise le build, test et déploiement des applications",
+    "description": "Base DevOps",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_14_cicd.md"
+  },
+  {
+    "id": "aws_codepipeline_role",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "codepipeline",
+      "cicd"
+    ],
+    "title": "CodePipeline rôle",
+    "content": "CodePipeline orchestre les différentes étapes du pipeline CI/CD",
+    "description": "Orchestrateur AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_14_cicd.md"
+  },
+  {
+    "id": "aws_codedeploy_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "codedeploy",
+      "deploy"
+    ],
+    "title": "CodeDeploy rôle",
+    "content": "CodeDeploy permet de déployer automatiquement une application sur des instances",
+    "description": "Déploiement AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_14_cicd.md"
+  },
+  {
+    "id": "aws_pipeline_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "pipeline"
+    ],
+    "title": "Lister pipelines",
+    "command": "aws codepipeline list-pipelines",
+    "description": "Permet de voir les pipelines existants",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_14_cicd.md"
+  },
+  {
+    "id": "aws_pipeline_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cicd",
+      "error"
+    ],
+    "title": "Pas de rollback",
+    "content": "Déployer sans rollback rend impossible la récupération après erreur, toujours configurer rollback",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_14_cicd.md"
+  },
+  {
+    "id": "aws_pipeline_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cicd",
+      "bestpractice"
+    ],
+    "title": "Tester dans pipeline",
+    "content": "Ajouter des tests dans le pipeline permet de détecter les erreurs avant production",
+    "description": "Bonne pratique CI/CD",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_14_cicd.md"
+  },
+  {
+    "id": "aws_pipeline_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cicd",
+      "incident"
+    ],
+    "title": "Pipeline échoue",
+    "content": "Symptôme pipeline bloqué, cause erreur build ou permissions, correction vérifier logs CodeBuild et IAM",
+    "description": "Problème fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_14_cicd.md"
+  },
+  {
+    "id": "aws_observability_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "observability",
+      "monitoring"
+    ],
+    "title": "Observabilité définition",
+    "content": "L’observabilité permet de comprendre le comportement d’un système via logs, metrics et traces",
+    "description": "Concept clé DevOps",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_15_observability.md"
+  },
+  {
+    "id": "aws_logs_metrics_traces",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "logs",
+      "metrics",
+      "tracing"
+    ],
+    "title": "Différence logs metrics traces",
+    "content": "Logs expliquent les événements, metrics mesurent les performances, traces suivent le flux d'une requête",
+    "description": "Différence fondamentale",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_15_observability.md"
+  },
+  {
+    "id": "aws_logs_tail_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "logs",
+      "cli"
+    ],
+    "title": "Suivre logs temps réel",
+    "command": "aws logs tail <LOG_GROUP> --follow",
+    "description": "Permet de voir les logs en temps réel",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_15_observability.md"
+  },
+  {
+    "id": "aws_logs_structure_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "logs",
+      "error"
+    ],
+    "title": "Logs non structurés",
+    "content": "Des logs non structurés sont difficiles à analyser, utiliser du JSON pour faciliter la recherche",
+    "description": "Piège fréquent observabilité",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_15_observability.md"
+  },
+  {
+    "id": "aws_tracing_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "tracing",
+      "xray"
+    ],
+    "title": "Utiliser X-Ray",
+    "content": "X-Ray permet de visualiser le parcours complet d'une requête et identifier les points de latence",
+    "description": "Outil clé debugging",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_15_observability.md"
+  },
+  {
+    "id": "aws_missing_observability_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "monitoring"
+    ],
+    "title": "Pas d’observabilité",
+    "content": "Symptôme incident non compris, cause manque logs ou traces, correction mettre en place CloudWatch et X-Ray",
+    "description": "Erreur critique production",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_15_observability.md"
+  },
+  {
+    "id": "aws_env_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "environment",
+      "devops"
+    ],
+    "title": "Environnements AWS",
+    "content": "Les environnements permettent de séparer développement, test et production pour réduire les risques",
+    "description": "Base organisation infra",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_16_multi_env.md"
+  },
+  {
+    "id": "aws_multi_account_concept",
+    "type": "concept",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "multiaccount",
+      "security"
+    ],
+    "title": "Multi account AWS",
+    "content": "Utiliser plusieurs comptes AWS permet une isolation forte entre environnements",
+    "description": "Bonne pratique pro",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_16_multi_env.md"
+  },
+  {
+    "id": "aws_env_mixing_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "error",
+      "environment"
+    ],
+    "title": "Mélanger env",
+    "content": "Mélanger dev et prod peut provoquer des incidents critiques, toujours isoler les environnements",
+    "description": "Piège fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_16_multi_env.md"
+  },
+  {
+    "id": "aws_profile_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "profile"
+    ],
+    "title": "Utiliser profil AWS",
+    "command": "aws --profile <PROFILE> ec2 describe-instances",
+    "description": "Permet d'exécuter des commandes avec un profil spécifique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_16_multi_env.md"
+  },
+  {
+    "id": "aws_env_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "devops",
+      "bestpractice"
+    ],
+    "title": "Reproduire prod",
+    "content": "Un environnement staging proche de la production permet de détecter les bugs avant mise en prod",
+    "description": "Bonne pratique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_16_multi_env.md"
+  },
+  {
+    "id": "aws_env_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "prod"
+    ],
+    "title": "Erreur en production",
+    "content": "Symptôme bug en prod, cause test direct en prod, correction utiliser staging",
+    "description": "Erreur critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_16_multi_env.md"
+  },
+  {
+    "id": "aws_ha_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "ha",
+      "architecture"
+    ],
+    "title": "Haute disponibilité définition",
+    "content": "La haute disponibilité permet de maintenir un service actif même en cas de panne",
+    "description": "Concept critique production",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_17_ha.md"
+  },
+  {
+    "id": "aws_multi_az_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "az",
+      "ha"
+    ],
+    "title": "Multi AZ",
+    "content": "Multi-AZ consiste à déployer des ressources sur plusieurs zones de disponibilité pour tolérer les pannes",
+    "description": "Base résilience AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_17_ha.md"
+  },
+  {
+    "id": "aws_failover_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "failover",
+      "network"
+    ],
+    "title": "Failover",
+    "content": "Le failover redirige automatiquement le trafic vers une ressource saine en cas de panne",
+    "description": "Mécanisme clé HA",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_17_ha.md"
+  },
+  {
+    "id": "aws_ha_single_az_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "ha",
+      "error"
+    ],
+    "title": "Une seule AZ",
+    "content": "Déployer sur une seule AZ expose à une panne totale, utiliser plusieurs AZ",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_17_ha.md"
+  },
+  {
+    "id": "aws_ha_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "ha"
+    ],
+    "title": "Vérifier santé targets",
+    "command": "aws elbv2 describe-target-health --target-group-arn <ARN>",
+    "description": "Permet de vérifier les instances derrière un load balancer",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_17_ha.md"
+  },
+  {
+    "id": "aws_ha_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "architecture",
+      "bestpractice"
+    ],
+    "title": "Tester failover",
+    "content": "Tester régulièrement le failover permet de valider la résilience réelle de l’infrastructure",
+    "description": "Bonne pratique HA",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_17_ha.md"
+  },
+  {
+    "id": "aws_ha_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "prod"
+    ],
+    "title": "Panne totale",
+    "content": "Symptôme downtime complet, cause absence HA, correction implémenter multi-AZ et load balancing",
+    "description": "Incident critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_17_ha.md"
+  },
+  {
+    "id": "aws_lambda_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "lambda",
+      "serverless"
+    ],
+    "title": "Lambda définition",
+    "content": "Lambda permet d’exécuter du code sans gérer de serveur avec un scaling automatique",
+    "description": "Base serverless AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_18_serverless.md"
+  },
+  {
+    "id": "aws_apigateway_role",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "apigateway",
+      "api"
+    ],
+    "title": "API Gateway rôle",
+    "content": "API Gateway expose des endpoints HTTP pour accéder aux fonctions Lambda",
+    "description": "Interface API AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_18_serverless.md"
+  },
+  {
+    "id": "aws_lambda_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "lambda",
+      "cli"
+    ],
+    "title": "Lister fonctions Lambda",
+    "command": "aws lambda list-functions",
+    "description": "Permet de voir les fonctions Lambda",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_18_serverless.md"
+  },
+  {
+    "id": "aws_cold_start_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "lambda",
+      "error"
+    ],
+    "title": "Cold start Lambda",
+    "content": "Un cold start peut ralentir une fonction Lambda, optimiser runtime et taille",
+    "description": "Piège serverless",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_18_serverless.md"
+  },
+  {
+    "id": "aws_serverless_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "serverless",
+      "architecture"
+    ],
+    "title": "Event driven",
+    "content": "Une architecture event-driven améliore la scalabilité et le découplage",
+    "description": "Bonne pratique serverless",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_18_serverless.md"
+  },
+  {
+    "id": "aws_serverless_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "serverless",
+      "incident"
+    ],
+    "title": "Lambda timeout",
+    "content": "Symptôme timeout fonction, cause durée trop longue, correction optimiser code ou augmenter timeout",
+    "description": "Problème fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_18_serverless.md"
+  },
+  {
+    "id": "aws_caching_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "caching",
+      "performance"
+    ],
+    "title": "Caching principe",
+    "content": "Le caching permet de stocker temporairement des données pour éviter des calculs ou accès répétés",
+    "description": "Base optimisation",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_19_performance.md"
+  },
+  {
+    "id": "aws_cloudfront_performance",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cdn",
+      "latency"
+    ],
+    "title": "CloudFront performance",
+    "content": "CloudFront réduit la latence en servant le contenu depuis des serveurs proches des utilisateurs",
+    "description": "Optimisation globale",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_19_performance.md"
+  },
+  {
+    "id": "aws_cache_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cache",
+      "error"
+    ],
+    "title": "Pas de cache",
+    "content": "Ne pas utiliser de cache surcharge la base de données et dégrade la performance",
+    "description": "Piège fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_19_performance.md"
+  },
+  {
+    "id": "aws_elasticache_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "redis",
+      "cli"
+    ],
+    "title": "Lister cache clusters",
+    "command": "aws elasticache describe-cache-clusters",
+    "description": "Permet de voir les clusters cache",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_19_performance.md"
+  },
+  {
+    "id": "aws_performance_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "performance",
+      "bestpractice"
+    ],
+    "title": "Mesurer avant optimiser",
+    "content": "Toujours mesurer la performance avant d’optimiser pour éviter les optimisations inutiles",
+    "description": "Bonne pratique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_19_performance.md"
+  },
+  {
+    "id": "aws_latency_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "latency",
+      "incident"
+    ],
+    "title": "Latence élevée",
+    "content": "Symptôme lenteur app, cause absence CDN ou cache, correction ajouter CloudFront et Redis",
+    "description": "Incident fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_19_performance.md"
+  },
+  {
+    "id": "aws_zero_trust_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "zerotrust"
+    ],
+    "title": "Zero Trust principe",
+    "content": "Zero Trust consiste à ne faire confiance à aucun accès sans vérification explicite",
+    "description": "Modèle sécurité moderne",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_20_security_zero_trust.md"
+  },
+  {
+    "id": "aws_cloudtrail_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cloudtrail",
+      "audit"
+    ],
+    "title": "CloudTrail rôle",
+    "content": "CloudTrail enregistre toutes les actions réalisées sur AWS pour audit et traçabilité",
+    "description": "Audit AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_20_security_zero_trust.md"
+  },
+  {
+    "id": "aws_network_segmentation",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "network",
+      "security"
+    ],
+    "title": "Segmentation réseau",
+    "content": "Segmenter le réseau limite la propagation d’une attaque entre services",
+    "description": "Base sécurité réseau",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_20_security_zero_trust.md"
+  },
+  {
+    "id": "aws_security_group_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "network"
+    ],
+    "title": "Voir security groups",
+    "command": "aws ec2 describe-security-groups",
+    "description": "Permet de voir les règles réseau AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_20_security_zero_trust.md"
+  },
+  {
+    "id": "aws_open_network_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "error"
+    ],
+    "title": "Réseau trop ouvert",
+    "content": "Un réseau ouvert permet des attaques latérales, restreindre les accès strictement",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_20_security_zero_trust.md"
+  },
+  {
+    "id": "aws_security_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "security",
+      "bestpractice"
+    ],
+    "title": "Utiliser endpoints privés",
+    "content": "Les VPC endpoints permettent de sécuriser les accès sans passer par Internet",
+    "description": "Bonne pratique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_20_security_zero_trust.md"
+  },
+  {
+    "id": "aws_security_incident",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "security"
+    ],
+    "title": "Attaque interne",
+    "content": "Symptôme accès anormal interne, cause manque segmentation, correction isoler les services",
+    "description": "Incident critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_20_security_zero_trust.md"
+  },
+  {
+    "id": "aws_finops_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "finops",
+      "cost"
+    ],
+    "title": "FinOps définition",
+    "content": "FinOps permet de gérer et optimiser les coûts du cloud en continu",
+    "description": "Compétence clé AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_21_finops.md"
+  },
+  {
+    "id": "aws_pricing_models",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cost",
+      "pricing"
+    ],
+    "title": "Modèles pricing AWS",
+    "content": "AWS propose on-demand, reserved et spot instances selon les besoins et coûts",
+    "description": "Base pricing AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_21_finops.md"
+  },
+  {
+    "id": "aws_cost_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cost",
+      "error"
+    ],
+    "title": "Ressources inutilisées",
+    "content": "Laisser des ressources actives inutilement augmente fortement la facture, les supprimer ou arrêter",
+    "description": "Piège fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_21_finops.md"
+  },
+  {
+    "id": "aws_cost_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "cost"
+    ],
+    "title": "Voir coûts AWS",
+    "command": "aws ce get-cost-and-usage",
+    "description": "Permet d'analyser les coûts AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_21_finops.md"
+  },
+  {
+    "id": "aws_finops_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "finops",
+      "bestpractice"
+    ],
+    "title": "Utiliser tags",
+    "content": "Les tags permettent de suivre les coûts par projet et équipe",
+    "description": "Bonne pratique FinOps",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_21_finops.md"
+  },
+  {
+    "id": "aws_cost_incident",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "cost"
+    ],
+    "title": "Facture élevée",
+    "content": "Symptôme coût élevé, cause ressources mal dimensionnées, correction rightsizing et optimisation",
+    "description": "Incident courant",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_21_finops.md"
+  },
+  {
+    "id": "aws_microservices_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "microservices",
+      "architecture"
+    ],
+    "title": "Microservices définition",
+    "content": "Les microservices sont des services indépendants communiquant via API ou événements",
+    "description": "Base architecture moderne",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
+  },
+  {
+    "id": "aws_sqs_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "sqs",
+      "queue"
+    ],
+    "title": "SQS rôle",
+    "content": "SQS est une file de messages permettant le traitement asynchrone entre services",
+    "description": "Découplage services",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
+  },
+  {
+    "id": "aws_sns_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "sns",
+      "pubsub"
+    ],
+    "title": "SNS rôle",
+    "content": "SNS permet de diffuser des messages à plusieurs consommateurs simultanément",
+    "description": "Pub/Sub AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
+  },
+  {
+    "id": "aws_sqs_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "sqs",
+      "cli"
+    ],
+    "title": "Envoyer message SQS",
+    "command": "aws sqs send-message --queue-url <URL> --message-body \"test\"",
+    "description": "Permet d'envoyer un message dans une queue",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
+  },
+  {
+    "id": "aws_coupling_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "architecture",
+      "error"
+    ],
+    "title": "Couplage fort",
+    "content": "Des services fortement couplés rendent le système fragile, utiliser des queues pour découpler",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
+  },
+  {
+    "id": "aws_async_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "architecture",
+      "bestpractice"
+    ],
+    "title": "Communication async",
+    "content": "La communication asynchrone améliore la résilience et la scalabilité des systèmes",
+    "description": "Bonne pratique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
+  },
+  {
+    "id": "aws_distributed_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "architecture"
+    ],
+    "title": "Service bloqué",
+    "content": "Symptôme blocage système, cause dépendance synchrone, correction passer en async via SQS",
+    "description": "Incident fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
+  },
+  {
+    "id": "aws_microservices_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "microservices",
+      "architecture"
+    ],
+    "title": "Microservices définition",
+    "content": "Les microservices sont des services indépendants communiquant via API ou événements",
+    "description": "Base architecture moderne",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
+  },
+  {
+    "id": "aws_sqs_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "sqs",
+      "queue"
+    ],
+    "title": "SQS rôle",
+    "content": "SQS est une file de messages permettant le traitement asynchrone entre services",
+    "description": "Découplage services",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
+  },
+  {
+    "id": "aws_sns_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "sns",
+      "pubsub"
+    ],
+    "title": "SNS rôle",
+    "content": "SNS permet de diffuser des messages à plusieurs consommateurs simultanément",
+    "description": "Pub/Sub AWS",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
+  },
+  {
+    "id": "aws_sqs_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "sqs",
+      "cli"
+    ],
+    "title": "Envoyer message SQS",
+    "command": "aws sqs send-message --queue-url <URL> --message-body \"test\"",
+    "description": "Permet d'envoyer un message dans une queue",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
+  },
+  {
+    "id": "aws_coupling_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "architecture",
+      "error"
+    ],
+    "title": "Couplage fort",
+    "content": "Des services fortement couplés rendent le système fragile, utiliser des queues pour découpler",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
+  },
+  {
+    "id": "aws_async_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "architecture",
+      "bestpractice"
+    ],
+    "title": "Communication async",
+    "content": "La communication asynchrone améliore la résilience et la scalabilité des systèmes",
+    "description": "Bonne pratique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
+  },
+  {
+    "id": "aws_distributed_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "architecture"
+    ],
+    "title": "Service bloqué",
+    "content": "Symptôme blocage système, cause dépendance synchrone, correction passer en async via SQS",
+    "description": "Incident fréquent",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
+  },
+  {
+    "id": "aws_resilience_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "resilience",
+      "architecture"
+    ],
+    "title": "Résilience définition",
+    "content": "La résilience permet à un système de continuer à fonctionner malgré des pannes",
+    "description": "Concept critique distribué",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_23_resilience.md"
+  },
+  {
+    "id": "aws_retry_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "retry",
+      "network"
+    ],
+    "title": "Retry principe",
+    "content": "Le retry consiste à réessayer une opération échouée pour augmenter les chances de succès",
+    "description": "Base résilience",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_23_resilience.md"
+  },
+  {
+    "id": "aws_backoff_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "backoff",
+      "retry"
+    ],
+    "title": "Backoff exponentiel",
+    "content": "Le backoff exponentiel augmente le délai entre retries pour éviter la surcharge",
+    "description": "Optimisation retry",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_23_resilience.md"
+  },
+  {
+    "id": "aws_retry_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "retry",
+      "error"
+    ],
+    "title": "Retry infini",
+    "content": "Des retries infinis peuvent saturer le système, toujours limiter les tentatives",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_23_resilience.md"
+  },
+  {
+    "id": "aws_circuit_breaker_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "circuitbreaker",
+      "resilience"
+    ],
+    "title": "Circuit breaker rôle",
+    "content": "Le circuit breaker coupe les appels vers un service défaillant pour éviter l'effet cascade",
+    "description": "Protection système",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_23_resilience.md"
+  },
+  {
+    "id": "aws_resilience_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "resilience",
+      "bestpractice"
+    ],
+    "title": "Tester les pannes",
+    "content": "Tester les pannes permet de valider la robustesse réelle du système",
+    "description": "Bonne pratique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_23_resilience.md"
+  },
+  {
+    "id": "aws_resilience_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "system"
+    ],
+    "title": "Effet cascade",
+    "content": "Symptôme panne généralisée, cause dépendances non protégées, correction implémenter circuit breaker",
+    "description": "Incident critique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_23_resilience.md"
+  },
+  {
+    "id": "aws_governance_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "governance",
+      "organization"
+    ],
+    "title": "Gouvernance AWS définition",
+    "content": "La gouvernance AWS permet de contrôler et structurer les ressources à l’échelle organisationnelle",
+    "description": "Base entreprise",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
+    "id": "aws_organizations_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "organizations",
+      "multiaccount"
+    ],
+    "title": "AWS Organizations rôle",
+    "content": "AWS Organizations permet de gérer plusieurs comptes AWS de manière centralisée",
+    "description": "Multi-account management",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
+    "id": "aws_scp_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "scp",
+      "security"
+    ],
+    "title": "SCP rôle",
+    "content": "Les Service Control Policies limitent les actions autorisées au niveau organisationnel",
+    "description": "Sécurité globale",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
+    "id": "aws_tagging_definition",
+    "type": "concept",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "tagging",
+      "cost"
+    ],
+    "title": "Tagging rôle",
+    "content": "Le tagging permet d’organiser et suivre les ressources AWS par projet, équipe ou coût",
+    "description": "Gestion et FinOps",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
+    "id": "aws_tagging_warning",
+    "type": "warning",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "tagging",
+      "error"
+    ],
+    "title": "Pas de tagging",
+    "content": "L’absence de tagging empêche le suivi des coûts et complique la gestion des ressources",
+    "description": "Piège fréquent entreprise",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
+    "id": "aws_org_command",
+    "type": "command",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "cli",
+      "organizations"
+    ],
+    "title": "Lister comptes AWS",
+    "command": "aws organizations list-accounts",
+    "description": "Permet de voir les comptes dans une organisation",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
+    "id": "aws_governance_tip",
+    "type": "tip",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "governance",
+      "bestpractice"
+    ],
+    "title": "Stratégie de tags",
+    "content": "Définir une stratégie de tags dès le début permet un meilleur contrôle des ressources et des coûts",
+    "description": "Bonne pratique",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
+    "id": "aws_governance_error",
+    "type": "error",
+    "tech": "aws",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "aws",
+      "incident",
+      "management"
+    ],
+    "title": "Perte de contrôle infra",
+    "content": "Symptôme ressources non maîtrisées, cause absence gouvernance, correction mettre Organizations et tagging",
+    "description": "Incident organisationnel",
+    "context": "",
+    "source_file": "courses/cloud-aws/aws_module_24_governance.md"
+  },
+  {
     "id": "docker_definition_conteneurisation",
     "type": "concept",
     "tech": "docker",
@@ -5134,1315 +7853,1912 @@
     "source_file": "courses/docker/docker_ch7_4.md"
   },
   {
-    "id": "python_env_venv_create",
+    "id": "python_venv_creation",
     "type": "command",
     "tech": "python",
     "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
+      "python",
       "venv",
-      "environnement",
-      "isolation"
+      "setup"
     ],
-    "title": "Créer un environnement virtuel Python",
-    "command": "python -m venv .venv",
-    "description": "Crée un environnement virtuel isolé dans le dossier .venv du projet courant.",
+    "title": "Créer un environnement virtuel",
+    "command": "python -m venv venv",
+    "description": "Crée un environnement isolé pour un projet Python",
     "context": "",
-    "source_file": "courses/python/python_ch1_1.md"
+    "source_file": "courses/python/module_01_environnement_python.md"
   },
   {
-    "id": "python_env_venv_activate_linux",
+    "id": "python_venv_activation",
     "type": "command",
     "tech": "python",
     "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
+      "python",
       "venv",
-      "activation",
-      "linux",
-      "mac"
+      "activation"
     ],
-    "title": "Activer un venv sous Linux/Mac",
-    "command": "source .venv/bin/activate",
-    "description": "Active l'environnement virtuel .venv. Le prompt affiche (.venv) pour confirmer l'activation.",
+    "title": "Activer un environnement virtuel",
+    "command": "source venv/bin/activate",
+    "description": "Active l'environnement virtuel sous Linux/Mac",
     "context": "",
-    "source_file": "courses/python/python_ch1_1.md"
+    "source_file": "courses/python/module_01_environnement_python.md"
   },
   {
-    "id": "python_env_venv_activate_windows",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "venv",
-      "activation",
-      "windows"
-    ],
-    "title": "Activer un venv sous Windows",
-    "command": ".venv\\Scripts\\activate.bat",
-    "description": "Active l'environnement virtuel .venv sous Windows (cmd). Utiliser Activate.ps1 pour PowerShell.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_1.md"
-  },
-  {
-    "id": "python_env_pip_freeze",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "pip",
-      "dependances",
-      "requirements"
-    ],
-    "title": "Exporter les dépendances du projet",
-    "command": "pip freeze > requirements.txt",
-    "description": "Génère un fichier requirements.txt avec toutes les versions exactes des packages installés.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_1.md"
-  },
-  {
-    "id": "python_env_pip_install_requirements",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "pip",
-      "dependances",
-      "requirements",
-      "restauration"
-    ],
-    "title": "Installer les dépendances depuis requirements.txt",
-    "command": "pip install -r requirements.txt",
-    "description": "Installe tous les packages listés dans requirements.txt, idéal pour reproduire un environnement.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_1.md"
-  },
-  {
-    "id": "python_env_venv_gitignore",
-    "type": "tip",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "venv",
-      "git",
-      "gitignore"
-    ],
-    "title": "Toujours exclure .venv du dépôt git",
-    "content": "Ajouter .venv/ dans .gitignore pour ne pas versionner l'environnement virtuel.",
-    "description": "Le dossier .venv peut contenir des centaines de fichiers binaires inutiles à versionner. Versionner requirements.txt suffit.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_1.md"
-  },
-  {
-    "id": "python_env_global_install_warning",
-    "type": "warning",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "pip",
-      "global",
-      "conflit"
-    ],
-    "title": "Ne pas installer de packages en global",
-    "content": "Installer des packages avec pip sans venv actif les place dans l'environnement Python système, créant des conflits entre projets.",
-    "description": "Sans venv, tous les projets partagent les mêmes versions de packages. Un upgrade pour un projet peut casser un autre.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_1.md"
-  },
-  {
-    "id": "python_types_fstring_basic",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "fstring",
-      "formatage",
-      "affichage"
-    ],
-    "title": "Formater une chaîne avec une f-string",
-    "command": "f\"Bonjour {nom}, tu as {age} ans.\"",
-    "description": "Les f-strings évaluent les expressions entre accolades au moment de l'exécution. Disponibles depuis Python 3.6.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_2.md"
-  },
-  {
-    "id": "python_types_isinstance",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "type",
-      "verification",
-      "isinstance"
-    ],
-    "title": "Vérifier le type d'une variable",
-    "command": "isinstance(x, (int, float))",
-    "description": "isinstance() accepte un tuple de types. Préféré à type(x) == int car compatible avec l'héritage de classes.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_2.md"
-  },
-  {
-    "id": "python_types_float_trap",
-    "type": "warning",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "float",
-      "precision",
-      "comparaison"
-    ],
-    "title": "Ne pas comparer des flottants avec ==",
-    "content": "0.1 + 0.2 == 0.3 retourne False à cause de la représentation binaire IEEE 754. Utiliser math.isclose() ou Decimal.",
-    "description": "Les flottants ne sont pas stockés exactement en binaire. 0.1 + 0.2 donne 0.30000000000000004, jamais 0.3 exactement.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_2.md"
-  },
-  {
-    "id": "python_types_none_comparison",
-    "type": "tip",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "none",
-      "comparaison",
-      "identite"
-    ],
-    "title": "Comparer à None avec is, pas ==",
-    "content": "Utiliser `x is None` plutôt que `x == None`. C'est plus explicite et évite les surprises avec les objets qui surchargent ==.",
-    "description": "None est un singleton. L'opérateur `is` vérifie l'identité (même objet en mémoire), ce qui est le test correct pour None.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_2.md"
-  },
-  {
-    "id": "python_types_int_truncation",
-    "type": "warning",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "int",
-      "conversion",
-      "troncature"
-    ],
-    "title": "int() tronque, il n'arrondit pas",
-    "content": "int(3.9) retourne 3, pas 4. La conversion vers int tronque vers zéro. Utiliser round() pour arrondir.",
-    "description": "int() supprime la partie décimale sans arrondir. Pour 3.9 → 4, utiliser round(3.9) ou math.ceil(3.9).",
-    "context": "",
-    "source_file": "courses/python/python_ch1_2.md"
-  },
-  {
-    "id": "python_types_falsy_values",
+    "id": "python_env_concept",
     "type": "concept",
     "tech": "python",
     "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "falsy",
-      "bool",
+      "python",
+      "venv",
+      "concept"
+    ],
+    "title": "Rôle des environnements virtuels",
+    "content": "Un environnement virtuel permet d'isoler les dépendances d'un projet Python",
+    "description": "Évite les conflits entre projets",
+    "context": "",
+    "source_file": "courses/python/module_01_environnement_python.md"
+  },
+  {
+    "id": "python_global_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "venv",
+      "erreur"
+    ],
+    "title": "Installer en global est dangereux",
+    "content": "Installer globalement → conflits de dépendances → utiliser venv",
+    "description": "Toujours isoler les dépendances",
+    "context": "",
+    "source_file": "courses/python/module_01_environnement_python.md"
+  },
+  {
+    "id": "python_type_dynamic",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "types",
+      "concept"
+    ],
+    "title": "Typage dynamique en Python",
+    "content": "Le type est attaché à la valeur et non à la variable",
+    "description": "Permet flexibilité mais nécessite vigilance",
+    "context": "",
+    "source_file": "courses/python/module_02_syntaxe_types.md"
+  },
+  {
+    "id": "python_list_mutable_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "list",
+      "mutation"
+    ],
+    "title": "Listes sont mutables",
+    "content": "Modifier une liste partagée modifie toutes les références → utiliser copy()",
+    "description": "Piège fréquent en Python",
+    "context": "",
+    "source_file": "courses/python/module_02_syntaxe_types.md"
+  },
+  {
+    "id": "python_if_structure",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
       "condition"
     ],
-    "title": "Valeurs falsy en Python",
-    "content": "Sont falsy : False, None, 0, 0.0, \"\", [], {}, (). Tout le reste est truthy. Permet d'écrire if liste: au lieu de if len(liste) > 0.",
-    "description": "Python évalue ces valeurs à False dans un contexte booléen. Connaître les valeurs falsy évite des conditions verbeuses inutiles.",
+    "title": "Structure conditionnelle",
+    "content": "if elif else permet de contrôler le flux logique",
+    "description": "Base du contrôle de flux",
     "context": "",
-    "source_file": "courses/python/python_ch1_2.md"
+    "source_file": "courses/python/module_02_syntaxe_types.md"
   },
   {
-    "id": "python_types_division",
+    "id": "python_for_loop",
     "type": "concept",
     "tech": "python",
     "level": "beginner",
     "importance": "medium",
     "format": "knowledge",
     "tags": [
-      "division",
-      "operateurs",
-      "entier"
+      "python",
+      "boucle"
     ],
-    "title": "Différence entre / et // en Python",
-    "content": "L'opérateur / retourne toujours un float (10/2 = 5.0). L'opérateur // effectue la division entière (10//3 = 3). % donne le reste (10%3 = 1).",
-    "description": "En Python 3, la division / est toujours flottante. Utiliser // pour une division entière, % pour le modulo.",
+    "title": "Boucle for Python",
+    "content": "La boucle for itère sur une séquence directement",
+    "description": "Plus simple que dans d'autres langages",
     "context": "",
-    "source_file": "courses/python/python_ch1_2.md"
+    "source_file": "courses/python/module_02_syntaxe_types.md"
   },
   {
-    "id": "python_ctrl_enumerate",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "enumerate",
-      "boucle",
-      "indice"
-    ],
-    "title": "Itérer avec indice et valeur",
-    "command": "for i, item in enumerate(liste, start=1):",
-    "description": "enumerate() retourne un tuple (indice, valeur). Evite d'écrire range(len(liste)). start=1 pour commencer à 1.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_3.md"
-  },
-  {
-    "id": "python_ctrl_zip",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "zip",
-      "iteration",
-      "parallele"
-    ],
-    "title": "Itérer sur deux listes en parallèle",
-    "command": "for nom, score in zip(noms, scores):",
-    "description": "zip() combine plusieurs itérables élément par élément. S'arrête au plus court. Utiliser strict=True (Python 3.10+) pour lever une erreur si longueurs différentes.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_3.md"
-  },
-  {
-    "id": "python_ctrl_modify_while_iterate",
-    "type": "warning",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "liste",
-      "iteration",
-      "modification",
-      "piege"
-    ],
-    "title": "Ne pas modifier une liste pendant son itération",
-    "content": "Modifier une liste (remove, pop, append) pendant un for...in provoque des sauts d'éléments silencieux. Itérer sur une copie avec liste[:] ou reconstruire avec une compréhension.",
-    "description": "Python avance l'indice interne après chaque itération. Si on supprime un élément, l'élément suivant est sauté sans erreur.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_3.md"
-  },
-  {
-    "id": "python_ctrl_ternary",
-    "type": "concept",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "ternaire",
-      "condition",
-      "inline"
-    ],
-    "title": "Opérateur ternaire Python",
-    "content": "La syntaxe est : valeur_si_vrai if condition else valeur_si_faux. Exemple : statut = \"majeur\" if age >= 18 else \"mineur\".",
-    "description": "L'opérateur ternaire permet d'écrire une condition sur une ligne. Lisible pour des cas simples, à éviter si la logique est complexe.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_3.md"
-  },
-  {
-    "id": "python_ctrl_for_else",
-    "type": "concept",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "low",
-    "format": "knowledge",
-    "tags": [
-      "for",
-      "else",
-      "break"
-    ],
-    "title": "Clause else sur une boucle for",
-    "content": "Le bloc else d'une boucle for s'exécute uniquement si la boucle s'est terminée sans break. Utile pour signaler qu'une recherche n'a rien trouvé.",
-    "description": "Peu connu mais expressif : for...else permet de gérer le cas \"aucun élément ne satisfait la condition\" sans variable booléenne auxiliaire.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_3.md"
-  },
-  {
-    "id": "python_ctrl_range_step",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "range",
-      "boucle",
-      "pas"
-    ],
-    "title": "Boucle for avec step personnalisé",
-    "command": "for i in range(0, 10, 2):",
-    "description": "range(start, stop, step) génère une séquence de start à stop (exclu) avec un pas de step. Fonctionne aussi avec un pas négatif pour décompter.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_3.md"
-  },
-  {
-    "id": "python_func_mutable_default_arg",
-    "type": "warning",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "fonctions",
-      "parametres",
-      "mutable",
-      "piege"
-    ],
-    "title": "Piège : argument mutable par défaut",
-    "content": "def f(lst=[]): persiste la liste entre les appels. Utiliser def f(lst=None): puis if lst is None: lst = []. S'applique aussi aux dicts et sets.",
-    "description": "Les valeurs par défaut sont évaluées une seule fois à la définition. Un objet mutable comme [] est partagé entre tous les appels.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_4.md"
-  },
-  {
-    "id": "python_func_args_kwargs",
+    "id": "python_dict_usage",
     "type": "concept",
     "tech": "python",
     "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "args",
-      "kwargs",
-      "variadic"
-    ],
-    "title": "*args et **kwargs pour arguments variables",
-    "content": "*args capture les arguments positionnels en excès dans un tuple. **kwargs capture les arguments nommés en excès dans un dict. Peuvent être combinés.",
-    "description": "Permettent d'écrire des fonctions flexibles acceptant un nombre arbitraire d'arguments. Très utilisés dans les décorateurs et les API.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_4.md"
-  },
-  {
-    "id": "python_func_unpack_call",
-    "type": "command",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "depack",
-      "appel",
-      "liste",
-      "dict"
-    ],
-    "title": "Dépacker une liste ou un dict lors d'un appel",
-    "command": "fonction(*liste)  # ou fonction(**dict)",
-    "description": "L'opérateur * décompresse une liste en arguments positionnels. ** décompresse un dict en arguments nommés. Pratique pour les fonctions à signature fixe.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_4.md"
-  },
-  {
-    "id": "python_func_return_multiple",
-    "type": "concept",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "return",
-      "tuple",
-      "multiple"
-    ],
-    "title": "Retourner plusieurs valeurs via un tuple",
-    "content": "return a, b retourne implicitement un tuple. L'appelant peut dépacker avec min_val, max_val = ma_fonction(). C'est la façon idiomatique Python.",
-    "description": "Python ne supporte pas nativement le retour multiple, mais les tuples permettent d'en simuler l'effet de façon élégante.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_4.md"
-  },
-  {
-    "id": "python_func_legb_global",
-    "type": "warning",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "portee",
-      "global",
-      "LEGB"
-    ],
-    "title": "Utiliser global pour modifier une variable de module",
-    "content": "Sans le mot-clé global, assigner dans une fonction crée une variable locale. global x déclare qu'on veut modifier la variable x du module.",
-    "description": "Si on écrit x = x + 1 dans une fonction sans global x, Python lève UnboundLocalError car il voit x comme locale mais non initialisée.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_4.md"
-  },
-  {
-    "id": "python_func_lambda_sort",
-    "type": "tip",
-    "tech": "python",
-    "level": "beginner",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "lambda",
-      "sort",
-      "key"
-    ],
-    "title": "Utiliser lambda comme clé de tri",
-    "content": "sorted(personnes, key=lambda p: p[1]) trie une liste de tuples par le second élément. Plus lisible que d'écrire une fonction séparée pour un critère simple.",
-    "description": "Les lambdas sont idiomatiques comme argument key= de sorted(), min(), max(). Pour des critères complexes, préférer une vraie fonction nommée.",
-    "context": "",
-    "source_file": "courses/python/python_ch1_4.md"
-  },
-  {
-    "id": "python_ds_dict_get",
-    "type": "command",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
+      "python",
       "dict",
-      "get",
-      "keyerror"
+      "structure"
     ],
-    "title": "Accéder à une clé de dict sans KeyError",
-    "command": "valeur = dico.get(\"cle\", \"valeur_par_defaut\")",
-    "description": ".get() retourne None si la clé n'existe pas, ou la valeur par défaut fournie en second argument. Evite les KeyError sur des clés optionnelles.",
+    "title": "Dict est clé valeur",
+    "content": "Un dictionnaire stocke des paires clé valeur avec accès rapide",
+    "description": "Structure la plus utilisée en Python",
     "context": "",
-    "source_file": "courses/python/python_ch2_1.md"
+    "source_file": "courses/python/module_03_structures_donnees.md"
   },
   {
-    "id": "python_ds_deepcopy",
-    "type": "warning",
+    "id": "python_set_performance",
+    "type": "concept",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "copie",
-      "deepcopy",
-      "mutable"
-    ],
-    "title": "Copie superficielle ne copie pas les objets imbriqués",
-    "content": "b = a.copy() copie la liste externe mais partage les objets imbriqués. Modifier b[0][1] modifie aussi a[0][1]. Utiliser copy.deepcopy(a) pour une vraie copie indépendante.",
-    "description": "La copie superficielle ne copie qu'un niveau. Pour des structures imbriquées (listes de listes, dicts de dicts), utiliser copy.deepcopy().",
-    "context": "",
-    "source_file": "courses/python/python_ch2_1.md"
-  },
-  {
-    "id": "python_ds_set_membership",
-    "type": "tip",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
+      "python",
       "set",
-      "performance",
-      "appartenance"
+      "performance"
     ],
-    "title": "Utiliser un set pour les tests d'appartenance fréquents",
-    "content": "Convertir une liste en set avec set(liste) si on fait de nombreux tests in. La recherche dans un set est O(1), dans une liste O(n).",
-    "description": "Pour 1 000 000 éléments, un test in sur une liste peut prendre 100ms, sur un set il est quasi-instantané grâce à la table de hachage.",
+    "title": "Set pour lookup rapide",
+    "content": "Un set permet des recherches en O(1) contrairement aux listes",
+    "description": "Important pour performance",
     "context": "",
-    "source_file": "courses/python/python_ch2_1.md"
+    "source_file": "courses/python/module_03_structures_donnees.md"
   },
   {
-    "id": "python_ds_tuple_unpack",
-    "type": "concept",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "tuple",
-      "unpacking",
-      "swap"
-    ],
-    "title": "Unpacking de tuple et swap de variables",
-    "content": "a, b = b, a permute les deux variables sans variable temporaire. Python évalue d'abord le côté droit, crée un tuple, puis dépack à gauche.",
-    "description": "L'unpacking de tuple est idiomatique en Python. Fonctionne pour tout itérable : x, y, z = [1, 2, 3] ou premier, *reste = (1, 2, 3, 4).",
-    "context": "",
-    "source_file": "courses/python/python_ch2_1.md"
-  },
-  {
-    "id": "python_ds_dict_update_merge",
-    "type": "command",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "dict",
-      "fusion",
-      "update"
-    ],
-    "title": "Fusionner deux dictionnaires",
-    "command": "merged = dict1 | dict2",
-    "description": "L'opérateur | (Python 3.9+) fusionne deux dicts et retourne un nouveau dict. Les clés de dict2 écrasent celles de dict1. Utiliser .update() pour modifier en place.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_1.md"
-  },
-  {
-    "id": "python_ds_setdefault",
-    "type": "tip",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "dict",
-      "setdefault",
-      "compteur"
-    ],
-    "title": "Initialiser une clé dict si elle n'existe pas",
-    "content": "dico.setdefault(cle, valeur_defaut) retourne la valeur existante ou initialise la clé avec valeur_defaut. Utile pour les accumulateurs et les groupements.",
-    "description": "Plus concis que if cle not in dico: dico[cle] = []. Alternative : utiliser collections.defaultdict pour éviter tout test d'initialisation.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_1.md"
-  },
-  {
-    "id": "python_comp_list_filter",
-    "type": "concept",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "comprehension",
-      "liste",
-      "filtre"
-    ],
-    "title": "List comprehension avec filtre",
-    "content": "[expression for var in iterable if condition] filtre les éléments. Exemple : [x for x in range(20) if x % 2 == 0] retourne les pairs de 0 à 18.",
-    "description": "La clause if à la fin filtre les éléments avant d'appliquer l'expression. Ne pas confondre avec le ternaire dans l'expression qui transforme chaque élément.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_2.md"
-  },
-  {
-    "id": "python_comp_dict",
-    "type": "concept",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "comprehension",
-      "dict"
-    ],
-    "title": "Dict comprehension pour transformer un dictionnaire",
-    "content": "{k: v for k, v in dico.items()} transforme un dict. Exemple pour l'inverser : {v: k for k, v in dico.items()}. Filtrage possible avec if condition.",
-    "description": "Les dict comprehensions remplacent les boucles for + dict[k] = v. Particulièrement utiles pour filtrer, transformer ou inverser un dictionnaire.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_2.md"
-  },
-  {
-    "id": "python_comp_generator_sum",
-    "type": "tip",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "generateur",
-      "memoire",
-      "sum"
-    ],
-    "title": "Passer une expression génératrice à sum/max/any",
-    "content": "sum(x**2 for x in range(1_000_000)) n'a pas besoin de créer la liste. La suppression des [] crée un générateur, économisant la mémoire.",
-    "description": "Quand on passe une compréhension comme seul argument à sum(), max(), any(), all(), les [] sont optionnels et le générateur est plus efficace.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_2.md"
-  },
-  {
-    "id": "python_comp_no_side_effects",
+    "id": "python_keyerror_warning",
     "type": "warning",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "comprehension",
-      "effets",
-      "bord"
+      "python",
+      "dict",
+      "error"
     ],
-    "title": "Ne pas utiliser une compréhension pour ses effets de bord",
-    "content": "[print(x) for x in lst] construit une liste de None inutile. Utiliser une boucle for classique quand l'objectif est un effet de bord (print, append, write).",
-    "description": "Les compréhensions sont faites pour construire une collection, pas pour exécuter du code. Une boucle for classique est plus lisible et honnête sur l'intention.",
+    "title": "KeyError sur dict",
+    "content": "Accéder à une clé absente → erreur → utiliser get()",
+    "description": "Eviter crash en production",
     "context": "",
-    "source_file": "courses/python/python_ch2_2.md"
+    "source_file": "courses/python/module_03_structures_donnees.md"
   },
   {
-    "id": "python_comp_flatten",
-    "type": "tip",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "comprehension",
-      "imbriquee",
-      "aplatir"
-    ],
-    "title": "Aplatir une liste de listes avec une compréhension",
-    "content": "[x for sous_liste in matrice for x in sous_liste] aplatit une liste de listes. L'ordre des for suit l'ordre naturel de lecture.",
-    "description": "La compréhension imbriquée se lit comme deux boucles for empilées. Si c'est plus complexe, utiliser itertools.chain.from_iterable().",
-    "context": "",
-    "source_file": "courses/python/python_ch2_2.md"
-  },
-  {
-    "id": "python_exc_try_except_else",
+    "id": "python_list_vs_set",
     "type": "concept",
     "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "exceptions",
-      "try",
-      "except",
-      "else",
-      "finally"
-    ],
-    "title": "Structure complète try/except/else/finally",
-    "content": "try : code risqué. except : gère l'erreur. else : exécuté seulement si pas d'exception. finally : toujours exécuté (libération de ressources).",
-    "description": "La clause else signifie explicitement \"code de succès\". finally sert à libérer des ressources (fermer une connexion) même si une exception survient.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_3.md"
-  },
-  {
-    "id": "python_exc_with_open",
-    "type": "command",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "fichier",
-      "open",
-      "with",
-      "contextmanager"
-    ],
-    "title": "Ouvrir un fichier avec with open()",
-    "command": "with open(\"fichier.txt\", \"r\", encoding=\"utf-8\") as f:",
-    "description": "Le gestionnaire de contexte with garantit la fermeture du fichier même si une exception est levée dans le bloc. Toujours spécifier encoding=\"utf-8\".",
-    "context": "",
-    "source_file": "courses/python/python_ch2_3.md"
-  },
-  {
-    "id": "python_exc_pathlib",
-    "type": "command",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "pathlib",
-      "chemin",
-      "fichier"
-    ],
-    "title": "Joindre des chemins avec pathlib",
-    "command": "fichier = Path(\"/home/user\") / \"projets\" / \"config.json\"",
-    "description": "L'opérateur / de pathlib.Path joint les segments de chemin. Cross-platform (utilise / ou \\ selon l'OS). Remplace os.path.join().",
-    "context": "",
-    "source_file": "courses/python/python_ch2_3.md"
-  },
-  {
-    "id": "python_exc_json_load",
-    "type": "command",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "json",
-      "deserialisation",
-      "fichier"
-    ],
-    "title": "Lire un fichier JSON",
-    "command": "with open(\"config.json\", encoding=\"utf-8\") as f:\\n    data = json.load(f)",
-    "description": "json.load() désérialise depuis un fichier, json.loads() depuis une chaîne. json.dump() écrit dans un fichier, json.dumps() retourne une chaîne.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_3.md"
-  },
-  {
-    "id": "python_exc_bare_except",
-    "type": "warning",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "exceptions",
-      "bare",
-      "except",
-      "silence"
-    ],
-    "title": "Ne jamais utiliser except Exception sans loguer",
-    "content": "except Exception: pass avale silencieusement toutes les erreurs, rendant le débogage impossible. Toujours au minimum logger l'erreur avec logging.exception(e).",
-    "description": "Une exception silencieuse est pire qu'un crash. Capturer Exception est acceptable si on relance (raise) ou si on log l'erreur complète avec le traceback.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_3.md"
-  },
-  {
-    "id": "python_exc_raise_custom",
-    "type": "tip",
-    "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "medium",
     "format": "knowledge",
     "tags": [
-      "raise",
-      "exception",
-      "personnalisee"
+      "python",
+      "list",
+      "set"
     ],
-    "title": "Créer et lever une exception personnalisée",
-    "content": "Hériter de ValueError ou Exception pour créer une exception métier. raise MonErreur(\"message\") la lève. L'appelant peut la capturer spécifiquement.",
-    "description": "Les exceptions personnalisées documentent les cas d'erreur du domaine métier. Hériter de ValueError, TypeError ou IOError selon la nature de l'erreur.",
+    "title": "List vs Set",
+    "content": "list est ordonnée, set est unique et rapide",
+    "description": "Choisir selon usage",
     "context": "",
-    "source_file": "courses/python/python_ch2_3.md"
+    "source_file": "courses/python/module_03_structures_donnees.md"
   },
   {
-    "id": "python_mod_import_as",
-    "type": "command",
+    "id": "python_module_definition",
+    "type": "concept",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "import",
-      "alias",
+      "python",
       "module"
     ],
-    "title": "Importer un module avec un alias",
-    "command": "import numpy as np",
-    "description": "L'alias évite les noms longs répétitifs. Les conventions communautaires : numpy → np, pandas → pd, matplotlib.pyplot → plt.",
+    "title": "Module Python",
+    "content": "Un module est un fichier Python contenant du code réutilisable",
+    "description": "Base de l'organisation Python",
     "context": "",
-    "source_file": "courses/python/python_ch2_4.md"
+    "source_file": "courses/python/module_04_modules_organisation.md"
   },
   {
-    "id": "python_mod_name_main",
+    "id": "python_import_usage",
     "type": "concept",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "__name__",
-      "__main__",
-      "script"
+      "python",
+      "import"
     ],
-    "title": "Guard if __name__ == \"__main__\"",
-    "content": "Quand un fichier .py est exécuté directement, __name__ vaut \"__main__\". Quand il est importé, __name__ vaut le nom du module. Ce guard permet d'avoir du code qui ne s'exécute qu'en script.",
-    "description": "Indispensable pour les modules réutilisables avec un comportement de script. Le code de test/démonstration doit toujours être dans ce bloc.",
+    "title": "Import en Python",
+    "content": "import permet de réutiliser du code d'autres modules",
+    "description": "Essentiel pour modularité",
     "context": "",
-    "source_file": "courses/python/python_ch2_4.md"
+    "source_file": "courses/python/module_04_modules_organisation.md"
   },
   {
-    "id": "python_mod_lru_cache",
-    "type": "command",
+    "id": "python_main_guard",
+    "type": "concept",
     "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
+    "level": "beginner",
+    "importance": "high",
     "format": "knowledge",
     "tags": [
-      "functools",
-      "cache",
-      "memoisation"
+      "python",
+      "main"
     ],
-    "title": "Mémoïser une fonction récursive avec lru_cache",
-    "command": "\"@lru_cache(maxsize=128)\\ndef fibonacci(n): ...\"",
-    "description": "@lru_cache stocke les résultats des appels précédents. Transforme fibonacci(100) de O(2^n) à O(n). Depuis Python 3.9, @cache est équivalent sans limite.",
+    "title": "__name__ == main",
+    "content": "Permet d'exécuter du code uniquement si fichier lancé directement",
+    "description": "Sépare script et module",
     "context": "",
-    "source_file": "courses/python/python_ch2_4.md"
+    "source_file": "courses/python/module_04_modules_organisation.md"
   },
   {
-    "id": "python_mod_defaultdict",
-    "type": "tip",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "collections",
-      "defaultdict",
-      "groupement"
-    ],
-    "title": "Grouper des éléments avec defaultdict",
-    "content": "defaultdict(list) initialise automatiquement une liste vide pour les nouvelles clés. Evite le pattern if cle not in dico: dico[cle] = [].",
-    "description": "collections.defaultdict prend un callable en argument. defaultdict(list) pour des listes, defaultdict(int) pour des compteurs, defaultdict(set) pour des ensembles.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_4.md"
-  },
-  {
-    "id": "python_mod_counter",
-    "type": "command",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "collections",
-      "counter",
-      "frequence"
-    ],
-    "title": "Compter les occurrences avec Counter",
-    "command": "Counter(liste).most_common(5)",
-    "description": "Counter retourne un dict-like avec les fréquences. most_common(n) retourne les n éléments les plus fréquents. S'additionne avec +, se soustrait avec -.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_4.md"
-  },
-  {
-    "id": "python_mod_circular_import",
+    "id": "python_import_cycle_warning",
     "type": "warning",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
+      "python",
       "import",
-      "circulaire",
-      "architecture"
+      "error"
     ],
-    "title": "Éviter les imports circulaires",
-    "content": "Si a.py importe b et b.py importe a, Python lève ImportError. Solution : extraire le code partagé dans un module tiers, ou utiliser des imports locaux dans les fonctions.",
-    "description": "Les imports circulaires révèlent un problème architectural. La solution propre est de repenser les dépendances, pas de contourner avec des imports tardifs.",
+    "title": "Import circulaire",
+    "content": "Module A importe B et B importe A → erreur → refactoriser dépendances",
+    "description": "Problème classique",
     "context": "",
-    "source_file": "courses/python/python_ch2_4.md"
+    "source_file": "courses/python/module_04_modules_organisation.md"
   },
   {
-    "id": "python_poo_init_self",
+    "id": "python_try_except",
     "type": "concept",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "class",
-      "__init__",
-      "self"
+      "python",
+      "exception"
     ],
-    "title": "Constructeur de classe avec __init__ et self",
-    "content": "__init__(self, ...) est appelé automatiquement à la création. self représente l'instance courante et doit être le premier paramètre de toute méthode d'instance. self.attribut crée un attribut d'instance.",
-    "description": "Contrairement à d'autres langages, self est explicite en Python. Les attributs sont créés dynamiquement dans __init__ par simple assignation.",
+    "title": "try except en Python",
+    "content": "try permet d'exécuter du code et except capture les erreurs",
+    "description": "Base de la gestion des erreurs",
     "context": "",
-    "source_file": "courses/python/python_ch2_5.md"
+    "source_file": "courses/python/module_05_gestion_erreurs.md"
   },
   {
-    "id": "python_poo_property",
-    "type": "command",
+    "id": "python_except_warning",
+    "type": "warning",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "property",
-      "setter",
-      "encapsulation"
+      "python",
+      "error"
     ],
-    "title": "Attribut protégé avec @property et setter",
-    "command": "\"@property\\ndef rayon(self): return self._rayon\\n@rayon.setter\\ndef rayon(self, val): self._rayon = val\"",
-    "description": "@property expose une méthode comme attribut. Le setter permet la validation à l'assignation. Sans setter, l'attribut est en lecture seule.",
+    "title": "Except vide dangereux",
+    "content": "except sans type masque les erreurs → toujours spécifier le type",
+    "description": "Piège critique",
     "context": "",
-    "source_file": "courses/python/python_ch2_5.md"
+    "source_file": "courses/python/module_05_gestion_erreurs.md"
   },
   {
-    "id": "python_poo_dataclass",
-    "type": "command",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "dataclass",
-      "boilerplate",
-      "init"
-    ],
-    "title": "Créer une classe de données avec @dataclass",
-    "command": "\"@dataclass\\nclass Produit:\\n    nom: str\\n    prix: float\\n    stock: int = 0\"",
-    "description": "@dataclass génère automatiquement __init__, __repr__ et __eq__. field(default_factory=list) est obligatoire pour les valeurs par défaut mutables.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_5.md"
-  },
-  {
-    "id": "python_poo_super",
+    "id": "python_raise_usage",
     "type": "concept",
     "tech": "python",
-    "level": "intermediate",
+    "level": "beginner",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "heritage",
-      "super",
-      "constructeur"
+      "python",
+      "raise"
     ],
-    "title": "Appeler le constructeur parent avec super()",
-    "content": "super().__init__(args) appelle le __init__ de la classe parente. Indispensable en héritage pour initialiser correctement la partie héritée.",
-    "description": "Sans super().__init__(), les attributs définis dans le parent ne sont pas créés. super() fonctionne aussi pour les méthodes normales : super().ma_methode().",
+    "title": "Lever une exception",
+    "content": "raise permet de déclencher une erreur volontairement",
+    "description": "Contrôle du flux",
     "context": "",
-    "source_file": "courses/python/python_ch2_5.md"
+    "source_file": "courses/python/module_05_gestion_erreurs.md"
   },
   {
-    "id": "python_poo_classmethod_factory",
+    "id": "python_fail_fast",
     "type": "tip",
     "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
+    "level": "beginner",
+    "importance": "high",
     "format": "knowledge",
     "tags": [
-      "classmethod",
-      "factory",
-      "constructeur"
-    ],
-    "title": "Factory method avec @classmethod",
-    "content": "@classmethod reçoit cls (la classe) comme premier argument. Permet de créer des constructeurs alternatifs comme Date.depuis_chaine(\"15/03/2024\") sans passer par __init__.",
-    "description": "Les factory methods avec @classmethod sont idiomatiques pour des constructeurs avec des formats d'entrée variés, tout en restant orientés objet.",
-    "context": "",
-    "source_file": "courses/python/python_ch2_5.md"
-  },
-  {
-    "id": "python_poo_repr_str",
-    "type": "tip",
-    "tech": "python",
-    "level": "intermediate",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "__repr__",
-      "__str__",
+      "python",
       "debug"
     ],
-    "title": "Différence entre __str__ et __repr__",
-    "content": "__str__ est pour l'affichage lisible (print). __repr__ est pour le débogage (doit permettre de recréer l'objet idéalement). Si __str__ manque, Python utilise __repr__.",
-    "description": "Toujours définir au minimum __repr__. La convention : repr(obj) doit idéalement retourner du code Python valide reconstituant l'objet, ex: Point(x=3, y=4).",
+    "title": "Fail fast",
+    "content": "détecter et arrêter immédiatement en cas d'erreur améliore le debug",
+    "description": "Bonne pratique production",
     "context": "",
-    "source_file": "courses/python/python_ch2_5.md"
+    "source_file": "courses/python/module_05_gestion_erreurs.md"
   },
   {
-    "id": "python_dec_functools_wraps",
+    "id": "python_open_file",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "file"
+    ],
+    "title": "Ouvrir un fichier",
+    "command": "open(\"file.txt\", \"r\")",
+    "description": "Ouvre un fichier en lecture",
+    "context": "",
+    "source_file": "courses/python/module_06_io_fichiers.md"
+  },
+  {
+    "id": "python_with_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "file"
+    ],
+    "title": "Utiliser with",
+    "content": "with garantit la fermeture automatique du fichier",
+    "description": "Bonne pratique essentielle",
+    "context": "",
+    "source_file": "courses/python/module_06_io_fichiers.md"
+  },
+  {
+    "id": "python_json_dump",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "json"
+    ],
+    "title": "json.dump",
+    "content": "json.dump écrit un dictionnaire Python dans un fichier JSON",
+    "description": "Standard data exchange",
+    "context": "",
+    "source_file": "courses/python/module_06_io_fichiers.md"
+  },
+  {
+    "id": "python_file_error",
+    "type": "error",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "file",
+      "error"
+    ],
+    "title": "FileNotFoundError",
+    "content": "fichier introuvable → mauvais chemin → vérifier le path",
+    "description": "Erreur fréquente",
+    "context": "",
+    "source_file": "courses/python/module_06_io_fichiers.md"
+  },
+  {
+    "id": "python_argparse_basic",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "cli"
+    ],
+    "title": "argparse permet gérer arguments",
+    "content": "argparse permet de parser les arguments CLI de manière structurée",
+    "description": "outil standard Python",
+    "context": "",
+    "source_file": "courses/python/module_07_cli_scripting.md"
+  },
+  {
+    "id": "python_sys_argv",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "cli"
+    ],
+    "title": "sys.argv",
+    "content": "sys.argv contient la liste brute des arguments passés au script",
+    "description": "bas niveau CLI",
+    "context": "",
+    "source_file": "courses/python/module_07_cli_scripting.md"
+  },
+  {
+    "id": "python_cli_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "cli",
+      "error"
+    ],
+    "title": "Hardcoder arguments",
+    "content": "valeurs codées en dur → script non réutilisable → utiliser argparse",
+    "description": "piège courant",
+    "context": "",
+    "source_file": "courses/python/module_07_cli_scripting.md"
+  },
+  {
+    "id": "python_pdb_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "debug"
+    ],
+    "title": "pdb debugger Python",
+    "content": "pdb permet d'inspecter le code en cours d'exécution",
+    "description": "outil clé debug",
+    "context": "",
+    "source_file": "courses/python/module_08_debugging.md"
+  },
+  {
+    "id": "python_stacktrace",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "error"
+    ],
+    "title": "Stack trace",
+    "content": "la stack trace indique où et pourquoi une erreur se produit",
+    "description": "essentiel pour debug",
+    "context": "",
+    "source_file": "courses/python/module_08_debugging.md"
+  },
+  {
+    "id": "python_debug_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "debug"
+    ],
+    "title": "Corriger sans comprendre",
+    "content": "corriger sans analyser → nouveaux bugs → toujours comprendre avant",
+    "description": "erreur critique",
+    "context": "",
+    "source_file": "courses/python/module_08_debugging.md"
+  },
+  {
+    "id": "python_class_definition",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "poo"
+    ],
+    "title": "Classe Python",
+    "content": "Une classe est un modèle pour créer des objets",
+    "description": "Base de la POO",
+    "context": "",
+    "source_file": "courses/python/module_09_poo.md"
+  },
+  {
+    "id": "python_object_instance",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "poo"
+    ],
+    "title": "Objet instance",
+    "content": "Un objet est une instance concrète d'une classe",
+    "description": "Utilisation réelle",
+    "context": "",
+    "source_file": "courses/python/module_09_poo.md"
+  },
+  {
+    "id": "python_poo_overengineering",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "poo",
+      "error"
+    ],
+    "title": "Sur ingénierie POO",
+    "content": "trop de classes → complexité → préférer simplicité",
+    "description": "piège fréquent",
+    "context": "",
+    "source_file": "courses/python/module_09_poo.md"
+  },
+  {
+    "id": "python_composition_vs_inheritance",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "poo"
+    ],
+    "title": "Composition vs héritage",
+    "content": "préférer composition pour plus de flexibilité que héritage",
+    "description": "bonne pratique architecture",
+    "context": "",
+    "source_file": "courses/python/module_09_poo.md"
+  },
+  {
+    "id": "python_type_hint_basic",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "typing"
+    ],
+    "title": "Type hints Python",
+    "content": "Les type hints permettent de documenter et vérifier les types attendus",
+    "description": "Améliore la qualité du code",
+    "context": "",
+    "source_file": "courses/python/module_10_typage_qualite.md"
+  },
+  {
+    "id": "python_mypy_command",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "mypy"
+    ],
+    "title": "Vérifier typage avec mypy",
+    "command": "mypy script.py",
+    "description": "Analyse les erreurs de type sans exécuter le code",
+    "context": "",
+    "source_file": "courses/python/module_10_typage_qualite.md"
+  },
+  {
+    "id": "python_typing_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "typing",
+      "error"
+    ],
+    "title": "Ignorer le typage",
+    "content": "ne pas typer → bugs invisibles → utiliser type hints",
+    "description": "piège courant",
+    "context": "",
+    "source_file": "courses/python/module_10_typage_qualite.md"
+  },
+  {
+    "id": "python_pip_install",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "pip"
+    ],
+    "title": "Installer une dépendance",
+    "command": "pip install <PACKAGE>",
+    "description": "Installe une librairie Python",
+    "context": "",
+    "source_file": "courses/python/module_11_dependencies_packaging.md"
+  },
+  {
+    "id": "python_requirements_freeze",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "requirements"
+    ],
+    "title": "Générer requirements",
+    "command": "pip freeze > requirements.txt",
+    "description": "Sauvegarde les dépendances du projet",
+    "context": "",
+    "source_file": "courses/python/module_11_dependencies_packaging.md"
+  },
+  {
+    "id": "python_dependency_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "dependencies",
+      "error"
+    ],
+    "title": "Version non fixée",
+    "content": "dépendance sans version → comportement instable → utiliser ==",
+    "description": "piège fréquent",
+    "context": "",
+    "source_file": "courses/python/module_11_dependencies_packaging.md"
+  },
+  {
+    "id": "python_poetry_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "poetry"
+    ],
+    "title": "Poetry gestion deps",
+    "content": "Poetry permet gérer dépendances et packaging proprement",
+    "description": "outil moderne recommandé",
+    "context": "",
+    "source_file": "courses/python/module_11_dependencies_packaging.md"
+  },
+  {
+    "id": "python_pytest_install",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "pytest"
+    ],
+    "title": "Installer pytest",
+    "command": "pip install pytest",
+    "description": "Installe le framework de test Python",
+    "context": "",
+    "source_file": "courses/python/module_12_tests_pytest.md"
+  },
+  {
+    "id": "python_test_basic",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "tests"
+    ],
+    "title": "Test unitaire",
+    "content": "Un test unitaire vérifie une fonction isolée",
+    "description": "Base des tests",
+    "context": "",
+    "source_file": "courses/python/module_12_tests_pytest.md"
+  },
+  {
+    "id": "python_fixture_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "pytest"
+    ],
+    "title": "Fixtures pytest",
+    "content": "Les fixtures permettent de préparer des données pour les tests",
+    "description": "Réutilisation efficace",
+    "context": "",
+    "source_file": "courses/python/module_12_tests_pytest.md"
+  },
+  {
+    "id": "python_test_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "tests",
+      "error"
+    ],
+    "title": "Tester uniquement nominal",
+    "content": "tester seulement cas normal → bugs en prod → tester cas limites",
+    "description": "piège critique",
+    "context": "",
+    "source_file": "courses/python/module_12_tests_pytest.md"
+  },
+  {
+    "id": "python_logging_basic",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "logging"
+    ],
+    "title": "Logging en Python",
+    "content": "logging permet d'enregistrer les événements d'une application",
+    "description": "Base observabilité",
+    "context": "",
+    "source_file": "courses/python/module_13_logging.md"
+  },
+  {
+    "id": "python_logging_levels",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "logging"
+    ],
+    "title": "Niveaux de logs",
+    "content": "DEBUG INFO WARNING ERROR CRITICAL permettent de classifier les logs",
+    "description": "Permet filtrage",
+    "context": "",
+    "source_file": "courses/python/module_13_logging.md"
+  },
+  {
+    "id": "python_print_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "logging",
+      "error"
+    ],
+    "title": "print en production",
+    "content": "print non structuré → inutilisable → utiliser logging",
+    "description": "erreur classique",
+    "context": "",
+    "source_file": "courses/python/module_13_logging.md"
+  },
+  {
+    "id": "python_gil_definition",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "gil",
+      "concurrency"
+    ],
+    "title": "GIL limite le multithread CPU",
+    "content": "Le GIL empêche l'exécution parallèle du code Python sur plusieurs threads CPU",
+    "description": "Utiliser multiprocessing pour CPU-bound",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_io_cpu_choice",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "concurrency",
+      "design"
+    ],
+    "title": "Choisir le bon modèle",
+    "content": "I/O-bound → threading/asyncio ; CPU-bound → multiprocessing",
+    "description": "Décision clé pour performance",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_thread_example",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "threading"
+    ],
+    "title": "Thread simple Python",
+    "command": "python -c \"import threading; t=threading.Thread(target=lambda:print('ok')); t.start(); t.join()\"",
+    "description": "Démarre un thread et attend sa fin",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_asyncio_run",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "asyncio"
+    ],
+    "title": "Exécuter coroutine asyncio",
+    "command": "python -c \"import asyncio; async def f(): await asyncio.sleep(0); print('ok'); asyncio.run(f())\"",
+    "description": "Lance une coroutine avec l'event loop",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_race_condition_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "concurrency",
+      "bug"
+    ],
+    "title": "Race condition",
+    "content": "accès concurrent mutable → résultats incohérents → utiliser locks ou immutabilité",
+    "description": "Bug critique en concurrence",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_async_tip",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "asyncio",
+      "performance"
+    ],
+    "title": "Async pour I/O massif",
+    "content": "beaucoup d'appels réseau → utiliser asyncio pour éviter le blocage",
+    "description": "Meilleure scalabilité I/O",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_multiprocessing_tip",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "multiprocessing",
+      "performance"
+    ],
+    "title": "Multiprocessing pour CPU",
+    "content": "calcul intensif → utiliser multiprocessing pour exploiter plusieurs cœurs",
+    "description": "Contourne le GIL",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_thread_warning_cpu",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "threading",
+      "gil"
+    ],
+    "title": "Threading pour CPU inefficace",
+    "content": "threading pour CPU-bound → pas de gain → utiliser multiprocessing",
+    "description": "Piège fréquent lié au GIL",
+    "context": "",
+    "source_file": "courses/python/module_14_concurrence.md"
+  },
+  {
+    "id": "python_sql_connection",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "sql"
+    ],
+    "title": "Connexion base Python",
+    "content": "Python utilise des drivers comme psycopg2 pour interagir avec une base SQL",
+    "description": "Base interaction DB",
+    "context": "",
+    "source_file": "courses/python/module_15_bases_donnees.md"
+  },
+  {
+    "id": "python_transaction_commit",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "transaction"
+    ],
+    "title": "Commit transaction",
+    "content": "Sans commit, les modifications en base ne sont pas enregistrées",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/python/module_15_bases_donnees.md"
+  },
+  {
+    "id": "python_sql_injection_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "sql",
+      "security"
+    ],
+    "title": "SQL injection",
+    "content": "concaténer des strings SQL → vulnérable → utiliser paramètres",
+    "description": "faille critique",
+    "context": "",
+    "source_file": "courses/python/module_15_bases_donnees.md"
+  },
+  {
+    "id": "python_orm_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "orm"
+    ],
+    "title": "ORM Python",
+    "content": "Un ORM permet de manipuler la base via des objets Python",
+    "description": "abstraction SQL",
+    "context": "",
+    "source_file": "courses/python/module_15_bases_donnees.md"
+  },
+  {
+    "id": "python_fastapi_basic",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "fastapi"
+    ],
+    "title": "API FastAPI simple",
+    "content": "FastAPI permet de créer rapidement des APIs HTTP en Python",
+    "description": "Framework moderne backend",
+    "context": "",
+    "source_file": "courses/python/module_16_api_fastapi.md"
+  },
+  {
+    "id": "python_uvicorn_run",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "fastapi"
+    ],
+    "title": "Lancer API FastAPI",
+    "command": "uvicorn main:app --reload",
+    "description": "Lance le serveur de développement",
+    "context": "",
+    "source_file": "courses/python/module_16_api_fastapi.md"
+  },
+  {
+    "id": "python_pydantic_validation",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "pydantic"
+    ],
+    "title": "Validation Pydantic",
+    "content": "Pydantic valide automatiquement les données entrantes dans FastAPI",
+    "description": "Sécurité et robustesse",
+    "context": "",
+    "source_file": "courses/python/module_16_api_fastapi.md"
+  },
+  {
+    "id": "python_api_validation_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "api",
+      "error"
+    ],
+    "title": "Pas de validation API",
+    "content": "entrée non validée → données corrompues → utiliser Pydantic",
+    "description": "fail critique backend",
+    "context": "",
+    "source_file": "courses/python/module_16_api_fastapi.md"
+  },
+  {
+    "id": "python_bcrypt_hash",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "security"
+    ],
+    "title": "Hash mot de passe",
+    "content": "bcrypt permet de hasher un mot de passe de manière sécurisée",
+    "description": "standard sécurité",
+    "context": "",
+    "source_file": "courses/python/module_17_securite.md"
+  },
+  {
+    "id": "python_jwt_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "jwt"
+    ],
+    "title": "JWT authentification",
+    "content": "JWT permet d'authentifier un utilisateur sans session serveur",
+    "description": "auth stateless",
+    "context": "",
+    "source_file": "courses/python/module_17_securite.md"
+  },
+  {
+    "id": "python_password_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "security",
+      "error"
+    ],
+    "title": "Mot de passe en clair",
+    "content": "stocker mdp en clair → fail critique → utiliser bcrypt",
+    "description": "fail majeur",
+    "context": "",
+    "source_file": "courses/python/module_17_securite.md"
+  },
+  {
+    "id": "python_env_secret",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "env"
+    ],
+    "title": "Secrets en env",
+    "content": "les secrets doivent être stockés en variables d'environnement",
+    "description": "sécurité configuration",
+    "context": "",
+    "source_file": "courses/python/module_17_securite.md"
+  },
+  {
+    "id": "python_env_variable",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "env"
+    ],
+    "title": "Variable environnement",
+    "content": "Une variable d’environnement permet de configurer une app sans modifier le code",
+    "description": "base config moderne",
+    "context": "",
+    "source_file": "courses/python/module_18_configuration.md"
+  },
+  {
+    "id": "python_os_getenv",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "env"
+    ],
+    "title": "Accès variable env",
+    "content": "os.getenv permet de récupérer une variable d’environnement en Python",
+    "description": "accès runtime config",
+    "context": "",
+    "source_file": "courses/python/module_18_configuration.md"
+  },
+  {
+    "id": "python_env_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "config",
+      "error"
+    ],
+    "title": "Hardcode config",
+    "content": "config dans le code → non portable → utiliser variables env",
+    "description": "erreur critique",
+    "context": "",
+    "source_file": "courses/python/module_18_configuration.md"
+  },
+  {
+    "id": "python_dotenv_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "dotenv"
+    ],
+    "title": "dotenv usage",
+    "content": "dotenv permet de charger un fichier .env en variables d’environnement",
+    "description": "simplifie config locale",
+    "context": "",
+    "source_file": "courses/python/module_18_configuration.md"
+  },
+  {
+    "id": "git_commit_basic",
+    "type": "command",
+    "tech": "git",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "git",
+      "commit"
+    ],
+    "title": "Commit Git",
+    "command": "git commit -m \"message\"",
+    "description": "Enregistre un snapshot du code",
+    "context": "",
+    "source_file": "courses/python/module_19_git.md"
+  },
+  {
+    "id": "git_branch_usage",
+    "type": "concept",
+    "tech": "git",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "git",
+      "branch"
+    ],
+    "title": "Branch Git",
+    "content": "Une branche permet d'isoler un développement sans impacter le main",
+    "description": "Base collaboration",
+    "context": "",
+    "source_file": "courses/python/module_19_git.md"
+  },
+  {
+    "id": "git_merge_warning",
+    "type": "warning",
+    "tech": "git",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "git",
+      "merge",
+      "error"
+    ],
+    "title": "Mauvais merge",
+    "content": "merge sans review → bugs → utiliser PR + validation",
+    "description": "erreur fréquente",
+    "context": "",
+    "source_file": "courses/python/module_19_git.md"
+  },
+  {
+    "id": "git_workflow_tip",
+    "type": "tip",
+    "tech": "git",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "git",
+      "workflow"
+    ],
+    "title": "Workflow Git",
+    "content": "branch → commit → push → PR → merge garantit un flux propre",
+    "description": "standard entreprise",
+    "context": "",
+    "source_file": "courses/python/module_19_git.md"
+  },
+  {
+    "id": "python_clean_architecture",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "architecture"
+    ],
+    "title": "Clean Architecture",
+    "content": "Séparer domaine, use cases et infrastructure pour un code maintenable",
+    "description": "base architecture moderne",
+    "context": "",
+    "source_file": "courses/python/module_20_architecture.md"
+  },
+  {
+    "id": "python_domain_logic",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "architecture"
+    ],
+    "title": "Domaine indépendant",
+    "content": "La logique métier ne doit dépendre d'aucune technologie externe",
+    "description": "principe fondamental",
+    "context": "",
+    "source_file": "courses/python/module_20_architecture.md"
+  },
+  {
+    "id": "python_architecture_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "architecture",
+      "error"
+    ],
+    "title": "Code spaghetti",
+    "content": "mélange logique et infra → code non maintenable → appliquer architecture",
+    "description": "problème critique",
+    "context": "",
+    "source_file": "courses/python/module_20_architecture.md"
+  },
+  {
+    "id": "python_cprofile_command",
     "type": "command",
     "tech": "python",
     "level": "advanced",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "decorateur",
-      "functools",
-      "wraps",
-      "metadonnees"
+      "python",
+      "performance"
     ],
-    "title": "Préserver les métadonnées avec @functools.wraps",
-    "command": "\"@functools.wraps(func)\\ndef wrapper(*args, **kwargs): ...\"",
-    "description": "Sans @wraps, wrapper.__name__ et wrapper.__doc__ remplacent ceux de la fonction originale. @wraps copie ces métadonnées pour que l'introspection reste correcte.",
+    "title": "Profiling avec cProfile",
+    "command": "python -m cProfile script.py",
+    "description": "Identifie les parties lentes du code",
     "context": "",
-    "source_file": "courses/python/python_ch3_1.md"
+    "source_file": "courses/python/module_21_performance.md"
   },
   {
-    "id": "python_dec_principle",
+    "id": "python_optimization_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "performance",
+      "error"
+    ],
+    "title": "Optimisation prématurée",
+    "content": "optimiser sans mesurer → perte de temps → profiler avant",
+    "description": "erreur fréquente",
+    "context": "",
+    "source_file": "courses/python/module_21_performance.md"
+  },
+  {
+    "id": "python_datastructure_perf",
     "type": "concept",
     "tech": "python",
     "level": "advanced",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "decorateur",
-      "wrapper",
-      "sucre_syntaxique"
+      "python",
+      "performance"
     ],
-    "title": "Principe du décorateur Python",
-    "content": "@mon_decorateur au-dessus d'une fonction est équivalent à f = mon_decorateur(f). Un décorateur est une fonction qui prend une fonction et retourne une nouvelle fonction.",
-    "description": "La syntaxe @ est du sucre syntaxique. Comprendre l'équivalence avec l'assignation explicite permet de déboguer et de composer des décorateurs.",
+    "title": "Choix structure",
+    "content": "choisir la bonne structure de données impacte fortement la performance",
+    "description": "clé optimisation",
     "context": "",
-    "source_file": "courses/python/python_ch3_1.md"
+    "source_file": "courses/python/module_21_performance.md"
   },
   {
-    "id": "python_dec_factory",
+    "id": "python_async_advanced",
     "type": "concept",
     "tech": "python",
     "level": "advanced",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "decorateur",
-      "arguments",
-      "factory"
+      "python",
+      "async"
     ],
-    "title": "Décorateur avec arguments (factory)",
-    "content": "Pour @retry(max=3), il faut trois niveaux : factory(args) → decorateur(func) → wrapper(*args, **kwargs). La factory retourne le vrai décorateur.",
-    "description": "@retry(3) appelle d'abord retry(3) qui retourne un décorateur, qui est ensuite appliqué à la fonction. Les parenthèses sont obligatoires même si aucun argument n'est passé.",
+    "title": "Async avancé",
+    "content": "asyncio permet de gérer un grand nombre de tâches I/O non bloquantes",
+    "description": "base performance réseau",
     "context": "",
-    "source_file": "courses/python/python_ch3_1.md"
+    "source_file": "courses/python/module_22_async_distributed.md"
   },
   {
-    "id": "python_dec_timer",
+    "id": "python_queue_concept",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "queue"
+    ],
+    "title": "Queue système",
+    "content": "une queue permet de déléguer le traitement à des workers",
+    "description": "base architecture distribuée",
+    "context": "",
+    "source_file": "courses/python/module_22_async_distributed.md"
+  },
+  {
+    "id": "python_worker_tip",
     "type": "tip",
     "tech": "python",
     "level": "advanced",
     "importance": "medium",
     "format": "knowledge",
     "tags": [
-      "decorateur",
-      "timer",
-      "performance"
+      "python",
+      "worker"
     ],
-    "title": "Mesurer le temps d'exécution avec un décorateur",
-    "content": "Utiliser time.perf_counter() (plus précis que time.time()) avant et après l'appel. Retourner le résultat de func(*args, **kwargs) pour ne pas casser la valeur de retour.",
-    "description": "Un décorateur timer est un excellent exemple pédagogique. En production, utiliser plutôt cProfile ou py-spy pour le profiling.",
+    "title": "Worker pattern",
+    "content": "utiliser des workers pour traiter les tâches longues hors API",
+    "description": "améliore performance",
     "context": "",
-    "source_file": "courses/python/python_ch3_1.md"
+    "source_file": "courses/python/module_22_async_distributed.md"
   },
   {
-    "id": "python_dec_nonlocal",
-    "type": "concept",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "closure",
-      "nonlocal",
-      "etat"
-    ],
-    "title": "Modifier une variable englobante avec nonlocal",
-    "content": "Dans une closure, nonlocal x déclare qu'on veut modifier la variable x du scope englobant (pas créer une nouvelle variable locale). Différent de global qui cible le module.",
-    "description": "Sans nonlocal, Python considère toute assignation dans une fonction comme locale. nonlocal est nécessaire pour des closures avec état mutable (compteur, cache).",
-    "context": "",
-    "source_file": "courses/python/python_ch3_1.md"
-  },
-  {
-    "id": "python_gen_yield_basic",
-    "type": "concept",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "yield",
-      "generateur",
-      "suspension"
-    ],
-    "title": "Principe de yield dans un générateur",
-    "content": "Une fonction contenant yield est un générateur. À chaque yield, l'exécution est suspendue et la valeur est retournée. Elle reprend après le yield lors du prochain next().",
-    "description": "Un générateur ne s'exécute pas à l'appel de la fonction. Il retourne un objet générateur. L'exécution commence au premier next() et se suspend à chaque yield.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_2.md"
-  },
-  {
-    "id": "python_gen_exhaustion",
+    "id": "python_monolith_warning",
     "type": "warning",
     "tech": "python",
     "level": "advanced",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "generateur",
-      "epuisement",
-      "once"
+      "python",
+      "architecture",
+      "error"
     ],
-    "title": "Un générateur ne peut être consommé qu'une fois",
-    "content": "Après épuisement, sum(gen) retourne 0 et list(gen) retourne []. Recréer le générateur en rappelant la fonction génératrice plutôt que de tenter de le réinitialiser.",
-    "description": "Contrairement à une liste, un générateur ne peut pas être \"rembobiné\". Si on a besoin de plusieurs parcours, convertir en liste ou recréer le générateur.",
+    "title": "Tout dans API",
+    "content": "logique lourde dans API → lenteur → utiliser queue/worker",
+    "description": "anti-pattern",
     "context": "",
-    "source_file": "courses/python/python_ch3_2.md"
+    "source_file": "courses/python/module_22_async_distributed.md"
   },
   {
-    "id": "python_gen_yield_from",
+    "id": "docker_build_command",
+    "type": "command",
+    "tech": "docker",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "docker",
+      "build"
+    ],
+    "title": "Build image Docker",
+    "command": "docker build -t <IMAGE_NAME> .",
+    "description": "Construit une image Docker à partir du Dockerfile",
+    "context": "",
+    "source_file": "courses/python/module_23_docker.md"
+  },
+  {
+    "id": "docker_run_command",
+    "type": "command",
+    "tech": "docker",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "docker",
+      "run"
+    ],
+    "title": "Lancer container",
+    "command": "docker run -p <PORT>:<PORT> <IMAGE>",
+    "description": "Lance un conteneur Docker",
+    "context": "",
+    "source_file": "courses/python/module_23_docker.md"
+  },
+  {
+    "id": "docker_image_concept",
+    "type": "concept",
+    "tech": "docker",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "docker",
+      "image"
+    ],
+    "title": "Image Docker",
+    "content": "Une image est un snapshot immuable d’une application et de ses dépendances",
+    "description": "base Docker",
+    "context": "",
+    "source_file": "courses/python/module_23_docker.md"
+  },
+  {
+    "id": "docker_size_warning",
+    "type": "warning",
+    "tech": "docker",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "docker",
+      "performance"
+    ],
+    "title": "Image trop lourde",
+    "content": "image lourde → lenteur → optimiser Dockerfile",
+    "description": "problème fréquent",
+    "context": "",
+    "source_file": "courses/python/module_23_docker.md"
+  },
+  {
+    "id": "cicd_pipeline_definition",
+    "type": "concept",
+    "tech": "cicd",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "cicd",
+      "automation"
+    ],
+    "title": "Pipeline CI/CD",
+    "content": "Un pipeline automatise tests, build et déploiement du code",
+    "description": "base DevOps",
+    "context": "",
+    "source_file": "courses/python/module_24_cicd.md"
+  },
+  {
+    "id": "cicd_tests_block",
+    "type": "concept",
+    "tech": "cicd",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "cicd",
+      "tests"
+    ],
+    "title": "Tests bloquent pipeline",
+    "content": "Si les tests échouent, le pipeline s’arrête automatiquement",
+    "description": "sécurité qualité",
+    "context": "",
+    "source_file": "courses/python/module_24_cicd.md"
+  },
+  {
+    "id": "cicd_manual_warning",
+    "type": "warning",
+    "tech": "cicd",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "cicd",
+      "error"
+    ],
+    "title": "Déploiement manuel",
+    "content": "déployer à la main → erreurs → automatiser via CI/CD",
+    "description": "anti-pattern",
+    "context": "",
+    "source_file": "courses/python/module_24_cicd.md"
+  },
+  {
+    "id": "observability_three_pillars",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "observability",
+      "metrics",
+      "tracing"
+    ],
+    "title": "Trois piliers observabilité",
+    "content": "logs, metrics et traces permettent de comprendre un système",
+    "description": "base monitoring",
+    "context": "",
+    "source_file": "courses/python/module_25_observabilite.md"
+  },
+  {
+    "id": "observability_metrics",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "observability",
+      "metrics"
+    ],
+    "title": "Metrics",
+    "content": "les metrics mesurent les performances (latence, erreurs, CPU)",
+    "description": "surveillance système",
+    "context": "",
+    "source_file": "courses/python/module_25_observabilite.md"
+  },
+  {
+    "id": "observability_logs_only_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "observability",
+      "error"
+    ],
+    "title": "Logs seuls insuffisants",
+    "content": "utiliser uniquement logs → visibilité limitée → ajouter metrics et traces",
+    "description": "piège fréquent",
+    "context": "",
+    "source_file": "courses/python/module_25_observabilite.md"
+  },
+  {
+    "id": "python_pip_audit",
     "type": "command",
     "tech": "python",
     "level": "advanced",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "yield_from",
-      "delegation",
-      "sous_generateur"
+      "python",
+      "security"
     ],
-    "title": "Déléguer l'itération avec yield from",
-    "command": "yield from sous_iterable",
-    "description": "yield from iterable délègue à chaque élément de l'itérable, équivalent à for x in iterable: yield x mais plus efficace et compatible avec les coroutines.",
+    "title": "Audit dépendances",
+    "command": "pip-audit",
+    "description": "détecte vulnérabilités dans les librairies",
     "context": "",
-    "source_file": "courses/python/python_ch3_2.md"
+    "source_file": "courses/python/module_26_securite_avancee.md"
   },
   {
-    "id": "python_gen_islice",
-    "type": "command",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "itertools",
-      "islice",
-      "generateur_infini"
-    ],
-    "title": "Prendre les N premiers éléments d'un générateur infini",
-    "command": "list(itertools.islice(generateur_infini(), 10))",
-    "description": "islice(iterable, stop) ou islice(iterable, start, stop, step) coupe un itérable sans le matérialiser. Indispensable avec les générateurs infinis.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_2.md"
-  },
-  {
-    "id": "python_gen_memory",
+    "id": "python_dependency_security",
     "type": "concept",
     "tech": "python",
     "level": "advanced",
     "importance": "high",
     "format": "knowledge",
     "tags": [
-      "memoire",
-      "generateur",
-      "liste"
+      "python",
+      "security"
     ],
-    "title": "Différence de mémoire entre liste et générateur",
-    "content": "Une list comprehension pour 1M d'éléments occupe ~8MB. Un générateur équivalent occupe ~112 bytes. Le générateur calcule chaque valeur à la demande, jamais tout en même temps.",
-    "description": "Pour de gros volumes, une expression génératrice (x for x in ...) est dramatiquement plus économe qu'une list comprehension [x for x in ...].",
+    "title": "Dépendances vulnérables",
+    "content": "une librairie peut contenir des failles même si ton code est propre",
+    "description": "risque majeur",
     "context": "",
-    "source_file": "courses/python/python_ch3_2.md"
+    "source_file": "courses/python/module_26_securite_avancee.md"
   },
   {
-    "id": "python_gen_groupby_sort",
+    "id": "python_security_warning",
     "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "security",
+      "error"
+    ],
+    "title": "Faire confiance aux libs",
+    "content": "dépendances non auditées → faille → scanner régulièrement",
+    "description": "piège critique",
+    "context": "",
+    "source_file": "courses/python/module_26_securite_avancee.md"
+  },
+  {
+    "id": "python_etl_definition",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "data"
+    ],
+    "title": "ETL pipeline",
+    "content": "Extract Transform Load est le processus de transformation des données",
+    "description": "base data engineering",
+    "context": "",
+    "source_file": "courses/python/module_27_data_pipeline.md"
+  },
+  {
+    "id": "python_pandas_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "pandas"
+    ],
+    "title": "pandas manipulation",
+    "content": "pandas permet de manipuler des données tabulaires efficacement",
+    "description": "outil clé data",
+    "context": "",
+    "source_file": "courses/python/module_27_data_pipeline.md"
+  },
+  {
+    "id": "python_data_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "data",
+      "error"
+    ],
+    "title": "Données non nettoyées",
+    "content": "données brutes → erreurs → nettoyer avant traitement",
+    "description": "problème fréquent",
+    "context": "",
+    "source_file": "courses/python/module_27_data_pipeline.md"
+  },
+  {
+    "id": "python_devops_automation",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "devops"
+    ],
+    "title": "Python DevOps",
+    "content": "Python permet d’automatiser les tâches d’infrastructure et d’intégrer des APIs",
+    "description": "outil clé DevOps",
+    "context": "",
+    "source_file": "courses/python/module_28_python_devops.md"
+  },
+  {
+    "id": "python_boto3_usage",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "aws"
+    ],
+    "title": "boto3 AWS",
+    "content": "boto3 permet d’interagir avec les services AWS en Python",
+    "description": "API cloud",
+    "context": "",
+    "source_file": "courses/python/module_28_python_devops.md"
+  },
+  {
+    "id": "python_script_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "devops",
+      "error"
+    ],
+    "title": "Script non robuste",
+    "content": "script sans gestion erreurs → crash → ajouter try/except + logs",
+    "description": "piège fréquent",
+    "context": "",
+    "source_file": "courses/python/module_28_python_devops.md"
+  },
+  {
+    "id": "python_build_package",
+    "type": "command",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "packaging"
+    ],
+    "title": "Build package Python",
+    "command": "python -m build",
+    "description": "Génère les artefacts wheel et sdist dans dist/",
+    "context": "",
+    "source_file": "courses/python/module_29_packaging_distribution.md"
+  },
+  {
+    "id": "python_wheel_definition",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "wheel"
+    ],
+    "title": "Wheel Python",
+    "content": "Un wheel est un format binaire de distribution Python optimisé pour l'installation",
+    "description": "Standard de distribution",
+    "context": "",
+    "source_file": "courses/python/module_29_packaging_distribution.md"
+  },
+  {
+    "id": "python_entrypoints_cli",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "cli",
+      "packaging"
+    ],
+    "title": "Entry points CLI",
+    "content": "Les entry points permettent d'exposer une commande CLI installable via pip",
+    "description": "Créer des outils distribuables",
+    "context": "",
+    "source_file": "courses/python/module_29_packaging_distribution.md"
+  },
+  {
+    "id": "python_packaging_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "python",
+      "packaging",
+      "error"
+    ],
+    "title": "Packaging incomplet",
+    "content": "metadata ou deps manquantes → install cassée → tester en env propre",
+    "description": "Piège critique",
+    "context": "",
+    "source_file": "courses/python/module_29_packaging_distribution.md"
+  },
+  {
+    "id": "python_versioning_tip",
+    "type": "tip",
     "tech": "python",
     "level": "advanced",
     "importance": "medium",
     "format": "knowledge",
     "tags": [
-      "itertools",
-      "groupby",
-      "tri"
+      "python",
+      "versioning"
     ],
-    "title": "groupby requiert un tri préalable",
-    "content": "itertools.groupby regroupe des éléments consécutifs identiques, pas tous les éléments égaux. Trier la liste par la clé de groupement avant d'appeler groupby.",
-    "description": "groupby('AAABBBCCAAA') donne A(3), B(3), C(2), A(3) — pas A(6), B(3), C(2). Toujours trier par la même clé : data.sort(key=lambda x: x['cle']).",
+    "title": "Versioning semver",
+    "content": "versionner en MAJOR.MINOR.PATCH pour gérer compatibilité et releases",
+    "description": "Bonne pratique de distribution",
     "context": "",
-    "source_file": "courses/python/python_ch3_2.md"
-  },
-  {
-    "id": "python_trap_mutable_default",
-    "type": "warning",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "piege",
-      "mutable",
-      "default",
-      "argument"
-    ],
-    "title": "Mutable default argument : la liste persiste entre les appels",
-    "content": "def f(lst=[]): liste est créée une fois à la définition. Chaque appel partage le même objet. Corriger avec def f(lst=None): if lst is None: lst = [].",
-    "description": "Les valeurs par défaut vivent dans f.__defaults__. Un objet mutable comme [] est réutilisé à chaque appel au lieu d'être recréé.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_3.md"
-  },
-  {
-    "id": "python_trap_late_binding",
-    "type": "warning",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "piege",
-      "closure",
-      "late_binding",
-      "lambda"
-    ],
-    "title": "Late binding : la closure capture i par référence",
-    "content": "[lambda: i for i in range(5)] retourne 5 fois la valeur finale de i. Corriger avec lambda i=i: i pour capturer la valeur au moment de la création.",
-    "description": "Les closures capturent les variables par référence. Au moment de l'appel, la boucle est terminée et i vaut sa dernière valeur. L'argument par défaut force la capture par valeur.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_3.md"
-  },
-  {
-    "id": "python_trap_is_vs_eq",
-    "type": "warning",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "piege",
-      "is",
-      "egalite",
-      "identite"
-    ],
-    "title": "is compare l'identité, == compare la valeur",
-    "content": "Utiliser == pour comparer des valeurs. Réserver is à None, True, False. Python met en cache les petits entiers et certaines strings, ce qui rend is parfois trompeusement vrai.",
-    "description": "a is b retourne True uniquement si a et b sont le même objet en mémoire (même id()). Pour les entiers > 256 ou les strings construites dynamiquement, is peut retourner False même si les valeurs sont égales.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_3.md"
-  },
-  {
-    "id": "python_trap_string_concat_loop",
-    "type": "warning",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "piege",
-      "string",
-      "concatenation",
-      "performance"
-    ],
-    "title": "Ne pas concaténer des strings avec += en boucle",
-    "content": "Chaque += crée une nouvelle string. En boucle, c'est O(n²). Accumuler dans une liste et utiliser \"\".join(liste) pour une opération O(n).",
-    "description": "Les strings sont immuables. texte += mot crée un nouvel objet à chaque itération. Pour 10 000 mots, += prend ~100ms, \"\".join() prend ~1ms.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_3.md"
-  },
-  {
-    "id": "python_trap_modify_list_iteration",
-    "type": "warning",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "piege",
-      "liste",
-      "iteration",
-      "modification"
-    ],
-    "title": "Modifier une liste pendant son itération saute des éléments",
-    "content": "Supprimer des éléments dans un for décale les indices et fait sauter des éléments silencieusement. Itérer sur lst[:] (copie) ou reconstruire avec une compréhension.",
-    "description": "Python avance l'indice interne après chaque itération. Si on supprime l'élément à l'indice courant, le suivant devient le courant et est ignoré.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_3.md"
-  },
-  {
-    "id": "python_trap_bare_reference",
-    "type": "warning",
-    "tech": "python",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "piege",
-      "copie",
-      "reference",
-      "alias"
-    ],
-    "title": "b = a ne copie pas une liste, c'est un alias",
-    "content": "b = a crée un alias : a et b pointent vers le même objet. Modifier b modifie a. Utiliser b = a.copy() pour une copie superficielle, copy.deepcopy(a) pour les structures imbriquées.",
-    "description": "En Python, l'assignation copie la référence, pas l'objet. Toutes les structures mutables (list, dict, set) sont touchées par ce comportement.",
-    "context": "",
-    "source_file": "courses/python/python_ch3_3.md"
+    "source_file": "courses/python/module_29_packaging_distribution.md"
   },
   {
     "id": "sql_definition_langage",

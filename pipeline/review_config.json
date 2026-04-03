@@ -20,7 +20,16 @@
         "tech":  null,
         "level": null
       },
-      "max_per_tech": 2
+      "max_per_tech": 2,
+      "sort_order": "importance",
+      "tech_order": {
+        "docker":     "random",
+        "kubernetes": "random",
+        "ansible":    "random",
+        "terraform":  "random",
+        "python":     "importance",
+        "go":         "chronological"
+      }
     }
   ]
 }

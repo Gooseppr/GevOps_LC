@@ -86,14 +86,26 @@ def select_snippets_for_user(all_snippets, user_cfg, user_state):
     - Respecte le daily_mix (type + count)
     - Applique les filtres tech/level si définis
     - Évite les snippets déjà envoyés (sent_ids)
-    - Priorité : high → medium → low
+    - Ordre configurable par tech via sort_order / tech_order :
+        importance    → high → medium → low (défaut)
+        chronological → ordre d'apparition dans snippets.json
+        random        → ordre aléatoire (différent à chaque exécution)
     - Si le pool restant est insuffisant, complète depuis les anciens (débordement de cycle)
     """
-    sent_ids    = set(user_state['sent_ids'])
-    filters     = user_cfg.get('filters', {})
-    f_tech      = filters.get('tech')    # None | str | list[str]
-    f_level     = filters.get('level')   # None | str
-    max_per_tech = user_cfg.get('max_per_tech')  # None | int
+    import random as _rand
+    from collections import defaultdict
+    from itertools import zip_longest
+
+    sent_ids     = set(user_state['sent_ids'])
+    filters      = user_cfg.get('filters', {})
+    f_tech       = filters.get('tech')       # None | str | list[str]
+    f_level      = filters.get('level')      # None | str
+    max_per_tech = user_cfg.get('max_per_tech')
+    sort_order   = user_cfg.get('sort_order', 'importance')  # défaut global
+    tech_order   = user_cfg.get('tech_order', {})            # surcharge par tech
+
+    # Index de position pour le tri chronologique (ordre dans snippets.json)
+    position_index = {s['id']: i for i, s in enumerate(all_snippets)}
 
     def tech_match(snippet_tech, filter_tech):
         if filter_tech is None:
@@ -102,6 +114,35 @@ def select_snippets_for_user(all_snippets, user_cfg, user_state):
             return snippet_tech in filter_tech
         return snippet_tech == filter_tech
 
+    def sort_pool(pool):
+        """
+        Trie le pool en respectant le mode de chaque tech.
+        Les techs sont traitées indépendamment puis interleaved en round-robin
+        pour maximiser la diversité dans les premiers éléments.
+        """
+        groups = defaultdict(list)
+        for s in pool:
+            groups[s.get('tech', '')].append(s)
+
+        sorted_groups = []
+        for tech in sorted(groups):           # ordre alphabétique pour la stabilité
+            group = groups[tech]
+            mode  = tech_order.get(tech, sort_order)
+            if mode == 'random':
+                _rand.shuffle(group)
+            elif mode == 'chronological':
+                group.sort(key=lambda s: position_index.get(s['id'], 9999))
+            else:                             # importance (défaut)
+                group.sort(key=lambda s: IMPORTANCE_ORDER.index(s.get('importance', 'low'))
+                           if s.get('importance', 'low') in IMPORTANCE_ORDER else 99)
+            sorted_groups.append(group)
+
+        # Interleaving round-robin : docker[0], go[0], python[0], docker[1], ...
+        result = []
+        for items in zip_longest(*sorted_groups):
+            result.extend(s for s in items if s is not None)
+        return result
+
     # Appliquer les filtres globaux de l'utilisateur
     available = [
         s for s in all_snippets
@@ -109,8 +150,8 @@ def select_snippets_for_user(all_snippets, user_cfg, user_state):
         and (f_level is None or s.get('level') == f_level)
     ]
 
-    selection      = []
-    tech_counts    = {}   # diversité : nb de snippets déjà choisis par tech ce jour
+    selection   = []
+    tech_counts = {}   # diversité : nb de snippets déjà choisis par tech ce jour
 
     def pick_with_diversity(pool, count):
         """Sélectionne `count` snippets en respectant max_per_tech."""
@@ -142,18 +183,12 @@ def select_snippets_for_user(all_snippets, user_cfg, user_state):
             print(f"  ⚠️  Aucun snippet pour type={stype} tech={r_tech} level={r_level}")
             continue
 
-        # Non-vus triés par importance
-        unseen = [s for s in pool_all if s['id'] not in sent_ids]
-        unseen.sort(key=lambda s: IMPORTANCE_ORDER.index(s.get('importance', 'low'))
-                    if s.get('importance', 'low') in IMPORTANCE_ORDER else 99)
-
+        unseen = sort_pool([s for s in pool_all if s['id'] not in sent_ids])
         picked = pick_with_diversity(unseen, count)
 
         # Compléter depuis les déjà-vus si le pool non-vu est épuisé
         if len(picked) < count:
-            already_seen = [s for s in pool_all if s['id'] in sent_ids]
-            already_seen.sort(key=lambda s: IMPORTANCE_ORDER.index(s.get('importance', 'low'))
-                              if s.get('importance', 'low') in IMPORTANCE_ORDER else 99)
+            already_seen = sort_pool([s for s in pool_all if s['id'] in sent_ids])
             picked += pick_with_diversity(already_seen, count - len(picked))
 
         selection.extend(picked)
