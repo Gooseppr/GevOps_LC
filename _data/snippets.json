@@ -5134,6 +5134,1317 @@
     "source_file": "courses/docker/docker_ch7_4.md"
   },
   {
+    "id": "python_env_venv_create",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "venv",
+      "environnement",
+      "isolation"
+    ],
+    "title": "Créer un environnement virtuel Python",
+    "command": "python -m venv .venv",
+    "description": "Crée un environnement virtuel isolé dans le dossier .venv du projet courant.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_1.md"
+  },
+  {
+    "id": "python_env_venv_activate_linux",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "venv",
+      "activation",
+      "linux",
+      "mac"
+    ],
+    "title": "Activer un venv sous Linux/Mac",
+    "command": "source .venv/bin/activate",
+    "description": "Active l'environnement virtuel .venv. Le prompt affiche (.venv) pour confirmer l'activation.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_1.md"
+  },
+  {
+    "id": "python_env_venv_activate_windows",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "venv",
+      "activation",
+      "windows"
+    ],
+    "title": "Activer un venv sous Windows",
+    "command": ".venv\\Scripts\\activate.bat",
+    "description": "Active l'environnement virtuel .venv sous Windows (cmd). Utiliser Activate.ps1 pour PowerShell.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_1.md"
+  },
+  {
+    "id": "python_env_pip_freeze",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "pip",
+      "dependances",
+      "requirements"
+    ],
+    "title": "Exporter les dépendances du projet",
+    "command": "pip freeze > requirements.txt",
+    "description": "Génère un fichier requirements.txt avec toutes les versions exactes des packages installés.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_1.md"
+  },
+  {
+    "id": "python_env_pip_install_requirements",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "pip",
+      "dependances",
+      "requirements",
+      "restauration"
+    ],
+    "title": "Installer les dépendances depuis requirements.txt",
+    "command": "pip install -r requirements.txt",
+    "description": "Installe tous les packages listés dans requirements.txt, idéal pour reproduire un environnement.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_1.md"
+  },
+  {
+    "id": "python_env_venv_gitignore",
+    "type": "tip",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "venv",
+      "git",
+      "gitignore"
+    ],
+    "title": "Toujours exclure .venv du dépôt git",
+    "content": "Ajouter .venv/ dans .gitignore pour ne pas versionner l'environnement virtuel.",
+    "description": "Le dossier .venv peut contenir des centaines de fichiers binaires inutiles à versionner. Versionner requirements.txt suffit.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_1.md"
+  },
+  {
+    "id": "python_env_global_install_warning",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "pip",
+      "global",
+      "conflit"
+    ],
+    "title": "Ne pas installer de packages en global",
+    "content": "Installer des packages avec pip sans venv actif les place dans l'environnement Python système, créant des conflits entre projets.",
+    "description": "Sans venv, tous les projets partagent les mêmes versions de packages. Un upgrade pour un projet peut casser un autre.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_1.md"
+  },
+  {
+    "id": "python_types_fstring_basic",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "fstring",
+      "formatage",
+      "affichage"
+    ],
+    "title": "Formater une chaîne avec une f-string",
+    "command": "f\"Bonjour {nom}, tu as {age} ans.\"",
+    "description": "Les f-strings évaluent les expressions entre accolades au moment de l'exécution. Disponibles depuis Python 3.6.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_2.md"
+  },
+  {
+    "id": "python_types_isinstance",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "type",
+      "verification",
+      "isinstance"
+    ],
+    "title": "Vérifier le type d'une variable",
+    "command": "isinstance(x, (int, float))",
+    "description": "isinstance() accepte un tuple de types. Préféré à type(x) == int car compatible avec l'héritage de classes.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_2.md"
+  },
+  {
+    "id": "python_types_float_trap",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "float",
+      "precision",
+      "comparaison"
+    ],
+    "title": "Ne pas comparer des flottants avec ==",
+    "content": "0.1 + 0.2 == 0.3 retourne False à cause de la représentation binaire IEEE 754. Utiliser math.isclose() ou Decimal.",
+    "description": "Les flottants ne sont pas stockés exactement en binaire. 0.1 + 0.2 donne 0.30000000000000004, jamais 0.3 exactement.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_2.md"
+  },
+  {
+    "id": "python_types_none_comparison",
+    "type": "tip",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "none",
+      "comparaison",
+      "identite"
+    ],
+    "title": "Comparer à None avec is, pas ==",
+    "content": "Utiliser `x is None` plutôt que `x == None`. C'est plus explicite et évite les surprises avec les objets qui surchargent ==.",
+    "description": "None est un singleton. L'opérateur `is` vérifie l'identité (même objet en mémoire), ce qui est le test correct pour None.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_2.md"
+  },
+  {
+    "id": "python_types_int_truncation",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "int",
+      "conversion",
+      "troncature"
+    ],
+    "title": "int() tronque, il n'arrondit pas",
+    "content": "int(3.9) retourne 3, pas 4. La conversion vers int tronque vers zéro. Utiliser round() pour arrondir.",
+    "description": "int() supprime la partie décimale sans arrondir. Pour 3.9 → 4, utiliser round(3.9) ou math.ceil(3.9).",
+    "context": "",
+    "source_file": "courses/python/python_ch1_2.md"
+  },
+  {
+    "id": "python_types_falsy_values",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "falsy",
+      "bool",
+      "condition"
+    ],
+    "title": "Valeurs falsy en Python",
+    "content": "Sont falsy : False, None, 0, 0.0, \"\", [], {}, (). Tout le reste est truthy. Permet d'écrire if liste: au lieu de if len(liste) > 0.",
+    "description": "Python évalue ces valeurs à False dans un contexte booléen. Connaître les valeurs falsy évite des conditions verbeuses inutiles.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_2.md"
+  },
+  {
+    "id": "python_types_division",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "division",
+      "operateurs",
+      "entier"
+    ],
+    "title": "Différence entre / et // en Python",
+    "content": "L'opérateur / retourne toujours un float (10/2 = 5.0). L'opérateur // effectue la division entière (10//3 = 3). % donne le reste (10%3 = 1).",
+    "description": "En Python 3, la division / est toujours flottante. Utiliser // pour une division entière, % pour le modulo.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_2.md"
+  },
+  {
+    "id": "python_ctrl_enumerate",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "enumerate",
+      "boucle",
+      "indice"
+    ],
+    "title": "Itérer avec indice et valeur",
+    "command": "for i, item in enumerate(liste, start=1):",
+    "description": "enumerate() retourne un tuple (indice, valeur). Evite d'écrire range(len(liste)). start=1 pour commencer à 1.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_3.md"
+  },
+  {
+    "id": "python_ctrl_zip",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "zip",
+      "iteration",
+      "parallele"
+    ],
+    "title": "Itérer sur deux listes en parallèle",
+    "command": "for nom, score in zip(noms, scores):",
+    "description": "zip() combine plusieurs itérables élément par élément. S'arrête au plus court. Utiliser strict=True (Python 3.10+) pour lever une erreur si longueurs différentes.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_3.md"
+  },
+  {
+    "id": "python_ctrl_modify_while_iterate",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "liste",
+      "iteration",
+      "modification",
+      "piege"
+    ],
+    "title": "Ne pas modifier une liste pendant son itération",
+    "content": "Modifier une liste (remove, pop, append) pendant un for...in provoque des sauts d'éléments silencieux. Itérer sur une copie avec liste[:] ou reconstruire avec une compréhension.",
+    "description": "Python avance l'indice interne après chaque itération. Si on supprime un élément, l'élément suivant est sauté sans erreur.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_3.md"
+  },
+  {
+    "id": "python_ctrl_ternary",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "ternaire",
+      "condition",
+      "inline"
+    ],
+    "title": "Opérateur ternaire Python",
+    "content": "La syntaxe est : valeur_si_vrai if condition else valeur_si_faux. Exemple : statut = \"majeur\" if age >= 18 else \"mineur\".",
+    "description": "L'opérateur ternaire permet d'écrire une condition sur une ligne. Lisible pour des cas simples, à éviter si la logique est complexe.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_3.md"
+  },
+  {
+    "id": "python_ctrl_for_else",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "low",
+    "format": "knowledge",
+    "tags": [
+      "for",
+      "else",
+      "break"
+    ],
+    "title": "Clause else sur une boucle for",
+    "content": "Le bloc else d'une boucle for s'exécute uniquement si la boucle s'est terminée sans break. Utile pour signaler qu'une recherche n'a rien trouvé.",
+    "description": "Peu connu mais expressif : for...else permet de gérer le cas \"aucun élément ne satisfait la condition\" sans variable booléenne auxiliaire.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_3.md"
+  },
+  {
+    "id": "python_ctrl_range_step",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "range",
+      "boucle",
+      "pas"
+    ],
+    "title": "Boucle for avec step personnalisé",
+    "command": "for i in range(0, 10, 2):",
+    "description": "range(start, stop, step) génère une séquence de start à stop (exclu) avec un pas de step. Fonctionne aussi avec un pas négatif pour décompter.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_3.md"
+  },
+  {
+    "id": "python_func_mutable_default_arg",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "fonctions",
+      "parametres",
+      "mutable",
+      "piege"
+    ],
+    "title": "Piège : argument mutable par défaut",
+    "content": "def f(lst=[]): persiste la liste entre les appels. Utiliser def f(lst=None): puis if lst is None: lst = []. S'applique aussi aux dicts et sets.",
+    "description": "Les valeurs par défaut sont évaluées une seule fois à la définition. Un objet mutable comme [] est partagé entre tous les appels.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_4.md"
+  },
+  {
+    "id": "python_func_args_kwargs",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "args",
+      "kwargs",
+      "variadic"
+    ],
+    "title": "*args et **kwargs pour arguments variables",
+    "content": "*args capture les arguments positionnels en excès dans un tuple. **kwargs capture les arguments nommés en excès dans un dict. Peuvent être combinés.",
+    "description": "Permettent d'écrire des fonctions flexibles acceptant un nombre arbitraire d'arguments. Très utilisés dans les décorateurs et les API.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_4.md"
+  },
+  {
+    "id": "python_func_unpack_call",
+    "type": "command",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "depack",
+      "appel",
+      "liste",
+      "dict"
+    ],
+    "title": "Dépacker une liste ou un dict lors d'un appel",
+    "command": "fonction(*liste)  # ou fonction(**dict)",
+    "description": "L'opérateur * décompresse une liste en arguments positionnels. ** décompresse un dict en arguments nommés. Pratique pour les fonctions à signature fixe.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_4.md"
+  },
+  {
+    "id": "python_func_return_multiple",
+    "type": "concept",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "return",
+      "tuple",
+      "multiple"
+    ],
+    "title": "Retourner plusieurs valeurs via un tuple",
+    "content": "return a, b retourne implicitement un tuple. L'appelant peut dépacker avec min_val, max_val = ma_fonction(). C'est la façon idiomatique Python.",
+    "description": "Python ne supporte pas nativement le retour multiple, mais les tuples permettent d'en simuler l'effet de façon élégante.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_4.md"
+  },
+  {
+    "id": "python_func_legb_global",
+    "type": "warning",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "portee",
+      "global",
+      "LEGB"
+    ],
+    "title": "Utiliser global pour modifier une variable de module",
+    "content": "Sans le mot-clé global, assigner dans une fonction crée une variable locale. global x déclare qu'on veut modifier la variable x du module.",
+    "description": "Si on écrit x = x + 1 dans une fonction sans global x, Python lève UnboundLocalError car il voit x comme locale mais non initialisée.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_4.md"
+  },
+  {
+    "id": "python_func_lambda_sort",
+    "type": "tip",
+    "tech": "python",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "lambda",
+      "sort",
+      "key"
+    ],
+    "title": "Utiliser lambda comme clé de tri",
+    "content": "sorted(personnes, key=lambda p: p[1]) trie une liste de tuples par le second élément. Plus lisible que d'écrire une fonction séparée pour un critère simple.",
+    "description": "Les lambdas sont idiomatiques comme argument key= de sorted(), min(), max(). Pour des critères complexes, préférer une vraie fonction nommée.",
+    "context": "",
+    "source_file": "courses/python/python_ch1_4.md"
+  },
+  {
+    "id": "python_ds_dict_get",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "dict",
+      "get",
+      "keyerror"
+    ],
+    "title": "Accéder à une clé de dict sans KeyError",
+    "command": "valeur = dico.get(\"cle\", \"valeur_par_defaut\")",
+    "description": ".get() retourne None si la clé n'existe pas, ou la valeur par défaut fournie en second argument. Evite les KeyError sur des clés optionnelles.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_1.md"
+  },
+  {
+    "id": "python_ds_deepcopy",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "copie",
+      "deepcopy",
+      "mutable"
+    ],
+    "title": "Copie superficielle ne copie pas les objets imbriqués",
+    "content": "b = a.copy() copie la liste externe mais partage les objets imbriqués. Modifier b[0][1] modifie aussi a[0][1]. Utiliser copy.deepcopy(a) pour une vraie copie indépendante.",
+    "description": "La copie superficielle ne copie qu'un niveau. Pour des structures imbriquées (listes de listes, dicts de dicts), utiliser copy.deepcopy().",
+    "context": "",
+    "source_file": "courses/python/python_ch2_1.md"
+  },
+  {
+    "id": "python_ds_set_membership",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "set",
+      "performance",
+      "appartenance"
+    ],
+    "title": "Utiliser un set pour les tests d'appartenance fréquents",
+    "content": "Convertir une liste en set avec set(liste) si on fait de nombreux tests in. La recherche dans un set est O(1), dans une liste O(n).",
+    "description": "Pour 1 000 000 éléments, un test in sur une liste peut prendre 100ms, sur un set il est quasi-instantané grâce à la table de hachage.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_1.md"
+  },
+  {
+    "id": "python_ds_tuple_unpack",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "tuple",
+      "unpacking",
+      "swap"
+    ],
+    "title": "Unpacking de tuple et swap de variables",
+    "content": "a, b = b, a permute les deux variables sans variable temporaire. Python évalue d'abord le côté droit, crée un tuple, puis dépack à gauche.",
+    "description": "L'unpacking de tuple est idiomatique en Python. Fonctionne pour tout itérable : x, y, z = [1, 2, 3] ou premier, *reste = (1, 2, 3, 4).",
+    "context": "",
+    "source_file": "courses/python/python_ch2_1.md"
+  },
+  {
+    "id": "python_ds_dict_update_merge",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "dict",
+      "fusion",
+      "update"
+    ],
+    "title": "Fusionner deux dictionnaires",
+    "command": "merged = dict1 | dict2",
+    "description": "L'opérateur | (Python 3.9+) fusionne deux dicts et retourne un nouveau dict. Les clés de dict2 écrasent celles de dict1. Utiliser .update() pour modifier en place.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_1.md"
+  },
+  {
+    "id": "python_ds_setdefault",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "dict",
+      "setdefault",
+      "compteur"
+    ],
+    "title": "Initialiser une clé dict si elle n'existe pas",
+    "content": "dico.setdefault(cle, valeur_defaut) retourne la valeur existante ou initialise la clé avec valeur_defaut. Utile pour les accumulateurs et les groupements.",
+    "description": "Plus concis que if cle not in dico: dico[cle] = []. Alternative : utiliser collections.defaultdict pour éviter tout test d'initialisation.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_1.md"
+  },
+  {
+    "id": "python_comp_list_filter",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "comprehension",
+      "liste",
+      "filtre"
+    ],
+    "title": "List comprehension avec filtre",
+    "content": "[expression for var in iterable if condition] filtre les éléments. Exemple : [x for x in range(20) if x % 2 == 0] retourne les pairs de 0 à 18.",
+    "description": "La clause if à la fin filtre les éléments avant d'appliquer l'expression. Ne pas confondre avec le ternaire dans l'expression qui transforme chaque élément.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_2.md"
+  },
+  {
+    "id": "python_comp_dict",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "comprehension",
+      "dict"
+    ],
+    "title": "Dict comprehension pour transformer un dictionnaire",
+    "content": "{k: v for k, v in dico.items()} transforme un dict. Exemple pour l'inverser : {v: k for k, v in dico.items()}. Filtrage possible avec if condition.",
+    "description": "Les dict comprehensions remplacent les boucles for + dict[k] = v. Particulièrement utiles pour filtrer, transformer ou inverser un dictionnaire.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_2.md"
+  },
+  {
+    "id": "python_comp_generator_sum",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "generateur",
+      "memoire",
+      "sum"
+    ],
+    "title": "Passer une expression génératrice à sum/max/any",
+    "content": "sum(x**2 for x in range(1_000_000)) n'a pas besoin de créer la liste. La suppression des [] crée un générateur, économisant la mémoire.",
+    "description": "Quand on passe une compréhension comme seul argument à sum(), max(), any(), all(), les [] sont optionnels et le générateur est plus efficace.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_2.md"
+  },
+  {
+    "id": "python_comp_no_side_effects",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "comprehension",
+      "effets",
+      "bord"
+    ],
+    "title": "Ne pas utiliser une compréhension pour ses effets de bord",
+    "content": "[print(x) for x in lst] construit une liste de None inutile. Utiliser une boucle for classique quand l'objectif est un effet de bord (print, append, write).",
+    "description": "Les compréhensions sont faites pour construire une collection, pas pour exécuter du code. Une boucle for classique est plus lisible et honnête sur l'intention.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_2.md"
+  },
+  {
+    "id": "python_comp_flatten",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "comprehension",
+      "imbriquee",
+      "aplatir"
+    ],
+    "title": "Aplatir une liste de listes avec une compréhension",
+    "content": "[x for sous_liste in matrice for x in sous_liste] aplatit une liste de listes. L'ordre des for suit l'ordre naturel de lecture.",
+    "description": "La compréhension imbriquée se lit comme deux boucles for empilées. Si c'est plus complexe, utiliser itertools.chain.from_iterable().",
+    "context": "",
+    "source_file": "courses/python/python_ch2_2.md"
+  },
+  {
+    "id": "python_exc_try_except_else",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "exceptions",
+      "try",
+      "except",
+      "else",
+      "finally"
+    ],
+    "title": "Structure complète try/except/else/finally",
+    "content": "try : code risqué. except : gère l'erreur. else : exécuté seulement si pas d'exception. finally : toujours exécuté (libération de ressources).",
+    "description": "La clause else signifie explicitement \"code de succès\". finally sert à libérer des ressources (fermer une connexion) même si une exception survient.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_3.md"
+  },
+  {
+    "id": "python_exc_with_open",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "fichier",
+      "open",
+      "with",
+      "contextmanager"
+    ],
+    "title": "Ouvrir un fichier avec with open()",
+    "command": "with open(\"fichier.txt\", \"r\", encoding=\"utf-8\") as f:",
+    "description": "Le gestionnaire de contexte with garantit la fermeture du fichier même si une exception est levée dans le bloc. Toujours spécifier encoding=\"utf-8\".",
+    "context": "",
+    "source_file": "courses/python/python_ch2_3.md"
+  },
+  {
+    "id": "python_exc_pathlib",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "pathlib",
+      "chemin",
+      "fichier"
+    ],
+    "title": "Joindre des chemins avec pathlib",
+    "command": "fichier = Path(\"/home/user\") / \"projets\" / \"config.json\"",
+    "description": "L'opérateur / de pathlib.Path joint les segments de chemin. Cross-platform (utilise / ou \\ selon l'OS). Remplace os.path.join().",
+    "context": "",
+    "source_file": "courses/python/python_ch2_3.md"
+  },
+  {
+    "id": "python_exc_json_load",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "json",
+      "deserialisation",
+      "fichier"
+    ],
+    "title": "Lire un fichier JSON",
+    "command": "with open(\"config.json\", encoding=\"utf-8\") as f:\\n    data = json.load(f)",
+    "description": "json.load() désérialise depuis un fichier, json.loads() depuis une chaîne. json.dump() écrit dans un fichier, json.dumps() retourne une chaîne.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_3.md"
+  },
+  {
+    "id": "python_exc_bare_except",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "exceptions",
+      "bare",
+      "except",
+      "silence"
+    ],
+    "title": "Ne jamais utiliser except Exception sans loguer",
+    "content": "except Exception: pass avale silencieusement toutes les erreurs, rendant le débogage impossible. Toujours au minimum logger l'erreur avec logging.exception(e).",
+    "description": "Une exception silencieuse est pire qu'un crash. Capturer Exception est acceptable si on relance (raise) ou si on log l'erreur complète avec le traceback.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_3.md"
+  },
+  {
+    "id": "python_exc_raise_custom",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "raise",
+      "exception",
+      "personnalisee"
+    ],
+    "title": "Créer et lever une exception personnalisée",
+    "content": "Hériter de ValueError ou Exception pour créer une exception métier. raise MonErreur(\"message\") la lève. L'appelant peut la capturer spécifiquement.",
+    "description": "Les exceptions personnalisées documentent les cas d'erreur du domaine métier. Hériter de ValueError, TypeError ou IOError selon la nature de l'erreur.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_3.md"
+  },
+  {
+    "id": "python_mod_import_as",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "import",
+      "alias",
+      "module"
+    ],
+    "title": "Importer un module avec un alias",
+    "command": "import numpy as np",
+    "description": "L'alias évite les noms longs répétitifs. Les conventions communautaires : numpy → np, pandas → pd, matplotlib.pyplot → plt.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_4.md"
+  },
+  {
+    "id": "python_mod_name_main",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "__name__",
+      "__main__",
+      "script"
+    ],
+    "title": "Guard if __name__ == \"__main__\"",
+    "content": "Quand un fichier .py est exécuté directement, __name__ vaut \"__main__\". Quand il est importé, __name__ vaut le nom du module. Ce guard permet d'avoir du code qui ne s'exécute qu'en script.",
+    "description": "Indispensable pour les modules réutilisables avec un comportement de script. Le code de test/démonstration doit toujours être dans ce bloc.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_4.md"
+  },
+  {
+    "id": "python_mod_lru_cache",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "functools",
+      "cache",
+      "memoisation"
+    ],
+    "title": "Mémoïser une fonction récursive avec lru_cache",
+    "command": "\"@lru_cache(maxsize=128)\\ndef fibonacci(n): ...\"",
+    "description": "@lru_cache stocke les résultats des appels précédents. Transforme fibonacci(100) de O(2^n) à O(n). Depuis Python 3.9, @cache est équivalent sans limite.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_4.md"
+  },
+  {
+    "id": "python_mod_defaultdict",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "collections",
+      "defaultdict",
+      "groupement"
+    ],
+    "title": "Grouper des éléments avec defaultdict",
+    "content": "defaultdict(list) initialise automatiquement une liste vide pour les nouvelles clés. Evite le pattern if cle not in dico: dico[cle] = [].",
+    "description": "collections.defaultdict prend un callable en argument. defaultdict(list) pour des listes, defaultdict(int) pour des compteurs, defaultdict(set) pour des ensembles.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_4.md"
+  },
+  {
+    "id": "python_mod_counter",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "collections",
+      "counter",
+      "frequence"
+    ],
+    "title": "Compter les occurrences avec Counter",
+    "command": "Counter(liste).most_common(5)",
+    "description": "Counter retourne un dict-like avec les fréquences. most_common(n) retourne les n éléments les plus fréquents. S'additionne avec +, se soustrait avec -.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_4.md"
+  },
+  {
+    "id": "python_mod_circular_import",
+    "type": "warning",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "import",
+      "circulaire",
+      "architecture"
+    ],
+    "title": "Éviter les imports circulaires",
+    "content": "Si a.py importe b et b.py importe a, Python lève ImportError. Solution : extraire le code partagé dans un module tiers, ou utiliser des imports locaux dans les fonctions.",
+    "description": "Les imports circulaires révèlent un problème architectural. La solution propre est de repenser les dépendances, pas de contourner avec des imports tardifs.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_4.md"
+  },
+  {
+    "id": "python_poo_init_self",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "class",
+      "__init__",
+      "self"
+    ],
+    "title": "Constructeur de classe avec __init__ et self",
+    "content": "__init__(self, ...) est appelé automatiquement à la création. self représente l'instance courante et doit être le premier paramètre de toute méthode d'instance. self.attribut crée un attribut d'instance.",
+    "description": "Contrairement à d'autres langages, self est explicite en Python. Les attributs sont créés dynamiquement dans __init__ par simple assignation.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_5.md"
+  },
+  {
+    "id": "python_poo_property",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "property",
+      "setter",
+      "encapsulation"
+    ],
+    "title": "Attribut protégé avec @property et setter",
+    "command": "\"@property\\ndef rayon(self): return self._rayon\\n@rayon.setter\\ndef rayon(self, val): self._rayon = val\"",
+    "description": "@property expose une méthode comme attribut. Le setter permet la validation à l'assignation. Sans setter, l'attribut est en lecture seule.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_5.md"
+  },
+  {
+    "id": "python_poo_dataclass",
+    "type": "command",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "dataclass",
+      "boilerplate",
+      "init"
+    ],
+    "title": "Créer une classe de données avec @dataclass",
+    "command": "\"@dataclass\\nclass Produit:\\n    nom: str\\n    prix: float\\n    stock: int = 0\"",
+    "description": "@dataclass génère automatiquement __init__, __repr__ et __eq__. field(default_factory=list) est obligatoire pour les valeurs par défaut mutables.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_5.md"
+  },
+  {
+    "id": "python_poo_super",
+    "type": "concept",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "heritage",
+      "super",
+      "constructeur"
+    ],
+    "title": "Appeler le constructeur parent avec super()",
+    "content": "super().__init__(args) appelle le __init__ de la classe parente. Indispensable en héritage pour initialiser correctement la partie héritée.",
+    "description": "Sans super().__init__(), les attributs définis dans le parent ne sont pas créés. super() fonctionne aussi pour les méthodes normales : super().ma_methode().",
+    "context": "",
+    "source_file": "courses/python/python_ch2_5.md"
+  },
+  {
+    "id": "python_poo_classmethod_factory",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "classmethod",
+      "factory",
+      "constructeur"
+    ],
+    "title": "Factory method avec @classmethod",
+    "content": "@classmethod reçoit cls (la classe) comme premier argument. Permet de créer des constructeurs alternatifs comme Date.depuis_chaine(\"15/03/2024\") sans passer par __init__.",
+    "description": "Les factory methods avec @classmethod sont idiomatiques pour des constructeurs avec des formats d'entrée variés, tout en restant orientés objet.",
+    "context": "",
+    "source_file": "courses/python/python_ch2_5.md"
+  },
+  {
+    "id": "python_poo_repr_str",
+    "type": "tip",
+    "tech": "python",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "__repr__",
+      "__str__",
+      "debug"
+    ],
+    "title": "Différence entre __str__ et __repr__",
+    "content": "__str__ est pour l'affichage lisible (print). __repr__ est pour le débogage (doit permettre de recréer l'objet idéalement). Si __str__ manque, Python utilise __repr__.",
+    "description": "Toujours définir au minimum __repr__. La convention : repr(obj) doit idéalement retourner du code Python valide reconstituant l'objet, ex: Point(x=3, y=4).",
+    "context": "",
+    "source_file": "courses/python/python_ch2_5.md"
+  },
+  {
+    "id": "python_dec_functools_wraps",
+    "type": "command",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "decorateur",
+      "functools",
+      "wraps",
+      "metadonnees"
+    ],
+    "title": "Préserver les métadonnées avec @functools.wraps",
+    "command": "\"@functools.wraps(func)\\ndef wrapper(*args, **kwargs): ...\"",
+    "description": "Sans @wraps, wrapper.__name__ et wrapper.__doc__ remplacent ceux de la fonction originale. @wraps copie ces métadonnées pour que l'introspection reste correcte.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_1.md"
+  },
+  {
+    "id": "python_dec_principle",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "decorateur",
+      "wrapper",
+      "sucre_syntaxique"
+    ],
+    "title": "Principe du décorateur Python",
+    "content": "@mon_decorateur au-dessus d'une fonction est équivalent à f = mon_decorateur(f). Un décorateur est une fonction qui prend une fonction et retourne une nouvelle fonction.",
+    "description": "La syntaxe @ est du sucre syntaxique. Comprendre l'équivalence avec l'assignation explicite permet de déboguer et de composer des décorateurs.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_1.md"
+  },
+  {
+    "id": "python_dec_factory",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "decorateur",
+      "arguments",
+      "factory"
+    ],
+    "title": "Décorateur avec arguments (factory)",
+    "content": "Pour @retry(max=3), il faut trois niveaux : factory(args) → decorateur(func) → wrapper(*args, **kwargs). La factory retourne le vrai décorateur.",
+    "description": "@retry(3) appelle d'abord retry(3) qui retourne un décorateur, qui est ensuite appliqué à la fonction. Les parenthèses sont obligatoires même si aucun argument n'est passé.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_1.md"
+  },
+  {
+    "id": "python_dec_timer",
+    "type": "tip",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "decorateur",
+      "timer",
+      "performance"
+    ],
+    "title": "Mesurer le temps d'exécution avec un décorateur",
+    "content": "Utiliser time.perf_counter() (plus précis que time.time()) avant et après l'appel. Retourner le résultat de func(*args, **kwargs) pour ne pas casser la valeur de retour.",
+    "description": "Un décorateur timer est un excellent exemple pédagogique. En production, utiliser plutôt cProfile ou py-spy pour le profiling.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_1.md"
+  },
+  {
+    "id": "python_dec_nonlocal",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "closure",
+      "nonlocal",
+      "etat"
+    ],
+    "title": "Modifier une variable englobante avec nonlocal",
+    "content": "Dans une closure, nonlocal x déclare qu'on veut modifier la variable x du scope englobant (pas créer une nouvelle variable locale). Différent de global qui cible le module.",
+    "description": "Sans nonlocal, Python considère toute assignation dans une fonction comme locale. nonlocal est nécessaire pour des closures avec état mutable (compteur, cache).",
+    "context": "",
+    "source_file": "courses/python/python_ch3_1.md"
+  },
+  {
+    "id": "python_gen_yield_basic",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "yield",
+      "generateur",
+      "suspension"
+    ],
+    "title": "Principe de yield dans un générateur",
+    "content": "Une fonction contenant yield est un générateur. À chaque yield, l'exécution est suspendue et la valeur est retournée. Elle reprend après le yield lors du prochain next().",
+    "description": "Un générateur ne s'exécute pas à l'appel de la fonction. Il retourne un objet générateur. L'exécution commence au premier next() et se suspend à chaque yield.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_2.md"
+  },
+  {
+    "id": "python_gen_exhaustion",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "generateur",
+      "epuisement",
+      "once"
+    ],
+    "title": "Un générateur ne peut être consommé qu'une fois",
+    "content": "Après épuisement, sum(gen) retourne 0 et list(gen) retourne []. Recréer le générateur en rappelant la fonction génératrice plutôt que de tenter de le réinitialiser.",
+    "description": "Contrairement à une liste, un générateur ne peut pas être \"rembobiné\". Si on a besoin de plusieurs parcours, convertir en liste ou recréer le générateur.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_2.md"
+  },
+  {
+    "id": "python_gen_yield_from",
+    "type": "command",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "yield_from",
+      "delegation",
+      "sous_generateur"
+    ],
+    "title": "Déléguer l'itération avec yield from",
+    "command": "yield from sous_iterable",
+    "description": "yield from iterable délègue à chaque élément de l'itérable, équivalent à for x in iterable: yield x mais plus efficace et compatible avec les coroutines.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_2.md"
+  },
+  {
+    "id": "python_gen_islice",
+    "type": "command",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "itertools",
+      "islice",
+      "generateur_infini"
+    ],
+    "title": "Prendre les N premiers éléments d'un générateur infini",
+    "command": "list(itertools.islice(generateur_infini(), 10))",
+    "description": "islice(iterable, stop) ou islice(iterable, start, stop, step) coupe un itérable sans le matérialiser. Indispensable avec les générateurs infinis.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_2.md"
+  },
+  {
+    "id": "python_gen_memory",
+    "type": "concept",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "memoire",
+      "generateur",
+      "liste"
+    ],
+    "title": "Différence de mémoire entre liste et générateur",
+    "content": "Une list comprehension pour 1M d'éléments occupe ~8MB. Un générateur équivalent occupe ~112 bytes. Le générateur calcule chaque valeur à la demande, jamais tout en même temps.",
+    "description": "Pour de gros volumes, une expression génératrice (x for x in ...) est dramatiquement plus économe qu'une list comprehension [x for x in ...].",
+    "context": "",
+    "source_file": "courses/python/python_ch3_2.md"
+  },
+  {
+    "id": "python_gen_groupby_sort",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "itertools",
+      "groupby",
+      "tri"
+    ],
+    "title": "groupby requiert un tri préalable",
+    "content": "itertools.groupby regroupe des éléments consécutifs identiques, pas tous les éléments égaux. Trier la liste par la clé de groupement avant d'appeler groupby.",
+    "description": "groupby('AAABBBCCAAA') donne A(3), B(3), C(2), A(3) — pas A(6), B(3), C(2). Toujours trier par la même clé : data.sort(key=lambda x: x['cle']).",
+    "context": "",
+    "source_file": "courses/python/python_ch3_2.md"
+  },
+  {
+    "id": "python_trap_mutable_default",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "piege",
+      "mutable",
+      "default",
+      "argument"
+    ],
+    "title": "Mutable default argument : la liste persiste entre les appels",
+    "content": "def f(lst=[]): liste est créée une fois à la définition. Chaque appel partage le même objet. Corriger avec def f(lst=None): if lst is None: lst = [].",
+    "description": "Les valeurs par défaut vivent dans f.__defaults__. Un objet mutable comme [] est réutilisé à chaque appel au lieu d'être recréé.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_3.md"
+  },
+  {
+    "id": "python_trap_late_binding",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "piege",
+      "closure",
+      "late_binding",
+      "lambda"
+    ],
+    "title": "Late binding : la closure capture i par référence",
+    "content": "[lambda: i for i in range(5)] retourne 5 fois la valeur finale de i. Corriger avec lambda i=i: i pour capturer la valeur au moment de la création.",
+    "description": "Les closures capturent les variables par référence. Au moment de l'appel, la boucle est terminée et i vaut sa dernière valeur. L'argument par défaut force la capture par valeur.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_3.md"
+  },
+  {
+    "id": "python_trap_is_vs_eq",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "piege",
+      "is",
+      "egalite",
+      "identite"
+    ],
+    "title": "is compare l'identité, == compare la valeur",
+    "content": "Utiliser == pour comparer des valeurs. Réserver is à None, True, False. Python met en cache les petits entiers et certaines strings, ce qui rend is parfois trompeusement vrai.",
+    "description": "a is b retourne True uniquement si a et b sont le même objet en mémoire (même id()). Pour les entiers > 256 ou les strings construites dynamiquement, is peut retourner False même si les valeurs sont égales.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_3.md"
+  },
+  {
+    "id": "python_trap_string_concat_loop",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "piege",
+      "string",
+      "concatenation",
+      "performance"
+    ],
+    "title": "Ne pas concaténer des strings avec += en boucle",
+    "content": "Chaque += crée une nouvelle string. En boucle, c'est O(n²). Accumuler dans une liste et utiliser \"\".join(liste) pour une opération O(n).",
+    "description": "Les strings sont immuables. texte += mot crée un nouvel objet à chaque itération. Pour 10 000 mots, += prend ~100ms, \"\".join() prend ~1ms.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_3.md"
+  },
+  {
+    "id": "python_trap_modify_list_iteration",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "piege",
+      "liste",
+      "iteration",
+      "modification"
+    ],
+    "title": "Modifier une liste pendant son itération saute des éléments",
+    "content": "Supprimer des éléments dans un for décale les indices et fait sauter des éléments silencieusement. Itérer sur lst[:] (copie) ou reconstruire avec une compréhension.",
+    "description": "Python avance l'indice interne après chaque itération. Si on supprime l'élément à l'indice courant, le suivant devient le courant et est ignoré.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_3.md"
+  },
+  {
+    "id": "python_trap_bare_reference",
+    "type": "warning",
+    "tech": "python",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "piege",
+      "copie",
+      "reference",
+      "alias"
+    ],
+    "title": "b = a ne copie pas une liste, c'est un alias",
+    "content": "b = a crée un alias : a et b pointent vers le même objet. Modifier b modifie a. Utiliser b = a.copy() pour une copie superficielle, copy.deepcopy(a) pour les structures imbriquées.",
+    "description": "En Python, l'assignation copie la référence, pas l'objet. Toutes les structures mutables (list, dict, set) sont touchées par ce comportement.",
+    "context": "",
+    "source_file": "courses/python/python_ch3_3.md"
+  },
+  {
     "id": "sql_definition_langage",
     "type": "concept",
     "tech": "sql",
