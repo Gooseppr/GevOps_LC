@@ -3,11 +3,11 @@ layout: page
 title: "Typage & qualité de code en Python"
 
 course: python
-theme: "python"
+theme: "POO, Qualité & Tests"
 type: lesson
 
 chapter: 2
-section: 10
+section: 2
 
 tags: python,typing,quality,mypy,lint
 difficulty: intermediate

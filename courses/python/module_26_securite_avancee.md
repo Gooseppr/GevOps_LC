@@ -3,11 +3,11 @@ layout: page
 title: "Sécurité avancée Python (audit, dépendances, hardening)"
 
 course: python
-theme: "python"
+theme: "DevOps, CI/CD & Observabilité"
 type: lesson
 
 chapter: 3
-section: 26
+section: 7
 
 tags: python,securite,audit,hardening,dependencies
 difficulty: advanced

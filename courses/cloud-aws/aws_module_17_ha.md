@@ -2,7 +2,7 @@
 layout: page
 title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
 
-course: AWS SAA
+course: cloud-aws
 theme: "architecture"
 type: lesson
 

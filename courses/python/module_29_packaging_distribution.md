@@ -3,11 +3,11 @@ layout: page
 title: "Packaging avancé & distribution Python (wheels, CLI, publication)"
 
 course: python
-theme: "python"
+theme: "Data, Pipelines & Distribution"
 type: lesson
 
 chapter: 3
-section: 29
+section: 10
 
 tags: python,packaging,wheel,cli,distribution,pypi
 difficulty: advanced

@@ -3,11 +3,11 @@ layout: page
 title: "Asynchrone avancé & systèmes distribués en Python"
 
 course: python
-theme: "python"
+theme: "Architecture & Performance"
 type: lesson
 
 chapter: 3
-section: 22
+section: 3
 
 tags: python,asyncio,distributed,queue,celery,kafka
 difficulty: advanced

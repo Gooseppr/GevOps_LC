@@ -3,7 +3,7 @@ layout: page
 title: "Syntaxe de base & types Python"
 
 course: python
-theme: "python"
+theme: "Syntaxe, Types & Structures"
 type: lesson
 
 chapter: 1

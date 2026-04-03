@@ -3,11 +3,11 @@ layout: page
 title: "CI/CD Python (intégration & déploiement continus)"
 
 course: python
-theme: "python"
+theme: "DevOps, CI/CD & Observabilité"
 type: lesson
 
 chapter: 3
-section: 24
+section: 5
 
 tags: python,cicd,gitlab,github,automation,pipeline
 difficulty: advanced

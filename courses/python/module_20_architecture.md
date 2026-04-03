@@ -3,11 +3,11 @@ layout: page
 title: "Architecture Python (Clean Architecture & Hexagonale)"
 
 course: python
-theme: "python"
+theme: "Architecture & Performance"
 type: lesson
 
 chapter: 3
-section: 20
+section: 1
 
 tags: python,architecture,clean,hexagonal,design
 difficulty: advanced

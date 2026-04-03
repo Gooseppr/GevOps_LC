@@ -3,11 +3,11 @@ layout: page
 title: "Programmation orientée objet (POO) en Python"
 
 course: python
-theme: "python"
+theme: "POO, Qualité & Tests"
 type: lesson
 
 chapter: 2
-section: 9
+section: 1
 
 tags: python,poo,classes,objets,architecture
 difficulty: intermediate

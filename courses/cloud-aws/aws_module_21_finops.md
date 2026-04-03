@@ -2,7 +2,7 @@
 layout: page
 title: "FinOps & optimisation des coûts AWS"
 
-course: AWS SAA
+course: cloud-aws
 theme: "finops"
 type: lesson
 

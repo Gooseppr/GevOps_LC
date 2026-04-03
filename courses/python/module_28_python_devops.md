@@ -3,11 +3,11 @@ layout: page
 title: "Python pour DevOps (automation, API cloud, scripts infra)"
 
 course: python
-theme: "python"
+theme: "Data, Pipelines & Distribution"
 type: lesson
 
 chapter: 3
-section: 28
+section: 9
 
 tags: python,devops,automation,cloud,boto3
 difficulty: advanced

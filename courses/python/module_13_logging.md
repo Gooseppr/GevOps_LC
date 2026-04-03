@@ -3,11 +3,11 @@ layout: page
 title: "Logging & observabilité en Python"
 
 course: python
-theme: "python"
+theme: "Concurrence, Logging & Données"
 type: lesson
 
 chapter: 2
-section: 13
+section: 5
 
 tags: python,logging,observabilite,logs,monitoring
 difficulty: intermediate

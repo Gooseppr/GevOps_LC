@@ -2,7 +2,7 @@
 layout: page
 title: "Monitoring AWS — CloudWatch (metrics, logs, alerting)"
 
-course: AWS SAA
+course: cloud-aws
 theme: "observability"
 type: lesson
 

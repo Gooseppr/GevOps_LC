@@ -27,8 +27,29 @@
         "kubernetes": "random",
         "ansible":    "random",
         "terraform":  "random",
-        "python":     "importance",
-        "go":         "chronological"
+        "python":     "chronological",
+        "go":         "chronological",
+        "aws":        "chronological"
+      }
+    },
+    {
+      "email": "j.t-elmacin@hotmail.fr",
+      "name": "Teddy",
+      "active": true,
+      "daily_mix": [
+        { "type": "command", "count": 2 },
+        { "type": "concept", "count": 1 },
+        { "type": "warning", "count": 1 },
+        { "type": "tip",     "count": 1 }
+      ],
+      "filters": {
+        "tech":  "python",
+        "level": null
+      },
+      "max_per_tech": null,
+      "sort_order": "random",
+      "tech_order": {
+        "python": "random"
       }
     }
   ]

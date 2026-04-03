@@ -2,7 +2,7 @@
 layout: page
 title: "Sécurité AWS — IAM, MFA, Encryption"
 
-course: AWS SAA
+course: cloud-aws
 theme: "security"
 type: lesson
 

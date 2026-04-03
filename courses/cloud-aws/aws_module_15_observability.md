@@ -2,7 +2,7 @@
 layout: page
 title: "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)"
 
-course: AWS SAA
+course: cloud-aws
 theme: "observability"
 type: lesson
 

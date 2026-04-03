@@ -3,11 +3,11 @@ layout: page
 title: "Sécurité applicative en Python"
 
 course: python
-theme: "python"
+theme: "APIs, Sécurité & Configuration"
 type: lesson
 
 chapter: 2
-section: 17
+section: 9
 
 tags: python,securite,auth,hashing,jwt,owasp
 difficulty: intermediate

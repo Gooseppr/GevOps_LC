@@ -3,7 +3,7 @@ layout: page
 title: "CLI & scripting Python"
 
 course: python
-theme: "python"
+theme: "Erreurs, Fichiers & Scripting"
 type: lesson
 
 chapter: 1

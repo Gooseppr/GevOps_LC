@@ -3,11 +3,11 @@ layout: page
 title: "APIs & backend Python avec FastAPI"
 
 course: python
-theme: "python"
+theme: "APIs, Sécurité & Configuration"
 type: lesson
 
 chapter: 2
-section: 16
+section: 8
 
 tags: python,api,fastapi,http,backend
 difficulty: intermediate

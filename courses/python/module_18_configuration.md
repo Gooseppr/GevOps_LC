@@ -3,11 +3,11 @@ layout: page
 title: "Multi-environnement & configuration en Python"
 
 course: python
-theme: "python"
+theme: "APIs, Sécurité & Configuration"
 type: lesson
 
 chapter: 2
-section: 18
+section: 10
 
 tags: python,configuration,environnement,env,dotenv
 difficulty: intermediate

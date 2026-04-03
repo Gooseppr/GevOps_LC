@@ -2,7 +2,7 @@
 layout: page
 title: "DNS & CDN — Route 53 et CloudFront"
 
-course: AWS SAA
+course: cloud-aws
 theme: "network"
 type: lesson
 

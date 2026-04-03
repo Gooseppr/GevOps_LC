@@ -3,11 +3,11 @@ layout: page
 title: "Observabilité avancée en Python (metrics, tracing, monitoring)"
 
 course: python
-theme: "python"
+theme: "DevOps, CI/CD & Observabilité"
 type: lesson
 
 chapter: 3
-section: 25
+section: 6
 
 tags: python,observability,metrics,tracing,monitoring,prometheus
 difficulty: advanced

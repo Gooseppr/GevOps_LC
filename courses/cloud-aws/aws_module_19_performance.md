@@ -2,7 +2,7 @@
 layout: page
 title: "Performance & optimisation — Caching, Latence, Tuning AWS"
 
-course: AWS SAA
+course: cloud-aws
 theme: "performance"
 type: lesson
 

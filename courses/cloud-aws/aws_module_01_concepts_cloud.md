@@ -2,7 +2,7 @@
 layout: page
 title: "Concepts Cloud & Modèles AWS"
 
-course: AWS SAA
+course: cloud-aws
 theme: "cloud fundamentals"
 type: lesson
 

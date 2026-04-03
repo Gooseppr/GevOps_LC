@@ -3,7 +3,7 @@ layout: page
 title: "Environnement Python & Toolchain"
 
 course: python
-theme: "python"
+theme: "Environnement & Toolchain"
 type: lesson
 
 chapter: 1

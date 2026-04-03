@@ -3,11 +3,11 @@ layout: page
 title: "Performance & optimisation en Python"
 
 course: python
-theme: "python"
+theme: "Architecture & Performance"
 type: lesson
 
 chapter: 3
-section: 21
+section: 2
 
 tags: python,performance,profiling,optimisation,memory
 difficulty: advanced

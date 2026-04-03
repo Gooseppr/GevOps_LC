@@ -3,11 +3,11 @@ layout: page
 title: "Gestion des dépendances & packaging Python"
 
 course: python
-theme: "python"
+theme: "POO, Qualité & Tests"
 type: lesson
 
 chapter: 2
-section: 11
+section: 3
 
 tags: python,dependencies,packaging,poetry,pip
 difficulty: intermediate

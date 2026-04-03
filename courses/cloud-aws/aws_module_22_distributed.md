@@ -2,7 +2,7 @@
 layout: page
 title: "Architectures distribuées — Microservices, SQS, SNS"
 
-course: AWS SAA
+course: cloud-aws
 theme: "architecture"
 type: lesson
 

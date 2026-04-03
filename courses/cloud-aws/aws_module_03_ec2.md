@@ -2,7 +2,7 @@
 layout: page
 title: "EC2 — Compute AWS (instances, réseau, bootstrap)"
 
-course: AWS SAA
+course: cloud-aws
 theme: "compute"
 type: lesson
 

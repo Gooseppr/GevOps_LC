@@ -3,7 +3,7 @@ layout: page
 title: "Structures de données Python"
 
 course: python
-theme: "python"
+theme: "Syntaxe, Types & Structures"
 type: lesson
 
 chapter: 1

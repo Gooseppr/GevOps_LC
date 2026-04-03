@@ -3,11 +3,11 @@ layout: page
 title: "Conteneurisation & déploiement Python avec Docker"
 
 course: python
-theme: "python"
+theme: "DevOps, CI/CD & Observabilité"
 type: lesson
 
 chapter: 3
-section: 23
+section: 4
 
 tags: python,docker,container,deploy,devops
 difficulty: advanced

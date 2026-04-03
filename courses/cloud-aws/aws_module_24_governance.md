@@ -2,7 +2,7 @@
 layout: page
 title: "Gouvernance AWS — Organizations, Tagging, Compliance"
 
-course: AWS SAA
+course: cloud-aws
 theme: "governance"
 type: lesson
 

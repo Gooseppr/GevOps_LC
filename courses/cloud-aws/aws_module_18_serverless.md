@@ -2,7 +2,7 @@
 layout: page
 title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
 
-course: AWS SAA
+course: cloud-aws
 theme: "serverless"
 type: lesson
 

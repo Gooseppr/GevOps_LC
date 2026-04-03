@@ -2,7 +2,7 @@
 layout: page
 title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 
-course: AWS SAA
+course: cloud-aws
 theme: "resilience"
 type: lesson
 

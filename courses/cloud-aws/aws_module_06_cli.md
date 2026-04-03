@@ -2,7 +2,7 @@
 layout: page
 title: "AWS CLI — Outils et automatisation"
 
-course: AWS SAA
+course: cloud-aws
 theme: "devops"
 type: lesson
 

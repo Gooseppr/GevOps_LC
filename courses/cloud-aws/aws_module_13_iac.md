@@ -2,7 +2,7 @@
 layout: page
 title: "Infrastructure as Code — Terraform & CloudFormation"
 
-course: AWS SAA
+course: cloud-aws
 theme: "devops"
 type: lesson
 

@@ -621,6 +621,12 @@ def _load_password(secrets):
 # ──────────────────────────────────────────────
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description='Coursite — Daily Review')
+    parser.add_argument('--user', metavar='NOM_OU_EMAIL',
+                        help='Envoyer uniquement pour cet utilisateur (nom ou email)')
+    args = parser.parse_args()
+
     print("📬 Coursite — Daily Review\n")
 
     for path, label in [
@@ -650,6 +656,14 @@ def main():
     smtp_cfg          = config['smtp']
     subject_template  = config.get('subject_template', 'Révision du {date} — {name}')
     active_users      = [u for u in config.get('users', []) if u.get('active', True)]
+
+    if args.user:
+        target = args.user.lower()
+        active_users = [u for u in active_users
+                        if u['name'].lower() == target or u['email'].lower() == target]
+        if not active_users:
+            print(f"❌ Utilisateur '{args.user}' introuvable ou inactif.")
+            return
 
     if not active_users:
         print("❌ Aucun utilisateur actif dans review_config.json")

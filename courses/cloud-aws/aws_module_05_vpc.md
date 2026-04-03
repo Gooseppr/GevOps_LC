@@ -2,7 +2,7 @@
 layout: page
 title: "Réseau AWS — VPC, Subnets, Routing"
 
-course: AWS SAA
+course: cloud-aws
 theme: "network"
 type: lesson
 

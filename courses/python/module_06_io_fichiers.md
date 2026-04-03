@@ -3,7 +3,7 @@ layout: page
 title: "I/O & manipulation de fichiers en Python"
 
 course: python
-theme: "python"
+theme: "Erreurs, Fichiers & Scripting"
 type: lesson
 
 chapter: 1

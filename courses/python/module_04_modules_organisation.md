@@ -3,7 +3,7 @@ layout: page
 title: "Modules & organisation du code Python"
 
 course: python
-theme: "python"
+theme: "Syntaxe, Types & Structures"
 type: lesson
 
 chapter: 1

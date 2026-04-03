@@ -3,11 +3,11 @@ layout: page
 title: "Git & travail en équipe pour développeur Python"
 
 course: python
-theme: "python"
+theme: "APIs, Sécurité & Configuration"
 type: lesson
 
 chapter: 2
-section: 19
+section: 11
 
 tags: git,versioning,collaboration,branch,merge
 difficulty: intermediate

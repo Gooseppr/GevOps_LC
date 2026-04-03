@@ -3,11 +3,11 @@ layout: page
 title: "Tests en Python avec pytest"
 
 course: python
-theme: "python"
+theme: "POO, Qualité & Tests"
 type: lesson
 
 chapter: 2
-section: 12
+section: 4
 
 tags: python,tests,pytest,unittest,quality
 difficulty: intermediate

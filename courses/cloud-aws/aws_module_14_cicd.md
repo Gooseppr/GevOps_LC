@@ -2,7 +2,7 @@
 layout: page
 title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
 
-course: AWS SAA
+course: cloud-aws
 theme: "devops"
 type: lesson
 

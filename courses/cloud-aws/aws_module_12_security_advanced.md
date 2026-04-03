@@ -2,7 +2,7 @@
 layout: page
 title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
 
-course: AWS SAA
+course: cloud-aws
 theme: "security"
 type: lesson
 

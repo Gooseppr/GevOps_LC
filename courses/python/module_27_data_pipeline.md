@@ -3,11 +3,11 @@ layout: page
 title: "Data & pipelines en Python (pandas, ETL, Airflow)"
 
 course: python
-theme: "python"
+theme: "Data, Pipelines & Distribution"
 type: lesson
 
 chapter: 3
-section: 27
+section: 8
 
 tags: python,data,pandas,etl,airflow
 difficulty: advanced

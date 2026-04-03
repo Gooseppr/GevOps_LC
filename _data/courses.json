@@ -38,6 +38,588 @@
     ]
   },
   {
+    "id": "cloud-aws",
+    "title": "Cloud & AWS",
+    "description": "Infrastructure cloud, services AWS, déploiements et bonnes pratiques.",
+    "icon": "☁️",
+    "status": "En construction",
+    "theme_group": "",
+    "theme_group_icon": "",
+    "path": "/courses/cloud-aws/",
+    "index_path": "/GevOps_LC/courses/cloud-aws/index.html",
+    "themes": [
+      {
+        "id": "cloud-fundamentals",
+        "title": "cloud fundamentals",
+        "modules": [
+          {
+            "title": "Concepts Cloud & Modèles AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_01_concepts_cloud.html",
+            "file": "aws_module_01_concepts_cloud.md",
+            "theme": "cloud fundamentals",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "cloud",
+              "aws",
+              "architecture",
+              "iaas",
+              "paas",
+              "saas"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "security",
+        "title": "security",
+        "modules": [
+          {
+            "title": "IAM — Gestion des identités AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_02_iam.html",
+            "file": "aws_module_02_iam.md",
+            "theme": "security",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "aws",
+              "iam",
+              "security",
+              "authentication",
+              "authorization"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité AWS — IAM, MFA, Encryption",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_08_security.html",
+            "file": "aws_module_08_security.md",
+            "theme": "security",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "aws",
+              "security",
+              "mfa",
+              "encryption",
+              "iam"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "85",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_12_security_advanced.html",
+            "file": "aws_module_12_security_advanced.md",
+            "theme": "security",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "aws",
+              "security",
+              "kms",
+              "secretsmanager",
+              "waf",
+              "shield"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "95",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_20_security_zero_trust.html",
+            "file": "aws_module_20_security_zero_trust.md",
+            "theme": "security",
+            "chapter": 3,
+            "section": 4,
+            "tags": [
+              "aws",
+              "security",
+              "zerotrust",
+              "network",
+              "cloudtrail"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "compute",
+        "title": "compute",
+        "modules": [
+          {
+            "title": "EC2 — Compute AWS (instances, réseau, bootstrap)",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_03_ec2.html",
+            "file": "aws_module_03_ec2.md",
+            "theme": "compute",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "aws",
+              "ec2",
+              "compute",
+              "network",
+              "security"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "storage",
+        "title": "storage",
+        "modules": [
+          {
+            "title": "Stockage AWS — S3 / EBS / EFS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_04_storage.html",
+            "file": "aws_module_04_storage.md",
+            "theme": "storage",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "aws",
+              "storage",
+              "s3",
+              "ebs",
+              "efs"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "80",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "network",
+        "title": "network",
+        "modules": [
+          {
+            "title": "Réseau AWS — VPC, Subnets, Routing",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_05_vpc.html",
+            "file": "aws_module_05_vpc.md",
+            "theme": "network",
+            "chapter": 1,
+            "section": 5,
+            "tags": [
+              "aws",
+              "vpc",
+              "network",
+              "subnet",
+              "nat"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "DNS & CDN — Route 53 et CloudFront",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_11_dns_cdn.html",
+            "file": "aws_module_11_dns_cdn.md",
+            "theme": "network",
+            "chapter": 2,
+            "section": 3,
+            "tags": [
+              "aws",
+              "dns",
+              "route53",
+              "cloudfront",
+              "cdn"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "85",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "devops",
+        "title": "devops",
+        "modules": [
+          {
+            "title": "AWS CLI — Outils et automatisation",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_06_cli.html",
+            "file": "aws_module_06_cli.md",
+            "theme": "devops",
+            "chapter": 1,
+            "section": 6,
+            "tags": [
+              "aws",
+              "cli",
+              "automation",
+              "devops",
+              "tools"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "70",
+            "mermaid": false
+          },
+          {
+            "title": "Infrastructure as Code — Terraform & CloudFormation",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_13_iac.html",
+            "file": "aws_module_13_iac.md",
+            "theme": "devops",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "aws",
+              "terraform",
+              "cloudformation",
+              "iac",
+              "devops"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "100",
+            "mermaid": true
+          },
+          {
+            "title": "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_14_cicd.html",
+            "file": "aws_module_14_cicd.md",
+            "theme": "devops",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "aws",
+              "cicd",
+              "codepipeline",
+              "codebuild",
+              "codedeploy"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "100",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "observability",
+        "title": "observability",
+        "modules": [
+          {
+            "title": "Monitoring AWS — CloudWatch (metrics, logs, alerting)",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_07_cloudwatch.html",
+            "file": "aws_module_07_cloudwatch.md",
+            "theme": "observability",
+            "chapter": 1,
+            "section": 7,
+            "tags": [
+              "aws",
+              "cloudwatch",
+              "monitoring",
+              "logs",
+              "metrics"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "80",
+            "mermaid": true
+          },
+          {
+            "title": "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_15_observability.html",
+            "file": "aws_module_15_observability.md",
+            "theme": "observability",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "aws",
+              "observability",
+              "cloudwatch",
+              "xray",
+              "logs",
+              "tracing"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "scaling",
+        "title": "scaling",
+        "modules": [
+          {
+            "title": "Load Balancer & Auto Scaling — Scalabilité AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_09_load_balancing.html",
+            "file": "aws_module_09_load_balancing.md",
+            "theme": "scaling",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "aws",
+              "elb",
+              "autoscaling",
+              "scalability",
+              "highavailability"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "database",
+        "title": "database",
+        "modules": [
+          {
+            "title": "Bases de données AWS — RDS, Aurora, DynamoDB",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_10_databases.html",
+            "file": "aws_module_10_databases.md",
+            "theme": "database",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "aws",
+              "rds",
+              "aurora",
+              "dynamodb",
+              "database"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "95",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture",
+        "title": "architecture",
+        "modules": [
+          {
+            "title": "Multi-environnement AWS — dev, staging, prod & multi-account",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_16_multi_env.html",
+            "file": "aws_module_16_multi_env.md",
+            "theme": "architecture",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "aws",
+              "environment",
+              "dev",
+              "staging",
+              "prod",
+              "multiaccount"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_17_ha.html",
+            "file": "aws_module_17_ha.md",
+            "theme": "architecture",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "aws",
+              "ha",
+              "highavailability",
+              "failover",
+              "dr"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Architectures distribuées — Microservices, SQS, SNS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_22_distributed.html",
+            "file": "aws_module_22_distributed.md",
+            "theme": "architecture",
+            "chapter": 3,
+            "section": 6,
+            "tags": [
+              "aws",
+              "microservices",
+              "sqs",
+              "sns",
+              "architecture"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Architectures distribuées — Microservices, SQS, SNS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_22_distributed_arch.html",
+            "file": "aws_module_22_distributed_arch.md",
+            "theme": "architecture",
+            "chapter": 3,
+            "section": 6,
+            "tags": [
+              "aws",
+              "microservices",
+              "sqs",
+              "sns",
+              "architecture"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "serverless",
+        "title": "serverless",
+        "modules": [
+          {
+            "title": "Architecture Serverless — Lambda, API Gateway, Event-driven",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_18_serverless.html",
+            "file": "aws_module_18_serverless.md",
+            "theme": "serverless",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "aws",
+              "lambda",
+              "apigateway",
+              "serverless",
+              "eventdriven"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "performance",
+        "title": "performance",
+        "modules": [
+          {
+            "title": "Performance & optimisation — Caching, Latence, Tuning AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_19_performance.html",
+            "file": "aws_module_19_performance.md",
+            "theme": "performance",
+            "chapter": 3,
+            "section": 3,
+            "tags": [
+              "aws",
+              "performance",
+              "caching",
+              "latency",
+              "optimization"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "finops",
+        "title": "finops",
+        "modules": [
+          {
+            "title": "FinOps & optimisation des coûts AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_21_finops.html",
+            "file": "aws_module_21_finops.md",
+            "theme": "finops",
+            "chapter": 3,
+            "section": 5,
+            "tags": [
+              "aws",
+              "finops",
+              "cost",
+              "pricing",
+              "optimization"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "100",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "resilience",
+        "title": "resilience",
+        "modules": [
+          {
+            "title": "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_23_resilience.html",
+            "file": "aws_module_23_resilience.md",
+            "theme": "resilience",
+            "chapter": 3,
+            "section": 7,
+            "tags": [
+              "aws",
+              "resilience",
+              "chaos",
+              "retry",
+              "circuitbreaker"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "governance",
+        "title": "governance",
+        "modules": [
+          {
+            "title": "Gouvernance AWS — Organizations, Tagging, Compliance",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_24_governance.html",
+            "file": "aws_module_24_governance.md",
+            "theme": "governance",
+            "chapter": 3,
+            "section": 8,
+            "tags": [
+              "aws",
+              "governance",
+              "organizations",
+              "tagging",
+              "compliance"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "docker",
     "title": "Docker",
     "description": "Maîtriser Docker — des bases jusqu'à l'orchestration et le CI/CD.",
@@ -586,7 +1168,7 @@
             "mermaid": true
           },
           {
-            "title": "Variables d’environnement dans Docker Compose",
+            "title": "Variables d'environnement dans Docker Compose",
             "path": "/GevOps_LC/courses/docker/docker_ch4_6.html",
             "file": "docker_ch4_6.md",
             "theme": "Docker Compose",
@@ -1095,6 +1677,630 @@
             ],
             "type": "lesson",
             "difficulty": "intermediate",
+            "duration": "105",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "python",
+    "title": "Python",
+    "description": "Python appliqué à l'automatisation, les APIs, les scripts DevOps et la data.",
+    "icon": "🐍",
+    "status": "En construction",
+    "theme_group": "",
+    "theme_group_icon": "",
+    "path": "/courses/python/",
+    "index_path": "/GevOps_LC/courses/python/index.html",
+    "themes": [
+      {
+        "id": "environnement-toolchain",
+        "title": "Environnement & Toolchain",
+        "modules": [
+          {
+            "title": "Environnement Python & Toolchain",
+            "path": "/GevOps_LC/courses/python/module_01_environnement_python.html",
+            "file": "module_01_environnement_python.md",
+            "theme": "Environnement & Toolchain",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "python",
+              "environnement",
+              "venv",
+              "pip",
+              "setup"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "syntaxe-types-structures",
+        "title": "Syntaxe, Types & Structures",
+        "modules": [
+          {
+            "title": "Syntaxe de base & types Python",
+            "path": "/GevOps_LC/courses/python/module_02_syntaxe_types.html",
+            "file": "module_02_syntaxe_types.md",
+            "theme": "Syntaxe, Types & Structures",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "python",
+              "types",
+              "variables",
+              "syntaxe"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": false
+          },
+          {
+            "title": "Structures de données Python",
+            "path": "/GevOps_LC/courses/python/module_03_structures_donnees.html",
+            "file": "module_03_structures_donnees.md",
+            "theme": "Syntaxe, Types & Structures",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "python",
+              "structures",
+              "list",
+              "dict",
+              "set",
+              "tuple"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "70",
+            "mermaid": false
+          },
+          {
+            "title": "Modules & organisation du code Python",
+            "path": "/GevOps_LC/courses/python/module_04_modules_organisation.html",
+            "file": "module_04_modules_organisation.md",
+            "theme": "Syntaxe, Types & Structures",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "python",
+              "modules",
+              "import",
+              "organisation",
+              "package"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "65",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "erreurs-fichiers-scripting",
+        "title": "Erreurs, Fichiers & Scripting",
+        "modules": [
+          {
+            "title": "Gestion des erreurs en Python",
+            "path": "/GevOps_LC/courses/python/module_05_gestion_erreurs.html",
+            "file": "module_05_gestion_erreurs.md",
+            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter": 1,
+            "section": 5,
+            "tags": [
+              "python",
+              "exceptions",
+              "erreurs",
+              "try",
+              "except"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "70",
+            "mermaid": false
+          },
+          {
+            "title": "I/O & manipulation de fichiers en Python",
+            "path": "/GevOps_LC/courses/python/module_06_io_fichiers.html",
+            "file": "module_06_io_fichiers.md",
+            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter": 1,
+            "section": 6,
+            "tags": [
+              "python",
+              "fichiers",
+              "json",
+              "csv",
+              "io"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": false
+          },
+          {
+            "title": "CLI & scripting Python",
+            "path": "/GevOps_LC/courses/python/module_07_cli_scripting.html",
+            "file": "module_07_cli_scripting.md",
+            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter": 1,
+            "section": 7,
+            "tags": [
+              "python",
+              "cli",
+              "argparse",
+              "scripting",
+              "automation"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "80",
+            "mermaid": false
+          },
+          {
+            "title": "Debugging & introspection en Python",
+            "path": "/GevOps_LC/courses/python/module_08_debugging.html",
+            "file": "module_08_debugging.md",
+            "theme": "Erreurs, Fichiers & Scripting",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "python",
+              "debugging",
+              "introspection",
+              "pdb",
+              "logging"
+            ],
+            "type": "lesson",
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "poo-qualite-tests",
+        "title": "POO, Qualité & Tests",
+        "modules": [
+          {
+            "title": "Programmation orientée objet (POO) en Python",
+            "path": "/GevOps_LC/courses/python/module_09_poo.html",
+            "file": "module_09_poo.md",
+            "theme": "POO, Qualité & Tests",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "python",
+              "poo",
+              "classes",
+              "objets",
+              "architecture"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          },
+          {
+            "title": "Typage & qualité de code en Python",
+            "path": "/GevOps_LC/courses/python/module_10_typage_qualite.html",
+            "file": "module_10_typage_qualite.md",
+            "theme": "POO, Qualité & Tests",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "python",
+              "typing",
+              "quality",
+              "mypy",
+              "lint"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "85",
+            "mermaid": false
+          },
+          {
+            "title": "Gestion des dépendances & packaging Python",
+            "path": "/GevOps_LC/courses/python/module_11_dependencies_packaging.html",
+            "file": "module_11_dependencies_packaging.md",
+            "theme": "POO, Qualité & Tests",
+            "chapter": 2,
+            "section": 3,
+            "tags": [
+              "python",
+              "dependencies",
+              "packaging",
+              "poetry",
+              "pip"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          },
+          {
+            "title": "Tests en Python avec pytest",
+            "path": "/GevOps_LC/courses/python/module_12_tests_pytest.html",
+            "file": "module_12_tests_pytest.md",
+            "theme": "POO, Qualité & Tests",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "python",
+              "tests",
+              "pytest",
+              "unittest",
+              "quality"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "95",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "concurrence-logging-donnees",
+        "title": "Concurrence, Logging & Données",
+        "modules": [
+          {
+            "title": "Logging & observabilité en Python",
+            "path": "/GevOps_LC/courses/python/module_13_logging.html",
+            "file": "module_13_logging.md",
+            "theme": "Concurrence, Logging & Données",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "python",
+              "logging",
+              "observabilite",
+              "logs",
+              "monitoring"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "85",
+            "mermaid": false
+          },
+          {
+            "title": "Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)",
+            "path": "/GevOps_LC/courses/python/module_14_concurrence.html",
+            "file": "module_14_concurrence.md",
+            "theme": "Concurrence, Logging & Données",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "python",
+              "concurrency",
+              "threading",
+              "multiprocessing",
+              "asyncio",
+              "gil"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Accès données & bases en Python (SQL, ORM, transactions)",
+            "path": "/GevOps_LC/courses/python/module_15_bases_donnees.html",
+            "file": "module_15_bases_donnees.md",
+            "theme": "Concurrence, Logging & Données",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "python",
+              "sql",
+              "orm",
+              "postgresql",
+              "transactions"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "100",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "apis-securite-configuration",
+        "title": "APIs, Sécurité & Configuration",
+        "modules": [
+          {
+            "title": "APIs & backend Python avec FastAPI",
+            "path": "/GevOps_LC/courses/python/module_16_api_fastapi.html",
+            "file": "module_16_api_fastapi.md",
+            "theme": "APIs, Sécurité & Configuration",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "python",
+              "api",
+              "fastapi",
+              "http",
+              "backend"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité applicative en Python",
+            "path": "/GevOps_LC/courses/python/module_17_securite.html",
+            "file": "module_17_securite.md",
+            "theme": "APIs, Sécurité & Configuration",
+            "chapter": 2,
+            "section": 9,
+            "tags": [
+              "python",
+              "securite",
+              "auth",
+              "hashing",
+              "jwt",
+              "owasp"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Multi-environnement & configuration en Python",
+            "path": "/GevOps_LC/courses/python/module_18_configuration.html",
+            "file": "module_18_configuration.md",
+            "theme": "APIs, Sécurité & Configuration",
+            "chapter": 2,
+            "section": 10,
+            "tags": [
+              "python",
+              "configuration",
+              "environnement",
+              "env",
+              "dotenv"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "85",
+            "mermaid": true
+          },
+          {
+            "title": "Git & travail en équipe pour développeur Python",
+            "path": "/GevOps_LC/courses/python/module_19_git.html",
+            "file": "module_19_git.md",
+            "theme": "APIs, Sécurité & Configuration",
+            "chapter": 2,
+            "section": 11,
+            "tags": [
+              "git",
+              "versioning",
+              "collaboration",
+              "branch",
+              "merge"
+            ],
+            "type": "lesson",
+            "difficulty": "intermediate",
+            "duration": "95",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-performance",
+        "title": "Architecture & Performance",
+        "modules": [
+          {
+            "title": "Architecture Python (Clean Architecture & Hexagonale)",
+            "path": "/GevOps_LC/courses/python/module_20_architecture.html",
+            "file": "module_20_architecture.md",
+            "theme": "Architecture & Performance",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "python",
+              "architecture",
+              "clean",
+              "hexagonal",
+              "design"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Performance & optimisation en Python",
+            "path": "/GevOps_LC/courses/python/module_21_performance.html",
+            "file": "module_21_performance.md",
+            "theme": "Architecture & Performance",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "python",
+              "performance",
+              "profiling",
+              "optimisation",
+              "memory"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "95",
+            "mermaid": false
+          },
+          {
+            "title": "Asynchrone avancé & systèmes distribués en Python",
+            "path": "/GevOps_LC/courses/python/module_22_async_distributed.html",
+            "file": "module_22_async_distributed.md",
+            "theme": "Architecture & Performance",
+            "chapter": 3,
+            "section": 3,
+            "tags": [
+              "python",
+              "asyncio",
+              "distributed",
+              "queue",
+              "celery",
+              "kafka"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "devops-ci-cd-observabilite",
+        "title": "DevOps, CI/CD & Observabilité",
+        "modules": [
+          {
+            "title": "Conteneurisation & déploiement Python avec Docker",
+            "path": "/GevOps_LC/courses/python/module_23_docker.html",
+            "file": "module_23_docker.md",
+            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter": 3,
+            "section": 4,
+            "tags": [
+              "python",
+              "docker",
+              "container",
+              "deploy",
+              "devops"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "CI/CD Python (intégration & déploiement continus)",
+            "path": "/GevOps_LC/courses/python/module_24_cicd.html",
+            "file": "module_24_cicd.md",
+            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter": 3,
+            "section": 5,
+            "tags": [
+              "python",
+              "cicd",
+              "gitlab",
+              "github",
+              "automation",
+              "pipeline"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Observabilité avancée en Python (metrics, tracing, monitoring)",
+            "path": "/GevOps_LC/courses/python/module_25_observabilite.html",
+            "file": "module_25_observabilite.md",
+            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter": 3,
+            "section": 6,
+            "tags": [
+              "python",
+              "observability",
+              "metrics",
+              "tracing",
+              "monitoring",
+              "prometheus"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité avancée Python (audit, dépendances, hardening)",
+            "path": "/GevOps_LC/courses/python/module_26_securite_avancee.html",
+            "file": "module_26_securite_avancee.md",
+            "theme": "DevOps, CI/CD & Observabilité",
+            "chapter": 3,
+            "section": 7,
+            "tags": [
+              "python",
+              "securite",
+              "audit",
+              "hardening",
+              "dependencies"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "data-pipelines-distribution",
+        "title": "Data, Pipelines & Distribution",
+        "modules": [
+          {
+            "title": "Data & pipelines en Python (pandas, ETL, Airflow)",
+            "path": "/GevOps_LC/courses/python/module_27_data_pipeline.html",
+            "file": "module_27_data_pipeline.md",
+            "theme": "Data, Pipelines & Distribution",
+            "chapter": 3,
+            "section": 8,
+            "tags": [
+              "python",
+              "data",
+              "pandas",
+              "etl",
+              "airflow"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Python pour DevOps (automation, API cloud, scripts infra)",
+            "path": "/GevOps_LC/courses/python/module_28_python_devops.html",
+            "file": "module_28_python_devops.md",
+            "theme": "Data, Pipelines & Distribution",
+            "chapter": 3,
+            "section": 9,
+            "tags": [
+              "python",
+              "devops",
+              "automation",
+              "cloud",
+              "boto3"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
+            "duration": "105",
+            "mermaid": true
+          },
+          {
+            "title": "Packaging avancé & distribution Python (wheels, CLI, publication)",
+            "path": "/GevOps_LC/courses/python/module_29_packaging_distribution.html",
+            "file": "module_29_packaging_distribution.md",
+            "theme": "Data, Pipelines & Distribution",
+            "chapter": 3,
+            "section": 10,
+            "tags": [
+              "python",
+              "packaging",
+              "wheel",
+              "cli",
+              "distribution",
+              "pypi"
+            ],
+            "type": "lesson",
+            "difficulty": "advanced",
             "duration": "105",
             "mermaid": true
           }

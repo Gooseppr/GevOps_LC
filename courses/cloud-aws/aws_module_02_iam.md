@@ -2,7 +2,7 @@
 layout: page
 title: "IAM — Gestion des identités AWS"
 
-course: AWS SAA
+course: cloud-aws
 theme: "security"
 type: lesson
 

@@ -3,11 +3,11 @@ layout: page
 title: "Accès données & bases en Python (SQL, ORM, transactions)"
 
 course: python
-theme: "python"
+theme: "Concurrence, Logging & Données"
 type: lesson
 
 chapter: 2
-section: 15
+section: 7
 
 tags: python,sql,orm,postgresql,transactions
 difficulty: intermediate

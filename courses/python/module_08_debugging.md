@@ -3,7 +3,7 @@ layout: page
 title: "Debugging & introspection en Python"
 
 course: python
-theme: "python"
+theme: "Erreurs, Fichiers & Scripting"
 type: lesson
 
 chapter: 1

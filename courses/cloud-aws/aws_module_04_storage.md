@@ -2,7 +2,7 @@
 layout: page
 title: "Stockage AWS — S3 / EBS / EFS"
 
-course: AWS SAA
+course: cloud-aws
 theme: "storage"
 type: lesson
 

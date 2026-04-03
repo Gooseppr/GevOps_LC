@@ -3,11 +3,11 @@ layout: page
 title: "Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)"
 
 course: python
-theme: "python"
+theme: "Concurrence, Logging & Données"
 type: lesson
 
 chapter: 2
-section: 14
+section: 6
 
 tags: python,concurrency,threading,multiprocessing,asyncio,gil
 difficulty: intermediate
