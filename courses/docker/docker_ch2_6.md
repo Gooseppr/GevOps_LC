@@ -151,3 +151,77 @@ La gestion des dépendances permet de :
 ## Notes
 
 *Dépendances : éléments nécessaires au fonctionnement d’une application
+
+---
+
+<!-- snippet
+id: docker_deps_node_pattern
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: node,npm,dependances,dockerfile,pattern
+title: Pattern d’installation des dépendances Node.js
+content: Copier package.json en premier, lancer npm install, puis copier le reste du code. Ce pattern exploite le cache Docker pour ne réinstaller les dépendances que si package.json change.
+-->
+
+<!-- snippet
+id: docker_deps_python_pattern
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: python,pip,dependances,dockerfile,pattern
+title: Pattern d’installation des dépendances Python
+content: Copier requirements.txt en premier, lancer pip install -r requirements.txt, puis copier le reste du code. Même logique que Node.js pour optimiser le cache.
+-->
+
+<!-- snippet
+id: docker_piege_versions_non_figees
+type: warning
+tech: docker
+level: intermediate
+importance: low
+format: knowledge
+tags: dependances,versions,stabilite,reproductibilite
+title: Toujours figer les versions des dépendances
+content: Sans versions figées, une dépendance peut se mettre à jour et casser l’application sans que le code ait changé.
+-->
+
+<!-- snippet
+id: docker_piege_versions_non_figees_b
+type: warning
+tech: docker
+level: intermediate
+importance: low
+format: knowledge
+tags: dependances,versions,stabilite,reproductibilite
+title: Utiliser package-lock.json et requirements.txt pour figer les versions
+content: Utiliser package-lock.json pour Node.js et requirements.txt avec versions précises pour Python garantit des builds reproductibles.
+-->
+
+<!-- snippet
+id: docker_tip_deps_avant_code
+type: tip
+tech: docker
+level: beginner
+importance: low
+format: knowledge
+tags: dependances,cache,ordre,dockerfile
+title: Installer les dépendances avant de copier le code
+content: Les dépendances changent rarement par rapport au code applicatif. En les installant en premier, le cache Docker les conserve même quand le code évolue.
+-->
+
+<!-- snippet
+id: docker_deps_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dependances,concept
+title: Définition des dépendances
+content: Les dépendances sont les bibliothèques, frameworks et outils nécessaires au fonctionnement d’une application. Elles doivent être stables et reproductibles d’un environnement à l’autre.
+-->

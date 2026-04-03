@@ -327,3 +327,85 @@ ils assurent un **feedback continu** sur la qualité et la sécurité du code.
 - Les équipes gagnent en **fiabilité**,
 - Le code devient **plus maintenable**,
 - Et les risques de failles **diminuent drastiquement** avant la mise en production.
+
+---
+
+<!-- snippet
+id: sonar_install_docker
+type: command
+tech: sonarqube
+level: beginner
+importance: high
+format: knowledge
+tags: sonarqube,docker,installation,lancement
+title: Lancer SonarQube avec Docker
+context: mettre en place SonarQube localement sans installation complexe
+command: docker run -d --name sonarqube -p 9000:9000 sonarqube:lts
+description: Lance SonarQube en conteneur Docker, accessible sur http://localhost:9000 (admin/admin). Pour la persistance des données, ajouter les volumes -v sonarqube_data:/opt/sonarqube/data et -v sonarqube_extensions:/opt/sonarqube/extensions.
+-->
+
+<!-- snippet
+id: sonar_scanner_manual
+type: command
+tech: sonarqube
+level: intermediate
+importance: high
+format: knowledge
+tags: sonarqube,scanner,cli,analyse,token
+title: Lancer une analyse SonarQube manuellement
+context: analyser la qualité du code d'un projet depuis le terminal
+command: sonar-scanner -Dsonar.projectKey=my_project -Dsonar.sources=src -Dsonar.host.url=http://localhost:9000 -Dsonar.login=my_token
+description: Exécute le scanner SonarQube sur les sources du projet. Le projectKey identifie le projet dans l'interface. Le login est le token d'authentification généré dans SonarQube (Compte → Sécurité → Générer un token).
+-->
+
+<!-- snippet
+id: sonar_gitlab_ci_job
+type: concept
+tech: sonarqube
+level: intermediate
+importance: high
+format: knowledge
+tags: sonarqube,gitlab,ci,pipeline,quality-gate
+title: Intégrer SonarQube dans un pipeline GitLab CI
+context: automatiser l'analyse de qualité du code à chaque merge sur main
+content: Ajouter un job sonarqube-check dans .gitlab-ci.yml avec l'image sonarsource/sonar-scanner-cli:latest. Les variables SONAR_HOST_URL et SONAR_LOGIN (token masqué) doivent être définies dans les variables CI/CD GitLab. Le job se place dans un stage quality après les tests unitaires.
+-->
+
+<!-- snippet
+id: sonar_quality_gate
+type: concept
+tech: sonarqube
+level: intermediate
+importance: high
+format: knowledge
+tags: sonarqube,quality-gate,bloquant,merge,seuil
+title: Quality Gate SonarQube : bloquer les mauvais builds
+context: empêcher le merge de code qui ne respecte pas les seuils de qualité définis
+content: Un Quality Gate est un ensemble de seuils (Coverage > 80%, Bugs = 0, Vulnerabilities = 0, Duplications < 3%) qui détermine si le build est Passed ou Failed. SonarQube affiche une note A à E par axe. Configurer le pipeline pour échouer si le Quality Gate est Failed protège la branche principale.
+-->
+
+<!-- snippet
+id: sonar_key_metrics
+type: concept
+tech: sonarqube
+level: beginner
+importance: medium
+format: knowledge
+tags: sonarqube,bugs,vulnerabilities,code-smell,coverage,dette-technique
+title: Indicateurs clés de SonarQube
+context: interpréter le tableau de bord SonarQube pour prioriser les corrections
+content: SonarQube mesure : Bugs (erreurs logiques susceptibles de provoquer un dysfonctionnement), Vulnerabilities (failles de sécurité connues), Code Smells (mauvaises pratiques de conception = dette technique), Coverage (% de code couvert par les tests, cible > 80%), Duplications (code copié-collé, cible < 3%). Chaque axe reçoit une note de A à E.
+-->
+
+<!-- snippet
+id: sonar_sonarcloud_vs_sonarqube
+type: concept
+tech: sonarqube
+level: beginner
+importance: medium
+format: knowledge
+tags: sonarqube,sonarcloud,saas,comparaison,cloud
+title: SonarQube vs SonarCloud — différences clés
+context: choisir entre l'hébergement local de SonarQube et la version SaaS SonarCloud
+content: SonarQube = installation locale ou Docker (on-premise), gestion manuelle des mises à jour, accès via http://localhost:9000, adapté aux environnements d'entreprise isolés. SonarCloud = version SaaS hébergée par SonarSource, gratuit pour les projets open source, intégration directe GitHub/GitLab sans configuration serveur, accès via https://sonarcloud.io.
+-->

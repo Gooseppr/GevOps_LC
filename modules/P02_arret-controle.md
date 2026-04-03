@@ -115,3 +115,61 @@ Tu obtiens ainsi :
 - un arrêt propre,
 - un journal horodaté,
 - et un environnement prêt à être snapshoté ou éteint.
+
+---
+
+<!-- snippet
+id: infra_shutdown_docker_containers
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: linux,docker,arrêt,conteneurs,compose
+title: Arrêt propre de tous les conteneurs Docker sur un serveur
+context: Stopper Docker Compose et tous les conteneurs avant maintenance ou snapshot
+command: docker compose down 2>/dev/null; docker stop $(docker ps -q) 2>/dev/null; docker rm $(docker ps -aq) 2>/dev/null
+description: Ordre d'arrêt : docker compose down d'abord (arrêt propre avec teardown réseau), puis docker stop sur tous les conteneurs actifs, puis docker rm pour nettoyer. Utiliser command -v docker pour vérifier la présence de Docker avant d'exécuter. Tester l'existence de docker-compose.yml ou docker-compose.yaml avant le compose down.
+-->
+
+<!-- snippet
+id: infra_shutdown_systemd_services
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: linux,systemd,arrêt,services,boucle
+title: Arrêter conditionnellement des services systemd sans erreur
+context: Stopper une liste de services (nginx, mariadb, postgresql, redis) uniquement s'ils sont installés
+command: for svc in nginx mariadb postgresql redis-server mongod; do systemctl list-unit-files | grep -q "^$svc" && systemctl stop "$svc"; done
+description: Vérifie l'existence du service avant de le stopper pour éviter les erreurs "Unit not found". Ne pas inclure `sshd` pour garder l'accès distant.
+-->
+
+<!-- snippet
+id: infra_shutdown_verify_state
+type: command
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,audit,vérification,services,conteneurs
+title: Vérifier l'état résiduel après arrêt des services
+context: Confirmer qu'aucun service applicatif ne tourne encore après le script d'arrêt
+command: systemctl list-units --type=service --state=running | head -n 15 && docker ps
+description: `systemctl` montre les services encore actifs (SSH doit rester). `docker ps` doit retourner vide si tous les conteneurs sont stoppés.
+-->
+
+<!-- snippet
+id: infra_restart_after_shutdown
+type: command
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,redémarrage,services,docker,compose
+title: Redémarrer les services après une maintenance ou un snapshot
+context: Relancer tous les services applicatifs dans le bon ordre après un arrêt contrôlé
+command: sudo systemctl start mariadb postgresql redis-server nginx && sudo docker compose up -d 2>/dev/null || sudo docker-compose up -d 2>/dev/null
+description: Démarre les bases et services web avant les conteneurs pour respecter les dépendances. Fallback `docker-compose` pour les anciennes versions.
+-->

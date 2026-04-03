@@ -1063,3 +1063,99 @@ pipeline {
 Sa force réside dans sa **flexibilité** et sa **puissance d’automatisation**, capable de s’adapter à tout type d’environnement.
 
 En contrepartie, il demande une **expertise plus avancée** que GitLab CI/CD ou GitHub Actions, mais il reste le **standard industriel** dans les grandes entreprises cherchant un contrôle total sur leurs pipelines.
+
+---
+
+<!-- snippet
+id: jenkins_install_linux
+type: command
+tech: jenkins
+level: beginner
+importance: high
+format: knowledge
+tags: jenkins,installation,linux,debian,ubuntu
+title: Installer Jenkins sur Linux (Debian/Ubuntu)
+context: mettre en place un serveur Jenkins sur une machine Linux
+command: sudo apt install fontconfig openjdk-17-jre jenkins -y && sudo systemctl enable --now jenkins
+description: Installe Java 17 (prérequis) et Jenkins, puis active et démarre le service. Jenkins sera accessible sur http://localhost:8080.
+-->
+
+<!-- snippet
+id: jenkins_install_linux_password
+type: command
+tech: jenkins
+level: beginner
+importance: medium
+format: knowledge
+tags: jenkins,installation,linux,password,admin
+title: Récupérer le mot de passe admin initial Jenkins
+context: se connecter pour la première fois à Jenkins après installation
+command: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+description: Affiche le mot de passe généré à l'installation, requis pour la configuration initiale via l'interface web.
+-->
+
+<!-- snippet
+id: jenkins_install_docker
+type: command
+tech: jenkins
+level: beginner
+importance: high
+format: knowledge
+tags: jenkins,docker,installation,conteneur
+title: Lancer Jenkins avec Docker
+context: démarrer rapidement Jenkins dans un conteneur sans installation système
+command: docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk17
+description: Lance Jenkins en conteneur Docker avec persistance des données dans le volume jenkins_home. Port 8080 = interface web, port 50000 = communication avec les agents. Accessible sur http://localhost:8080.
+-->
+
+<!-- snippet
+id: jenkins_jenkinsfile_basic
+type: concept
+tech: jenkins
+level: beginner
+importance: high
+format: knowledge
+tags: jenkins,jenkinsfile,groovy,pipeline,stages
+title: Structure de base d'un Jenkinsfile
+context: écrire un premier pipeline Jenkins déclaratif avec Install, Test, Build
+content: Un Jenkinsfile déclaratif est structuré en pipeline > stages > stage > steps. Les stages sont les étapes logiques, les steps les commandes concrètes.
+-->
+
+<!-- snippet
+id: jenkins_credentials_withcredentials
+type: concept
+tech: jenkins
+level: intermediate
+importance: high
+format: knowledge
+tags: jenkins,credentials,secrets,securite,withcredentials
+title: Injecter des secrets avec withCredentials dans Jenkins
+context: utiliser des tokens, clés SSH ou mots de passe dans un pipeline sans les exposer dans les logs
+content: Les secrets Jenkins sont injectés via withCredentials et restent masqués dans les logs. Ne jamais écrire de secret en clair dans le Jenkinsfile.
+-->
+
+<!-- snippet
+id: jenkins_parallel_stages
+type: concept
+tech: jenkins
+level: intermediate
+importance: medium
+format: knowledge
+tags: jenkins,parallele,stages,performance,pipeline
+title: Exécuter des stages en parallèle dans Jenkins
+context: accélérer un pipeline en lançant simultanément des tests frontend, backend ou de sécurité
+content: Utiliser parallel { stage('A') {...} stage('B') {...} } pour exécuter des stages simultanément et accélérer le pipeline.
+-->
+
+<!-- snippet
+id: jenkins_vs_gitlab_ci
+type: concept
+tech: jenkins
+level: beginner
+importance: medium
+format: knowledge
+tags: jenkins,gitlab,comparaison,choix,cicd
+title: Jenkins vs GitLab CI/CD — quand choisir lequel ?
+context: décider entre Jenkins et GitLab CI selon les contraintes du projet
+content: Jenkins est auto-hébergé, Groovy DSL, +1800 plugins — très flexible mais maintenance à la charge de l'équipe. GitLab CI est en YAML, intégré et géré par GitLab.
+-->

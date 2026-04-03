@@ -310,6 +310,89 @@ Chaque rôle est séparé et maîtrisé :
 6. **Ping par nom** : `ping google.com` (vérifie DNS).
 7. **Firewall/NAT** : règles, tables, journaux.
 
+
+
+<!-- snippet
+id: reseau_ping_test
+type: command
+tech: linux
+level: beginner
+tags: reseau,icmp,diagnostic
+title: Ping de diagnostic réseau
+command: ping 192.168.1.1
+description: Tester la connectivité vers le routeur local ou vers Internet (remplacer l'IP selon la cible)
+-->
+
+<!-- snippet
+id: reseau_lan_wan_concept
+type: concept
+tech: linux
+level: beginner
+tags: reseau,lan,wan,concept
+title: LAN vs WAN
+content: Un LAN (Local Area Network) est un réseau local limité à une zone géographique restreinte. Un WAN (Wide Area Network) relie plusieurs réseaux distants comme Internet. La distinction est fondamentale pour configurer les zones firewall et le NAT.
+-->
+
+<!-- snippet
+id: reseau_dmz_concept
+type: concept
+tech: linux
+level: intermediate
+tags: reseau,dmz,segmentation,securite
+title: DMZ — zone tampon
+content: La DMZ (Demilitarized Zone) est une zone réseau intermédiaire entre Internet (WAN) et le réseau interne (LAN). Elle héberge les services exposés publiquement (web, reverse proxy). L'accès est contrôlé depuis Internet ET depuis le LAN via le firewall.
+-->
+
+<!-- snippet
+id: reseau_nat_concept
+type: concept
+tech: linux
+level: intermediate
+tags: reseau,nat,pat,masquerading
+title: NAT / PAT — partage d'adresse IP publique
+content: Le NAT/PAT traduit plusieurs IP privées en une seule IP publique. Le routeur maintient une table de sessions pour acheminer les réponses au bon client interne.
+-->
+
+<!-- snippet
+id: reseau_nat_concept_b
+type: concept
+tech: linux
+level: intermediate
+tags: reseau,nat,pat,masquerading
+title: NAT ≠ Pare-feu
+content: Le NAT cache les IP internes mais ne filtre pas le trafic. La sécurité est assurée par le pare-feu, pas par le NAT.
+-->
+
+<!-- snippet
+id: reseau_firewall_deny_default
+type: tip
+tech: linux
+level: intermediate
+tags: reseau,firewall,securite,politique
+title: Politique firewall — deny-by-default
+content: Tout bloquer par défaut, n'autoriser que le nécessaire. En pratique : INPUT/FORWARD en DROP, OUTPUT en ACCEPT, puis whitelist ciblée. L'inverse "allow-by-default" est dangereux.
+-->
+
+<!-- snippet
+id: reseau_diagnostic_methode
+type: tip
+tech: linux
+level: beginner
+tags: reseau,diagnostic,debug,methode
+title: Méthode de diagnostic réseau par couches
+content: Diagnostiquer dans l'ordre : lien physique → `ip a` (IPv4 présente ?) → `ip route` (passerelle ?) → ping passerelle → ping 8.8.8.8 → ping par nom (DNS).
+-->
+
+<!-- snippet
+id: reseau_vlan_concept
+type: concept
+tech: linux
+level: intermediate
+tags: reseau,vlan,segmentation,802.1q
+title: VLAN — segmentation logique (802.1Q)
+content: Les VLAN créent des réseaux logiques indépendants sur un même switch. Un port "trunk" transporte plusieurs VLAN, un port "access" n'en porte qu'un. Réduit la surface d'attaque et organise les flux.
+-->
+
 ---
 [Module suivant →](M06_configuration-reseau.md)
 ---

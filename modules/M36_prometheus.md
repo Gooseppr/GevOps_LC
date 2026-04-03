@@ -847,6 +847,102 @@ node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes
     - utiliser les fonctions PromQL les plus courantes (`rate`, `increase`, `sum`, `avg`…),
     - définir des **règles d’alertes** et les envoyer à Alertmanager.
 
+
+
+---
+
+<!-- snippet
+id: prometheus_systemd_service
+type: concept
+tech: prometheus
+level: intermediate
+importance: high
+format: knowledge
+tags: prometheus,systemd,service,linux,prod
+title: Créer un service systemd pour Prometheus en production
+context: faire tourner Prometheus comme service système qui redémarre automatiquement
+content: Créez /etc/systemd/system/prometheus.service avec les options : User=prometheus, ExecStart=/usr/local/bin/prometheus --config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/var/lib/prometheus --web.listen-address=0.0.0.0:9090 --storage.tsdb.retention.time=15d. Activez avec sudo systemctl daemon-reload && sudo systemctl enable prometheus && sudo systemctl start prometheus. L'option --storage.tsdb.retention.time contrôle la durée de rétention des données.
+-->
+
+<!-- snippet
+id: prometheus_promtool_check
+type: command
+tech: prometheus
+level: beginner
+importance: high
+format: knowledge
+tags: prometheus,promtool,validation,config,syntaxe
+title: Valider la configuration Prometheus avec promtool
+context: vérifier la syntaxe du fichier prometheus.yml avant un redémarrage
+command: promtool check config /etc/prometheus/prometheus.yml
+description: Vérifie la syntaxe YAML et la validité des règles d'alerting du fichier de configuration. Évite un crash au démarrage. À exécuter systématiquement avant tout reload ou restart de Prometheus.
+-->
+
+<!-- snippet
+id: prometheus_promql_rate_cpu
+type: concept
+tech: prometheus
+level: intermediate
+importance: high
+format: knowledge
+tags: prometheus,promql,cpu,rate,node-exporter
+title: Calculer le pourcentage d'utilisation CPU avec PromQL
+context: afficher l'usage CPU d'une machine dans Grafana ou dans la console Prometheus
+content: La requête standard est : 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance)). Elle prend le temps CPU idle, calcule son taux sur 5 min, en fait la moyenne par instance, puis soustrait de 100 pour obtenir le pourcentage utilisé. Pour voir le nombre de cœurs : count(node_cpu_seconds_total{mode="idle"}) by (instance).
+-->
+
+<!-- snippet
+id: prometheus_promql_http_error_rate
+type: concept
+tech: prometheus
+level: intermediate
+importance: medium
+format: knowledge
+tags: prometheus,promql,erreurs,http,rate,5xx
+title: Calculer le ratio d'erreurs HTTP 5xx avec PromQL
+context: mesurer le taux d'erreurs d'un service web pour créer une alerte ou un panel Grafana
+content: Le ratio d'erreurs 5xx se calcule avec : sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])). Multipliez par 100 pour obtenir un pourcentage. Utilisez sum(...) by (job) pour ventiler par service. La notation status=~"5.." utilise une regex pour matcher tous les codes 5xx (500, 502, 503...).
+-->
+
+<!-- snippet
+id: prometheus_docker_compose_stack
+type: concept
+tech: prometheus
+level: beginner
+importance: medium
+format: knowledge
+tags: prometheus,grafana,docker-compose,node-exporter,stack
+title: Stack Prometheus + Node Exporter + Grafana (Docker)
+context: monter rapidement un environnement de monitoring complet pour un lab ou un projet
+content: docker-compose.yml avec trois services : prom/prometheus (9090), prom/node-exporter (9100) et grafana/grafana (3000). Dans prometheus.yml, ajoutez un job node_exporter vers node_exporter:9100. Lancez avec `docker compose up -d`, puis connectez Grafana à Prometheus via Configuration → Datasources.
+-->
+
+<!-- snippet
+id: prometheus_alert_instance_down
+type: concept
+tech: prometheus
+level: intermediate
+importance: high
+format: knowledge
+tags: prometheus,alerte,up,instance-down,alertmanager
+title: Règle d'alerte Prometheus pour instance hors service
+context: recevoir une notification dès qu'une cible supervisée ne répond plus depuis 5 minutes
+content: Dans alerts.yml : alert = InstanceDown, expr = up == 0, for = 5m, labels severity = critical, annotations summary = "Instance {{ $labels.instance }} down". Référencez via rule_files dans prometheus.yml. Alertmanager route ensuite vers Slack, email ou webhook.
+-->
+
+<!-- snippet
+id: prometheus_remote_write_influxdb
+type: concept
+tech: prometheus
+level: advanced
+importance: medium
+format: knowledge
+tags: prometheus,remote_write,influxdb,stockage,longue-durée
+title: Configurer remote_write vers InfluxDB pour longue durée
+context: conserver les métriques Prometheus sur plus de 15 jours dans une base longue durée
+content: Dans prometheus.yml, ajoutez remote_write url = "http://influxdb:8086/api/v1/prom/write" et remote_read url = ".../prom/read" avec read_recent = true. Utilisez write_relabel_configs pour filtrer les séries à exporter et éviter les métriques à haute cardinalité.
+-->
+
 ---
 [Module suivant →](M36_prometheus-pratique.md)
 ---

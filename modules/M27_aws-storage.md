@@ -361,6 +361,99 @@ Il couvre :
 
 ![Schéma](../images/recap_aws-storage.png)
 
+
+
+<!-- snippet
+id: aws_s3_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: s3,object-storage,bucket,stockage
+title: Amazon S3 – Object Storage AWS
+context: stocker et servir des fichiers à grande échelle sur AWS
+content: S3 (Simple Storage Service) est le service d'object storage d'AWS. Les données sont stockées sous forme d'objets (données + metadata + identifiant unique) dans des buckets. Durabilité de 11 nines (99,999999999%). Scalabilité quasi infinie. Utilisé pour : médias, backups, data lakes, static hosting, logs, CDN avec CloudFront. Pas un file system : pas de montage NFS/SMB, accès via HTTP/API.
+-->
+
+<!-- snippet
+id: aws_ebs_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: ebs,block-storage,ec2,volumes
+title: Amazon EBS – Block Storage pour EC2
+context: attacher un disque persistant à une instance EC2
+content: EBS (Elastic Block Store) est un volume de stockage en blocs attaché à une instance EC2. Persistant (survit au stop de l'instance), durable (répliqué dans l'AZ). Types : gp3/gp2 (usage général SSD), io1/io2 (IOPS provisionnées), st1 (throughput HDD), sc1 (froid HDD). Les snapshots EBS sont sauvegardés dans S3. Un volume peut être détaché et reattaché à une autre EC2.
+-->
+
+<!-- snippet
+id: aws_efs_concept
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: efs,file-storage,nfs,multi-az
+title: Amazon EFS – File System partagé multi-EC2
+context: partager un système de fichiers entre plusieurs instances EC2
+content: EFS (Elastic File System) est un NFS managé accessible simultanément par des centaines d'instances EC2 ou conteneurs. Multi-AZ par défaut (Standard), scalabilité automatique, paiement à l'usage. Idéal pour : applications CMS (WordPress), home directories, conteneurs nécessitant un stockage partagé. FSx propose des variantes premium : FSx for Lustre (HPC, ML), FSx for Windows (SMB, AD).
+-->
+
+<!-- snippet
+id: aws_s3_storage_classes
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: s3,glacier,classes,coûts,archive
+title: Classes de stockage S3 – Optimiser les coûts
+context: choisir la bonne classe S3 selon la fréquence d'accès
+content: S3 Standard (accès fréquent, production), S3 Intelligent-Tiering (accès variable, AWS gère automatiquement le tier), S3 Standard-IA (backups peu fréquents mais accès rapide), S3 Glacier Instant Retrieval (archives + accès en ms), S3 Glacier Flexible Retrieval (archives long terme, récupération en minutes à heures), S3 Glacier Deep Archive (retention légale > 7 ans, récupération en 12h, le moins cher). Utiliser le Lifecycle pour automatiser les transitions.
+-->
+
+<!-- snippet
+id: aws_instance_store_concept
+type: warning
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: instance-store,éphémère,ec2,cache
+title: Instance Store – Stockage éphémère EC2
+context: comprendre les risques du stockage local éphémère sur EC2
+content: L'Instance Store est un stockage local NVMe directement sur le hardware de l'hôte EC2. Très rapide et gratuit (inclus dans l'instance). MAIS entièrement non persistant : toutes les données sont perdues si l'instance est stoppée, terminée ou si l'hôte tombe en panne. Utiliser uniquement pour : caches, buffers temporaires, scratch data, clusters Hadoop. Ne jamais stocker de données importantes sur Instance Store.
+-->
+
+<!-- snippet
+id: aws_s3_versioning_lifecycle
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: s3,versioning,lifecycle,automatisation
+title: S3 Versioning et Lifecycle
+context: protéger les données S3 contre les suppressions accidentelles et automatiser les transitions
+content: Le versioning S3 conserve toutes les versions d'un objet, protégeant contre les suppressions et écrasements accidentels. 3 états : Unversioned (défaut), Enabled, Suspended. Le Lifecycle automatise les transitions entre classes (ex : J0 Standard → J+30 Standard-IA → J+90 Glacier → J+365 suppression). Indispensable pour les logs, archives et médias afin de réduire les coûts automatiquement.
+-->
+
+<!-- snippet
+id: aws_storage_decision_guide
+type: tip
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: s3,ebs,efs,stockage,architecture
+title: Guide de choix du stockage AWS
+context: choisir rapidement le bon service de stockage AWS
+content: Base de données MySQL sur EC2 → EBS (block, faible latence). Fichiers partagés entre plusieurs EC2 Linux → EFS (NFS managé). Stockage objet, médias, backups, site statique → S3. Cache temporaire ultra rapide sur EC2 → Instance Store (éphémère). Workloads Windows avec SMB/AD → FSx for Windows. HPC et Machine Learning → FSx for Lustre. On-premises avec object storage → S3 Outposts.
+-->
+
 ---
 [Module suivant →](M27_Content-delivery-network.md)
 ---

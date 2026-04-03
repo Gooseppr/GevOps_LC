@@ -571,6 +571,89 @@ Tu connais maintenant :
 - les configs pour Node, React, TS
 - l'intégration VS Code / CI / Husky
 
+
+
+<!-- snippet
+id: cicd_eslint_install
+type: command
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: eslint,installation,javascript
+title: Installer ESLint en dépendance de développement
+context: mettre en place ESLint sur un projet JavaScript ou TypeScript
+command: npm install eslint --save-dev
+description: Installe ESLint comme dépendance de dev dans le projet. Après l'installation, lancer npx eslint --init pour générer la configuration.
+-->
+
+<!-- snippet
+id: cicd_eslint_init
+type: command
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: eslint,init,configuration,javascript
+title: Initialiser la configuration ESLint avec l'assistant
+context: générer un fichier .eslintrc.* adapté au projet après installation
+command: npx eslint --init
+description: Lance l'assistant interactif qui génère un fichier .eslintrc.* selon le type de projet (Node, React, TypeScript) et le style choisi (Airbnb, Standard, Google).
+-->
+
+<!-- snippet
+id: cicd_eslint_fix
+type: command
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: eslint,fix,correction,automatique
+title: Corriger automatiquement les erreurs ESLint
+context: appliquer les corrections auto-fixables sur tout un projet JavaScript
+command: npx eslint . --fix
+description: Analyse tous les fichiers JS/TS et applique automatiquement les corrections possibles (formatage, quotes, semi-colons, etc.). Les erreurs non auto-fixables restent signalées dans la sortie standard.
+-->
+
+<!-- snippet
+id: cicd_eslint_ci_job
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: eslint,gitlab,ci,lint,pipeline
+title: Intégrer ESLint dans un pipeline CI (GitLab, GitHub, Azure)
+context: bloquer automatiquement les commits non conformes aux règles de style
+content: Dans GitLab CI : job avec image node:18, script npm ci && npx eslint . Le job échoue si ESLint trouve des erreurs (exit code 1), bloquant ainsi la MR. Même pattern pour GitHub Actions (run: npx eslint .) et Azure DevOps (script: npx eslint .).
+-->
+
+<!-- snippet
+id: cicd_eslint_husky_lint_staged
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: eslint,husky,lint-staged,pre-commit,git
+title: Bloquer les commits avec Husky + lint-staged
+context: empêcher de commiter du code JavaScript non conforme aux règles ESLint
+content: Installer husky et lint-staged (npm install husky lint-staged --save-dev && npx husky init). Dans .husky/pre-commit, ajouter npx lint-staged. Dans package.json, configurer "lint-staged": {"*.js": "eslint --fix"}. Résultat : ESLint s'exécute et corrige automatiquement à chaque commit.
+-->
+
+<!-- snippet
+id: cicd_eslint_typescript_config
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: eslint,typescript,parser,plugin,configuration
+title: Configurer ESLint pour un projet TypeScript
+context: adapter ESLint à la syntaxe TypeScript pour bénéficier du typage dans le linting
+content: Installer @typescript-eslint/parser et @typescript-eslint/eslint-plugin. Dans .eslintrc : "parser": "@typescript-eslint/parser", "plugins": ["@typescript-eslint"], "extends": ["plugin:@typescript-eslint/recommended"]. Règles clés : no-explicit-any (warn) et ban-types (error).
+-->
+
 ---
 [← Module précédent](M20_Cours-CD-Approfondi.md)
 ---

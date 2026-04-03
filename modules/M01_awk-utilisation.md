@@ -334,6 +334,94 @@ awk '{gsub(/,/, ".", $2); print $1,$2}' file
     
     ```
 
+
+
+<!-- snippet
+id: awk_print_colonnes
+type: command
+tech: bash
+level: beginner
+tags: awk,colonnes,affichage
+title: Afficher des colonnes spécifiques avec AWK
+command: awk '{print $1,$3}' fichier
+description: Affiche les colonnes 1 et 3 séparées par un espace
+-->
+
+<!-- snippet
+id: awk_filtre_csv
+type: command
+tech: bash
+level: beginner
+tags: awk,csv,filtre,entete
+title: Filtrer un CSV en gardant l'entête et les lignes > seuil
+command: awk -F',' 'NR==1{print; next} ($3+0) > 100' donnees.txt
+description: NR==1 conserve l'entête, ($3+0) force l'interprétation numérique
+-->
+
+<!-- snippet
+id: awk_somme_moyenne
+type: command
+tech: bash
+level: intermediate
+tags: awk,calcul,moyenne,somme
+title: Calculer somme et moyenne avec AWK
+command: awk '{n++; sum+=$2} END{ if(n) printf "%.2f\n", sum/n }' fichier
+description: Accumule la colonne 2 et affiche la moyenne dans le bloc END
+-->
+
+<!-- snippet
+id: awk_regroupement
+type: command
+tech: bash
+level: intermediate
+tags: awk,groupby,agregation,tableau-associatif
+title: Compter les occurrences par clé (group by)
+command: awk '{c[$1]++} END{for(k in c) print k, c[k]}' fichier
+description: Utilise un tableau associatif pour compter les fréquences par valeur de la colonne 1
+-->
+
+<!-- snippet
+id: awk_variable_shell
+type: command
+tech: bash
+level: intermediate
+tags: awk,variable,shell,parametre
+title: Passer une variable shell à AWK avec -v
+command: awk -v s="$seuil" '$2 >= s {print $1,$2}' notes.txt
+description: L'option -v injecte une variable shell dans l'espace AWK
+-->
+
+<!-- snippet
+id: awk_concept_pattern_action
+type: concept
+tech: bash
+level: beginner
+tags: awk,pattern,action,syntaxe
+title: Syntaxe Pattern → Action d'AWK
+content: AWK lit le flux ligne par ligne. PATTERN filtre les lignes (expression, regex, NR, NF...). ACTION s'applique aux lignes qui matchent. Sans pattern, l'action s'applique à toutes les lignes.
+-->
+
+<!-- snippet
+id: awk_warning_cat_pipe
+type: warning
+tech: bash
+level: beginner
+tags: awk,pipe,cat,antipattern
+title: Eviter cat file | awk (UUOC)
+content: Faire `cat file | awk ...` est inutile. AWK accepte directement un fichier en argument : `awk '...' fichier`. Idem pour `grep ... | awk ...` : intègre la condition directement dans AWK.
+-->
+
+<!-- snippet
+id: awk_ip_extract
+type: command
+tech: bash
+level: intermediate
+tags: awk,ip,split,reseau
+title: Extraire une IP sans le masque CIDR
+command: ip addr show enp0s3 | awk '/inet /{ split($2,a,"/"); print a[1] }'
+description: Isole la partie IP de la forme 10.0.2.15/24 grâce à split() sur le séparateur /
+-->
+
 ---
 [← Module précédent](M01_sed-utilisation.md)
 ---

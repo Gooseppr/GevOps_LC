@@ -165,3 +165,80 @@ Le build permet de :
 ## Notes
 
 *Build : processus de création d’une image Docker
+
+---
+
+<!-- snippet
+id: docker_build_image_standard
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: build,image,dockerfile
+title: Construire une image depuis le dossier courant
+command: docker build -t mon-app .
+description: -t nomme l’image, le point désigne le contexte de build (dossier courant)
+-->
+
+<!-- snippet
+id: docker_build_custom_dockerfile
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: build,dockerfile,fichier-alternatif
+title: Construire avec un Dockerfile alternatif
+command: docker build -f Dockerfile.dev -t mon-app .
+description: Utile pour avoir plusieurs Dockerfile selon l’environnement (dev, prod, test)
+-->
+
+<!-- snippet
+id: docker_images_list
+type: command
+tech: docker
+level: beginner
+importance: low
+format: knowledge
+tags: image,liste
+title: Voir les images disponibles localement
+command: docker images
+description: Affiche la liste des images locales avec leur nom, tag, identifiant et taille
+-->
+
+<!-- snippet
+id: docker_build_context_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: build,contexte,fichiers
+title: Contexte de build
+content: Le contexte de build correspond à tous les fichiers envoyés à Docker lors du build. Par défaut, c’est l’intégralité du dossier courant.
+-->
+
+<!-- snippet
+id: docker_piege_contexte_lourd
+type: warning
+tech: docker
+level: intermediate
+importance: low
+format: knowledge
+tags: build,contexte,performance,dockerignore
+title: Contexte de build trop lourd ralentit le build
+content: Si le dossier courant contient des fichiers lourds (node_modules, logs, assets), le build devient lent. Il faut utiliser un fichier .dockerignore pour exclure ces fichiers du contexte.
+-->
+
+<!-- snippet
+id: docker_tip_dossier_courant
+type: tip
+tech: docker
+level: beginner
+importance: low
+format: knowledge
+tags: build,organisation
+title: Toujours vérifier le dossier courant avant le build
+content: Docker lit le Dockerfile depuis le dossier courant. Se trouver dans le mauvais dossier est une erreur fréquente qui provoque un build incorrect ou raté.
+-->

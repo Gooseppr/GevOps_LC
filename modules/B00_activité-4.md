@@ -265,3 +265,81 @@ flowchart TD
 - J’ai ajouté **docker-compose.yml** pour lancer facilement en local (`build: .` = lien vers le Dockerfile).
 - J’ai déployé sur **Vercel** via le repo Git (déploiement auto, HTTPS, serverless).
 - Je testais avec **curl**, et je m’aidais des logs pour comprendre les erreurs.
+
+---
+
+<!-- snippet
+id: bash_docker_compose_build
+type: command
+tech: bash
+level: beginner
+tags: docker,compose,build,local
+title: Lancer l’API en local avec Docker Compose
+command: docker compose up --build
+description: Construit l’image Docker et démarre le conteneur en premier plan
+-->
+
+<!-- snippet
+id: bash_docker_compose_detach
+type: command
+tech: bash
+level: beginner
+tags: docker,compose,arrière-plan
+title: Lancer Docker Compose en arrière-plan
+command: docker compose up -d --build
+description: Lance le conteneur en mode détaché (arrière-plan)
+-->
+
+<!-- snippet
+id: bash_docker_compose_logs
+type: command
+tech: bash
+level: beginner
+tags: docker,logs,suivi
+title: Suivre les logs d’un conteneur Compose
+command: docker compose logs -f
+description: Affiche les logs en temps réel (équivalent tail -f)
+-->
+
+<!-- snippet
+id: bash_docker_compose_down
+type: command
+tech: bash
+level: beginner
+tags: docker,compose,nettoyage
+title: Stopper et supprimer les conteneurs Compose
+command: docker compose down
+description: Arrête et supprime les conteneurs définis dans le compose
+-->
+
+<!-- snippet
+id: bash_curl_healthcheck
+type: command
+tech: bash
+level: beginner
+tags: curl,api,test,http
+title: Tester le endpoint /health d’une API locale
+command: curl http://localhost:8000/health
+description: Vérifie que l’API répond correctement sur son port local
+-->
+
+<!-- snippet
+id: bash_curl_post_file
+type: command
+tech: bash
+level: intermediate
+tags: curl,api,upload,multipart
+title: Envoyer un fichier XML à une API via curl
+command: curl -X POST "http://localhost:8000/validate" -F "file=@./exemples/mon_fichier.xml"
+description: Soumet un fichier en multipart/form-data à un endpoint de validation
+-->
+
+<!-- snippet
+id: bash_docker_concept_dockerfile_vs_compose
+type: concept
+tech: bash
+level: beginner
+tags: docker,dockerfile,compose,architecture
+title: Dockerfile vs Docker Compose
+content: Dockerfile = recette pour fabriquer l’image (code + dépendances + config). Docker Compose = façon de lancer le conteneur facilement en local. Le lien entre les deux est `build: .` dans le compose.
+-->

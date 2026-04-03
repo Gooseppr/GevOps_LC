@@ -291,6 +291,126 @@ Stratégie **expand/contract** :
 
 > *“Déployer, c’est ouvrir le robinet du trafic sur une version saine, et pouvoir le refermer immédiatement.”*
 
+
+
+<!-- snippet
+id: cicd_cd_strategies
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: cd,rolling,blue-green,canary,strategie-deploiement
+title: Stratégies de déploiement en CD (Rolling, Blue/Green, Canary)
+context: choisir la bonne stratégie pour minimiser le risque lors d'une mise en production
+content: Rolling = remplacement progressif des instances, simple mais impact partiel si bug. Blue/Green = deux environnements parallèles, bascule d'un coup, rollback instantané (double coût).
+-->
+
+<!-- snippet
+id: cicd_cd_canary
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: cd,canary,trafic,pourcentage,regression
+title: Stratégie Canary : déploiement progressif par pourcentage de trafic
+context: détecter les régressions en production avant d'exposer tous les utilisateurs
+content: Canary envoie X% du trafic vers la nouvelle version, puis augmente progressivement après observation. Il détecte les régressions tôt et permet un rollback partiel.
+-->
+
+<!-- snippet
+id: cicd_cd_immutable_artifact
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: cd,artefact,immuable,promotion,version
+title: Artefact immuable et promotion d'environnement
+context: garantir que le même binaire est déployé de staging en prod sans rebuild
+content: Un artefact immuable est une version figée (ex. image Docker taguée app:1.4.3). On déploie le même artefact de dev → staging → prod sans jamais rebuilder entre environnements.
+-->
+
+<!-- snippet
+id: cicd_cd_promotion_guarantee
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: cd,promotion,artefact,staging,prod
+title: La promotion garantit que staging et prod exécutent le même binaire
+context: comprendre pourquoi on ne rebuilde pas entre environnements en CD
+content: Rebuilder entre staging et prod risque d'introduire des différences (cache, dépendances, timestamp). Promouvoir le même artefact immuable garantit que ce qui passe en staging est exactement ce qui va en prod.
+-->
+
+<!-- snippet
+id: cicd_vercel_rollback
+type: command
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: vercel,cd,rollback,deploiement
+title: Rollback instantané avec Vercel CLI
+context: revenir rapidement à une version précédente après un incident en production Vercel
+command: vercel rollback <deployment-id>
+description: Revient instantanément à un déploiement précédent identifié par son ID. Utiliser `vercel ls` pour lister les déploiements disponibles et trouver l'ID cible.
+-->
+
+<!-- snippet
+id: cicd_cd_gitlab_manual_approval
+type: concept
+tech: cicd
+level: advanced
+importance: high
+format: knowledge
+tags: gitlab,cd,approval,when-manual,gate
+title: Gate humain (approbation manuelle) dans GitLab CD
+context: protéger la production en exigeant une validation humaine avant le déploiement
+content: `when: manual` transforme un job en bouton déclenchable depuis l'interface GitLab. Combiné à `allow_failure: false`, il bloque les jobs suivants tant qu'il n'est pas déclenché.
+-->
+
+<!-- snippet
+id: cicd_cd_gitlab_approval_needs
+type: tip
+tech: cicd
+level: advanced
+importance: high
+format: knowledge
+tags: gitlab,cd,approval,needs,séquence
+title: Forcer la séquence approbation → déploiement avec needs
+context: s'assurer que le job de déploiement ne peut pas démarrer sans approbation humaine
+content: Utiliser `needs: [approve_prod]` sur le job deploy pour forcer la séquence : approbation d'abord, déploiement ensuite. Sans needs, GitLab pourrait démarrer deploy indépendamment.
+-->
+
+<!-- snippet
+id: cicd_cd_smoke_test
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: cd,smoke-test,healthz,verification,post-deploiement
+title: Smoke test post-déploiement avec curl
+context: valider qu'une application est fonctionnelle immédiatement après déploiement en production
+content: Un smoke test minimal appelle /healthz avec curl -fsS. Si le code HTTP n'est pas 2xx, le job CI échoue et déclenche un rollback.
+-->
+
+<!-- snippet
+id: cicd_cd_smoke_test_b
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: cd,smoke-test,verify,stage,needs
+title: Placer le smoke test dans le bon stage du pipeline
+context: structurer correctement le pipeline CD pour que le smoke test s'exécute après le déploiement
+content: Le smoke test doit s'exécuter dans un stage verify après le deploy, avec needs pointant sur le job de déploiement.
+-->
+
 ---
 [Module suivant →](M20_eslint.md)
 ---

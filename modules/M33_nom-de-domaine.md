@@ -429,3 +429,87 @@ Certbot :
 
 - Modifie Nginx pour activer **HTTPS**,
 - Met en place un **renouvellement automatique** via `cron` ou `systemd`.
+
+---
+
+<!-- snippet
+id: nginx_dig_record_a
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: dns,dig,record-a,diagnostic
+title: Interroger l'enregistrement A d'un domaine avec dig
+context: vérifier qu'un domaine résout bien vers la bonne adresse IP
+command: dig +short google.com A
+description: Affiche uniquement l'adresse IPv4 associée au domaine. Utilisez dig +trace pour voir toute la chaîne de résolution depuis les serveurs racine.
+-->
+
+<!-- snippet
+id: nginx_dig_mx
+type: command
+tech: nginx
+level: beginner
+importance: medium
+format: knowledge
+tags: dns,dig,mx,mail
+title: Vérifier les enregistrements MX d'un domaine
+context: diagnostiquer des problèmes de réception d'email ou confirmer la configuration mail
+command: dig +short google.com MX
+description: Affiche les serveurs de messagerie et leur priorité. Plus la valeur de priorité est faible, plus le serveur est préféré (ex : 10 avant 20).
+-->
+
+<!-- snippet
+id: nginx_certbot_nginx
+type: command
+tech: nginx
+level: intermediate
+importance: high
+format: knowledge
+tags: certbot,letsencrypt,https,nginx,certificat
+title: Obtenir un certificat Let's Encrypt pour Nginx avec Certbot
+context: activer HTTPS automatiquement sur un domaine avec Nginx
+command: sudo certbot --nginx -d monsite.com -d www.monsite.com
+description: Demande un certificat Let's Encrypt et modifie automatiquement la configuration Nginx. Installer Certbot au préalable : `sudo apt install certbot python3-certbot-nginx`.
+-->
+
+<!-- snippet
+id: nginx_dns_zone_records_concept
+type: concept
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: dns,zone,enregistrements,A,CNAME,MX,TXT
+title: Types d'enregistrements DNS essentiels dans une zone
+context: configurer une zone DNS pour un nouveau domaine ou un sous-domaine
+content: Les principaux enregistrements DNS sont : A (nom → IPv4), AAAA (nom → IPv6), CNAME (alias → autre nom, ne pas utiliser sur le domaine racine @), MX (serveurs mail avec priorité), TXT (SPF, DKIM, vérifications de domaine), NS (serveurs DNS autoritatifs), CAA (autorités de certification autorisées, ex : letsencrypt.org). Le TTL détermine la durée de mise en cache et donc la vitesse de propagation lors d'un changement.
+-->
+
+<!-- snippet
+id: nginx_dns_propagation_tip
+type: tip
+tech: nginx
+level: beginner
+importance: medium
+format: knowledge
+tags: dns,ttl,propagation,conseil
+title: Réduire le TTL avant un changement DNS critique
+context: préparer une migration de domaine ou un changement d'IP sans interruption prolongée
+content: Avant de changer l'IP d'un enregistrement A, réduisez le TTL à 300 secondes (5 min) 24 à 48h à l'avance. Ainsi, lors du changement réel, les résolveurs DNS du monde entier adopteront la nouvelle valeur rapidement. Après la migration, remontez le TTL à sa valeur habituelle (3600 ou plus).
+-->
+
+<!-- snippet
+id: nginx_nslookup_debug
+type: command
+tech: nginx
+level: beginner
+importance: low
+format: knowledge
+tags: nslookup,dns,diagnostic,windows
+title: Diagnostiquer un enregistrement DNS avec nslookup
+context: vérifier la résolution DNS depuis Windows ou comparer deux résolveurs
+command: nslookup -type=MX example.com 8.8.8.8
+description: Interroge le DNS de Google (8.8.8.8) pour les enregistrements MX du domaine. Pratique pour comparer la réponse de son FAI avec un DNS public et détecter des problèmes de propagation.
+-->

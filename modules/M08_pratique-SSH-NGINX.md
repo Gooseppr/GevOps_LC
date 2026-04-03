@@ -633,6 +633,210 @@ ss -tunp | grep ESTAB
 - Étudier Meterpreter (payload avancé) pour post-exploitation contrôlée
 - Apprendre la mitigation avancée : SELinux/AppArmor, eBPF pour monitoring réseau, gestion centralisée des logs (ELK/Wazuh)
 
+
+
+<!-- snippet
+id: ssh_connexion_base
+type: command
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,connexion,client
+title: Se connecter à un serveur SSH
+context: accéder à un serveur distant via SSH
+command: ssh user@IP
+description: Établit une connexion SSH vers le serveur distant. À la première connexion, l'empreinte de l'hôte est enregistrée dans ~/.ssh/known_hosts
+-->
+
+<!-- snippet
+id: ssh_changer_port
+type: command
+tech: ssh
+level: intermediate
+importance: high
+format: knowledge
+tags: ssh,port,sshd_config,durcissement
+title: Valider et appliquer un changement de port SSH
+context: modifier le port d'écoute du serveur SSH sans se couper l'accès
+command: sudo systemctl restart ssh
+description: Applique les changements de sshd_config. Valider la syntaxe au préalable avec `sudo sshd -t`. Ne jamais redémarrer sans session ouverte en parallèle.
+-->
+
+<!-- snippet
+id: ssh_keygen_ed25519
+type: command
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,cle,ed25519,keygen
+title: Générer une paire de clés SSH Ed25519
+context: créer des clés SSH pour l'authentification sans mot de passe
+command: ssh-keygen -t ed25519 -f ~/.ssh/monprofil -C "monprofil@ma-machine"
+description: Génère une paire de clés Ed25519 (recommandée). La clé privée est dans ~/.ssh/monprofil et la clé publique dans ~/.ssh/monprofil.pub
+-->
+
+<!-- snippet
+id: ssh_deployer_cle
+type: command
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,cle,authorized_keys,deploiement
+title: Déployer sa clé publique sur un serveur SSH
+context: autoriser l'authentification par clé sur un serveur distant
+command: ssh-copy-id -i ~/.ssh/monprofil.pub -p 22 user@IP
+description: Copie la clé publique dans ~/.ssh/authorized_keys du serveur cible. Demande le mot de passe une dernière fois, puis les connexions suivantes se feront par clé.
+-->
+
+<!-- snippet
+id: ssh_desactiver_password
+type: warning
+tech: ssh
+level: intermediate
+importance: high
+format: knowledge
+tags: ssh,securite,password,durcissement
+title: Désactiver l'authentification par mot de passe SSH
+context: durcir un serveur SSH après avoir déployé les clés
+content: Avant de désactiver les mots de passe, vérifier que l'authentification par clé fonctionne depuis une session déjà ouverte. Si la clé n'est pas en place, on se retrouve définitivement bloqué.
+-->
+
+<!-- snippet
+id: ssh_desactiver_password_b
+type: warning
+tech: ssh
+level: intermediate
+importance: high
+format: knowledge
+tags: ssh,securite,password,durcissement
+title: Directives sshd_config pour désactiver les mots de passe
+context: modifier sshd_config pour forcer l'authentification par clé
+content: Dans `/etc/ssh/sshd_config` : `PasswordAuthentication no`, `PermitRootLogin no`, `PubkeyAuthentication yes`. Valider avec `sudo sshd -t` avant de relancer le service.
+-->
+
+<!-- snippet
+id: nginx_test_reload
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: nginx,config,reload,validation
+title: Valider et recharger la configuration Nginx
+context: appliquer des modifications Nginx sans coupure de service
+command: sudo nginx -t && sudo systemctl reload nginx
+description: Vérifie la syntaxe Nginx puis recharge sans couper les connexions actives. Ne jamais recharger sans la validation préalable.
+-->
+
+<!-- snippet
+id: nginx_alias_location
+type: concept
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: nginx,location,alias,root,vhost
+title: Différence alias vs root dans un bloc location Nginx
+context: servir un sous-dossier depuis un chemin différent de la racine principale
+content: `root` concatène le préfixe URI au chemin (`root /var/www` + `/intranet/` → `/var/www/intranet/`). `alias` remplace le préfixe URI par le chemin déclaré — utiliser quand l'URL diffère du chemin réel.
+-->
+
+<!-- snippet
+id: nginx_alias_location_b
+type: concept
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: nginx,location,alias,root,vhost
+title: Règle du slash final avec alias dans Nginx
+context: éviter un bug fréquent avec la directive alias
+content: Toujours terminer la valeur de `alias` par un slash si le `location` se termine par un slash. Un slash manquant provoque des erreurs 404 aléatoires.
+-->
+
+<!-- snippet
+id: nginx_debug_logs
+type: command
+tech: nginx
+level: beginner
+importance: medium
+format: knowledge
+tags: nginx,logs,debug,erreur
+title: Surveiller les logs Nginx en temps réel
+context: diagnostiquer une erreur 403, 404 ou 500 sur Nginx
+command: sudo tail -f /var/log/nginx/error.log
+description: Affiche les erreurs Nginx en temps réel. Combiner avec /var/log/nginx/access.log pour voir les requêtes entrantes. Un 403 pointe souvent vers un problème de droits sur /var/www/.
+-->
+
+<!-- snippet
+id: ssh_debug_connexion
+type: command
+tech: ssh
+level: intermediate
+importance: medium
+format: knowledge
+tags: ssh,debug,verbose,diagnostic
+title: Déboguer une connexion SSH en mode verbeux
+context: diagnostiquer un échec d'authentification SSH côté client
+command: ssh -vvv -p 22 -i ~/.ssh/monprofil user@IP
+description: Affiche les détails complets de la négociation SSH (algorithmes, clé proposée, raison du refus). Indispensable pour comprendre un "Permission denied (publickey)".
+-->
+
+<!-- snippet
+id: ssh_droits_authorized_keys
+type: warning
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,permissions,authorized_keys,chmod
+title: Droits corrects sur ~/.ssh et authorized_keys
+context: corriger un refus d'authentification SSH par clé malgré une clé valide
+content: OpenSSH refuse `authorized_keys` si les permissions sont trop permissives. Appliquer `chmod 700 ~/.ssh` et `chmod 600 ~/.ssh/authorized_keys` — première cause d'un "Permission denied (publickey)".
+-->
+
+<!-- snippet
+id: ssh_droits_authorized_keys_b
+type: warning
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,permissions,authorized_keys,chmod
+title: Le répertoire HOME doit appartenir à l'utilisateur
+context: corriger les droits du répertoire home pour SSH
+content: Le répertoire HOME doit être ≤ 755 et appartenir à l'utilisateur (pas à root). Des droits trop larges ou un mauvais propriétaire empêchent SSH d'utiliser les clés.
+-->
+
+<!-- snippet
+id: nginx_reverse_proxy
+type: concept
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: nginx,proxy,reverse-proxy,backend
+title: Bloc reverse proxy basique dans Nginx
+context: faire transiter les requêtes d'un chemin URL vers un service backend local
+content: Dans un `location /api/`, `proxy_pass http://127.0.0.1:3000/` transmet la requête au backend. `proxy_set_header Host $host` et `X-Real-IP $remote_addr` propagent l'hôte et l'IP client.
+-->
+
+<!-- snippet
+id: nginx_reverse_proxy_b
+type: concept
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: nginx,proxy,reverse-proxy,backend
+title: Slash final dans proxy_pass — comportement critique
+context: comprendre l'impact du slash final dans la directive proxy_pass
+content: Le slash final dans `proxy_pass http://127.0.0.1:3000/` retire le préfixe `/api/` de l'URI transmise au backend. Sans slash, le préfixe est conservé dans l'URL reçue par le backend.
+-->
+
 ---
 [← Module précédent](M08_securite.md)
 ---

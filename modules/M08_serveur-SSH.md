@@ -486,6 +486,118 @@ ssh -D 1080 debian@192.168.1.4
 
 ```
 
+
+
+<!-- snippet
+id: ssh_keygen_gen
+type: command
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,keygen,ed25519,cle
+title: Générer une clé SSH Ed25519
+context: créer une paire de clés pour l'authentification sans mot de passe
+command: ssh-keygen -t ed25519 -f ~/.ssh/mykey -N ""
+description: Génère une paire de clés Ed25519 sans passphrase (adapté à l'automatisation). Pour un usage interactif, omettre `-N ""` afin de saisir une passphrase. Clé privée : ~/.ssh/mykey, clé publique : ~/.ssh/mykey.pub.
+-->
+
+<!-- snippet
+id: ssh_copy_id
+type: command
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,cle,authorized_keys,deploiement
+title: Déployer une clé publique SSH sur un serveur
+context: autoriser l'accès par clé avant de désactiver les mots de passe
+command: ssh-copy-id -i ~/.ssh/mykey.pub debian@192.168.1.4
+description: Ajoute la clé publique dans ~/.ssh/authorized_keys sur le serveur cible. Demande le mot de passe une dernière fois. Si ssh-copy-id est absent, utiliser : `cat ~/.ssh/mykey.pub | ssh user@IP 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'`.
+-->
+
+<!-- snippet
+id: ssh_install_serveur
+type: command
+tech: ssh
+level: beginner
+importance: high
+format: knowledge
+tags: ssh,openssh,installation,service
+title: Installer et activer le serveur SSH OpenSSH
+context: préparer un serveur Debian/Ubuntu pour accepter des connexions SSH
+command: sudo apt update && sudo apt install -y openssh-server && sudo systemctl enable --now ssh
+description: Installe OpenSSH Server, l'active au démarrage et le lance immédiatement. Vérifier ensuite avec `sudo systemctl status ssh` et `ss -ltnp | grep :22`.
+-->
+
+<!-- snippet
+id: ssh_sshd_config_durcissement
+type: concept
+tech: ssh
+level: intermediate
+importance: high
+format: knowledge
+tags: ssh,sshd_config,durcissement,securite
+title: Directives clés de durcissement dans sshd_config
+context: configurer un serveur SSH conforme aux bonnes pratiques de sécurité
+content: Directives essentielles dans /etc/ssh/sshd_config : `PermitRootLogin no` (interdire root direct), `PasswordAuthentication no` (clés obligatoires), `PubkeyAuthentication yes`, `MaxAuthTries 3`, `LoginGraceTime 30`, `AllowUsers user1 user2` (liste blanche). Toujours valider avec `sudo sshd -t` avant `sudo systemctl reload ssh`. Chaque directive réduit une surface d'attaque spécifique.
+-->
+
+<!-- snippet
+id: ssh_tunnel_local
+type: command
+tech: ssh
+level: intermediate
+importance: medium
+format: knowledge
+tags: ssh,tunnel,port-forwarding,proxy
+title: Créer un tunnel SSH local vers un service distant
+context: accéder à un service distant (base de données, interface web) comme s'il était local
+command: ssh -i ~/.ssh/mykey -L 5432:127.0.0.1:5432 debian@192.168.1.4
+description: Redirige le port local 5432 vers le port 5432 du serveur distant via le tunnel SSH. Après connexion, se connecter à 127.0.0.1:5432 localement pour joindre le service distant. Remplacer les ports selon le service cible (80, 8080, 3306, etc.).
+-->
+
+<!-- snippet
+id: ssh_proxyjump
+type: command
+tech: ssh
+level: advanced
+importance: medium
+format: knowledge
+tags: ssh,bastion,proxyjump,multi-sauts
+title: Connexion SSH via un bastion (ProxyJump)
+context: atteindre un serveur interne en passant par un hôte de rebond
+command: ssh -J bastion@1.2.3.4 debian@192.168.1.4
+description: Utilise le bastion 1.2.3.4 comme rebond pour atteindre 192.168.1.4. Évite d'exposer directement les serveurs internes. Déclarable de façon permanente dans ~/.ssh/config avec `ProxyJump bastion`.
+-->
+
+<!-- snippet
+id: ssh_fail2ban
+type: tip
+tech: ssh
+level: intermediate
+importance: high
+format: knowledge
+tags: ssh,fail2ban,bruteforce,securite
+title: Protéger SSH contre la force brute avec Fail2ban
+context: bloquer automatiquement les IP qui enchaînent les échecs de connexion SSH
+content: Installer Fail2ban : `sudo apt install -y fail2ban`. Créer /etc/fail2ban/jail.local avec `[sshd]`, `enabled = true`, `maxretry = 5`, `bantime = 3600`. Relancer avec `sudo systemctl restart fail2ban`. Contrôler avec `sudo fail2ban-client status sshd`. Fail2ban analyse auth.log et bloque les IP via iptables/nftables après le nombre de tentatives configuré.
+-->
+
+<!-- snippet
+id: ssh_rsync
+type: command
+tech: ssh
+level: intermediate
+importance: medium
+format: knowledge
+tags: ssh,rsync,transfert,synchronisation,devops
+title: Synchroniser des fichiers vers un serveur via rsync/SSH
+context: déployer des fichiers ou synchroniser un dossier de façon différentielle
+command: rsync -avz -e "ssh -i ~/.ssh/mykey" ./site/ debian@192.168.1.4:/var/www/site/
+description: Transfère uniquement les fichiers modifiés (différentiel) en utilisant SSH comme transport. Plus efficace que scp pour les déploiements répétés. `-a` préserve les attributs, `-v` mode verbeux, `-z` compression.
+-->
+
 ---
 [Module suivant →](M08_securite.md)
 ---

@@ -613,4 +613,89 @@ Tu as construit une chaîne DevOps complète :
 
 ---
 [← Module précédent](M41_projet-J1-swarm.md)
+
+---
+
+<!-- snippet
+id: ansible_pro_swarm_inventory_groups
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,inventory,swarm,groupes
+title: Structure d'inventaire Ansible pour Docker Swarm
+context: Organiser un inventaire Ansible avec séparation manager/worker et clé SSH
+content: L'inventaire distingue [swarm_managers] et [swarm_workers] avec une variable swarm_role (app ou db). Le groupe [swarm_all:children] agrège les deux. La clé SSH est définie via ansible_ssh_private_key_file.
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_inventory_groups_b
+type: tip
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,inventory,swarm,groupes
+title: Ajouter les hôtes dans known_hosts avant un déploiement Ansible
+context: Organiser un inventaire Ansible avec séparation manager/worker et clé SSH
+content: Ajoutez les hôtes dans known_hosts avec ssh-keyscan pour éviter les prompts de confirmation lors de la première connexion Ansible.
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_init_idempotent
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,swarm,init,idempotent,facts
+title: Initialisation idempotente du Swarm manager via Ansible
+context: Initialiser Docker Swarm sur le manager uniquement s'il n'est pas déjà actif
+command: docker swarm init --advertise-addr {{ ansible_default_ipv4.address }}
+description: Vérifier l'état Swarm avec `docker info --format '{{ .Swarm.LocalNodeState }}'` avant d'initialiser. Utiliser l'IP privée (ansible_default_ipv4.address) pour --advertise-addr sur AWS. Stocker les tokens et l'IP dans des facts via set_fact pour les réutiliser dans le play suivant (swarm_worker_token, swarm_manager_ip).
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_worker_join_robust
+type: concept
+tech: ansible
+level: advanced
+importance: high
+format: knowledge
+tags: ansible,swarm,worker,join,retry
+title: Join robuste des workers Swarm avec Ansible
+context: Garantir qu'un worker Docker Swarm rejoint le cluster de façon fiable et reproductible
+content: Vérifier l'état du worker, forcer leave si déjà actif, rejoindre avec retries:5 delay:5. Valider "Ready Active" côté manager via docker node ls (delegate_to manager).
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_labels_delegate
+type: command
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,swarm,labels,delegate_to,nodeid
+title: Application de labels Swarm depuis le manager via Ansible
+context: Appliquer des labels de placement (role=app, role=db) sur chaque nœud depuis le manager
+command: docker node update --label-add role={{ swarm_role }} {{ node_id }}
+description: Récupérer le NodeID via `docker info --format '{{ .Swarm.NodeID }}'` sur chaque nœud. Utiliser delegate_to pour exécuter la commande docker node update depuis le manager. Ne pas utiliser run_once : la tâche doit s'exécuter pour chaque nœud de l'inventaire. Échouer explicitement si le NodeID est absent.
+-->
+
+<!-- snippet
+id: ansible_pro_overlay_network_stack
+type: warning
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,overlay,network,stack,dns
+title: Réseau overlay obligatoire pour la communication inter-services Swarm
+context: Résoudre les erreurs ENOTFOUND ou "undefined network" lors du déploiement d'une stack Swarm
+content: Chaque service doit être attaché à un réseau overlay commun (driver:overlay) pour que le DNS Swarm fonctionne. Sans cela, les services ne se résolvent pas et Postgres crashe en boucle.
+-->
+
+---
+[← Module précédent](M41_projet-J1-swarm.md)
 ---

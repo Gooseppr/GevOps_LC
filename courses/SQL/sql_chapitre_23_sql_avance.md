@@ -256,3 +256,44 @@ Ces techniques sont largement utilisées dans :
 - **Data Engineering**
 - **Data Analytics**
 - **Business Intelligence**
+
+<!-- snippet
+id: sql_cte_with
+type: command
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,cte,with,lisibilite,analytique
+title: Créer une table temporaire avec une CTE (WITH)
+command: WITH <nom_cte> AS (SELECT ... FROM ... GROUP BY ...) SELECT * FROM <nom_cte> WHERE ...;
+description: La CTE agit comme une table temporaire dans la requête. Améliore la lisibilité et évite les sous-requêtes imbriquées profondes.
+-->
+
+<!-- snippet
+id: sql_window_function_over
+type: concept
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,window_function,over,partition_by,analytique
+title: Window function OVER : calculer sans GROUP BY
+content: |
+  `SUM(total) OVER (PARTITION BY customer_id)` calcule le total par client pour chaque ligne, sans supprimer les autres colonnes.
+  Contrairement à GROUP BY, toutes les lignes restent visibles.
+description: Indispensable pour les analyses où on veut comparer chaque ligne avec son groupe (ratio, rang, cumul).
+-->
+
+<!-- snippet
+id: sql_rank_classement
+type: tip
+tech: sql
+level: advanced
+importance: medium
+format: knowledge
+tags: sql,rank,window_function,classement,analytique
+title: Classer des résultats avec RANK()
+content: `RANK() OVER (ORDER BY total DESC)` attribue un rang à chaque ligne selon le tri. Deux lignes égales reçoivent le même rang, la suivante est décalée (1,1,3).
+description: Utiliser DENSE_RANK() si on préfère une numérotation continue sans saut (1,1,2).
+-->

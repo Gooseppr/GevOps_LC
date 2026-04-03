@@ -155,3 +155,79 @@ Le CD permet de :
 ## Notes
 
 *CD : déploiement continu
+
+---
+
+<!-- snippet
+id: docker_cd_concept_definition
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cd,deploiement-continu,pipeline,production
+title: CD (Continuous Deployment) — Définition
+content: Le CD déploie automatiquement une application après validation du pipeline CI. C'est l'étape finale : build et push effectués, le service est mis à jour sans intervention manuelle.
+description: Le CD est le niveau ultime d'automatisation DevOps.
+-->
+
+<!-- snippet
+id: docker_cd_service_update
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cd,swarm,service,update,deploiement
+title: Mettre à jour un service Docker Swarm via CD
+command: docker service update --image <IMAGE>:v2 <SERVICE>
+description: Met à jour l'image d'un service Swarm en production depuis un pipeline CD, après le push dans le registry.
+-->
+
+<!-- snippet
+id: docker_cd_pipeline_complet_concept
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cd,ci,pipeline,swarm,automatisation
+title: Pipeline CI/CD complet — de Git Push au déploiement
+content: Pipeline complet : git push → build Docker → push registry → SSH serveur → docker pull + service update. Tout s'exécute automatiquement à chaque push sur main.
+-->
+
+<!-- snippet
+id: docker_cd_tip_automatisation_rapide
+type: tip
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: cd,deploiement,automatisation,bonne-pratique
+title: CD fiable : environnements distincts et images versionnées
+content: Un CD fiable repose sur des environnements distincts (dev / staging / prod) et des images versionnées. Monitorer après chaque déploiement est indispensable.
+-->
+
+<!-- snippet
+id: docker_cd_warning_sans_validation
+type: warning
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cd,deploiement,erreur-frequente,validation
+title: Déployer sans validation préalable
+content: Déclencher un déploiement sans étape de validation permet aux régressions d'atteindre directement les utilisateurs. Toujours valider l'image avant de déployer.
+-->
+
+<!-- snippet
+id: docker_cd_warning_staging_manquant
+type: warning
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cd,staging,production,piege,test
+title: Déployer directement en production sans staging
+content: Déployer directement en production sans staging expose tous les utilisateurs à une éventuelle régression. Toujours valider en staging avant de promouvoir en prod.
+-->

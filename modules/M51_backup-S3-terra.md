@@ -343,6 +343,73 @@ sequenceDiagram
 
 on ne parle plus seulement de backup, mais de **gestion durable des données**, intégrée proprement à une chaîne DevOps complète.
 
+
+
+<!-- snippet
+id: infra_s3_bucket_unique_suffix
+type: concept
+tech: terraform
+level: intermediate
+importance: high
+format: knowledge
+tags: terraform,s3,bucket,unicité,suffixe
+title: Résoudre le conflit de noms de buckets S3 avec un suffixe dynamique
+context: Permettre à plusieurs collaborateurs de créer chacun leur bucket S3 sans conflit de nom mondial
+content: Les noms de buckets S3 sont uniques au niveau mondial. Construire le nom avec un suffixe par personne via TF_VAR_bucket_suffix, et assembler le nom final dans locals.tf.
+-->
+
+<!-- snippet
+id: infra_terraform_state_separation
+type: concept
+tech: terraform
+level: intermediate
+importance: high
+format: knowledge
+tags: terraform,state,s3,separation,destroy
+title: Séparer le state Terraform du stockage long-lived pour protéger les backups
+context: Éviter la suppression accidentelle d'un bucket S3 de backups lors d'un terraform destroy
+content: Gérer le bucket S3 dans un répertoire Terraform séparé (terraS3/) avec son propre state. Un terraform destroy dans l'infra applicative ne touche pas le bucket de backups.
+-->
+
+<!-- snippet
+id: infra_terraform_remote_state
+type: concept
+tech: terraform
+level: advanced
+importance: high
+format: knowledge
+tags: terraform,remote-state,outputs,couplage
+title: Lire les outputs d'un autre state Terraform avec terraform_remote_state
+context: Récupérer le nom du bucket S3 créé dans un state séparé pour l'utiliser dans les policies IAM
+content: Utiliser data "terraform_remote_state" avec config.path vers le .tfstate S3 pour lire le nom du bucket depuis le state applicatif. Cela découple les deux states sans dupliquer les valeurs.
+-->
+
+<!-- snippet
+id: infra_iam_least_privilege_s3
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: aws,iam,s3,moindre-privilège,policy
+title: IAM minimal pour l'accès S3 depuis une VM database
+context: Limiter les droits d'accès AWS d'une VM au strict nécessaire pour les opérations de backup
+content: Créer une policy IAM via instance profile : ListBucket sur le bucket et PutObject/GetObject/DeleteObject sur postgres/* uniquement. Ne jamais utiliser de credentials statiques sur la VM.
+-->
+
+<!-- snippet
+id: infra_deploy_order_terraS3
+type: tip
+tech: terraform
+level: intermediate
+importance: medium
+format: knowledge
+tags: terraform,ordre,déploiement,s3,ansible
+title: Ordre d'exécution recommandé pour un déploiement Terraform + Ansible avec S3
+context: Garantir que le bucket S3 existe avant de déployer l'infrastructure et les scripts de backup
+content: Ordre obligatoire : (1) tofu apply terraS3, (2) tofu apply terraform, (3) ansible-playbook nocodb.yml, (4) ansible-playbook backup.yml. Le bucket doit exister avant l'infra car les policies IAM référencent son ARN.
+-->
+
 ---
 [Module suivant →](M51_image-infra.md)
 ---

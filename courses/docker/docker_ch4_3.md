@@ -193,3 +193,67 @@ Définir un service permet de :
 ## Notes
 
 *Service : conteneur défini dans Docker Compose
+
+---
+
+<!-- snippet
+id: docker_compose_service_concept
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,service,conteneur
+title: Service Compose — un conteneur configuré dans le YAML
+content: Un service dans Docker Compose correspond à un conteneur configuré dans le fichier YAML. Chaque service peut utiliser une image existante ou être construit depuis un Dockerfile local.
+-->
+
+<!-- snippet
+id: docker_compose_build_directive
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,build,dockerfile
+title: `build` — construire une image depuis un Dockerfile local
+content: La directive `build` permet de construire l'image d'un service à partir d'un Dockerfile local, contrairement à `image` qui utilise une image déjà existante (Docker Hub ou locale).
+description: Utiliser `build` pour ton propre code, `image` pour les services externes (postgres, redis…)
+-->
+
+<!-- snippet
+id: docker_compose_depends_on_limit
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,depends_on,demarrage
+title: `depends_on` ne garantit pas que le service est prêt
+content: `depends_on` garantit uniquement que le conteneur dépendant est démarré, pas qu'il est prêt à recevoir des connexions. Une API peut crasher si elle tente de se connecter à la DB trop tôt.
+description: Solution : ajouter un mécanisme de retry côté application, un script d'attente, ou un healthcheck
+-->
+
+<!-- snippet
+id: docker_compose_restart_always
+type: tip
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,restart,stabilite
+title: `restart: always` — redémarrage automatique du conteneur
+content: La directive `restart: always` redémarre automatiquement un conteneur s'il s'arrête ou échoue, ce qui améliore la stabilité en production.
+-->
+
+<!-- snippet
+id: docker_compose_depends_not_ready
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,dependance,disponibilite
+title: Dépendance de démarrage ≠ disponibilité réelle
+content: L'ordre de démarrage garanti par `depends_on` ne signifie pas que le service dépendant est opérationnel. La DB peut être en cours d'initialisation alors que l'API tente déjà de s'y connecter.
+-->

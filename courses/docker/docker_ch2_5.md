@@ -142,3 +142,92 @@ Les variables d’environnement permettent de :
 ## Notes
 
 *Variable d’environnement : valeur utilisée pour configurer une application
+
+---
+
+<!-- snippet
+id: docker_run_env_variable
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: env,runtime,configuration
+title: Passer une variable d’environnement au lancement
+command: docker run -e PORT=3000 mon-app
+description: La variable est disponible dans le conteneur mais ne modifie pas l’image
+-->
+
+<!-- snippet
+id: docker_run_env_file
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: env,env-file,configuration,secrets
+title: Charger les variables depuis un fichier .env
+command: docker run --env-file .env mon-app
+description: Utile pour passer plusieurs variables sans les exposer dans la commande
+-->
+
+<!-- snippet
+id: docker_run_env_production
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: env,production,runtime
+title: Lancer avec variables d’environnement de production
+command: docker run -e NODE_ENV=production -e PORT=3000 mon-api
+description: Permet de réutiliser la même image avec une configuration différente selon l’environnement
+-->
+
+<!-- snippet
+id: docker_env_variable_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: env,configuration,concept
+title: Définition d’une variable d’environnement
+content: Une variable d’environnement est une valeur externe à l’application qui permet de la configurer sans modifier le code source.
+-->
+
+<!-- snippet
+id: docker_piege_secrets_dockerfile
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: env,secrets,securite,dockerfile
+title: Ne jamais stocker des secrets dans le Dockerfile
+content: Les valeurs définies avec ENV dans le Dockerfile sont figées dans l’image et visibles par quiconque y accède.
+-->
+
+<!-- snippet
+id: docker_piege_secrets_dockerfile_b
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: env,secrets,securite,dockerfile
+title: Passer les secrets au runtime, pas dans l’image
+content: Les secrets (mots de passe, clés API) doivent être passés au runtime avec -e ou --env-file, jamais codés dans le Dockerfile.
+-->
+
+<!-- snippet
+id: docker_tip_env_sans_rebuild
+type: tip
+tech: docker
+level: beginner
+importance: low
+format: knowledge
+tags: env,configuration,flexibilite
+title: Les variables permettent d’adapter sans rebuild
+content: Passer des variables avec docker run permet de réutiliser la même image en dev, staging et prod sans reconstruire.
+-->

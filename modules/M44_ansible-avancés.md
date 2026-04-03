@@ -563,4 +563,91 @@ En résumé, avec cette v5 :
 
 ---
 [Module suivant →](M44_projet-board-J04.md)
+
+---
+
+<!-- snippet
+id: ansible_adv_roles_structure
+type: concept
+tech: ansible
+level: advanced
+importance: high
+format: knowledge
+tags: ansible,roles,architecture,modulaire
+title: Architecture Ansible en rôles pour un projet Docker Swarm
+context: Structurer un projet Ansible complexe en rôles réutilisables et indépendants
+content: Architecture v5 en 6 rôles autonomes : common, docker, swarm-manager, swarm-worker, swarm-labels, nocodb. Chaque rôle se rejoue indépendamment via les tags Ansible.
+-->
+
+<!-- snippet
+id: ansible_adv_community_docker_swarm
+type: command
+tech: ansible
+level: advanced
+importance: high
+format: knowledge
+tags: ansible,community-docker,swarm,idempotent,modules
+title: Initialiser le Swarm avec le module community.docker
+context: remplacer docker swarm init par un module Ansible déclaratif
+command: community.docker.docker_swarm state=present advertise_addr="{{ advertise_addr | default(ansible_default_ipv4.address) }}"
+description: Idempotent : retourne `ok` si le Swarm est déjà actif. Nécessite le SDK Python Docker sur les cibles. Les tokens se récupèrent avec `docker_swarm_info`.
+-->
+
+<!-- snippet
+id: ansible_adv_docker_image_pull
+type: command
+tech: ansible
+level: advanced
+importance: medium
+format: knowledge
+tags: ansible,docker,image,pull,registry,gitlab
+title: Puller une image privée avec community.docker.docker_image
+context: puller une image versionnée depuis un registry GitLab après authentification
+command: community.docker.docker_image name="registry.gitlab.com/org/repo/image:0.1.0" source=pull state=present force_source=true
+description: `force_source: true` force le rechargement si le tag pointe vers une nouvelle couche. L'auth doit être faite en amont via `docker_login`.
+-->
+
+<!-- snippet
+id: ansible_adv_stack_deploy_registry_auth
+type: command
+tech: ansible
+level: advanced
+importance: high
+format: knowledge
+tags: ansible,swarm,stack,deploy,registry-auth
+title: Déployer une stack Swarm avec credentials registry
+context: permettre aux workers de puller une image privée lors du déploiement
+command: docker stack deploy --with-registry-auth -c /opt/nocodb/compose.yml mystack
+description: `--with-registry-auth` propage les credentials du manager vers les workers. Sans cette option, les workers échouent avec "No such image".
+-->
+
+<!-- snippet
+id: ansible_adv_swarm_cleanup_down_nodes
+type: command
+tech: ansible
+level: advanced
+importance: medium
+format: knowledge
+tags: ansible,swarm,cleanup,nodes,down
+title: Nettoyer les nœuds Swarm fantômes (statut Down)
+context: Assainir un cluster Swarm après des tests répétés ou des redéploiements instables
+command: docker node rm {{ node_id }}
+description: Lister les nœuds avec docker node ls --format '{{.ID}} {{.Hostname}} {{.Status}}'. Filtrer les nœuds Down et les supprimer. Via Ansible, utiliser un loop sur stdout_lines avec when:"'Down' in item". Recaler ensuite les réplicas avec docker service scale mystack_nocodb=1 mystack_root_db=1. Créer un playbook dédié cleanup-swarm.yml pour cette opération.
+-->
+
+<!-- snippet
+id: ansible_adv_replicas_wait_retry
+type: concept
+tech: ansible
+level: advanced
+importance: high
+format: knowledge
+tags: ansible,swarm,replicas,wait,retry
+title: Attendre la disponibilité des réplicas Swarm dans Ansible
+context: Vérifier qu'un service Swarm est bien démarré avant de continuer le playbook
+content: Utiliser retries:12 delay:5 avec until cherchant "mystack_nocodb [1-9]/[1-9]" dans docker service ls. Bien plus fiable qu'un simple wait_for car cela teste l'état réel du service Swarm.
+-->
+
+---
+[Module suivant →](M44_projet-board-J04.md)
 ---

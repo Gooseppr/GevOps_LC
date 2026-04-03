@@ -308,8 +308,97 @@ Tu sais maintenant :
 
 ---
 
-🎉 Félicitations !  
+🎉 Félicitations !
 Tu maîtrises désormais les **outils avancés de Git** pour garder ton historique sous contrôle et collaborer efficacement dans un contexte DevOps.
+
+
+
+<!-- snippet
+id: git_rebase_update_branch
+type: command
+tech: git
+level: intermediate
+tags: rebase,historique,linéaire
+title: Rebase — mettre à jour sa branche sur main
+command: git fetch origin && git rebase origin/main
+description: Rejoue les commits de la branche courante au-dessus de origin/main pour obtenir un historique linéaire
+-->
+
+<!-- snippet
+id: git_rebase_interactive_cleanup
+type: command
+tech: git
+level: intermediate
+tags: rebase,squash,historique,cleanup
+title: Rebase interactif — nettoyer les N derniers commits
+command: git rebase -i HEAD~5
+description: Ouvre l'éditeur pour fusionner, renommer ou supprimer les 5 derniers commits avant publication
+-->
+
+<!-- snippet
+id: git_push_force_with_lease
+type: command
+tech: git
+level: intermediate
+tags: push,force,sécurité
+title: Push forcé sécurisé après réécriture d'historique
+command: git push --force-with-lease
+description: Pousse en forçant tout en vérifiant que personne d'autre n'a poussé entre-temps
+-->
+
+<!-- snippet
+id: git_cherry_pick_single
+type: command
+tech: git
+level: intermediate
+tags: cherry-pick,hotfix,commit
+title: Cherry-pick — appliquer un commit précis
+command: git cherry-pick 4f3a9c2
+description: Applique le commit spécifié sur la branche courante, utile pour propager un hotfix
+-->
+
+<!-- snippet
+id: git_reset_modes
+type: concept
+tech: git
+level: intermediate
+tags: reset,HEAD,staging
+title: Les trois modes de git reset
+content: --soft : recule HEAD et garde tout en staging. --mixed (défaut) : recule HEAD et déstage les fichiers. --hard : recule HEAD et supprime les modifications locales (destructif).
+description: Choisir le bon mode selon si on veut re-squasher, corriger avant push, ou tout effacer
+-->
+
+<!-- snippet
+id: git_revert_public
+type: command
+tech: git
+level: intermediate
+tags: revert,annuler,historique-partagé
+title: Revert — annuler un commit sans réécrire l'historique
+command: git revert <hash>
+description: Crée un nouveau commit inverse, idéal pour annuler proprement sur une branche partagée
+-->
+
+<!-- snippet
+id: git_reflog_rescue
+type: command
+tech: git
+level: advanced
+tags: reflog,récupération,HEAD
+title: Reflog — retrouver et restaurer un état perdu
+command: git reflog
+description: Liste tous les mouvements de HEAD localement. Utiliser git reset --hard HEAD@{n} ou git switch -c rescue HEAD@{n} pour récupérer le travail perdu
+-->
+
+<!-- snippet
+id: git_rebase_no_public_branch
+type: warning
+tech: git
+level: intermediate
+tags: rebase,branche-partagée,règle
+title: Ne jamais rebaser une branche déjà publiée
+content: Rebaser une branche déjà poussée publiquement réécrit l'historique des autres développeurs et crée des divergences. Utiliser rebase uniquement sur les branches privées, avant publication.
+-->
 
 ---
 [← Module précédent](M03_git-manipulation.md) | [Module suivant →](M03_git-historique-avance.md)

@@ -63,5 +63,72 @@ Il propose :
 
 - Des méthodes agiles : Kanban, Scrum, sprints, planification itérative
 - Le suivi des tâches, des user stories et de la charge de travail
-    
+
     → Résultat : **visibilité claire + organisation efficace du travail agile.**
+
+---
+
+<!-- snippet
+id: cicd_jira_centralisation_tickets
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: jira,tickets,centralisation,devops
+title: Centralisation des tickets dans Jira
+context: comprendre pourquoi utiliser Jira pour gérer les demandes d'une équipe DevOps
+content: Centraliser les tickets dans Jira offre une vision globale du travail et facilite la planification des ressources. Tous les membres accèdent au même référentiel et au même suivi d'avancement.
+-->
+
+<!-- snippet
+id: cicd_jira_suivi_tickets
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: jira,suivi,responsable,echeance,priorite
+title: Suivi des tickets avec Jira
+context: mettre en place un suivi efficace de l'avancement des tâches dans Jira
+content: Jira permet d'attribuer un responsable, fixer des échéances et des priorités. Les tableaux de bord offrent un suivi en temps réel des délais, de l'état des tickets et des performances.
+-->
+
+<!-- snippet
+id: cicd_jira_gitlab_integration
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: jira,gitlab,integration,automatisation,traçabilite
+title: Intégration Jira et GitLab pour l'automatisation
+context: lier automatiquement les commits GitLab aux tickets Jira pour une traçabilité complète
+content: L'intégration Jira-GitLab lie automatiquement les commits aux tickets via les identifiants dans les messages. Elle permet d'automatiser la transition de statut d'un ticket lors d'un push ou d'une MR.
+-->
+
+<!-- snippet
+id: cicd_jira_collaboration_agile
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: jira,collaboration,agile,notifications,commentaires
+title: Collaboration en équipe agile avec Jira
+context: améliorer la communication entre développeurs, QA et product owner sur un projet agile
+content: Jira centralise la collaboration avec des commentaires sur les tickets, des notifications automatiques et des mises à jour en temps réel. Cela réduit les échanges dispersés et accélère la résolution collective.
+-->
+
+<!-- snippet
+id: cicd_jira_methodes_agiles
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: jira,scrum,kanban,sprint,agile
+title: Méthodes agiles dans Jira (Scrum, Kanban, Sprints)
+context: choisir et configurer une méthode de travail agile dans Jira pour une équipe DevOps
+content: Jira supporte Scrum (sprints, burndown, vélocité) et Kanban (flux continu, WIP limits). Les user stories, epics et tâches structurent le backlog et donnent une visibilité claire sur la charge de travail.
+-->

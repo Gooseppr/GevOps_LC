@@ -244,3 +244,34 @@ Les relations et la normalisation permettent de :
 - faciliter les évolutions du système
 
 Dans le prochain chapitre nous verrons **les index**, qui permettent d’améliorer les performances des requêtes SQL.
+
+<!-- snippet
+id: sql_relation_nn_table_liaison
+type: concept
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,relation,n-n,table_liaison,normalisation
+title: Relation N-N = table de liaison obligatoire
+content: |
+  Une commande peut avoir plusieurs produits, un produit peut être dans plusieurs commandes.
+  On ne peut pas stocker ça dans deux colonnes → créer une table intermédiaire :
+  `order_items(order_id, product_id, quantity)`
+description: Sans table de liaison, les relations N-N forcent à dupliquer des données ou à stocker des listes dans une colonne.
+-->
+
+<!-- snippet
+id: sql_3nf_dependance_transitive
+type: concept
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,normalisation,3nf,dependance,modele
+title: 3NF : chaque colonne dépend uniquement de la clé
+content: |
+  Si `customer_name` dépend de `customer_id`, pas de `order_id`, il ne doit pas être dans la table `orders`.
+  Signe d’une violation 3NF : même information répétée dans plusieurs lignes.
+description: La solution est de déplacer la colonne dans sa propre table liée par clé étrangère.
+-->

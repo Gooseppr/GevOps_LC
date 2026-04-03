@@ -1172,6 +1172,103 @@ Avec ce module avancé tu sais :
 - sécuriser tes secrets avec **Ansible Vault** et les intégrer dans les playbooks,
 - gérer **erreurs, retries, stratégies d’exécution et handlers** pour garder un comportement fiable et idempotent.
 
+
+
+---
+
+<!-- snippet
+id: ansible_role_init
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,role,galaxy,structure
+title: Créer la structure d'un rôle Ansible avec ansible-galaxy
+command: ansible-galaxy init roles/<NOM>
+description: Génère l'arborescence standard (tasks, handlers, templates, vars, defaults, meta…). Ansible charge ces dossiers automatiquement à l'appel du rôle.
+-->
+
+<!-- snippet
+id: ansible_vault_use_playbook
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,vault,ask-vault-pass,secrets,prod
+title: Lancer un playbook avec un Vault chiffré
+context: lancer un playbook qui utilise des variables chiffrées avec Ansible Vault
+command: ansible-playbook site.yml -e "env=prod" --ask-vault-pass
+description: Ansible déchiffre vault.yml en mémoire et oublie les secrets après le play. Le fichier reste chiffré sur disque et dans Git.
+-->
+
+<!-- snippet
+id: ansible_register_condition
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,register,when,rc,conditions
+title: Utiliser register + when pour conditionner une tâche sur le résultat d'une commande
+context: exécuter une tâche de remédiation seulement si une commande précédente a échoué
+content: Utilisez register pour capturer la sortie d'une tâche dans une variable (ex : app_status). Puis utilisez when: app_status.rc != 0 pour conditionner la tâche suivante. Les attributs disponibles sont rc (code retour), stdout, stderr, changed et failed. Combinez avec ignore_errors: yes pour capturer l'échec sans arrêter le playbook.
+-->
+
+<!-- snippet
+id: ansible_block_rescue_always
+type: concept
+tech: ansible
+level: advanced
+importance: medium
+format: knowledge
+tags: ansible,block,rescue,always,rollback
+title: Pattern block/rescue/always pour gérer les erreurs et rollbacks dans Ansible
+context: déployer une configuration avec un mécanisme de rollback automatique en cas d'échec
+content: Le pattern block/rescue/always fonctionne comme try/catch/finally. Le bloc block contient les tâches normales. Si une échoue, rescue est exécuté (ex : restaurer un fichier de config backup). always est toujours exécuté, succès ou échec (ex : redémarrer le service). C'est le pattern standard pour les déploiements atomiques avec rollback automatique.
+-->
+
+<!-- snippet
+id: ansible_jinja2_filters
+type: concept
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,jinja2,filtres,templates,default
+title: Filtres Jinja2 essentiels dans les templates Ansible
+context: écrire des templates de configuration robustes qui gèrent les valeurs absentes ou complexes
+content: Les filtres Jinja2 les plus utiles dans Ansible sont : default(valeur) pour fournir une valeur de repli si la variable est absente, join(",") pour concaténer une liste, bool pour convertir une chaîne en booléen ("yes"/"true" → True), to_nice_json et to_yaml pour sérialiser des structures complexes. Utilisez {{ var | default("fallback") }} dans vos templates pour éviter les erreurs quand une variable optionnelle n'est pas définie.
+-->
+
+<!-- snippet
+id: ansible_serial_rolling_update
+type: concept
+tech: ansible
+level: advanced
+importance: medium
+format: knowledge
+tags: ansible,serial,rolling-update,production,zero-downtime
+title: Rolling update avec serial pour déployer sans downtime
+context: mettre à jour un parc de serveurs web en production sans interrompre le service
+content: Utilisez serial: 2 dans un play pour qu'Ansible applique les tâches sur 2 hôtes à la fois. Les 2 premiers hôtes sont mis à jour et testés, puis les 2 suivants, etc. Combinez avec order: shuffle pour un ordre aléatoire. Cette stratégie garantit qu'il reste toujours des serveurs opérationnels derrière le load balancer pendant la mise à jour.
+-->
+
+<!-- snippet
+id: ansible_lint_check
+type: command
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,lint,qualité,ci-cd
+title: Vérifier la qualité d'un projet Ansible avec ansible-lint
+context: intégrer un contrôle qualité Ansible dans un pipeline CI/CD
+command: ansible-lint .
+description: Analyse tout le projet (playbooks, rôles, tasks). Détecte mauvaises pratiques, YAML invalide et modules obsolètes. Installer avec pip install ansible-lint.
+-->
+
 ---
 [← Module précédent](M35_ansible.md)
 ---

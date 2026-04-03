@@ -142,3 +142,75 @@ chmod +x audit_standard.sh
 | **Pédagogique** | quelques commentaires + commandes simples |
 | **Assez complète** | couvre : système / réseau / docker / bdd / sécurité |
 | **Non-destructive** | tout en lecture seule, rien ne modifie la machine |
+
+---
+
+<!-- snippet
+id: infra_audit_identity_context
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: linux,audit,identité,hostname,uptime
+title: Commandes d'identification rapide d'un serveur inconnu
+context: Premier contact avec un serveur : déterminer qui on est, sur quelle machine et son état général
+command: whoami && hostname -f && uname -sr && uptime -p
+description: Utilisateur courant, FQDN, OS/kernel et uptime. Minimum vital avant toute intervention sur un serveur inconnu.
+-->
+
+<!-- snippet
+id: infra_audit_open_ports
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: linux,audit,réseau,ports,ss
+title: Identifier les ports critiques ouverts sur un serveur
+context: Vérifier quels services réseau sont actifs et accessibles sur un serveur
+command: ss -tulpen | grep -E '22|80|443|3306|5432|6379|27017'
+description: ss remplace netstat et est disponible nativement sur Linux moderne. Flags : -t TCP, -u UDP, -l listening, -p process, -e extended, -n numeric. Les ports clés à surveiller : 22 (SSH), 80/443 (web), 3306 (MariaDB), 5432 (PostgreSQL), 6379 (Redis), 27017 (MongoDB). Si aucun résultat, ajouter || echo "Aucun port critique détecté".
+-->
+
+<!-- snippet
+id: infra_audit_docker_state
+type: command
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,audit,docker,conteneurs,images
+title: Vérifier rapidement l'état Docker sur un serveur
+context: Contrôler si Docker tourne et lister les conteneurs actifs lors d'un audit
+command: docker info 2>/dev/null | grep -E "Server Version|Containers|Images" && docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"
+description: `docker info` donne version et compteurs globaux. `docker ps --format table` affiche les conteneurs actifs lisiblement.
+-->
+
+<!-- snippet
+id: infra_audit_ssh_security
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: linux,audit,ssh,sécurité,connexions
+title: Vérifier les paramètres SSH critiques d'un serveur
+context: Contrôler la configuration SSH et les dernières connexions lors d'un audit sécurité
+command: grep -iE 'PermitRootLogin|PasswordAuthentication' /etc/ssh/sshd_config* 2>/dev/null && last -n 3
+description: Vérifie `PermitRootLogin` (doit être `no`) et `PasswordAuthentication` (doit être `no` avec clés). `last -n 3` détecte les IP inattendues.
+-->
+
+<!-- snippet
+id: infra_audit_save_log
+type: command
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,audit,log,tee,horodatage
+title: Sauvegarder le résultat d'un audit dans un fichier horodaté
+context: Conserver une trace de l'état d'un serveur après un audit pour référence future
+command: ./audit_standard.sh | tee audit_$(hostname)_$(date +%F_%H-%M).log
+description: tee affiche la sortie en temps réel ET l'écrit dans le fichier. Le nom du fichier intègre le hostname et la date/heure au format YYYY-MM-DD_HH-MM pour retrouver facilement l'audit. Ajouter chmod +x avant la première exécution. Le fichier peut être copié via scp pour archivage ou comparaison entre serveurs.
+-->

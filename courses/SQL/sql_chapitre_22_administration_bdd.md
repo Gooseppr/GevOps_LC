@@ -254,3 +254,34 @@ Dans le prochain chapitre nous verrons **le SQL avancé**, notamment :
 - requêtes récursives
 - window functions
 - SQL analytique.
+
+<!-- snippet
+id: sql_pg_dump_backup
+type: command
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,postgresql,pg_dump,backup,restauration
+title: Sauvegarder et restaurer une base PostgreSQL
+command: pg_dump <DB> > backup.sql
+context: Restauration avec : psql <DB> < backup.sql
+description: pg_dump exporte la structure et les données en SQL. psql les réimporte. Tester régulièrement la restauration.
+-->
+
+<!-- snippet
+id: sql_backup_non_teste_inutile
+type: warning
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,backup,restauration,bonne_pratique,dba
+title: Une sauvegarde non testée est une sauvegarde inutile
+content: |
+  Sauvegarder régulièrement ne suffit pas. Il faut tester la restauration :
+  - sur un environnement séparé
+  - régulièrement (hebdomadaire ou mensuel)
+  - en vérifiant que les données sont cohérentes après restauration.
+description: De nombreuses équipes découvrent que leurs backups sont corrompus uniquement en cas d'incident réel.
+-->

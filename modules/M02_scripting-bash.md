@@ -565,6 +565,103 @@ done
 
 ```
 
+
+
+<!-- snippet
+id: bash_shebang_strict
+type: tip
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,scripting,shebang,robustesse
+title: En-tête obligatoire pour un script Bash fiable
+context: démarrer un nouveau script Bash de manière sûre et portable
+content: Tout script robuste commence par `#!/usr/bin/env bash`, puis `set -euo pipefail` et `IFS=$'\n\t'`. Ces trois lignes évitent la majorité des bugs silencieux.
+-->
+
+<!-- snippet
+id: bash_getopts_options
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: bash,getopts,arguments,options
+title: Analyser les options d'un script avec getopts
+context: créer un script qui accepte des options en ligne de commande (-s, -d, -v)
+command: while getopts "s:d:v" opt; do case "$opt" in s) src="$OPTARG" ;; d) dst="$OPTARG" ;; v) verbose=1 ;; *) exit 2 ;; esac; done
+description: getopts lit les options une par une, le : après une lettre indique qu'elle attend un argument stocké dans $OPTARG
+-->
+
+<!-- snippet
+id: bash_trap_nettoyage
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: bash,trap,nettoyage,tmpfile,signal
+title: Nettoyer les fichiers temporaires avec trap
+context: s'assurer qu'un fichier temporaire est supprimé même si le script est interrompu
+command: tmp="$(mktemp)"; cleanup(){ rm -f "$tmp"; }; trap cleanup EXIT INT TERM
+description: trap exécute la fonction cleanup sur les signaux EXIT (fin normale), INT (Ctrl-C) et TERM (kill). mktemp crée un fichier temporaire avec un nom unique
+-->
+
+<!-- snippet
+id: bash_read_fichier_ligne
+type: command
+tech: bash
+level: beginner
+importance: medium
+format: knowledge
+tags: bash,while,read,fichier,boucle
+title: Lire un fichier ligne par ligne avec read -r
+context: traiter chaque ligne d'un fichier dans un script
+command: while IFS= read -r line; do printf '%s\n' "$line"; done < fichier.txt
+description: IFS= empêche le trim des espaces en début/fin, -r empêche l'interprétation des backslashes. Indispensable pour traiter des chemins ou des données structurées
+-->
+
+<!-- snippet
+id: bash_test_fichier
+type: concept
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,test,fichier,condition,if
+title: Tests courants sur les fichiers dans un if Bash
+context: vérifier l'existence ou le type d'un fichier avant de l'utiliser
+content: Utiliser `[[ ... ]]` pour tester les fichiers : `-f` (fichier régulier), `-d` (répertoire), `-s` (non vide), `-x` (exécutable). Toujours citer : `[[ -f "$fichier" ]]`.
+-->
+
+<!-- snippet
+id: bash_debug_set_x
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: bash,debug,trace,set-x
+title: Activer la trace d'exécution d'un script Bash
+context: déboguer un script pour voir chaque commande avant qu'elle soit exécutée
+command: bash -x script.sh
+description: Affiche chaque commande précédée de + avant son exécution. Equivalent à set -x dans le script. Utiliser PS4='+ ${BASH_SOURCE}:${LINENO}: ' pour enrichir la trace avec le numéro de ligne
+-->
+
+<!-- snippet
+id: bash_param_expansion
+type: concept
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: bash,variable,expansion,parametre
+title: Expansions de variables Bash utiles
+context: manipuler des chaînes et définir des valeurs par défaut dans un script
+content: `${VAR:-defaut}` retourne "defaut" si VAR est vide. `${#VAR}` donne la longueur. `${FICHIER%.*}` retire l'extension. `${PATH##*/}` extrait le basename.
+-->
+
 ---
 [Module suivant →](M02_droits-linux.md)
 ---

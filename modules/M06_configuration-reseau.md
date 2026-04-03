@@ -454,6 +454,83 @@ ping -c 2 google.com              # DNS ok
 
 ```
 
+
+
+<!-- snippet
+id: reseau_ip_addr_show
+type: command
+tech: linux
+level: beginner
+tags: reseau,interface,ip,openwrt
+title: Afficher les interfaces réseau
+command: ip addr show
+description: Identifier les interfaces disponibles (eth0/eth1/eth2) et leurs adresses IP sur OpenWrt ou Debian
+-->
+
+<!-- snippet
+id: reseau_uci_lan_static
+type: command
+tech: linux
+level: intermediate
+tags: reseau,openwrt,uci,lan
+title: Configurer l'IP LAN statique sur OpenWrt (UCI)
+command: uci set network.lan.proto='static' && uci set network.lan.ipaddr='192.168.1.1' && uci set network.lan.netmask='255.255.255.0' && uci commit network && /etc/init.d/network restart
+description: Définir une adresse IP fixe sur l'interface LAN d'OpenWrt via UCI
+-->
+
+<!-- snippet
+id: reseau_uci_dhcp_pool
+type: command
+tech: linux
+level: intermediate
+tags: reseau,openwrt,dhcp,dnsmasq
+title: Configurer le pool DHCP sur OpenWrt (dnsmasq)
+command: uci set dhcp.lan.start='100' && uci set dhcp.lan.limit='150' && uci set dhcp.lan.leasetime='12h' && uci commit dhcp && /etc/init.d/dnsmasq restart
+description: Activer le serveur DHCP sur le LAN avec un pool de .100 à .249
+-->
+
+<!-- snippet
+id: reseau_debian_dhcp_config
+type: tip
+tech: linux
+level: beginner
+tags: reseau,debian,dhcp,interfaces
+title: Configurer DHCP sur Debian (/etc/network/interfaces)
+content: Ajouter `auto ens4` puis `iface ens4 inet dhcp` dans `/etc/network/interfaces`. Relancer avec `sudo systemctl restart networking`, vérifier avec `ip a`.
+-->
+
+<!-- snippet
+id: reseau_logread_dnsmasq
+type: command
+tech: linux
+level: intermediate
+tags: reseau,openwrt,debug,dnsmasq
+title: Diagnostiquer le serveur DHCP sur OpenWrt
+command: logread -e dnsmasq
+description: Afficher les logs dnsmasq pour vérifier les attributions DHCP et détecter les erreurs
+-->
+
+<!-- snippet
+id: reseau_firewall_masq_nat
+type: concept
+tech: linux
+level: intermediate
+tags: reseau,openwrt,nat,firewall,masquerade
+title: NAT/Masquerading sur OpenWrt (fw4)
+content: Sous OpenWrt (fw4), le NAT est activé via `masq=1` sur la zone WAN. Un forwarding `lan→wan` doit aussi exister : sans lui, le trafic LAN reste bloqué même avec NAT actif.
+-->
+
+<!-- snippet
+id: reseau_fw4_print
+type: command
+tech: linux
+level: intermediate
+tags: reseau,openwrt,firewall,nftables,debug
+title: Afficher les règles firewall actives sur OpenWrt
+command: fw4 print
+description: Lire les chaînes et règles nftables effectivement générées par fw4 depuis la configuration UCI
+-->
+
 ---
 [← Module précédent](M06_equipements-reseau.md)
 ---

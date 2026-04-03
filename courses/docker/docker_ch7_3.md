@@ -176,3 +176,106 @@ Le registry permet de :
 ## Notes
 
 *Registry : service de stockage d’images Docker
+
+---
+
+<!-- snippet
+id: docker_registry_concept
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: registry,dockerhub,ghcr,stockage,image
+title: Registry Docker — Service de stockage d’images
+content: Un registry stocke des images Docker et constitue la source des images en production. Exemples : Docker Hub et GitHub Container Registry (GHCR).
+description: Sans registry, il est impossible de partager des images entre machines ou environnements.
+-->
+
+<!-- snippet
+id: docker_registry_concept_b
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: registry,dockerhub,cicd,deploiement
+title: Registry — maillon entre CI et déploiement
+content: Une image buildée en CI doit être poussée dans un registry pour être déployée. Sans cette étape, l’image n’est pas accessible depuis d’autres machines.
+-->
+
+<!-- snippet
+id: docker_registry_login
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: registry,login,dockerhub,authentification
+title: Se connecter à un Docker Registry
+command: docker login
+description: Authentifie le client Docker auprès du registry (Docker Hub par défaut). Utilisé avant de pusher une image.
+-->
+
+<!-- snippet
+id: docker_registry_tag_image
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: registry,tag,image,versionning
+title: Tagger une image Docker pour le registry
+command: docker tag <IMAGE> <NOM>:1.0
+description: Associe un nom complet (username/nom:tag) à une image locale avant de la pousser vers un registry.
+-->
+
+<!-- snippet
+id: docker_registry_push_image
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: registry,push,image,dockerhub
+title: Pousser une image vers un registry
+command: docker push <IMAGE>:1.0
+description: Envoie l’image taguée vers le registry distant. L’image doit être taguée avec le bon préfixe (username ou organisation) avant le push.
+-->
+
+<!-- snippet
+id: docker_registry_warning_latest_only
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: registry,tag,latest,erreur-frequente
+title: Utiliser uniquement le tag latest
+content: Le tag `latest` est écrasé à chaque build — impossible de revenir à une version précédente. Toujours utiliser des tags explicites (v1, v2, sha du commit).
+-->
+
+<!-- snippet
+id: docker_registry_warning_credentials
+type: warning
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: registry,credentials,secrets,securite,piege
+title: Ne pas sécuriser les credentials Docker dans le pipeline
+content: Stocker les identifiants Docker Hub en clair dans le code est un piège de sécurité. Les utiliser via les secrets GitHub (DOCKER_USERNAME, DOCKER_PASSWORD).
+description: Une fuite de credentials peut entraîner la compromission du compte registry et des images publiées.
+-->
+
+<!-- snippet
+id: docker_registry_tip_versioning
+type: tip
+tech: docker
+level: advanced
+importance: low
+format: knowledge
+tags: registry,tag,versionning,bonne-pratique
+title: Versionner les images avec des tags explicites
+content: Utiliser des tags versionnés (v1, v2, SHA du commit) permet de tracer l’image en production et de rollback facilement. Éviter `latest` en production.
+-->

@@ -654,3 +654,97 @@ graph TB
     - un check TLS sur ton domaine.
 - [ ]  Créer **un dashboard Grafana multi-data-sources** (Prometheus + logs).
 - [ ]  Utiliser **au moins 2 variables** (`$env`, `$job`) et **un lien** vers un second dashboard.
+
+---
+
+<!-- snippet
+id: prometheus_federation_config
+type: concept
+tech: prometheus
+level: advanced
+importance: high
+format: knowledge
+tags: prometheus,fédération,central,leaf,multi-env
+title: Configurer la fédération Prometheus central / leaf
+context: agréger les métriques de plusieurs environnements ou clusters dans un Prometheus central
+content: Dans prometheus.yml du central : job avec metrics_path = /federate, params match[] listant les métriques à importer ({job="api"}, up…), targets vers chaque leaf (leaf1:9090, leaf2:9090). Évitez les labels à haute cardinalité (user_id). Gardez les analyses détaillées sur les leaf.
+-->
+
+<!-- snippet
+id: prometheus_remote_write_config
+type: concept
+tech: prometheus
+level: advanced
+importance: medium
+format: knowledge
+tags: prometheus,remote_write,remote_read,longue-durée,thanos
+title: Activer remote_write/read pour le stockage longue durée
+context: conserver les métriques Prometheus au-delà de la rétention locale (15-30 jours)
+content: Dans prometheus.yml : remote_write vers InfluxDB, Thanos ou VictoriaMetrics, remote_read pour relire l'historique. Utilisez write_relabel_configs (action = keep, regex sur __name__) pour ne pousser que les séries utiles. Typique : 15 j local + 1 an dans Thanos.
+-->
+
+<!-- snippet
+id: prometheus_alertmanager_routing
+type: concept
+tech: prometheus
+level: advanced
+importance: high
+format: knowledge
+tags: prometheus,alertmanager,routing,grouping,inhibition,slack
+title: Routing avancé dans Alertmanager (prod/staging/équipes)
+context: router les alertes vers les bons canaux selon l'environnement et la sévérité
+content: Dans alertmanager.yml : routes imbriquées avec matchers (env="prod" + severity="critical" → pagerduty, env="staging" + team="backend" → slack). Utilisez group_by pour regrouper les alertes similaires. Configurez inhibit_rules pour éviter les doublons (ex : ClusterDown inhibe InstanceDown).
+-->
+
+<!-- snippet
+id: prometheus_amtool_silence
+type: command
+tech: prometheus
+level: advanced
+importance: medium
+format: knowledge
+tags: alertmanager,amtool,silence,maintenance,cli
+title: Créer un silence Alertmanager avec amtool
+context: suspendre temporairement des alertes pendant une opération de maintenance
+command: amtool silence add alertname="InstanceDown" cluster="prod-eu" --duration=2h --comment="Maintenance planifiée prod-eu" --author="ops"
+description: Crée un silence de 2h sur InstanceDown pour prod-eu. Les alertes matchant ces labels ne sont pas envoyées. Lister : `amtool silence query`, supprimer : `amtool silence expire <ID>`.
+-->
+
+<!-- snippet
+id: prometheus_blackbox_exporter_config
+type: concept
+tech: prometheus
+level: advanced
+importance: high
+format: knowledge
+tags: prometheus,blackbox,http,tls,certificat,supervision-externe
+title: Configurer le Blackbox Exporter pour superviser HTTP/TLS
+context: détecter qu'un site web est inaccessible ou qu'un certificat TLS expire bientôt
+content: Job blackbox dans prometheus.yml : metrics_path = /probe, params module = [http_2xx], targets = URLs à tester, relabel_configs pour passer la target via __param_target et rediriger __address__ vers blackbox-exporter:9115. Alertes : probe_success == 0 (site inaccessible), (probe_ssl_earliest_cert_expiry - time()) / 86400 < 15 (cert < 15 j).
+-->
+
+<!-- snippet
+id: prometheus_custom_metrics_nodejs
+type: concept
+tech: prometheus
+level: advanced
+importance: medium
+format: knowledge
+tags: prometheus,prom-client,nodejs,métriques-métier,counter,histogram
+title: Instrumenter Node.js avec des métriques Prometheus custom
+context: exposer des métriques métier (commandes traitées, temps de réponse) en plus des métriques système
+content: Utilisez prom-client. Counter http_requests_total (labels method, route, status). Histogram http_request_duration_seconds (buckets 0.05, 0.1, 0.3, 0.5, 1, 3). Incrémentez dans un middleware Express, exposez sur GET /metrics. Évitez les labels à haute cardinalité (user_id, email).
+-->
+
+<!-- snippet
+id: grafana_multi_datasource_observabilite
+type: concept
+tech: grafana
+level: advanced
+importance: medium
+format: knowledge
+tags: grafana,loki,tempo,métriques,logs,traces,observabilité
+title: Croiser métriques, logs et traces dans Grafana
+context: diagnostiquer rapidement un incident en liant un pic de CPU à une erreur dans les logs et une trace lente
+content: Connectez plusieurs datasources : Prometheus (métriques), Loki (logs), Tempo/Jaeger (traces). Utilisez des variables $env et $job communes à tous les panels. Dans un panel métriques, liez vers les logs filtrés sur $job ; depuis un log, liez vers une trace via le traceId. Ce pattern métriques → logs → traces est le cœur de l'observabilité.
+-->

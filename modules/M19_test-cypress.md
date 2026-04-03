@@ -373,6 +373,88 @@ npx cypress run --browser chrome
 📜 **DevOps mindset** :
 > “Automatise tes tests, exécute-les à chaque commit, et ne déploie que du code validé.”
 
+
+
+<!-- snippet
+id: cypress_install
+type: command
+tech: cypress
+level: beginner
+importance: high
+format: knowledge
+tags: cypress,installation,npm,e2e
+title: Installer Cypress dans un projet Node
+context: mettre en place Cypress pour les tests E2E dans un nouveau projet
+command: npm install --save-dev cypress
+description: Installe Cypress en dépendance de développement. Ajouter ensuite "cypress:open": "cypress open" et "cypress:run": "cypress run" dans les scripts package.json.
+-->
+
+<!-- snippet
+id: cypress_run_headless
+type: command
+tech: cypress
+level: beginner
+importance: high
+format: knowledge
+tags: cypress,ci,headless,run
+title: Exécuter Cypress en mode headless (CI/CD)
+context: lancer les tests E2E dans un pipeline sans interface graphique
+command: npx cypress run
+description: Exécute tous les tests Cypress en mode headless (sans navigateur visible). Pour cibler un navigateur spécifique : npx cypress run --browser chrome. Générer des captures et vidéos des tests pour les conserver comme artefacts CI.
+-->
+
+<!-- snippet
+id: cypress_data_cy_selectors
+type: tip
+tech: cypress
+level: intermediate
+importance: high
+format: knowledge
+tags: cypress,selecteurs,bonnes-pratiques,data-cy
+title: Utiliser des attributs data-cy pour les sélecteurs Cypress
+context: écrire des tests stables qui ne cassent pas lors de refactorisations CSS
+content: Préférer cy.get('[data-cy=nom]') aux sélecteurs CSS dynamiques (.class, #id). Les attributs data-cy sont stables et ne changent pas lors de refactorisations du style.
+-->
+
+<!-- snippet
+id: cypress_intercept_network
+type: concept
+tech: cypress
+level: advanced
+importance: medium
+format: knowledge
+tags: cypress,intercept,api,mock,reseau
+title: Intercepter les requêtes réseau avec cy.intercept
+context: contrôler les réponses API dans les tests E2E pour isoler le frontend
+content: cy.intercept('GET', '/api/endpoint', { fixture: 'data.json' }).as('alias') intercepte les requêtes et retourne des données simulées. cy.wait('@alias') attend la résolution avant de continuer.
+-->
+
+<!-- snippet
+id: cypress_intercept_isolation
+type: tip
+tech: cypress
+level: advanced
+importance: medium
+format: knowledge
+tags: cypress,intercept,mock,frontend,isolation
+title: cy.intercept permet de tester le frontend sans backend réel
+context: isoler le frontend lors des tests E2E pour éviter les dépendances externes
+content: En interceptant les appels API avec cy.intercept, les tests E2E ne dépendent plus d'un backend ou d'une base de données. Les fixtures fournissent des données contrôlées et stables.
+-->
+
+<!-- snippet
+id: cypress_gitlab_ci_job
+type: concept
+tech: cypress
+level: intermediate
+importance: high
+format: knowledge
+tags: cypress,gitlab,ci,e2e,artefacts
+title: Job Cypress dans GitLab CI avec artefacts vidéos
+context: intégrer les tests E2E dans le pipeline CI et conserver les preuves d'exécution
+content: Utiliser l'image cypress/included:VERSION dans le job GitLab CI. Configurer les artefacts avec when: always pour conserver vidéos et screenshots même en cas d'échec.
+-->
+
 ---
 [Module suivant →](M19_test-jest.md)
 ---

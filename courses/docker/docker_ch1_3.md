@@ -185,6 +185,81 @@ Ensuite :
 
 ## Notes
 
-*Image : modèle immuable servant à créer des conteneurs  
-*Conteneur : instance en cours d’exécution d’une image  
+*Image : modèle immuable servant à créer des conteneurs
+*Conteneur : instance en cours d’exécution d’une image
 *Immuable : qui ne change pas
+
+---
+
+<!-- snippet
+id: docker_image_immuable
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,image,immuable,modele
+title: L’image Docker est immuable
+content: Une image est un modèle statique et immuable : elle ne change jamais. Elle contient une application, ses dépendances et sa configuration. On s’en sert pour créer des conteneurs.
+-->
+
+<!-- snippet
+id: docker_conteneur_instance
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,conteneur,instance,image
+title: Un conteneur est une instance d’image
+content: Un conteneur est l’image en cours d’exécution. C’est une instance dynamique et temporaire créée à partir d’une image immuable.
+-->
+
+<!-- snippet
+id: docker_images_liste
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,images,liste
+title: Voir les images disponibles localement
+command: docker images
+description: Affiche toutes les images téléchargées ou construites sur la machine locale.
+-->
+
+<!-- snippet
+id: docker_une_image_plusieurs_conteneurs
+type: concept
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,image,scalabilite,multi-conteneurs
+title: Une image peut générer plusieurs conteneurs
+content: On peut lancer autant de conteneurs que nécessaire à partir d’une seule image. Chaque instance est indépendante. C’est la base de la scalabilité avec Docker.
+-->
+
+<!-- snippet
+id: docker_conteneur_modifie_pas_image
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,image,conteneur,modifications
+title: Erreur : penser qu’un conteneur modifie l’image
+content: Modifier des fichiers dans un conteneur ne modifie pas l’image source. Ces changements sont temporaires et disparaissent à la suppression du conteneur.
+-->
+
+<!-- snippet
+id: docker_conteneur_temporaire
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,conteneur,temporaire,donnees
+title: Piège : croire que les modifications dans un conteneur sont permanentes
+content: Un conteneur est temporaire. Toute modification faite à l’intérieur (fichiers, données) disparaît à sa suppression. Pour persister des données, il faut utiliser des volumes.
+-->

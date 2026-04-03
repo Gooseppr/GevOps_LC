@@ -210,6 +210,113 @@ Dans les **paramètres du dépôt GitLab** :
 🎉 **Félicitations !**  
 Tu sais maintenant choisir, adapter et appliquer un **workflow Git professionnel** parfaitement intégré à une approche DevOps.
 
+
+
+<!-- snippet
+id: git_workflow_concept
+type: concept
+tech: git
+level: beginner
+importance: high
+format: knowledge
+tags: workflow,gitflow,trunk-based,feature-branch
+title: Les grands modèles de workflow Git
+context: choisir une stratégie de branches pour une équipe
+content: Quatre modèles principaux : Git Flow (develop/release/hotfix), Feature Branch (branche par fonctionnalité), Trunk-Based (merges fréquents sur main), GitHub Flow (branches courtes + PR).
+-->
+
+<!-- snippet
+id: git_branch_naming
+type: tip
+tech: git
+level: beginner
+importance: medium
+format: knowledge
+tags: branche,nommage,convention
+title: Convention de nommage des branches
+context: nommer une branche de manière cohérente en équipe
+content: Préfixes standardisés : `feat/` (fonctionnalité), `fix/` (correction), `hotfix/` (urgence prod), `release/` (version), `exp/` (prototype). Ex : `feat/auth-login`.
+-->
+
+<!-- snippet
+id: git_switch_feature_branch
+type: command
+tech: git
+level: beginner
+importance: high
+format: knowledge
+tags: branche,feature,switch,push
+title: Créer et publier une branche de fonctionnalité
+context: démarrer le développement d'une nouvelle fonctionnalité
+command: git switch -c feature/login && git push -u origin feature/login
+description: Crée une branche isolée pour une fonctionnalité et l'associe immédiatement au dépôt distant pour déclencher la CI
+-->
+
+<!-- snippet
+id: git_trunk_based_warning
+type: warning
+tech: git
+level: intermediate
+importance: medium
+format: knowledge
+tags: trunk-based,CI,tests,merge-fréquent
+title: Trunk-Based Development exige des tests automatiques solides
+context: adopter le développement orienté tronc commun
+content: Le Trunk-Based Development repose sur des merges fréquents vers main. Sans tests automatiques robustes, chaque push peut introduire une régression directement en production.
+-->
+
+<!-- snippet
+id: git_trunk_based_warning_b
+type: warning
+tech: git
+level: intermediate
+importance: medium
+format: knowledge
+tags: trunk-based,CI,tests,merge-fréquent
+title: Trunk-Based nécessite une CI complète (lint, tests, intégration)
+context: mettre en place les prérequis du Trunk-Based Development
+content: Ne pas adopter le Trunk-Based sans une CI fiable couvrant lint, tests unitaires et tests d'intégration. Sans ce filet, main devient instable en permanence.
+-->
+
+<!-- snippet
+id: git_protected_branches_tip
+type: tip
+tech: git
+level: intermediate
+importance: medium
+format: knowledge
+tags: protection,main,CI,qualité,gitlab
+title: Protéger les branches critiques dans GitLab/GitHub
+context: empêcher les push directs sur main ou develop
+content: Activer dans les paramètres : pipeline obligatoire avant merge, approbation d'au moins 1 reviewer, et blocage des push directs sur `main` et `develop`.
+-->
+
+<!-- snippet
+id: git_conventional_commits_tip
+type: tip
+tech: git
+level: beginner
+importance: medium
+format: knowledge
+tags: commit,message,conventional-commits,CI
+title: Utiliser les Conventional Commits pour les messages
+context: standardiser les messages de commit en équipe
+content: Format : `type(scope): description`. Types courants : `feat`, `fix`, `chore`, `docs`, `refactor`, `test`. Exemple : `feat(auth): ajouter la connexion OAuth`.
+-->
+
+<!-- snippet
+id: git_merge_request_cycle
+type: concept
+tech: git
+level: intermediate
+importance: high
+format: knowledge
+tags: merge-request,pull-request,CI,workflow,cycle
+title: Cycle complet d'une Merge Request avec CI/CD
+context: comprendre le flux d'une fonctionnalité de la branche à la production
+content: Créer `feature/*` depuis develop, pousser, ouvrir une MR → la CI se déclenche (tests, lint, build). Après revue et approbation, fusionner dans develop.
+-->
+
 ---
 [← Module précédent](M03_git-historique-avance.md)
 ---

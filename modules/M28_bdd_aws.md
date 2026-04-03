@@ -314,6 +314,87 @@ aws rds create-db-instance \
 - Surveille ta base avec **CloudWatch** et observe les métriques en temps réel.
 - Découvre **Aurora Serverless** (mise à l’échelle automatique des ressources de base relationnelle).
 
+
+
+<!-- snippet
+id: aws_rds_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: rds,sql,base-de-données,managé
+title: Amazon RDS – Base de données relationnelle managée
+context: déployer une base SQL sans gérer l'infrastructure
+content: RDS est un service managé pour MySQL, PostgreSQL, MariaDB, Oracle ou SQL Server. AWS gère les patchs, backups et haute disponibilité. Le client gère le schéma, les requêtes et les index.
+-->
+
+<!-- snippet
+id: aws_rds_create_instance
+type: command
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: rds,cli,postgres,base-de-données
+title: Créer une instance RDS PostgreSQL via AWS CLI
+context: provisionner une base de données RDS en ligne de commande
+command: aws rds create-db-instance --db-instance-identifier demo-db --engine postgres --master-username admin --master-user-password Secret123 --allocated-storage 20 --db-instance-class db.t3.micro
+description: Crée une instance RDS PostgreSQL t3.micro avec 20 Go de stockage. Remplacer le mot de passe par un secret sécurisé (idéalement via AWS Secrets Manager). L'instance sera accessible via un endpoint DNS une fois en état "available". Par défaut elle est déployée dans le VPC par défaut.
+-->
+
+<!-- snippet
+id: aws_rds_multi_az
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: rds,multi-az,haute-disponibilité,failover
+title: RDS Multi-AZ – Haute disponibilité automatique
+context: garantir la continuité de service en cas de panne d'une AZ
+content: RDS Multi-AZ crée une copie synchrone dans une AZ secondaire. En cas de panne, RDS bascule automatiquement (failover). Multi-AZ = haute disponibilité. Read Replicas = scaling en lecture.
+-->
+
+<!-- snippet
+id: aws_dynamodb_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: dynamodb,nosql,clé-valeur,serverless
+title: Amazon DynamoDB – NoSQL clé-valeur entièrement managé
+context: stocker des données non relationnelles avec une scalabilité automatique
+content: DynamoDB est une base NoSQL entièrement managée : scalabilité automatique, latence en ms, multi-AZ, chiffrement KMS et accès via IAM. DynamoDB Streams permet de déclencher des Lambdas sur les changements.
+-->
+
+<!-- snippet
+id: aws_rds_vs_ec2_db
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: rds,ec2,base-de-données,responsabilité-partagée
+title: RDS managé vs base de données sur EC2
+context: choisir entre RDS et une base installée manuellement sur EC2
+content: Sur EC2 : contrôle total mais patchs, backups et réplication manuels. Sur RDS : AWS gère tout. Utiliser EC2 seulement pour des moteurs non supportés par RDS (Sybase, DB2, Timescale).
+-->
+
+<!-- snippet
+id: aws_db_specialized_services
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: elasticache,neptune,timestream,documentdb,nosql
+title: Services de bases de données spécialisés AWS
+context: choisir le bon moteur AWS selon le type de données
+content: AWS propose des bases spécialisées : ElastiCache (Redis/Memcached), DocumentDB (MongoDB), Neptune (graphes), Timestream (IoT/métriques), QLDB (journal immuable), Keyspaces (Cassandra), MemoryDB (Redis durable). Tous managés.
+-->
+
 ---
 [Module suivant →](M28_monitoring-elb-aws.md)
 ---

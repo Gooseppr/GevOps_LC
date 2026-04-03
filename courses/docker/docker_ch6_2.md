@@ -156,5 +156,72 @@ Initialiser un cluster permet de :
 
 ## Notes
 
-*Manager : nœud qui contrôle le cluster  
+*Manager : nœud qui contrôle le cluster
 *Worker : nœud qui exécute les conteneurs
+
+---
+
+<!-- snippet
+id: docker_swarm_init
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,cluster,init,manager
+title: Initialiser un cluster Swarm
+command: docker swarm init
+description: Transforme la machine courante en nœud manager et initialise le cluster. Docker retourne ensuite un token à utiliser pour ajouter des workers.
+-->
+
+<!-- snippet
+id: docker_swarm_join_worker
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,cluster,join,worker
+title: Ajouter un worker au cluster Swarm
+context: Sur la machine worker à joindre au cluster
+command: docker swarm join --token <TOKEN> <IP_MANAGER>:2377
+description: Rejoint le cluster Swarm en tant que worker. Le token est fourni après docker swarm init sur le manager.
+-->
+
+<!-- snippet
+id: docker_swarm_node_ls
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,nodes,cluster,supervision
+title: Lister les nœuds du cluster
+command: docker node ls
+description: Affiche tous les nœuds du cluster avec leur rôle (manager/worker) et leur statut.
+-->
+
+<!-- snippet
+id: docker_swarm_manager_perte
+type: warning
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,manager,haute-disponibilite,production
+title: Perte du manager principal
+content: Si le seul manager tombe, le cluster devient inutilisable. En production, il est impératif d'avoir plusieurs managers pour garantir la continuité du cluster.
+-->
+
+<!-- snippet
+id: docker_swarm_manager_worker_roles
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,manager,worker,cluster
+title: Manager = contrôle, Worker = exécution
+content: Dans Swarm, le manager est le cerveau du cluster (planification, orchestration). Le worker se contente d'exécuter les conteneurs assignés. Ne pas confondre les deux rôles.
+-->
+

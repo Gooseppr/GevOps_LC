@@ -759,6 +759,105 @@ flowchart TD
 - [ ]  Arrêt de Nginx → alerte `NginxDown` passe en **FIRING** après le délai.
 - [ ]  Optionnel : `fallocate` pour tester le disque.
 
+
+
+---
+
+<!-- snippet
+id: prometheus_install_binary
+type: command
+tech: prometheus
+level: beginner
+importance: high
+format: knowledge
+tags: prometheus,install,binaire,linux,wget
+title: Télécharger et lancer Prometheus depuis le binaire officiel
+context: installer Prometheus sur une VM Debian/Ubuntu sans paquets apt
+command: wget https://github.com/prometheus/prometheus/releases/download/v3.7.3/prometheus-3.7.3.linux-amd64.tar.gz && tar xvf prometheus-3.7.3.linux-amd64.tar.gz && cd prometheus-3.7.3.linux-amd64 && ./prometheus --config.file=prometheus.yml &
+description: Télécharge l'archive officielle, l'extrait, puis lance Prometheus en arrière-plan avec son fichier de config. L'interface web est accessible sur le port 9090.
+-->
+
+<!-- snippet
+id: prometheus_node_exporter_docker
+type: command
+tech: prometheus
+level: beginner
+importance: high
+format: knowledge
+tags: prometheus,node-exporter,docker,host-network,metrics
+title: Lancer Node Exporter en Docker avec accès réseau hôte
+context: exposer les métriques système (CPU, RAM, disque, réseau) d'une VM pour Prometheus
+command: docker run -d --net="host" --pid="host" -v "/:/host:ro,rslave" quay.io/prometheus/node-exporter:latest --path.rootfs=/host
+description: Lance Node Exporter en mode host network pour accéder aux métriques réelles de la VM. Le montage de / en lecture seule permet de lire /proc et /sys. Node Exporter écoute sur le port 9100.
+-->
+
+<!-- snippet
+id: prometheus_nginx_exporter
+type: command
+tech: prometheus
+level: intermediate
+importance: medium
+format: knowledge
+tags: prometheus,nginx,exporter,stub_status,docker
+title: Lancer nginx-prometheus-exporter pour monitorer Nginx
+context: exposer les métriques Nginx (connexions, requêtes) vers Prometheus via stub_status
+command: docker run -d --name nginx-exporter --network host nginx/nginx-prometheus-exporter:0.10.0 -nginx.scrape-uri=http://localhost:8080/stub_status
+description: Lance l'exporter Nginx en mode host network. Il interroge /stub_status de Nginx et expose les métriques sur le port 9113 pour que Prometheus puisse les scraper. Nginx doit avoir la directive stub_status activée dans sa configuration.
+-->
+
+<!-- snippet
+id: prometheus_alertmanager_docker
+type: command
+tech: prometheus
+level: intermediate
+importance: high
+format: knowledge
+tags: prometheus,alertmanager,docker,alertes
+title: Lancer Alertmanager en Docker (exposé uniquement en local)
+context: déployer Alertmanager pour recevoir les alertes Prometheus et les router
+command: docker run -d --name alertmanager -p 127.0.0.1:9093:9093 -v /etc/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml quay.io/prometheus/alertmanager --config.file=/etc/alertmanager/alertmanager.yml
+description: Lance Alertmanager en exposant le port 9093 uniquement sur localhost (bonne pratique sécurité). Le fichier de configuration est monté depuis l'hôte. Prometheus doit pointer vers localhost:9093 dans son bloc alerting.
+-->
+
+<!-- snippet
+id: prometheus_alert_rule_nginx_down
+type: concept
+tech: prometheus
+level: intermediate
+importance: high
+format: knowledge
+tags: prometheus,alertes,rules,nginx,firing
+title: Règle d'alerte Prometheus : Nginx indisponible
+context: être alerté automatiquement quand le job Nginx ne répond plus depuis 2 minutes
+content: Dans alert.rules.yml : NginxDown, expr = up{job="nginx"} == 0, for = 2m, severity = critical. Référencez via rule_files. États : inactive → pending (durée "for" non atteinte) → firing. Tester : `docker stop nginx-server`, attendre 2 min, vérifier l'onglet Alerts.
+-->
+
+<!-- snippet
+id: prometheus_promql_disk_usage
+type: concept
+tech: prometheus
+level: intermediate
+importance: medium
+format: knowledge
+tags: prometheus,promql,disque,alerte,node-exporter
+title: Requête PromQL pour calculer le taux d'utilisation disque
+context: surveiller l'espace disque d'une VM et déclencher une alerte si supérieur à 80%
+content: L'expression correcte pour le taux d'utilisation disque est : 1 - (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) > 0.8. Pour exclure les systèmes de fichiers temporaires, ajoutez le filtre fstype!~"tmpfs|overlay". Testez avec fallocate -l 10G /tmp/fake_file pour simuler un disque plein. Supprimez ensuite avec rm /tmp/fake_file.
+-->
+
+<!-- snippet
+id: prometheus_scrape_config_jobs
+type: concept
+tech: prometheus
+level: beginner
+importance: high
+format: knowledge
+tags: prometheus,scrape_configs,jobs,yml,configuration
+title: Configurer plusieurs jobs dans prometheus.yml
+context: ajouter Prometheus lui-même, Node Exporter et Nginx Exporter comme cibles de scraping
+content: Dans le bloc scrape_configs de prometheus.yml, déclarez un job par exporter : job_name "prometheus" avec target localhost:9090, job_name "node" avec target localhost:9100, job_name "nginx" avec target localhost:9113. Ajoutez des labels (ex : app: "node") pour faciliter le filtrage en PromQL. Après modification, redémarrez Prometheus et vérifiez Status → Targets pour confirmer que chaque job est UP.
+-->
+
 ---
 [← Module précédent](M36_prometheus.md)
 ---

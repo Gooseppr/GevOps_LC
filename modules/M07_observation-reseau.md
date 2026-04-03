@@ -416,6 +416,117 @@ journalctl -u ssh -e
 
 ```
 
+
+
+<!-- snippet
+id: reseau_nmap_scan_base
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: reseau,nmap,scan,ports,audit
+title: Scanner les ports ouverts d'une machine avec Nmap
+context: auditer les services exposés d'un hôte sur le réseau
+command: nmap -sV 192.168.1.1
+description: Scanne les ports TCP les plus courants et détecte les versions des services actifs sur la cible
+-->
+
+<!-- snippet
+id: reseau_nmap_ping_sweep
+type: command
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,nmap,decouverte,lan,inventaire
+title: Découvrir les hôtes actifs sur un réseau local
+context: inventorier les machines présentes sur un segment réseau
+command: nmap -sn 192.168.1.0/24
+description: Effectue un ping sweep sur toute la plage /24 pour lister les hôtes qui répondent, sans scanner leurs ports
+-->
+
+<!-- snippet
+id: reseau_tcpdump_capture
+type: command
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,tcpdump,capture,trafic,analyse
+title: Capturer le trafic réseau avec tcpdump
+context: observer les flux réseau en temps réel sur un routeur ou serveur
+command: tcpdump -i eth0 -n port 443
+description: Capture les paquets HTTPS sur l'interface eth0 en affichant les adresses IP brutes (sans résolution DNS). Remplacer eth0 par l'interface cible et 443 par le port souhaité
+-->
+
+<!-- snippet
+id: reseau_tcpdump_pcap
+type: command
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,tcpdump,pcap,wireshark,capture
+title: Enregistrer une capture réseau au format pcap
+context: sauvegarder du trafic pour analyse ultérieure dans Wireshark
+command: tcpdump -i eth0 -n -w capture.pcap
+description: Capture tout le trafic sur eth0 et l'enregistre dans un fichier pcap analysable avec Wireshark
+-->
+
+<!-- snippet
+id: reseau_curl_test_http
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: reseau,curl,http,test,headers
+title: Tester une réponse HTTP avec curl
+context: vérifier qu'un serveur web répond et inspecter ses en-têtes
+command: curl -I http://192.168.1.1
+description: Envoie une requête HEAD au serveur et affiche uniquement les en-têtes de réponse (code HTTP, serveur, Content-Type, etc.)
+-->
+
+<!-- snippet
+id: reseau_nftables_minimal
+type: concept
+tech: linux
+level: advanced
+importance: low
+format: knowledge
+tags: reseau,nftables,firewall,linux,securite
+title: Pare-feu nftables minimal sur Linux
+context: configurer un firewall basique sur un routeur Linux sans OpenWrt
+content: Structure minimale nftables : table `inet filter`, chaînes INPUT/FORWARD en DROP, OUTPUT en ACCEPT, loopback et established/related acceptés. Appliquer une politique deny-by-default sans UFW ni iptables.
+-->
+
+<!-- snippet
+id: reseau_sftp_securise
+type: tip
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: reseau,sftp,ftp,securite,transfert
+title: Préférer SFTP à FTP pour les transferts de fichiers
+context: transférer des fichiers de façon sécurisée entre machines
+content: FTP (port 21) transmet données et mots de passe en clair, interceptable par tcpdump. Utiliser SFTP (`sftp user@IP`) ou SCP (`scp fichier user@IP:/chemin/`) à la place.
+-->
+
+<!-- snippet
+id: reseau_sftp_securise_b
+type: tip
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: reseau,sftp,ftp,securite,transfert
+title: SFTP inclus dans OpenSSH — aucune configuration supplémentaire
+context: activer SFTP sur un serveur SSH existant
+content: SFTP est inclus dans OpenSSH et disponible dès que le serveur SSH est opérationnel, sans configuration supplémentaire ni installation d'un logiciel tiers.
+-->
+
 ---
 [← Module précédent](M07_IP-ports-protocole.md)
 ---

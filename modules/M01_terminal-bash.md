@@ -664,6 +664,103 @@ trap 'echo "Abort"; rm -f /tmp/tmpfile' INT TERM EXIT
 - **CSV compliqués** : `awk/sed` suffisent pour simple ; sinon `xsv`, `mlr`, `csvkit`.
 - Garder un réflexe : **“est-ce que je peux faire ça avec un pipe ?”** → plus tu pipelines, plus tu t’approches de la pensée DevOps
 
+
+
+<!-- snippet
+id: bash_navigation_cd
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,navigation,cd,arborescence
+title: Naviguer dans l'arborescence Linux
+context: se déplacer entre les répertoires au terminal
+command: cd /chemin/vers/dossier
+description: cd change le répertoire courant. cd .. remonte d'un niveau, cd ~ va dans le HOME, cd - revient au dossier précédent
+-->
+
+<!-- snippet
+id: bash_pipeline_logs
+type: command
+tech: bash
+level: intermediate
+importance: high
+format: knowledge
+tags: bash,pipe,grep,sort,uniq,logs
+title: Extraire et compter les erreurs dans des logs
+context: analyser rapidement des fichiers de logs pour trouver les erreurs fréquentes
+command: grep -h "ERROR" *.log | sort | uniq -c | sort -nr | head -n 10
+description: Enchaîne grep (filtrage), sort (tri), uniq -c (comptage), sort -nr (tri décroissant), head (top 10)
+-->
+
+<!-- snippet
+id: bash_find_delete_old
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: bash,find,delete,maintenance,logs
+title: Supprimer les fichiers de plus de 30 jours
+context: faire le ménage automatique dans un répertoire de logs
+command: find /var/log -type f -mtime +30 -delete
+description: -mtime +30 cible les fichiers modifiés il y a plus de 30 jours, -delete les supprime directement
+-->
+
+<!-- snippet
+id: bash_tail_follow
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,tail,logs,temps-réel,suivi
+title: Suivre un fichier de log en temps réel
+context: surveiller les logs d'une application en cours d'exécution
+command: tail -f /var/log/app.log
+description: -f (follow) maintient le fichier ouvert et affiche les nouvelles lignes au fur et à mesure de leur ajout
+-->
+
+<!-- snippet
+id: bash_redirection_stderr
+type: concept
+tech: bash
+level: intermediate
+importance: high
+format: knowledge
+tags: bash,redirection,stderr,stdout
+title: Redirections stdout et stderr en Bash
+context: capturer ou ignorer les sorties d'une commande
+content: `>` écrase stdout, `>>` ajoute, `2>` redirige stderr, `&>` capture stdout+stderr ensemble. Pattern log : `cmd >> sortie.log 2>&1`.
+-->
+
+<!-- snippet
+id: bash_set_strict
+type: tip
+tech: bash
+level: intermediate
+importance: high
+format: knowledge
+tags: bash,scripting,erreur,robustesse
+title: Activer le mode strict au début d'un script Bash
+context: rendre un script Bash plus robuste et fiable
+content: `set -euo pipefail` en tête de script : `-e` stoppe sur erreur, `-u` interdit les variables non définies, `-o pipefail` propage les erreurs dans les pipes.
+-->
+
+<!-- snippet
+id: bash_warning_rm_rf
+type: warning
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,rm,suppression,danger
+title: Vérifier l'expansion de glob avant rm -rf
+context: éviter de supprimer accidentellement des fichiers importants
+content: `rm -rf` n'a pas de corbeille ni de confirmation. Toujours tester avec `echo rm -rf /chemin/*.log` pour voir l'expansion avant d'exécuter.
+-->
+
 ---
 [← Module précédent](M01_vagrant-bases-utiles.md) | [Module suivant →](M01_sed-utilisation.md)
 ---

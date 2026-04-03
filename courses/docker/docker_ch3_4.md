@@ -164,5 +164,94 @@ Docker propose deux types de stockage :
 
 ## Notes
 
-*Volume : stockage géré par Docker  
+*Volume : stockage géré par Docker
 *Bind mount : lien direct avec un dossier local
+
+---
+
+<!-- snippet
+id: docker_volume_concept
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: volume,stockage,persistance,docker
+title: Volume Docker — stockage géré en interne par Docker
+content: Un volume Docker est un espace de stockage géré par Docker, stocké dans un répertoire interne. Les données persistent même si le conteneur est supprimé. Recommandé en production.
+-->
+
+<!-- snippet
+id: docker_bind_mount_concept
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,bind-mount,dev,fichiers
+title: Bind mount — lien direct entre le PC et le conteneur
+content: Un bind mount crée un lien direct entre un dossier de la machine hôte et un répertoire dans le conteneur. Très utile en développement pour modifier les fichiers en temps réel.
+-->
+
+<!-- snippet
+id: docker_run_volume_named
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: volume,run,stockage,persistance
+title: Monter un volume nommé dans un conteneur
+command: docker run -v mon-volume:/data <IMAGE>
+description: Monte le volume nommé sur le répertoire /data du conteneur. Docker crée le volume automatiquement s'il n'existe pas encore. Les données survivent à la suppression du conteneur.
+-->
+
+<!-- snippet
+id: docker_run_bind_mount
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,bind-mount,dev,run
+title: Monter un bind mount (répertoire courant)
+command: docker run -v $(pwd):/app <IMAGE>
+description: Monte le répertoire courant sur /app dans le conteneur. Toute modification de fichier est immédiatement visible dans le conteneur sans le redémarrer.
+-->
+
+<!-- snippet
+id: docker_volume_prod_postgres
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: volume,postgres,production,persistance
+title: Volume pour base de données Postgres en production
+command: docker run -v db-data:/var/lib/postgresql/data postgres
+description: Monte le volume "db-data" sur le répertoire de données interne de Postgres. Les données survivent à la suppression du conteneur grâce au volume nommé géré par Docker.
+-->
+
+<!-- snippet
+id: docker_bind_mount_ecrasement_piege
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,bind-mount,ecrasement,piege
+title: Le bind mount peut écraser les fichiers du conteneur
+content: Si tu montes un dossier vide avec un bind mount sur un répertoire existant dans le conteneur, les fichiers internes sont masqués. Cela peut casser l'application ou produire un comportement inattendu.
+-->
+
+<!-- snippet
+id: docker_volume_vs_bindmount_choix
+type: tip
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,bind-mount,dev,production,choix
+title: Volume en production, bind mount en développement
+content: La règle générale est simple : utilise des volumes pour la production (données stables et sécurisées) et des bind mounts en développement (modifications en temps réel depuis ton éditeur).
+-->

@@ -584,6 +584,130 @@ find / -perm -4000 2>/dev/null
 - sudo → règles strictes, pas de `NOPASSWD` global
 - Les bons groupes affectés aux bons utilisateurs
 
+
+
+<!-- snippet
+id: bash_chmod_octal
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: linux,chmod,permissions,octal
+title: Modifier les permissions avec chmod en notation octale
+context: définir les droits d'accès d'un fichier ou d'un script
+command: chmod 755 script.sh
+description: 755 = rwxr-xr-x : le propriétaire a tous les droits (7), le groupe et les autres peuvent lire et exécuter (5). chmod 644 = rw-r--r-- pour les fichiers de données
+-->
+
+<!-- snippet
+id: bash_chown_recursif
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: linux,chown,propriétaire,groupe,récursif
+title: Changer propriétaire et groupe récursivement
+context: attribuer un répertoire web à l'utilisateur du serveur
+command: sudo chown -R www-data:www-data /var/www
+description: -R applique le changement au dossier et à tout son contenu. Remplacer www-data par l'utilisateur et le groupe cibles
+-->
+
+<!-- snippet
+id: bash_find_audit_suid
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,find,suid,audit,sécurité
+title: Trouver les fichiers avec le bit SUID activé
+context: auditer un serveur pour détecter des binaires avec élévation de privilèges
+command: find / -type f -perm -4000 2>/dev/null
+description: -perm -4000 cible les fichiers ayant le bit SUID (exécution avec les droits du propriétaire). 2>/dev/null supprime les erreurs d'accès refusé
+-->
+
+<!-- snippet
+id: bash_setfacl_default
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,acl,setfacl,groupe,héritage
+title: Définir une ACL par défaut pour héritage dans un dossier
+context: configurer un projet collaboratif pour que tous les nouveaux fichiers héritent des droits du groupe
+command: setfacl -d -m g:devops:rwx /srv/projet
+description: -d applique une ACL par défaut (héritage), -m modifie/ajoute l'entrée ACL. Tout nouveau fichier créé dans /srv/projet recevra automatiquement rwx pour le groupe devops
+-->
+
+<!-- snippet
+id: bash_umask_concept
+type: concept
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,umask,permissions-defaut,creation
+title: Comprendre le fonctionnement de umask
+context: comprendre quels droits ont les fichiers créés par défaut
+content: `umask` définit les droits retirés à la création. Avec `umask 022` : fichiers → 644, dossiers → 755. Avec `umask 027` : groupe peut lire, "autres" n'ont aucun droit.
+-->
+
+<!-- snippet
+id: bash_chmod_bits_speciaux
+type: concept
+tech: bash
+level: advanced
+importance: low
+format: knowledge
+tags: linux,suid,sgid,sticky,bits-spéciaux
+title: Bit SUID — exécution avec les droits du propriétaire
+context: comprendre les permissions avancées sur les fichiers Linux
+content: SUID (`4xxx`) : le fichier s'exécute avec les droits de son propriétaire, pas ceux de l'appelant. Utilisé par `passwd` et `sudo` pour accéder à des ressources privilégiées.
+-->
+
+<!-- snippet
+id: bash_chmod_bits_speciaux_b
+type: concept
+tech: bash
+level: advanced
+importance: low
+format: knowledge
+tags: linux,suid,sgid,sticky,bits-spéciaux
+title: Bit SGID sur dossier — héritage automatique du groupe
+context: comprendre les permissions avancées sur les dossiers Linux
+content: SGID (`2xxx`) sur un dossier : tout nouveau fichier créé dedans hérite automatiquement du groupe du dossier, pas du groupe de l'utilisateur créateur.
+-->
+
+<!-- snippet
+id: bash_chmod_bits_speciaux_c
+type: concept
+tech: bash
+level: advanced
+importance: low
+format: knowledge
+tags: linux,suid,sgid,sticky,bits-spéciaux
+title: Sticky bit — empêche les suppressions croisées
+context: comprendre les permissions avancées sur les dossiers partagés
+content: Sticky bit (`1xxx`) : seul le propriétaire d'un fichier peut le supprimer, même si le dossier est accessible en écriture par tous. Utilisé sur `/tmp`.
+-->
+
+<!-- snippet
+id: bash_find_corriger_permissions
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: linux,find,chmod,correction,déploiement
+title: Corriger récursivement les permissions d'une application web
+context: remettre des permissions correctes après un déploiement ou une erreur
+command: find /var/www/site -type d -exec chmod 755 {} \; && find /var/www/site -type f -exec chmod 644 {} \;
+description: Applique 755 aux dossiers (traversée) et 644 aux fichiers (lecture seule), en distinguant les deux types avec -type d et -type f
+-->
+
 ---
 [← Module précédent](M02_scripting-bash.md) | [Module suivant →](M02_cron-automatisation.md)
 ---

@@ -218,3 +218,36 @@ Concepts importants :
 - transactions concurrentes
 
 Dans le prochain chapitre nous verrons **la sécurité des bases de données**, notamment la gestion des utilisateurs et des permissions.
+
+<!-- snippet
+id: sql_niveaux_isolation
+type: concept
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,isolation,transaction,concurrence,dirty_read
+title: Les 4 niveaux d'isolation des transactions
+content: |
+  - **Read Committed** : lit seulement les données validées (défaut PostgreSQL)
+  - **Repeatable Read** : les lignes lues restent stables pendant la transaction
+  - **Serializable** : isolation totale, transactions comme si séquentielles
+description: Plus le niveau est fort, plus la cohérence est garantie, mais les performances peuvent baisser.
+-->
+
+<!-- snippet
+id: sql_deadlock_transaction_longue
+type: warning
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,deadlock,lock,concurrence,transaction
+title: Les transactions longues provoquent des deadlocks
+content: |
+  Deux transactions qui attendent chacune que l'autre libère un verrou → deadlock.
+  - Garder les transactions courtes
+  - Verrouiller les ressources dans le même ordre
+  - Éviter le verrouillage de tables entières
+description: PostgreSQL détecte les deadlocks automatiquement et annule une des transactions, mais c'est une erreur à éviter.
+-->

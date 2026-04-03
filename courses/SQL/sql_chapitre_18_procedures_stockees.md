@@ -246,3 +246,31 @@ Les procédures stockées permettent :
 - de centraliser les règles métier
 
 Dans le prochain chapitre nous verrons **les triggers**, qui permettent d’exécuter du code automatiquement lors d’événements dans la base.
+
+<!-- snippet
+id: sql_fonction_vs_procedure
+type: concept
+tech: sql
+level: advanced
+importance: medium
+format: knowledge
+tags: sql,fonction,procedure,plpgsql,postgresql
+title: Fonction SQL vs procédure stockée
+content: |
+  - **Fonction** : retourne une valeur, utilisable dans SELECT
+  - **Procédure** : exécute des actions (UPDATE, INSERT…), appelée avec CALL
+description: En PostgreSQL, une fonction peut aussi modifier des données via plpgsql, mais la distinction reste utile conceptuellement.
+-->
+
+<!-- snippet
+id: sql_logique_bdd_avec_moderation
+type: warning
+tech: sql
+level: advanced
+importance: medium
+format: knowledge
+tags: sql,procedure,logique_metier,maintenance,bonne_pratique
+title: Ne pas déplacer toute la logique métier dans la BDD
+content: Les procédures stockées sont difficiles à versionner, tester et déboguer. Réserver la logique dans la base aux opérations de manipulation massive ou d’automatisation basse couche.
+description: Une base surchargée de procédures devient un point noir de maintenance impossible à faire évoluer sereinement.
+-->

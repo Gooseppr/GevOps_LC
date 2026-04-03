@@ -563,6 +563,86 @@ Ce set de quizz mélange trois compétences que tu dois maîtriser :
     - ELB/ALB pour répartir le trafic,
     - bonnes pratiques de coûts.
 
+
+
+<!-- snippet
+id: aws_dynamodb_vs_rds
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: dynamodb,rds,nosql,sql,choix
+title: Choisir entre DynamoDB et RDS
+context: sélectionner le bon service de base de données selon le type de données
+content: RDS (SQL) : données très structurées, contraintes d'intégrité (ACID), relations complexes (JOIN). Idéal pour finance, commandes, CRM. DynamoDB (NoSQL) : données flexibles, volumes massifs, scalabilité horizontale native, latence en ms. Idéal pour sessions, catalogues produits, events, logs. Si les données sont semi-structurées ou que les patterns d'accès sont simples → DynamoDB. Si on a besoin de transactions ACID et de jointures complexes → RDS ou Aurora.
+-->
+
+<!-- snippet
+id: aws_aurora_concept
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aurora,rds,sql,scalabilité,cloud-native
+title: Amazon Aurora – Super RDS cloud-native
+context: utiliser une base relationnelle haute performance et scalable sur AWS
+content: Aurora est un moteur relationnel cloud-native compatible MySQL ou PostgreSQL. Stockage distribué multi-AZ, jusqu'à 15 read replicas, auto-scaling du stockage jusqu'à plusieurs dizaines de To. Performances 3 à 5 fois supérieures à MySQL standard sur RDS. Utiliser Aurora pour du SQL haute performance avec forte disponibilité et auto-scaling du stockage. Aurora Serverless ajoute la mise à l'échelle automatique des ressources compute.
+-->
+
+<!-- snippet
+id: aws_cloudtrail_vs_cloudwatch
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: cloudtrail,cloudwatch,audit,monitoring
+title: CloudTrail vs CloudWatch
+context: distinguer les outils de monitoring et d'audit AWS
+content: CloudWatch = santé et performance. Surveille les métriques (CPU, RAM, réseau), les logs applicatifs, les dashboards et déclenche des alarmes. CloudTrail = audit et sécurité. Enregistre tous les appels API AWS (qui a fait quoi, quand, depuis où). Utiliser CloudWatch pour détecter des problèmes de performance (CPU élevé, erreurs HTTP 500). Utiliser CloudTrail pour l'audit de conformité et les investigations de sécurité (qui a supprimé une instance).
+-->
+
+<!-- snippet
+id: aws_rds_reserved_instances
+type: tip
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: rds,coûts,reserved-instances,finops
+title: Réduire les coûts RDS avec les Reserved Instances
+context: optimiser la facture RDS pour des workloads stables long terme
+content: Pour des bases RDS utilisées en continu (> 1 an), les Reserved Instances offrent des réductions de 30 à 60% par rapport au tarif à la demande. Engagement 1 ou 3 ans avec paiement upfront partiel ou total. À combiner avec un dimensionnement correct (surveiller CPU, IOPS, connexions avec CloudWatch avant de choisir la taille). Pour des bases très longues à utilisation prévisible : Reserved Instances avec paiement partiel upfront = meilleur rapport coût/engagement.
+-->
+
+<!-- snippet
+id: aws_auto_scaling_multi_az
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: auto-scaling,multi-az,disponibilité,haute-disponibilité
+title: Auto Scaling + Multi-AZ – Architecture hautement disponible
+context: concevoir une architecture EC2 tolérante aux pannes et scalable
+content: Un Auto Scaling Group (ASG) peut distribuer les instances sur plusieurs AZ automatiquement. Si une AZ tombe, l'ASG recrée les instances dans les AZ restantes. Combiné avec un ELB (ALB), le trafic est distribué entre les instances saines. Pour une haute disponibilité optimale : ASG min=2, réparti sur 2+ AZ, derrière un ALB avec health checks. Cette combinaison garantit à la fois la résilience aux pannes et l'absorption des pics de charge.
+-->
+
+<!-- snippet
+id: aws_rds_security
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: rds,sécurité,kms,tls,secrets-manager
+title: Sécurité RDS – Chiffrement, réseau et gestion des secrets
+context: sécuriser une instance RDS en production
+content: Sécurité RDS en couches. Réseau : VPC privé + Security Group (seule l'application peut se connecter sur le port DB). Données au repos : chiffrement KMS activé à la création. Données en transit : TLS obligatoire. Identité : IAM DB Auth (tokens STS au lieu de mots de passe). Secrets : AWS Secrets Manager gère et fait tourner automatiquement les mots de passe. Ne jamais exposer une instance RDS directement sur Internet (public accessibility = false en production).
+-->
+
 ---
 [← Module précédent](M28_monitoring-elb-aws.md)
 ---

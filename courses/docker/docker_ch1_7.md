@@ -148,3 +148,80 @@ cat config.json
 - analyser un problème  
 
 👉 C’est un outil essentiel pour comprendre et debug Docker
+
+---
+
+<!-- snippet
+id: docker_exec_bash
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,exec,bash,terminal,interaction
+title: Entrer dans un conteneur avec bash
+command: docker exec -it <NOM> bash
+description: Ouvre un terminal interactif dans le conteneur. -i = interactif, -t = terminal, bash = shell à lancer.
+-->
+
+<!-- snippet
+id: docker_exec_sh
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,exec,sh,terminal,alpine
+title: Entrer dans un conteneur avec sh (alternative à bash)
+command: docker exec -it <NOM> sh
+description: Utile quand bash n’est pas disponible dans l’image (ex : images Alpine légères).
+-->
+
+<!-- snippet
+id: docker_exec_commande_directe
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,exec,commande,liste-fichiers
+title: Exécuter une commande dans un conteneur sans entrer dedans
+command: docker exec <NOM> ls /
+description: Exécute la commande directement dans le conteneur et affiche le résultat dans le terminal hôte, sans ouvrir de session interactive.
+-->
+
+<!-- snippet
+id: docker_exec_conteneur_arrete_warning
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,exec,conteneur,arrete,erreur
+title: Erreur : tenter d’accéder à un conteneur arrêté
+content: La commande docker exec ne fonctionne que sur un conteneur en cours d’exécution. Si le conteneur est arrêté, il faut d’abord le démarrer avec docker start.
+-->
+
+<!-- snippet
+id: docker_exec_modifications_temporaires
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,exec,modifications,temporaire
+title: Modifications via exec : temporaires et perdues à la suppression
+content: Toute modification faite via docker exec (fichiers, paquets) est temporaire et disparaît à la suppression du conteneur. Pour persister des changements, il faut modifier le Dockerfile et reconstruire l’image.
+-->
+
+<!-- snippet
+id: docker_exec_usage_debug
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,exec,debug,bonne-pratique
+title: Utiliser exec uniquement pour le debug, jamais en production
+content: docker exec est un outil de diagnostic. En production, on ne modifie pas un conteneur directement. On préfère modifier l’image (Dockerfile) et redéployer.
+-->

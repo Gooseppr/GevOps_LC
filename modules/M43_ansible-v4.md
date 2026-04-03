@@ -295,4 +295,61 @@ volumes:
 
 ---
 [← Module précédent](M43_projet-board-J03.md)
+
+---
+
+<!-- snippet
+id: ansible_pro_dedicated_manager_vm
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,manager,architecture,stabilite
+title: Importance d'un nœud manager dédié dans Docker Swarm
+context: Stabiliser un cluster Swarm en séparant les rôles manager et applicatif
+content: Utiliser une VM dédiée (master-vm) comme manager Swarm exclusif évite les conflits avec les tâches applicatives. Mettre le manager sur une VM applicative crée une instabilité systématique du cluster.
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_reset_worker
+type: concept
+tech: ansible
+level: advanced
+importance: high
+format: knowledge
+tags: ansible,swarm,reset,worker,docker
+title: Mécanisme de reset propre d'un worker Swarm bloqué
+context: Débloquer un worker Docker qui ne peut plus quitter son ancien cluster
+content: Si docker swarm leave génère "context deadline exceeded", arrêter docker, supprimer /var/lib/docker/swarm/*, puis redémarrer et rejoindre. Conditionner ce reset pour préserver l'idempotence.
+-->
+
+<!-- snippet
+id: ansible_pro_overlay_dns_swarm
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,overlay,dns,communication,services
+title: DNS interne Swarm via réseau overlay
+context: Permettre la communication entre services d'une même stack Docker Swarm
+content: Le DNS Swarm résout les services via leur nom dans la stack (ex: root_db). Les services doivent partager le même réseau overlay, sinon ils sont isolés et NocoDB ne peut pas joindre Postgres (ENOTFOUND).
+-->
+
+<!-- snippet
+id: ansible_pro_inventory_roles_labels
+type: concept
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,inventory,labels,swarm,placement
+title: Alignement entre inventaire Ansible et labels Swarm
+context: Garantir un placement cohérent des services via les labels définis dans l'inventaire
+content: Chaque VM dans l'inventaire porte node_labels="role=app" ou "role=db". Les contraintes compose.yml utilisent ces mêmes valeurs. Un désalignement entre inventaire et labels provoque des services mal placés.
+-->
+
+---
+[← Module précédent](M43_projet-board-J03.md)
 ---

@@ -332,6 +332,106 @@ Il garantit :
 > “Ça marchait sur ma machine…” 🧑‍💻
 >
 
+
+
+---
+
+<!-- snippet
+id: docker_module_install_debian
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,installation,debian,ubuntu
+title: Installer Docker sur Debian/Ubuntu
+context: préparer une VM Linux pour utiliser Docker
+command: sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+description: Installe Docker Engine et ses composants depuis le dépôt officiel Docker. Ajouter l'utilisateur au groupe docker : sudo usermod -aG docker $USER.
+-->
+
+<!-- snippet
+id: docker_module_build_image
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,image,build,dockerfile
+title: Construire une image Docker depuis un Dockerfile
+context: packager une application dans une image Docker
+command: docker build -t mon_app:1.0 .
+description: Lit le Dockerfile du répertoire courant et construit une image taguée nom:version. Chaque instruction crée une couche mise en cache pour accélérer les rebuilds.
+-->
+
+<!-- snippet
+id: docker_module_run_container
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,conteneur,run,port
+title: Lancer un conteneur avec mapping de port
+context: démarrer une application Docker et l'exposer sur la machine hôte
+command: docker run -d -p 8080:80 --name mon_app mon_app:1.0
+description: Lance le conteneur en arrière-plan (-d), mappe le port 80 interne vers le port 8080 de l'hôte (-p hôte:conteneur) et lui donne un nom.
+-->
+
+<!-- snippet
+id: docker_module_lifecycle_commands
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,conteneur,lifecycle,ps,logs
+title: Gérer le cycle de vie d'un conteneur
+context: surveiller, arrêter et supprimer un conteneur Docker
+command: docker ps -a
+description: Affiche tous les conteneurs (actifs et arrêtés). Utiliser docker stop <nom> pour arrêter, docker rm <nom> pour supprimer, docker logs <nom> pour lire les journaux.
+-->
+
+<!-- snippet
+id: docker_module_dockerfile_instructions
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,dockerfile,from,run,copy,cmd
+title: Instructions essentielles d'un Dockerfile
+context: écrire un Dockerfile pour construire une image personnalisée
+content: FROM = image de base, WORKDIR = répertoire de travail, COPY = transfert de fichiers, RUN = exécution au build, CMD = lancement au démarrage.
+-->
+
+<!-- snippet
+id: docker_module_dockerfile_cache_tip
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,dockerfile,cache,couches
+title: Optimiser le cache des couches Dockerfile
+context: accélérer les rebuilds Docker en ordonnant correctement les instructions
+content: Placer COPY des dépendances (requirements.txt, package.json) avant COPY du code source optimise le cache. Docker ne recrée que les couches modifiées.
+-->
+
+<!-- snippet
+id: docker_module_system_prune
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,nettoyage,images,conteneurs
+title: Nettoyer les ressources Docker inutilisées
+context: libérer de l'espace disque en supprimant images et conteneurs orphelins
+command: docker system prune -a
+description: Supprime tous les conteneurs arrêtés, toutes les images non utilisées et les réseaux inutilisés. Attention : irréversible. Ne touche pas aux volumes nommés.
+-->
+
 ---
 [← Module précédent](M11_Virtualisation.md) | [Module suivant →](M11_dockers_pratique.md)
 ---

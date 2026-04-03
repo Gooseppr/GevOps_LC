@@ -238,3 +238,32 @@ Concepts importants :
 - `NEW` et `OLD`
 
 Dans le prochain chapitre nous verrons **la gestion de la concurrence**, qui explique comment les bases gèrent plusieurs utilisateurs simultanément.
+
+<!-- snippet
+id: sql_trigger_new_old
+type: concept
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,trigger,new,old,postgresql,plpgsql
+title: Variables NEW et OLD dans un trigger
+content: |
+  - `NEW` : valeur après l'opération (INSERT, UPDATE)
+  - `OLD` : valeur avant l'opération (UPDATE, DELETE)
+  `NEW.price` et `OLD.price` permettent de comparer avant/après dans la fonction du trigger.
+description: OLD est NULL sur un INSERT, NEW est NULL sur un DELETE.
+-->
+
+<!-- snippet
+id: sql_trigger_logique_cachee
+type: warning
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,trigger,maintenance,debug,bonne_pratique
+title: Les triggers cachent des comportements invisibles
+content: Un trigger s'exécute silencieusement. Un INSERT peut déclencher des UPDATE, des logs, des synchronisations — sans que l'application le sache. Difficile à déboguer et à tester.
+description: Documenter tous les triggers existants. Éviter de chaîner des triggers entre eux pour ne pas provoquer de boucles infinies.
+-->

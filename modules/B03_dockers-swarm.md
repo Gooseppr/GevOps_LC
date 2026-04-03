@@ -845,3 +845,103 @@ docker network inspect mystack_backend
 docker run --rm --network mystack_backend alpine nslookup root_db
 
 ```
+
+---
+
+<!-- snippet
+id: docker_swarm_init_recap
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,cluster,init,manager
+title: Initialiser un cluster Docker Swarm
+context: créer un cluster Swarm sur le nœud manager
+command: docker swarm init --advertise-addr <IP_publique_du_manager>
+description: Initialise le cluster Swarm et génère le token nécessaire pour rejoindre des workers. À exécuter uniquement sur le nœud manager.
+-->
+
+<!-- snippet
+id: docker_swarm_join
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,cluster,worker,join
+title: Ajouter un worker au cluster Swarm
+context: rejoindre un cluster Swarm depuis un nœud worker
+command: docker swarm join --token SWMTKN-xxxxx <IP_manager>:2377
+description: Commande à exécuter sur chaque worker pour l'intégrer au cluster. Le token est fourni lors du docker swarm init sur le manager.
+-->
+
+<!-- snippet
+id: docker_swarm_stack_deploy_recap
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,stack,deploy,compose
+title: Déployer une stack sur Docker Swarm
+context: déployer une application multi-services sur un cluster Swarm
+command: docker stack deploy -c docker-compose.yml mystack
+description: Déploie tous les services définis dans le fichier Compose sur le cluster. Équivaut à docker compose up mais distribué sur plusieurs nœuds.
+-->
+
+<!-- snippet
+id: docker_swarm_service_scale_recap
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: swarm,service,scale,replicas
+title: Scaler un service Swarm
+context: ajuster le nombre de réplicas d'un service en production
+command: docker service scale web=5
+description: Modifie le nombre d'instances (tasks) actives d'un service Swarm. Swarm redistribue les tasks sur les workers disponibles.
+-->
+
+<!-- snippet
+id: docker_swarm_debug_service
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,debug,service,logs
+title: Inspecter et débugger un service Swarm
+context: diagnostiquer une task qui ne démarre pas ou un service en erreur
+command: docker service ps mystack_nocodb --no-trunc
+description: Affiche l'état de chaque task d'un service avec les erreurs complètes. Utiliser docker service logs <service> pour lire les logs applicatifs.
+-->
+
+<!-- snippet
+id: docker_swarm_overlay_network
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: swarm,network,overlay,dns
+title: Tester la résolution DNS dans un réseau overlay
+context: vérifier la communication entre services dans un réseau Swarm overlay
+command: docker run --rm --network mystack_backend alpine nslookup root_db
+description: Lance un conteneur temporaire sur le réseau overlay pour tester si un service est bien résolvable par son nom DNS interne.
+-->
+
+<!-- snippet
+id: docker_swarm_secret_create
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: swarm,secret,sécurité,credentials
+title: Créer un secret Docker Swarm
+context: stocker un mot de passe de manière sécurisée dans un cluster Swarm
+command: echo "mypassword" | docker secret create db_pass -
+description: Crée un secret chiffré dans le Swarm. Le secret est accessible dans le conteneur via /run/secrets/db_pass et n'apparaît jamais en clair dans les logs ou l'environnement.
+-->

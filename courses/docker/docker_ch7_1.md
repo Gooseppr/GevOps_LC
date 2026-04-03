@@ -162,6 +162,94 @@ CI/CD permet de :
 
 ## Notes
 
-*CI : intégration continue  
-*CD : déploiement continu  
+*CI : intégration continue
+*CD : déploiement continu
 *Registry : stockage d’images Docker
+
+---
+
+<!-- snippet
+id: docker_cicd_concept_definition
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cicd,ci,cd,pipeline,devops
+title: CI — Intégration continue
+content: La CI (Continuous Integration) teste automatiquement le code à chaque commit. Elle garantit que le code fonctionne avant d’être livré.
+description: CI/CD est le cœur de l’automatisation DevOps moderne.
+-->
+
+<!-- snippet
+id: docker_cicd_concept_definition_b
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cicd,ci,cd,pipeline,devops
+title: CD — Déploiement continu
+content: Le CD (Continuous Delivery/Deployment) livre et déploie automatiquement après validation. CI + CD forment un pipeline du code à la production.
+-->
+
+<!-- snippet
+id: docker_cicd_role_docker
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cicd,pipeline,image,standardisation
+title: Rôle de Docker dans un pipeline CI/CD
+content: Docker standardise l’environnement à chaque étape du pipeline. Build, test et déploiement utilisent la même image — plus de différences entre dev et prod.
+description: Utiliser Docker dans le pipeline garantit la reproductibilité des builds.
+-->
+
+<!-- snippet
+id: docker_cicd_pipeline_etapes
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: cicd,pipeline,build,registry,deploiement
+title: Étapes d’un pipeline CI/CD avec Docker
+content: Pipeline type : code push → build image → tests → push registry → déploiement. Chaque étape s’enchaîne automatiquement sans intervention humaine.
+-->
+
+<!-- snippet
+id: docker_cicd_tip_standardisation
+type: tip
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: cicd,pipeline,bonne-pratique
+title: Docker simplifie le CI/CD
+content: Docker garantit un environnement identique à chaque étape. Automatiser, standardiser et versionner les images sont les piliers d’un bon pipeline CI/CD.
+-->
+
+<!-- snippet
+id: docker_cicd_warning_test_local_only
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: cicd,test,erreur-frequente
+title: Tester localement mais pas en CI
+content: Tester uniquement en local sans répliquer les tests dans le pipeline CI laisse passer des bugs en production.
+-->
+
+<!-- snippet
+id: docker_cicd_warning_sans_docker
+type: warning
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: cicd,pipeline,environnement,piege
+title: Ne pas utiliser Docker dans le pipeline
+content: Sans Docker dans le pipeline, l’environnement diffère entre dev et prod et génère des bugs difficiles à reproduire.
+-->

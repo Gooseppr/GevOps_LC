@@ -218,3 +218,40 @@ Les sous‑requêtes permettent de :
 - filtrer des résultats à partir d'autres tables
 
 Dans le prochain chapitre nous verrons **les transactions**, qui permettent de garantir la cohérence des opérations dans une base de données.
+
+<!-- snippet
+id: sql_sous_requete_from_table_temp
+type: tip
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,sous_requete,from,cte,table_temporaire
+title: Sous-requête dans FROM comme table temporaire
+content: |
+  ```sql
+  SELECT * FROM (
+    SELECT customer_id, SUM(total) AS total_spent
+    FROM orders GROUP BY customer_id
+  ) AS spending
+  WHERE total_spent > 1000;
+  ```
+  La sous-requête crée une table intermédiaire utilisable dans la requête principale.
+description: Alternative aux CTE (WITH) pour les cas simples d'une seule sous-requête imbriquée.
+-->
+
+<!-- snippet
+id: sql_exists_vs_in_performance
+type: tip
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,exists,in,performance,sous_requete
+title: EXISTS est plus efficace que IN pour tester l'existence
+content: |
+  `EXISTS` s'arrête dès qu'une ligne correspond (court-circuit).
+  `IN` récupère toutes les valeurs avant de comparer.
+  Préférer `WHERE EXISTS (SELECT 1 FROM ...)` pour les tests d'existence.
+description: La différence est significative sur de grandes tables avec beaucoup de valeurs distinctes.
+-->

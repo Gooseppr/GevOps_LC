@@ -434,6 +434,105 @@ git push origin --tags
 - **Revert** annule proprement un commit public ; **reflog** récupère les états perdus.
 - La consultation régulière de `git status` et `git log --oneline --graph` maintient une vision claire de la situation.
 
+
+
+<!-- snippet
+id: git_add_commit_push
+type: command
+tech: git
+level: beginner
+importance: high
+format: knowledge
+tags: add,commit,push,cycle-de-travail
+title: Cycle de base : ajouter, commiter, publier
+context: enregistrer et partager une modification courante
+command: git add -p && git commit -m "feat: description claire" && git push
+description: `add -p` pour un ajout sélectif par hunks, message Conventional Commits, puis push vers le dépôt distant.
+-->
+
+<!-- snippet
+id: git_log_graph
+type: command
+tech: git
+level: beginner
+importance: high
+format: knowledge
+tags: log,historique,graph,visualisation
+title: Visualiser l'historique sous forme de graphe
+context: inspecter l'état des branches avant un merge ou un push
+command: git log --oneline --graph --decorate --all
+description: Affiche un graphe ASCII de toutes les branches et leurs commits avec leur décoration (tags, HEAD). Indispensable avant toute manipulation d'historique.
+-->
+
+<!-- snippet
+id: git_merge_no_ff
+type: command
+tech: git
+level: beginner
+importance: high
+format: knowledge
+tags: merge,no-ff,historique,branche
+title: Fusionner une branche en conservant l'historique
+context: intégrer une branche de fonctionnalité dans main après revue
+command: git switch main && git merge --no-ff feat/login && git branch -d feat/login
+description: --no-ff force la création d'un commit de merge même si un fast-forward est possible, préservant la trace visuelle de la fonctionnalité dans l'historique.
+-->
+
+<!-- snippet
+id: git_stash_context_switch
+type: command
+tech: git
+level: beginner
+importance: medium
+format: knowledge
+tags: stash,contexte,WIP,branche
+title: Mettre en pause son travail pour changer de branche
+context: être interrompu pour traiter un bug urgent sur une autre branche
+command: git stash push -m "WIP: page settings" && git stash pop
+description: Met les modifs de côté pour libérer le working tree. `git stash pop` réapplique après le retour sur la branche.
+-->
+
+<!-- snippet
+id: git_bisect_find_bug
+type: command
+tech: git
+level: advanced
+importance: low
+format: knowledge
+tags: bisect,debug,recherche-binaire,commit-fautif
+title: Identifier le commit qui a introduit un bug (bisect)
+context: trouver rapidement l'origine d'une régression dans l'historique
+command: git bisect start && git bisect bad && git bisect good <hash_bon>
+description: Recherche binaire dans l'historique. Git checkout les commits intermédiaires automatiquement. Tagger `good/bad`, terminer avec `git bisect reset`.
+-->
+
+<!-- snippet
+id: git_pull_rebase_config
+type: command
+tech: git
+level: beginner
+importance: medium
+format: knowledge
+tags: pull,rebase,config,linéaire
+title: Configurer git pull pour utiliser rebase par défaut
+context: éviter les commits de merge parasites lors de la synchronisation avec le distant
+command: git config --global pull.rebase true
+description: Force git pull à rejouer les commits locaux au-dessus des commits distants plutôt que de créer un commit de merge, produisant un historique linéaire. Equivalent à git pull --rebase à chaque fois.
+-->
+
+<!-- snippet
+id: git_detached_head_fix
+type: tip
+tech: git
+level: intermediate
+importance: medium
+format: knowledge
+tags: HEAD,détaché,branche,switch
+title: Sortir d'un état HEAD détaché
+context: se retrouver en mode "detached HEAD" après un checkout sur un hash ou un tag
+content: En HEAD détaché, les commits ne sont rattachés à aucune branche et seront perdus. Créer immédiatement une branche : `git switch -c fix/issue-123`.
+-->
+
 ---
 [← Module précédent](M03_Git_Manipulation_sans_stress.md) | [Module suivant →](M03_Git_Manipulation_avancee_historique.md)
 ---

@@ -311,8 +311,86 @@ Il te permet de :
 
 ---
 
-🎉 Félicitations !  
+🎉 Félicitations !
 Tu maîtrises maintenant les **bases solides de Git** : tu peux créer, versionner, fusionner et restaurer ton code en toute confiance.
+
+
+
+<!-- snippet
+id: git_config_initial
+type: command
+tech: git
+level: beginner
+tags: config,identité,initialisation
+title: Configuration initiale de Git (par machine)
+command: git config --global user.name "Ton Nom" && git config --global user.email "toi@example.com"
+description: À faire une seule fois par machine pour associer une identité à tous les commits
+-->
+
+<!-- snippet
+id: git_init_first_commit
+type: command
+tech: git
+level: beginner
+tags: init,dépôt,premier-commit
+title: Créer un dépôt local et faire le premier commit
+command: git init && git add README.md && git commit -m "init: premier commit"
+description: Initialise le suivi de versions dans le répertoire courant et enregistre le premier instantané
+-->
+
+<!-- snippet
+id: git_clone_existing
+type: command
+tech: git
+level: beginner
+tags: clone,remote,dépôt
+title: Cloner un dépôt distant existant
+command: git clone https://github.com/utilisateur/projet.git
+description: Crée une copie locale complète du dépôt distant avec tout son historique
+-->
+
+<!-- snippet
+id: git_zones_concept
+type: concept
+tech: git
+level: beginner
+tags: working-directory,staging,index,HEAD
+title: Les quatre zones de Git
+content: Working Directory (fichiers en édition) → Staging Area/Index (zone avant commit) → Local Repository (historique local) → Remote Repository (copie partagée sur GitHub/GitLab).
+description: Comprendre ces zones est essentiel pour maîtriser le flux add → commit → push
+-->
+
+<!-- snippet
+id: git_stash_push_pop
+type: command
+tech: git
+level: beginner
+tags: stash,WIP,contexte
+title: Mettre de côté un travail en cours (stash)
+command: git stash push -m "WIP: description" && git stash pop
+description: Suspend le travail non commité pour changer de branche, puis le réapplique
+-->
+
+<!-- snippet
+id: git_tag_release
+type: command
+tech: git
+level: beginner
+tags: tag,release,version
+title: Créer et publier un tag de version
+command: git tag -a v1.0.0 -m "release 1.0.0" && git push origin --tags
+description: Marque un jalon de livraison avec un tag annoté, utile pour les pipelines CI/CD
+-->
+
+<!-- snippet
+id: git_reset_hard_warning
+type: warning
+tech: git
+level: beginner
+tags: reset,hard,destructif
+title: git reset --hard supprime les modifications locales
+content: L'option --hard réécrit à la fois HEAD et le working directory. Toutes les modifications non commitées sont perdues définitivement. Toujours vérifier git status et git stash avant de l'utiliser.
+-->
 
 ---
 [Module suivant →](M03_git-manipulation.md)

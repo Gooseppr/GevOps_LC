@@ -241,6 +241,89 @@ Mais ❗ **pas suffisant pour simuler des utilisateurs réels**.
 
 Il est parfait **pour établir des bases de performance, comparer des optimisations et tester des API statiques**.
 
+
+
+<!-- snippet
+id: aws_ab_basic_test
+type: command
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: apachebench,test-charge,http,benchmark
+title: ApacheBench – Test de charge HTTP de base
+context: mesurer les performances d'une API ou d'un site web
+command: ab -n 1000 -c 50 http://localhost/
+description: Lance 1000 requêtes HTTP vers localhost avec 50 connexions simultanées. Le résultat affiche : Requests per second (capacité), Time per request (latence moyenne), Failed requests (erreurs 4xx/5xx), Transfer rate (débit). Idéal pour un premier benchmark brut avant toute optimisation. La cible peut être n'importe quel serveur HTTP, pas uniquement Apache.
+-->
+
+<!-- snippet
+id: aws_ab_install
+type: command
+tech: cloud
+level: beginner
+importance: medium
+format: knowledge
+tags: apachebench,installation,ubuntu,debian
+title: Installer ApacheBench sur Linux
+context: préparer l'environnement pour les tests de charge HTTP
+command: sudo apt update && sudo apt install apache2-utils -y
+description: Installe les outils Apache (dont ab) sur Ubuntu/Debian sans le serveur complet. Sur CentOS/RHEL : sudo yum install httpd-tools -y. Vérifier avec : ab -V.
+-->
+
+<!-- snippet
+id: aws_ab_post_json
+type: command
+tech: cloud
+level: intermediate
+importance: medium
+format: knowledge
+tags: apachebench,post,json,api
+title: ApacheBench – Test de charge avec requête POST JSON
+context: tester une API REST acceptant un body JSON sous charge
+command: ab -n 2000 -c 100 -p data.json -T application/json http://localhost/api/login
+description: Lance 2000 requêtes POST avec le contenu du fichier data.json et le Content-Type application/json. Créer data.json avec le body de la requête (ex: {"email":"test@test.com","password":"1234"}). Utiliser -H "Authorization: Bearer token" pour ajouter un header d'authentification. L'option -k active le Keep-Alive pour réutiliser les connexions.
+-->
+
+<!-- snippet
+id: aws_ab_methodology
+type: tip
+tech: cloud
+level: intermediate
+importance: high
+format: knowledge
+tags: apachebench,méthodologie,charge,benchmark
+title: Méthodologie de test de charge avec ApacheBench
+context: exécuter des tests de charge de façon progressive et reproductible
+content: Ne jamais lancer un test violent directement. Procéder par paliers : baseline (ab -n 1000 -c 50), charge moyenne (ab -n 5000 -c 200), stress test (ab -n 20000 -c 1000), puis augmenter jusqu'aux premières erreurs. Après chaque test, noter : Req/sec, latence, erreurs, et charge CPU CloudWatch. On optimise uniquement sur la base de métriques mesurées. Comparer avant/après chaque optimisation (cache, compression, CDN, load balancer).
+-->
+
+<!-- snippet
+id: aws_ab_ci_cd
+type: tip
+tech: cloud
+level: intermediate
+importance: medium
+format: knowledge
+tags: apachebench,ci-cd,gitlab,performance
+title: ApacheBench dans un pipeline CI/CD
+context: automatiser les tests de performance dans GitLab CI ou GitHub Actions
+content: ApacheBench peut être intégré dans un pipeline CI/CD pour valider les performances à chaque déploiement. Dans GitLab CI : utiliser l'image alpine, installer avec apk add apache2-utils, puis lancer ab sur l'URL de staging. Les résultats peuvent être sauvegardés en artefacts pour comparaison entre builds. Alternatives plus modernes pour des scénarios complexes : k6 (scripting JS, métriques Grafana), Locust (Python, scénarios réalistes), wrk (multithread).
+-->
+
+<!-- snippet
+id: aws_ab_limitations
+type: warning
+tech: cloud
+level: intermediate
+importance: medium
+format: knowledge
+tags: apachebench,limites,alternatives,performance
+title: Limites d'ApacheBench – Quand utiliser une alternative
+context: choisir le bon outil de test de charge selon la complexité du scénario
+content: ApacheBench est mono-thread (ne sature pas les serveurs multi-CPU modernes), ne supporte pas les scénarios complexes (multi-étapes, cookies dynamiques, sessions), ne simule pas de "think time" utilisateur réel et ne produit pas de dashboard graphique. Pour les tests de production sérieux, préférer : k6 (scripting moderne, intégration CI, métriques Grafana), Locust (scénarios Python réalistes), wrk (multithread très performant). AB reste utile pour les benchmarks rapides et la validation d'optimisations simples.
+-->
+
 ---
 [← Module précédent](M29_paas-serverless.md)
 ---

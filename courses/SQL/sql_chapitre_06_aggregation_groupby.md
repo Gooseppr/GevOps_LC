@@ -283,3 +283,34 @@ Concepts clés :
 - HAVING
 
 Dans le prochain chapitre nous verrons **les JOIN**, qui permettent de combiner plusieurs tables.
+
+<!-- snippet
+id: sql_where_vs_having
+type: concept
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,where,having,group_by,aggregation
+title: WHERE filtre les lignes, HAVING filtre les groupes
+content: |
+  - `WHERE` s'applique **avant** GROUP BY → filtre les lignes brutes
+  - `HAVING` s'applique **après** GROUP BY → filtre les résultats agrégés
+description: Utiliser HAVING à la place de WHERE sur une colonne non agrégée est une erreur fréquente.
+-->
+
+<!-- snippet
+id: sql_group_by_colonne_non_agregee
+type: error
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,group_by,select,aggregation,erreur
+title: Toute colonne SELECT non agrégée doit être dans GROUP BY
+content: |
+  Erreur : `SELECT customer_id, name, COUNT(*) FROM orders GROUP BY customer_id`
+  `name` n'est ni agrégé ni dans GROUP BY → erreur SQL.
+  Correct : inclure `name` dans GROUP BY ou supprimer la colonne.
+description: La base ne sait pas quelle valeur de `name` retourner par groupe sans instruction explicite.
+-->

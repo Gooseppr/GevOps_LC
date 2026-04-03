@@ -536,6 +536,78 @@ Sécurité API	Auth centralisée, proxy, key-auth	Kong, Docker
 
 ```
 
+
+
+---
+
+<!-- snippet
+id: secu_app_bastion_add_user
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: bastion,ssh,adduser,sécurité
+title: Créer l'utilisateur bastion et ajouter sa clé SSH
+context: préparer un utilisateur dédié sur le Bastion et configurer l'accès par clé
+command: sudo adduser bastion && sudo usermod -aG sudo bastion
+description: Crée l'utilisateur bastion et l'ajoute au groupe sudo. Puis créer `~/.ssh` et y déposer la clé publique dans `authorized_keys`.
+-->
+
+<!-- snippet
+id: secu_app_ssh_restart_daemon
+type: command
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: ssh,systemctl,restart,sshd
+title: Redémarrer le service SSH après modification de sshd_config
+context: appliquer les changements de configuration SSH (port, options de sécurité)
+command: sudo systemctl restart ssh
+description: Applique les changements de sshd_config. Toujours garder une session ouverte lors du redémarrage pour ne pas se couper l'accès.
+-->
+
+<!-- snippet
+id: secu_app_asciinema_hook
+type: concept
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: asciinema,audit,bashrc,session-ssh
+title: Hook bashrc pour enregistrer les sessions SSH via Asciinema
+context: tracer les actions d'un administrateur sur un serveur de production via Asciinema
+content: Ajoutez dans ~/.bashrc : `if [ -z "$ASCIINEMA_REC" ] && [ -n "$PS1" ] && [ -t 1 ]; then export ASCIINEMA_REC=1; exec asciinema rec --quiet "$HOME/.asciinema_logs/session-$(date +%Y%m%d_%H%M%S).cast"; fi`. Chaque session interactive crée un fichier .cast horodaté rejouable.
+-->
+
+<!-- snippet
+id: secu_app_vpc_subnet_architecture
+type: concept
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: vpc,subnet,aws,bastion,sécurité-réseau
+title: Architecture VPC Bastion : subnet public et subnet privé
+context: comprendre l'isolement réseau qui rend les instances privées inaccessibles depuis Internet
+content: VPC avec deux subnets : subnet-public (Bastion, IP publique) et subnet-private (instances app/DB, sans IP publique). Le Security Group des instances privées n'autorise SSH que depuis l'IP privée du Bastion. Les admins utilisent ProxyJump pour atteindre les instances internes.
+-->
+
+<!-- snippet
+id: secu_app_httpbin_docker
+type: command
+tech: linux
+level: beginner
+importance: low
+format: knowledge
+tags: docker,httpbin,test,kong
+title: Lancer httpbin en Docker pour tester un API Gateway
+context: déployer rapidement un backend de test derrière Kong ou un reverse proxy
+command: sudo docker run -d --name httpbin -p 80:80 kennethreitz/httpbin && curl localhost
+description: Lance le conteneur httpbin qui simule une API HTTP complète. Pratique pour tester les plugins Kong (key-auth, rate-limiting) sans développer de vrai backend.
+-->
+
 ---
 [← Module précédent](M32_sécurité-des-application.md)
 ---

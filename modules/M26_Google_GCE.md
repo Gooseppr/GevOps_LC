@@ -359,6 +359,88 @@ Savoir maîtriser GCE, c’est aussi comprendre :
 - Service Account
 - Automatisation gcloud et Terraform
 
+
+
+<!-- snippet
+id: gcp_gce_create_instance
+type: command
+tech: gcp
+level: beginner
+importance: high
+format: knowledge
+tags: gce,gcloud,vm,compute
+title: Créer une instance GCE avec gcloud CLI
+context: déployer une VM Ubuntu sur Google Compute Engine
+command: gcloud compute instances create my-instance --zone=europe-west1-b --machine-type=e2-medium --image-family=ubuntu-2204-lts --image-project=ubuntu-os-cloud
+description: Crée une instance VM e2-medium avec Ubuntu 22.04 dans la zone europe-west1-b. Le type e2-medium offre un bon rapport performance/prix pour les workloads DevOps standards. Le e2-micro est disponible dans l'Always Free tier de GCP.
+-->
+
+<!-- snippet
+id: gcp_firewall_create
+type: command
+tech: gcp
+level: beginner
+importance: high
+format: knowledge
+tags: gce,firewall,réseau,sécurité
+title: Créer une règle de pare-feu GCE
+context: ouvrir un port sur une instance GCE depuis son IP
+command: gcloud compute firewall-rules create allow-ssh --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:22 --source-ranges=$(curl -s ifconfig.me)/32
+description: Crée une règle firewall pour autoriser SSH uniquement depuis l'IP courante. Les règles firewall GCE sont attachées au VPC (pas à la VM directement). Pour HTTP : --rules=tcp:80. Pour ouvrir à tous : --source-ranges=0.0.0.0/0 (déconseillé en production).
+-->
+
+<!-- snippet
+id: gcp_gce_concept
+type: concept
+tech: gcp
+level: beginner
+importance: high
+format: knowledge
+tags: gce,iaas,vm,google-cloud
+title: Google Compute Engine – Service IaaS de GCP
+context: comprendre le service de machines virtuelles de Google Cloud
+content: GCE est le service IaaS de Google Cloud. Familles : E2/N2 (général), C2/C3 (compute), M1/M2 (mémoire, jusqu'à 1,4 To RAM), A2/G2 (GPU/IA).
+-->
+
+<!-- snippet
+id: gcp_vpc_global
+type: concept
+tech: gcp
+level: intermediate
+importance: high
+format: knowledge
+tags: gce,vpc,réseau,global
+title: VPC GCP – Réseau global unique
+context: comprendre la différence entre le réseau GCP et AWS/Azure
+content: Le VPC GCP est global : un seul VPC couvre toutes les régions (contrairement à AWS où chaque VPC est régional). Les règles firewall s'appliquent au niveau du VPC.
+-->
+
+<!-- snippet
+id: gcp_startup_script
+type: tip
+tech: gcp
+level: intermediate
+importance: medium
+format: knowledge
+tags: gce,metadata,startup-script,automatisation
+title: Startup Script GCE – Automatiser la configuration au démarrage
+context: provisionner automatiquement une VM GCE au premier démarrage
+content: GCE exécute un script bash au démarrage via --metadata=startup-script='...'. Utile pour installer nginx, configurer l'application ou enregistrer la VM dans un monitoring.
+-->
+
+<!-- snippet
+id: gcp_service_account
+type: tip
+tech: gcp
+level: intermediate
+importance: high
+format: knowledge
+tags: gce,iam,service-account,sécurité
+title: Service Account GCE – Identité minimale pour les VMs
+context: attribuer des permissions IAM à une instance GCE sans stocker de clés
+content: Chaque VM GCE a un Service Account (équivalent IAM Role AWS). Ne jamais utiliser le default service account — créer un compte dédié avec le minimum de permissions.
+-->
+
 ---
 [← Module précédent](M26_AWS_reponse-quizz.md) | [Module suivant →](M26_Azure-VM.md)
 ---

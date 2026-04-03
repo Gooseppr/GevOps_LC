@@ -309,3 +309,35 @@ Les concepts clés sont :
 - NULL
 
 Dans le prochain chapitre nous verrons **le tri des résultats avec ORDER BY et la limitation avec LIMIT**.
+
+<!-- snippet
+id: sql_where_is_null
+type: error
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,where,null,erreur
+title: Tester NULL avec IS NULL, pas avec = NULL
+content: |
+  Erreur : `WHERE email = NULL` — ne retourne jamais rien
+  Correct : `WHERE email IS NULL`
+  Pour l'inverse : `WHERE email IS NOT NULL`
+description: NULL représente l'absence de valeur. L'opérateur = ne fonctionne pas avec NULL en SQL.
+-->
+
+<!-- snippet
+id: sql_where_parentheses_and_or
+type: warning
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,where,and,or,priorite
+title: Utiliser des parenthèses avec AND et OR
+content: |
+  Sans parenthèses, AND est prioritaire sur OR.
+  `WHERE a = 1 OR b = 2 AND c = 3` ≠ `WHERE (a = 1 OR b = 2) AND c = 3`
+  Toujours parenthéser les combinaisons AND/OR pour éviter les surprises.
+description: Cause fréquente de filtres qui retournent trop ou pas assez de lignes.
+-->

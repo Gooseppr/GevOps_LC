@@ -499,6 +499,114 @@ Donc **lift-and-shift** idéal : on déplace plus ou moins tel quel sur EC2.
 > *“Since the application already runs on Linux servers and we want to minimize refactoring, EC2 is the most appropriate choice. It allows a lift-and-shift migration with elasticity via Auto Scaling, whereas Lambda or container orchestrators like ECS/EKS would require significant redesign and containerization work.”*
 >
 
+
+
+<!-- snippet
+id: aws_ec2_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: ec2,compute,vm,iaas
+title: Amazon EC2 – Machines virtuelles dans le cloud
+context: comprendre le service de compute de base sur AWS
+content: EC2 permet de créer des VMs dans le cloud payées à la seconde (pay-as-you-go). Arrêter une instance stoppe la facturation compute, mais les volumes EBS restent facturés.
+-->
+
+<!-- snippet
+id: aws_ami_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: ami,ec2,image,template
+title: AMI – Amazon Machine Image
+context: standardiser et cloner des serveurs EC2
+content: Une AMI est un template d'instance contenant l'OS, les logiciels et la configuration. On peut créer une AMI custom depuis une instance configurée et relancer des instances identiques à volonté.
+-->
+
+<!-- snippet
+id: aws_ec2_instance_families
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: ec2,instances,families,compute
+title: Familles d'instances EC2
+context: choisir le bon type d'instance EC2 selon le workload
+content: Les familles EC2 : M/T = usage général, C = compute, R/X = mémoire, P/G = GPU/ML, I/D = stockage. La notation c5n.xlarge = famille C, génération 5, attribut réseau, taille xlarge.
+-->
+
+<!-- snippet
+id: aws_lambda_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: lambda,serverless,faas,event-driven
+title: AWS Lambda – Compute serverless événementiel
+context: exécuter du code sans gérer de serveur
+content: Lambda exécute des fonctions sur événements (S3, SQS, API Gateway, EventBridge). Facturation au nombre d'appels et à la durée (GB-secondes). AWS gère toute l'infrastructure.
+-->
+
+<!-- snippet
+id: aws_ecs_fargate_concept
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: ecs,fargate,containers,serverless
+title: ECS et Fargate – Orchestration de conteneurs
+context: déployer des conteneurs sans gérer les serveurs sous-jacents
+content: ECS orchestre des conteneurs selon Cluster > Service > Task > Container. Fargate est le mode serverless : on définit image, mémoire et CPU, AWS gère les serveurs sous-jacents.
+-->
+
+<!-- snippet
+id: aws_scaling_vertical_horizontal
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: scalability,ec2,auto-scaling
+title: Scalabilité verticale vs horizontale
+context: adapter la capacité d'une application AWS face à la charge
+content: Scale vertical = changer la taille d'une instance (t3.small → t3.large). Scale horizontal = ajouter/retirer des instances identiques via un Auto Scaling Group. En prod, on privilégie l'horizontal.
+-->
+
+<!-- snippet
+id: aws_ec2_create_instance
+type: command
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: ec2,cli,aws-cli
+title: Créer une instance EC2 via AWS CLI
+context: lancer rapidement une VM EC2 en ligne de commande
+command: aws ec2 run-instances --image-id ami-0c55b159cbfafe1f0 --instance-type t3.micro --key-name my-key --security-group-ids sg-xxxxxxxx --subnet-id subnet-xxxxxxxx
+description: Lance une instance EC2 avec l'AMI, le type, la clé SSH, le security group et le subnet spécifiés. Le résultat retourne l'InstanceId de la nouvelle instance. Remplacer les IDs par ceux de votre compte et région.
+-->
+
+<!-- snippet
+id: aws_ec2_stop_start
+type: command
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: ec2,cli,lifecycle
+title: Arrêter et démarrer une instance EC2
+context: gérer le cycle de vie d'une instance EC2 pour optimiser les coûts
+command: aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+description: Arrête une instance EC2 (état stopped). La facturation compute s'arrête mais le volume EBS reste facturé. Pour redémarrer : aws ec2 start-instances --instance-ids i-xxxx. Pour détruire définitivement : aws ec2 terminate-instances --instance-ids i-xxxx.
+-->
+
 ---
 [← Module précédent](M26_AWS_intro.md) | [Module suivant →](M26_AWS_reponse-quizz.md)
 ---

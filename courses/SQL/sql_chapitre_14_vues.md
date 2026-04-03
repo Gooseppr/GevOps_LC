@@ -213,3 +213,31 @@ Les vues permettent de :
 - structurer les couches d’accès aux données
 
 Dans le prochain chapitre nous verrons **les sous‑requêtes**, qui permettent d’imbriquer des requêtes SQL.
+
+<!-- snippet
+id: sql_create_view
+type: command
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,view,create_view,requete
+title: Créer une vue SQL réutilisable
+command: CREATE OR REPLACE VIEW <nom_vue> AS SELECT ... FROM ... JOIN ...;
+description: Enregistre une requête comme table virtuelle. Utiliser CREATE OR REPLACE pour mettre à jour sans supprimer au préalable.
+-->
+
+<!-- snippet
+id: sql_vue_vs_vue_materialisee
+type: concept
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,view,materialized_view,performance,postgresql
+title: Vue classique vs vue matérialisée (PostgreSQL)
+content: |
+  - **Vue classique** : exécute la requête à chaque appel, données toujours fraîches
+  - **Vue matérialisée** : stocke les résultats, plus rapide mais nécessite `REFRESH MATERIALIZED VIEW`
+description: Utiliser les vues matérialisées pour les agrégations coûteuses qui n’ont pas besoin d’être temps réel.
+-->

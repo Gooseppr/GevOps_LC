@@ -175,5 +175,109 @@ Les volumes permettent de :
 
 ## Notes
 
-*Persistance : capacité à conserver des données dans le temps  
+*Persistance : capacité à conserver des données dans le temps
 *Volume : espace de stockage indépendant du conteneur
+
+---
+
+<!-- snippet
+id: docker_volume_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,volume,persistance,stockage
+title: Définition d'un volume Docker
+content: Un volume est un espace de stockage externe au conteneur, géré par Docker. Il permet de conserver des données indépendamment du cycle de vie du conteneur.
+description: Les volumes sont stockés par Docker sur la machine hôte, dans un répertoire géré par Docker Engine.
+-->
+
+<!-- snippet
+id: docker_donnees_disparaissent_warning
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,donnees,conteneur,suppression
+title: Attention : les données disparaissent sans volume
+content: Par défaut, toutes les données créées dans un conteneur (fichiers, base de données, logs) sont perdues dès que le conteneur est supprimé. Il faut utiliser des volumes pour persister les données.
+-->
+
+<!-- snippet
+id: docker_run_volume
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,run,volume,-v
+title: Lancer un conteneur avec un volume
+command: docker run -d -v <NOM>:/data nginx
+description: -v monte le volume nommé sur le chemin /data dans le conteneur. Les données y sont conservées après suppression du conteneur.
+-->
+
+<!-- snippet
+id: docker_volume_ls
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,volume,liste
+title: Lister les volumes
+command: docker volume ls
+description: Affiche la liste de tous les volumes gérés par Docker sur la machine hôte.
+-->
+
+<!-- snippet
+id: docker_volume_inspect
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,volume,inspecter
+title: Inspecter un volume
+command: docker volume inspect <NOM>
+description: Affiche les détails d'un volume : emplacement sur la machine hôte, date de création, etc.
+-->
+
+<!-- snippet
+id: docker_volume_rm
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,volume,suppression
+title: Supprimer un volume
+command: docker volume rm <NOM>
+description: Supprime définitivement un volume et les données qu'il contient. À utiliser avec précaution.
+-->
+
+<!-- snippet
+id: docker_volume_postgres_exemple
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,volume,postgres,base-de-donnees
+title: Persister les données d'une base PostgreSQL
+command: docker run -d -v db-data:/var/lib/postgresql/data postgres
+description: Monte un volume sur le répertoire de données de PostgreSQL. Les données survivent à la suppression et recréation du conteneur.
+-->
+
+<!-- snippet
+id: docker_volume_piege
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,volume,donnees,conteneur
+title: Piège : confondre données dans le conteneur et dans le volume
+content: Les données ne sont PAS dans le conteneur, elles sont dans le volume externe. Supprimer le conteneur ne supprime pas le volume. En revanche, supprimer le volume supprime définitivement les données.
+-->

@@ -1595,3 +1595,111 @@ C’est ta sécurité.
 
 Si un script se trompe, il casse moins de choses.
 
+---
+
+<!-- snippet
+id: bash_psql_count
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: postgresql,psql,sql,bash
+title: Compter les lignes d'une table PostgreSQL depuis Bash
+context: vérifier qu'un import a fonctionné ou monitorer la croissance d'une table
+command: psql -h 127.0.0.1 -p 5432 -U developer -d fakeusers -c "SELECT COUNT(*) FROM users;"
+description: Exécute une requête SQL directement depuis le terminal via psql avec connexion explicite
+-->
+
+<!-- snippet
+id: bash_pg_dump_table
+type: command
+tech: bash
+level: intermediate
+importance: high
+format: knowledge
+tags: postgresql,pg_dump,backup,sauvegarde
+title: Sauvegarder une seule table PostgreSQL avec pg_dump
+context: créer un snapshot d'une table avant une suppression massive
+command: pg_dump -h 127.0.0.1 -U developer -t public.users fakeusers > users_backup.sql
+description: Exporte la structure et les données d'une table dans un fichier SQL rejouable
+-->
+
+<!-- snippet
+id: bash_pg_isready
+type: command
+tech: bash
+level: beginner
+importance: medium
+format: knowledge
+tags: postgresql,monitoring,santé,connexion
+title: Vérifier que PostgreSQL répond avant d'exécuter un script
+context: script de supervision ou vérification de disponibilité dans un cron
+command: pg_isready -h 127.0.0.1 -p 5432
+description: Retourne "accepting connections" si le serveur PostgreSQL est prêt, sinon un message d'erreur
+-->
+
+<!-- snippet
+id: bash_mysqldump_base
+type: command
+tech: bash
+level: intermediate
+importance: high
+format: knowledge
+tags: mysql,mariadb,dump,backup,sauvegarde
+title: Sauvegarder une base MySQL/MariaDB avec mysqldump
+context: archiver une base avant une opération destructive ou une migration
+command: mysqldump -h 127.0.0.1 -u root -p mydb > mydb_backup.sql
+description: Exporte toute la base en un fichier SQL contenant CREATE TABLE et INSERT
+-->
+
+<!-- snippet
+id: bash_mysql_select_bash
+type: command
+tech: bash
+level: intermediate
+importance: high
+format: knowledge
+tags: mysql,mariadb,bash,variable,sql
+title: Récupérer le résultat d'un SELECT dans une variable Bash
+context: monitoring ou validation avant une action dans un script automatisé
+command: USER_COUNT=$(mysql -h 127.0.0.1 -u adminuser -pmonMdp mydb --batch --skip-column-names -e "SELECT COUNT(*) FROM users;")
+description: Exécute une requête SQL et stocke le résultat dans une variable Bash pour usage conditionnel
+-->
+
+<!-- snippet
+id: bash_db_set_strict
+type: warning
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,securite,script,pipefail
+title: Toujours sécuriser un script Bash qui pilote une base de données
+content: `set -euo pipefail` stoppe le script immédiatement en cas d'erreur, variable non définie, ou échec dans un pipe. Sans ça, un script peut continuer et détruire des données silencieusement.
+-->
+
+<!-- snippet
+id: bash_db_audit_before_delete
+type: warning
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,sql,delete,audit,securite
+title: Faire un SELECT avant un DELETE massif
+content: Ne jamais exécuter un DELETE sans d'abord faire un SELECT avec les mêmes conditions pour visualiser ce qui sera supprimé.
+-->
+
+<!-- snippet
+id: bash_db_confirm_before_delete
+type: warning
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: bash,sql,delete,confirmation,securite
+title: Demander une confirmation utilisateur avant suppression
+content: Après le SELECT de vérification, utiliser `read -p "Confirmer la suppression ? (o/n) "` avant de lancer le DELETE.
+-->
+

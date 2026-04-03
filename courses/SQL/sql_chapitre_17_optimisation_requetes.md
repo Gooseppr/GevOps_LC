@@ -239,3 +239,45 @@ L’optimisation SQL consiste à :
 - utiliser les index correctement
 
 Dans le prochain chapitre nous verrons **les procédures stockées**, qui permettent d'exécuter de la logique directement dans la base de données.
+
+<!-- snippet
+id: sql_explain_plan_execution
+type: command
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,explain,plan_execution,performance,postgresql
+title: Analyser le plan d'exécution d'une requête
+command: EXPLAIN SELECT * FROM <table> WHERE <condition>;
+description: Affiche comment la base exécute la requête. Chercher Seq Scan sur grandes tables pour identifier les requêtes nécessitant un index.
+-->
+
+<!-- snippet
+id: sql_seq_scan_vs_index_scan
+type: concept
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,index_scan,seq_scan,explain,performance
+title: Seq Scan vs Index Scan dans EXPLAIN
+content: |
+  - **Seq Scan** : lit toute la table ligne par ligne (lent sur grandes tables)
+  - **Index Scan** : utilise un index pour accéder directement aux lignes
+  Un Seq Scan sur une table de millions de lignes = requête candidate à l'optimisation.
+description: Visible dans la sortie de EXPLAIN. Créer un index sur la colonne du WHERE pour passer en Index Scan.
+-->
+
+<!-- snippet
+id: sql_indexer_cles_etrangeres
+type: tip
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,index,foreign_key,join,performance
+title: Indexer systématiquement les clés étrangères
+content: Les colonnes de JOIN (clés étrangères) doivent être indexées. Sans index, chaque JOIN déclenche un Seq Scan sur la table jointe.
+description: Réflexe à appliquer lors de chaque CREATE TABLE contenant une FOREIGN KEY.
+-->

@@ -287,6 +287,86 @@ Un CDN est une **brique essentielle** dans une architecture moderne :
 
 C’est pourquoi tous les grands acteurs (Netflix, Amazon, YouTube, Twitch, Shopify…) reposent sur des CDN mondiaux.
 
+
+
+<!-- snippet
+id: cloud_cdn_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: cdn,cloudfront,latence,cache
+title: CDN – Content Delivery Network
+context: comprendre pourquoi et comment utiliser un CDN dans une architecture web
+content: Un CDN diffuse les contenus depuis des PoPs proches des utilisateurs. Il réduit la latence, absorbe 80-95% du trafic statique et protège le backend via WAF et anti-DDoS.
+-->
+
+<!-- snippet
+id: cloud_cdn_cache_logic
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: cdn,cache,pop,origin
+title: Logique de cache CDN – Cache chaud vs cache froid
+context: comprendre le fonctionnement du cache dans un CDN
+content: Cache froid : le PoP va chercher le fichier à l'origine, le stocke, puis le sert. Cache chaud : réponse immédiate depuis le PoP dès la 2e requête. Le TTL contrôle la durée du cache.
+-->
+
+<!-- snippet
+id: cloud_cdn_anycast
+type: concept
+tech: cloud
+level: intermediate
+importance: medium
+format: knowledge
+tags: cdn,anycast,réseau,routage
+title: Routage Anycast – Comment un CDN route les requêtes
+context: comprendre le mécanisme de routage intelligent d'un CDN
+content: Un CDN utilise des IPs Anycast : une seule IP mondiale dirige le trafic vers le PoP le plus proche. Un client en France va vers Paris, en Asie vers Tokyo — transparent et automatique.
+-->
+
+<!-- snippet
+id: cloud_cdn_optimizations
+type: tip
+tech: cloud
+level: intermediate
+importance: medium
+format: knowledge
+tags: cdn,compression,optimisation,performance
+title: Optimisations CDN – Compression, images et streaming
+context: maximiser les performances web avec un CDN
+content: Les CDN modernes proposent compression Brotli/gzip, minification CSS/JS, redimensionnement d'images à la volée et streaming adaptatif HLS/DASH — sans modifier le backend.
+-->
+
+<!-- snippet
+id: cloud_cdn_security
+type: concept
+tech: cloud
+level: intermediate
+importance: high
+format: knowledge
+tags: cdn,sécurité,ddos,waf,ssl
+title: CDN et sécurité – Protection DDoS et WAF
+context: utiliser un CDN comme couche de sécurité frontale
+content: Un CDN est un bouclier devant l'origin : il absorbe les attaques DDoS, filtre via WAF (injections, bots) et termine TLS au niveau du PoP. Sans CDN, une attaque atteint directement le serveur.
+-->
+
+<!-- snippet
+id: cloud_cdn_use_cases
+type: concept
+tech: cloud
+level: beginner
+importance: medium
+format: knowledge
+tags: cdn,cas-usage,performance,architecture
+title: Quand utiliser un CDN
+context: décider si un CDN est adapté à son architecture
+content: CDN idéal pour : sites statiques, SPA, e-commerce et streaming vidéo. Partiellement utile pour les APIs (sécurité/TLS seulement). Inutile pour les intranets LAN (pas de gain géographique).
+-->
+
 ---
 [← Module précédent](M27_aws-storage.md) | [Module suivant →](M27_flashcard_aws_storage.md)
 ---

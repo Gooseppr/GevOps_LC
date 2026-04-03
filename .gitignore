@@ -3,6 +3,10 @@ prompt/
 Code/
 pratique/
 pipeline/
+!pipeline/Z0_extract_snippets.py
+!pipeline/ZZ_daily_review.py
+!pipeline/review_config.json
+!pipeline/review_state.json
 __pycache__/
 *.pyc
 .env

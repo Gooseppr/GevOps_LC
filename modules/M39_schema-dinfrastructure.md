@@ -617,3 +617,174 @@ flowchart TB
     - adapter ton discours à l’audience.
 
 Avec ça, tu as une base solide pour **tous tes projets** (formation, jury, clients) et tu peux exploiter à fond **Mermaid + draw.io** pour documenter ton architecture. 💪
+
+---
+
+<!-- snippet
+id: dns_schema_macro_concept
+type: concept
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: schema,macro,architecture,mermaid,présentation
+title: Schéma Macro : vue d'ensemble pour un public non technique
+context: choisir le bon niveau de détail selon l'audience (client, développeur, DevOps)
+content: Le schéma Macro présente les blocs fonctionnels (utilisateurs, applications, BDD, services externes) pour un client ou un jury. Il doit être lisible en 30 secondes.
+-->
+
+<!-- snippet
+id: dns_schema_macro_concept_b
+type: concept
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: schema,macro,architecture,mermaid,présentation
+title: Schéma Méso et Micro : zoom technique et déploiement réel
+context: choisir le bon niveau de détail selon l'audience (client, développeur, DevOps)
+content: Le schéma Méso zoome sur les modules techniques (services, API Gateway, protocoles) pour les développeurs. Le schéma Micro détaille le déploiement réel (VM, conteneurs, ports) pour les DevOps.
+-->
+
+<!-- snippet
+id: dns_schema_macro_concept_c
+type: concept
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: schema,macro,architecture,mermaid,présentation
+title: Cohérence des noms entre les 3 niveaux de schéma
+context: choisir le bon niveau de détail selon l'audience (client, développeur, DevOps)
+content: Les trois niveaux doivent utiliser les mêmes noms de composants. "Backend" en macro correspond à "API Gateway + Services" en méso, et aux conteneurs sur VM en micro.
+-->
+
+<!-- snippet
+id: dns_mermaid_flowchart_macro
+type: concept
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: mermaid,flowchart,schema,macro,template
+title: Template Mermaid pour un schéma Macro : structure de base
+context: créer rapidement un schéma macro lisible pour une présentation ou un rapport
+content: Utilisez flowchart LR avec 6-8 blocs max : User --> WEB --> API --> DB, API --> EXT. Annotez les flèches avec l'action (ex : -->|Appel REST /api/orders|).
+-->
+
+<!-- snippet
+id: dns_mermaid_flowchart_macro_b
+type: tip
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: mermaid,flowchart,schema,macro,template
+title: Ancrer le schéma Macro dans un contexte réel
+context: créer rapidement un schéma macro lisible pour une présentation ou un rapport
+content: Ajoutez toujours une phrase de contexte sous le schéma macro pour ancrer la présentation dans un cas réel. Les jurys apprécient ce repère narratif.
+-->
+
+<!-- snippet
+id: dns_mermaid_sequence_request
+type: concept
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: mermaid,sequenceDiagram,requête,flux,parcours
+title: sequenceDiagram Mermaid : montrer l'ordre temporel des interactions
+context: expliquer le déroulement d'une action utilisateur (login, paiement) de bout en bout
+content: Utilisez sequenceDiagram avec des participants (User, Frontend, API, Database). Les flèches ->> sont des requêtes, -->> des réponses. Idéal pour un flux d'authentification ou un paiement.
+-->
+
+<!-- snippet
+id: dns_mermaid_sequence_request_b
+type: tip
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: mermaid,sequenceDiagram,requête,flux,parcours
+title: Combiner flowchart et sequenceDiagram pour deux angles complémentaires
+context: expliquer le déroulement d'une action utilisateur (login, paiement) de bout en bout
+content: Le flowchart montre la structure, le sequenceDiagram montre la dynamique. Combiner les deux avec le schéma méso donne une vision complète de l'architecture.
+-->
+
+<!-- snippet
+id: dns_schema_micro_subnet
+type: concept
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: schema,micro,subnet,conteneurs,ports,déploiement
+title: Schéma Micro : subgraphs par VM et ports sur les flèches
+context: montrer précisément comment les VM et conteneurs sont organisés en réseau pour un jury DevOps
+content: Regroupez les composants par VM ou subnet avec des subgraph Mermaid. Indiquez les ports sur les flèches (ex : -->|TCP 5432|) et séparez subnet public (LB) du subnet privé (BDD).
+-->
+
+<!-- snippet
+id: dns_schema_micro_subnet_b
+type: tip
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: schema,micro,subnet,conteneurs,ports,déploiement
+title: Tableau d'appoint pour les détails de configuration en Micro
+context: montrer précisément comment les VM et conteneurs sont organisés en réseau pour un jury DevOps
+content: Pour ne pas surcharger le schéma Micro, ajoutez un tableau texte à côté listant les variables d'environnement et volumes de chaque conteneur.
+-->
+
+<!-- snippet
+id: dns_schema_securite_zones
+type: concept
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: schema,sécurité,dmz,internet,réseau-privé,bastion
+title: Trois zones réseau dans un schéma : Internet, DMZ, réseau privé
+context: montrer la séparation entre zone exposée et réseau privé pour justifier les choix de sécurité
+content: Représentez trois zones : Internet (cercle), DMZ (LB, Bastion, API Gateway) et Réseau privé (Backend, BDD). Les connexions indiquent le protocole (HTTPS, SSH port 4242).
+-->
+
+<!-- snippet
+id: dns_schema_securite_zones_b
+type: tip
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: schema,sécurité,dmz,internet,réseau-privé,bastion
+title: Argument de sécurité clé : les BDD ne sont jamais exposées à Internet
+context: montrer la séparation entre zone exposée et réseau privé pour justifier les choix de sécurité
+content: La visualisation des zones montre que les BDD ne sont jamais accessibles directement depuis Internet. C'est l'argument de sécurité principal à préparer pour les questions du jury.
+-->
+
+<!-- snippet
+id: dns_schema_coherence_niveaux
+type: tip
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: schema,cohérence,macro,méso,micro,bonnes-pratiques
+title: Noms identiques et équivalences entre les 3 niveaux de schéma
+context: préparer un dossier technique complet avec des schémas qui racontent la même histoire
+content: Vérifiez que les noms de blocs sont identiques d'un niveau à l'autre : "Backend" en macro = "API Gateway + Services" en méso = conteneurs sur VM en micro. Le micro ne doit pas contredire le méso.
+-->
+
+<!-- snippet
+id: dns_schema_coherence_niveaux_b
+type: tip
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: schema,cohérence,macro,méso,micro,bonnes-pratiques
+title: Palette de couleurs cohérente entre schémas draw.io et Mermaid
+context: préparer un dossier technique complet avec des schémas qui racontent la même histoire
+content: Utilisez toujours la même palette : bleu = frontend, orange = backend, vert = base de données, rouge = sécurité/réseau. La cohérence visuelle renforce la lisibilité des trois niveaux.
+-->

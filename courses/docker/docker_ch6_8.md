@@ -158,3 +158,66 @@ Docker Swarm permet :
 ## Notes
 
 *Quorum : majorité nécessaire pour valider une décision dans un cluster
+
+---
+
+<!-- snippet
+id: docker_swarm_multi_managers
+type: tip
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,manager,haute-disponibilite,production,quorum
+title: Utiliser plusieurs managers en production
+content: Minimum 3 managers en production pour garantir le quorum (majorité nécessaire aux décisions). Avec 3 managers, le cluster reste fonctionnel même si l'un tombe.
+-->
+
+<!-- snippet
+id: docker_swarm_versionner_images
+type: tip
+tech: docker
+level: advanced
+importance: low
+format: knowledge
+tags: swarm,images,tags,deploiement,rollback
+title: Versionner les images Docker
+content: Utiliser des tags versionnés (mon-app:v1, mon-app:v2) plutôt que latest. Cela permet des rollbacks fiables et garantit la reproductibilité des déploiements.
+-->
+
+<!-- snippet
+id: docker_swarm_limites_vs_kubernetes
+type: concept
+tech: docker
+level: advanced
+importance: low
+format: knowledge
+tags: swarm,kubernetes,limites,comparaison
+title: Limites de Docker Swarm face à Kubernetes
+content: Swarm est simple mais limité : pas d'auto-scaling natif, écosystème restreint. Pour des architectures complexes ou de grandes infrastructures cloud, Kubernetes est plus adapté.
+-->
+
+<!-- snippet
+id: docker_swarm_usage_classique
+type: concept
+tech: docker
+level: advanced
+importance: low
+format: knowledge
+tags: swarm,cas-usage,architecture
+title: Cas d'usage de Docker Swarm
+content: Swarm convient aux projets simples, à l'auto-hébergement et aux petites équipes. Il est moins adapté aux grandes infrastructures, aux microservices complexes et au cloud à grande échelle.
+-->
+
+<!-- snippet
+id: docker_swarm_utilise_comme_docker_classique
+type: warning
+tech: docker
+level: advanced
+importance: low
+format: knowledge
+tags: swarm,erreur,architecture,services
+title: Utiliser Swarm comme Docker classique
+content: Swarm ne s'utilise pas avec `docker run`. Les conteneurs doivent passer par des services et des stacks. Gérer manuellement des conteneurs contourne l'orchestration et crée des comportements imprévisibles.
+-->
+

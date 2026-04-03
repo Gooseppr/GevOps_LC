@@ -25,10 +25,10 @@ next_module_title: "Optimisation avancée des images"
 
 ## Objectifs pédagogiques
 
-- Comprendre les vulnérabilités dans les images Docker  
-- Utiliser des outils de scan  
-- Mettre à jour et sécuriser ses images  
-- Réduire les risques en production  
+- Comprendre les vulnérabilités dans les images Docker
+- Utiliser des outils de scan
+- Mettre à jour et sécuriser ses images
+- Réduire les risques en production
 
 ---
 
@@ -40,9 +40,9 @@ Quand tu utilises une image Docker :
 
 👉 Exemple :
 
-- image officielle  
-- dépendances  
-- librairies système  
+- image officielle
+- dépendances
+- librairies système
 
 👉 Ces éléments peuvent contenir des failles de sécurité
 
@@ -56,9 +56,9 @@ Une vulnérabilité est une faille de sécurité exploitable.
 
 👉 Elle peut permettre :
 
-- accès non autorisé  
-- fuite de données  
-- exécution de code  
+- accès non autorisé
+- fuite de données
+- exécution de code
 
 ---
 
@@ -95,19 +95,19 @@ trivy image mon-image
 
 ## Fonctionnement interne
 
-💡 Astuce  
+💡 Astuce
 Scanner régulièrement ses images.
 
-⚠️ Erreur fréquente  
+⚠️ Erreur fréquente
 Utiliser des images anciennes non mises à jour.
 
-💣 Piège classique  
-Penser qu’une image officielle est toujours sécurisée.  
-👉 Même les images officielles peuvent contenir des vulnérabilités.  
-👉 Elles doivent être mises à jour régulièrement.  
+💣 Piège classique
+Penser qu'une image officielle est toujours sécurisée.
+👉 Même les images officielles peuvent contenir des vulnérabilités.
+👉 Elles doivent être mises à jour régulièrement.
 👉 Toujours vérifier les versions utilisées.
 
-🧠 Concept clé  
+🧠 Concept clé
 La sécurité est un processus continu
 
 ---
@@ -116,22 +116,22 @@ La sécurité est un processus continu
 
 Une image Node.js :
 
-- contient une version vulnérable d’OpenSSL  
-- scan → vulnérabilité détectée  
+- contient une version vulnérable d'OpenSSL
+- scan → vulnérabilité détectée
 
 👉 solution :
 
-- mettre à jour l’image  
-- rebuild  
+- mettre à jour l'image
+- rebuild
 
 ---
 
 ## Bonnes pratiques
 
-- utiliser des images à jour  
-- scanner régulièrement  
-- minimiser les dépendances  
-- utiliser des images légères  
+- utiliser des images à jour
+- scanner régulièrement
+- minimiser les dépendances
+- utiliser des images légères
 
 ---
 
@@ -139,15 +139,79 @@ Une image Node.js :
 
 Le scan permet de :
 
-- détecter les failles  
-- améliorer la sécurité  
-- prévenir les attaques  
+- détecter les failles
+- améliorer la sécurité
+- prévenir les attaques
 
-👉 Indispensable en production  
+👉 Indispensable en production
 
 ---
 
 ## Notes
 
-*Vulnérabilité : faille de sécurité exploitable  
+*Vulnérabilité : faille de sécurité exploitable
 *Scan : analyse automatique de sécurité
+
+---
+
+<!-- snippet
+id: docker_vulnerability_concept
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: securite,vulnerabilite,faille,images
+title: Vulnérabilité dans une image Docker — définition
+content: Une vulnérabilité est une faille exploitable dans une image Docker, ses dépendances ou ses librairies système. Elle peut permettre un accès non autorisé ou une fuite de données.
+-->
+
+<!-- snippet
+id: docker_scan_builtin
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: scan,securite,vulnerabilite,docker-scan
+title: Scanner une image avec docker scan
+command: docker scan <IMAGE>
+description: Outil de scan intégré à Docker pour détecter les vulnérabilités connues dans une image
+-->
+
+<!-- snippet
+id: docker_scan_trivy
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: scan,trivy,securite,vulnerabilite
+title: Scanner une image avec Trivy
+command: trivy image <IMAGE>
+description: Trivy est un outil open-source de scan de sécurité fournissant une analyse complète des vulnérabilités d'une image Docker
+-->
+
+<!-- snippet
+id: docker_scan_regular_tip
+type: tip
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: scan,securite,bonne-pratique
+title: Bonne pratique — scanner régulièrement ses images
+content: Scanner ses images régulièrement détecte de nouvelles vulnérabilités sur des images déjà déployées. La sécurité est un processus continu, pas un état figé.
+-->
+
+<!-- snippet
+id: docker_scan_official_image_warning
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: securite,images-officielles,piege,vulnerabilite
+title: Piège — penser qu'une image officielle est toujours sécurisée
+content: Même les images officielles Docker Hub peuvent contenir des vulnérabilités. Les scanner et les mettre à jour régulièrement reste indispensable.
+-->

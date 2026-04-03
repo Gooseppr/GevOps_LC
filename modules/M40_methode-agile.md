@@ -377,4 +377,100 @@ Chaque sprint est une **mini-aventure complète** : planification → réalisati
 
 ---
 [Module suivant →](M40.projet-test.md)
+
+---
+
+<!-- snippet
+id: agile_scrum_sprint_cycle
+type: concept
+tech: agile
+level: intermediate
+importance: high
+format: knowledge
+tags: scrum,sprint,agile,cycle
+title: Cycle complet d'un sprint SCRUM (5 étapes)
+context: Comprendre le déroulé itératif d'un sprint dans une équipe Scrum
+content: Un sprint (1 à 3 semaines) suit 5 étapes : Planning, Execution, Daily Scrum, Review et Retrospective. Chaque sprint produit un incrément livrable.
+-->
+
+<!-- snippet
+id: agile_user_story_format
+type: concept
+tech: agile
+level: intermediate
+importance: high
+format: knowledge
+tags: user-story,backlog,agile
+title: Format d'une User Story
+context: Rédiger une User Story centrée utilisateur dans un backlog Scrum
+content: Format : "En tant que <UTILISATEUR>, je veux <FONCTIONNALITÉ>, afin de <OBJECTIF>." Une bonne User Story est simple, testable et réalisable en un sprint.
+-->
+
+<!-- snippet
+id: agile_user_story_format_b
+type: concept
+tech: agile
+level: intermediate
+importance: medium
+format: knowledge
+tags: user-story,backlog,agile
+title: Epic Story : regrouper et découper les grandes fonctionnalités
+context: Rédiger une User Story centrée utilisateur dans un backlog Scrum
+content: Une Epic Story regroupe plusieurs User Stories trop volumineuses pour un seul sprint. Elle doit être découpée pour respecter le rythme itératif et faciliter les tests.
+-->
+
+<!-- snippet
+id: agile_roles_scrum
+type: concept
+tech: agile
+level: intermediate
+importance: medium
+format: knowledge
+tags: scrum,roles,product-owner,scrum-master
+title: Les trois rôles SCRUM
+context: Identifier les responsabilités de chaque rôle dans une équipe Scrum
+content: Product Owner : vision produit et priorisation du backlog. Équipe de dev : conception, développement, tests. Scrum Master : facilitateur qui supprime les obstacles.
+-->
+
+<!-- snippet
+id: agile_backlog_structure
+type: concept
+tech: agile
+level: intermediate
+importance: medium
+format: knowledge
+tags: backlog,epic,user-story,priorisation
+title: Structure du Backlog produit
+context: Organiser et prioriser les éléments d'un backlog Scrum
+content: Le backlog contient Epics, User Stories, tâches techniques et bugs, triés par valeur métier. Le Sprint Backlog en est l'extraction pour un sprint donné.
+-->
+
+<!-- snippet
+id: agile_avantages_limites
+type: concept
+tech: agile
+level: intermediate
+importance: low
+format: knowledge
+tags: agile,avantages,limites,gestion-projet
+title: Avantages de l'Agile
+context: Évaluer l'Agile face aux méthodes traditionnelles de gestion de projet
+content: L'Agile offre : évolution rapide, feedback quasi immédiat, livraisons régulières, meilleure visibilité métier et adaptation en temps réel aux changements.
+-->
+
+<!-- snippet
+id: agile_avantages_limites_b
+type: concept
+tech: agile
+level: intermediate
+importance: low
+format: knowledge
+tags: agile,avantages,limites,gestion-projet
+title: Limites de l'Agile
+context: Évaluer l'Agile face aux méthodes traditionnelles de gestion de projet
+content: Limites de l'Agile : délais difficiles à chiffrer, coûts variables, forte dépendance à la collaboration PO/équipe et discipline organisationnelle requise.
+-->
+
+---
+[Module suivant →](M40.projet-test.md)
 ---

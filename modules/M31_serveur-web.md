@@ -806,6 +806,120 @@ Objectif : comprendre **où** se place la gestion des certificats dans ton infra
 - D’autres reverse proxies existent pour des contextes spécifiques (Docker/K8s, haute dispo, microservices).
 - Les **certificats TLS** et HTTPS sont souvent gérés au niveau du reverse proxy, qui agit comme point d’entrée unique sécurisé.
 
+
+
+---
+
+<!-- snippet
+id: nginx_install_nginx_ubuntu
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: nginx,install,ubuntu,apt
+title: Installer Nginx sur Ubuntu/Debian
+context: déployer un serveur web Nginx sur une machine Linux
+command: sudo apt update && sudo apt install -y nginx && sudo systemctl status nginx
+description: Met à jour les paquets, installe Nginx et vérifie que le service est actif. Nginx est prêt à servir sur le port 80.
+-->
+
+<!-- snippet
+id: nginx_install_apache_ubuntu
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: apache,install,ubuntu,apt
+title: Installer Apache sur Ubuntu/Debian
+context: déployer un serveur web Apache sur une machine Linux
+command: sudo apt update && sudo apt install -y apache2 && sudo systemctl status apache2
+description: Met à jour les paquets, installe Apache2 et vérifie son état. Le service doit afficher "active (running)".
+-->
+
+<!-- snippet
+id: nginx_reload_test_config
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: nginx,config,reload,test
+title: Tester et recharger la configuration Nginx
+context: valider une modification de configuration Nginx sans couper les connexions actives
+command: sudo nginx -t && sudo systemctl reload nginx
+description: Vérifie la syntaxe du fichier de configuration, puis recharge Nginx sans interruption de service. À toujours faire avant un reload en prod.
+-->
+
+<!-- snippet
+id: nginx_reverse_proxy_config
+type: concept
+tech: nginx
+level: intermediate
+importance: high
+format: knowledge
+tags: nginx,reverse-proxy,proxy_pass,headers
+title: Bloc de reverse proxy Nginx vers une app backend
+context: router les requêtes d'un domaine vers une application locale (Node, Python, etc.)
+content: Configurez un bloc server Nginx avec proxy_pass pour transmettre les requêtes à votre backend. Ajoutez les headers X-Real-IP, X-Forwarded-For et X-Forwarded-Proto pour que l'application connaisse le vrai client. Exemple : proxy_pass http://localhost:3000; avec les directives proxy_set_header Host $host; etc. Toujours faire nginx -t avant de recharger.
+-->
+
+<!-- snippet
+id: nginx_apache_enable_site
+type: command
+tech: nginx
+level: beginner
+importance: medium
+format: knowledge
+tags: apache,virtualhost,a2ensite,reload
+title: Activer un VirtualHost Apache et recharger
+context: mettre en ligne un nouveau site Apache après avoir créé son fichier de configuration
+command: sudo a2ensite monsite.conf && sudo apache2ctl configtest && sudo systemctl reload apache2
+description: Active le site via a2ensite, vérifie la configuration avec configtest, puis recharge Apache. À exécuter après avoir créé le fichier dans sites-available.
+-->
+
+<!-- snippet
+id: nginx_enable_proxy_modules
+type: command
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: apache,modules,proxy,a2enmod
+title: Activer les modules proxy Apache pour le reverse proxy
+context: configurer Apache en reverse proxy vers une application Node/PHP/Python
+command: sudo a2enmod proxy proxy_http headers && sudo systemctl reload apache2
+description: Active les modules nécessaires pour faire du reverse proxy avec Apache. Sans ces modules, les directives ProxyPass et ProxyPassReverse ne fonctionnent pas.
+-->
+
+<!-- snippet
+id: nginx_logs_tail
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: nginx,logs,debug,tail
+title: Suivre les logs Nginx en temps réel
+context: déboguer une erreur HTTP ou surveiller l'activité d'un serveur web Nginx
+command: sudo tail -f /var/log/nginx/access.log /var/log/nginx/error.log
+description: Affiche en continu les logs d'accès et d'erreurs Nginx. Réflexe de base pour diagnostiquer une page qui ne répond pas correctement.
+-->
+
+<!-- snippet
+id: nginx_tls_termination_concept
+type: concept
+tech: nginx
+level: intermediate
+importance: high
+format: knowledge
+tags: nginx,https,tls,certificat,reverse-proxy
+title: TLS termination au niveau du reverse proxy
+context: comprendre pourquoi les certificats HTTPS sont gérés sur le reverse proxy et non sur chaque application
+content: Le reverse proxy (Nginx, Apache, Traefik…) gère le certificat TLS une seule fois. Le flux client ↔ proxy est chiffré (HTTPS), tandis que le flux proxy ↔ application interne reste en HTTP simple sur le réseau privé. Cela simplifie la gestion des certificats (un seul point à renouveler) et allège les applications qui n'ont pas à gérer TLS.
+-->
+
 ---
 [Module suivant →](M31_serveur-web-pratique.md)
 ---

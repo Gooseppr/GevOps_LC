@@ -216,3 +216,45 @@ Concepts importants :
 - propriétés **ACID**
 
 Dans le prochain chapitre nous entrerons dans le niveau avancé avec **l’optimisation des requêtes SQL**.
+
+<!-- snippet
+id: sql_transaction_begin_commit
+type: command
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,transaction,begin,commit,rollback
+title: Structurer une transaction SQL
+command: BEGIN; -- opérations SQL -- COMMIT;
+description: Regroupe plusieurs opérations en une unité atomique. En cas d’erreur, ROLLBACK annule tout depuis BEGIN.
+-->
+
+<!-- snippet
+id: sql_acid_proprietes
+type: concept
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,acid,transaction,atomicity,isolation
+title: Les 4 propriétés ACID d’une transaction
+content: |
+  - **A**tomicity : tout ou rien
+  - **C**onsistency : les règles de la base sont respectées
+  - **I**solation + **D**urability : les transactions ne se perturbent pas, les données validées sont permanentes
+description: Ces propriétés garantissent la fiabilité des opérations même en cas de panne ou d’accès concurrent.
+-->
+
+<!-- snippet
+id: sql_transaction_longue_blocage
+type: warning
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,transaction,lock,deadlock,performance
+title: Une transaction longue bloque les autres
+content: Une transaction ouverte verrouille les lignes modifiées. Les autres transactions qui veulent y accéder doivent attendre, pouvant provoquer un deadlock.
+description: Garder les transactions courtes. Ne jamais ouvrir un BEGIN et attendre une interaction utilisateur avant le COMMIT.
+-->

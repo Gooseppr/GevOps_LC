@@ -306,6 +306,88 @@ Ainsi, le trafic reste **fluide et sans interruption**.
 3. **ELB** répartit le trafic,
 4. Et le tout garantit une **disponibilité proche de 99.99 %**.
 
+
+
+<!-- snippet
+id: aws_cloudwatch_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: cloudwatch,monitoring,métriques,alarmes
+title: Amazon CloudWatch – Observabilité unifiée AWS
+context: surveiller les ressources AWS et déclencher des alertes automatiques
+content: CloudWatch collecte métriques, logs et événements AWS. Les alarmes déclenchent des notifications SNS ou des actions automatiques (Auto Scaling, Lambda). Les métriques custom sont publiables via CLI ou SDK.
+-->
+
+<!-- snippet
+id: aws_cloudwatch_alarm
+type: command
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: cloudwatch,alarme,cpu,sns
+title: Créer une alarme CloudWatch sur le CPU d'une EC2
+context: recevoir une alerte quand le CPU d'une instance dépasse un seuil
+command: aws cloudwatch put-metric-alarm --alarm-name "CPUHigh" --metric-name "CPUUtilization" --namespace "AWS/EC2" --statistic Average --period 60 --threshold 80 --comparison-operator GreaterThanThreshold --evaluation-periods 3 --alarm-actions arn:aws:sns:eu-west-3:123456789012:alertes-systeme
+description: Crée une alarme qui se déclenche si le CPU moyen d'EC2 dépasse 80% pendant 3 minutes consécutives. L'action déclenche une notification SNS. Remplacer l'ARN SNS par celui de votre topic. Le namespace AWS/EC2 permet de cibler une instance spécifique en ajoutant --dimensions Name=InstanceId,Value=i-xxxx.
+-->
+
+<!-- snippet
+id: aws_elb_types
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: elb,alb,nlb,load-balancer,réseau
+title: Types d'Elastic Load Balancer (ELB)
+context: choisir le bon load balancer selon le protocole et le cas d'usage
+content: AWS propose 3 ELB. ALB (L7 HTTP) : routing par URL/header, idéal pour microservices. NLB (L4 TCP/UDP) : très faible latence, IPs fixes. GLB (L3) : redirige vers des appliances sécurité.
+-->
+
+<!-- snippet
+id: aws_auto_scaling_concept
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: auto-scaling,ec2,scalabilité,cloudwatch
+title: EC2 Auto Scaling – Ajustement automatique de la capacité
+context: adapter dynamiquement le nombre d'instances EC2 selon la charge
+content: Un ASG définit un nombre min/max/désiré d'instances. Il scale selon les métriques CloudWatch (CPU, requêtes ALB). L'ELB intègre les nouvelles instances et les retire proprement (draining) lors du scale-in.
+-->
+
+<!-- snippet
+id: aws_cloudwatch_custom_metric
+type: command
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: cloudwatch,métriques-custom,cli
+title: Publier une métrique personnalisée dans CloudWatch
+context: envoyer des métriques applicatives métier vers CloudWatch
+command: aws cloudwatch put-metric-data --namespace "Application/Custom" --metric-name "TransactionsParMinute" --value 285
+description: Publie une valeur de métrique personnalisée dans le namespace Application/Custom. Ces métriques custom apparaissent dans CloudWatch comme n'importe quelle métrique AWS. Permet de créer des alarmes et dashboards sur des indicateurs métiers (nombre de commandes, taux d'erreur applicatif, etc.). Peut être appelé depuis un script bash, Python ou une CI/CD.
+-->
+
+<!-- snippet
+id: aws_availability_sla
+type: concept
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: disponibilité,sla,multi-az,haute-disponibilité
+title: Niveaux de disponibilité – Les "nines" AWS
+context: comprendre les objectifs de disponibilité dans une architecture cloud
+content: 99.9% = 8,7h downtime/an. 99.99% = 52 min/an. 99.999% = 5 min/an (niveau bancaire). Pour atteindre 99.99% sur AWS : multi-AZ + ELB + Auto Scaling + CloudWatch.
+-->
+
 ---
 [← Module précédent](M28_bdd_aws.md) | [Module suivant →](M28_quiz-reponse.md)
 ---

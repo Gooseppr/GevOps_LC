@@ -229,3 +229,51 @@ Les principaux types sont :
 - JSON
 
 Dans le prochain chapitre nous verrons **les contraintes**, qui permettent de garantir l’intégrité des données.
+
+<!-- snippet
+id: sql_float_argent_interdit
+type: warning
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,types,numeric,float,argent
+title: Ne jamais stocker de l’argent en FLOAT
+content: |
+  FLOAT introduit des erreurs d’arrondi dues à la représentation binaire.
+  `0.1 + 0.2 = 0.30000000000000004` en virgule flottante.
+  Utiliser `NUMERIC` (ou `DECIMAL`) pour tous les montants financiers.
+description: Cause de bugs comptables impossibles à déboguer en production.
+-->
+
+<!-- snippet
+id: sql_types_recommandes
+type: concept
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,types,integer,text,varchar
+title: Choisir le bon type SQL : texte et identifiants
+content: |
+  - identifiant → `INTEGER`
+  - texte libre → `TEXT`
+  - email/code → `VARCHAR(n)`
+description: Stocker un nombre en TEXT empêche les calculs et trie par ordre alphabétique, pas numérique.
+-->
+
+<!-- snippet
+id: sql_types_recommandes_nombres_dates
+type: concept
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,types,numeric,date,timestamp
+title: Choisir le bon type SQL : nombres et dates
+content: |
+  - montant → `NUMERIC`
+  - date seule → `DATE`
+  - date + heure → `TIMESTAMP`
+description: Utiliser NUMERIC pour les calculs financiers exacts, TIMESTAMP pour les événements horodatés.
+-->

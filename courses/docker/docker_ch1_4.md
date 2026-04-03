@@ -200,5 +200,94 @@ Un conteneur a un cycle de vie simple :
 
 ## Notes
 
-*lifecycle : cycle de vie d’un conteneur  
+*lifecycle : cycle de vie d’un conteneur
 *graceful stop : arrêt propre sans couper brutalement
+
+---
+
+<!-- snippet
+id: docker_lifecycle_concept
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,lifecycle,etats,conteneur
+title: Cycle de vie d’un conteneur
+content: Un conteneur passe par plusieurs états : créé, en cours d’exécution, arrêté, supprimé. Comprendre ce cycle évite de recréer des conteneurs inutilement.
+-->
+
+<!-- snippet
+id: docker_start_conteneur
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,start,demarrage,conteneur
+title: Démarrer un conteneur existant
+command: docker start <NOM>
+description: Démarre un conteneur déjà existant (arrêté). Différent de docker run qui crée ET démarre un nouveau conteneur.
+-->
+
+<!-- snippet
+id: docker_restart_conteneur
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,restart,redemarrage,conteneur
+title: Redémarrer un conteneur
+command: docker restart <NOM>
+description: Redémarre un conteneur sans le recréer. Utile après une modification de configuration.
+-->
+
+<!-- snippet
+id: docker_rm_force
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,rm,force,suppression
+title: Forcer la suppression d’un conteneur actif
+command: docker rm -f <NOM>
+description: Supprime un conteneur même s’il est en cours d’exécution. À utiliser avec précaution.
+-->
+
+<!-- snippet
+id: docker_run_vs_start
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,run,start,confusion
+title: Erreur : utiliser docker run au lieu de docker start
+content: docker run crée un nouveau conteneur à chaque appel. Si le conteneur existe déjà, il faut utiliser docker start pour le relancer sans en créer un nouveau.
+-->
+
+<!-- snippet
+id: docker_accumulation_conteneurs
+type: warning
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,conteneurs,nettoyage,accumulation
+title: Piège : accumuler des conteneurs arrêtés
+content: Les conteneurs arrêtés restent stockés sur la machine et consomment de l’espace disque. Il faut nettoyer régulièrement avec docker rm.
+-->
+
+<!-- snippet
+id: docker_conteneur_arrete_existe
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,conteneur,arret,ressources
+title: Un conteneur arrêté existe toujours et peut être relancé
+content: Un conteneur arrêté (docker stop) n’est pas supprimé. Il existe toujours mais consomme peu de ressources. On peut le relancer avec docker start ou le supprimer avec docker rm.
+-->

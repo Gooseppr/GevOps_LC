@@ -223,3 +223,67 @@ Le fichier docker-compose.yml permet de :
 ## Notes
 
 *YAML : format de fichier basé sur l’indentation pour structurer des données
+
+---
+
+<!-- snippet
+id: docker_compose_yml_concept
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,yaml,architecture
+title: docker-compose.yml — fichier central de l’architecture
+content: Le fichier docker-compose.yml décrit toute l’architecture applicative : services, volumes, networks. C’est un fichier YAML dont l’indentation est critique.
+description: Structure principale : services (obligatoire), volumes et networks (optionnels)
+-->
+
+<!-- snippet
+id: docker_compose_yaml_indentation_warning
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,yaml,erreur
+title: YAML — indentation incorrecte casse tout le fichier
+content: YAML est très sensible à l’indentation. Une mauvaise indentation peut casser l’ensemble du fichier docker-compose.yml, parfois sans message d’erreur clair de Docker Compose.
+description: Toujours vérifier l’alignement des blocs et utiliser des espaces, jamais des tabulations
+-->
+
+<!-- snippet
+id: docker_compose_ports_mapping
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,ports,reseau
+title: Mapping de ports dans Compose
+content: La clé `ports` expose un port du conteneur sur la machine hôte. Format : "port_hote:port_conteneur".
+-->
+
+<!-- snippet
+id: docker_compose_environment_inline
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,environment,configuration
+title: Variables d’environnement inline dans un service
+content: La clé `environment` permet d’injecter des variables directement dans un service Compose, sous forme de liste clé=valeur.
+-->
+
+<!-- snippet
+id: docker_compose_declarative_config
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,declaratif,architecture
+title: Compose = configuration déclarative
+content: Docker Compose adopte une approche déclarative : tu décris l’état souhaité de ton architecture, et Compose s’occupe de le réaliser. Tu ne scriptes pas, tu configures.
+-->

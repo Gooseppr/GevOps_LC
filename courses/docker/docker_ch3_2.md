@@ -171,3 +171,80 @@ Docker permet une communication simple entre conteneurs :
 ## Notes
 
 *DNS Docker : système interne de résolution de noms entre conteneurs
+
+---
+
+<!-- snippet
+id: docker_dns_concept
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: reseau,dns,resolution,hostname
+title: Le DNS Docker résout les noms de conteneurs automatiquement
+content: Docker possède un système DNS interne qui traduit automatiquement le nom d'un conteneur en son adresse réseau. Aucune configuration manuelle n'est nécessaire.
+-->
+
+<!-- snippet
+id: docker_ports_internes_vs_externes
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: reseau,ports,interne,externe,exposition
+title: Ports internes vs ports externes dans Docker
+content: Un port interne sert à la communication entre conteneurs dans le réseau Docker (ex : 5432 pour Postgres). Un port externe (-p) sert à accéder au service depuis la machine hôte ou le navigateur.
+description: Entre conteneurs, le port interne suffit. L'option -p n'est nécessaire que pour accéder depuis l'extérieur.
+-->
+
+<!-- snippet
+id: docker_network_app_net_create
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,network,creation
+title: Créer un réseau applicatif dédié
+command: docker network create app-net
+description: Crée un réseau bridge nommé app-net permettant aux conteneurs qui le rejoignent de communiquer par nom sans exposer de ports.
+-->
+
+<!-- snippet
+id: docker_run_db_reseau
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: reseau,postgres,conteneur,run
+title: Lancer Postgres sur un réseau Docker
+command: docker run -d --name db --network app-net postgres
+description: Lance Postgres en arrière-plan et le connecte au réseau app-net. Le conteneur est joignable par son nom "db" depuis tous les autres conteneurs du même réseau.
+-->
+
+<!-- snippet
+id: docker_hostname_automatique
+type: tip
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: reseau,dns,hostname,conteneur
+title: Le nom du conteneur devient automatiquement son hostname
+content: Quand un conteneur est connecté à un réseau Docker personnalisé, son nom devient immédiatement résolvable comme hostname par les autres conteneurs du même réseau.
+-->
+
+<!-- snippet
+id: docker_port_exposition_inutile
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: reseau,ports,exposition,piege
+title: Ne pas exposer un port inutilement pour la communication interne
+content: Entre conteneurs, il ne faut pas utiliser -p. Le réseau Docker suffit pour la communication interne. L'exposition de port sert uniquement à accéder depuis l'extérieur (navigateur, PC).
+-->

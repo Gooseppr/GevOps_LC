@@ -572,6 +572,89 @@ source = "git::https://github.com/company/terraform-modules.git//mymodule?ref=v1
 
 **Bref : tu ne fais plus du Terraform. Tu fais de l’IaC professionnelle.**
 
+
+
+---
+
+<!-- snippet
+id: terraform_backend_s3_dynamodb
+type: concept
+tech: terraform
+level: intermediate
+importance: high
+format: knowledge
+tags: terraform,backend,s3,dynamodb,state,verrouillage
+title: Backend S3 + DynamoDB pour l'état Terraform en équipe
+context: travailler en équipe sur Terraform sans risque de corruption de l'état ou d'apply simultanés
+content: Dans le bloc terraform, déclarez backend "s3" : bucket, key (chemin du tfstate), region, encrypt = true, dynamodb_table (verrou distribué). DynamoDB empêche deux apply simultanés. Standard DevOps AWS pour les projets partagés.
+-->
+
+<!-- snippet
+id: terraform_state_mv_import
+type: command
+tech: terraform
+level: advanced
+importance: medium
+format: knowledge
+tags: terraform,state,mv,import,refactoring
+title: Déplacer ou importer une ressource dans l'état Terraform
+context: refactoriser un projet Terraform en modules sans détruire les ressources existantes
+command: terraform state mv aws_instance.web module.compute.aws_instance.web
+description: Déplace une ressource d'un emplacement à un autre dans l'état sans la détruire ni la recréer. Indispensable lors de la modularisation d'un projet Terraform existant. Pour importer une ressource créée manuellement : terraform import aws_vpc.main vpc-0a12bc34d56ef789.
+-->
+
+<!-- snippet
+id: terraform_lifecycle_prevent_destroy
+type: concept
+tech: terraform
+level: intermediate
+importance: high
+format: knowledge
+tags: terraform,lifecycle,prevent_destroy,create_before_destroy,prod
+title: Règles lifecycle Terraform pour la production
+context: éviter la suppression accidentelle de ressources critiques ou forcer un remplacement propre
+content: Le bloc lifecycle accepte : create_before_destroy = true (remplace avant de supprimer, utile derrière un LB), prevent_destroy = true (bloque terraform destroy, protège les BDD), ignore_changes = [tags] (ignore les attributs gérés hors Terraform).
+-->
+
+<!-- snippet
+id: terraform_dynamic_block
+type: concept
+tech: terraform
+level: advanced
+importance: medium
+format: knowledge
+tags: terraform,dynamic,for_each,security-group,flexible
+title: Dynamic blocks pour générer des règles variables
+context: rendre un module Terraform flexible en permettant de passer un nombre variable de règles
+content: Un bloc dynamic itère sur une liste/map pour générer plusieurs blocs imbriqués. Ex. : dynamic "ingress" { for_each = var.ingress_rules; content { from_port = ingress.value.port; cidr_blocks = ingress.value.cidr } }. Utilisé dans les modules réutilisables pour ne pas figer le nombre de règles.
+-->
+
+<!-- snippet
+id: terraform_sensitive_variable
+type: concept
+tech: terraform
+level: intermediate
+importance: high
+format: knowledge
+tags: terraform,sensitive,secret,variable,sécurité
+title: Variable sensible pour masquer les secrets Terraform
+context: éviter qu'un mot de passe ou une clé API apparaisse en clair dans les logs Terraform
+content: Ajoutez sensitive = true : variable "db_password" { type = string; sensitive = true }. Terraform masque la valeur dans les plans, applies et outputs. En production, préférer AWS Secrets Manager, HashiCorp Vault ou les variables masquées de Terraform Cloud aux .tfvars en clair.
+-->
+
+<!-- snippet
+id: terraform_workspace_interpolation
+type: concept
+tech: terraform
+level: intermediate
+importance: medium
+format: knowledge
+tags: terraform,workspace,environnement,nommage
+title: Interpoler terraform.workspace dans les noms de ressources
+context: utiliser les workspaces Terraform pour des sandboxes ou des tests blue/green
+content: Utilisez terraform.workspace pour différencier les ressources : bucket = "myapp-${terraform.workspace}". Adapté aux sandboxes et environnements éphémères. Ne remplace pas des dossiers séparés (dev/staging/prod) si les réseaux ou modules diffèrent.
+-->
+
 ---
 [← Module précédent](M34_terraform.md)
 ---

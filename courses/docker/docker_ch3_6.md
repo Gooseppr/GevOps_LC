@@ -174,3 +174,113 @@ Une bonne stratégie de stockage permet de :
 ## Notes
 
 *Stratégie de stockage : manière de gérer les données d’une application
+
+---
+
+<!-- snippet
+id: docker_stockage_strategie_concept
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: stockage,strategie,architecture,volume,bind-mount
+title: Choisir la bonne stratégie de stockage selon le contexte
+content: Une stratégie de stockage Docker définit où et comment les données sont conservées. Le choix entre volume, bind mount et base de données dépend du contexte : production, développement ou données critiques structurées.
+-->
+
+<!-- snippet
+id: docker_stockage_volume_avantages
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: stockage,volume,production,securite,portable
+title: Volume Docker — isolé, sécurisé, portable
+content: Le volume Docker est recommandé pour les données persistantes en production (bases de données, fichiers applicatifs). Il est isolé du système hôte, portable et géré par Docker.
+-->
+
+<!-- snippet
+id: docker_stockage_bind_mount_inconvenients
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: stockage,bind-mount,production,securite
+title: Ne pas utiliser des bind mounts en production
+content: Les bind mounts dépendent du système local et exposent l’application à des problèmes de portabilité et de sécurité.
+-->
+
+<!-- snippet
+id: docker_stockage_bind_mount_inconvenients_b
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: stockage,bind-mount,production,dev
+title: Réserver les bind mounts au développement uniquement
+content: Les bind mounts sont réservés au développement pour modifier le code en temps réel. En production, utiliser des volumes Docker.
+-->
+
+<!-- snippet
+id: docker_stockage_donnees_dans_conteneur_piege
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: stockage,conteneur,persistance,perte-donnees,piege
+title: Ne jamais stocker des données critiques dans le conteneur
+content: Les données stockées directement dans le conteneur (sans volume) sont perdues dès que le conteneur est supprimé.
+-->
+
+<!-- snippet
+id: docker_stockage_donnees_dans_conteneur_piege_b
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: stockage,conteneur,persistance,perte-donnees
+title: Toujours externaliser les données importantes
+content: Toujours externaliser les données importantes via des volumes ou une base de données pour survivre au cycle de vie du conteneur.
+-->
+
+<!-- snippet
+id: docker_stockage_independance_conteneur
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: stockage,persistance,architecture,independance
+title: Le stockage doit être indépendant du conteneur
+content: Un conteneur est éphémère. Le stockage durable doit exister en dehors de son cycle de vie pour garantir la persistance des données.
+-->
+
+<!-- snippet
+id: docker_stockage_choix_contexte
+type: tip
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: stockage,strategie,choix,volume,bind-mount
+title: Volume pour la production, bind mount pour le dev
+content: Volume Docker pour les données persistantes en production, bind mount pour le développement avec modifications en temps réel.
+-->
+
+<!-- snippet
+id: docker_stockage_choix_contexte_b
+type: tip
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: stockage,strategie,database,donnees-critiques
+title: Base de données pour les données structurées et critiques
+content: Pour les données structurées nécessitant cohérence et transactions, une base de données est préférable à un volume Docker.
+-->

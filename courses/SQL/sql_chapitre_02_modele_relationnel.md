@@ -283,3 +283,33 @@ Le modèle relationnel repose sur :
 Ces concepts sont indispensables pour comprendre les **JOIN** et écrire des requêtes SQL efficaces.
 
 Dans le prochain chapitre nous verrons **la première commande SQL : SELECT**, qui permet de lire les données.
+
+<!-- snippet
+id: sql_cle_primaire_proprietes
+type: concept
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,cle_primaire,modele_relationnel,integrite
+title: Propriétés d'une clé primaire SQL
+content: |
+  Une clé primaire doit être :
+  - **unique** : pas deux lignes avec la même valeur
+  - **non NULL** : obligatoirement renseignée
+  - **stable** : ne change pas au fil du temps
+description: En pratique, on utilise un INTEGER auto-increment ou un UUID comme clé primaire.
+-->
+
+<!-- snippet
+id: sql_cle_etrangere_relation
+type: concept
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,cle_etrangere,relation,join
+title: Clé étrangère = lien entre deux tables
+content: Une clé étrangère est une colonne qui référence la clé primaire d'une autre table. Elle permet de relier les données sans les dupliquer.
+description: Sans clé étrangère, les JOIN ne sont pas possibles proprement et les données risquent d'être incohérentes.
+-->

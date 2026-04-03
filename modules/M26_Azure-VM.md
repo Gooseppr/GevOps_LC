@@ -406,6 +406,102 @@ Pour un DevOps, Azure VM sert à :
 - Tester des déploiements Terraform
 - Exécuter des workloads GPU IA
 
+
+
+<!-- snippet
+id: azure_vm_create
+type: command
+tech: azure
+level: beginner
+importance: high
+format: knowledge
+tags: azure,vm,cli,az
+title: Créer une VM Azure avec l'Azure CLI
+context: déployer rapidement une machine virtuelle Ubuntu sur Azure
+command: az vm create --resource-group myRG --name devVM --image Ubuntu2204 --size Standard_B2s --admin-username azureuser --ssh-key-values ~/.ssh/id_rsa.pub
+description: Crée une VM Ubuntu 22.04 de taille B2s (économique) dans le resource group spécifié avec authentification par clé SSH. Nécessite d'être connecté via az login. La VM est créée avec une IP publique et un NSG par défaut.
+-->
+
+<!-- snippet
+id: azure_vm_open_port
+type: command
+tech: azure
+level: beginner
+importance: medium
+format: knowledge
+tags: azure,vm,nsg,port
+title: Ouvrir un port sur une VM Azure
+context: exposer un service web sur une VM Azure
+command: az vm open-port --port 80 --resource-group myRG --name devVM
+description: Ajoute une règle ALLOW sur le NSG associé à la VM pour autoriser le trafic entrant sur le port spécifié. Peut être utilisé pour HTTP (80), HTTPS (443) ou tout port personnalisé.
+-->
+
+<!-- snippet
+id: azure_vm_concept
+type: concept
+tech: azure
+level: beginner
+importance: high
+format: knowledge
+tags: azure,vm,iaas,familles
+title: Azure VM – Architecture et familles d'instances
+context: comprendre le service IaaS de Microsoft Azure
+content: Azure VM est le service IaaS d'Azure (équivalent EC2/GCE). Une VM est l'assemblage de ressources autonomes : Image, SKU, Disques, VNet/Subnet, NSG, IP publique et NIC.
+-->
+
+<!-- snippet
+id: azure_vm_concept_b
+type: concept
+tech: azure
+level: beginner
+importance: high
+format: knowledge
+tags: azure,vm,iaas,familles
+title: Azure VM – Familles d'instances
+context: choisir la bonne taille de VM Azure selon le workload
+content: Familles Azure VM : B-Series (burstable, économique), D-Series (usage général), E-Series (mémoire), F-Series (CPU intensif), L-Series (stockage IOPS), NC/ND (GPU/IA).
+-->
+
+<!-- snippet
+id: azure_nsg_concept
+type: concept
+tech: azure
+level: intermediate
+importance: high
+format: knowledge
+tags: azure,nsg,sécurité,firewall,réseau
+title: Network Security Group (NSG) Azure
+context: contrôler le trafic réseau entrant et sortant d'une VM Azure
+content: Un NSG filtre le trafic L3/L4 via des règles INGRESS/EGRESS. Il s'attache à une NIC ou à un Subnet entier — équivalent du Security Group AWS.
+-->
+
+<!-- snippet
+id: azure_vm_managed_identity
+type: tip
+tech: azure
+level: intermediate
+importance: medium
+format: knowledge
+tags: azure,iam,identity,securité
+title: Managed Identity Azure – Accès aux services sans identifiants
+context: sécuriser l'accès d'une VM Azure aux autres services Azure
+content: La Managed Identity permet à une VM d'accéder aux services Azure (Key Vault, Storage, SQL) sans stocker de clé. Azure gère les tokens automatiquement — équivalent d'un IAM Role AWS.
+-->
+
+<!-- snippet
+id: azure_vm_delete
+type: command
+tech: azure
+level: beginner
+importance: medium
+format: knowledge
+tags: azure,vm,cli,suppression
+title: Supprimer une VM Azure
+context: nettoyer des ressources Azure pour éviter les coûts inutiles
+command: az vm delete -g myRG -n devVM --yes
+description: Supprime la VM spécifiée. Attention : par défaut, les disques et l'IP publique associés ne sont pas automatiquement supprimés. Il faut aussi supprimer le disque OS (az disk delete) et l'IP publique (az network public-ip delete) pour éviter des coûts résiduels.
+-->
+
 ---
 [← Module précédent](M26_Google_GCE.md)
 ---

@@ -171,3 +171,94 @@ Elle permet de :
 - tester rapidement un service  
 
 👉 C’est le point d’entrée principal dans Docker
+
+---
+
+<!-- snippet
+id: docker_run_interactif
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,run,interactif,terminal,ubuntu
+title: Lancer un conteneur en mode interactif
+command: docker run -it ubuntu bash
+description: -i = mode interactif, -t = terminal, ubuntu = image, bash = commande exécutée dans le conteneur.
+-->
+
+<!-- snippet
+id: docker_run_detache
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,run,detache,background
+title: Lancer un conteneur en arrière-plan
+command: docker run -d nginx
+description: L’option -d (detached) fait tourner le conteneur en fond sans bloquer le terminal.
+-->
+
+<!-- snippet
+id: docker_run_nom_conteneur
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,run,nom,nommage
+title: Donner un nom à un conteneur
+command: docker run -d --name <NOM> nginx
+description: Nommer un conteneur permet de le retrouver et de le manipuler plus facilement avec stop, start, rm.
+-->
+
+<!-- snippet
+id: docker_stop_conteneur
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,stop,arret,conteneur
+title: Arrêter un conteneur
+command: docker stop <NOM>
+description: Envoie un signal d’arrêt propre au conteneur. Le conteneur s’arrête mais n’est pas supprimé.
+-->
+
+<!-- snippet
+id: docker_rm_conteneur
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,rm,suppression,conteneur
+title: Supprimer un conteneur
+command: docker rm <NOM>
+description: Supprime un conteneur arrêté. Le conteneur doit être stoppé avant d’être supprimé, sauf avec l’option -f.
+-->
+
+<!-- snippet
+id: docker_run_telecharge_auto
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,run,image,telechargement
+title: Docker télécharge l’image automatiquement si absente
+content: Si l’image n’existe pas en local, Docker la télécharge automatiquement depuis Docker Hub lors du docker run. Pas besoin de docker pull au préalable.
+-->
+
+<!-- snippet
+id: docker_run_multiple_conteneurs_warning
+type: warning
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,run,conteneurs,accumulation
+title: Erreur : lancer plusieurs fois le même conteneur sans nettoyer
+content: Relancer docker run crée un nouveau conteneur à chaque fois. Les anciens conteneurs s’accumulent. Il faut utiliser docker rm pour les supprimer ou docker start pour relancer un conteneur existant.
+-->

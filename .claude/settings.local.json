@@ -3,7 +3,15 @@
     "allow": [
       "Bash(grep -m1 \"^# \" \"c:/Users/grego/Documents/Coursite/courses/SQL/\"sql_chapitre_*.md)",
       "Bash(python3 -c \"import hashlib; print\\(hashlib.sha256\\(''kafka2026''.encode\\(\\)\\).hexdigest\\(\\)\\)\")",
-      "Bash(python pipeline/Z0_scan_courses.py)"
+      "Bash(python pipeline/Z0_scan_courses.py)",
+      "Bash(python pipeline/Z0_extract_snippets.py)",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''_data/snippets.json'',encoding=''utf-8''\\)\\); [print\\(s[''id''], s[''type'']\\) for s in d]\")",
+      "Bash(python -c \":*)",
+      "Bash(python3 -c \":*)",
+      "Bash(python pipeline/Z1_audit_density.py)",
+      "Bash(python pipeline/Z1_audit_density.py --min-score 2)",
+      "Bash(python3 -c \"s = ''Construit l image avec un tag de version explicite puis ajoute un alias latest. En prod, préférer des tags contrôlés \\(ex: nginx:stable\\) pour la reproductibilité.''; print\\(len\\(s\\)\\)\")",
+      "Bash(python3 -c \"s = \"\"Construit l''image avec un tag de version explicite puis ajoute un alias latest. En prod, utiliser des tags contrôlés \\(ex: nginx:stable\\) pour la reproductibilité.\"\"; print\\(len\\(s\\)\\)\")"
     ]
   }
 }

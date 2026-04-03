@@ -313,6 +313,103 @@ curl -X POST http://127.0.0.1:8080/ -H "Content-Type: application/json" -d '{"me
 - **Pas de cargo** après install : `source ~/.cargo/env`.
 - **OpenSSL** manquant → déjà couvert par `libssl-dev`.
 
+
+
+<!-- snippet
+id: api_flask_run
+type: command
+tech: python
+level: beginner
+importance: high
+format: knowledge
+tags: flask,python,backend,démarrer
+title: Lancer une application Flask
+context: démarrer un serveur Flask en développement local
+command: flask --app hello run --port 5050
+description: Lance le serveur de développement Flask sur le port 5050 en utilisant le fichier hello.py comme point d'entrée
+-->
+
+<!-- snippet
+id: api_flask_venv
+type: command
+tech: python
+level: beginner
+importance: high
+format: knowledge
+tags: flask,venv,pip,installation
+title: Installer Flask dans un environnement virtuel
+context: préparer l'environnement Python avant de lancer un projet Flask
+command: python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+description: Crée un environnement virtuel, l'active et installe les dépendances du projet Flask listées dans requirements.txt
+-->
+
+<!-- snippet
+id: api_gunicorn_prod
+type: tip
+tech: python
+level: intermediate
+importance: medium
+format: knowledge
+tags: gunicorn,flask,production,python
+title: Lancer Flask en production avec Gunicorn
+context: remplacer le serveur de développement Flask par un serveur WSGI adapté à la production
+content: Le serveur intégré de Flask n'est pas conçu pour la production (un seul thread, pas de gestion des workers). Gunicorn est un serveur WSGI robuste qui permet de gérer plusieurs requêtes simultanées. La commande type est : gunicorn -w 2 -b 0.0.0.0:5050 hello:app (ici 2 workers, écoute sur toutes les interfaces).
+-->
+
+<!-- snippet
+id: api_nvm_node_install
+type: command
+tech: python
+level: beginner
+importance: medium
+format: knowledge
+tags: nodejs,nvm,installation,lts
+title: Installer Node.js LTS avec NVM
+context: installer Node.js de façon propre et gérable sur un système Linux
+command: nvm install --lts && node -v && npm -v
+description: Installe la dernière version LTS de Node.js via NVM et vérifie les versions installées
+-->
+
+<!-- snippet
+id: api_dotenv_warning
+type: warning
+tech: python
+level: beginner
+importance: high
+format: knowledge
+tags: dotenv,secrets,env,sécurité
+title: Charger les variables d'environnement depuis .env
+context: éviter de coder en dur des secrets dans le code source d'une application backend
+content: Ne jamais écrire les mots de passe, clés API ou informations de connexion directement dans le code. Utiliser python-dotenv (pip install python-dotenv) pour Flask ou dotenv (npm i dotenv) pour Node.js. Flask en mode debug charge automatiquement le .env. Toujours ajouter .env au .gitignore.
+-->
+
+<!-- snippet
+id: api_spring_boot_run
+type: command
+tech: python
+level: intermediate
+importance: medium
+format: knowledge
+tags: java,spring,maven,backend
+title: Lancer une application Spring Boot avec Maven
+context: démarrer un projet Java Spring Boot depuis la ligne de commande
+command: mvn spring-boot:run
+description: Compile et démarre l'application Spring Boot via le plugin Maven ; équivalent à mvn -DskipTests package suivi de java -jar target/*.jar
+-->
+
+<!-- snippet
+id: api_nodemon_hotreload
+type: tip
+tech: python
+level: beginner
+importance: low
+format: knowledge
+tags: nodejs,nodemon,hot-reload,développement
+title: Activer le rechargement automatique avec nodemon
+context: éviter de redémarrer manuellement le serveur Node.js à chaque modification de code
+content: Nodemon surveille les fichiers du projet et redémarre automatiquement le serveur Node.js dès qu'une modification est détectée. Installation : npm i -D nodemon. Ajouter le script "dev": "nodemon app.js" dans package.json, puis lancer avec npm run dev.
+-->
+
 ---
 [← Module précédent](M09_backend-API.md)
 ---

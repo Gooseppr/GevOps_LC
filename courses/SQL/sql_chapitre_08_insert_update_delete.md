@@ -264,3 +264,35 @@ Les commandes de manipulation permettent de modifier les données :
 Ces commandes doivent être utilisées **avec prudence**.
 
 Dans la suite de la formation nous passerons au **niveau intermédiaire**, où nous verrons comment **concevoir et structurer une base de données**.
+
+<!-- snippet
+id: sql_update_delete_sans_where
+type: warning
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,update,delete,where,danger
+title: UPDATE ou DELETE sans WHERE modifie toutes les lignes
+content: |
+  `UPDATE customers SET email = 'test@test.com';` → modifie TOUS les clients
+  `DELETE FROM customers;` → vide TOUTE la table
+  Toujours ajouter une clause WHERE ciblée avant d'exécuter.
+description: Erreur irréversible si aucune transaction n'est ouverte. Tester d'abord avec un SELECT.
+-->
+
+<!-- snippet
+id: sql_tester_select_avant_update
+type: tip
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,update,delete,select,bonne_pratique
+title: Tester avec SELECT avant un UPDATE ou DELETE
+content: |
+  1. Écrire et exécuter le SELECT avec le même WHERE
+  2. Vérifier les lignes retournées
+  3. Remplacer SELECT par UPDATE ou DELETE
+description: Réflexe indispensable pour éviter de modifier les mauvaises lignes.
+-->

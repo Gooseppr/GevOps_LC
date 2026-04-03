@@ -363,6 +363,105 @@ git rebase --continue         # rebase/cherry-pick
 
 ```
 
+
+
+<!-- snippet
+id: git_rebase_on_main
+type: command
+tech: git
+level: intermediate
+importance: high
+format: knowledge
+tags: rebase,main,linéaire,mise-à-jour
+title: Rebaser sa branche sur origin/main
+context: mettre à jour une branche de fonctionnalité avec les derniers commits de main
+command: git switch feature/login && git fetch origin && git rebase origin/main
+description: Rejoue les commits au-dessus de `origin/main` pour un historique linéaire. En cas de conflit : éditer, `git add`, puis `git rebase --continue`.
+-->
+
+<!-- snippet
+id: git_rebase_interactive_squash
+type: command
+tech: git
+level: intermediate
+importance: medium
+format: knowledge
+tags: rebase,squash,historique,nettoyage,PR
+title: Rebase interactif pour nettoyer avant PR
+context: regrouper ou renommer plusieurs commits WIP avant publication
+command: git rebase -i HEAD~5
+description: Ouvre l'éditeur interactif sur les 5 derniers commits. Remplacer "pick" par squash/fixup pour fusionner, reword pour renommer, drop pour supprimer. Puis git push --force-with-lease.
+-->
+
+<!-- snippet
+id: git_cherry_pick_hotfix
+type: command
+tech: git
+level: intermediate
+importance: medium
+format: knowledge
+tags: cherry-pick,hotfix,propagation,commit
+title: Cherry-pick — propager un hotfix vers une branche release
+context: appliquer un correctif de main vers une branche release sans tout fusionner
+command: git switch release/x && git cherry-pick 4f3a9c2
+description: Applique uniquement le commit spécifié. En cas de conflit : `git add` puis `git cherry-pick --continue`. Annuler : `git cherry-pick --abort`.
+-->
+
+<!-- snippet
+id: git_reset_soft_squash
+type: command
+tech: git
+level: intermediate
+importance: medium
+format: knowledge
+tags: reset,soft,squash,commits
+title: Reset --soft pour regrouper des commits locaux
+context: fusionner plusieurs petits commits en un seul avant publication
+command: git reset --soft HEAD~3
+description: Recule HEAD de 3 commits en conservant toutes les modifications dans la staging area. Il suffit ensuite de faire un git commit avec un message propre pour créer un commit unique.
+-->
+
+<!-- snippet
+id: git_revert_merge_commit
+type: command
+tech: git
+level: advanced
+importance: medium
+format: knowledge
+tags: revert,merge,annuler,production
+title: Annuler un merge commit déjà poussé
+context: rollback d'un merge défectueux sur une branche partagée
+command: git revert -m 1 <hash_du_merge>
+description: Crée un commit qui annule les effets du merge, en conservant le parent 1 (la branche de destination). Ne réécrit pas l'historique, donc sûr sur une branche partagée.
+-->
+
+<!-- snippet
+id: git_reflog_recover
+type: command
+tech: git
+level: advanced
+importance: low
+format: knowledge
+tags: reflog,récupération,reset-accidentel,HEAD
+title: Récupérer un état perdu après un reset accidentel
+context: rattraper un git reset --hard ou un rebase raté
+command: git reflog && git switch -c sauvetage HEAD@{3}
+description: Liste tous les déplacements de HEAD (90 jours). Trouver `HEAD@{n}` et créer une branche ou rétablir avec `git reset --hard HEAD@{n}`.
+-->
+
+<!-- snippet
+id: git_decide_command_tip
+type: tip
+tech: git
+level: intermediate
+importance: high
+format: knowledge
+tags: rebase,reset,revert,cherry-pick,reflog,décision
+title: Quelle commande choisir selon la situation
+context: décider rapidement de la bonne commande Git pour corriger une erreur
+content: Histoire propre avant PR → `rebase -i`. Prendre 1 commit précis → `cherry-pick`. Reculer en local → `reset --soft/--mixed`. Annuler public → `revert`. Travail perdu → `reflog`.
+-->
+
 ---
 [← Module précédent](M03_Git_Manipulation_avancee_historique.md) | [Module suivant →](M03_Git_Workflows_DevOps.md)
 ---

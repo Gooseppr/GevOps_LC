@@ -230,3 +230,48 @@ Les principales contraintes sont :
 - DEFAULT
 
 Dans le prochain chapitre nous verrons **les relations entre tables et la normalisation**, qui permettent de structurer correctement une base de données.
+
+<!-- snippet
+id: sql_contraintes_principales
+type: concept
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,contraintes,primary_key,unique,foreign_key
+title: Contraintes SQL : clés et unicité
+content: |
+  - `PRIMARY KEY` : unicité + non NULL sur l'identifiant
+  - `UNIQUE` : pas de doublon sur la colonne
+  - `FOREIGN KEY` : intégrité référentielle entre tables
+description: Les contraintes sont garanties par la base, pas seulement par l'application.
+-->
+
+<!-- snippet
+id: sql_contraintes_valeurs
+type: concept
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,contraintes,not_null,check,default
+title: Contraintes SQL : valeurs et défauts
+content: |
+  - `NOT NULL` : valeur obligatoire
+  - `CHECK` : condition à respecter (`price > 0`)
+  - `DEFAULT` : valeur automatique si absente
+description: Ces contraintes contrôlent le contenu des colonnes, garanties par le moteur SQL.
+-->
+
+<!-- snippet
+id: sql_contraintes_bdd_vs_app
+type: tip
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,contraintes,integrite,bonne_pratique
+title: Mettre les règles métier dans la base, pas seulement l'app
+content: Une application peut être contournée (API, import CSV, psql direct). Les contraintes SQL s'appliquent à toutes les sources d'écriture sans exception.
+description: Seule la base garantit l'intégrité des données quelle que soit l'origine de la modification.
+-->

@@ -818,6 +818,79 @@ dive nginx-lacapsule:alpha
 
 ––––––––––––––––––![Texte alternatif](chemin/vers/image.png)
 
+
+
+---
+
+<!-- snippet
+id: docker_module_pratique_port_mapping
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,port,réseau,nginx
+title: Publier un port conteneur vers l'hôte
+context: rendre un service Docker accessible depuis l'extérieur du conteneur
+command: docker run -d -p 8080:80 --name webserver nginx
+description: Le format -p hôte:conteneur redirige le port 8080 de la machine vers le port 80 interne. Sans ce mapping, le conteneur est isolé et inaccessible depuis l'hôte.
+-->
+
+<!-- snippet
+id: docker_module_pratique_volume_create
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,volume,persistance,données
+title: Monter un volume pour persister les données
+context: éviter la perte de données lors de la suppression d'un conteneur
+command: docker run -d -p 8080:80 --name webserver -v nginx_data:/usr/share/nginx/html nginx
+description: Crée un volume nommé nginx_data et le monte dans le conteneur. Les données survivent à docker stop && docker rm. Lister avec docker volume ls, inspecter avec docker volume inspect nginx_data.
+-->
+
+<!-- snippet
+id: docker_module_pratique_exec_shell
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,exec,shell,debug
+title: Ouvrir un shell dans un conteneur en cours
+context: déboguer ou modifier un conteneur en exécution
+command: docker exec -it webserver bash
+description: Ouvre un terminal interactif dans le conteneur. Utiliser sh si bash n'est pas disponible (images Alpine). Différent de docker run qui crée un nouveau conteneur.
+-->
+
+<!-- snippet
+id: docker_module_pratique_image_custom
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: docker,image,build,tag,prod
+title: Builder et tagger une image custom prod-ready
+context: créer une image Docker versionnée prête pour la production
+command: docker build -t nginx-lacapsule:alpha . && docker tag nginx-lacapsule:alpha nginx-lacapsule:latest
+description: Construit l'image avec tag versionné puis ajoute un alias latest. En prod, utiliser des tags contrôlés (ex: nginx:stable) pour la reproductibilité.
+-->
+
+<!-- snippet
+id: docker_module_pratique_env_vars
+type: concept
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,env,variables,dockerfile
+title: Priorité des variables d'environnement dans Docker
+context: comprendre quel ENV est appliqué quand plusieurs sources coexistent
+content: Priorité décroissante : environment: dans Compose > env_file: > ENV dans le Dockerfile. La valeur la plus proche du runtime écrase toujours celle définie au build.
+-->
+
 ---
 [← Module précédent](M11_dockers.md)
 ---

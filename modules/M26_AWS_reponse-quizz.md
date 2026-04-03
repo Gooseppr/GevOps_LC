@@ -664,6 +664,86 @@ Pour choisir un provider on regarde :
 | Q18 Critères de choix | 4.5 (coût, performances, sécurité) |
 | Q19 Pay-as-you-go | 4.6 (payer en fonction de la consommation) |
 
+
+
+<!-- snippet
+id: aws_ec2_pricing_models
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: ec2,pricing,on-demand,spot,reserved
+title: Modèles de facturation EC2
+context: choisir le bon modèle tarifaire EC2 selon le cas d'usage
+content: On-Demand : sans engagement, paiement à la seconde. Spot : capacité inutilisée AWS (-90%), interruptible. Reserved : engagement 1-3 ans avec grosses réductions. Dedicated Hosts : serveur physique dédié pour BYOL.
+-->
+
+<!-- snippet
+id: aws_ec2_spot_instances
+type: tip
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: ec2,spot,coût,batch
+title: Spot Instances – Réduire drastiquement les coûts de compute
+context: optimiser les coûts pour des traitements batch ou de données
+content: Les Spot Instances utilisent la capacité inutilisée d'AWS avec jusqu'à 90% de réduction. AWS peut récupérer l'instance avec 2 minutes de préavis. Idéal pour les traitements batch tolerants aux interruptions.
+-->
+
+<!-- snippet
+id: aws_multi_az_vs_multi_region
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: az,région,haute-disponibilité,disaster-recovery
+title: Multi-AZ vs Multi-Région
+context: concevoir une architecture hautement disponible sur AWS
+content: Multi-AZ protège contre la panne d'un data center (haute disponibilité locale). Multi-Région protège contre une catastrophe majeure et réduit la latence mondiale. Le plus haut niveau : Multi-Région + Multi-AZ en Active-Active.
+-->
+
+<!-- snippet
+id: aws_cloudfront_edge_locations
+type: concept
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: cloudfront,cdn,edge-location,latence
+title: CloudFront et Edge Locations – CDN AWS
+context: réduire la latence pour des utilisateurs géographiquement éloignés
+content: CloudFront est le CDN d'AWS qui met en cache les contenus dans des Edge Locations proches des utilisateurs. Il réduit la latence sans redéployer l'application dans chaque région.
+-->
+
+<!-- snippet
+id: aws_iam_role_vs_user
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: iam,role,user,accès-temporaire
+title: IAM Role vs IAM User
+context: choisir entre user et role pour attribuer des permissions AWS
+content: IAM User = identifiants permanents (mot de passe ou access keys). IAM Role = identité temporaire assumée via STS, sans identifiants permanents. Utiliser les Roles pour les services AWS, comptes croisés et identités fédérées.
+-->
+
+<!-- snippet
+id: aws_least_privilege
+type: tip
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: iam,sécurité,permissions,moindre-privilège
+title: Principe du moindre privilège
+context: sécuriser les accès AWS en limitant les permissions
+content: Commencer avec 0 permission et n'ajouter que le strict nécessaire. Créer des policies ciblées (ex: dynamodb:GetItem plutôt que dynamodb:*). Réviser régulièrement avec IAM Access Analyzer.
+-->
+
 ---
 [← Module précédent](M26_AWS_Compute.md) | [Module suivant →](M26_Google_GCE.md)
 ---

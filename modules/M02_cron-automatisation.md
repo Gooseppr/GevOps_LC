@@ -462,6 +462,102 @@ TZ=Europe/Paris
 
 Avec ça, tu as tout pour automatiser proprement tes tâches récurrentes sur Linux.
 
+
+
+<!-- snippet
+id: cron_syntaxe_cinq_champs
+type: concept
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: cron,syntaxe,planification,automatisation
+title: Syntaxe des 5 champs cron
+context: comprendre comment écrire une expression cron
+content: Une crontab contient 5 champs : minute, heure, jour-mois, mois, jour-semaine, puis la commande. `*` = toutes les valeurs. Exemple : `0 2 * * 1` = tous les lundis à 02h00.
+-->
+
+<!-- snippet
+id: cron_editer_crontab
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: cron,crontab,edition,tache
+title: Editer, lister et supprimer la crontab utilisateur
+context: gérer les tâches planifiées de son compte
+command: crontab -e
+description: Ouvre l'éditeur pour modifier la crontab. crontab -l liste les tâches, crontab -r supprime toutes les entrées (irréversible)
+-->
+
+<!-- snippet
+id: cron_redirection_logs
+type: tip
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: cron,logs,redirection,debug
+title: Rediriger stdout et stderr dans un log pour déboguer cron
+context: capturer la sortie d'une tâche cron pour diagnostiquer les erreurs
+content: Ajouter `>> /var/log/monjob.log 2>&1` en fin de ligne crontab. Sans redirection, cron tente d'envoyer la sortie par email. Surveiller avec `tail -f`.
+-->
+
+<!-- snippet
+id: cron_flock_anti_chevauchement
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: cron,flock,verrou,chevauchement
+title: Empêcher les chevauchements de tâches avec flock
+context: éviter qu'une tâche cron se lance deux fois en parallèle
+command: /usr/bin/flock -n /tmp/monjob.lock /usr/local/bin/monjob.sh
+description: flock -n tente d'acquérir un verrou exclusif, si le verrou est déjà pris (tâche en cours), la nouvelle instance quitte immédiatement sans exécuter le script
+-->
+
+<!-- snippet
+id: cron_raccourcis_speciaux
+type: concept
+tech: bash
+level: beginner
+importance: medium
+format: knowledge
+tags: cron,raccourcis,daily,weekly,reboot
+title: Raccourcis cron (@daily, @reboot, etc.)
+context: planifier une tâche quotidienne, hebdomadaire ou au démarrage
+content: Les raccourcis remplacent les 5 champs : `@reboot`, `@hourly`, `@daily`, `@weekly`, `@monthly`, `@yearly`. Exemple : `@daily /usr/local/bin/backup.sh`.
+-->
+
+<!-- snippet
+id: cron_path_absolu
+type: warning
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: cron,path,environnement,erreur-frequente
+title: Toujours utiliser des chemins absolus dans cron
+context: éviter les erreurs "commande introuvable" dans les tâches cron
+content: Le PATH de cron est minimal : préférer `/usr/bin/python3` à `python`. Définir `SHELL=/bin/bash` et `PATH=...` en tête de crontab si nécessaire.
+-->
+
+<!-- snippet
+id: cron_lire_logs_systemd
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: cron,logs,journalctl,diagnostic
+title: Lire les logs d'exécution de cron via journalctl
+context: diagnostiquer pourquoi une tâche cron ne s'exécute pas
+command: journalctl -u cron -f
+description: Affiche les logs du service cron en temps réel. Sur Debian/Ubuntu aussi : grep CRON /var/log/syslog. Sur CentOS/RHEL : journalctl -u crond -f
+-->
+
 ---
 [← Module précédent](M02_droits-linux.md)
 ---

@@ -170,7 +170,93 @@ Les instructions Dockerfile permettent de :
 
 ## Notes
 
-*FROM : définit l’image de base  
-*RUN : exécute une commande  
-*COPY : copie des fichiers  
+*FROM : définit l’image de base
+*RUN : exécute une commande
+*COPY : copie des fichiers
 *CMD : commande de démarrage
+
+---
+
+<!-- snippet
+id: docker_instruction_from
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,from,image-de-base
+title: Instruction FROM — image de base
+content: FROM définit l’image de départ du Dockerfile. C’est toujours la première instruction. Exemple : FROM ubuntu, FROM node:18.
+-->
+
+<!-- snippet
+id: docker_instruction_run_install
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,run,dependances
+title: Instruction RUN — installer des dépendances
+content: RUN exécute une commande lors du build de l’image. Utilisée pour installer des packages ou configurer l’environnement.
+-->
+
+<!-- snippet
+id: docker_instruction_copy_app
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,copy,fichiers
+title: Instruction COPY — copier des fichiers
+content: COPY transfère des fichiers du contexte local vers le système de fichiers du conteneur.
+-->
+
+<!-- snippet
+id: docker_instruction_cmd_node
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,cmd,demarrage
+title: Instruction CMD — commande de démarrage
+content: CMD définit la commande exécutée au démarrage du conteneur. Elle n’est pas exécutée lors du build.
+-->
+
+<!-- snippet
+id: docker_piege_ordre_instructions
+type: warning
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: dockerfile,ordre,cache,build
+title: Changer l’ordre des instructions peut invalider le cache
+content: Les instructions sont exécutées dans l’ordre. Changer cet ordre peut invalider le cache et provoquer des erreurs de build.
+-->
+
+<!-- snippet
+id: docker_piege_ordre_instructions_b
+type: warning
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: dockerfile,ordre,cache,build
+title: Copier le projet avant les dépendances force une réinstallation complète
+content: Copier tout le projet avant d’installer les dépendances force une réinstallation complète à chaque modification du code.
+-->
+
+<!-- snippet
+id: docker_layer_reutilisable
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: dockerfile,layers,cache,performance
+title: Les couches Dockerfile sont réutilisables
+content: Chaque instruction crée une couche réutilisable. Docker utilise le cache pour éviter de reconstruire les couches inchangées, ce qui accélère les builds.
+-->

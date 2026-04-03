@@ -173,3 +173,81 @@ GitHub Actions permet de :
 ## Notes
 
 *GitHub Actions : outil CI/CD intégré à GitHub
+
+---
+
+<!-- snippet
+id: docker_github_actions_concept
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: github-actions,cicd,pipeline,workflow
+title: GitHub Actions — Outil CI/CD intégré à GitHub
+content: GitHub Actions est un outil CI/CD intégré à GitHub. Il exécute des workflows automatiquement (push, pull request…) via des fichiers YAML sous `.github/workflows/`.
+description: Aucune infrastructure tierce nécessaire : le pipeline vit dans le dépôt.
+-->
+
+<!-- snippet
+id: docker_github_actions_build_image
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: github-actions,build,image,ci
+title: Build d'une image Docker dans GitHub Actions
+command: docker build -t <IMAGE> .
+description: Construit l'image Docker à partir du Dockerfile présent à la racine du dépôt dans un step GitHub Actions.
+-->
+
+<!-- snippet
+id: docker_github_actions_run_container
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: github-actions,run,conteneur,test,ci
+title: Lancer un conteneur dans GitHub Actions
+command: docker run <IMAGE>
+description: Exécute le conteneur construit pour valider le fonctionnement de l'image après le build.
+-->
+
+<!-- snippet
+id: docker_github_actions_pipeline_concept
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: github-actions,pipeline,etapes,automatisation
+title: Pipeline GitHub Actions — étapes automatisées
+content: Un pipeline GitHub Actions enchaîne : checkout, build Docker, exécution du conteneur. Chaque étape s'exécute dans un environnement isolé (ubuntu-latest par défaut).
+description: Isoler chaque étape garantit la reproductibilité et facilite le débogage.
+-->
+
+<!-- snippet
+id: docker_github_actions_warning_test_apres_build
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: github-actions,test,erreur-frequente,ci
+title: Oublier de tester l'image après build
+content: Builder l'image sans la tester laisse passer une image cassée vers le registry et la production.
+-->
+
+<!-- snippet
+id: docker_github_actions_warning_erreurs_pipeline
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: github-actions,pipeline,erreur,piege
+title: Ne pas gérer les erreurs dans le pipeline
+content: Si une étape échoue sans que l'erreur soit vérifiée, le pipeline continue et déploie un artefact défectueux. Chaque étape doit faire échouer le pipeline en cas de problème.
+-->

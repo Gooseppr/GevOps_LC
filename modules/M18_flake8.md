@@ -348,6 +348,100 @@ Puis modifie ton code pour corriger les erreurs une par une.
 
 Reviens ensuite sur le fichier `.flake8` pour **ignorer volontairement certaines règles** (ex. E501, F401) et constate comment cela change les résultats.
 
+
+
+<!-- snippet
+id: cicd_flake8_install_run
+type: command
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: flake8,python,lint,qualite
+title: Installer et lancer Flake8
+context: vérifier la qualité et le style d'un projet Python
+command: pip install flake8 && flake8 .
+description: Installe Flake8 via pip puis analyse tous les fichiers Python du répertoire courant. Chaque ligne de sortie indique fichier:ligne:colonne:code_erreur message.
+-->
+
+<!-- snippet
+id: cicd_flake8_config_file
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: flake8,python,configuration,pep8
+title: Configurer Flake8 via .flake8
+context: adapter les règles Flake8 aux contraintes d'un projet sans modifier le code
+content: Le fichier .flake8 à la racine du projet configure max-line-length, ignore (codes à ignorer), exclude (dossiers exclus) et max-complexity.
+-->
+
+<!-- snippet
+id: cicd_flake8_config_per_file
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: flake8,python,per-file-ignores,select
+title: Options avancées du fichier .flake8
+context: affiner la configuration Flake8 pour ignorer des règles selon les fichiers
+content: per-file-ignores permet d'ignorer des règles spécifiques sur certains fichiers (ex. __init__.py:F401, tests/*:D). select restreint les vérifications à certaines catégories (C,E,F,W,B).
+-->
+
+<!-- snippet
+id: cicd_flake8_error_codes
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: flake8,python,codes,erreur
+title: Codes d'erreur Flake8 essentiels
+context: interpréter les résultats d'une analyse Flake8
+content: E* = erreurs de style PEP8 (E501 ligne trop longue, E302 lignes vides manquantes). W* = avertissements de style. F* = erreurs PyFlakes (F401 import inutilisé).
+-->
+
+<!-- snippet
+id: cicd_flake8_error_codes_b
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: flake8,python,codes,erreur,complexite
+title: Codes d'erreur Flake8 avancés (C* et B*)
+context: interpréter les résultats d'une analyse Flake8 sur la complexité et les pratiques
+content: C* = complexité cyclomatique McCabe (C901 fonction trop complexe). F841 = variable assignée mais jamais utilisée. B* = règles supplémentaires bugbear (bonnes pratiques Python).
+-->
+
+<!-- snippet
+id: cicd_flake8_gitlab_ci
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: flake8,python,gitlab,ci,lint
+title: Intégrer Flake8 dans un pipeline GitLab CI
+context: bloquer automatiquement les merge requests contenant du code Python non conforme
+content: Ajouter un job lint dans .gitlab-ci.yml avec image python:3.11, script pip install flake8 && flake8 ., et only: [merge_requests, main]. Le job est bloquant par défaut.
+-->
+
+<!-- snippet
+id: cicd_flake8_pre_commit_hook
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: flake8,python,git,hook,pre-commit
+title: Bloquer les commits avec un hook pre-commit Flake8
+context: éviter de pusher du code non conforme en vérifiant dès le commit local
+content: Créer .git/hooks/pre-commit avec flake8 . puis exit 1 si le code de retour est non nul. Rendre exécutable avec chmod +x .git/hooks/pre-commit pour bloquer les commits non conformes.
+-->
+
 ---
 [← Module précédent](M18_azure_devops.md)
 ---

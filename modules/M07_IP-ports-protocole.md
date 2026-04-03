@@ -234,6 +234,102 @@ Exemples rapides :
 - HTTP : `curl -I https://site`
 - Perf : `iperf3 -c host`
 
+
+
+<!-- snippet
+id: reseau_modele_osi
+type: concept
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: reseau,osi,modele,couches
+title: Modèle OSI — les 7 couches
+context: comprendre où se situe un protocole ou un problème réseau
+content: OSI : L1 Physique, L2 Liaison (Ethernet/MAC), L3 Réseau (IP/routage), L4 Transport (TCP/UDP/ports), L5-L7 Application (HTTP/DNS/SSH/TLS). En DevOps on opère principalement L3-L7.
+-->
+
+<!-- snippet
+id: reseau_ports_classiques
+type: concept
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: reseau,ports,protocoles,tcp,udp
+title: Ports standards à connaître
+context: identifier quel service tourne sur quel port
+content: SSH=22, HTTP=80, HTTPS=443, DNS=53, FTP=21, SMTP=25/587, RDP=3389, DHCP=67/68, NTP=123. Plages : 0-1023 well-known, 1024-49151 registered, 49152+ éphémères.
+-->
+
+<!-- snippet
+id: reseau_cidr_calcul
+type: concept
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: reseau,cidr,masque,sous-reseau,ip
+title: Calcul CIDR et sous-réseaux
+context: dimensionner ou analyser un plan d'adressage réseau
+content: Taille bloc = 2^(32-préfixe). /24 = 256 addr (254 hôtes), /26 = 64 addr (62 hôtes), /30 = 4 addr (liaisons P2P), /32 = 1 hôte. Les adresses réseau et broadcast ne sont pas attribuables.
+-->
+
+<!-- snippet
+id: reseau_ss_ports_ouverts
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: reseau,ports,ss,netstat,sockets
+title: Lister les ports ouverts avec ss
+context: vérifier quels services écoutent sur la machine
+command: ss -lntup
+description: Affiche tous les ports TCP/UDP en écoute avec le processus associé (remplaçant moderne de netstat -ano)
+-->
+
+<!-- snippet
+id: reseau_nc_test_port
+type: command
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,netcat,port,test,connectivite
+title: Tester la connectivité sur un port précis
+context: vérifier qu'un service est joignable sur un port donné
+command: nc -vz 192.168.1.1 443
+description: Teste si le port 443 est ouvert et joignable sur l'hôte cible, sans établir de session applicative
+-->
+
+<!-- snippet
+id: reseau_ipv4_privees
+type: concept
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: reseau,ipv4,rfc1918,nat,adressage
+title: Adresses IPv4 privées (RFC 1918)
+context: planifier l'adressage d'un réseau local
+content: Plages RFC 1918 non routées sur Internet : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Nécessitent un NAT pour accéder à Internet. 169.254.x.x (APIPA) = DHCP absent.
+-->
+
+<!-- snippet
+id: reseau_traceroute
+type: command
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,traceroute,diagnostic,routage
+title: Tracer le chemin réseau vers une destination
+context: diagnostiquer où le trafic est bloqué ou ralenti
+command: traceroute 8.8.8.8
+description: Affiche chaque saut (routeur) emprunté par les paquets jusqu'à la destination, avec la latence à chaque étape
+-->
+
 ---
 [Module suivant →](M07_observation-reseau.md)
 ---

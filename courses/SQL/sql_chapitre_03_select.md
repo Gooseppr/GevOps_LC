@@ -273,3 +273,46 @@ Les éléments fondamentaux sont :
 - les alias
 
 Dans le prochain chapitre nous verrrons **le filtrage des données avec WHERE**, qui permet de récupérer seulement certaines lignes.
+
+<!-- snippet
+id: sql_select_colonnes
+type: command
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,select,from,requete
+title: Lire des colonnes spécifiques d'une table
+command: SELECT <col1>, <col2> FROM <table>;
+description: Récupère uniquement les colonnes listées. Préférer cette forme à SELECT * pour plus de clarté et de performance.
+-->
+
+<!-- snippet
+id: sql_select_star_warning
+type: warning
+tech: sql
+level: beginner
+importance: medium
+format: knowledge
+tags: sql,select,performance,bonne_pratique
+title: Éviter SELECT * dans le code applicatif
+content: |
+  `SELECT *` ramène toutes les colonnes, même inutiles.
+  - ralentit les requêtes sur grandes tables
+  - peut casser l'application si la structure change
+  Préférer : `SELECT id, name, email FROM customers;`
+description: Réservé à l'exploration rapide, jamais dans du code de production.
+-->
+
+<!-- snippet
+id: sql_alias_colonne
+type: tip
+tech: sql
+level: beginner
+importance: medium
+format: knowledge
+tags: sql,alias,select,lisibilite
+title: Renommer une colonne dans le résultat avec AS
+content: `SELECT name AS customer_name FROM customers;` — le mot-clé AS renomme la colonne uniquement dans le résultat, sans modifier la table.
+description: Utile pour les exports, rapports ou pour clarifier des noms de colonnes calculées.
+-->

@@ -198,6 +198,168 @@ La sécurité informatique repose sur trois piliers :
 > 
 > Un excellent DevSecOps détecte, corrige et automatise la défense.
 
+
+
+<!-- snippet
+id: secu_reconnaissance_nmap
+type: concept
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: securite,reconnaissance,nmap,pentest
+title: Phase de reconnaissance — outils et objectifs
+context: comprendre ce qu'un attaquant collecte avant d'exploiter un système
+content: La reconnaissance cartographie la cible : IP, ports ouverts, versions de services, OS. Outils : `ping`, `nmap`, `traceroute`, `curl -I`, `whois`. Un en-tête `Server: nginx/1.18.0` suffit à cibler des CVE.
+-->
+
+<!-- snippet
+id: secu_reduire_surface_attaque
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: securite,surface-attaque,ports,services
+title: Lister les ports ouverts pour réduire la surface d'attaque
+context: identifier les services exposés inutilement sur un serveur
+command: sudo ss -ltnp
+description: Affiche tous les ports TCP en écoute avec le processus associé. Chaque port ouvert est un point d'entrée potentiel. Désactiver les services inutiles avec `sudo systemctl disable nom_service`.
+-->
+
+<!-- snippet
+id: secu_auth_log
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: securite,logs,auth,surveillance,bruteforce
+title: Surveiller les tentatives de connexion SSH
+context: détecter des attaques par force brute ou des connexions anormales
+command: sudo tail -f /var/log/auth.log
+description: Affiche en temps réel les tentatives de connexion SSH, les succès et les échecs. Permet de détecter des attaques par force brute ou des accès suspects. Sur Ubuntu/Debian récents, utiliser aussi `sudo journalctl -u ssh -e`.
+-->
+
+<!-- snippet
+id: secu_maj_systeme
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: securite,mises-a-jour,cve,patches
+title: Mettre à jour le système pour corriger les CVE
+context: appliquer les correctifs de sécurité sur un serveur Debian/Ubuntu
+command: sudo apt update && sudo apt upgrade -y
+description: Met à jour la liste des paquets puis installe les correctifs disponibles. À planifier régulièrement via cron ou unattended-upgrades pour fermer les CVE connues.
+-->
+
+<!-- snippet
+id: secu_fail2ban_install
+type: tip
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: securite,fail2ban,bruteforce,ssh,ids
+title: Installer Fail2ban pour bloquer les attaques par force brute
+context: protéger un serveur SSH contre les tentatives de connexion répétées
+content: Fail2ban surveille `/var/log/auth.log` et bloque les IP après un nombre configurable d'échecs. Installer avec `sudo apt install -y fail2ban`.
+-->
+
+<!-- snippet
+id: secu_fail2ban_install_b
+type: tip
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: securite,fail2ban,bruteforce,ssh,ids
+title: Configurer la jail SSH dans Fail2ban
+context: activer et régler la protection SSH dans jail.local
+content: Dans `/etc/fail2ban/jail.local` : activer `[sshd]`, définir `maxretry = 5` et `bantime = 3600`. Vérifier les bans avec `sudo fail2ban-client status sshd`.
+-->
+
+<!-- snippet
+id: secu_cve_concept
+type: concept
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: securite,cve,vulnerabilite,cvss,veille
+title: CVE — répertoire des vulnérabilités connues
+context: comprendre comment les failles sont référencées et priorisées
+content: Les CVE identifient chaque faille connue avec un score CVSS de gravité (0–10). Sources de veille : nvd.nist.gov, bulletins Debian/Ubuntu, outils de scan (OpenVAS, Nessus, Trivy).
+-->
+
+<!-- snippet
+id: secu_cve_concept_b
+type: concept
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: securite,cve,vulnerabilite,cvss,veille
+title: Surveiller les CVE pour patcher rapidement
+context: comprendre le rôle de la veille CVE en DevSecOps
+content: Un DevSecOps surveille les CVE affectant ses composants (noyau, services, dépendances) pour appliquer les correctifs avant qu'une exploitation ne soit possible.
+-->
+
+<!-- snippet
+id: secu_devsecops_concept
+type: concept
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: securite,devsecops,posture,defense
+title: Posture DevSecOps — sécurité intégrée au cycle de vie
+context: comprendre le rôle de la sécurité dans une équipe DevOps
+content: Le DevSecOps intègre la sécurité à chaque étape : code (dépendances vérifiées), configuration (durcissement SSH/Nginx/Docker), supervision (logs, IDS), gestion des incidents.
+-->
+
+<!-- snippet
+id: secu_devsecops_concept_b
+type: concept
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: securite,devsecops,posture,defense
+title: DevSecOps — missions clés
+context: connaître les actions concrètes d'un profil DevSecOps
+content: Missions DevSecOps : veille CVE, tests de pénétration internes, surveillance des comportements anormaux, automatisation des scans dans la CI/CD. Prévenir coûte moins cher que réparer.
+-->
+
+<!-- snippet
+id: secu_egress_filtering
+type: command
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: securite,egress,ufw,exfiltration,defense
+title: Bloquer les connexions sortantes suspectes (egress)
+context: empêcher l'exfiltration de données depuis un serveur compromis
+command: sudo ufw deny out to IP_ATTAQUANT port 1234 proto tcp
+description: Bloque les connexions TCP sortantes vers une IP/port suspecte. Limiter l'exfiltration même après compromission. Détecter les connexions anormales avec `ss -tunp | grep ESTAB`.
+-->
+
+<!-- snippet
+id: secu_masquer_version_nginx
+type: tip
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: securite,nginx,banniere,version,hardening
+title: Masquer la version de Nginx pour réduire la reconnaissance
+context: limiter les informations exposées dans les en-têtes HTTP
+content: Par défaut, Nginx expose sa version dans les en-têtes (`Server: nginx/1.18.0`) et les pages d'erreur. Ajouter `server_tokens off;` dans le bloc `http {}` de /etc/nginx/nginx.conf pour masquer la version. Recharger avec `sudo nginx -t && sudo systemctl reload nginx`. Cela ne supprime pas les vulnérabilités mais ralentit la reconnaissance ciblée.
+-->
+
 ---
 [← Module précédent](M08_serveur-SSH.md) | [Module suivant →](M08_pratique-SSH-NGINX.md)
 ---

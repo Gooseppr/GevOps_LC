@@ -181,3 +181,79 @@ Le Dockerfile permet de :
 ## Notes
 
 *Dockerfile : fichier décrivant les étapes pour construire une image Docker
+
+---
+
+<!-- snippet
+id: docker_build_tag_dot
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,build,image
+title: Construire une image depuis un Dockerfile
+command: docker build -t <IMAGE> .
+description: Le point final désigne le dossier courant comme contexte de build. -t définit le nom de l'image.
+-->
+
+<!-- snippet
+id: docker_run_image_custom
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: dockerfile,run,image
+title: Lancer une image construite localement
+command: docker run <IMAGE>
+description: Lance un conteneur depuis une image construite localement avec docker build.
+-->
+
+<!-- snippet
+id: docker_dockerfile_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,image,concept
+title: Définition du Dockerfile
+content: Un Dockerfile est un fichier texte décrivant comment construire une image Docker. Il contient les instructions pour installer des dépendances, copier des fichiers et configurer une application.
+-->
+
+<!-- snippet
+id: docker_layer_per_instruction
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: dockerfile,layers,cache
+title: Chaque instruction Dockerfile crée une couche réutilisable
+content: Chaque ligne du Dockerfile crée une "couche" (layer). Docker réutilise les couches inchangées lors des rebuilds, ce qui accélère les builds.
+-->
+
+<!-- snippet
+id: docker_piege_modifier_conteneur
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,conteneur,bonne-pratique
+title: Ne jamais modifier un conteneur directement
+content: Modifier directement un conteneur au lieu du Dockerfile entraîne la perte des changements dès que le conteneur est supprimé. Le Dockerfile doit toujours rester la source de vérité.
+-->
+
+<!-- snippet
+id: docker_dockerfile_source_verite
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: dockerfile,architecture,bonne-pratique
+title: Le Dockerfile est la source de vérité de l'application
+content: Le Dockerfile est la source de vérité de ton application : toute configuration, dépendance ou modification doit y être reflétée.
+-->

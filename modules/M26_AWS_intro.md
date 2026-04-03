@@ -326,6 +326,100 @@ Contrairement aux Users :
 | IAM | Gestion des identités et accès. | Identity and Access Management. |
 | Root User | Accès illimité → sécuriser absolument. | Full-access root. |
 
+
+
+<!-- snippet
+id: cloud_deployment_models
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: cloud,on-premises,hybride,modèles
+title: Modèles de déploiement cloud
+context: comprendre les différences entre on-premises, cloud et hybride
+content: On-premises : l'entreprise gère tout (matériel, réseau, sécurité). Cloud : ressources louées au provider, paiement à l'usage. Hybride : combinaison des deux, souvent pendant une migration.
+-->
+
+<!-- snippet
+id: aws_global_infrastructure
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: région,az,edge-location,infrastructure
+title: Infrastructure globale AWS – Régions, AZ et Edge Locations
+context: comprendre comment AWS organise son infrastructure mondiale
+content: Une Région AWS contient 2 à 6 AZ (data centers isolés). Les Edge Locations servent le CDN CloudFront. Critères de choix d'une région : latence, conformité légale, prix, disponibilité des services.
+-->
+
+<!-- snippet
+id: aws_iam_concept
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: iam,sécurité,permissions,identités
+title: IAM – Gestion des identités et des accès
+context: contrôler qui accède à quoi dans un compte AWS
+content: IAM gère les accès AWS via Users, Groups et Roles. Le principe du moindre privilège s'applique toujours.
+-->
+
+<!-- snippet
+id: aws_shared_responsibility
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: sécurité,responsabilité-partagée,iam,cloud
+title: Modèle de responsabilité partagée AWS
+context: savoir distinguer ce qu'AWS sécurise et ce que le client doit sécuriser
+content: AWS sécurise l'infrastructure physique (data centers, réseau, hyperviseurs). Le client sécurise ses données, l'OS, les applications et les accès IAM.
+-->
+
+<!-- snippet
+id: aws_iam_policy_example
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: iam,policy,json,permissions
+title: Structure d'une IAM Policy
+context: comprendre et écrire des politiques de permission IAM
+content: Une IAM Policy est un JSON avec Effect (Allow/Deny), Action (ex: s3:ListBucket) et Resource. Par défaut tout est refusé (deny implicite) : il faut autoriser explicitement chaque action.
+-->
+
+<!-- snippet
+id: aws_root_user_security
+type: warning
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: root,sécurité,mfa,bonnes-pratiques
+title: Compte root AWS – Bonnes pratiques de sécurisation
+context: protéger le compte AWS contre les accès non autorisés
+content: Le compte root AWS a des droits illimités — ne jamais l'utiliser au quotidien. Créer un IAM admin à la place, activer le MFA sur root et ne jamais créer d'access keys root.
+-->
+
+<!-- snippet
+id: aws_cli_basic_commands
+type: command
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: cli,aws-cli,s3,ec2
+title: Commandes AWS CLI de base
+context: interagir avec AWS depuis le terminal
+command: aws s3 ls
+description: Liste les buckets S3 du compte. La CLI envoie des appels API AWS depuis le terminal. Autres exemples : aws ec2 describe-instances (liste les EC2), aws iam list-users (liste les utilisateurs IAM). Nécessite une configuration préalable avec aws configure (Access Key ID, Secret, région).
+-->
+
 ---
 [← Module précédent](M26_AWS-Networking.md) | [Module suivant →](M26_AWS_Compute.md)
 ---

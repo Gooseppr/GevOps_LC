@@ -148,3 +148,92 @@ Le partage de données permet de :
 ## Notes
 
 *Volume partagé : volume utilisé par plusieurs conteneurs
+
+---
+
+<!-- snippet
+id: docker_volume_create_shared
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,partage,creation
+title: Créer un volume partagé entre conteneurs
+command: docker volume create shared-data
+description: Crée un volume Docker nommé "shared-data" qui peut ensuite être monté simultanément dans plusieurs conteneurs pour partager des fichiers entre eux.
+-->
+
+<!-- snippet
+id: docker_run_volume_shared_api
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,partage,run,multi-conteneur
+title: Monter un volume partagé dans un conteneur API
+command: docker run -d --name <NOM> -v shared-data:/data <IMAGE>
+description: Lance un conteneur et monte le volume shared-data dans /data, permettant à d'autres conteneurs d'accéder aux mêmes fichiers.
+-->
+
+<!-- snippet
+id: docker_run_volume_shared_worker
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,partage,run,worker
+title: Monter le même volume partagé dans un second conteneur
+command: docker run -d --name <NOM> -v shared-data:/data <IMAGE>
+description: Lance un second conteneur en montant le même volume shared-data dans /data pour lire ou traiter les fichiers écrits par le premier conteneur.
+-->
+
+<!-- snippet
+id: docker_volume_partage_concept
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,partage,multi-conteneur,source-de-verite
+title: Un volume partagé est une source de vérité commune
+content: Un volume Docker peut être monté simultanément dans plusieurs conteneurs. Toutes les modifications sont immédiatement visibles par tous les conteneurs qui montent ce volume.
+-->
+
+<!-- snippet
+id: docker_volume_ecriture_concurrente_piege
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,partage,concurrence,corruption,piege
+title: L'écriture simultanée sur un volume partagé peut corrompre les données
+content: Si plusieurs conteneurs écrivent en même temps sur le même volume sans coordination, des conflits peuvent corrompre les données.
+-->
+
+<!-- snippet
+id: docker_volume_ecriture_concurrente_piege_b
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: volume,partage,concurrence,coordination
+title: Prévoir un mécanisme de coordination pour les écritures concurrentes
+content: Il faut prévoir des mécanismes de coordination (verrou, file d'attente, base de données) pour gérer les écritures concurrentes sur un volume partagé.
+-->
+
+<!-- snippet
+id: docker_volume_partage_tip
+type: tip
+tech: docker
+level: intermediate
+importance: low
+format: knowledge
+tags: volume,partage,visibilite,temps-reel
+title: Les données d'un volume partagé sont immédiatement visibles
+content: Contrairement à une copie de fichiers, un volume partagé garantit que chaque modification est instantanément accessible à tous les conteneurs qui le montent.
+-->

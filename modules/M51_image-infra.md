@@ -238,6 +238,73 @@ Cette version constitue une **base solide**, proche d’une architecture de prod
 - la supervision avancée,
 - ou des pipelines CI/CD.
 
+
+
+<!-- snippet
+id: infra_vpc_subnet_segmentation
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aws,vpc,subnet,architecture,réseau
+title: Segmentation réseau AWS en subnets fonctionnels pour une infra DevOps
+context: Organiser les subnets d'un VPC AWS selon les responsabilités des VM
+content: Découper le VPC en 5 subnets fonctionnels : bastion, gateway/traefik, application, database, monitoring. Un NAT dédié (fck-nat) assure la sortie internet des subnets privés.
+-->
+
+<!-- snippet
+id: infra_terraform_two_states_pattern
+type: concept
+tech: terraform
+level: intermediate
+importance: high
+format: knowledge
+tags: terraform,states,séparation,infra,s3
+title: Pattern deux states Terraform : infra volatile et stockage long-lived
+context: Structurer un projet Terraform pour que les backups survivent à un terraform destroy
+content: State terraform/infra contient tout ce qui est volatile (VPC, EC2, IAM, clés SSH). State terraform/S3 contient le bucket long-lived. Déployer S3 en premier ; ce state n'est jamais détruit.
+-->
+
+<!-- snippet
+id: infra_swarm_labels_placement
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,labels,placement,rôles,architecture
+title: Labels Swarm pour le placement strict des services par type de nœud
+context: Garantir que chaque service Docker Swarm s'exécute sur le bon type de nœud
+content: Labels appliqués par Ansible : role=infra, role=application, role=database, role=monitoring_group. Les contraintes compose.yml ciblent ces labels pour le placement strict des services.
+-->
+
+<!-- snippet
+id: infra_traefik_swarm_manager
+type: concept
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: traefik,swarm,manager,tls,reverse-proxy
+title: Traefik comme manager Swarm et reverse proxy centralisé
+context: Déployer un point d'entrée unique avec TLS pour toutes les applications de la stack
+content: Le nœud traefik cumule manager Swarm et reverse proxy TLS. Les réseaux overlay backend et proxy sont créés avant les stacks ; tout le trafic entre par Traefik.
+-->
+
+<!-- snippet
+id: infra_s3_backup_lifecycle
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: aws,s3,backup,rétention,lifecycle
+title: Politique de rétention S3 pour les backups PostgreSQL
+context: Limiter le coût de stockage des backups tout en garantissant une rétention suffisante
+content: Configurer une règle lifecycle pour supprimer les dumps anciens. L'instance profile IAM de la VM database est le seul accès autorisé au bucket.
+-->
+
 ---
 [← Module précédent](M51_backup-S3-terra.md) | [Module suivant →](M51_projet-board-J11.md)
 ---

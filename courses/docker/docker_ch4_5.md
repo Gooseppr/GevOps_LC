@@ -18,17 +18,17 @@ status: "published"
 prev_module: "/courses/docker/docker_ch4_4.html"
 prev_module_title: "Volumes et networks dans Compose"
 next_module: "/courses/docker/docker_ch4_6.html"
-next_module_title: "Variables d’environnement dans Docker Compose"
+next_module_title: "Variables d'environnement dans Docker Compose"
 ---
 
 # Lancer et gérer une stack Docker Compose
 
 ## Objectifs pédagogiques
 
-- Comprendre le cycle de vie d’une stack Compose  
-- Utiliser `docker compose up`, `down`, `logs`, `build`  
-- Gérer les mises à jour d’une application  
-- Diagnostiquer des problèmes dans une stack  
+- Comprendre le cycle de vie d'une stack Compose
+- Utiliser `docker compose up`, `down`, `logs`, `build`
+- Gérer les mises à jour d'une application
+- Diagnostiquer des problèmes dans une stack
 
 ---
 
@@ -38,9 +38,9 @@ Tu sais maintenant définir une stack complète avec Docker Compose.
 
 👉 Mais en pratique :
 
-- comment la lancer ?  
-- comment la mettre à jour ?  
-- comment voir ce qu’il se passe ?  
+- comment la lancer ?
+- comment la mettre à jour ?
+- comment voir ce qu'il se passe ?
 
 👉 Il faut savoir **piloter la stack**
 
@@ -126,18 +126,18 @@ docker compose ps
 
 ## Fonctionnement interne
 
-💡 Astuce  
+💡 Astuce
 `up` recrée automatiquement les conteneurs si nécessaire.
 
-⚠️ Erreur fréquente  
+⚠️ Erreur fréquente
 Modifier le code sans rebuild (`--build`).
 
-💣 Piège classique  
-Oublier que `docker compose down` supprime les conteneurs.  
-👉 Les données non persistées (sans volume) sont perdues.  
+💣 Piège classique
+Oublier que `docker compose down` supprime les conteneurs.
+👉 Les données non persistées (sans volume) sont perdues.
 👉 Cela peut entraîner une perte de travail ou de données si mal anticipé.
 
-🧠 Concept clé  
+🧠 Concept clé
 Compose gère le cycle de vie complet de ton application
 
 ---
@@ -156,10 +156,10 @@ docker compose up --build -d
 
 ## Bonnes pratiques
 
-- utiliser `-d` en usage normal  
-- utiliser `--build` après modification  
-- vérifier les logs régulièrement  
-- éviter `down` si données non persistées  
+- utiliser `-d` en usage normal
+- utiliser `--build` après modification
+- vérifier les logs régulièrement
+- éviter `down` si données non persistées
 
 ---
 
@@ -167,14 +167,105 @@ docker compose up --build -d
 
 Docker Compose permet de :
 
-- lancer une stack  
-- gérer les services  
-- monitorer l’application  
+- lancer une stack
+- gérer les services
+- monitorer l'application
 
-👉 C’est l’outil principal pour piloter ton architecture  
+👉 C'est l'outil principal pour piloter ton architecture
 
 ---
 
 ## Notes
 
 *Stack : ensemble de services définis dans docker-compose.yml
+
+---
+
+<!-- snippet
+id: docker_compose_up_foreground
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,up,lancement
+title: Lancer une stack Docker Compose
+command: docker compose up
+description: Lance tous les services définis dans le docker-compose.yml en mode foreground (logs visibles)
+-->
+
+<!-- snippet
+id: docker_compose_up_build_flag
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,build,mise-a-jour
+title: Reconstruire les images et relancer la stack
+command: docker compose up --build
+description: Reconstruit les images avant de lancer les services — à utiliser après modification du code ou du Dockerfile
+-->
+
+<!-- snippet
+id: docker_compose_up_detached_build
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,up,deploiement
+title: Reconstruire et lancer en arrière-plan
+command: docker compose up --build -d
+description: Combinaison recommandée lors d'un déploiement : rebuild + mode détaché
+-->
+
+<!-- snippet
+id: docker_compose_logs_follow
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,logs,monitoring
+title: Suivre les logs en temps réel
+command: docker compose logs -f
+description: Affiche les logs de tous les services et reste attaché pour afficher les nouveaux messages
+-->
+
+<!-- snippet
+id: docker_compose_ps_status
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,status,services
+title: Voir l'état des services de la stack
+command: docker compose ps
+description: Affiche la liste des services avec leur état (running, exited…)
+-->
+
+<!-- snippet
+id: docker_compose_down_data_loss
+type: warning
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,down,donnees
+title: `docker compose down` supprime les conteneurs et le réseau
+content: `docker compose down` supprime les conteneurs et le réseau créé. Les données non persistées dans un volume sont définitivement perdues. À utiliser avec précaution si aucun volume n'est configuré.
+-->
+
+<!-- snippet
+id: docker_compose_lifecycle
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,cycle-de-vie,architecture
+title: Compose gère le cycle de vie complet de l'application
+content: Docker Compose orchestre le démarrage, la mise à jour, le monitoring et l'arrêt d'une stack multi-services via des commandes simples. C'est l'outil central pour piloter une architecture Compose.
+-->

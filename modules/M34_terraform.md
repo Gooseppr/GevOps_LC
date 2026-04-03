@@ -768,6 +768,105 @@ Tu connais maintenant **tous les fondamentaux Terraform**, et surtout :
 - tous les types de blocs (bien maîtrisés !)
 - la logique modulaire
 
+
+
+---
+
+<!-- snippet
+id: terraform_init_plan_apply
+type: command
+tech: terraform
+level: beginner
+importance: high
+format: knowledge
+tags: terraform,init,plan,apply,workflow
+title: Workflow de base Terraform : init → plan → apply
+context: déployer une infrastructure pour la première fois ou après une modification
+command: terraform init && terraform plan
+description: Initialise le projet en téléchargeant les providers, puis génère le plan des changements. Lancer `terraform apply` après vérification du plan.
+-->
+
+<!-- snippet
+id: terraform_destroy
+type: command
+tech: terraform
+level: beginner
+importance: high
+format: knowledge
+tags: terraform,destroy,cleanup
+title: Détruire toutes les ressources Terraform gérées
+context: nettoyer un environnement de test ou libérer des ressources cloud après un exercice
+command: terraform destroy
+description: Supprime toutes les ressources décrites dans les fichiers .tf du projet. Demande confirmation avant exécution. À utiliser avec précaution en production.
+-->
+
+<!-- snippet
+id: terraform_output_raw
+type: command
+tech: terraform
+level: beginner
+importance: medium
+format: knowledge
+tags: terraform,output,ip,script
+title: Récupérer une valeur d'output Terraform dans un script
+context: utiliser l'IP d'une instance Terraform dans une commande Bash ou un inventaire Ansible
+command: terraform output -raw instance_public_ip
+description: Retourne la valeur brute sans guillemets ni JSON. Utiliser dans un script : `SERVER_IP=$(terraform output -raw instance_public_ip)` pour injecter une IP dans un inventaire Ansible.
+-->
+
+<!-- snippet
+id: terraform_blocks_concept
+type: concept
+tech: terraform
+level: beginner
+importance: high
+format: knowledge
+tags: terraform,blocs,resource,variable,output,provider
+title: Les 8 types de blocs Terraform et leurs rôles
+context: comprendre la structure d'un projet Terraform et le rôle de chaque bloc
+content: Les 8 blocs Terraform sont : terraform (configuration globale, version, providers requis), provider (accès au cloud : région, credentials), resource (créer/modifier une ressource : EC2, VPC, S3…), data (lire une ressource existante sans la créer), variable (paramètres configurables), locals (valeurs internes calculées), output (exposer une info après apply : IP, URL) et module (regrouper et réutiliser des ressources). Seul resource crée effectivement quelque chose.
+-->
+
+<!-- snippet
+id: terraform_state_list
+type: command
+tech: terraform
+level: intermediate
+importance: medium
+format: knowledge
+tags: terraform,state,list,debug
+title: Lister les ressources suivies par Terraform
+command: terraform state list
+description: Affiche toutes les ressources gérées dans le state. Point de départ pour auditer l'infra ou trouver le nom exact d'une ressource.
+-->
+
+<!-- snippet
+id: terraform_state_show
+type: command
+tech: terraform
+level: intermediate
+importance: medium
+format: knowledge
+tags: terraform,state,show,debug
+title: Détailler une ressource dans le state Terraform
+command: terraform state show <RESSOURCE>
+description: Affiche tous les attributs d'une ressource précise (IP, AMI, tags…). Utile pour trouver l'attribut exact à référencer dans un output.
+-->
+
+<!-- snippet
+id: terraform_validate_fmt
+type: command
+tech: terraform
+level: beginner
+importance: medium
+format: knowledge
+tags: terraform,validate,fmt,qualité,ci
+title: Valider et formater le code Terraform avant un commit
+context: intégrer Terraform dans un pipeline CI/CD ou garantir la qualité du code
+command: terraform validate && terraform fmt
+description: validate vérifie la syntaxe et la logique. fmt reformate selon les conventions officielles. À exécuter avant tout commit ou apply.
+-->
+
 ---
 [Module suivant →](M34_terraform-avancé.md)
 ---

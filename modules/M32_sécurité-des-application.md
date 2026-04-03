@@ -634,6 +634,106 @@ Tu peux t’en servir comme mini-plan d’action.
 - [ ]  Activer l’export des métriques vers un outil de monitoring.
 - [ ]  Centraliser les logs applicatifs via Kong.
 
+
+
+---
+
+<!-- snippet
+id: secu_app_ssh_hardening_config
+type: concept
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: ssh,sshd_config,hardening,bastion,sécurité
+title: Paramètres de durcissement SSH essentiels (sshd_config)
+context: renforcer la sécurité du serveur SSH d'un bastion ou d'un serveur de production
+content: Configurez /etc/ssh/sshd_config avec : Port 4242 (port non standard pour réduire les scans), PermitRootLogin no (interdit la connexion root directe), PasswordAuthentication no (clé SSH obligatoire), AllowUsers bastion (seul l'utilisateur autorisé peut se connecter), PermitTunnel no et X11Forwarding no. Redémarrez ensuite avec sudo systemctl restart ssh.
+-->
+
+<!-- snippet
+id: secu_app_proxyjump_config
+type: concept
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: ssh,proxyjump,bastion,config
+title: Configuration ProxyJump SSH pour accéder aux serveurs internes via Bastion
+context: se connecter transparentement à une VM privée en passant par le Bastion
+content: Dans ~/.ssh/config, déclarez deux entrées : une pour le bastion (HostName IP_publique, Port 4242, IdentityFile) et une pour l'hôte interne (HostName IP_privée, ProxyJump bastion). La commande ssh prod-app passera automatiquement par le bastion sans manipulation supplémentaire.
+-->
+
+<!-- snippet
+id: secu_app_fail2ban_install
+type: command
+tech: linux
+level: beginner
+importance: high
+format: knowledge
+tags: fail2ban,ssh,sécurité,brute-force
+title: Installer et activer Fail2Ban sur le Bastion
+context: protéger automatiquement le Bastion SSH contre les attaques par force brute
+command: sudo apt update && sudo apt install -y fail2ban && sudo systemctl enable fail2ban && sudo systemctl start fail2ban
+description: Installe Fail2Ban et le démarre. Il surveille /var/log/auth.log et bannit automatiquement les IP ayant trop d'échecs d'authentification SSH.
+-->
+
+<!-- snippet
+id: secu_app_fail2ban_status
+type: command
+tech: linux
+level: beginner
+importance: medium
+format: knowledge
+tags: fail2ban,status,sshd,ban
+title: Vérifier le statut Fail2Ban et les IP bannies
+context: contrôler que Fail2Ban fonctionne et consulter la liste des IP bannies sur sshd
+command: sudo fail2ban-client status sshd
+description: Affiche le nombre de bans actifs et la liste des IP bannies pour le service sshd. Utile pour confirmer qu'une attaque brute-force a bien été bloquée.
+-->
+
+<!-- snippet
+id: secu_app_kong_create_service_route
+type: command
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: kong,api-gateway,service,route,curl
+title: Créer un service et une route dans Kong via l'API Admin
+context: exposer un backend derrière Kong API Gateway
+command: curl -X POST http://localhost:8001/services --data name=hello-service --data url=http://httpbin.org
+description: Crée un service Kong pointant vers le backend. Ajouter ensuite une route : `curl -X POST .../services/hello-service/routes --data paths[]=/hello`. Les requêtes sur /hello seront proxifiées.
+-->
+
+<!-- snippet
+id: secu_app_kong_key_auth
+type: command
+tech: linux
+level: intermediate
+importance: high
+format: knowledge
+tags: kong,key-auth,authentification,api-gateway
+title: Activer l'authentification par clé API sur un service Kong
+context: protéger un service Kong pour qu'il exige une clé API dans chaque requête
+command: curl -X POST http://localhost:8001/services/hello-service/plugins --data name=key-auth
+description: Active le plugin key-auth sur le service. Créer ensuite un consommateur et lui assigner une clé. Sans l'header `apikey`, Kong bloque la requête.
+-->
+
+<!-- snippet
+id: secu_app_kong_rate_limiting
+type: command
+tech: linux
+level: intermediate
+importance: medium
+format: knowledge
+tags: kong,rate-limiting,plugin,protection
+title: Ajouter un rate limiting sur un service Kong
+context: limiter le nombre de requêtes par minute pour protéger un service contre les abus
+command: curl -X POST http://localhost:8001/services/hello-service/plugins --data name=rate-limiting --data config.minute=60 --data config.policy=local
+description: Ajoute un plugin rate-limiting au service. Au-delà de 60 requêtes par minute, Kong renvoie une erreur 429 Too Many Requests sans solliciter le backend.
+-->
+
 ---
 [Module suivant →](M32_sécurité_des_application_pratique.md)
 ---

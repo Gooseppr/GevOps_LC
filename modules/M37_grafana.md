@@ -665,3 +665,100 @@ Tu maîtrises maintenant :
 - le Grafana **API (automation, CI/CD, DevOps)**
 
 Ce cours est désormais **complet**, DevOps-ready, et un vrai module formateur 🔥.
+
+---
+
+<!-- snippet
+id: grafana_install_apt
+type: command
+tech: grafana
+level: beginner
+importance: high
+format: knowledge
+tags: grafana,install,apt,linux,systemd
+title: Installer Grafana sur Ubuntu/Debian via le dépôt officiel
+context: déployer Grafana sur un serveur Linux pour visualiser les métriques Prometheus
+command: sudo apt-get install -y apt-transport-https software-properties-common wget && wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add - && echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee /etc/apt/sources.list.d/grafana.list && sudo apt update && sudo apt install grafana -y && sudo systemctl enable --now grafana-server
+description: Ajoute le dépôt officiel Grafana, installe Grafana OSS et démarre le service. Interface accessible sur le port 3000 (login admin/admin à changer).
+-->
+
+<!-- snippet
+id: grafana_api_create_datasource
+type: command
+tech: grafana
+level: intermediate
+importance: high
+format: knowledge
+tags: grafana,api,datasource,prometheus,automatisation
+title: Créer une datasource Prometheus dans Grafana via l'API HTTP
+context: automatiser la configuration d'une datasource Grafana dans un pipeline CI/CD
+command: curl -X POST http://localhost:3000/api/datasources -H "Authorization: Bearer <API_KEY>" -H "Content-Type: application/json" -d '{"name": "Prometheus", "type": "prometheus", "url": "http://localhost:9090", "access": "proxy"}'
+description: Crée une datasource Prometheus via l'API Grafana. Remplacez <API_KEY> par une clé générée dans Configuration → API Keys. L'accès proxy signifie que Grafana interroge Prometheus depuis le serveur, pas depuis le navigateur client.
+-->
+
+<!-- snippet
+id: grafana_api_export_dashboard
+type: command
+tech: grafana
+level: intermediate
+importance: medium
+format: knowledge
+tags: grafana,api,dashboard,export,json
+title: Exporter un dashboard Grafana en JSON via l'API
+context: sauvegarder un dashboard Grafana pour le versionner dans Git ou le restaurer
+command: curl -H "Authorization: Bearer <API_KEY>" http://localhost:3000/api/dashboards/uid/<UID> | jq '.' > dashboard.json
+description: Récupère le JSON complet d'un dashboard identifié par son UID. Ce fichier peut être versionné dans Git et réimporté via POST /api/dashboards/db. L'UID est visible dans l'URL du dashboard dans l'interface.
+-->
+
+<!-- snippet
+id: grafana_plugin_install_cli
+type: command
+tech: grafana
+level: beginner
+importance: low
+format: knowledge
+tags: grafana,plugin,grafana-cli,install
+title: Installer un plugin Grafana avec grafana-cli
+context: ajouter un panneau ou une datasource non inclus dans l'installation de base
+command: grafana-cli plugins install grafana-clock-panel && sudo systemctl restart grafana-server
+description: Installe un plugin depuis le catalogue Grafana et redémarre le service pour l'activer. Pour les datasources et dashboards, utiliser l'API HTTP à la place.
+-->
+
+<!-- snippet
+id: grafana_variable_query_promql
+type: concept
+tech: grafana
+level: intermediate
+importance: high
+format: knowledge
+tags: grafana,variable,dashboard,promql,dynamique
+title: Variable de dashboard Grafana depuis les labels Prometheus
+context: rendre un dashboard dynamique avec un menu déroulant pour sélectionner l'instance ou l'environnement
+content: Dans Dashboard settings → Variables → Add variable, choisissez le type Query, sélectionnez Prometheus et entrez label_values(node_cpu_seconds_total, instance). Grafana génère un dropdown avec toutes les valeurs du label. Utilisez $instance dans vos requêtes PromQL pour filtrer dynamiquement.
+-->
+
+<!-- snippet
+id: grafana_alert_cpu_high
+type: concept
+tech: grafana
+level: intermediate
+importance: high
+format: knowledge
+tags: grafana,alerte,cpu,unified-alerting,contact-point
+title: Configurer une alerte Grafana pour CPU supérieur à 80%
+context: recevoir une notification Slack ou email quand l'utilisation CPU dépasse un seuil critique
+content: Dans Alerting → Alert rules, créez une règle avec l'expression PromQL avg(rate(node_cpu_seconds_total{mode!="idle"}[5m])) > 0.8, une fenêtre de 5 minutes et une condition d'évaluation toutes les 1 minute. Configurez un Contact point (Slack ou email) dans Alerting → Contact points, puis assignez-le via une Notification policy. Dans les versions modernes de Grafana (Unified Alerting), Alertmanager n'est plus requis.
+-->
+
+<!-- snippet
+id: grafana_nginx_reverse_proxy_https
+type: concept
+tech: grafana
+level: intermediate
+importance: medium
+format: knowledge
+tags: grafana,nginx,https,reverse-proxy,sécurité
+title: Placer Grafana derrière Nginx avec HTTPS en production
+context: sécuriser l'accès à Grafana avec un certificat TLS et un domaine dédié
+content: Configurez un bloc server Nginx avec listen 443 ssl, server_name monitor.mondomaine.com et location / { proxy_pass http://localhost:3000; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; }. Obtenez un certificat avec certbot --nginx -d monitor.mondomaine.com. Bloquez l'accès direct au port 3000 avec un firewall ou un Security Group AWS. En production, désactivez aussi l'accès anonyme dans /etc/grafana/grafana.ini.
+-->

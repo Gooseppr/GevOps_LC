@@ -384,6 +384,102 @@ server {
 - Le **.env** et les secrets doivent toujours rester protégés.
 - Une architecture propre = un backend maîtrisé, sécurisé et évolutif.
 
+
+
+<!-- snippet
+id: api_http_methods
+type: concept
+tech: python
+level: beginner
+importance: high
+format: knowledge
+tags: http,rest,get,post,put,delete
+title: Méthodes HTTP et leur sémantique
+context: choisir la bonne méthode HTTP pour une route API REST
+content: GET lit une ressource (idempotent, pas de corps). POST crée ou exécute une action (non idempotent). PUT remplace entièrement une ressource (idempotent). PATCH modifie partiellement. DELETE supprime. Idempotent signifie que répéter l'appel ne change pas l'état au-delà du premier appel.
+-->
+
+<!-- snippet
+id: api_http_status_codes
+type: concept
+tech: python
+level: beginner
+importance: high
+format: knowledge
+tags: http,status,codes,erreur,réponse
+title: Codes de statut HTTP essentiels
+context: interpréter ou renvoyer le bon code HTTP dans une API
+content: 200 OK (succès avec contenu), 201 Created (ressource créée, avec header Location), 204 No Content (succès sans corps, typique pour DELETE), 400 Bad Request (requête mal formée), 401 Unauthorized (pas d'auth), 403 Forbidden (auth OK mais accès refusé), 404 Not Found, 422 Unprocessable Entity (validation échouée), 429 Too Many Requests, 500 Internal Server Error.
+-->
+
+<!-- snippet
+id: api_env_file_warning
+type: warning
+tech: python
+level: beginner
+importance: high
+format: knowledge
+tags: sécurité,env,secrets,git
+title: Ne jamais versionner le fichier .env
+context: gérer les secrets et variables d'environnement d'un backend
+content: Le fichier .env contient les mots de passe, clés API et DSN de base de données. Il ne doit jamais être commité sur Git. Ajouter .env au .gitignore dès le début du projet. Utiliser un vault (HashiCorp Vault, AWS Secrets Manager) en production pour stocker les secrets de façon sécurisée.
+-->
+
+<!-- snippet
+id: api_check_port
+type: command
+tech: python
+level: beginner
+importance: medium
+format: knowledge
+tags: port,processus,debug,linux
+title: Vérifier quel processus occupe un port
+context: diagnostiquer un conflit de port lors du démarrage d'un backend
+command: lsof -i :8080
+description: Affiche le processus qui écoute sur le port 8080 ; remplacer par le port concerné
+-->
+
+<!-- snippet
+id: api_curl_post_json
+type: command
+tech: python
+level: beginner
+importance: high
+format: knowledge
+tags: curl,http,test,json,api
+title: Tester une route POST JSON avec curl
+context: tester rapidement une route API depuis le terminal sans outil graphique
+command: curl -X POST http://localhost:3000/ -H "Content-Type: application/json" -d '{"message":"Hello"}'
+description: Envoie une requête POST avec un corps JSON et affiche la réponse du serveur
+-->
+
+<!-- snippet
+id: api_reverse_proxy_nginx
+type: concept
+tech: python
+level: intermediate
+importance: medium
+format: knowledge
+tags: nginx,reverse-proxy,http,sécurité
+title: Principe du reverse proxy avec Nginx
+context: exposer un backend interne via un reverse proxy en production
+content: Un reverse proxy (ex. Nginx) reçoit les requêtes HTTP sur le port 80/443 et les transmet au processus backend sur un port interne (ex. 8080). Cela permet de ne pas exposer directement le port de l'application, de gérer le TLS, et de centraliser les logs et la sécurité. La directive proxy_pass indique l'adresse cible.
+-->
+
+<!-- snippet
+id: api_tail_logs
+type: command
+tech: python
+level: beginner
+importance: medium
+format: knowledge
+tags: logs,debug,surveillance,linux
+title: Suivre les logs d'une application en temps réel
+context: surveiller les logs d'un backend en cours d'exécution
+command: tail -f logs/app.log
+description: Affiche les nouvelles lignes ajoutées au fichier de log au fur et à mesure, utile pour déboguer en temps réel
+-->
+
 ---
 [Module suivant →](M09_pratique-framework.md)
 ---

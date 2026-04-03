@@ -256,6 +256,105 @@ vagrant resume                   # relance une VM suspendue
 
 [Module suivant →](001_terminal-bash.md)
 
+
+
+<!-- snippet
+id: vagrant_up
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: vagrant,vm,démarrage,virtualisation
+title: Créer et démarrer une VM Vagrant
+context: lancer une machine virtuelle définie dans un Vagrantfile
+command: vagrant up
+description: Crée la VM si elle n'existe pas, la démarre, et applique la configuration du Vagrantfile
+-->
+
+<!-- snippet
+id: vagrant_ssh_connect
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: vagrant,ssh,connexion,vm
+title: Se connecter en SSH à la VM Vagrant
+context: accéder au terminal de la machine virtuelle
+command: vagrant ssh
+description: Ouvre une session SSH dans la VM en utilisant automatiquement la clé privée générée par Vagrant (127.0.0.1:2222, user vagrant)
+-->
+
+<!-- snippet
+id: vagrant_ssh_config_export
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: vagrant,ssh,config,vscode
+title: Exporter la config SSH Vagrant pour VS Code
+context: permettre la connexion depuis VS Code ou le terminal sans passer par vagrant ssh
+command: vagrant ssh-config <ID> --host devbox >> ~/.ssh/config
+description: Génère et ajoute une entrée SSH nommée devbox dans ~/.ssh/config, permettant ensuite ssh devbox ou la connexion depuis Remote-SSH dans VS Code
+-->
+
+<!-- snippet
+id: vagrant_ssh_keygen
+type: command
+tech: bash
+level: beginner
+importance: medium
+format: knowledge
+tags: vagrant,ssh,cle,gitlab,github
+title: Générer une clé SSH ed25519 pour GitLab/GitHub
+context: créer une clé SSH pour authentification avec un dépôt distant
+command: ssh-keygen -t ed25519 -C "utilisateur@machine"
+description: Crée une paire de clés ~/.ssh/id_ed25519 (privée) et ~/.ssh/id_ed25519.pub (publique) à copier dans GitLab/GitHub Settings > SSH Keys
+-->
+
+<!-- snippet
+id: vagrant_agent_forwarding
+type: concept
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: vagrant,ssh,agent-forwarding,securite
+title: Agent Forwarding SSH avec Vagrant
+context: utiliser la clé SSH de l'hôte depuis la VM sans la copier
+content: Ajouter `config.ssh.forward_agent = true` dans le Vagrantfile, puis `vagrant ssh -A`. La clé privée de l'hôte est utilisée depuis la VM sans jamais y être copiée.
+-->
+
+<!-- snippet
+id: vagrant_global_status_prune
+type: command
+tech: bash
+level: beginner
+importance: low
+format: knowledge
+tags: vagrant,nettoyage,global-status
+title: Lister et nettoyer les entrées de VMs Vagrant
+context: retrouver l'ID d'une VM ou nettoyer les références obsolètes
+command: vagrant global-status --prune
+description: Affiche toutes les VMs connues avec leur ID, état et chemin, et supprime les entrées dont la VM n'existe plus
+-->
+
+<!-- snippet
+id: vagrant_lifecycle
+type: command
+tech: bash
+level: beginner
+importance: medium
+format: knowledge
+tags: vagrant,halt,destroy,suspend,resume
+title: Gérer le cycle de vie d'une VM Vagrant
+context: arrêter, suspendre ou supprimer une VM Vagrant
+command: vagrant halt
+description: Eteint proprement la VM (halt), vagrant suspend la met en veille, vagrant resume la relance, vagrant destroy la supprime définitivement
+-->
+
 ---
 [Module suivant →](M01_terminal-bash.md)
 ---

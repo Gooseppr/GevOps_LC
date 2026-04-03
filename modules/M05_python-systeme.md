@@ -386,4 +386,105 @@ with open("vitals.log","a",encoding="utf-8") as f:
     f.write(f"{datetime.now().isoformat()} ")
     f.write(f"CPU={cpu:.1f}% RAM={mem.percent:.1f}% DISK={disk.percent:.1f}%\n")
 
+---
+
+<!-- snippet
+id: python_venv_setup
+type: command
+tech: python
+level: beginner
+tags: venv,environnement,pip,installation
+title: Créer et activer un environnement virtuel
+command: python3 -m venv .venv && source .venv/bin/activate
+description: Isole les dépendances du projet dans un environnement virtuel dédié
+-->
+
+<!-- snippet
+id: python_pip_freeze
+type: command
+tech: python
+level: beginner
+tags: pip,requirements,dépendances
+title: Figer les dépendances dans requirements.txt
+command: pip freeze > requirements.txt
+description: Capture toutes les versions installées pour reproduire l'environnement
+-->
+
+<!-- snippet
+id: python_os_walk
+type: concept
+tech: python
+level: intermediate
+tags: os,fichiers,récursif,find
+title: Parcourir récursivement l'arborescence avec os.walk
+content: `os.walk(chemin)` génère un tuple `(root, dirs, files)` pour chaque répertoire visité — c'est l'équivalent Python de la commande `find`.
+description: Alternative Python à la commande find pour parcourir les dossiers
+-->
+
+<!-- snippet
+id: python_os_walk_b
+type: concept
+tech: python
+level: intermediate
+tags: os,fichiers,récursif,find
+title: Cas d'usage de os.walk — filtrer par extension
+content: Utiliser `os.walk` pour chercher des fichiers par extension (`if f.endswith('.log')`) ou pour appliquer des permissions en masse sur toute une arborescence.
+description: Exemples d'utilisation pratiques de os.walk
+-->
+
+<!-- snippet
+id: python_subprocess_shell_warning
+type: warning
+tech: python
+level: intermediate
+tags: subprocess,sécurité,injection,shell
+title: Éviter shell=True dans subprocess
+content: `shell=True` expose le script à l'injection de commandes si les arguments viennent de l'utilisateur. Préférer une liste de tokens `["commande", "arg1"]` sans `shell=True`.
+description: Bonne pratique sécurité pour l'exécution de commandes externes
+-->
+
+<!-- snippet
+id: python_subprocess_shell_warning_b
+type: warning
+tech: python
+level: intermediate
+tags: subprocess,sécurité,injection,shell
+title: shell=True uniquement pour les pipelines bash indispensables
+content: Utiliser `shell=True` uniquement si le pipeline bash (`cmd1 | cmd2`) est strictement nécessaire et que les entrées sont sous contrôle total (jamais issues d'un utilisateur externe).
+description: Cas d'usage acceptables de shell=True dans subprocess
+-->
+
+<!-- snippet
+id: python_psutil_install
+type: command
+tech: python
+level: beginner
+tags: psutil,monitoring,installation
+title: Installer psutil pour monitorer le système
+command: pip install psutil
+description: Module tiers pour accéder aux métriques CPU, RAM, disque et processus
+-->
+
+<!-- snippet
+id: python_pathlib_tip
+type: tip
+tech: python
+level: intermediate
+tags: pathlib,chemin,portabilité,fichiers
+title: Préférer pathlib à os.path pour les chemins
+content: pathlib.Path offre une API orientée objet plus lisible que os.path. Les opérations .read_text(), .write_text(), .iterdir(), .stem, .suffix rendent le code plus expressif et portable entre OS.
+description: Bonne pratique moderne pour manipuler les chemins de fichiers
+-->
+
+<!-- snippet
+id: python_datetime_stamp
+type: tip
+tech: python
+level: beginner
+tags: datetime,log,horodatage,fichier
+title: Créer des fichiers horodatés avec datetime
+content: Utiliser datetime.now().strftime("%Y%m%d-%H%M%S") pour générer un suffixe de timestamp unique. Pratique pour nommer des fichiers de log ou de sauvegarde sans collision.
+description: Pattern courant pour nommer des fichiers de log avec la date et l'heure
+-->
+
 ```

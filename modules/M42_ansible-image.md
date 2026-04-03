@@ -266,4 +266,64 @@ Et tout est maintenant compatible CI/CD, scaling, et gestion multi-versions.
 
 ---
 [← Module précédent](M42_ansible-pro.md)
+
+---
+
+<!-- snippet
+id: ansible_pro_vault_encrypt_file
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,vault,secrets,chiffrement
+title: Chiffrer un fichier de secrets avec Ansible Vault
+context: Protéger les credentials sensibles (tokens, mots de passe) dans un projet Ansible
+command: ansible-vault encrypt group_vars/all/vault.yml
+description: Chiffre le fichier vault.yml sur place. Pour éditer : ansible-vault edit vault.yml. Pour déchiffrer temporairement : ansible-vault decrypt vault.yml. Toujours stocker les credentials dans vault.yml (registry URL, user, PAT, mots de passe BDD). Ne jamais commiter le fichier déchiffré.
+-->
+
+<!-- snippet
+id: ansible_pro_docker_login_shell
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,docker,registry,gitlab,vault
+title: Authentification Docker registry privé GitLab via Ansible
+context: permettre à chaque nœud Swarm de puller une image privée
+command: echo "{{ vault_pat }}" | docker login {{ vault_registry_url }} --username "{{ vault_registry_user }}" --password-stdin
+description: `--password-stdin` évite que le token apparaisse dans les logs. Les variables sont lues depuis Ansible Vault.
+-->
+
+<!-- snippet
+id: ansible_pro_vault_playbook_run
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,vault,playbook,password
+title: Lancer un playbook Ansible avec Ansible Vault
+context: Exécuter un playbook qui utilise des variables chiffrées via Vault
+command: ansible-playbook -i inventory-pro.ini swarm-pro.yml --ask-vault-pass
+description: --ask-vault-pass demande le mot de passe interactivement. Alternative non-interactive : --vault-password-file .vault_pass (fichier contenant le mot de passe, à exclure du Git via .gitignore). Sans cette option, Ansible ne peut pas lire vault.yml et les variables sensibles seront indéfinies.
+-->
+
+<!-- snippet
+id: ansible_pro_private_image_tag
+type: warning
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: docker,registry,image,tag,gitlab
+title: Toujours utiliser un tag versionné pour les images privées
+context: Éviter l'erreur "No such image" lors du pull d'une image depuis un registry privé
+content: Sur GitLab Container Registry, le tag "latest" n'est pas créé automatiquement. Toujours utiliser un tag versionné explicite (:0.1.0) dans compose.yml pour éviter l'erreur "No such image".
+-->
+
+---
+[← Module précédent](M42_ansible-pro.md)
 ---

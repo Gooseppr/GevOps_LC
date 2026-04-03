@@ -183,3 +183,94 @@ Une stack permet de :
 ## Notes
 
 *Stack : ensemble de services déployés ensemble en Swarm
+
+---
+
+<!-- snippet
+id: docker_swarm_stack_definition
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,stack,compose,orchestration
+title: Concept de stack dans Docker Swarm
+content: Une stack est un ensemble de services déployés ensemble en Swarm. C'est l'équivalent d'un projet Docker Compose dans un contexte distribué, avec le même format de fichier.
+-->
+
+<!-- snippet
+id: docker_swarm_stack_deploy
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,stack,deploiement,compose
+title: Déployer une stack Swarm
+command: docker stack deploy -c docker-compose.yml <NOM>
+description: Déploie l'ensemble des services définis dans le fichier docker-compose.yml sous le nom de stack spécifié.
+-->
+
+<!-- snippet
+id: docker_swarm_stack_ls
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,stack,supervision
+title: Lister les stacks Swarm
+command: docker stack ls
+description: Affiche la liste de toutes les stacks déployées sur le cluster Swarm avec leur nombre de services.
+-->
+
+<!-- snippet
+id: docker_swarm_stack_services
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,stack,services,supervision
+title: Voir les services d'une stack
+command: docker stack services <NOM>
+description: Liste les services appartenant à la stack avec leur état, le nombre de replicas et les ports exposés.
+-->
+
+<!-- snippet
+id: docker_swarm_stack_rm
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,stack,suppression
+title: Supprimer une stack Swarm
+command: docker stack rm <NOM>
+description: Supprime la stack et arrête tous les services associés sur le cluster Swarm.
+-->
+
+<!-- snippet
+id: docker_swarm_depends_on_ignore
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,stack,compose,depends_on
+title: depends_on ignoré en Swarm
+content: L'option `depends_on` est ignorée en Swarm. Gérer les dépendances via des healthchecks ou des retry dans l'application.
+-->
+
+<!-- snippet
+id: docker_swarm_section_deploy
+type: tip
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,stack,compose,deploy
+title: Section deploy dans docker-compose.yml
+content: La section `deploy` est utilisée uniquement en Swarm. Elle configure le nombre de replicas, les ressources et la stratégie de mise à jour de chaque service.
+-->
+

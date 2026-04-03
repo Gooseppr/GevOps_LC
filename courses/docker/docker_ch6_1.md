@@ -148,5 +148,69 @@ Docker Swarm permet de :
 
 ## Notes
 
-*Docker Swarm : orchestrateur natif de Docker  
+*Docker Swarm : orchestrateur natif de Docker
 *Orchestrateur : outil de gestion automatisée de conteneurs
+
+---
+
+<!-- snippet
+id: docker_swarm_definition
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,orchestration,cluster
+title: Docker Swarm — définition
+content: Docker Swarm est l'orchestrateur natif de Docker. Il gère plusieurs machines (cluster), déploie des services et répartit la charge automatiquement.
+description: Swarm est intégré directement dans Docker, aucune installation supplémentaire n'est nécessaire.
+-->
+
+<!-- snippet
+id: docker_swarm_vs_compose
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,compose,orchestration,comparaison
+title: Docker Swarm vs Docker Compose
+content: Compose gère plusieurs conteneurs sur une seule machine. Swarm orchestre sur plusieurs machines avec scalabilité et haute disponibilité — il étend Compose sans le remplacer.
+-->
+
+<!-- snippet
+id: docker_swarm_orchestrateur
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,orchestration,cluster
+title: Concept d'orchestrateur
+content: Un orchestrateur gère automatiquement des conteneurs à grande échelle : déploiement, montée en charge, tolérance aux pannes et distribution multi-machines.
+-->
+
+<!-- snippet
+id: docker_swarm_complexite_prerequis
+type: warning
+tech: docker
+level: advanced
+importance: low
+format: knowledge
+tags: swarm,bases,complexite
+title: Swarm sans maîtrise des bases Docker
+content: Utiliser Swarm sans comprendre les concepts de base Docker (réseau, volumes, images) rend les erreurs très difficiles à diagnostiquer. Swarm ajoute une couche de complexité importante.
+-->
+
+<!-- snippet
+id: docker_swarm_roles_manager_worker
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,manager,worker,architecture
+title: Rôles manager et worker dans Swarm
+content: Le manager contrôle le cluster et distribue les tâches. Les workers exécutent les conteneurs. Plusieurs managers en production évitent un point de défaillance unique.
+-->
+

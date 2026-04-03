@@ -129,3 +129,44 @@ L’idée est née à Montrouge, en France, dans la startup dotCloud.
 ## Résumé
 
 Docker permet de rendre les applications portables, simples à déployer et fiables.
+
+---
+
+<!-- snippet
+id: docker_definition_conteneurisation
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,conteneurisation,introduction
+title: Définition de Docker
+content: Docker est un outil qui permet de mettre une application et tout ce dont elle a besoin dans un conteneur pour qu'elle fonctionne partout de la même manière.
+description: Créé en 2013 par Solomon Hykes, Docker résout le problème classique "ça marche sur ma machine".
+-->
+
+<!-- snippet
+id: docker_probleme_ca_marche_ma_machine
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,deploiement,environnement
+title: Problème "ça marche sur ma machine"
+content: Avant Docker, une application pouvait fonctionner sur l'ordinateur du développeur mais échouer ailleurs à cause des différences d'environnements, de bibliothèques et de configurations.
+description: Docker résout ce problème en standardisant et en rendant les environnements reproductibles.
+-->
+
+<!-- snippet
+id: docker_image_conteneur_principe
+type: concept
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,image,conteneur,workflow
+title: Principe image → conteneur
+content: Le fonctionnement de base de Docker : on crée une image, on lance un conteneur à partir de cette image, et l'application tourne partout de la même manière.
+description: Une image est comme une recette, un conteneur est le plat préparé.
+-->

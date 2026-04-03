@@ -193,3 +193,45 @@ Concepts importants :
 - index composite
 
 Dans le prochain chapitre nous verrons **les vues**, qui permettent de simplifier les requêtes complexes.
+
+<!-- snippet
+id: sql_create_index
+type: command
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,index,create_index,performance
+title: Créer un index sur une colonne
+command: CREATE INDEX <idx_nom> ON <table>(<colonne>);
+description: Accélère les recherches sur la colonne indexée. Particulièrement utile sur les colonnes utilisées dans WHERE, JOIN et ORDER BY.
+-->
+
+<!-- snippet
+id: sql_index_cout_ecriture
+type: warning
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,index,performance,insert,update
+title: Trop d'index ralentit les insertions et mises à jour
+content: |
+  Chaque INSERT, UPDATE ou DELETE doit mettre à jour tous les index de la table.
+  Plus il y a d'index, plus les écritures sont lentes.
+  Indexer uniquement les colonnes réellement utilisées en lecture.
+description: Sur des tables à fort volume d'écriture, les index inutiles peuvent dégrader significativement les performances.
+-->
+
+<!-- snippet
+id: sql_index_composite
+type: tip
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,index,composite,where,order_by
+title: Index composite pour les requêtes multi-colonnes
+content: `CREATE INDEX idx_orders_client_date ON orders(customer_id, created_at);` couvre les requêtes filtrant par client et triant par date en une seule structure.
+description: L'ordre des colonnes dans l'index composite est important : mettre la colonne de filtrage en premier.
+-->

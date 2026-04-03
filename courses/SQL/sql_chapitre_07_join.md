@@ -284,3 +284,31 @@ Types principaux :
 C'est un concept essentiel pour exploiter **les bases de données relationnelles**.
 
 Dans le prochain chapitre nous verrons **la manipulation des données : INSERT, UPDATE et DELETE**.
+
+<!-- snippet
+id: sql_inner_vs_left_join
+type: concept
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,join,inner_join,left_join
+title: INNER JOIN vs LEFT JOIN
+content: |
+  - `INNER JOIN` : retourne seulement les lignes avec correspondance dans les deux tables
+  - `LEFT JOIN` : retourne toutes les lignes de gauche, NULL pour les non-correspondances
+description: Utiliser INNER JOIN quand la correspondance est garantie, LEFT JOIN pour détecter les absences.
+-->
+
+<!-- snippet
+id: sql_join_sans_on_cartesien
+type: warning
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,join,on,produit_cartesien,erreur
+title: JOIN sans ON produit un produit cartésien
+content: Sans clause ON, chaque ligne de A est combinée avec chaque ligne de B. 100 × 100 = 10 000 lignes retournées. Toujours spécifier : `JOIN nom_table ON condition`
+description: Le produit cartésien peut saturer la mémoire et retourner des millions de lignes inutiles.
+-->

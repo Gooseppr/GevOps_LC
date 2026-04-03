@@ -825,3 +825,115 @@ Ce que tu as fait aujourd’hui est typique d’une échelle “développement i
     - Est-ce chiffré ?
 
 Si tu maîtrises ça, tu es déjà au niveau “Je peux tenir la base de prod d’une petite startup sans paniquer quand ça tombe”.
+
+---
+
+<!-- snippet
+id: sql_pg_create_user
+type: command
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: postgresql,utilisateur,sécurité,création
+title: Créer un utilisateur applicatif PostgreSQL
+context: créer un utilisateur dédié à l’application avec des droits limités à une seule base
+command: CREATE USER developer WITH ENCRYPTED PASSWORD ‘mot_de_passe’; GRANT ALL ON DATABASE mydb TO developer; ALTER DATABASE mydb OWNER TO developer;
+description: Crée un utilisateur applicatif avec mot de passe chiffré et lui accorde tous les droits sur une base spécifique, sans toucher aux autres bases
+-->
+
+<!-- snippet
+id: sql_pg_dump
+type: command
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: postgresql,sauvegarde,dump,backup
+title: Sauvegarder une base PostgreSQL avec pg_dump
+context: créer une sauvegarde complète d’une base PostgreSQL sous forme de script SQL
+command: pg_dump -U developer -h 127.0.0.1 --format=p --file=newdump.sql mydb
+description: Exporte la structure et les données de la base mydb dans un fichier SQL lisible et rejouable
+-->
+
+<!-- snippet
+id: sql_pg_restore
+type: command
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: postgresql,restauration,dump,backup
+title: Restaurer une base PostgreSQL depuis un dump SQL
+context: réimporter un dump SQL dans une base PostgreSQL vide
+command: psql -U developer -h 127.0.0.1 -d basecible -f dump.sql
+description: Rejoue le script SQL dans la base cible pour recréer toutes les tables et réinsérer les données
+-->
+
+<!-- snippet
+id: sql_mariadb_dump
+type: command
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: mariadb,mysql,sauvegarde,dump,backup
+title: Sauvegarder une base MariaDB avec mysqldump
+context: créer une sauvegarde complète d’une base MariaDB ou MySQL
+command: mysqldump -u developer -p mydb --no-tablespaces > mydb_dump.sql
+description: Exporte la structure et les données de la base mydb dans un fichier SQL ; l’option --no-tablespaces évite les erreurs de permissions sur certaines versions
+-->
+
+<!-- snippet
+id: sql_nosql_superadmin_warning
+type: warning
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sécurité,superadmin,root,bdd
+title: Ne jamais connecter l’application avec le compte superadmin
+context: configurer la connexion d’une application backend à sa base de données
+content: Ne jamais connecter l’application avec le compte superadmin (root, postgres). Créer un utilisateur dédié avec des droits limités à une seule base.
+-->
+
+<!-- snippet
+id: sql_redis_snapshot
+type: command
+tech: sql
+level: beginner
+importance: medium
+format: knowledge
+tags: redis,sauvegarde,snapshot,dump.rdb
+title: Forcer un snapshot Redis et le sauvegarder
+context: créer une sauvegarde manuelle de l’état en mémoire de Redis
+command: redis-cli save && sudo cp /var/lib/redis/dump.rdb ~/redis_backup.rdb
+description: Déclenche l’écriture immédiate du snapshot sur disque puis copie le fichier dump.rdb dans le répertoire home pour archivage
+-->
+
+<!-- snippet
+id: sql_mongodb_export_json
+type: command
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: mongodb,mongoexport,json,export,collection
+title: Exporter une collection MongoDB en JSON lisible
+context: exporter des données MongoDB pour les archiver ou les analyser hors de la base
+command: mongoexport --db mydb --collection students --out mongodump.json --jsonArray --pretty
+description: Exporte la collection students en tableau JSON indenté ; différent de mongodump qui produit un format binaire BSON pour la restauration Mongo
+-->
+
+<!-- snippet
+id: sql_bind_address_tip
+type: tip
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sécurité,réseau,bind,postgresql,mariadb,redis
+title: Garder la base de données liée à localhost par défaut
+context: configurer l’exposition réseau d’une base de données en développement ou en production
+content: Toutes les bases doivent écouter sur 127.0.0.1 par défaut. Si une exposition réseau est nécessaire, combiner pare-feu, restriction IP et mots de passe forts.
+-->

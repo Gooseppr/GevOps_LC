@@ -936,3 +936,96 @@ spec:
 | PVC | v1 | Demande de stockage par une appli |
 | Job / CronJob | batch/v1 | Tâches ponctuelles ou récurrentes |
 | HPA | autoscaling/v2 | Auto-scale horizontal selon la charge |
+
+---
+
+<!-- snippet
+id: k8s_yaml_apiversion_kind
+type: concept
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,yaml,apiversion,kind,spec
+title: Structure de base d'un manifest Kubernetes
+context: comprendre les 4 champs obligatoires de tout manifest YAML Kubernetes
+content: Tout manifest Kubernetes contient 4 champs : apiVersion (ex : apps/v1), kind (Pod, Deployment, Service…), metadata (nom, labels) et spec (état désiré). Un Deployment imbrique une spec de Pod dans son template.
+-->
+
+<!-- snippet
+id: k8s_yaml_deployment
+type: concept
+tech: kubernetes
+level: intermediate
+importance: high
+format: knowledge
+tags: kubernetes,deployment,replicas,selector,rolling-update
+title: Le Deployment : gestion vivante des Pods stateless
+context: déployer et gérer une application sans état sur Kubernetes
+content: Un Deployment définit replicas, selector.matchLabels et template. Le selector et les labels du template doivent correspondre — sinon le Deployment ne reconnaît pas ses Pods.
+-->
+
+<!-- snippet
+id: k8s_yaml_statefulset_warning
+type: warning
+tech: kubernetes
+level: intermediate
+importance: high
+format: knowledge
+tags: kubernetes,statefulset,volumes,base-de-données
+title: StatefulSet : identité stable et volumes individuels par Pod
+context: déployer une base de données ou un service stateful sur Kubernetes
+content: Un StatefulSet crée des Pods nommés séquentiellement (db-0, db-1…) avec chacun son propre PVC. Chaque Pod garde ses données même si redéployé. Ne jamais scaler sans comprendre la synchronisation des données.
+-->
+
+<!-- snippet
+id: k8s_yaml_service_types
+type: concept
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,service,clusterip,nodeport,loadbalancer
+title: Les trois types de Service Kubernetes
+context: choisir le bon type de Service selon le besoin d'exposition
+content: ClusterIP (défaut) = interne au cluster seulement. NodePort = expose un port sur chaque nœud, utile en labo. LoadBalancer = intégré au cloud public pour exposer en production.
+-->
+
+<!-- snippet
+id: k8s_yaml_ingress_concept
+type: concept
+tech: kubernetes
+level: beginner
+importance: medium
+format: knowledge
+tags: kubernetes,ingress,http,https,domaine
+title: L'Ingress : routage HTTP/HTTPS avancé
+context: exposer une application Kubernetes via un nom de domaine et des chemins HTTP
+content: L'Ingress gère le routage HTTP/HTTPS depuis l'extérieur vers les Services internes. Il permet de définir des domaines, des chemins (/api, /front) et du TLS via un Ingress Controller.
+-->
+
+<!-- snippet
+id: k8s_yaml_secret_base64
+type: warning
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,secret,base64,sécurité
+title: Les Secrets Kubernetes sont encodés en base64, pas chiffrés
+context: stocker des mots de passe dans Kubernetes sans les exposer en clair
+content: Les Secrets Kubernetes sont encodés en base64, pas chiffrés dans etcd par défaut. Ne jamais committer un Secret en clair dans Git.
+-->
+
+<!-- snippet
+id: k8s_yaml_hpa
+type: concept
+tech: kubernetes
+level: intermediate
+importance: medium
+format: knowledge
+tags: kubernetes,hpa,autoscaling,cpu,métriques
+title: HPA : autoscaling automatique selon la charge CPU
+context: ajuster dynamiquement le nombre de Pods selon la charge
+content: Un HPA cible un Deployment et scale automatiquement selon la charge CPU. Si la moyenne dépasse averageUtilization, il ajoute des Pods jusqu'à maxReplicas.
+-->

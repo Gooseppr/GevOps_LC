@@ -210,3 +210,32 @@ Dans le prochain chapitre nous verrons **l’administration des bases de donnée
 - réplication
 - partitionnement
 - maintenance des bases.
+
+<!-- snippet
+id: sql_grant_revoke
+type: command
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,grant,revoke,permissions,securite
+title: Attribuer ou retirer une permission SQL
+command: GRANT SELECT ON <table> TO <role>; -- REVOKE SELECT ON <table> FROM <role>;
+description: GRANT attribue le droit, REVOKE le retire. Les permissions s’appliquent par table et par rôle.
+-->
+
+<!-- snippet
+id: sql_moindre_privilege
+type: tip
+tech: sql
+level: advanced
+importance: high
+format: knowledge
+tags: sql,securite,permissions,role,bonne_pratique
+title: Principe du moindre privilège pour les utilisateurs SQL
+content: |
+  Un compte applicatif n’a besoin que de SELECT/INSERT/UPDATE/DELETE sur ses tables.
+  Ne jamais utiliser le compte admin (`postgres`, `root`) pour l’application.
+  Créer un rôle dédié avec uniquement les permissions nécessaires.
+description: Si le compte applicatif est compromis, l’attaquant ne peut pas DROP TABLE ou accéder aux autres bases.
+-->

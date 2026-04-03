@@ -587,6 +587,90 @@ Phrase à retenir :
 > “On met les secrets, mots de passe, mails par environnement dans un fichier .env qu’on ne commit pas. On les injecte avec env_file:.”
 >
 
+
+
+---
+
+<!-- snippet
+id: docker_module_pratique_compose_exec
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,exec,shell,debug
+title: Entrer dans un conteneur d'une stack Compose
+context: déboguer un service spécifique d'une application Compose
+command: docker compose exec nginx bash
+description: Ouvre un shell interactif dans le conteneur du service nginx. Le nom est celui du service dans docker-compose.yml, pas l'ID du conteneur. Utiliser sh si bash n'est pas disponible (images Alpine ou minimalistes).
+-->
+
+<!-- snippet
+id: docker_module_pratique_compose_logs
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,logs,debug,suivi
+title: Suivre les logs d'un service Compose en direct
+context: surveiller les erreurs d'un service en temps réel
+command: docker compose logs -f nginx
+description: Affiche et suit en temps réel les logs du service nginx. Sans -f les logs s'affichent et la commande s'arrête. Omettre le nom du service pour voir tous les services de la stack en même temps.
+-->
+
+<!-- snippet
+id: docker_module_pratique_postgres_volume
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,postgres,volume,persistance
+title: Persister les données PostgreSQL dans un volume nommé
+context: s'assurer que les données de la base survivent à un docker compose down
+content: docker compose down supprime les conteneurs mais PAS les volumes nommés — les données PostgreSQL survivent. Pour tout supprimer y compris les volumes, utiliser docker compose down -v (destructif).
+-->
+
+<!-- snippet
+id: docker_module_pratique_port_conflict
+type: warning
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker-compose,port,conflit,erreur
+title: Résoudre un conflit de port sur l'hôte
+context: corriger l'erreur "address already in use" lors d'un docker compose up
+content: Si le port hôte est déjà pris (ex : 5432 occupé), changer le mapping en "5433:5432". Le conteneur écoute toujours sur 5432, mais on l'atteint depuis l'hôte via 5433.
+-->
+
+<!-- snippet
+id: docker_module_pratique_bind_mount
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,volume,bind-mount,html
+title: Différence entre bind mount et volume nommé
+context: choisir entre monter un dossier local et utiliser un volume Docker
+content: Bind mount (./html:/dossier) : le dossier hôte est monté directement, modifications immédiates sans rebuild — idéal en dev.
+-->
+
+<!-- snippet
+id: docker_module_pratique_named_volume
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,volume,persistance,prod
+title: Volume nommé pour la persistance en production
+context: choisir entre bind mount et volume nommé selon l'environnement
+content: Volume nommé (db_data:/var/lib) : Docker gère l'emplacement sur l'hôte, données persistantes entre redéploiements — idéal pour les bases de données en production.
+-->
+
 ---
 [← Module précédent](M12_docker-compose.md)
 ---

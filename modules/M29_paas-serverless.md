@@ -228,6 +228,86 @@ Ces deux modèles simplifient :
 - les coûts,
 - la maintenance.
 
+
+
+<!-- snippet
+id: cloud_paas_vs_serverless
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: paas,serverless,iaas,modèles,cloud
+title: IaaS vs PaaS vs Serverless – Comparaison des modèles cloud
+context: choisir le bon modèle d'exécution cloud selon le besoin
+content: IaaS (EC2, GCE, Azure VM) : le cloud gère le matériel, toi l'OS, le runtime et le déploiement. Contrôle total. PaaS (AWS AppRunner, Azure App Service, Google App Engine) : le cloud gère OS + runtime + scaling, toi uniquement le code. Serverless (Lambda, Azure Functions, Cloud Functions) : le cloud gère tout, tu fournis uniquement le code déclenché par des événements. Facturation uniquement à l'exécution. Plus on monte vers Serverless, moins on gère d'infrastructure, mais moins on a de contrôle.
+-->
+
+<!-- snippet
+id: aws_lambda_cold_start
+type: warning
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: lambda,cold-start,serverless,performance
+title: Cold Start Lambda – Latence au premier appel
+context: comprendre et atténuer les démarrages à froid des fonctions Lambda
+content: Un cold start se produit lorsqu'une Lambda est invoquée pour la première fois ou après une période d'inactivité : AWS doit initialiser le runtime et charger le code, ajoutant une latence de quelques centaines de ms à quelques secondes selon le langage et la taille du package. Pour réduire les cold starts : utiliser des runtimes compilés (Go, Rust), réduire la taille du déploiement, utiliser Provisioned Concurrency (Lambda keep-warm), éviter de charger des dépendances inutiles.
+-->
+
+<!-- snippet
+id: cloud_serverless_use_cases
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: serverless,lambda,cas-usage,événements
+title: Cas d'usage Serverless – Quand choisir Lambda
+context: identifier les scénarios adaptés à une architecture serverless
+content: Serverless est idéal pour : tâches événementielles (fichier uploadé sur S3, message SQS, appel API Gateway), jobs CRON ponctuels, traitements d'images ou de vidéos, ETL légers, automatisations d'infrastructure, applications à trafic très variable. Éviter Serverless pour : applications longues (durée max 15 min sur Lambda), besoin de contrôle fin de l'environnement d'exécution, forts volumes avec latence critique (cold starts).
+-->
+
+<!-- snippet
+id: cloud_paas_services
+type: concept
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: paas,apprunner,app-service,google-app-engine
+title: Services PaaS AWS, Azure et GCP
+context: déployer une application web sans gérer les serveurs
+content: AWS AppRunner : déploiement simplifié de containers ou code source, auto-scaling, CI/CD intégré, mais personnalisation limitée. Azure App Service : très complet, support Windows et Linux, staging slots, WebJobs. Google App Engine : simple, intégration Cloud, mais environnement parfois restrictif. En PaaS, l'application complète est déployée (contrairement au Serverless où seules des fonctions sont déclenchées). Durée d'exécution illimitée, facturation par ressources allouées.
+-->
+
+<!-- snippet
+id: aws_cicd_cloud_pipelines
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: ci-cd,codepipeline,azure-devops,cloud-build
+title: Pipelines CI/CD cloud – AWS, Azure et GCP
+context: automatiser le build, les tests et le déploiement d'une application
+content: AWS CodePipeline : automatisation complète, excellente intégration avec Lambda, ECS, AppRunner et EC2. Azure DevOps Pipelines : très intégré à l'écosystème Microsoft, supporte de nombreux langages. Google Cloud Build : scalable, paiement à l'usage, moins de plugins. Les pipelines CI/CD dans le cloud éliminent les interventions manuelles, garantissent des déploiements cohérents, permettent le rollback automatique et s'intègrent nativement avec le PaaS et le Serverless.
+-->
+
+<!-- snippet
+id: cloud_serverless_security
+type: tip
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: serverless,sécurité,iam,surface-attaque
+title: Sécurité Serverless – Surface d'attaque minimale
+context: comprendre les avantages sécurité du modèle serverless
+content: Le Serverless expose uniquement la fonction, pas un serveur entier : surface d'attaque minimale. AWS gère les patchs du runtime (pas de CVE à gérer). Les fonctions Lambda sont isolées dans des microVMs (Firecracker). Chaque fonction doit avoir son propre IAM Role avec le minimum de permissions (principe du moindre privilège). Excellente résistance naturelle aux DDoS grâce au scaling automatique et à l'isolation. Utiliser des variables d'environnement chiffrées ou AWS Secrets Manager pour les secrets.
+-->
+
 ---
 [Module suivant →](M29_apachebench.md)
 ---

@@ -230,3 +230,32 @@ Les éléments importants sont :
 - la clé primaire
 
 Dans le prochain chapitre nous verrons **les types de données SQL**, qui permettent de stocker correctement les informations.
+
+<!-- snippet
+id: sql_create_table_primary_key
+type: command
+tech: sql
+level: intermediate
+importance: high
+format: knowledge
+tags: sql,create_table,primary_key,ddl
+title: Créer une table avec clé primaire
+command: CREATE TABLE <table> (<col_id> INTEGER PRIMARY KEY, <col1> TEXT, <col2> NUMERIC);
+description: Définit la structure d'une table avec ses colonnes et leur type. PRIMARY KEY garantit l'unicité et l'absence de NULL sur l'identifiant.
+-->
+
+<!-- snippet
+id: sql_nommage_snake_case
+type: tip
+tech: sql
+level: intermediate
+importance: medium
+format: knowledge
+tags: sql,nommage,snake_case,convention
+title: Nommer tables et colonnes en snake_case
+content: |
+  Préférer : `order_items`, `created_at`, `customer_id`
+  Éviter : `OrderItems`, `date1`, `customerTable`
+  Utiliser des noms pluriels pour les tables, snake_case pour les colonnes.
+description: Convention standard dans PostgreSQL et la majorité des projets SQL professionnels.
+-->

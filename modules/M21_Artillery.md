@@ -345,6 +345,74 @@ npx artillery run --target https://example.com loadtest.yml
 > Garde **un smoke test** court en CI et **une campagne** plus lourde en planifiée — avec des **seuils** qui **font foi**.
 >
 
+
+
+<!-- snippet
+id: cicd_artillery_run
+type: command
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: artillery,load-test,performance,nodejs
+title: Lancer un test de charge Artillery
+context: exécuter un test de montée en charge depuis un fichier YAML Artillery
+command: npx artillery run loadtest.yml
+description: Lance le test de charge défini dans loadtest.yml via npx (sans installation globale). Pour sauvegarder les métriques : npx artillery run -o report.json loadtest.yml. Pour générer un rapport HTML lisible : npx artillery report report.json -o report.html.
+-->
+
+<!-- snippet
+id: cicd_artillery_yaml_structure
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: artillery,yaml,config,scenarios,phases
+title: Structure d'un fichier Artillery YAML
+context: écrire un fichier de test de charge Artillery avec phases et scénarios
+content: Un fichier Artillery contient deux blocs : config (target, phases, plugins, http) et scenarios (flows). Les phases définissent la montée en charge (arrivalRate, rampTo, duration). Les scenarios décrivent les actions des utilisateurs virtuels (GET, POST, loops, think). Tout est dans un seul fichier YAML.
+-->
+
+<!-- snippet
+id: cicd_artillery_ensure_thresholds
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: artillery,seuils,ensure,p95,p99,ci
+title: Seuils de performance natifs avec le plugin ensure
+context: faire échouer automatiquement le pipeline si les temps de réponse dépassent les SLO
+content: Dans config.plugins.ensure.thresholds, définir http.response_time.p95 et http.response_time.p99. Si les seuils sont dépassés, Artillery sort avec un exit code non nul, ce qui fait échouer le job CI. C'est la principale force d'Artillery : les SLO sont intégrés directement dans le YAML du test.
+-->
+
+<!-- snippet
+id: cicd_artillery_gitlab_ci_job
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: artillery,gitlab,ci,rapport,artefacts
+title: Job Artillery dans GitLab CI avec rapport HTML
+context: automatiser les tests de charge dans le pipeline et archiver les résultats
+content: Utiliser image node:20-bookworm, installer artillery via npm i -g artillery@latest en before_script. Script : artillery run -o report.json loadtest.yml && artillery report report.json -o report.html. Configurer artifacts avec when: always, paths [report.json, report.html] et expire_in: 7 days.
+-->
+
+<!-- snippet
+id: cicd_artillery_vs_locust
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: artillery,locust,comparaison,choix
+title: Choisir entre Artillery et Locust
+context: sélectionner l'outil de test de charge adapté à son contexte technique
+content: Artillery (Node.js) : YAML déclaratif, seuils natifs (ensure), rapport HTML intégré, idéal dans un stack JS. Locust (Python) : scénarios en code Python, interface web intégrée, plus flexible pour les scénarios complexes, idéal dans un stack Python. Les deux s'intègrent bien dans GitLab CI.
+-->
+
 ---
 [← Module précédent](M21_Tests_Charge_Locust.md)
 ---

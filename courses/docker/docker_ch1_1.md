@@ -187,5 +187,96 @@ Docker permet de lancer des applications dans des conteneurs.
 
 ## Notes
 
-*Conteneur : environnement isolé pour exécuter une application  
+*Conteneur : environnement isolé pour exécuter une application
 *Image : modèle servant à créer des conteneurs
+
+---
+
+<!-- snippet
+id: docker_conteneur_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,conteneur,definition
+title: Définition d'un conteneur
+content: Un conteneur est un environnement isolé qui contient une application, ses dépendances et sa configuration. C'est une "boîte" prête à fonctionner.
+description: Différent d'une machine virtuelle : le conteneur partage le système hôte et est donc léger et rapide.
+-->
+
+<!-- snippet
+id: docker_image_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,image,definition
+title: Définition d'une image Docker
+content: Une image est un modèle utilisé pour créer un conteneur. Comme une recette qui permet de produire un plat (le conteneur).
+-->
+
+<!-- snippet
+id: docker_run_hello_world
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,run,premier-conteneur
+title: Lancer son premier conteneur
+command: docker run hello-world
+description: Télécharge l'image hello-world, crée un conteneur et exécute un programme de test. Permet de vérifier que Docker fonctionne correctement.
+-->
+
+<!-- snippet
+id: docker_ps_actifs
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,ps,liste,conteneurs
+title: Voir les conteneurs actifs
+command: docker ps
+description: Affiche uniquement les conteneurs en cours d'exécution.
+-->
+
+<!-- snippet
+id: docker_ps_tous
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,ps,liste,conteneurs,arretes
+title: Voir tous les conteneurs (y compris arrêtés)
+command: docker ps -a
+description: Inclut les conteneurs arrêtés en plus des conteneurs actifs.
+-->
+
+<!-- snippet
+id: docker_conteneur_vs_vm
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,conteneur,machine-virtuelle,confusion
+title: Erreur : confondre conteneur et machine virtuelle
+content: Un conteneur n'est pas une machine virtuelle. Il ne crée pas un système complet mais partage le noyau du système hôte. C'est pourquoi il est léger et démarre rapidement.
+-->
+
+<!-- snippet
+id: docker_run_nginx_exemple
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,run,nginx,serveur-web
+title: Lancer un serveur web nginx
+command: docker run nginx
+description: Lance immédiatement un serveur web nginx sans aucune installation complexe.
+-->

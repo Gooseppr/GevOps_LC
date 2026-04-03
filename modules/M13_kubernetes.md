@@ -575,3 +575,99 @@ C’est un **chef d’orchestre** complet, conçu pour :
 - la **production à grande échelle**,
 - la **fiabilité**,
 - et la **résilience automatique**.
+
+---
+
+<!-- snippet
+id: k8s_concept_vs_compose
+type: concept
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,docker-compose,orchestration,cluster
+title: Kubernetes vs Docker vs Docker Compose
+context: comprendre quand utiliser Kubernetes plutôt que Docker Compose
+content: Docker = conteneurs manuels sur 1 machine. Docker Compose = multi-conteneurs sur 1 machine, idéal en dev. Kubernetes = orchestration multi-machines avec réplication, auto-guérison et autoscaling — pour la production à grande échelle.
+-->
+
+<!-- snippet
+id: k8s_install_minikube
+type: command
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,minikube,installation,local
+title: Démarrer un cluster Minikube local
+context: créer un cluster Kubernetes de développement sur sa machine
+command: minikube start --driver=docker
+description: Lance un cluster Kubernetes complet en local via Docker comme driver. Nécessite d’avoir ajouté l’utilisateur au groupe docker. Vérifier avec kubectl get nodes après le démarrage.
+-->
+
+<!-- snippet
+id: k8s_install_k3s
+type: command
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,k3s,installation,linux
+title: Installer K3S sur Linux en une commande
+context: déployer un cluster Kubernetes léger sur une VM Linux
+command: curl -sfL https://get.k3s.io | sh -
+description: Installe K3S, distribution Kubernetes légère. Après installation, configurer kubectl avec sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && export KUBECONFIG=~/.kube/config.
+-->
+
+<!-- snippet
+id: k8s_concept_architecture
+type: concept
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,architecture,master,worker,pod,service
+title: Architecture d’un cluster Kubernetes
+context: comprendre les composants essentiels de Kubernetes
+content: Le Control Plane (API Server, Scheduler, Controller Manager, etcd) orchestre le cluster. Les Worker Nodes exécutent les Pods via kubelet et kube-proxy.
+-->
+
+<!-- snippet
+id: k8s_concept_pod_definition
+type: concept
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,pod,unité,conteneur
+title: Le Pod : unité minimale de Kubernetes
+context: comprendre ce qu’est un Pod avant d’écrire un manifest
+content: Un Pod est l’unité minimale de déploiement dans Kubernetes. Il contient un ou plusieurs conteneurs qui partagent le même réseau interne et les mêmes volumes montés.
+-->
+
+<!-- snippet
+id: k8s_cmd_quick_deploy
+type: command
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: kubernetes,kubectl,deployment,service,nginx
+title: Déployer et exposer une application rapidement
+context: tester un déploiement Kubernetes en mode impératif sans écrire de YAML
+command: kubectl create deployment nginx --image=nginx
+description: Crée un Deployment nginx en mode impératif. Exposer ensuite avec `kubectl expose deployment nginx --type=NodePort --port=80`. En production, préférer `kubectl apply -f`.
+-->
+
+<!-- snippet
+id: k8s_concept_rolling_update
+type: concept
+tech: kubernetes
+level: intermediate
+importance: medium
+format: knowledge
+tags: kubernetes,rolling-update,rollback,deployment
+title: Mises à jour progressives et rollback
+context: mettre à jour une application en production sans interruption de service
+content: Kubernetes met à jour les Pods un par un (rolling update) et vérifie les probes à chaque étape — il stoppe si une erreur survient. Revenir en arrière avec kubectl rollout undo deployment/web.
+-->

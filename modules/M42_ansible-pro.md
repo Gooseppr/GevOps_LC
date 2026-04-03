@@ -440,4 +440,62 @@ En résumé, aujourd’hui on a :
 
 ---
 [← Module précédent](M42_projet-board-J02.md) | [Module suivant →](M42_ansible-image.md)
+
+---
+
+<!-- snippet
+id: ansible_pro_tags_playbook
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,tags,playbook,ciblage
+title: Cibler une partie d'un playbook Ansible avec --tags
+context: limiter l'exécution à une ou plusieurs étapes spécifiques
+command: ansible-playbook -i inventory-pro.ini swarm-pro.yml --tags deploy
+description: Exécute uniquement les tâches marquées avec le tag spécifié. Utiliser `--skip-tags` pour exclure. Utile en CI/CD pour redéployer la stack sans toucher au cluster.
+-->
+
+<!-- snippet
+id: ansible_pro_block_rescue
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,block,rescue,gestion-erreur
+title: Gestion d'erreurs structurée avec block/rescue dans Ansible
+context: Intercepter les échecs sur des étapes critiques (join Swarm, deploy stack) et produire un message clair
+content: Dans block/rescue, le bloc rescue doit être aligné avec les tâches du block. Chaque tâche rescue nécessite un name et un module (debug, fail), sinon Ansible lève "no module detected".
+-->
+
+<!-- snippet
+id: ansible_pro_env_j2_vault
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,vault,template,env,secrets
+title: Générer un fichier .env dynamiquement depuis un template Jinja2 et Ansible Vault
+context: Remplacer un .env statique en clair par une génération sécurisée via template et Vault
+content: Créer files/.env.j2 avec des variables Jinja2 et stocker les secrets dans vault.yml chiffré. Le module template génère le .env sur le serveur ; changer un secret nécessite juste --tags deploy.
+-->
+
+<!-- snippet
+id: ansible_pro_inventory_scalable
+type: concept
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,inventory,workers,scalabilite
+title: Inventaire Ansible scalable avec plusieurs workers applicatifs
+context: Ajouter des nœuds applicatifs supplémentaires sans modifier le playbook
+content: Structurer l'inventaire avec [swarm_managers], [swarm_workers] et [swarm_all:children], chaque hôte portant un swarm_role. Ajouter un worker dans [swarm_workers] suffit : labels et contraintes s'appliquent automatiquement.
+-->
+
+---
+[← Module précédent](M42_projet-board-J02.md) | [Module suivant →](M42_ansible-image.md)
 ---

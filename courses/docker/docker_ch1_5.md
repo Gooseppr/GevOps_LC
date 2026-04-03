@@ -178,3 +178,79 @@ Exposer un port permet de :
 ## Notes
 
 *Port : point d’accès réseau permettant de communiquer avec une application
+
+---
+
+<!-- snippet
+id: docker_port_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,port,reseau,definition
+title: Définition d’un port réseau dans Docker
+content: Un port est un point d’entrée réseau qui permet à une application de communiquer avec l’extérieur. Dans Docker, le conteneur est isolé et ses ports ne sont pas accessibles sans configuration explicite.
+-->
+
+<!-- snippet
+id: docker_run_port_mapping
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,port,mapping,run
+title: Exposer un port avec -p
+command: docker run -p <PORT>:80 nginx
+description: Relie un port de la machine hôte au port 80 du conteneur. Syntaxe : -p port_externe:port_interne.
+-->
+
+<!-- snippet
+id: docker_run_detache_port
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,run,port,detache
+title: Lancer un conteneur avec port en mode détaché
+command: docker run -d -p <PORT>:80 nginx
+description: Lance nginx en arrière-plan et expose son port 80 sur le port choisi de la machine hôte.
+-->
+
+<!-- snippet
+id: docker_port_inverse_warning
+type: warning
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,port,erreur,ordre
+title: Erreur fréquente : inverser les ports dans -p
+content: La syntaxe -p attend port_externe:port_interne. Inverser l’ordre (ex : -p 80:8080 au lieu de -p 8080:80) redirige vers le mauvais port et l’application est inaccessible.
+-->
+
+<!-- snippet
+id: docker_port_isolation_warning
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,port,isolation,acces
+title: Piège : penser que Docker expose les ports automatiquement
+content: Le conteneur est isolé par défaut. Rien n’est accessible depuis l’extérieur sans l’option -p. Il faut toujours déclarer explicitement les ports à exposer.
+-->
+
+<!-- snippet
+id: docker_port_libre_tip
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,port,choix,externe
+title: Port externe libre, port interne imposé par l’application
+content: Le port externe (côté machine hôte) peut être n’importe quel port disponible (8080, 8081, 3000…). Le port interne, lui, est imposé par l’application dans le conteneur.
+-->

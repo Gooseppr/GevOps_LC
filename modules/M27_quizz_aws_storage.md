@@ -391,6 +391,86 @@ La compétence DevOps/Cloud, c'est être capable de lire un besoin et d'y associ
 
 Ce quiz couvre exactement ces 5 dimensions.
 
+
+
+<!-- snippet
+id: aws_s3_public_objects
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: s3,bucket,public,hébergement
+title: S3 – Rendre des objets publiquement accessibles
+context: exposer des fichiers S3 à des utilisateurs publics via une URL HTTPS
+content: S3 rend des objets publics via bucket policy explicite. Chaque objet reçoit une URL HTTPS. EBS, Instance Store et EFS ne sont pas conçus pour l'exposition publique sur Internet.
+-->
+
+<!-- snippet
+id: aws_glacier_flexible_retrieval
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: s3,glacier,archive,récupération
+title: Glacier Flexible Retrieval – Archivage avec récupération en < 5 heures
+context: choisir la bonne classe Glacier selon le délai de récupération accepté
+content: Glacier Instant Retrieval : accès en ms. Flexible Retrieval : accès 1 min à 12h (archivage 5 ans, récupérable en < 5h). Deep Archive : ~12h, le moins cher, pour rétention > 7 ans.
+-->
+
+<!-- snippet
+id: aws_efs_shared_linux
+type: concept
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: efs,nfs,partage,linux,ec2
+title: EFS – Stockage partagé NFS pour serveurs Linux
+context: partager un système de fichiers entre plusieurs instances EC2 Linux
+content: EFS est le seul service AWS permettant un accès NFS partagé entre plusieurs EC2 Linux simultanément. S3 n'est pas montable comme file system. EBS n'est pas partageable.
+-->
+
+<!-- snippet
+id: aws_s3_ebs_comparison
+type: tip
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: s3,ebs,efs,instance-store,comparaison
+title: Choisir entre S3, EBS, EFS et Instance Store
+context: identifier rapidement le bon service de stockage AWS selon le besoin
+content: Instance Store : ultra rapide mais éphémère. EBS : disque persistant pour BDD/OS. EFS : NFS partagé entre plusieurs EC2. S3 : object storage scalable pour médias et backups. Aucun n'est interchangeable.
+-->
+
+<!-- snippet
+id: aws_s3_storage_cost_reduction
+type: tip
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: s3,coûts,lifecycle,intelligent-tiering
+title: Réduire les coûts S3 avec les classes et le Lifecycle
+context: optimiser la facture S3 selon la fréquence d'accès aux données
+content: Réduire les coûts S3 en appliquant la classe adaptée à la fréquence d'accès. Automatiser avec les règles Lifecycle (Standard → IA → Glacier) ou utiliser Intelligent-Tiering.
+-->
+
+<!-- snippet
+id: aws_ebs_durability
+type: concept
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: ebs,durabilité,réplication,az
+title: EBS – Durabilité par réplication intra-AZ
+context: comprendre comment EBS protège les données contre les pannes matérielles
+content: EBS réplique chaque volume sur plusieurs disques physiques dans la même AZ — protection contre la défaillance d'un disque. Pour survivre à une panne d'AZ, utiliser des snapshots.
+-->
+
 ---
 [← Module précédent](M27_flashcard_aws_storage.md)
 ---

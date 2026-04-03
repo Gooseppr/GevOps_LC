@@ -166,5 +166,96 @@ Swarm permet de :
 
 ## Notes
 
-*Node : machine dans le cluster  
+*Node : machine dans le cluster
 *Rollback : retour à une version précédente
+
+---
+
+<!-- snippet
+id: docker_swarm_node_inspect
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,nodes,supervision,inspect
+title: Inspecter un nœud Swarm
+command: docker node inspect <NOM>
+description: Affiche les détails complets d'un nœud : ressources, labels, statut, disponibilité.
+-->
+
+<!-- snippet
+id: docker_swarm_service_inspect
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,service,inspect,supervision
+title: Inspecter un service Swarm
+command: docker service inspect <SERVICE>
+description: Affiche la configuration complète du service : image, replicas, réseau, contraintes de placement.
+-->
+
+<!-- snippet
+id: docker_swarm_service_update_image
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,service,update,image,rolling-update
+title: Mettre à jour l'image d'un service
+command: docker service update --image <IMAGE> <SERVICE>
+description: Met à jour le service de manière progressive (rolling update). Swarm remplace les conteneurs un par un pour éviter toute interruption de service.
+-->
+
+<!-- snippet
+id: docker_swarm_service_rollback
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,service,rollback,deploiement
+title: Rollback d'un service Swarm
+command: docker service rollback <SERVICE>
+description: Revient à la version précédente du service. À utiliser immédiatement si une mise à jour casse l'application.
+-->
+
+<!-- snippet
+id: docker_swarm_rolling_update
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,update,rolling,service
+title: Rolling update dans Swarm
+content: Les mises à jour de services dans Swarm sont progressives (rolling update). Swarm remplace les conteneurs un par un, ce qui permet de maintenir la disponibilité du service pendant la mise à jour.
+-->
+
+<!-- snippet
+id: docker_swarm_rollback_strategie
+type: tip
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,rollback,deploiement,production
+title: Prévoir une stratégie de rollback
+content: Avant chaque mise à jour en production, s'assurer qu'un rollback est possible. Utiliser des tags versionnés (v1, v2) plutôt que latest pour revenir facilement à une version stable.
+-->
+
+<!-- snippet
+id: docker_swarm_update_sans_rollback
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,update,rollback,production
+title: Déployer sans possibilité de rollback
+content: Sans rollback prévu, une version cassée rend le service indisponible. Toujours versionner les images et tester les mises à jour hors production.
+-->
+

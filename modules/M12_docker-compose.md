@@ -807,6 +807,102 @@ Voici les idées clés à retenir absolument :
 
 Si tu maîtrises ça, tu sais déjà faire ce que la plupart des boîtes attendent d’un dev backend ou d’un devops junior : lancer une app multi-services complète en une commande.
 
+
+
+---
+
+<!-- snippet
+id: docker_module_compose_up
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,stack,démarrage,services
+title: Lancer toute une stack Docker Compose
+context: démarrer une application multi-conteneurs en une commande
+command: docker compose up -d
+description: Démarre tous les services définis dans docker-compose.yml en arrière-plan. Équivaut à lancer plusieurs docker run avec les bons réseaux, volumes et variables déjà configurés. Arrêter avec docker compose stop, détruire avec docker compose down.
+-->
+
+<!-- snippet
+id: docker_module_compose_structure
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,yaml,service,volume,réseau
+title: Structure d'un docker-compose.yml
+context: comprendre les sections clés d'un fichier Compose
+content: Un docker-compose.yml comporte trois sections : services (image, ports, volumes, environment), volumes (persistance nommée) et networks (segmentation réseau).
+-->
+
+<!-- snippet
+id: docker_module_compose_dns_tip
+type: tip
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,dns,hostname,réseau
+title: Le nom d'un service Compose est son hostname DNS
+context: comprendre comment les services se joignent entre eux dans Compose
+content: Dans Compose, le nom du service est automatiquement son hostname DNS interne. backend joint db via db:5432 sans configuration supplémentaire.
+-->
+
+<!-- snippet
+id: docker_module_compose_depends_healthcheck
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: docker-compose,depends_on,healthcheck,ordre
+title: Contrôler l'ordre de démarrage avec depends_on et healthcheck
+context: garantir que la base de données est prête avant de démarrer le backend
+content: depends_on indique l'ordre de démarrage mais ne vérifie pas que le service est prêt. Combiner avec un healthcheck (ex : pg_isready) pour attendre que le service soit vraiment opérationnel.
+-->
+
+<!-- snippet
+id: docker_module_compose_env_file
+type: tip
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker-compose,env,secrets,.env,gitignore
+title: Gérer les secrets avec un fichier .env
+context: éviter de committer des mots de passe dans Git
+content: Placer les secrets dans un fichier .env — Compose le charge automatiquement et remplace les ${VARIABLE} dans le YAML. Toujours ajouter .env dans .gitignore pour ne jamais committer des secrets.
+-->
+
+<!-- snippet
+id: docker_module_compose_profiles
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: docker-compose,profiles,dev,prod,environnement
+title: Activer des services selon l'environnement avec les profiles
+context: démarrer uniquement le monitoring en production sans l'activer en développement
+content: Les profiles marquent les services selon leur contexte (profiles: ["prod"] ou ["dev"]). Un service sans profile démarre toujours. Lancer le bon contexte : docker compose --profile prod up -d.
+-->
+
+<!-- snippet
+id: docker_module_compose_networks_isolation
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: docker-compose,réseau,isolation,sécurité,network
+title: Segmenter les flux réseau entre services
+context: empêcher le frontend de voir directement la base de données
+content: Définir plusieurs réseaux (ex : web et db_net) contrôle quels services peuvent se parler. Le frontend voit le backend, mais pas la DB, qui vit sur un réseau isolé.
+-->
+
 ---
 [Module suivant →](M12_pratique-docker-compose.md)
 ---

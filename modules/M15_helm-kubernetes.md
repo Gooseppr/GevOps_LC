@@ -1048,7 +1048,103 @@ helmfile apply
 📘 **Philosophie :**
 
 > “Helmfile, c’est la pièce manquante qui fait de Helm un vrai outil d’infrastructure déclarative :
-> 
-> 
+>
+>
 > tu décris ton environnement complet en YAML, et tu le déploies en une commande, traçable, diffable et rollbackable.”
 >
+
+---
+
+<!-- snippet
+id: helm_concept_chart_release
+type: concept
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: helm,chart,release,values,kubernetes
+title: Helm : Chart, Release et Values
+context: comprendre les trois concepts fondamentaux de Helm
+content: Un Chart est un package d’application Kubernetes (templates YAML + values.yaml). Une Release est une instance d’un chart dans le cluster. Même chart avec des values différentes = environnements dev/staging/prod distincts.
+-->
+
+<!-- snippet
+id: helm_install_bitnami
+type: command
+tech: kubernetes
+level: beginner
+importance: high
+format: knowledge
+tags: helm,bitnami,install,repo
+title: Ajouter le repo Bitnami et installer une application
+context: déployer une application packagée dans le cluster Kubernetes avec Helm
+command: helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo update && helm install mon-nginx bitnami/nginx -n web
+description: Ajoute le dépôt Bitnami, met à jour l’index local puis installe une release nommée mon-nginx dans le namespace web.
+-->
+
+<!-- snippet
+id: helm_upgrade_dry_run
+type: command
+tech: kubernetes
+level: intermediate
+importance: high
+format: knowledge
+tags: helm,upgrade,dry-run,values,production
+title: Mettre à jour une release Helm avec simulation préalable
+context: modifier la configuration d’une application déployée sans risque
+command: helm upgrade mon-nginx bitnami/nginx -f values-prod.yaml --dry-run --debug
+description: Simule l’upgrade avec les nouvelles valeurs sans rien appliquer au cluster. Retirer --dry-run pour appliquer réellement. Helm crée une nouvelle révision à chaque upgrade, permettant un rollback avec helm rollback mon-nginx 2 -n web.
+-->
+
+<!-- snippet
+id: helm_tip_values_priority
+type: tip
+tech: kubernetes
+level: intermediate
+importance: medium
+format: knowledge
+tags: helm,values,priorité,set,override
+title: Priorité des valeurs dans Helm
+context: comprendre quel paramètre est appliqué en cas de valeurs multiples
+content: Priorité décroissante : --set clé=valeur > -f values-prod.yaml > values.yaml du chart. En cas de valeurs multiples, la source la plus proche du runtime gagne.
+-->
+
+<!-- snippet
+id: helm_tip_values_versioning
+type: tip
+tech: kubernetes
+level: intermediate
+importance: medium
+format: knowledge
+tags: helm,values,git,versionning,bitnami
+title: Versionner ses propres fichiers values dans Git
+context: éviter de modifier directement le values.yaml d'un chart Bitnami ou tiers
+content: Créer values-dev.yaml, values-staging.yaml, values-prod.yaml dans son propre dépôt. Ne jamais toucher au values.yaml du chart Bitnami — c'est sa propriété et il sera écrasé à la mise à jour.
+-->
+
+<!-- snippet
+id: helm_helmfile_apply
+type: command
+tech: kubernetes
+level: advanced
+importance: medium
+format: knowledge
+tags: helm,helmfile,apply,multi-environnement,orchestration
+title: Déployer tout un environnement avec Helmfile
+context: orchestrer plusieurs releases Helm en une seule commande
+command: helmfile apply
+description: Applique tous les charts listés dans helmfile.yaml pour l’environnement cible. Utiliser `helmfile diff` pour prévisualiser les changements avant d’appliquer.
+-->
+
+<!-- snippet
+id: helm_warning_rollback_data
+type: warning
+tech: kubernetes
+level: intermediate
+importance: high
+format: knowledge
+tags: helm,rollback,stateful,données,base-de-données
+title: Helm rollback ne restaure pas les données stateful
+context: utiliser le rollback Helm sur un service avec base de données
+content: helm rollback remet l’ancienne configuration (image, replicas), mais ne restaure pas les données dans les PersistentVolumes. Toujours sauvegarder la DB avant un upgrade qui touche le schéma.
+-->

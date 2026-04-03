@@ -374,4 +374,78 @@ Avec ce process, tu es capable de :
 
 ---
 [← Module précédent](M41_projet-board-J01.md) | [Module suivant →](M41_projet-J1-swarm-ansible.md)
+
+---
+
+<!-- snippet
+id: ansible_pro_swarm_init_command
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,init,manager,advertise-addr
+title: Initialiser un cluster Docker Swarm sur le manager
+context: Démarrer un cluster Swarm et récupérer le token de join pour les workers
+command: docker swarm init --advertise-addr <IP_PRIVEE_APP_VM>
+description: Utiliser l'IP privée de la VM manager (pas l'IP publique). La commande retourne un token docker swarm join à utiliser sur les workers. Vérifier l'état du cluster avec docker node ls depuis le manager.
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_node_label
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,labels,placement,node
+title: Assigner des labels de rôle aux nœuds Swarm
+context: Cibler des VMs spécifiques pour le placement des services avec des contraintes Swarm
+command: docker node update --label-add role=app app-vm
+description: Exécuter depuis le manager uniquement. Remplacer role=app par role=db ou role=monitoring selon le nœud cible. Les labels sont ensuite utilisés dans compose.yml via placement.constraints (node.labels.role == app). Vérifier avec docker node inspect <node> --pretty.
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_stack_deploy
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: swarm,stack,deploy,compose
+title: Déployer une stack Docker Swarm depuis un compose.yml
+context: Déployer et gérer une stack multi-services sur un cluster Swarm
+command: docker stack deploy -c compose.yml mystack
+description: Exécuter depuis le manager. Vérifier avec docker stack ls, docker stack services mystack, docker stack ps mystack. Pour les migrations, démarrer avec replicas:1 puis scaler avec docker service scale mystack_nocodb=2 une fois les migrations terminées.
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_scale
+type: command
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: swarm,scale,replicas,services
+title: Scaler un service Docker Swarm
+context: Augmenter ou diminuer le nombre de replicas d'un service après déploiement
+command: docker service scale mystack_nocodb=4
+description: Vérifier la répartition des tâches avec docker service ps mystack_nocodb. En production, démarrer avec 1 replica pour les migrations de BDD, puis scaler. Les contraintes placement garantissent que les replicas restent sur les nœuds au bon label de rôle.
+-->
+
+<!-- snippet
+id: ansible_pro_swarm_no_container_name
+type: warning
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: swarm,compose,container_name,restart
+title: Incompatibilités compose.yml en mode Docker Swarm
+context: Adapter un fichier compose.yml classique pour Docker Swarm
+content: En mode Swarm, container_name est ignoré et restart:always est remplacé par deploy.restart_policy. Le réseau overlay doit être déclaré explicitement avec driver:overlay.
+-->
+
+---
+[← Module précédent](M41_projet-board-J01.md) | [Module suivant →](M41_projet-J1-swarm-ansible.md)
 ---

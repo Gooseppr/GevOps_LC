@@ -323,6 +323,99 @@ unit_tests:
 > L’intégration continue (CI) est le socle de la qualité logicielle.
 > Elle garantit que chaque changement de code est testé, validé et prêt à être déployé.
 
+
+
+<!-- snippet
+id: cicd_ci_definition
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: ci,devops,integration-continue,definition
+title: Qu'est-ce que l'intégration continue (CI) ?
+context: comprendre le principe fondamental de la CI avant de configurer un pipeline
+content: La CI intègre fréquemment le code dans une branche commune et déclenche automatiquement des vérifications (lint, tests, build) à chaque push. Objectif : détecter les erreurs le plus tôt possible.
+-->
+
+<!-- snippet
+id: cicd_gitlab_ci_basic_structure
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: gitlab,ci,yaml,stages,jobs
+title: Structure de base d'un fichier .gitlab-ci.yml
+context: écrire un premier pipeline GitLab CI fonctionnel
+content: Un pipeline GitLab CI se compose de stages (ordre d'exécution) et de jobs (blocs nommés avec stage + script). Les jobs d'un même stage s'exécutent en parallèle, les stages en séquence.
+-->
+
+<!-- snippet
+id: cicd_gitlab_needs_keyword
+type: tip
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: gitlab,ci,needs,dépendances,jobs
+title: Dépendances inter-jobs avec needs dans GitLab CI
+context: faire démarrer un job build dès que les tests sont terminés, sans attendre le stage entier
+content: Le mot-clé `needs` permet de définir des dépendances directes entre jobs. Un job peut démarrer dès que son job prérequis est terminé, sans attendre la fin de tout le stage.
+-->
+
+<!-- snippet
+id: cicd_ci_vs_cd
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: ci,cd,devops,differentiation
+title: Différence entre CI et CD
+context: clarifier les responsabilités de chaque pratique dans la chaîne DevOps
+content: CI = automatiser les tests, builds et vérifications du code source. CD = automatiser la promotion et le déploiement de l'artefact validé vers les environnements cibles. La CI précède toujours le CD.
+-->
+
+<!-- snippet
+id: cicd_gitlab_artifacts_cache
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: gitlab,ci,artifacts,cache,optimisation
+title: Artefacts et cache dans GitLab CI
+context: partager des fichiers entre jobs et accélérer les pipelines
+content: Les `artifacts` sauvegardent des fichiers produits par un job (rapport de test, binaire) pour les télécharger ou les transmettre à un job suivant.
+-->
+
+<!-- snippet
+id: cicd_gitlab_cache_tip
+type: tip
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: gitlab,ci,cache,node_modules,optimisation
+title: Utiliser le cache pour accélérer les pipelines GitLab CI
+context: éviter de retélécharger les dépendances npm ou pip à chaque run de pipeline
+content: Le `cache` stocke des répertoires entre plusieurs exécutions de pipeline (ex. node_modules/). Il accélère les pipelines en évitant de retélécharger les dépendances à chaque run.
+-->
+
+<!-- snippet
+id: cicd_gitlab_conditional_pipeline
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: gitlab,ci,only,rules,conditions
+title: Pipelines conditionnels avec only/rules dans GitLab CI
+context: exécuter des jobs uniquement dans certains contextes (MR, tag, branche main)
+content: `only: [merge_requests]` exécute le job sur les MR. `only: [main]` sur la branche principale. `only: [tags]` lors d'un tag. La syntaxe moderne `rules:` avec `if:` offre plus de flexibilité.
+-->
+
 ---
 [Module suivant →](M18_Cours_GitLab_Runner.md)
 ---

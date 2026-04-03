@@ -158,3 +158,80 @@ Le réseau overlay permet de :
 ## Notes
 
 *Overlay network : réseau permettant la communication entre conteneurs sur plusieurs machines
+
+---
+
+<!-- snippet
+id: docker_swarm_overlay_definition
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,overlay,reseau,multi-nodes
+title: Overlay network dans Docker Swarm
+content: Un overlay network connecte des conteneurs répartis sur plusieurs machines comme s'ils étaient sur le même réseau local.
+-->
+
+<!-- snippet
+id: docker_swarm_overlay_vs_bridge
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,overlay,reseau,bridge
+title: Overlay vs bridge — réseau Docker Swarm
+content: Le bridge est limité à une machine (Docker classique). L'overlay fonctionne sur plusieurs machines — c'est le réseau adapté à Docker Swarm.
+-->
+
+<!-- snippet
+id: docker_swarm_network_create_overlay
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,overlay,reseau
+title: Créer un réseau overlay
+command: docker network create --driver overlay <NOM>
+description: Crée un réseau distribué accessible par tous les nœuds du cluster Swarm.
+-->
+
+<!-- snippet
+id: docker_swarm_service_avec_reseau
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,service,overlay,reseau
+title: Déployer un service avec un réseau overlay
+command: docker service create --name <NOM> --network <NOM> <IMAGE>
+description: Attache le service au réseau overlay, permettant la communication avec d'autres services sur n'importe quel nœud du cluster.
+-->
+
+<!-- snippet
+id: docker_swarm_bridge_vs_overlay
+type: concept
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,overlay,bridge,reseau,comparaison
+title: Bridge vs Overlay network
+content: Le réseau bridge est limité à une machine (Docker classique). Le réseau overlay fonctionne sur plusieurs machines, indispensable pour Swarm.
+-->
+
+<!-- snippet
+id: docker_swarm_ports_firewall
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,overlay,reseau,firewall,ports
+title: Ports réseau nécessaires pour Swarm
+content: Swarm utilise des ports spécifiques : 2377 TCP (management), 7946 TCP/UDP (découverte), 4789 UDP (overlay). Si le firewall bloque ces ports, la communication inter-nœuds échoue.
+-->
+

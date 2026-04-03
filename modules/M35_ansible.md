@@ -838,6 +838,105 @@ Ton module avancé pourra ensuite couvrir :
 - la gestion d’environnements multi-cloud,
 - la structure **production-grade**.
 
+
+
+---
+
+<!-- snippet
+id: ansible_install_ppa
+type: command
+tech: ansible
+level: beginner
+importance: high
+format: knowledge
+tags: ansible,install,ubuntu,ppa
+title: Ajouter le dépôt PPA officiel d'Ansible
+context: avant d'installer Ansible sur Ubuntu/Debian
+command: sudo add-apt-repository --yes --update ppa:ansible/ansible
+description: Ajoute le dépôt PPA pour obtenir la dernière version stable, plus récente que celle des dépôts Ubuntu par défaut.
+-->
+
+<!-- snippet
+id: ansible_install_ubuntu
+type: command
+tech: ansible
+level: beginner
+importance: high
+format: knowledge
+tags: ansible,install,ubuntu,ppa
+title: Installer Ansible sur Ubuntu/Debian
+context: après avoir ajouté le PPA ansible/ansible
+command: sudo apt install -y ansible
+description: À exécuter sur la machine de contrôle uniquement, jamais sur les serveurs cibles. Vérifier ensuite avec ansible --version.
+-->
+
+<!-- snippet
+id: ansible_playbook_run
+type: command
+tech: ansible
+level: beginner
+importance: high
+format: knowledge
+tags: ansible,playbook,inventaire,exécution
+title: Lancer un playbook Ansible avec un inventaire
+context: déployer une configuration sur des serveurs distants via un playbook Ansible
+command: ansible-playbook -i inventory/hosts.yml site.yml
+description: Exécute le playbook site.yml en utilisant l'inventaire hosts.yml. Ajoutez -v, -vv ou -vvv pour augmenter la verbosité et déboguer. Ajoutez --check pour un dry-run sans modification réelle.
+-->
+
+<!-- snippet
+id: ansible_vault_create
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,vault,secrets,chiffrement
+title: Créer un fichier de secrets chiffré avec Ansible Vault
+context: stocker des mots de passe ou clés API chiffrés dans Git
+command: ansible-vault create group_vars/prod/vault.yml
+description: Ouvre un éditeur pour saisir des variables YAML sensibles, puis les chiffre avec un mot de passe. Le fichier résultant peut être versionné dans Git sans exposer les secrets. Pour l'utiliser lors d'un playbook : ajoutez --ask-vault-pass.
+-->
+
+<!-- snippet
+id: ansible_ad_hoc_ping
+type: command
+tech: ansible
+level: beginner
+importance: medium
+format: knowledge
+tags: ansible,ad-hoc,ping,test-connexion
+title: Tester la connectivité SSH avec Ansible ad-hoc
+context: vérifier qu'Ansible peut joindre tous les serveurs de l'inventaire
+command: ansible all -i inventory/hosts.yml -m ping
+description: Fait une vraie connexion SSH et vérifie Python sur chaque hôte. Répond "pong" si tout est OK.
+-->
+
+<!-- snippet
+id: ansible_terraform_inventory_chain
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,terraform,inventaire,pipeline,intégration
+title: Enchaîner Terraform et Ansible dans un pipeline DevOps
+context: configurer automatiquement des serveurs après leur création par Terraform
+content: Après terraform apply, récupérez l'IP avec terraform output -raw web_ip > inventory/hosts. Puis lancez ansible-playbook -i inventory/hosts playbook.yml. Cette chaîne Terraform (crée l'infra) → Ansible (configure les serveurs) est le pattern standard DevOps. Terraform peut aussi générer un fichier d'inventaire YAML complet via un local-exec ou un module dédié.
+-->
+
+<!-- snippet
+id: ansible_handlers_concept
+type: concept
+tech: ansible
+level: beginner
+importance: medium
+format: knowledge
+tags: ansible,handlers,notify,idempotence,service
+title: Handlers Ansible : déclenchement conditionnel par notify
+content: Un handler n'est exécuté que si une tâche l'a notifié (état `changed`). Il s'exécute une seule fois en fin de play, même si plusieurs tâches le déclenchent. Évite les redémarrages inutiles de services.
+-->
+
 ---
 [Module suivant →](M35_ansible-avancé.md)
 ---

@@ -881,3 +881,115 @@ class A:
 Ce document rassemble **toutes les briques natives** pour écrire des scripts Python efficaces et évolutifs — **sans dépendances externes**.
 
 Tu peux automatiser des tâches, manipuler des fichiers/texte, structurer ton code avec **fonctions** et **classes**, et exposer une API propre grâce aux **propriétés** et aux **dunders** essentiels.
+
+---
+
+<!-- snippet
+id: python_install_linux
+type: command
+tech: python
+level: beginner
+tags: installation,linux,bash
+title: Installer Python 3 sur Linux
+command: sudo apt update && sudo apt install -y python3
+description: Installe Python 3 via apt sur une distribution Debian/Ubuntu
+-->
+
+<!-- snippet
+id: python_fstring_format
+type: concept
+tech: python
+level: beginner
+tags: string,format,fstring
+title: F-strings — formatage de chaînes
+content: Les f-strings (`f"{variable}"`) insèrent variables et expressions directement dans une chaîne. Plus lisible que la concaténation et le formatage `%` ou `.format()`.
+description: Méthode recommandée pour formater des chaînes en Python moderne
+-->
+
+<!-- snippet
+id: python_mutable_default_arg
+type: warning
+tech: python
+level: intermediate
+tags: fonction,paramètre,piège,mutables
+title: Ne pas utiliser d'objet mutable comme valeur par défaut
+content: Une liste ou un dict en valeur par défaut est créé une seule fois à la définition, puis partagé entre tous les appels — le comportement est inattendu.
+description: Piège fréquent en Python avec les paramètres par défaut mutables
+-->
+
+<!-- snippet
+id: python_mutable_default_arg_b
+type: warning
+tech: python
+level: intermediate
+tags: fonction,paramètre,piège,mutables
+title: Utiliser None comme valeur par défaut pour les mutables
+content: Utiliser `None` comme valeur par défaut et créer l'objet mutable (liste, dict) dans le corps de la fonction pour éviter l'état partagé entre appels.
+description: Correction du piège des paramètres mutables par défaut
+-->
+
+<!-- snippet
+id: python_list_operations
+type: command
+tech: python
+level: beginner
+tags: liste,collection,append,pop,sort
+title: Opérations de base sur les listes
+command: lst = [1,2,3]; lst.append(4); lst.pop(); lst.sort(); lst.reverse()
+description: Principales méthodes pour manipuler une liste Python
+-->
+
+<!-- snippet
+id: python_exception_handling
+type: concept
+tech: python
+level: beginner
+tags: exception,try,except,raise
+title: Gestion des exceptions avec try/except
+content: Le bloc try contient le code qui peut échouer. except attrape un type d'exception précis. finally s'exécute toujours. raise permet de lever manuellement une exception avec un message personnalisé.
+description: Mécanisme standard de gestion des erreurs en Python
+-->
+
+<!-- snippet
+id: python_class_init
+type: concept
+tech: python
+level: intermediate
+tags: classe,oop,init,self
+title: Constructeur __init__ et référence self
+content: `__init__` est le constructeur appelé à chaque création d'instance. `self` référence l'objet courant et doit être le premier paramètre de chaque méthode.
+description: Base de la programmation orientée objet en Python
+-->
+
+<!-- snippet
+id: python_class_init_b
+type: concept
+tech: python
+level: intermediate
+tags: classe,oop,init,self
+title: Attributs d'instance vs attributs de classe
+content: Les attributs d'instance (définis via `self.x`) sont propres à chaque objet. Les attributs de classe (définis hors de `__init__`) sont partagés par toutes les instances.
+description: Distinction fondamentale entre attributs d'instance et attributs de classe
+-->
+
+<!-- snippet
+id: python_property_decorator
+type: tip
+tech: python
+level: intermediate
+tags: property,encapsulation,setter,validation
+title: Utiliser @property pour encapsuler et valider
+content: `@property` transforme une méthode en attribut lisible. `@<nom>.setter` permet de valider la valeur avant affectation, sans casser l'API publique.
+description: Bonne pratique OOP pour contrôler l'accès aux attributs
+-->
+
+<!-- snippet
+id: python_falsy_values
+type: concept
+tech: python
+level: beginner
+tags: booléen,falsy,truthy,condition
+title: Valeurs falsy en Python
+content: Sont considérées comme fausses (falsy) : False, None, 0, 0.0, chaîne vide "", liste vide [], dict vide {}, set vide set(). Tout le reste est truthy. Utile pour écrire des conditions concises.
+description: Référence rapide sur les valeurs évaluées à False en Python
+-->

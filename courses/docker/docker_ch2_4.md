@@ -181,5 +181,67 @@ Optimiser une image permet de :
 
 ## Notes
 
-*Layer : couche créée à chaque instruction  
+*Layer : couche créée à chaque instruction
 *Cache : mécanisme de réutilisation des couches
+
+---
+
+<!-- snippet
+id: docker_layer_definition
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: layers,image,build,optimisation
+title: Définition d'un layer Docker
+content: Chaque instruction du Dockerfile crée une couche (layer). Une image Docker est un empilement de couches superposées.
+-->
+
+<!-- snippet
+id: docker_cache_definition
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: cache,build,performance
+title: Le cache Docker
+content: Docker réutilise automatiquement les couches déjà construites si rien n'a changé. Si une instruction change, toutes les couches suivantes sont reconstruites.
+-->
+
+<!-- snippet
+id: docker_piege_copy_trop_tot
+type: warning
+tech: docker
+level: intermediate
+importance: low
+format: knowledge
+tags: copy,cache,build,performance
+title: COPY trop tôt invalide le cache
+content: Mettre COPY . . avant RUN npm install invalide le cache dès la moindre modification de code, forçant une réinstallation complète des dépendances. Cela peut multiplier le temps de build par 10.
+-->
+
+<!-- snippet
+id: docker_tip_ordre_stabilite
+type: tip
+tech: docker
+level: intermediate
+importance: low
+format: knowledge
+tags: dockerfile,ordre,cache,optimisation
+title: Placer les éléments stables en haut du Dockerfile
+content: Les instructions qui changent rarement (FROM, installation de dépendances) doivent être placées en haut. Le code source, qui change souvent, doit être copié en dernier.
+-->
+
+<!-- snippet
+id: docker_optimisation_node_pattern
+type: concept
+tech: docker
+level: intermediate
+importance: low
+format: knowledge
+tags: node,npm,cache,pattern,optimisation
+title: Pattern optimal pour Node.js
+content: Pour un projet Node.js : copier package.json en premier, lancer npm install, puis copier le code source. Les dépendances sont ainsi cachées et ne sont réinstallées que si package.json change.
+-->

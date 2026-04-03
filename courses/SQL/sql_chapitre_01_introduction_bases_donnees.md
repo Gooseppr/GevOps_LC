@@ -212,3 +212,16 @@ Dans ce chapitre nous avons vu :
 - comment une application interagit avec une base de données
 
 Dans le prochain chapitre nous verrons **le modèle relationnel**, qui est la base théorique du SQL.
+
+<!-- snippet
+id: sql_definition_langage
+type: concept
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,definition,sgbd,langage
+title: SQL est un langage de requête, pas un moteur
+content: SQL (Structured Query Language) permet de communiquer avec une base de données. Il ne stocke pas les données lui-même — c'est le SGBD (PostgreSQL, MySQL, SQLite…) qui s'en charge.
+description: Confondre SQL et le moteur de base de données est une erreur fréquente chez les débutants.
+-->

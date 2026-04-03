@@ -280,6 +280,62 @@ Une architecture typique moderne ressemble à ceci :
 > Matériel physique → Hyperviseur → VM Linux → Docker / Kubernetes → Conteneurs applicatifs
 >
 
+
+
+---
+
+<!-- snippet
+id: docker_module_virtualisation_concept
+type: concept
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: virtualisation,hyperviseur,vm,conteneur
+title: Virtualisation vs conteneurisation
+context: comprendre la différence entre une VM et un conteneur Docker
+content: Une VM simule un ordinateur complet avec son propre OS — isolation forte, démarrage lent, plusieurs Go. Un conteneur partage le noyau de l'hôte : léger et instantané, mais isolation moindre.
+-->
+
+<!-- snippet
+id: docker_module_hyperviseur_type1_concept
+type: concept
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: virtualisation,hyperviseur,bare-metal,esxi
+title: Hyperviseur de type 1 vs type 2
+context: choisir le bon outil de virtualisation selon l'environnement
+content: L'hyperviseur de type 1 (ESXi, KVM, Proxmox) s'installe sur le matériel — performances maximales, pour la production. Le type 2 (VirtualBox, VMware Workstation) s'installe sur un OS existant — idéal pour les labs.
+-->
+
+<!-- snippet
+id: docker_module_conteneurisation_avantages
+type: tip
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,conteneur,portabilité,microservices
+title: Les quatre garanties clés de Docker
+context: justifier l'utilisation de Docker en entretien ou en équipe
+content: Docker garantit l'isolation (pas d'interférences), la reproductibilité (même comportement partout) et la portabilité (build once, run anywhere). Instanciation en quelques secondes.
+-->
+
+<!-- snippet
+id: docker_module_vm_conteneur_comparaison
+type: concept
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: vm,conteneur,comparaison,isolation
+title: Tableau comparatif VM vs Conteneur
+context: répondre à la question "quand utiliser une VM plutôt qu'un conteneur ?"
+content: VM : OS complet, isolation forte, démarrage lent, plusieurs Go — pour simuler un serveur entier. Conteneur : noyau partagé, démarrage instantané, quelques centaines de Mo — pour un microservice.
+-->
+
 ---
 [Module suivant →](M11_dockers.md)
 ---

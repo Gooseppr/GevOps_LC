@@ -149,6 +149,82 @@ Docker propose plusieurs types de réseaux :
 
 ## Notes
 
-*Bridge : réseau par défaut avec isolation  
-*Host : réseau partagé avec la machine  
+*Bridge : réseau par défaut avec isolation
+*Host : réseau partagé avec la machine
 *None : aucun réseau
+
+---
+
+<!-- snippet
+id: docker_network_type_bridge_concept
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,bridge,isolation,type
+title: Réseau bridge — type par défaut avec isolation
+content: Le réseau bridge est le type de réseau Docker le plus utilisé. Les conteneurs sont isolés entre eux sauf s'ils partagent un réseau. C'est le choix recommandé dans la majorité des cas.
+-->
+
+<!-- snippet
+id: docker_network_host_run
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,host,performance,run
+title: Lancer un conteneur avec le réseau host
+command: docker run --network host <IMAGE>
+description: Lance un conteneur en partageant directement le réseau de la machine hôte. Il n'y a aucune isolation réseau : les ports du conteneur sont directement accessibles sur la machine.
+-->
+
+<!-- snippet
+id: docker_network_none_run
+type: command
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,none,isolation,run
+title: Lancer un conteneur sans réseau
+command: docker run --network none <IMAGE>
+description: Lance un conteneur sans aucune interface réseau. Le conteneur ne peut ni envoyer ni recevoir de trafic réseau, ce qui offre une isolation totale.
+-->
+
+<!-- snippet
+id: docker_network_host_warning
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,host,isolation,securite,piege
+title: Le mode host supprime l'isolation réseau
+content: Utiliser --network host supprime complètement l'isolation réseau du conteneur. Cela peut créer des conflits de ports et des problèmes de sécurité. À utiliser uniquement dans des cas spécifiques.
+-->
+
+<!-- snippet
+id: docker_network_bridge_defaut
+type: tip
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,bridge,conseil,defaut
+title: Le mode bridge est suffisant dans 90% des cas
+content: Sauf besoin de performance extrême (host) ou d'isolation totale (none), le mode bridge couvre la quasi-totalité des besoins courants en architecture Docker.
+-->
+
+<!-- snippet
+id: docker_network_niveau_isolation
+type: concept
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: reseau,type,isolation,bridge,host
+title: Chaque type de réseau correspond à un niveau d'isolation
+content: Bridge offre isolation avec communication possible, host partage le réseau de la machine (aucune isolation), none isole totalement le conteneur de tout réseau.
+-->

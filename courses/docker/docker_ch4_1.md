@@ -173,3 +173,67 @@ Docker Compose permet de :
 ## Notes
 
 *Docker Compose : outil permettant de gérer plusieurs conteneurs avec un fichier YAML
+
+---
+
+<!-- snippet
+id: docker_compose_up_detached
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,stack,daemon
+title: Lancer une stack Compose en arrière-plan
+command: docker compose up -d
+description: Lance tous les services définis dans docker-compose.yml en mode détaché (arrière-plan).
+-->
+
+<!-- snippet
+id: docker_compose_down
+type: command
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,stack,cleanup
+title: Arrêter et supprimer une stack Compose
+command: docker compose down
+description: Arrête les conteneurs et supprime les réseaux créés par Compose.
+-->
+
+<!-- snippet
+id: docker_compose_definition
+type: concept
+tech: docker
+level: intermediate
+importance: high
+format: knowledge
+tags: compose,orchestration
+title: Docker Compose — définir et lancer plusieurs conteneurs
+content: Outil permettant de définir et lancer plusieurs conteneurs avec un seul fichier YAML (docker-compose.yml). Chaque service = un conteneur.
+-->
+
+<!-- snippet
+id: docker_compose_source_of_truth
+type: warning
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,bonnes-pratiques
+title: Ne jamais modifier les conteneurs à la main
+content: Modifier un conteneur manuellement casse la cohérence avec le fichier Compose. Le fichier docker-compose.yml doit rester la seule source de vérité.
+-->
+
+<!-- snippet
+id: docker_compose_auto_network
+type: tip
+tech: docker
+level: intermediate
+importance: medium
+format: knowledge
+tags: compose,reseau
+title: Réseau automatique entre services Compose
+content: Compose crée automatiquement un réseau partagé entre tous les services. Pas besoin de docker network create manuellement.
+-->

@@ -237,6 +237,102 @@ Emplacement : `/etc/gitlab-runner/config.toml`
 Tu maîtrises maintenant les **GitLab Runners**, leur fonctionnement,
 leur installation, leur configuration et leur gestion quotidienne.
 
+
+
+<!-- snippet
+id: gitlab_runner_install_linux
+type: command
+tech: gitlab
+level: beginner
+importance: high
+format: knowledge
+tags: gitlab,runner,installation,linux
+title: Installer GitLab Runner sur Linux
+context: mettre en place un runner GitLab sur une machine Linux
+command: curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash && sudo apt-get install -y gitlab-runner
+description: Ajoute le dépôt officiel GitLab Runner puis installe le paquet sur Debian/Ubuntu
+-->
+
+<!-- snippet
+id: gitlab_runner_register
+type: command
+tech: gitlab
+level: beginner
+importance: high
+format: knowledge
+tags: gitlab,runner,enregistrement,token
+title: Enregistrer un GitLab Runner
+context: lier un runner à un projet GitLab avant de pouvoir exécuter des jobs
+command: gitlab-runner register --url https://gitlab.com --token TON_TOKEN_PRIVÉ
+description: Lance l'assistant interactif d'enregistrement qui configure l'URL GitLab, le token, les tags et l'exécuteur (shell, docker, etc.)
+-->
+
+<!-- snippet
+id: gitlab_runner_status
+type: command
+tech: gitlab
+level: beginner
+importance: medium
+format: knowledge
+tags: gitlab,runner,monitoring
+title: Vérifier l'état d'un GitLab Runner
+context: surveiller si le runner est actif et connecté à GitLab
+command: gitlab-runner status && gitlab-runner verify
+description: Affiche l'état du service runner puis vérifie la connectivité réseau avec le serveur GitLab
+-->
+
+<!-- snippet
+id: gitlab_runner_executors
+type: concept
+tech: gitlab
+level: intermediate
+importance: high
+format: knowledge
+tags: gitlab,runner,docker,kubernetes,shell
+title: Modes d'exécution d'un GitLab Runner
+context: choisir le bon mode d'exécution selon les besoins du projet
+content: Un runner s'exécute en mode Shell (direct sur l'hôte), Docker (conteneur isolé par job), Docker Machine (VMs à la demande) ou Kubernetes (pods).
+-->
+
+<!-- snippet
+id: gitlab_runner_docker_recommended
+type: tip
+tech: gitlab
+level: intermediate
+importance: medium
+format: knowledge
+tags: gitlab,runner,docker,isolation,reproductibilité
+title: Le mode Docker est recommandé pour les runners GitLab
+context: choisir le mode d'exécution d'un runner GitLab selon les besoins du projet
+content: Le mode Docker est recommandé car chaque job tourne dans un conteneur propre et isolé. Il garantit la reproductibilité et évite les effets de bord entre jobs.
+-->
+
+<!-- snippet
+id: gitlab_runner_tags_matching
+type: concept
+tech: gitlab
+level: intermediate
+importance: high
+format: knowledge
+tags: gitlab,runner,tags,job
+title: Liaison tags runner / job GitLab CI
+context: s'assurer qu'un job est exécuté par le bon runner
+content: Les tags du runner doivent correspondre à ceux du job YAML. Sans correspondance, le job reste en attente indéfiniment. Utiliser des noms explicites (docker, node18).
+-->
+
+<!-- snippet
+id: gitlab_runner_config_toml
+type: concept
+tech: gitlab
+level: advanced
+importance: medium
+format: knowledge
+tags: gitlab,runner,config,toml,docker
+title: Configuration avancée via config.toml
+context: personnaliser le comportement du runner au niveau système
+content: /etc/gitlab-runner/config.toml règle l'image Docker par défaut, le mode privileged (Docker-in-Docker), le cache et la vérification TLS. À modifier après enregistrement.
+-->
+
 ---
 [← Module précédent](M18_intégration-continue.md) | [Module suivant →](M18_azure_devops.md)
 ---

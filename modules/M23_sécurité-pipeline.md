@@ -514,7 +514,105 @@ fi
 ## 💬 À retenir
 
 > Un pipeline non sécurisé est une autoroute pour les attaquants.
-> 
-> 
+>
+>
 > La sécurité doit être visible, mesurable et intégrée **dès la première ligne de code**.
 >
+
+---
+
+<!-- snippet
+id: cicd_trivy_scan_image
+type: command
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: trivy,docker,securite,vulnerabilite,scan
+title: Scanner une image Docker avec Trivy
+context: détecter les vulnérabilités dans une image Docker avant le déploiement
+command: trivy image monimage:latest --exit-code 1 --severity CRITICAL
+description: Scanne l'image Docker à la recherche de paquets vulnérables, de secrets exposés et de CVE connus. --exit-code 1 fait échouer la commande (et donc le job CI) si une vulnérabilité CRITICAL est trouvée. Sans --exit-code, le scan s'affiche sans bloquer.
+-->
+
+<!-- snippet
+id: cicd_hadolint_dockerfile
+type: command
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: hadolint,dockerfile,lint,securite,bonnes-pratiques
+title: Analyser un Dockerfile avec Hadolint
+context: détecter les mauvaises pratiques de sécurité dans un Dockerfile avant le build
+command: docker run --rm -i hadolint/hadolint < Dockerfile
+description: Analyse le Dockerfile et signale les problèmes : usage de FROM image:latest (interdit), absence de version fixe dans apt-get install, usage de root dans le conteneur. Ne nécessite pas d'installation locale de Hadolint.
+-->
+
+<!-- snippet
+id: cicd_devsecops_shift_left
+type: concept
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: devsecops,shift-left,securite,pipeline,ci
+title: DevSecOps et principe du Shift Left
+context: comprendre pourquoi intégrer la sécurité dès le début du cycle de développement
+content: Le Shift Left déplace la sécurité vers le début du cycle de développement. Mieux vaut détecter une faille avant le commit qu'après le déploiement.
+-->
+
+<!-- snippet
+id: cicd_secrets_protection
+type: warning
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: secrets,variables,masque,pipeline,securite
+title: Protéger les secrets dans un pipeline CI/CD
+context: éviter l'exposition de clés API, tokens et mots de passe dans les logs ou le dépôt
+content: Ne jamais commiter de secrets dans le code — Git conserve l'historique indéfiniment. Utiliser les variables CI/CD masquées (masked: true) ou HashiCorp Vault.
+-->
+
+<!-- snippet
+id: cicd_cosign_sign
+type: command
+tech: cicd
+level: advanced
+importance: medium
+format: knowledge
+tags: cosign,signature,artefact,supply-chain,securite
+title: Signer une image Docker avec Cosign
+context: garantir l'intégrité d'une image Docker contre les attaques supply chain
+command: cosign sign --key cosign.key monimage:latest
+description: Signe l'image avec la clé privée (cosign.key) et publie la signature dans le registre OCI aux côtés de l'image.
+-->
+
+<!-- snippet
+id: cicd_cosign_verify
+type: command
+tech: cicd
+level: advanced
+importance: medium
+format: knowledge
+tags: cosign,verification,artefact,supply-chain,securite
+title: Vérifier la signature d'une image avec Cosign
+context: bloquer le déploiement si la signature est invalide ou absente
+command: cosign verify --key cosign.pub monimage:latest
+description: Vérifie la signature avec la clé publique (cosign.pub). Dans le pipeline, ajouter || exit 1 pour bloquer le déploiement si la vérification échoue.
+-->
+
+<!-- snippet
+id: cicd_dependency_check_sca
+type: command
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: owasp,dependency-check,sca,cve,vulnerabilite
+title: Analyser les dépendances avec OWASP Dependency-Check
+context: détecter les bibliothèques vulnérables (CVE) dans les dépendances du projet
+command: dependency-check.sh --project "mon-app" --scan . --format HTML --out report/
+description: Analyse toutes les dépendances du projet et génère un rapport HTML des CVE connues. Pour bloquer le pipeline en cas de faille critique, ajouter une vérification du rapport : grep -q "CRITICAL" report/ || exit 1. S'intègre dans un stage security du pipeline CI/CD.
+-->

@@ -379,6 +379,89 @@ Options utiles côté master :
 - [Exemples GitLab CI/CD Load Testing](https://docs.gitlab.com/ee/ci/testing/load_performance_testing.html)
 - [Tutoriel vidéo Locust & Python](https://www.youtube.com/results?search_query=locust+python+tutorial)
 
+
+
+<!-- snippet
+id: cicd_locust_install
+type: command
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: locust,python,load-test,installation
+title: Installer Locust via pip
+context: préparer l'environnement pour des tests de montée en charge en Python
+command: pip install locust
+description: Installe Locust et ses dépendances. Après installation, créer un locustfile.py puis lancer avec locust -f locustfile.py.
+-->
+
+<!-- snippet
+id: cicd_locust_run
+type: command
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: locust,python,load-test,performance
+title: Lancer Locust avec l'interface web
+context: démarrer les tests de charge et configurer le nombre d'utilisateurs
+command: locust -f locustfile.py --host http://127.0.0.1:8000
+description: Démarre Locust avec l'interface web sur http://localhost:8089. Saisir le nombre d'utilisateurs simultanés et le spawn rate avant de lancer le test.
+-->
+
+<!-- snippet
+id: cicd_locust_headless_ci
+type: command
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: locust,headless,ci,csv,rapport
+title: Exécuter Locust en mode headless pour la CI
+context: intégrer un test de charge Locust dans un pipeline sans interface graphique
+command: locust -f locustfile.py --headless --only-summary -u 50 -r 5 -t 2m --host http://app:5000 --csv=results
+description: Lance Locust sans UI avec 50 utilisateurs, un spawn rate de 5/s pendant 2 minutes. --only-summary affiche uniquement le résumé final (propre en CI). --csv exporte les métriques dans results_stats.csv et results_failures.csv.
+-->
+
+<!-- snippet
+id: cicd_locust_locustfile_structure
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: locust,locustfile,HttpUser,task,python
+title: Structure d'un locustfile.py
+context: écrire un premier fichier de scénario utilisateur pour Locust
+content: Un locustfile.py définit une classe héritant de HttpUser avec wait_time = between(min, max) (délai entre requêtes) et des méthodes décorées @task (actions à répéter). self.client.get('/path') effectue une requête HTTP. Plusieurs @task peuvent coexister dans une même classe pour simuler des comportements variés.
+-->
+
+<!-- snippet
+id: cicd_locust_key_metrics
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: locust,metriques,rps,response-time,analyse
+title: Métriques clés à analyser dans Locust
+context: interpréter les résultats d'un test de charge pour identifier les goulets d'étranglement
+content: RPS (Requests per Second) = nombre de requêtes traitées par seconde. Response Time (ms) = temps moyen de réponse. Fail % = taux d'erreur. Users = nombre d'utilisateurs actifs. Un Fail % élevé ou un temps de réponse qui explose indique le seuil critique de l'application. Surveiller aussi CPU, RAM et I/O sur le serveur pendant le test.
+-->
+
+<!-- snippet
+id: cicd_locust_distributed
+type: concept
+tech: cicd
+level: advanced
+importance: low
+format: knowledge
+tags: locust,distribue,master,worker,scalabilite
+title: Exécution distribuée Locust (master/workers)
+context: générer une charge plus importante en répartissant les utilisateurs sur plusieurs machines
+content: Démarrer un master (--master) et un ou plusieurs workers (--worker --master-host ADRESSE). Le master centralise les stats et coordonne les workers. Utiliser --expect-workers N pour attendre N workers avant de démarrer. Permet de simuler des milliers d'utilisateurs répartis sur plusieurs instances.
+-->
+
 ---
 [Module suivant →](M21_Artillery.md)
 ---

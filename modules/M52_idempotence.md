@@ -219,6 +219,100 @@ Cette phase de refactorisation nous a permis de transformer un déploiement fonc
 
 Elle illustre parfaitement l’importance de l’idempotence dans une approche DevOps, en particulier dans des environnements distribués comme Docker Swarm.
 
+
+
+<!-- snippet
+id: ansible_adv_idempotence_definition
+type: concept
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,idempotence,qualité,état
+title: Définition et critères de l'idempotence dans Ansible
+context: Évaluer si un playbook Ansible respecte le principe d'idempotence
+content: Un playbook idempotent produit le même état final à chaque exécution. La première configure ; les suivantes retournent "ok". Ansible décrit un état cible, pas des actions séquentielles.
+-->
+
+<!-- snippet
+id: ansible_adv_swarm_worker_conditional_join
+type: concept
+tech: ansible
+level: advanced
+importance: high
+format: knowledge
+tags: ansible,swarm,worker,idempotent,join,conditionnelle
+title: Adhésion conditionnelle idempotente d'un worker Swarm
+context: Éviter le leave/join systématique d'un worker Swarm à chaque exécution du playbook
+content: Lire LocalNodeState et RemoteManagers via docker info. Ne rien faire si le worker est sur le bon manager ; quitter s'il est sur un mauvais ; rejoindre s'il est inactif.
+-->
+
+<!-- snippet
+id: ansible_adv_swarm_network_idempotent
+type: command
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,swarm,network,overlay,idempotent,community-docker
+title: Créer un réseau overlay Swarm de façon idempotente
+context: créer les réseaux overlay sans erreur s'ils existent déjà
+command: community.docker.docker_network name="<RESEAU>" driver="overlay" state=present
+description: `state: present` est idempotent : retourne `ok` si le réseau existe déjà. Remplace les vérifications manuelles via `docker network ls`.
+-->
+
+<!-- snippet
+id: ansible_adv_docker_login_idempotent
+type: concept
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,docker,login,idempotent,registry
+title: Login Docker idempotent : ne se connecter que si nécessaire
+context: Éviter un re-login systématique au registry GitLab à chaque exécution Ansible
+content: Avant de lancer docker_login, vérifier si le registry est déjà présent dans ~/.docker/config.json (section auths). Déclencher le login uniquement si absent.
+-->
+
+<!-- snippet
+id: ansible_adv_docker_login_idempotent_b
+type: tip
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,docker,login,idempotent,registry
+title: Supprimer reauthorize:true pour éviter un changed systématique
+context: Éviter un re-login systématique au registry GitLab à chaque exécution Ansible
+content: Supprimer reauthorize:true du module docker_login : cette option force un changed à chaque run. L'absence de re-login réduit le bruit dans les sorties Ansible.
+-->
+
+<!-- snippet
+id: ansible_adv_swarm_labels_stable
+type: concept
+tech: ansible
+level: intermediate
+importance: medium
+format: knowledge
+tags: ansible,swarm,labels,idempotent,group_names
+title: Labels Swarm stables indépendants de l'ordre des groupes Ansible
+context: Corriger des labels Swarm qui changent d'une exécution à l'autre à cause de group_names
+content: Ne pas dériver le label de group_names[0] car son ordre peut varier. Définir une priorité métier explicite et lire les labels existants avant toute modification pour n'appliquer que le nécessaire.
+-->
+
+<!-- snippet
+id: ansible_adv_idempotence_best_practices
+type: tip
+tech: ansible
+level: intermediate
+importance: high
+format: knowledge
+tags: ansible,idempotence,bonnes-pratiques,modules
+title: Bonnes pratiques Ansible pour garantir l'idempotence
+context: Refactoriser un playbook Ansible fonctionnel mais non idempotent
+content: Observer l'état réel avant d'agir, préférer les modules aux shell, conditionner les actions coûteuses. Utiliser changed_when et failed_when pour qualifier précisément les résultats.
+-->
+
 ---
 [Module suivant →](M52_projet-board-J12.md)
 ---

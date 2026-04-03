@@ -308,6 +308,118 @@ sed -i.bak 's/http:/https:/g' f
 
 ```
 
+
+
+<!-- snippet
+id: sed_substitution_globale
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: sed,substitution,remplacement,texte
+title: Remplacer toutes les occurrences d'un motif avec sed
+context: remplacer un mot ou une chaîne dans un fichier texte
+command: sed 's/ancien/nouveau/g' fichier.txt
+description: Le flag g (global) remplace toutes les occurrences sur chaque ligne, pas seulement la première
+-->
+
+<!-- snippet
+id: sed_inplace_backup
+type: command
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: sed,inplace,modification,sauvegarde
+title: Modifier un fichier en place avec sauvegarde
+context: éditer un fichier de configuration directement sur disque
+command: sed -i.bak 's/foo/bar/g' fichier.txt
+description: L'option -i modifie le fichier directement, .bak crée une copie de sauvegarde avant modification
+-->
+
+<!-- snippet
+id: sed_supprimer_lignes_vides
+type: command
+tech: bash
+level: beginner
+importance: medium
+format: knowledge
+tags: sed,suppression,lignes-vides,nettoyage
+title: Supprimer les lignes vides et les commentaires
+context: nettoyer un fichier de configuration ou un script
+command: sed '/^$/d; /^#/d' fichier.txt
+description: /^$/d supprime les lignes vides, /^#/d supprime les commentaires débutant par #
+-->
+
+<!-- snippet
+id: sed_changer_delimiteur
+type: tip
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: sed,url,chemin,delimiteur
+title: Changer le délimiteur pour éviter d'échapper les slashes
+context: remplacer des URLs ou des chemins de fichiers contenant des slashes
+content: Utiliser `|` ou `#` à la place de `/` évite d'échapper les slashes dans les URLs. Exemple : `sed 's|http://|https://|g' fichier`.
+-->
+
+<!-- snippet
+id: sed_filtrer_imprimer
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: sed,filtre,impression,recherche
+title: Afficher uniquement les lignes correspondant à un motif
+context: extraire des lignes spécifiques d'un log ou d'un fichier
+command: sed -n '/motif/p' fichier.txt
+description: -n supprime l'impression automatique, p imprime explicitement les lignes qui matchent le motif
+-->
+
+<!-- snippet
+id: sed_captures_ере
+type: command
+tech: bash
+level: intermediate
+importance: medium
+format: knowledge
+tags: sed,regex,captures,reformatage
+title: Reformater une ligne avec des groupes de capture (ERE)
+context: inverser ou réorganiser des champs dans un fichier texte
+command: sed -E 's/^([^,]+),[[:space:]]*(.+)$/\2 \1/' noms.txt
+description: -E active les regex étendues, les parenthèses créent des groupes réutilisables via \1 \2
+-->
+
+<!-- snippet
+id: sed_warning_stdout
+type: warning
+tech: bash
+level: beginner
+importance: high
+format: knowledge
+tags: sed,stdout,inplace,fichier
+title: sed écrit sur stdout par défaut, le fichier source n'est pas modifié
+context: comprendre pourquoi le fichier original reste inchangé après une commande sed
+content: Sans `-i` ni redirection `>`, sed affiche sur stdout sans toucher au fichier. Utiliser `sed -i 's/.../.../' fichier` pour modifier en place.
+-->
+
+<!-- snippet
+id: sed_plage_motifs
+type: command
+tech: bash
+level: advanced
+importance: low
+format: knowledge
+tags: sed,plage,bloc,suppression
+title: Supprimer un bloc délimité par deux motifs
+context: supprimer une section d'un fichier entre deux marqueurs
+command: sed '/^START/,/^END/d' fichier.txt
+description: Supprime toutes les lignes entre le motif START et le motif END inclus, utile pour retirer des blocs de configuration
+-->
+
 ---
 [← Module précédent](M01_terminal-bash.md) | [Module suivant →](M01_awk-utilisation.md)
 ---

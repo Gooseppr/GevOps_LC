@@ -163,3 +163,105 @@ Les logs permettent de :
 ## Notes
 
 *Logs : messages générés par une application pour indiquer son état et ses erreurs
+
+---
+
+<!-- snippet
+id: docker_logs_definition
+type: concept
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,logs,debug,monitoring
+title: Définition des logs Docker
+content: Les logs sont les messages générés par une application dans le conteneur : informations, erreurs, avertissements. Ils sont la principale source d'information pour diagnostiquer un problème.
+-->
+
+<!-- snippet
+id: docker_logs_consulter
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,logs,conteneur
+title: Voir les logs d'un conteneur
+command: docker logs <NOM>
+description: Affiche tout ce que le conteneur a produit depuis son démarrage.
+-->
+
+<!-- snippet
+id: docker_logs_follow
+type: command
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,logs,follow,temps-reel
+title: Suivre les logs en temps réel
+command: docker logs -f <NOM>
+description: L'option -f (follow) affiche les logs en direct, comme tail -f. Utile pour surveiller une application qui démarre.
+-->
+
+<!-- snippet
+id: docker_logs_tail
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,logs,tail,dernieres-lignes
+title: Afficher les dernières lignes de logs
+command: docker logs --tail 10 <NOM>
+description: Affiche uniquement les N dernières lignes. Pratique pour les conteneurs avec beaucoup de logs.
+-->
+
+<!-- snippet
+id: docker_logs_timestamps
+type: command
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,logs,timestamp,date
+title: Afficher les logs avec timestamps
+command: docker logs -t <NOM>
+description: Ajoute la date et l'heure devant chaque ligne de log pour faciliter le diagnostic temporel.
+-->
+
+<!-- snippet
+id: docker_logs_premier_reflexe
+type: tip
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,logs,debug,diagnostic
+title: Consulter les logs en premier dès qu'un conteneur pose problème
+content: En cas de problème avec un conteneur, les logs sont toujours la première chose à regarder. Ils indiquent souvent la cause exacte : port déjà utilisé, configuration incorrecte, dépendance manquante.
+-->
+
+<!-- snippet
+id: docker_logs_ignorer_warning
+type: warning
+tech: docker
+level: beginner
+importance: high
+format: knowledge
+tags: docker,logs,erreur,diagnostic
+title: Erreur : ignorer les logs et chercher au hasard
+content: Ne pas consulter les logs avant de déboguer fait perdre du temps. Un conteneur qui s'arrête immédiatement génère presque toujours une erreur lisible dans ses logs.
+-->
+
+<!-- snippet
+id: docker_logs_conteneur_plante
+type: tip
+tech: docker
+level: beginner
+importance: medium
+format: knowledge
+tags: docker,logs,ps,debug,workflow
+title: Workflow debug : ps -a puis logs pour un conteneur planté
+content: Si un conteneur disparaît après le lancement, utiliser docker ps -a pour le retrouver, puis docker logs <NOM> pour lire l'erreur. Cette séquence résout la majorité des pannes courantes.
+-->

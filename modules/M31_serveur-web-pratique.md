@@ -287,6 +287,108 @@ curl http://<IP>
 | Reverse Proxy | HAProxy | Sécurité + LB |
 | Proxy dynamique | Traefik | Automatisation & micro-services |
 
+
+
+---
+
+<!-- snippet
+id: nginx_install_apache_ec2
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: apache,ec2,ubuntu,install
+title: Installer Apache sur EC2 Ubuntu
+context: déployer un serveur web Apache sur une instance EC2 Ubuntu
+command: sudo apt update && sudo apt install -y apache2
+description: Met à jour les paquets et installe Apache2. Après cette commande, le serveur web est actif et accessible sur le port 80.
+-->
+
+<!-- snippet
+id: nginx_docker_run_apache
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: docker,apache,conteneur,volume
+title: Lancer Apache dans un conteneur Docker avec volume
+context: héberger un site statique dans un conteneur Apache
+command: docker run -d -p 80:80 -v ~/docker-webservers/apache:/usr/local/apache2/htdocs:ro --name apache httpd:latest
+description: Lance un conteneur Apache en arrière-plan, mappe le port 80 et monte un dossier local en lecture seule comme répertoire racine web.
+-->
+
+<!-- snippet
+id: nginx_docker_run_nginx
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: docker,nginx,conteneur,volume
+title: Lancer Nginx dans un conteneur Docker avec volume
+context: héberger un site statique dans un conteneur Nginx
+command: docker run -d -p 81:80 -v ~/docker-webservers/nginx:/usr/share/nginx/html:ro --name nginx nginx:latest
+description: Lance un conteneur Nginx en arrière-plan, mappe le port 81 de l'hôte vers le port 80 du conteneur et monte un dossier local en lecture seule.
+-->
+
+<!-- snippet
+id: nginx_haproxy_network_docker
+type: command
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: docker,haproxy,network,load-balancer
+title: Créer un réseau Docker pour HAProxy
+context: permettre à HAProxy d'atteindre les conteneurs Nginx par leur nom DNS interne
+command: docker network create webnet && docker network connect webnet nginx1 && docker network connect webnet nginx2
+description: Crée un réseau Docker webnet et y connecte les conteneurs Nginx. HAProxy peut les cibler par leur nom DNS interne sans passer par les ports de l'hôte.
+-->
+
+<!-- snippet
+id: nginx_haproxy_run
+type: command
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: docker,haproxy,load-balancer,round-robin
+title: Lancer HAProxy en load balancer avec réseau Docker
+context: distribuer le trafic entre deux conteneurs Nginx avec round-robin
+command: docker run -d --name haproxy --network webnet -p 80:80 -v ~/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro haproxy
+description: Lance HAProxy en arrière-plan sur le réseau webnet, mappe le port 80 et monte la configuration haproxy.cfg en lecture seule. HAProxy distribue les requêtes entre nginx1 et nginx2.
+-->
+
+<!-- snippet
+id: nginx_haproxy_test_roundrobin
+type: command
+tech: nginx
+level: intermediate
+importance: medium
+format: knowledge
+tags: haproxy,curl,load-balancer,test
+title: Tester le round-robin HAProxy avec curl
+context: vérifier que le trafic alterne bien entre les serveurs
+command: curl http://<IP> && curl http://<IP> && curl http://<IP>
+description: Envoie trois requêtes successives au load balancer. Les réponses doivent alterner entre "Serveur 1" et "Serveur 2", prouvant que le round-robin fonctionne.
+-->
+
+<!-- snippet
+id: nginx_apache_status
+type: command
+tech: nginx
+level: beginner
+importance: high
+format: knowledge
+tags: apache,systemctl,status
+title: Vérifier le statut d'Apache
+context: contrôler qu'Apache est actif après installation
+command: sudo systemctl status apache2
+description: Affiche l'état du service Apache2. La ligne "active (running)" confirme que le serveur web est opérationnel.
+-->
+
 ---
 [← Module précédent](M31_serveur-web.md)
 ---

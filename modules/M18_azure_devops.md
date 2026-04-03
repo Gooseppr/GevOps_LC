@@ -476,6 +476,152 @@ Tu as maintenant toutes les bases pour :
 - commencer à automatiser ton projet
 - aller vers des pipelines avancés (multi-stages, CD, déploiements approuvés, templates…)
 
+
+
+<!-- snippet
+id: cicd_azure_pipeline_trigger
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: azure,devops,pipeline,trigger,yaml
+title: Déclencheur de pipeline Azure DevOps
+context: configurer le démarrage automatique du pipeline sur un push vers main
+content: La directive `trigger` liste les branches qui déclenchent le pipeline (ex. `trigger: - main`). C'est l'équivalent de `only: - main` dans GitLab CI.
+-->
+
+<!-- snippet
+id: cicd_azure_pool_agent
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: azure,devops,pool,agent,vmimage
+title: Choisir l'agent (pool) dans Azure DevOps
+context: sélectionner le système d'exploitation de l'agent qui exécute le pipeline
+content: Le pool `vmImage` définit l'agent : ubuntu-latest, windows-latest ou macos-latest. C'est l'équivalent de `image:` dans GitLab CI.
+-->
+
+<!-- snippet
+id: cicd_azure_stages_jobs_steps
+type: concept
+tech: cicd
+level: beginner
+importance: high
+format: knowledge
+tags: azure,devops,stages,jobs,steps,structure
+title: Structure d'un pipeline Azure DevOps (stages/jobs/steps)
+context: comprendre l'organisation hiérarchique d'un pipeline Azure
+content: Un pipeline Azure est organisé en trois niveaux : Stage (grande phase), Job (groupe de steps sur un même agent), Step (action élémentaire : script ou tâche).
+-->
+
+<!-- snippet
+id: cicd_azure_dependson
+type: concept
+tech: cicd
+level: beginner
+importance: medium
+format: knowledge
+tags: azure,devops,dependson,ordre,séquence
+title: Contrôler l'ordre des stages avec dependsOn
+context: garantir qu'un stage Deploy n'exécute qu'après un stage Build réussi
+content: `dependsOn` force l'exécution séquentielle entre stages. Sans dependsOn, les stages s'exécutent en parallèle si les ressources le permettent.
+-->
+
+<!-- snippet
+id: cicd_azure_pipeline_run
+type: command
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: azure,devops,cli,pipeline,run
+title: Lancer un pipeline Azure DevOps via CLI
+context: déclencher ou inspecter un pipeline depuis le terminal
+command: az pipelines run --name "PipelineName"
+description: Lance le pipeline nommé via Azure CLI. Utiliser `az login` au préalable et `az devops project list` pour trouver le nom du projet.
+-->
+
+<!-- snippet
+id: cicd_azure_secret_variables
+type: tip
+tech: cicd
+level: intermediate
+importance: high
+format: knowledge
+tags: azure,devops,secrets,variables,securite
+title: Stocker les secrets dans Azure DevOps
+context: éviter d'exposer des clés API ou mots de passe dans le code du pipeline
+content: Les secrets doivent être ajoutés dans Library > Variable Groups, jamais en clair dans le YAML. Dans le pipeline, on y accède via `$(NOM_VARIABLE)`.
+-->
+
+<!-- snippet
+id: cicd_azure_secret_mask
+type: tip
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: azure,devops,secrets,logs,masquer
+title: Masquer les secrets dans les logs Azure DevOps
+context: empêcher l'affichage des valeurs sensibles dans les journaux du pipeline
+content: Cocher "Keep this value secret" lors de la création d'une variable dans Azure DevOps pour masquer automatiquement sa valeur dans tous les logs du pipeline.
+-->
+
+<!-- snippet
+id: cicd_azure_rollback_dependson
+type: concept
+tech: cicd
+level: advanced
+importance: medium
+format: knowledge
+tags: azure,devops,dependson,deploy,rollback
+title: Dépendances entre stages et stratégie de déploiement
+context: garantir l'ordre Test → Build → Deploy et pouvoir revenir en arrière
+content: `dependsOn` dans un stage force l'exécution séquentielle : Deploy ne démarre qu'après Build réussi. Utiliser `AzureWebApp@1` pour déployer sur App Service.
+-->
+
+<!-- snippet
+id: cicd_azure_rollback_history
+type: concept
+tech: cicd
+level: advanced
+importance: medium
+format: knowledge
+tags: azure,devops,rollback,historique,deploiement
+title: Rollback via l'historique de déploiement Azure DevOps
+context: revenir à une version précédente après un incident en production Azure
+content: Azure DevOps conserve l'historique des runs dans les Environments. Un re-déploiement d'un run précédent suffit pour rollback. Pas besoin de script supplémentaire si les environnements sont configurés.
+-->
+
+<!-- snippet
+id: cicd_azure_vs_gitlab
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: azure,devops,gitlab,comparaison
+title: Azure DevOps vs GitLab CI/CD — points clés
+context: choisir entre les deux plateformes ou comprendre les équivalences
+content: Les concepts sont quasi identiques : trigger = only/rules, pool = image, stages = stages. Azure DevOps excelle dans les environnements Microsoft/Azure avec Boards et Artifacts intégrés.
+-->
+
+<!-- snippet
+id: cicd_azure_vs_gitlab_b
+type: concept
+tech: cicd
+level: intermediate
+importance: medium
+format: knowledge
+tags: azure,devops,gitlab,cloud-agnostic
+title: GitLab vs Azure DevOps — choix selon le contexte
+context: orienter le choix de plateforme CI/CD lors d'un projet ou d'un entretien
+content: GitLab est préféré pour un DevOps cloud-agnostic et des déploiements multi-cloud. Azure DevOps s'impose naturellement dans un environnement Microsoft (Azure, .NET, Active Directory).
+-->
+
 ---
 [← Module précédent](M18_Cours_GitLab_Runner.md) | [Module suivant →](M18_flake8.md)
 ---

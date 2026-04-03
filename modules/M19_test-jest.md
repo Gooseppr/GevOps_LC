@@ -316,6 +316,101 @@ npm test            # ou : yarn jest
 
 > « Décris l’intention, teste-la, puis rends le code vrai. »
 
+
+
+<!-- snippet
+id: jest_install
+type: command
+tech: jest
+level: beginner
+importance: high
+format: knowledge
+tags: jest,installation,npm,test-unitaire
+title: Installer Jest dans un projet Node
+context: mettre en place Jest pour les tests unitaires JavaScript
+command: npm install --save-dev jest
+description: Installe Jest en dépendance de développement. Ajouter "test": "jest", "test:watch": "jest --watch" et "test:cov": "jest --coverage" dans les scripts package.json pour faciliter l'utilisation.
+-->
+
+<!-- snippet
+id: jest_run_commands
+type: command
+tech: jest
+level: beginner
+importance: high
+format: knowledge
+tags: jest,cli,coverage,watch
+title: Commandes Jest essentielles
+context: lancer, filtrer et mesurer la couverture des tests Jest
+command: jest --coverage
+description: Exécute tous les tests et génère un rapport de couverture de code. Options utiles : --watch (relance à chaque modification), --runInBand (série, utile en CI), -t "nom" (filtre par nom de test), --updateSnapshot (met à jour les snapshots).
+-->
+
+<!-- snippet
+id: jest_tdd_cycle
+type: concept
+tech: jest
+level: beginner
+importance: high
+format: knowledge
+tags: jest,tdd,red-green-refactor,cycle
+title: Cycle TDD avec Jest (Red → Green → Refactor)
+context: adopter la méthode TDD pour écrire du code fiable et testé
+content: Cycle TDD : Red (écrire le test → FAIL), Green (implémenter juste assez → PASS), Refactor (nettoyer en confiance). Chaque ligne de code répond à un besoin exprimé.
+-->
+
+<!-- snippet
+id: jest_mock_module
+type: concept
+tech: jest
+level: intermediate
+importance: medium
+format: knowledge
+tags: jest,mock,jest.mock,integration,stub
+title: Mocker un module avec jest.mock()
+context: isoler un module externe pour contrôler son comportement dans un test d'intégration
+content: jest.mock('./module', () => ({ fn: jest.fn().mockReturnValue(val) })) remplace le module réel par un stub. Utile pour les dépendances lentes, non déterministes ou externes.
+-->
+
+<!-- snippet
+id: jest_mock_real_contract
+type: tip
+tech: jest
+level: intermediate
+importance: medium
+format: knowledge
+tags: jest,mock,contrat,integration,modules
+title: Conserver au moins un test sans mock pour valider le contrat réel
+context: ne pas se fier uniquement aux tests mockés pour valider l'intégration entre modules
+content: Les mocks contrôlent le comportement mais ne valident pas le contrat réel. Conserver au moins un test d'intégration sans mock pour s'assurer que les vrais modules coopèrent correctement.
+-->
+
+<!-- snippet
+id: jest_assertions_common
+type: concept
+tech: jest
+level: beginner
+importance: medium
+format: knowledge
+tags: jest,assertions,expect,matchers
+title: Assertions Jest courantes
+context: écrire des vérifications précises dans les tests unitaires
+content: toBe(42) = égalité stricte. toEqual({a:1}) = structure (deep). toContain('x') = appartenance. toThrow('msg') = erreur attendue. toMatch(/regex/) = correspondance regex.
+-->
+
+<!-- snippet
+id: jest_assertions_mock_verify
+type: concept
+tech: jest
+level: intermediate
+importance: medium
+format: knowledge
+tags: jest,mock,assertions,calls,args
+title: Vérifier les appels d'un mock avec Jest
+context: s'assurer qu'une fonction mockée a bien été appelée avec les bons arguments
+content: expect(mockFn).toHaveBeenCalledWith('arg') vérifie les arguments. toHaveBeenCalledTimes(n) vérifie le nombre d'appels. toHaveBeenCalled() vérifie qu'il a été appelé au moins une fois.
+-->
+
 ---
 [← Module précédent](M19_test-cypress.md)
 ---

@@ -1206,3 +1206,104 @@ Exemple logique : “j’attends que le déploiement soit prêt avant de continu
 - Pour les tâches programmées → `get jobs`, `get cronjobs`
 - Pour les secrets/config → `get secret`, `get configmap`
 - Pour l’état du cluster → `cluster-info`, `get nodes`, `top nodes`, `get events`
+
+---
+
+<!-- snippet
+id: k8s_cmd_get_cluster_info
+type: command
+tech: kubernetes
+level: beginner
+tags: kubectl,cluster,nodes,diagnostic
+title: Vérifier l’état du cluster
+command: kubectl cluster-info && kubectl get nodes -o wide
+description: Première commande à lancer en arrivant sur un cluster pour s’assurer qu’il répond et que les nœuds sont Ready
+-->
+
+<!-- snippet
+id: k8s_cmd_get_pods_all
+type: command
+tech: kubernetes
+level: beginner
+tags: kubectl,pods,namespaces
+title: Lister tous les pods de tous les namespaces
+command: kubectl get pods -A -o wide
+description: Vue globale de tous les pods du cluster avec leur nœud hôte et IP
+-->
+
+<!-- snippet
+id: k8s_cmd_rollout_deploy
+type: command
+tech: kubernetes
+level: intermediate
+tags: kubectl,deployment,rollout,rollback
+title: Gérer le rollout d’un Deployment
+command: kubectl rollout status deployment/<name> -n <ns>
+description: Suivre la progression d’un déploiement ; utiliser `kubectl rollout undo deployment/<name> -n <ns>` pour revenir en arrière
+-->
+
+<!-- snippet
+id: k8s_cmd_scale_deployment
+type: command
+tech: kubernetes
+level: beginner
+tags: kubectl,deployment,scaling,replicas
+title: Mettre à l’échelle un Deployment
+command: kubectl scale deployment <name> --replicas=3 -n <ns>
+description: Modifie immédiatement le nombre de réplicas d’un Deployment
+-->
+
+<!-- snippet
+id: k8s_cmd_debug_events
+type: command
+tech: kubernetes
+level: beginner
+tags: kubectl,debug,events,diagnostic
+title: Consulter les événements récents du cluster
+command: kubectl get events --sort-by=.lastTimestamp
+description: Radar d’alerte pour repérer crashloops, ImagePullBackOff, ressources insuffisantes ou probes qui échouent
+-->
+
+<!-- snippet
+id: k8s_cmd_exec_pod
+type: command
+tech: kubernetes
+level: beginner
+tags: kubectl,debug,exec,shell
+title: Ouvrir un shell dans un Pod
+command: kubectl exec -it <pod> -n <ns> -- sh
+description: Entrer dans un conteneur pour debugger en interactif
+-->
+
+<!-- snippet
+id: k8s_tip_dry_run_yaml
+type: tip
+tech: kubernetes
+level: intermediate
+tags: kubectl,dry-run,yaml,manifest
+title: Générer un manifest YAML sans créer la ressource
+content: `--dry-run=client -o yaml` génère un manifest YAML prêt à sauvegarder sans créer la ressource dans le cluster.
+description: Astuce de pro pour écrire des manifests propres sans taper le YAML à la main
+-->
+
+<!-- snippet
+id: k8s_warning_statefulset_scale
+type: warning
+tech: kubernetes
+level: intermediate
+tags: kubectl,statefulset,scaling,data
+title: Scaler un StatefulSet avec précaution
+content: Ne jamais scaler un StatefulSet sans comprendre la gestion des données. Chaque nouveau Pod reçoit son propre volume persistant non synchronisé automatiquement.
+description: Risque de perte ou d’incohérence de données si le StatefulSet gère une base de données
+-->
+
+<!-- snippet
+id: k8s_tip_namespace_context
+type: tip
+tech: kubernetes
+level: beginner
+tags: kubectl,namespace,context,config
+title: Changer le namespace par défaut du contexte actuel
+content: `kubectl config set-context --current --namespace=<ns>` évite de taper `-n <ns>` à chaque commande.
+description: Gain de temps au quotidien sur un cluster multi-namespace
+-->

@@ -188,3 +188,108 @@ Un service permet de :
 ## Notes
 
 *Service : abstraction permettant de gérer plusieurs conteneurs automatiquement
+
+---
+
+<!-- snippet
+id: docker_swarm_service_create
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,service,deploiement
+title: Créer un service Swarm
+command: docker service create --name <NOM> <IMAGE>
+description: Crée un service géré par Swarm. Swarm gère automatiquement le cycle de vie du conteneur.
+-->
+
+<!-- snippet
+id: docker_swarm_service_ls
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,service,supervision
+title: Lister les services Swarm
+command: docker service ls
+description: Affiche la liste de tous les services déployés dans le cluster avec leur statut et le nombre de replicas actifs.
+-->
+
+<!-- snippet
+id: docker_swarm_service_ps
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,service,taches,supervision
+title: Voir les tâches (conteneurs) d'un service
+command: docker service ps <SERVICE>
+description: Affiche les conteneurs (tâches) associés au service, leur état et sur quel node ils tournent.
+-->
+
+<!-- snippet
+id: docker_swarm_service_replicas
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,service,replicas,scaling
+title: Créer un service avec plusieurs replicas
+command: docker service create --name <NOM> --replicas 3 <IMAGE>
+description: Lance 3 instances du service, réparties automatiquement sur les nœuds disponibles.
+-->
+
+<!-- snippet
+id: docker_swarm_service_scale
+type: command
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,service,scaling,replicas
+title: Modifier le nombre de replicas d'un service
+command: docker service scale <SERVICE>=5
+description: Ajuste à la volée le nombre d'instances du service sans interruption de service.
+-->
+
+<!-- snippet
+id: docker_swarm_service_rm
+type: command
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,service,suppression
+title: Supprimer un service Swarm
+command: docker service rm <SERVICE>
+description: Supprime le service et arrête tous les conteneurs associés sur l'ensemble des nœuds du cluster.
+-->
+
+<!-- snippet
+id: docker_swarm_desired_state
+type: concept
+tech: docker
+level: advanced
+importance: high
+format: knowledge
+tags: swarm,service,desired-state,auto-restart
+title: Concept de desired state dans Swarm
+content: Un service Swarm représente un état désiré. Si un conteneur tombe, Swarm le recrée pour maintenir le nombre de replicas configuré.
+-->
+
+<!-- snippet
+id: docker_swarm_modifier_conteneur_direct
+type: warning
+tech: docker
+level: advanced
+importance: medium
+format: knowledge
+tags: swarm,service,piege,conteneur
+title: Modifier un conteneur au lieu du service
+content: Modifier directement un conteneur dans Swarm est inutile : les modifications manuelles sont perdues à chaque recréation. Toujours modifier la définition du service.
+-->
+

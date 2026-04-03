@@ -391,6 +391,73 @@ La compétence DevOps/Cloud, c'est être capable de lire un besoin et d'y associ
 
 Ce quiz couvre exactement ces 5 dimensions.
 
+
+
+<!-- snippet
+id: aws_s3_static_hosting
+type: tip
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: s3,static-website,cloudfront,hosting
+title: S3 + CloudFront – Héberger un site statique sans serveur
+context: déployer un site web statique HTML/CSS/JS sans gérer de serveur
+content: S3 héberge un site statique directement. En ajoutant CloudFront devant, on obtient HTTPS, un CDN mondial et des Edge Locations. Coût minime : stockage + transferts uniquement.
+-->
+
+<!-- snippet
+id: aws_s3_glacier_deep_archive
+type: concept
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: s3,glacier,archive,conformité,coût
+title: S3 Glacier Deep Archive – Archivage long terme ultra économique
+context: archiver des données sur de très longues durées à coût minimal
+content: Glacier Deep Archive est le stockage le moins cher d'AWS pour l'archivage > 7 ans (récupération ~12h). Utilisé pour la conformité légale, rétention juridique et archives médicales.
+-->
+
+<!-- snippet
+id: aws_ebs_snapshot
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: ebs,snapshot,sauvegarde,s3
+title: Snapshots EBS – Sauvegardes incrémentielles de volumes
+context: sauvegarder et restaurer des volumes EBS
+content: Les snapshots EBS sont des sauvegardes incrémentielles stockées dans S3. Ils permettent la restauration, la création d'AMI et la copie inter-AZ ou inter-Région.
+-->
+
+<!-- snippet
+id: aws_s3_intelligent_tiering
+type: tip
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: s3,intelligent-tiering,optimisation,coûts
+title: S3 Intelligent-Tiering – Optimisation automatique des coûts
+context: réduire les coûts S3 sans connaître les patterns d'accès
+content: S3 Intelligent-Tiering déplace les objets entre Frequent, Infrequent et Archive selon les accès réels. Idéal pour les patterns d'accès imprévisibles, sans surcharge d'administration.
+-->
+
+<!-- snippet
+id: aws_s3_iam_permissions
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: s3,iam,bucket-policy,sécurité
+title: Contrôle d'accès S3 – IAM Policies et Bucket Policies
+context: sécuriser l'accès à un bucket S3
+content: L'accès S3 se contrôle via IAM Policies (user/role), Bucket Policies (bucket) et ACL (legacy). Par défaut tout est refusé — il faut autoriser explicitement chaque accès.
+-->
+
 ---
 [← Module précédent](M27_Content-delivery-network.md) | [Module suivant →](M27_quizz_aws_storage.md)
 ---

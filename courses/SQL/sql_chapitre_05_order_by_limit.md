@@ -321,6 +321,48 @@ Elles permettent de contrôler **l'ordre et la quantité de résultats**.
 
 Dans le prochain chapitre nous verrons **les fonctions d'agrégation** :
 
+<!-- snippet
+id: sql_order_by_limit_top
+type: command
+tech: sql
+level: beginner
+importance: high
+format: knowledge
+tags: sql,order_by,limit,classement
+title: Top N résultats triés par ordre décroissant
+command: SELECT * FROM <table> ORDER BY <colonne> DESC LIMIT <n>;
+description: Récupère les N premières lignes dans l'ordre décroissant. Utile pour les classements, dashboards et top listes.
+-->
+
+<!-- snippet
+id: sql_limit_sans_order_by
+type: warning
+tech: sql
+level: beginner
+importance: medium
+format: knowledge
+tags: sql,limit,order_by,ordre
+title: LIMIT sans ORDER BY = ordre imprévisible
+content: Sans ORDER BY, la base ne garantit aucun ordre. LIMIT seul peut retourner des lignes différentes à chaque exécution.
+description: Toujours coupler LIMIT avec ORDER BY pour des résultats stables et reproductibles.
+-->
+
+<!-- snippet
+id: sql_offset_pagination
+type: tip
+tech: sql
+level: beginner
+importance: medium
+format: knowledge
+tags: sql,offset,limit,pagination
+title: Implémenter une pagination avec LIMIT/OFFSET
+content: |
+  Page 1 : `LIMIT 10 OFFSET 0`
+  Page 2 : `LIMIT 10 OFFSET 10`
+  Page N : `LIMIT 10 OFFSET (N-1)*10`
+description: Pattern standard pour paginer des résultats dans une API ou interface web.
+-->
+
 - COUNT
 - SUM
 - AVG
