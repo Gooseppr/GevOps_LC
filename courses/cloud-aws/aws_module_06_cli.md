@@ -131,6 +131,7 @@ Il remplace la console pour les usages professionnels.
 
 <!-- snippet
 id: aws_cli_definition
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -143,6 +144,7 @@ description: Outil central DevOps AWS
 
 <!-- snippet
 id: aws_cli_configure_command
+type: command
 tech: aws
 level: beginner
 importance: high
@@ -155,6 +157,7 @@ description: Permet de configurer les credentials AWS
 
 <!-- snippet
 id: aws_cli_profile_usage
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -167,6 +170,7 @@ description: Indispensable en entreprise
 
 <!-- snippet
 id: aws_cli_access_denied_error
+type: warning
 tech: aws
 level: beginner
 importance: high
@@ -179,6 +183,7 @@ description: Erreur fréquente AWS CLI
 
 <!-- snippet
 id: aws_cli_security_tip
+type: tip
 tech: aws
 level: beginner
 importance: medium

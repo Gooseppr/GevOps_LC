@@ -192,6 +192,7 @@ Ensuite :
 
 <!-- snippet
 id: docker_image_immuable
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -203,6 +204,7 @@ content: Une image est un modèle statique et immuable : elle ne change jamais. 
 
 <!-- snippet
 id: docker_conteneur_instance
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -214,6 +216,7 @@ content: Un conteneur est l’image en cours d’exécution. C’est une instanc
 
 <!-- snippet
 id: docker_images_liste
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -226,6 +229,7 @@ description: Affiche toutes les images téléchargées ou construites sur la mac
 
 <!-- snippet
 id: docker_une_image_plusieurs_conteneurs
+type: concept
 tech: docker
 level: beginner
 importance: medium
@@ -237,6 +241,7 @@ content: On peut lancer autant de conteneurs que nécessaire à partir d’une s
 
 <!-- snippet
 id: docker_conteneur_modifie_pas_image
+type: warning
 tech: docker
 level: beginner
 importance: high
@@ -248,6 +253,7 @@ content: Modifier des fichiers dans un conteneur ne modifie pas l’image source
 
 <!-- snippet
 id: docker_conteneur_temporaire
+type: concept
 tech: docker
 level: beginner
 importance: high

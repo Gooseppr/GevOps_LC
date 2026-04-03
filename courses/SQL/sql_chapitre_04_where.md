@@ -312,6 +312,7 @@ Dans le prochain chapitre nous verrons **le tri des résultats avec ORDER BY et 
 
 <!-- snippet
 id: sql_where_is_null
+type: concept
 tech: sql
 level: beginner
 importance: high
@@ -327,6 +328,7 @@ description: NULL représente l'absence de valeur. L'opérateur = ne fonctionne 
 
 <!-- snippet
 id: sql_where_parentheses_and_or
+type: concept
 tech: sql
 level: beginner
 importance: high

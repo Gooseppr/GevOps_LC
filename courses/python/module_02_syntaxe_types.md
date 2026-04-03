@@ -138,6 +138,7 @@ b = a.copy()
 
 <!-- snippet
 id: python_type_dynamic
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -150,6 +151,7 @@ description: Permet flexibilité mais nécessite vigilance
 
 <!-- snippet
 id: python_list_mutable_warning
+type: warning
 tech: python
 level: beginner
 importance: high
@@ -162,6 +164,7 @@ description: Piège fréquent en Python
 
 <!-- snippet
 id: python_if_structure
+type: concept
 tech: python
 level: beginner
 importance: medium
@@ -174,6 +177,7 @@ description: Base du contrôle de flux
 
 <!-- snippet
 id: python_for_loop
+type: concept
 tech: python
 level: beginner
 importance: medium

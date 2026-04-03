@@ -125,6 +125,7 @@ API backend :
 
 <!-- snippet
 id: python_logging_basic
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -137,6 +138,7 @@ description: Base observabilité
 
 <!-- snippet
 id: python_logging_levels
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -149,6 +151,7 @@ description: Permet filtrage
 
 <!-- snippet
 id: python_print_warning
+type: warning
 tech: python
 level: intermediate
 importance: high

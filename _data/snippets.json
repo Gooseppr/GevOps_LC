@@ -73,7 +73,7 @@
   },
   {
     "id": "aws_iam_role_usage",
-    "type": "tip",
+    "type": "concept",
     "tech": "aws",
     "level": "beginner",
     "importance": "medium",
@@ -181,7 +181,7 @@
   },
   {
     "id": "aws_ec2_ssh_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "beginner",
     "importance": "high",
@@ -361,7 +361,7 @@
   },
   {
     "id": "aws_network_debug_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "beginner",
     "importance": "high",
@@ -433,7 +433,7 @@
   },
   {
     "id": "aws_cli_access_denied_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "beginner",
     "importance": "high",
@@ -559,7 +559,7 @@
   },
   {
     "id": "aws_monitoring_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "beginner",
     "importance": "high",
@@ -667,7 +667,7 @@
   },
   {
     "id": "aws_security_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "beginner",
     "importance": "high",
@@ -775,7 +775,7 @@
   },
   {
     "id": "aws_scaling_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -901,7 +901,7 @@
   },
   {
     "id": "aws_db_failure_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -1027,7 +1027,7 @@
   },
   {
     "id": "aws_dns_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -1153,7 +1153,7 @@
   },
   {
     "id": "aws_ddos_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -1261,7 +1261,7 @@
   },
   {
     "id": "iac_manual_change_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -1387,7 +1387,7 @@
   },
   {
     "id": "aws_pipeline_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -1496,7 +1496,7 @@
   },
   {
     "id": "aws_missing_observability_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -1604,7 +1604,7 @@
   },
   {
     "id": "aws_env_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "intermediate",
     "importance": "high",
@@ -1730,7 +1730,7 @@
   },
   {
     "id": "aws_ha_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -1838,7 +1838,7 @@
   },
   {
     "id": "aws_serverless_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -1946,7 +1946,7 @@
   },
   {
     "id": "aws_latency_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -2072,7 +2072,7 @@
   },
   {
     "id": "aws_security_incident",
-    "type": "error",
+    "type": "concept",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -2180,7 +2180,7 @@
   },
   {
     "id": "aws_cost_incident",
-    "type": "error",
+    "type": "concept",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -2306,7 +2306,7 @@
   },
   {
     "id": "aws_distributed_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -2321,132 +2321,6 @@
     "description": "Incident fréquent",
     "context": "",
     "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
-  },
-  {
-    "id": "aws_microservices_definition",
-    "type": "concept",
-    "tech": "aws",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "aws",
-      "microservices",
-      "architecture"
-    ],
-    "title": "Microservices définition",
-    "content": "Les microservices sont des services indépendants communiquant via API ou événements",
-    "description": "Base architecture moderne",
-    "context": "",
-    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
-  },
-  {
-    "id": "aws_sqs_definition",
-    "type": "concept",
-    "tech": "aws",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "aws",
-      "sqs",
-      "queue"
-    ],
-    "title": "SQS rôle",
-    "content": "SQS est une file de messages permettant le traitement asynchrone entre services",
-    "description": "Découplage services",
-    "context": "",
-    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
-  },
-  {
-    "id": "aws_sns_definition",
-    "type": "concept",
-    "tech": "aws",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "aws",
-      "sns",
-      "pubsub"
-    ],
-    "title": "SNS rôle",
-    "content": "SNS permet de diffuser des messages à plusieurs consommateurs simultanément",
-    "description": "Pub/Sub AWS",
-    "context": "",
-    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
-  },
-  {
-    "id": "aws_sqs_command",
-    "type": "command",
-    "tech": "aws",
-    "level": "advanced",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "aws",
-      "sqs",
-      "cli"
-    ],
-    "title": "Envoyer message SQS",
-    "command": "aws sqs send-message --queue-url <URL> --message-body \"test\"",
-    "description": "Permet d'envoyer un message dans une queue",
-    "context": "",
-    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
-  },
-  {
-    "id": "aws_coupling_warning",
-    "type": "warning",
-    "tech": "aws",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "aws",
-      "architecture",
-      "error"
-    ],
-    "title": "Couplage fort",
-    "content": "Des services fortement couplés rendent le système fragile, utiliser des queues pour découpler",
-    "description": "Piège critique",
-    "context": "",
-    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
-  },
-  {
-    "id": "aws_async_tip",
-    "type": "tip",
-    "tech": "aws",
-    "level": "advanced",
-    "importance": "medium",
-    "format": "knowledge",
-    "tags": [
-      "aws",
-      "architecture",
-      "bestpractice"
-    ],
-    "title": "Communication async",
-    "content": "La communication asynchrone améliore la résilience et la scalabilité des systèmes",
-    "description": "Bonne pratique",
-    "context": "",
-    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
-  },
-  {
-    "id": "aws_distributed_error",
-    "type": "error",
-    "tech": "aws",
-    "level": "advanced",
-    "importance": "high",
-    "format": "knowledge",
-    "tags": [
-      "aws",
-      "incident",
-      "architecture"
-    ],
-    "title": "Service bloqué",
-    "content": "Symptôme blocage système, cause dépendance synchrone, correction passer en async via SQS",
-    "description": "Incident fréquent",
-    "context": "",
-    "source_file": "courses/cloud-aws/aws_module_22_distributed_arch.md"
   },
   {
     "id": "aws_resilience_definition",
@@ -2558,7 +2432,7 @@
   },
   {
     "id": "aws_resilience_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -2702,7 +2576,7 @@
   },
   {
     "id": "aws_governance_error",
-    "type": "error",
+    "type": "warning",
     "tech": "aws",
     "level": "advanced",
     "importance": "high",
@@ -2738,7 +2612,7 @@
   },
   {
     "id": "docker_probleme_ca_marche_ma_machine",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "high",
@@ -3000,7 +2874,7 @@
   },
   {
     "id": "docker_run_telecharge_auto",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -3126,7 +3000,7 @@
   },
   {
     "id": "docker_conteneur_temporaire",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "high",
@@ -3237,7 +3111,7 @@
   },
   {
     "id": "docker_accumulation_conteneurs",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -3255,7 +3129,7 @@
   },
   {
     "id": "docker_conteneur_arrete_existe",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -3512,7 +3386,7 @@
   },
   {
     "id": "docker_volume_piege",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "high",
@@ -3608,7 +3482,7 @@
   },
   {
     "id": "docker_exec_modifications_temporaires",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "high",
@@ -3626,7 +3500,7 @@
   },
   {
     "id": "docker_exec_usage_debug",
-    "type": "tip",
+    "type": "warning",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -3737,7 +3611,7 @@
   },
   {
     "id": "docker_logs_premier_reflexe",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "high",
@@ -3773,7 +3647,7 @@
   },
   {
     "id": "docker_logs_conteneur_plante",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -3845,7 +3719,7 @@
   },
   {
     "id": "docker_layer_per_instruction",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -3964,7 +3838,7 @@
   },
   {
     "id": "docker_piege_ordre_instructions",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -3982,7 +3856,7 @@
   },
   {
     "id": "docker_piege_ordre_instructions_b",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -4000,7 +3874,7 @@
   },
   {
     "id": "docker_layer_reutilisable",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -4088,7 +3962,7 @@
   },
   {
     "id": "docker_piege_contexte_lourd",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "low",
@@ -4157,7 +4031,7 @@
   },
   {
     "id": "docker_piege_copy_trop_tot",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "low",
@@ -4302,7 +4176,7 @@
   },
   {
     "id": "docker_piege_secrets_dockerfile_b",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -4375,7 +4249,7 @@
   },
   {
     "id": "docker_piege_versions_non_figees",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "low",
@@ -4393,7 +4267,7 @@
   },
   {
     "id": "docker_piege_versions_non_figees_b",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "low",
@@ -4482,7 +4356,7 @@
   },
   {
     "id": "docker_dockerignore_usage",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -4499,7 +4373,7 @@
   },
   {
     "id": "docker_image_officielle_from",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "beginner",
     "importance": "medium",
@@ -4516,7 +4390,7 @@
   },
   {
     "id": "docker_piege_dockerfile_non_structure",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -4533,7 +4407,7 @@
   },
   {
     "id": "docker_bp_alpine_images",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -4624,7 +4498,7 @@
   },
   {
     "id": "docker_network_dns_nom_conteneur",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -4642,7 +4516,7 @@
   },
   {
     "id": "docker_network_localhost_erreur",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -4660,7 +4534,7 @@
   },
   {
     "id": "docker_network_isolation_piege",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -4771,7 +4645,7 @@
   },
   {
     "id": "docker_hostname_automatique",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -4789,7 +4663,7 @@
   },
   {
     "id": "docker_port_exposition_inutile",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -4882,7 +4756,7 @@
   },
   {
     "id": "docker_network_bridge_defaut",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5012,7 +4886,7 @@
   },
   {
     "id": "docker_bind_mount_ecrasement_piege",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5030,7 +4904,7 @@
   },
   {
     "id": "docker_volume_vs_bindmount_choix",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5123,7 +4997,7 @@
   },
   {
     "id": "docker_volume_ecriture_concurrente_piege",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5142,7 +5016,7 @@
   },
   {
     "id": "docker_volume_ecriture_concurrente_piege_b",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5216,7 +5090,7 @@
   },
   {
     "id": "docker_stockage_bind_mount_inconvenients",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5234,7 +5108,7 @@
   },
   {
     "id": "docker_stockage_bind_mount_inconvenients_b",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5271,7 +5145,7 @@
   },
   {
     "id": "docker_stockage_donnees_dans_conteneur_piege_b",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -5307,7 +5181,7 @@
   },
   {
     "id": "docker_stockage_choix_contexte",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5326,7 +5200,7 @@
   },
   {
     "id": "docker_stockage_choix_contexte_b",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5412,7 +5286,7 @@
   },
   {
     "id": "docker_compose_auto_network",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5550,7 +5424,7 @@
   },
   {
     "id": "docker_compose_depends_on_limit",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -5568,7 +5442,7 @@
   },
   {
     "id": "docker_compose_restart_always",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5655,7 +5529,7 @@
   },
   {
     "id": "docker_compose_volume_not_auto",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5672,7 +5546,7 @@
   },
   {
     "id": "docker_compose_volume_not_auto_b",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5797,7 +5671,7 @@
   },
   {
     "id": "docker_compose_down_data_loss",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -5901,7 +5775,7 @@
   },
   {
     "id": "docker_compose_multi_env",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "medium",
@@ -5919,7 +5793,7 @@
   },
   {
     "id": "docker_compose_no_hardcode",
-    "type": "tip",
+    "type": "warning",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -6084,7 +5958,7 @@
   },
   {
     "id": "docker_multistage_build_runtime_separation",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "intermediate",
     "importance": "high",
@@ -6506,7 +6380,7 @@
   },
   {
     "id": "docker_swarm_complexite_prerequis",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "low",
@@ -6598,7 +6472,7 @@
   },
   {
     "id": "docker_swarm_manager_perte",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "high",
@@ -6763,7 +6637,7 @@
   },
   {
     "id": "docker_swarm_modifier_conteneur_direct",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -6851,7 +6725,7 @@
   },
   {
     "id": "docker_swarm_stateless_requis",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -6869,7 +6743,7 @@
   },
   {
     "id": "docker_swarm_panne_non_testee",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -6979,7 +6853,7 @@
   },
   {
     "id": "docker_swarm_depends_on_ignore",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -6997,7 +6871,7 @@
   },
   {
     "id": "docker_swarm_section_deploy",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -7107,7 +6981,7 @@
   },
   {
     "id": "docker_swarm_ports_firewall",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -7221,7 +7095,7 @@
   },
   {
     "id": "docker_swarm_rollback_strategie",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -7239,7 +7113,7 @@
   },
   {
     "id": "docker_swarm_update_sans_rollback",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -7257,7 +7131,7 @@
   },
   {
     "id": "docker_swarm_multi_managers",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "medium",
@@ -7276,7 +7150,7 @@
   },
   {
     "id": "docker_swarm_versionner_images",
-    "type": "tip",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "low",
@@ -7330,7 +7204,7 @@
   },
   {
     "id": "docker_swarm_utilise_comme_docker_classique",
-    "type": "warning",
+    "type": "concept",
     "tech": "docker",
     "level": "advanced",
     "importance": "low",
@@ -8188,7 +8062,7 @@
   },
   {
     "id": "python_fail_fast",
-    "type": "tip",
+    "type": "concept",
     "tech": "python",
     "level": "beginner",
     "importance": "high",
@@ -8256,7 +8130,7 @@
   },
   {
     "id": "python_file_error",
-    "type": "error",
+    "type": "warning",
     "tech": "python",
     "level": "beginner",
     "importance": "high",
@@ -8343,7 +8217,7 @@
   },
   {
     "id": "python_stacktrace",
-    "type": "concept",
+    "type": "warning",
     "tech": "python",
     "level": "beginner",
     "importance": "high",
@@ -9857,7 +9731,7 @@
   },
   {
     "id": "sql_alias_colonne",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "medium",
@@ -9876,7 +9750,7 @@
   },
   {
     "id": "sql_where_is_null",
-    "type": "error",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "high",
@@ -9895,7 +9769,7 @@
   },
   {
     "id": "sql_where_parentheses_and_or",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "high",
@@ -9934,7 +9808,7 @@
   },
   {
     "id": "sql_limit_sans_order_by",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "medium",
@@ -9953,7 +9827,7 @@
   },
   {
     "id": "sql_offset_pagination",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "medium",
@@ -9992,7 +9866,7 @@
   },
   {
     "id": "sql_group_by_colonne_non_agregee",
-    "type": "error",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "high",
@@ -10031,7 +9905,7 @@
   },
   {
     "id": "sql_join_sans_on_cartesien",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "high",
@@ -10051,7 +9925,7 @@
   },
   {
     "id": "sql_update_delete_sans_where",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "high",
@@ -10071,7 +9945,7 @@
   },
   {
     "id": "sql_tester_select_avant_update",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "beginner",
     "importance": "high",
@@ -10110,7 +9984,7 @@
   },
   {
     "id": "sql_nommage_snake_case",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "intermediate",
     "importance": "medium",
@@ -10229,7 +10103,7 @@
   },
   {
     "id": "sql_contraintes_bdd_vs_app",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "intermediate",
     "importance": "high",
@@ -10307,7 +10181,7 @@
   },
   {
     "id": "sql_index_cout_ecriture",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "intermediate",
     "importance": "medium",
@@ -10327,7 +10201,7 @@
   },
   {
     "id": "sql_index_composite",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "intermediate",
     "importance": "medium",
@@ -10386,7 +10260,7 @@
   },
   {
     "id": "sql_sous_requete_from_table_temp",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "intermediate",
     "importance": "medium",
@@ -10406,7 +10280,7 @@
   },
   {
     "id": "sql_exists_vs_in_performance",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "intermediate",
     "importance": "medium",
@@ -10466,7 +10340,7 @@
   },
   {
     "id": "sql_transaction_longue_blocage",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "intermediate",
     "importance": "high",
@@ -10526,7 +10400,7 @@
   },
   {
     "id": "sql_indexer_cles_etrangeres",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "advanced",
     "importance": "high",
@@ -10566,7 +10440,7 @@
   },
   {
     "id": "sql_logique_bdd_avec_moderation",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "advanced",
     "importance": "medium",
@@ -10607,7 +10481,7 @@
   },
   {
     "id": "sql_trigger_logique_cachee",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "advanced",
     "importance": "high",
@@ -10647,7 +10521,7 @@
   },
   {
     "id": "sql_deadlock_transaction_longue",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "advanced",
     "importance": "high",
@@ -10687,7 +10561,7 @@
   },
   {
     "id": "sql_moindre_privilege",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "advanced",
     "importance": "high",
@@ -10727,7 +10601,7 @@
   },
   {
     "id": "sql_backup_non_teste_inutile",
-    "type": "warning",
+    "type": "concept",
     "tech": "sql",
     "level": "advanced",
     "importance": "high",
@@ -10787,7 +10661,7 @@
   },
   {
     "id": "sql_rank_classement",
-    "type": "tip",
+    "type": "concept",
     "tech": "sql",
     "level": "advanced",
     "importance": "medium",

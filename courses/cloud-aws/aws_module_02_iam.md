@@ -126,6 +126,7 @@ La sécurité repose sur une bonne gestion des identités.
 
 <!-- snippet
 id: aws_iam_definition
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -138,6 +139,7 @@ description: Base de toute sécurité AWS
 
 <!-- snippet
 id: aws_iam_least_privilege
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -150,6 +152,7 @@ description: Principe fondamental IAM
 
 <!-- snippet
 id: aws_iam_admin_warning
+type: warning
 tech: aws
 level: beginner
 importance: high
@@ -162,6 +165,7 @@ description: Erreur critique en entreprise
 
 <!-- snippet
 id: aws_iam_cli_list_users
+type: command
 tech: aws
 level: beginner
 importance: medium
@@ -174,6 +178,7 @@ description: Permet de voir tous les utilisateurs IAM configurés
 
 <!-- snippet
 id: aws_iam_role_usage
+type: concept
 tech: aws
 level: beginner
 importance: medium

@@ -146,6 +146,7 @@ Les variables d’environnement permettent de :
 
 <!-- snippet
 id: docker_run_env_variable
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -158,6 +159,7 @@ description: La variable est disponible dans le conteneur mais ne modifie pas l�
 
 <!-- snippet
 id: docker_run_env_file
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -170,6 +172,7 @@ description: Utile pour passer plusieurs variables sans les exposer dans la comm
 
 <!-- snippet
 id: docker_run_env_production
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -182,6 +185,7 @@ description: Permet de réutiliser la même image avec une configuration différ
 
 <!-- snippet
 id: docker_env_variable_definition
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -193,6 +197,7 @@ content: Une variable d’environnement est une valeur externe à l’applicatio
 
 <!-- snippet
 id: docker_piege_secrets_dockerfile
+type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -204,6 +209,7 @@ content: Les valeurs définies avec ENV dans le Dockerfile sont figées dans l�
 
 <!-- snippet
 id: docker_piege_secrets_dockerfile_b
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -215,6 +221,7 @@ content: Les secrets (mots de passe, clés API) doivent être passés au runtime
 
 <!-- snippet
 id: docker_tip_env_sans_rebuild
+type: tip
 tech: docker
 level: beginner
 importance: low

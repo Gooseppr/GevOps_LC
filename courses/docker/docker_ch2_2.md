@@ -178,6 +178,7 @@ Les instructions Dockerfile permettent de :
 
 <!-- snippet
 id: docker_instruction_from
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -189,6 +190,7 @@ content: FROM définit l’image de départ du Dockerfile. C’est toujours la p
 
 <!-- snippet
 id: docker_instruction_run_install
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -200,6 +202,7 @@ content: RUN exécute une commande lors du build de l’image. Utilisée pour in
 
 <!-- snippet
 id: docker_instruction_copy_app
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -211,6 +214,7 @@ content: COPY transfère des fichiers du contexte local vers le système de fich
 
 <!-- snippet
 id: docker_instruction_cmd_node
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -222,6 +226,7 @@ content: CMD définit la commande exécutée au démarrage du conteneur. Elle n�
 
 <!-- snippet
 id: docker_piege_ordre_instructions
+type: concept
 tech: docker
 level: beginner
 importance: medium
@@ -233,6 +238,7 @@ content: Les instructions sont exécutées dans l’ordre. Changer cet ordre peu
 
 <!-- snippet
 id: docker_piege_ordre_instructions_b
+type: concept
 tech: docker
 level: beginner
 importance: medium
@@ -244,6 +250,7 @@ content: Copier tout le projet avant d’installer les dépendances force une r�
 
 <!-- snippet
 id: docker_layer_reutilisable
+type: concept
 tech: docker
 level: beginner
 importance: medium

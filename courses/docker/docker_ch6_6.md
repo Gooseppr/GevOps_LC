@@ -162,6 +162,7 @@ Le réseau overlay permet de :
 
 <!-- snippet
 id: docker_swarm_overlay_definition
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -173,6 +174,7 @@ content: Un overlay network connecte des conteneurs répartis sur plusieurs mach
 
 <!-- snippet
 id: docker_swarm_overlay_vs_bridge
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -184,6 +186,7 @@ content: Le bridge est limité à une machine (Docker classique). L'overlay fonc
 
 <!-- snippet
 id: docker_swarm_network_create_overlay
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -196,6 +199,7 @@ description: Crée un réseau distribué accessible par tous les nœuds du clust
 
 <!-- snippet
 id: docker_swarm_service_avec_reseau
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -208,6 +212,7 @@ description: Attache le service au réseau overlay, permettant la communication 
 
 <!-- snippet
 id: docker_swarm_bridge_vs_overlay
+type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -219,6 +224,7 @@ content: Le réseau bridge est limité à une machine (Docker classique). Le ré
 
 <!-- snippet
 id: docker_swarm_ports_firewall
+type: concept
 tech: docker
 level: advanced
 importance: medium

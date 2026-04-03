@@ -187,6 +187,7 @@ Phrase clé : **Une application non sécurisée est une application déjà compr
 
 <!-- snippet
 id: python_bcrypt_hash
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -199,6 +200,7 @@ description: standard sécurité
 
 <!-- snippet
 id: python_jwt_usage
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -211,6 +213,7 @@ description: auth stateless
 
 <!-- snippet
 id: python_password_warning
+type: warning
 tech: python
 level: intermediate
 importance: high
@@ -223,6 +226,7 @@ description: fail majeur
 
 <!-- snippet
 id: python_env_secret
+type: concept
 tech: python
 level: intermediate
 importance: high

@@ -161,6 +161,7 @@ user.get("email")
 
 <!-- snippet
 id: python_dict_usage
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -173,6 +174,7 @@ description: Structure la plus utilisée en Python
 
 <!-- snippet
 id: python_set_performance
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -185,6 +187,7 @@ description: Important pour performance
 
 <!-- snippet
 id: python_keyerror_warning
+type: warning
 tech: python
 level: beginner
 importance: high
@@ -197,6 +200,7 @@ description: Eviter crash en production
 
 <!-- snippet
 id: python_list_vs_set
+type: concept
 tech: python
 level: beginner
 importance: medium

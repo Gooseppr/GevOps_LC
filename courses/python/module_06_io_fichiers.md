@@ -150,6 +150,7 @@ Correction : vérifier path
 
 <!-- snippet
 id: python_open_file
+type: command
 tech: python
 level: beginner
 importance: high
@@ -162,6 +163,7 @@ description: Ouvre un fichier en lecture
 
 <!-- snippet
 id: python_with_usage
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -174,6 +176,7 @@ description: Bonne pratique essentielle
 
 <!-- snippet
 id: python_json_dump
+type: concept
 tech: python
 level: beginner
 importance: medium
@@ -186,6 +189,7 @@ description: Standard data exchange
 
 <!-- snippet
 id: python_file_error
+type: warning
 tech: python
 level: beginner
 importance: high

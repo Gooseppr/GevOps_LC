@@ -133,6 +133,7 @@ S3 est le plus utilisé mais souvent mal compris.
 
 <!-- snippet
 id: aws_s3_definition
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -145,6 +146,7 @@ description: Base du stockage AWS
 
 <!-- snippet
 id: aws_ebs_definition
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -157,6 +159,7 @@ description: Stockage bloc AWS
 
 <!-- snippet
 id: aws_s3_public_warning
+type: warning
 tech: aws
 level: beginner
 importance: high
@@ -169,6 +172,7 @@ description: Risque critique sécurité
 
 <!-- snippet
 id: aws_s3_upload_command
+type: command
 tech: aws
 level: beginner
 importance: medium
@@ -181,6 +185,7 @@ description: Permet d’envoyer un fichier vers S3
 
 <!-- snippet
 id: aws_s3_lifecycle_tip
+type: tip
 tech: aws
 level: beginner
 importance: medium

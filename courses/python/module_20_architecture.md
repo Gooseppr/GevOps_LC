@@ -127,6 +127,7 @@ Phrase clé : **Un bon code sans architecture devient un mauvais projet.**
 
 <!-- snippet
 id: python_clean_architecture
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -139,6 +140,7 @@ description: base architecture moderne
 
 <!-- snippet
 id: python_domain_logic
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -151,6 +153,7 @@ description: principe fondamental
 
 <!-- snippet
 id: python_architecture_warning
+type: warning
 tech: python
 level: advanced
 importance: high

@@ -169,6 +169,7 @@ CI/CD permet de :
 
 <!-- snippet
 id: docker_cicd_concept_definition
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -181,6 +182,7 @@ description: CI/CD est le cœur de l’automatisation DevOps moderne.
 
 <!-- snippet
 id: docker_cicd_concept_definition_b
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -192,6 +194,7 @@ content: Le CD (Continuous Delivery/Deployment) livre et déploie automatiquemen
 
 <!-- snippet
 id: docker_cicd_role_docker
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -204,6 +207,7 @@ description: Utiliser Docker dans le pipeline garantit la reproductibilité des 
 
 <!-- snippet
 id: docker_cicd_pipeline_etapes
+type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -215,6 +219,7 @@ content: Pipeline type : code push → build image → tests → push registry �
 
 <!-- snippet
 id: docker_cicd_tip_standardisation
+type: tip
 tech: docker
 level: advanced
 importance: medium
@@ -226,6 +231,7 @@ content: Docker garantit un environnement identique à chaque étape. Automatise
 
 <!-- snippet
 id: docker_cicd_warning_test_local_only
+type: warning
 tech: docker
 level: advanced
 importance: medium
@@ -237,6 +243,7 @@ content: Tester uniquement en local sans répliquer les tests dans le pipeline C
 
 <!-- snippet
 id: docker_cicd_warning_sans_docker
+type: warning
 tech: docker
 level: advanced
 importance: high

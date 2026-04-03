@@ -135,6 +135,7 @@ Phrase clé : **Les données brutes doivent être transformées pour être utile
 
 <!-- snippet
 id: python_etl_definition
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -147,6 +148,7 @@ description: base data engineering
 
 <!-- snippet
 id: python_pandas_usage
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -159,6 +161,7 @@ description: outil clé data
 
 <!-- snippet
 id: python_data_warning
+type: warning
 tech: python
 level: advanced
 importance: high

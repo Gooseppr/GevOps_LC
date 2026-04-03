@@ -155,6 +155,7 @@ La gestion des dépendances permet de :
 
 <!-- snippet
 id: docker_deps_node_pattern
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -166,6 +167,7 @@ content: Copier package.json en premier, lancer npm install, puis copier le rest
 
 <!-- snippet
 id: docker_deps_python_pattern
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -177,6 +179,7 @@ content: Copier requirements.txt en premier, lancer pip install -r requirements.
 
 <!-- snippet
 id: docker_piege_versions_non_figees
+type: concept
 tech: docker
 level: intermediate
 importance: low
@@ -188,6 +191,7 @@ content: Sans versions figées, une dépendance peut se mettre à jour et casser
 
 <!-- snippet
 id: docker_piege_versions_non_figees_b
+type: concept
 tech: docker
 level: intermediate
 importance: low
@@ -199,6 +203,7 @@ content: Utiliser package-lock.json pour Node.js et requirements.txt avec versio
 
 <!-- snippet
 id: docker_tip_deps_avant_code
+type: tip
 tech: docker
 level: beginner
 importance: low
@@ -210,6 +215,7 @@ content: Les dépendances changent rarement par rapport au code applicatif. En l
 
 <!-- snippet
 id: docker_deps_definition
+type: concept
 tech: docker
 level: beginner
 importance: high

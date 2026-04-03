@@ -267,6 +267,7 @@ Dans la suite de la formation nous passerons au **niveau intermédiaire**, où n
 
 <!-- snippet
 id: sql_update_delete_sans_where
+type: concept
 tech: sql
 level: beginner
 importance: high
@@ -282,6 +283,7 @@ description: Erreur irréversible si aucune transaction n'est ouverte. Tester d'
 
 <!-- snippet
 id: sql_tester_select_avant_update
+type: concept
 tech: sql
 level: beginner
 importance: high

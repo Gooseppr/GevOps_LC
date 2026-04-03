@@ -196,6 +196,7 @@ Dans le prochain chapitre nous verrons **les vues**, qui permettent de simplifie
 
 <!-- snippet
 id: sql_create_index
+type: command
 tech: sql
 level: intermediate
 importance: high
@@ -208,6 +209,7 @@ description: Accélère les recherches sur la colonne indexée. Particulièremen
 
 <!-- snippet
 id: sql_index_cout_ecriture
+type: concept
 tech: sql
 level: intermediate
 importance: medium
@@ -223,6 +225,7 @@ description: Sur des tables à fort volume d'écriture, les index inutiles peuve
 
 <!-- snippet
 id: sql_index_composite
+type: concept
 tech: sql
 level: intermediate
 importance: medium

@@ -116,6 +116,7 @@ Phrase clé : **Ce que tu ne mesures pas, tu ne peux pas le corriger.**
 
 <!-- snippet
 id: observability_three_pillars
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -128,6 +129,7 @@ description: base monitoring
 
 <!-- snippet
 id: observability_metrics
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -140,6 +142,7 @@ description: surveillance système
 
 <!-- snippet
 id: observability_logs_only_warning
+type: warning
 tech: python
 level: advanced
 importance: high

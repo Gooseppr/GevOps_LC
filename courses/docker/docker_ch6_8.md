@@ -162,6 +162,7 @@ Docker Swarm permet :
 
 <!-- snippet
 id: docker_swarm_multi_managers
+type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -173,6 +174,7 @@ content: Minimum 3 managers en production pour garantir le quorum (majorité né
 
 <!-- snippet
 id: docker_swarm_versionner_images
+type: concept
 tech: docker
 level: advanced
 importance: low
@@ -184,6 +186,7 @@ content: Utiliser des tags versionnés (mon-app:v1, mon-app:v2) plutôt que late
 
 <!-- snippet
 id: docker_swarm_limites_vs_kubernetes
+type: concept
 tech: docker
 level: advanced
 importance: low
@@ -195,6 +198,7 @@ content: Swarm est simple mais limité : pas d'auto-scaling natif, écosystème 
 
 <!-- snippet
 id: docker_swarm_usage_classique
+type: concept
 tech: docker
 level: advanced
 importance: low
@@ -206,6 +210,7 @@ content: Swarm convient aux projets simples, à l'auto-hébergement et aux petit
 
 <!-- snippet
 id: docker_swarm_utilise_comme_docker_classique
+type: concept
 tech: docker
 level: advanced
 importance: low

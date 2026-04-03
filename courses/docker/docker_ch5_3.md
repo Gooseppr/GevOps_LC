@@ -155,6 +155,7 @@ Le scan permet de :
 
 <!-- snippet
 id: docker_vulnerability_concept
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -166,6 +167,7 @@ content: Une vulnérabilité est une faille exploitable dans une image Docker, s
 
 <!-- snippet
 id: docker_scan_builtin
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -178,6 +180,7 @@ description: Outil de scan intégré à Docker pour détecter les vulnérabilit�
 
 <!-- snippet
 id: docker_scan_trivy
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -190,6 +193,7 @@ description: Trivy est un outil open-source de scan de sécurité fournissant un
 
 <!-- snippet
 id: docker_scan_regular_tip
+type: tip
 tech: docker
 level: intermediate
 importance: medium
@@ -201,6 +205,7 @@ content: Scanner ses images régulièrement détecte de nouvelles vulnérabilit�
 
 <!-- snippet
 id: docker_scan_official_image_warning
+type: warning
 tech: docker
 level: intermediate
 importance: medium

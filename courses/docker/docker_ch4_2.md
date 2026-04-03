@@ -227,6 +227,7 @@ Le fichier docker-compose.yml permet de :
 
 <!-- snippet
 id: docker_compose_yml_concept
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -239,6 +240,7 @@ description: Structure principale : services (obligatoire), volumes et networks 
 
 <!-- snippet
 id: docker_compose_yaml_indentation_warning
+type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -251,6 +253,7 @@ description: Toujours vérifier l’alignement des blocs et utiliser des espaces
 
 <!-- snippet
 id: docker_compose_ports_mapping
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -262,6 +265,7 @@ content: La clé `ports` expose un port du conteneur sur la machine hôte. Forma
 
 <!-- snippet
 id: docker_compose_environment_inline
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -273,6 +277,7 @@ content: La clé `environment` permet d’injecter des variables directement dan
 
 <!-- snippet
 id: docker_compose_declarative_config
+type: concept
 tech: docker
 level: intermediate
 importance: high

@@ -125,6 +125,7 @@ Une bonne configuration est essentielle.
 
 <!-- snippet
 id: aws_security_definition
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -137,6 +138,7 @@ description: Concept fondamental
 
 <!-- snippet
 id: aws_mfa_importance
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -149,6 +151,7 @@ description: Protection critique
 
 <!-- snippet
 id: aws_root_warning
+type: warning
 tech: aws
 level: beginner
 importance: high
@@ -161,6 +164,7 @@ description: Erreur critique AWS
 
 <!-- snippet
 id: aws_kms_definition
+type: concept
 tech: aws
 level: beginner
 importance: medium
@@ -173,6 +177,7 @@ description: Base encryption AWS
 
 <!-- snippet
 id: aws_security_tip
+type: tip
 tech: aws
 level: beginner
 importance: medium
@@ -185,6 +190,7 @@ description: Bonne pratique globale
 
 <!-- snippet
 id: aws_security_error
+type: warning
 tech: aws
 level: beginner
 importance: high

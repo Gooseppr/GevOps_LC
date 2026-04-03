@@ -139,6 +139,7 @@ Une bonne architecture optimise coût et rapidité.
 
 <!-- snippet
 id: aws_caching_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -151,6 +152,7 @@ description: Base optimisation
 
 <!-- snippet
 id: aws_cloudfront_performance
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -163,6 +165,7 @@ description: Optimisation globale
 
 <!-- snippet
 id: aws_cache_warning
+type: warning
 tech: aws
 level: advanced
 importance: high
@@ -175,6 +178,7 @@ description: Piège fréquent
 
 <!-- snippet
 id: aws_elasticache_command
+type: command
 tech: aws
 level: advanced
 importance: medium
@@ -187,6 +191,7 @@ description: Permet de voir les clusters cache
 
 <!-- snippet
 id: aws_performance_tip
+type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -199,6 +204,7 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_latency_error
+type: warning
 tech: aws
 level: advanced
 importance: high

@@ -221,6 +221,7 @@ Dans le prochain chapitre nous verrons **les transactions**, qui permettent de g
 
 <!-- snippet
 id: sql_sous_requete_from_table_temp
+type: concept
 tech: sql
 level: intermediate
 importance: medium
@@ -241,6 +242,7 @@ description: Alternative aux CTE (WITH) pour les cas simples d'une seule sous-re
 
 <!-- snippet
 id: sql_exists_vs_in_performance
+type: concept
 tech: sql
 level: intermediate
 importance: medium

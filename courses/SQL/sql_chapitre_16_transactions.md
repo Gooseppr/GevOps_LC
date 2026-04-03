@@ -219,6 +219,7 @@ Dans le prochain chapitre nous entrerons dans le niveau avancé avec **l’optim
 
 <!-- snippet
 id: sql_transaction_begin_commit
+type: command
 tech: sql
 level: intermediate
 importance: high
@@ -231,6 +232,7 @@ description: Regroupe plusieurs opérations en une unité atomique. En cas d’e
 
 <!-- snippet
 id: sql_acid_proprietes
+type: concept
 tech: sql
 level: intermediate
 importance: high
@@ -246,6 +248,7 @@ description: Ces propriétés garantissent la fiabilité des opérations même e
 
 <!-- snippet
 id: sql_transaction_longue_blocage
+type: concept
 tech: sql
 level: intermediate
 importance: high

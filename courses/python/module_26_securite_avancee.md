@@ -128,6 +128,7 @@ Phrase clé : **La sécurité est un processus continu, pas une étape.**
 
 <!-- snippet
 id: python_pip_audit
+type: command
 tech: python
 level: advanced
 importance: high
@@ -140,6 +141,7 @@ description: détecte vulnérabilités dans les librairies
 
 <!-- snippet
 id: python_dependency_security
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -152,6 +154,7 @@ description: risque majeur
 
 <!-- snippet
 id: python_security_warning
+type: warning
 tech: python
 level: advanced
 importance: high

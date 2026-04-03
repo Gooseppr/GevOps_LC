@@ -192,6 +192,7 @@ Un service permet de :
 
 <!-- snippet
 id: docker_swarm_service_create
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -204,6 +205,7 @@ description: Crée un service géré par Swarm. Swarm gère automatiquement le c
 
 <!-- snippet
 id: docker_swarm_service_ls
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -216,6 +218,7 @@ description: Affiche la liste de tous les services déployés dans le cluster av
 
 <!-- snippet
 id: docker_swarm_service_ps
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -228,6 +231,7 @@ description: Affiche les conteneurs (tâches) associés au service, leur état e
 
 <!-- snippet
 id: docker_swarm_service_replicas
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -240,6 +244,7 @@ description: Lance 3 instances du service, réparties automatiquement sur les n�
 
 <!-- snippet
 id: docker_swarm_service_scale
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -252,6 +257,7 @@ description: Ajuste à la volée le nombre d'instances du service sans interrupt
 
 <!-- snippet
 id: docker_swarm_service_rm
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -264,6 +270,7 @@ description: Supprime le service et arrête tous les conteneurs associés sur l'
 
 <!-- snippet
 id: docker_swarm_desired_state
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -275,6 +282,7 @@ content: Un service Swarm représente un état désiré. Si un conteneur tombe, 
 
 <!-- snippet
 id: docker_swarm_modifier_conteneur_direct
+type: concept
 tech: docker
 level: advanced
 importance: medium

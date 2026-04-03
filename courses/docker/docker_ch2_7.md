@@ -158,6 +158,7 @@ Un bon Dockerfile permet de :
 
 <!-- snippet
 id: docker_build_tag_version
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -170,6 +171,7 @@ description: Nommer et versionner ses images facilite le suivi et le déploiemen
 
 <!-- snippet
 id: docker_run_chain_best_practice
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -181,6 +183,7 @@ content: Regrouper plusieurs commandes dans un seul RUN avec && réduit le nombr
 
 <!-- snippet
 id: docker_dockerignore_usage
+type: concept
 tech: docker
 level: beginner
 importance: medium
@@ -192,6 +195,7 @@ content: Le fichier .dockerignore fonctionne comme .gitignore. Il exclut du cont
 
 <!-- snippet
 id: docker_image_officielle_from
+type: concept
 tech: docker
 level: beginner
 importance: medium
@@ -203,6 +207,7 @@ content: Les images officielles (node, python, nginx, alpine) sont maintenues, s
 
 <!-- snippet
 id: docker_piege_dockerfile_non_structure
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -214,6 +219,7 @@ content: Un Dockerfile sans structure claire devient vite incompréhensible en �
 
 <!-- snippet
 id: docker_bp_alpine_images
+type: concept
 tech: docker
 level: intermediate
 importance: medium

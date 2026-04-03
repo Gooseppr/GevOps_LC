@@ -154,6 +154,7 @@ Docker Swarm permet de :
 
 <!-- snippet
 id: docker_swarm_definition
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -166,6 +167,7 @@ description: Swarm est intégré directement dans Docker, aucune installation su
 
 <!-- snippet
 id: docker_swarm_vs_compose
+type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -177,6 +179,7 @@ content: Compose gère plusieurs conteneurs sur une seule machine. Swarm orchest
 
 <!-- snippet
 id: docker_swarm_orchestrateur
+type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -188,6 +191,7 @@ content: Un orchestrateur gère automatiquement des conteneurs à grande échell
 
 <!-- snippet
 id: docker_swarm_complexite_prerequis
+type: concept
 tech: docker
 level: advanced
 importance: low
@@ -199,6 +203,7 @@ content: Utiliser Swarm sans comprendre les concepts de base Docker (réseau, vo
 
 <!-- snippet
 id: docker_swarm_roles_manager_worker
+type: concept
 tech: docker
 level: advanced
 importance: high

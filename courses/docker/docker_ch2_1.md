@@ -185,6 +185,7 @@ Le Dockerfile permet de :
 
 <!-- snippet
 id: docker_build_tag_dot
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -197,6 +198,7 @@ description: Le point final désigne le dossier courant comme contexte de build.
 
 <!-- snippet
 id: docker_run_image_custom
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -209,6 +211,7 @@ description: Lance un conteneur depuis une image construite localement avec dock
 
 <!-- snippet
 id: docker_dockerfile_definition
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -220,6 +223,7 @@ content: Un Dockerfile est un fichier texte décrivant comment construire une im
 
 <!-- snippet
 id: docker_layer_per_instruction
+type: concept
 tech: docker
 level: beginner
 importance: medium
@@ -231,6 +235,7 @@ content: Chaque ligne du Dockerfile crée une "couche" (layer). Docker réutilis
 
 <!-- snippet
 id: docker_piege_modifier_conteneur
+type: warning
 tech: docker
 level: beginner
 importance: high
@@ -242,6 +247,7 @@ content: Modifier directement un conteneur au lieu du Dockerfile entraîne la pe
 
 <!-- snippet
 id: docker_dockerfile_source_verite
+type: concept
 tech: docker
 level: beginner
 importance: high

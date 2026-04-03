@@ -249,6 +249,7 @@ Dans le prochain chapitre nous verrons **les triggers**, qui permettent d’exé
 
 <!-- snippet
 id: sql_fonction_vs_procedure
+type: concept
 tech: sql
 level: advanced
 importance: medium
@@ -263,6 +264,7 @@ description: En PostgreSQL, une fonction peut aussi modifier des données via pl
 
 <!-- snippet
 id: sql_logique_bdd_avec_moderation
+type: concept
 tech: sql
 level: advanced
 importance: medium

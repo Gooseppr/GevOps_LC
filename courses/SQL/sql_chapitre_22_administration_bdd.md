@@ -257,6 +257,7 @@ Dans le prochain chapitre nous verrons **le SQL avancé**, notamment :
 
 <!-- snippet
 id: sql_pg_dump_backup
+type: command
 tech: sql
 level: advanced
 importance: high
@@ -270,6 +271,7 @@ description: pg_dump exporte la structure et les données en SQL. psql les réim
 
 <!-- snippet
 id: sql_backup_non_teste_inutile
+type: concept
 tech: sql
 level: advanced
 importance: high

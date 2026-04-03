@@ -128,6 +128,7 @@ Phrase clé : **Optimiser sans mesurer est une perte de temps.**
 
 <!-- snippet
 id: python_cprofile_command
+type: command
 tech: python
 level: advanced
 importance: high
@@ -140,6 +141,7 @@ description: Identifie les parties lentes du code
 
 <!-- snippet
 id: python_optimization_warning
+type: warning
 tech: python
 level: advanced
 importance: high
@@ -152,6 +154,7 @@ description: erreur fréquente
 
 <!-- snippet
 id: python_datastructure_perf
+type: concept
 tech: python
 level: advanced
 importance: high

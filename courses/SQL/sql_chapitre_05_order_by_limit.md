@@ -323,6 +323,7 @@ Dans le prochain chapitre nous verrons **les fonctions d'agrégation** :
 
 <!-- snippet
 id: sql_order_by_limit_top
+type: command
 tech: sql
 level: beginner
 importance: high
@@ -335,6 +336,7 @@ description: Récupère les N premières lignes dans l'ordre décroissant. Utile
 
 <!-- snippet
 id: sql_limit_sans_order_by
+type: concept
 tech: sql
 level: beginner
 importance: medium
@@ -347,6 +349,7 @@ description: Toujours coupler LIMIT avec ORDER BY pour des résultats stables et
 
 <!-- snippet
 id: sql_offset_pagination
+type: concept
 tech: sql
 level: beginner
 importance: medium

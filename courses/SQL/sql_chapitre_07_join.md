@@ -287,6 +287,7 @@ Dans le prochain chapitre nous verrons **la manipulation des données : INSERT, 
 
 <!-- snippet
 id: sql_inner_vs_left_join
+type: concept
 tech: sql
 level: beginner
 importance: high
@@ -301,6 +302,7 @@ description: Utiliser INNER JOIN quand la correspondance est garantie, LEFT JOIN
 
 <!-- snippet
 id: sql_join_sans_on_cartesien
+type: concept
 tech: sql
 level: beginner
 importance: high

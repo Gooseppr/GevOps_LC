@@ -206,6 +206,7 @@ Un conteneur a un cycle de vie simple :
 
 <!-- snippet
 id: docker_lifecycle_concept
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -217,6 +218,7 @@ content: Un conteneur passe par plusieurs états : créé, en cours d’exécuti
 
 <!-- snippet
 id: docker_start_conteneur
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -229,6 +231,7 @@ description: Démarre un conteneur déjà existant (arrêté). Différent de doc
 
 <!-- snippet
 id: docker_restart_conteneur
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -241,6 +244,7 @@ description: Redémarre un conteneur sans le recréer. Utile après une modifica
 
 <!-- snippet
 id: docker_rm_force
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -253,6 +257,7 @@ description: Supprime un conteneur même s’il est en cours d’exécution. À 
 
 <!-- snippet
 id: docker_run_vs_start
+type: warning
 tech: docker
 level: beginner
 importance: high
@@ -264,6 +269,7 @@ content: docker run crée un nouveau conteneur à chaque appel. Si le conteneur 
 
 <!-- snippet
 id: docker_accumulation_conteneurs
+type: concept
 tech: docker
 level: beginner
 importance: medium
@@ -275,6 +281,7 @@ content: Les conteneurs arrêtés restent stockés sur la machine et consomment 
 
 <!-- snippet
 id: docker_conteneur_arrete_existe
+type: concept
 tech: docker
 level: beginner
 importance: medium

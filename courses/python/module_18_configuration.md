@@ -175,6 +175,7 @@ Phrase clé : **Une bonne config rend ton application portable et déployable.**
 
 <!-- snippet
 id: python_env_variable
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -187,6 +188,7 @@ description: base config moderne
 
 <!-- snippet
 id: python_os_getenv
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -199,6 +201,7 @@ description: accès runtime config
 
 <!-- snippet
 id: python_env_warning
+type: warning
 tech: python
 level: intermediate
 importance: high
@@ -211,6 +214,7 @@ description: erreur critique
 
 <!-- snippet
 id: python_dotenv_usage
+type: concept
 tech: python
 level: intermediate
 importance: medium

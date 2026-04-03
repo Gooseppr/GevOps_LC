@@ -247,6 +247,7 @@ Dans le prochain chapitre nous verrons **les index**, qui permettent d’amélio
 
 <!-- snippet
 id: sql_relation_nn_table_liaison
+type: concept
 tech: sql
 level: intermediate
 importance: high
@@ -262,6 +263,7 @@ description: Sans table de liaison, les relations N-N forcent à dupliquer des d
 
 <!-- snippet
 id: sql_3nf_dependance_transitive
+type: concept
 tech: sql
 level: intermediate
 importance: medium

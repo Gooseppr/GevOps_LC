@@ -162,6 +162,7 @@ Optimiser une image permet de :
 
 <!-- snippet
 id: docker_optim_alpine_base
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -174,6 +175,7 @@ description: Les images alpine sont des versions minimales (~5MB de base) qui r�
 
 <!-- snippet
 id: docker_optim_clean_apt_cache
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -186,6 +188,7 @@ description: Chaîner l'installation et la suppression du cache dans une seule i
 
 <!-- snippet
 id: docker_optim_copy_selective
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -198,6 +201,7 @@ description: Copier uniquement package.json avant le reste du code exploite le c
 
 <!-- snippet
 id: docker_optim_concept
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -209,6 +213,7 @@ content: L'optimisation d'une image Docker consiste à réduire sa taille et lim
 
 <!-- snippet
 id: docker_optim_temp_files_warning
+type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -220,6 +225,7 @@ content: Ne pas supprimer les caches après installation alourdit l'image sans v
 
 <!-- snippet
 id: docker_optim_build_tools_error
+type: warning
 tech: docker
 level: intermediate
 importance: medium

@@ -213,6 +213,7 @@ Dans le prochain chapitre nous verrons **l’administration des bases de donnée
 
 <!-- snippet
 id: sql_grant_revoke
+type: command
 tech: sql
 level: advanced
 importance: high
@@ -225,6 +226,7 @@ description: GRANT attribue le droit, REVOKE le retire. Les permissions s’appl
 
 <!-- snippet
 id: sql_moindre_privilege
+type: concept
 tech: sql
 level: advanced
 importance: high

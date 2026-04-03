@@ -206,6 +206,7 @@ Phrase clé : **Une API fiable repose sur validation + structure + gestion erreu
 
 <!-- snippet
 id: python_fastapi_basic
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -218,6 +219,7 @@ description: Framework moderne backend
 
 <!-- snippet
 id: python_uvicorn_run
+type: command
 tech: python
 level: intermediate
 importance: high
@@ -230,6 +232,7 @@ description: Lance le serveur de développement
 
 <!-- snippet
 id: python_pydantic_validation
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -242,6 +245,7 @@ description: Sécurité et robustesse
 
 <!-- snippet
 id: python_api_validation_warning
+type: warning
 tech: python
 level: intermediate
 importance: high

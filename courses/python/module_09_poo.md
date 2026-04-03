@@ -142,6 +142,7 @@ Chaque classe représente une entité métier.
 
 <!-- snippet
 id: python_class_definition
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -154,6 +155,7 @@ description: Base de la POO
 
 <!-- snippet
 id: python_object_instance
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -166,6 +168,7 @@ description: Utilisation réelle
 
 <!-- snippet
 id: python_poo_overengineering
+type: warning
 tech: python
 level: intermediate
 importance: high
@@ -178,6 +181,7 @@ description: piège fréquent
 
 <!-- snippet
 id: python_composition_vs_inheritance
+type: concept
 tech: python
 level: intermediate
 importance: medium

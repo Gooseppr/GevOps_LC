@@ -182,6 +182,7 @@ Exposer un port permet de :
 
 <!-- snippet
 id: docker_port_definition
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -193,6 +194,7 @@ content: Un port est un point d’entrée réseau qui permet à une application 
 
 <!-- snippet
 id: docker_run_port_mapping
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -205,6 +207,7 @@ description: Relie un port de la machine hôte au port 80 du conteneur. Syntaxe 
 
 <!-- snippet
 id: docker_run_detache_port
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -217,6 +220,7 @@ description: Lance nginx en arrière-plan et expose son port 80 sur le port choi
 
 <!-- snippet
 id: docker_port_inverse_warning
+type: warning
 tech: docker
 level: beginner
 importance: medium
@@ -228,6 +232,7 @@ content: La syntaxe -p attend port_externe:port_interne. Inverser l’ordre (ex 
 
 <!-- snippet
 id: docker_port_isolation_warning
+type: warning
 tech: docker
 level: beginner
 importance: high
@@ -239,6 +244,7 @@ content: Le conteneur est isolé par défaut. Rien n’est accessible depuis l�
 
 <!-- snippet
 id: docker_port_libre_tip
+type: tip
 tech: docker
 level: beginner
 importance: medium

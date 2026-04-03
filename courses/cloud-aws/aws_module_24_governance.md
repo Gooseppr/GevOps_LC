@@ -150,6 +150,7 @@ C’est indispensable en entreprise.
 
 <!-- snippet
 id: aws_governance_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -162,6 +163,7 @@ description: Base entreprise
 
 <!-- snippet
 id: aws_organizations_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -174,6 +176,7 @@ description: Multi-account management
 
 <!-- snippet
 id: aws_scp_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -186,6 +189,7 @@ description: Sécurité globale
 
 <!-- snippet
 id: aws_tagging_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -198,6 +202,7 @@ description: Gestion et FinOps
 
 <!-- snippet
 id: aws_tagging_warning
+type: warning
 tech: aws
 level: advanced
 importance: high
@@ -210,6 +215,7 @@ description: Piège fréquent entreprise
 
 <!-- snippet
 id: aws_org_command
+type: command
 tech: aws
 level: advanced
 importance: medium
@@ -222,6 +228,7 @@ description: Permet de voir les comptes dans une organisation
 
 <!-- snippet
 id: aws_governance_tip
+type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -234,6 +241,7 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_governance_error
+type: warning
 tech: aws
 level: advanced
 importance: high

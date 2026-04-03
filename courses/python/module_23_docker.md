@@ -144,6 +144,7 @@ Phrase clé : **Si ton code marche en Docker, il marche partout.**
 
 <!-- snippet
 id: docker_build_command
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -156,6 +157,7 @@ description: Construit une image Docker à partir du Dockerfile
 
 <!-- snippet
 id: docker_run_command
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -168,6 +170,7 @@ description: Lance un conteneur Docker
 
 <!-- snippet
 id: docker_image_concept
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -180,6 +183,7 @@ description: base Docker
 
 <!-- snippet
 id: docker_size_warning
+type: warning
 tech: docker
 level: advanced
 importance: high

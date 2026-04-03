@@ -170,6 +170,7 @@ Docker propose deux types de stockage :
 
 <!-- snippet
 id: docker_volume_concept
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -181,6 +182,7 @@ content: Un volume Docker est un espace de stockage géré par Docker, stocké d
 
 <!-- snippet
 id: docker_bind_mount_concept
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -192,6 +194,7 @@ content: Un bind mount crée un lien direct entre un dossier de la machine hôte
 
 <!-- snippet
 id: docker_run_volume_named
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -204,6 +207,7 @@ description: Monte le volume nommé sur le répertoire /data du conteneur. Docke
 
 <!-- snippet
 id: docker_run_bind_mount
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -216,6 +220,7 @@ description: Monte le répertoire courant sur /app dans le conteneur. Toute modi
 
 <!-- snippet
 id: docker_volume_prod_postgres
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -228,6 +233,7 @@ description: Monte le volume "db-data" sur le répertoire de données interne de
 
 <!-- snippet
 id: docker_bind_mount_ecrasement_piege
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -239,6 +245,7 @@ content: Si tu montes un dossier vide avec un bind mount sur un répertoire exis
 
 <!-- snippet
 id: docker_volume_vs_bindmount_choix
+type: concept
 tech: docker
 level: intermediate
 importance: medium

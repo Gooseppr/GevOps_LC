@@ -221,6 +221,7 @@ Dans le prochain chapitre nous verrons **la sécurité des bases de données**, 
 
 <!-- snippet
 id: sql_niveaux_isolation
+type: concept
 tech: sql
 level: advanced
 importance: high
@@ -236,6 +237,7 @@ description: Plus le niveau est fort, plus la cohérence est garantie, mais les 
 
 <!-- snippet
 id: sql_deadlock_transaction_longue
+type: concept
 tech: sql
 level: advanced
 importance: high

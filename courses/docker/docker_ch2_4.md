@@ -187,6 +187,7 @@ Optimiser une image permet de :
 
 <!-- snippet
 id: docker_layer_definition
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -198,6 +199,7 @@ content: Chaque instruction du Dockerfile crée une couche (layer). Une image Do
 
 <!-- snippet
 id: docker_cache_definition
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -209,6 +211,7 @@ content: Docker réutilise automatiquement les couches déjà construites si rie
 
 <!-- snippet
 id: docker_piege_copy_trop_tot
+type: concept
 tech: docker
 level: intermediate
 importance: low
@@ -220,6 +223,7 @@ content: Mettre COPY . . avant RUN npm install invalide le cache dès la moindre
 
 <!-- snippet
 id: docker_tip_ordre_stabilite
+type: tip
 tech: docker
 level: intermediate
 importance: low
@@ -231,6 +235,7 @@ content: Les instructions qui changent rarement (FROM, installation de dépendan
 
 <!-- snippet
 id: docker_optimisation_node_pattern
+type: concept
 tech: docker
 level: intermediate
 importance: low

@@ -131,6 +131,7 @@ Correction : required=True
 
 <!-- snippet
 id: python_argparse_basic
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -143,6 +144,7 @@ description: outil standard Python
 
 <!-- snippet
 id: python_sys_argv
+type: concept
 tech: python
 level: beginner
 importance: medium
@@ -155,6 +157,7 @@ description: bas niveau CLI
 
 <!-- snippet
 id: python_cli_warning
+type: warning
 tech: python
 level: beginner
 importance: high

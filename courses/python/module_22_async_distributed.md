@@ -125,6 +125,7 @@ Phrase clé : **Découpler = scaler.**
 
 <!-- snippet
 id: python_async_advanced
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -137,6 +138,7 @@ description: base performance réseau
 
 <!-- snippet
 id: python_queue_concept
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -149,6 +151,7 @@ description: base architecture distribuée
 
 <!-- snippet
 id: python_worker_tip
+type: tip
 tech: python
 level: advanced
 importance: medium
@@ -161,6 +164,7 @@ description: améliore performance
 
 <!-- snippet
 id: python_monolith_warning
+type: warning
 tech: python
 level: advanced
 importance: high

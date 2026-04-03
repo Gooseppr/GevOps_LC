@@ -128,6 +128,7 @@ Idéal pour workloads dynamiques.
 
 <!-- snippet
 id: aws_lambda_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -140,6 +141,7 @@ description: Base serverless AWS
 
 <!-- snippet
 id: aws_apigateway_role
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -152,6 +154,7 @@ description: Interface API AWS
 
 <!-- snippet
 id: aws_lambda_command
+type: command
 tech: aws
 level: advanced
 importance: medium
@@ -164,6 +167,7 @@ description: Permet de voir les fonctions Lambda
 
 <!-- snippet
 id: aws_cold_start_warning
+type: warning
 tech: aws
 level: advanced
 importance: high
@@ -176,6 +180,7 @@ description: Piège serverless
 
 <!-- snippet
 id: aws_serverless_tip
+type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -188,6 +193,7 @@ description: Bonne pratique serverless
 
 <!-- snippet
 id: aws_serverless_error
+type: warning
 tech: aws
 level: advanced
 importance: high

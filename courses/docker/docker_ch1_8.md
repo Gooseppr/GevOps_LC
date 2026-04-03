@@ -167,6 +167,7 @@ Les logs permettent de :
 
 <!-- snippet
 id: docker_logs_definition
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -178,6 +179,7 @@ content: Les logs sont les messages générés par une application dans le conte
 
 <!-- snippet
 id: docker_logs_consulter
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -190,6 +192,7 @@ description: Affiche tout ce que le conteneur a produit depuis son démarrage.
 
 <!-- snippet
 id: docker_logs_follow
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -202,6 +205,7 @@ description: L'option -f (follow) affiche les logs en direct, comme tail -f. Uti
 
 <!-- snippet
 id: docker_logs_tail
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -214,6 +218,7 @@ description: Affiche uniquement les N dernières lignes. Pratique pour les conte
 
 <!-- snippet
 id: docker_logs_timestamps
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -226,6 +231,7 @@ description: Ajoute la date et l'heure devant chaque ligne de log pour faciliter
 
 <!-- snippet
 id: docker_logs_premier_reflexe
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -237,6 +243,7 @@ content: En cas de problème avec un conteneur, les logs sont toujours la premi�
 
 <!-- snippet
 id: docker_logs_ignorer_warning
+type: warning
 tech: docker
 level: beginner
 importance: high
@@ -248,6 +255,7 @@ content: Ne pas consulter les logs avant de déboguer fait perdre du temps. Un c
 
 <!-- snippet
 id: docker_logs_conteneur_plante
+type: concept
 tech: docker
 level: beginner
 importance: medium

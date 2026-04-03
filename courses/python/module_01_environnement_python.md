@@ -110,6 +110,7 @@ Correction : activer le bon venv
 
 <!-- snippet
 id: python_venv_creation
+type: command
 tech: python
 level: beginner
 importance: high
@@ -122,6 +123,7 @@ description: Crée un environnement isolé pour un projet Python
 
 <!-- snippet
 id: python_venv_activation
+type: command
 tech: python
 level: beginner
 importance: high
@@ -134,6 +136,7 @@ description: Active l'environnement virtuel sous Linux/Mac
 
 <!-- snippet
 id: python_env_concept
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -146,6 +149,7 @@ description: Évite les conflits entre projets
 
 <!-- snippet
 id: python_global_warning
+type: warning
 tech: python
 level: beginner
 importance: high

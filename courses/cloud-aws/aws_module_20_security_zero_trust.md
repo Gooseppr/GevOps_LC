@@ -142,6 +142,7 @@ AWS fournit les outils mais la configuration est clé.
 
 <!-- snippet
 id: aws_zero_trust_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -154,6 +155,7 @@ description: Modèle sécurité moderne
 
 <!-- snippet
 id: aws_cloudtrail_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -166,6 +168,7 @@ description: Audit AWS
 
 <!-- snippet
 id: aws_network_segmentation
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -178,6 +181,7 @@ description: Base sécurité réseau
 
 <!-- snippet
 id: aws_security_group_command
+type: command
 tech: aws
 level: advanced
 importance: medium
@@ -190,6 +194,7 @@ description: Permet de voir les règles réseau AWS
 
 <!-- snippet
 id: aws_open_network_warning
+type: warning
 tech: aws
 level: advanced
 importance: high
@@ -202,6 +207,7 @@ description: Piège critique
 
 <!-- snippet
 id: aws_security_tip
+type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -214,6 +220,7 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_security_incident
+type: concept
 tech: aws
 level: advanced
 importance: high

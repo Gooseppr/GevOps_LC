@@ -197,6 +197,7 @@ Définir un service permet de :
 
 <!-- snippet
 id: docker_compose_service_concept
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -208,6 +209,7 @@ content: Un service dans Docker Compose correspond à un conteneur configuré da
 
 <!-- snippet
 id: docker_compose_build_directive
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -220,6 +222,7 @@ description: Utiliser `build` pour ton propre code, `image` pour les services ex
 
 <!-- snippet
 id: docker_compose_depends_on_limit
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -232,6 +235,7 @@ description: Solution : ajouter un mécanisme de retry côté application, un sc
 
 <!-- snippet
 id: docker_compose_restart_always
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -243,6 +247,7 @@ content: La directive `restart: always` redémarre automatiquement un conteneur 
 
 <!-- snippet
 id: docker_compose_depends_not_ready
+type: concept
 tech: docker
 level: intermediate
 importance: high

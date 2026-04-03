@@ -140,6 +140,7 @@ requests==2.31.0
 
 <!-- snippet
 id: python_pip_install
+type: command
 tech: python
 level: intermediate
 importance: high
@@ -152,6 +153,7 @@ description: Installe une librairie Python
 
 <!-- snippet
 id: python_requirements_freeze
+type: command
 tech: python
 level: intermediate
 importance: high
@@ -164,6 +166,7 @@ description: Sauvegarde les dépendances du projet
 
 <!-- snippet
 id: python_dependency_warning
+type: warning
 tech: python
 level: intermediate
 importance: high
@@ -176,6 +179,7 @@ description: piège fréquent
 
 <!-- snippet
 id: python_poetry_usage
+type: concept
 tech: python
 level: intermediate
 importance: medium

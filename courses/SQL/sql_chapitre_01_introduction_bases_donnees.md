@@ -215,6 +215,7 @@ Dans le prochain chapitre nous verrons **le modèle relationnel**, qui est la ba
 
 <!-- snippet
 id: sql_definition_langage
+type: concept
 tech: sql
 level: beginner
 importance: high

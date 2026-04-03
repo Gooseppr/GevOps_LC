@@ -124,6 +124,7 @@ Ensemble, ils améliorent performance et disponibilité.
 
 <!-- snippet
 id: aws_dns_definition
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -136,6 +137,7 @@ description: Base réseau
 
 <!-- snippet
 id: aws_route53_definition
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -148,6 +150,7 @@ description: DNS AWS
 
 <!-- snippet
 id: aws_cloudfront_definition
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -160,6 +163,7 @@ description: CDN AWS
 
 <!-- snippet
 id: aws_dns_ttl_warning
+type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -172,6 +176,7 @@ description: Piège DNS classique
 
 <!-- snippet
 id: aws_route53_command
+type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -184,6 +189,7 @@ description: Permet de voir les zones DNS
 
 <!-- snippet
 id: aws_cdn_tip
+type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -196,6 +202,7 @@ description: Optimisation clé web
 
 <!-- snippet
 id: aws_dns_error
+type: warning
 tech: aws
 level: intermediate
 importance: high

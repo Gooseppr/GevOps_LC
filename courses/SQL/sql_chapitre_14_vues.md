@@ -216,6 +216,7 @@ Dans le prochain chapitre nous verrons **les sous‑requêtes**, qui permettent 
 
 <!-- snippet
 id: sql_create_view
+type: command
 tech: sql
 level: intermediate
 importance: high
@@ -228,6 +229,7 @@ description: Enregistre une requête comme table virtuelle. Utiliser CREATE OR R
 
 <!-- snippet
 id: sql_vue_vs_vue_materialisee
+type: concept
 tech: sql
 level: intermediate
 importance: medium

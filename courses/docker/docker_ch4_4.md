@@ -192,6 +192,7 @@ Compose permet de :
 
 <!-- snippet
 id: docker_compose_volume_declaration
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -204,6 +205,7 @@ description: Format : `nom-volume:/chemin/dans/conteneur`
 
 <!-- snippet
 id: docker_compose_implicit_network
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -216,6 +218,7 @@ description: Pas besoin de définir un réseau explicite dans la majorité des c
 
 <!-- snippet
 id: docker_compose_explicit_network
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -227,6 +230,7 @@ content: Un réseau explicite contrôle quels services peuvent communiquer entre
 
 <!-- snippet
 id: docker_compose_volume_not_auto
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -238,6 +242,7 @@ content: Chaque service n'a pas de volume automatique. Il faut déclarer les vol
 
 <!-- snippet
 id: docker_compose_volume_not_auto_b
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -249,6 +254,7 @@ content: Sans déclaration explicite du volume, les données ne sont ni persista
 
 <!-- snippet
 id: docker_compose_network_storage_central
+type: concept
 tech: docker
 level: intermediate
 importance: medium

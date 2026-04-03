@@ -134,6 +134,7 @@ Phrase clé : **Automatiser = gagner du temps et réduire les erreurs.**
 
 <!-- snippet
 id: python_devops_automation
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -146,6 +147,7 @@ description: outil clé DevOps
 
 <!-- snippet
 id: python_boto3_usage
+type: concept
 tech: python
 level: advanced
 importance: high
@@ -158,6 +160,7 @@ description: API cloud
 
 <!-- snippet
 id: python_script_warning
+type: warning
 tech: python
 level: advanced
 importance: high

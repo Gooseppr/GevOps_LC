@@ -175,6 +175,7 @@ Docker permet une communication simple entre conteneurs :
 
 <!-- snippet
 id: docker_dns_concept
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -186,6 +187,7 @@ content: Docker possède un système DNS interne qui traduit automatiquement le 
 
 <!-- snippet
 id: docker_ports_internes_vs_externes
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -198,6 +200,7 @@ description: Entre conteneurs, le port interne suffit. L'option -p n'est nécess
 
 <!-- snippet
 id: docker_network_app_net_create
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -210,6 +213,7 @@ description: Crée un réseau bridge nommé app-net permettant aux conteneurs qu
 
 <!-- snippet
 id: docker_run_db_reseau
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -222,6 +226,7 @@ description: Lance Postgres en arrière-plan et le connecte au réseau app-net. 
 
 <!-- snippet
 id: docker_hostname_automatique
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -233,6 +238,7 @@ content: Quand un conteneur est connecté à un réseau Docker personnalisé, so
 
 <!-- snippet
 id: docker_port_exposition_inutile
+type: concept
 tech: docker
 level: intermediate
 importance: high

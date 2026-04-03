@@ -162,6 +162,7 @@ La sécurité Docker repose sur :
 
 <!-- snippet
 id: docker_security_root_concept
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -174,6 +175,7 @@ description: Principe de sécurité fondamental : moins de privilèges = moins d
 
 <!-- snippet
 id: docker_security_adduser
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -186,6 +188,7 @@ description: Crée un utilisateur sans mot de passe (-D) pour exécuter l'applic
 
 <!-- snippet
 id: docker_security_user_directive
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -198,6 +201,7 @@ description: Toutes les instructions suivantes et le processus final s'exécuter
 
 <!-- snippet
 id: docker_security_chown
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -210,6 +214,7 @@ description: Nécessaire pour que l'utilisateur non-root puisse lire et écrire 
 
 <!-- snippet
 id: docker_security_root_production_warning
+type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -221,6 +226,7 @@ content: Laisser un conteneur s'exécuter en root en production est dangereux. E
 
 <!-- snippet
 id: docker_security_not_secure_by_default
+type: warning
 tech: docker
 level: intermediate
 importance: medium

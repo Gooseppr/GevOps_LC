@@ -178,6 +178,7 @@ Une bonne stratégie de stockage permet de :
 
 <!-- snippet
 id: docker_stockage_strategie_concept
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -189,6 +190,7 @@ content: Une stratégie de stockage Docker définit où et comment les données 
 
 <!-- snippet
 id: docker_stockage_volume_avantages
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -200,6 +202,7 @@ content: Le volume Docker est recommandé pour les données persistantes en prod
 
 <!-- snippet
 id: docker_stockage_bind_mount_inconvenients
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -211,6 +214,7 @@ content: Les bind mounts dépendent du système local et exposent l’applicatio
 
 <!-- snippet
 id: docker_stockage_bind_mount_inconvenients_b
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -222,6 +226,7 @@ content: Les bind mounts sont réservés au développement pour modifier le code
 
 <!-- snippet
 id: docker_stockage_donnees_dans_conteneur_piege
+type: warning
 tech: docker
 level: intermediate
 importance: high
@@ -233,6 +238,7 @@ content: Les données stockées directement dans le conteneur (sans volume) sont
 
 <!-- snippet
 id: docker_stockage_donnees_dans_conteneur_piege_b
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -244,6 +250,7 @@ content: Toujours externaliser les données importantes via des volumes ou une b
 
 <!-- snippet
 id: docker_stockage_independance_conteneur
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -255,6 +262,7 @@ content: Un conteneur est éphémère. Le stockage durable doit exister en dehor
 
 <!-- snippet
 id: docker_stockage_choix_contexte
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -266,6 +274,7 @@ content: Volume Docker pour les données persistantes en production, bind mount 
 
 <!-- snippet
 id: docker_stockage_choix_contexte_b
+type: concept
 tech: docker
 level: intermediate
 importance: medium

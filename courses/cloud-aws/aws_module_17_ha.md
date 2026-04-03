@@ -142,6 +142,7 @@ C’est indispensable en production critique.
 
 <!-- snippet
 id: aws_ha_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -154,6 +155,7 @@ description: Concept critique production
 
 <!-- snippet
 id: aws_multi_az_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -166,6 +168,7 @@ description: Base résilience AWS
 
 <!-- snippet
 id: aws_failover_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -178,6 +181,7 @@ description: Mécanisme clé HA
 
 <!-- snippet
 id: aws_ha_single_az_warning
+type: warning
 tech: aws
 level: advanced
 importance: high
@@ -190,6 +194,7 @@ description: Piège critique
 
 <!-- snippet
 id: aws_ha_command
+type: command
 tech: aws
 level: advanced
 importance: medium
@@ -202,6 +207,7 @@ description: Permet de vérifier les instances derrière un load balancer
 
 <!-- snippet
 id: aws_ha_tip
+type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -214,6 +220,7 @@ description: Bonne pratique HA
 
 <!-- snippet
 id: aws_ha_error
+type: warning
 tech: aws
 level: advanced
 importance: high

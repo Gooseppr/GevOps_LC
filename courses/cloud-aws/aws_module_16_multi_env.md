@@ -126,6 +126,7 @@ Cela réduit les risques et améliore la qualité des déploiements.
 
 <!-- snippet
 id: aws_env_definition
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -138,6 +139,7 @@ description: Base organisation infra
 
 <!-- snippet
 id: aws_multi_account_concept
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -150,6 +152,7 @@ description: Bonne pratique pro
 
 <!-- snippet
 id: aws_env_mixing_warning
+type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -162,6 +165,7 @@ description: Piège fréquent
 
 <!-- snippet
 id: aws_profile_command
+type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -174,6 +178,7 @@ description: Permet d'exécuter des commandes avec un profil spécifique
 
 <!-- snippet
 id: aws_env_tip
+type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -186,6 +191,7 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_env_error
+type: warning
 tech: aws
 level: intermediate
 importance: high

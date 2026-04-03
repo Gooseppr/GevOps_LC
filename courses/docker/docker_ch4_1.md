@@ -177,6 +177,7 @@ Docker Compose permet de :
 
 <!-- snippet
 id: docker_compose_up_detached
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -189,6 +190,7 @@ description: Lance tous les services définis dans docker-compose.yml en mode d�
 
 <!-- snippet
 id: docker_compose_down
+type: command
 tech: docker
 level: intermediate
 importance: high
@@ -201,6 +203,7 @@ description: Arrête les conteneurs et supprime les réseaux créés par Compose
 
 <!-- snippet
 id: docker_compose_definition
+type: concept
 tech: docker
 level: intermediate
 importance: high
@@ -212,6 +215,7 @@ content: Outil permettant de définir et lancer plusieurs conteneurs avec un seu
 
 <!-- snippet
 id: docker_compose_source_of_truth
+type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -223,6 +227,7 @@ content: Modifier un conteneur manuellement casse la cohérence avec le fichier 
 
 <!-- snippet
 id: docker_compose_auto_network
+type: concept
 tech: docker
 level: intermediate
 importance: medium

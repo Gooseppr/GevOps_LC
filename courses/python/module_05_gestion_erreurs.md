@@ -151,6 +151,7 @@ except ValueError as e:
 
 <!-- snippet
 id: python_try_except
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -163,6 +164,7 @@ description: Base de la gestion des erreurs
 
 <!-- snippet
 id: python_except_warning
+type: warning
 tech: python
 level: beginner
 importance: high
@@ -175,6 +177,7 @@ description: Piège critique
 
 <!-- snippet
 id: python_raise_usage
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -187,6 +190,7 @@ description: Contrôle du flux
 
 <!-- snippet
 id: python_fail_fast
+type: concept
 tech: python
 level: beginner
 importance: high

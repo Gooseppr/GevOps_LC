@@ -135,6 +135,7 @@ Sans monitoring, aucune infra n’est viable.
 
 <!-- snippet
 id: aws_cloudwatch_definition
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -147,6 +148,7 @@ description: Base observabilité AWS
 
 <!-- snippet
 id: aws_cloudwatch_metrics
+type: concept
 tech: aws
 level: beginner
 importance: high
@@ -159,6 +161,7 @@ description: Indicateurs clés infra
 
 <!-- snippet
 id: aws_cloudwatch_alarm_warning
+type: warning
 tech: aws
 level: beginner
 importance: high
@@ -171,6 +174,7 @@ description: Piège fréquent monitoring
 
 <!-- snippet
 id: aws_cloudwatch_command
+type: command
 tech: aws
 level: beginner
 importance: medium
@@ -183,6 +187,7 @@ description: Permet de voir les métriques disponibles
 
 <!-- snippet
 id: aws_logs_tip
+type: tip
 tech: aws
 level: beginner
 importance: medium
@@ -195,6 +200,7 @@ description: Bonne pratique production
 
 <!-- snippet
 id: aws_monitoring_error
+type: warning
 tech: aws
 level: beginner
 importance: high

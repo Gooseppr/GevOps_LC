@@ -152,6 +152,7 @@ cat config.json
 
 <!-- snippet
 id: docker_exec_bash
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -164,6 +165,7 @@ description: Ouvre un terminal interactif dans le conteneur. -i = interactif, -t
 
 <!-- snippet
 id: docker_exec_sh
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -176,6 +178,7 @@ description: Utile quand bash nâ€™est pas disponible dans lâ€™image (ex : images
 
 <!-- snippet
 id: docker_exec_commande_directe
+type: command
 tech: docker
 level: beginner
 importance: medium
@@ -188,6 +191,7 @@ description: ExÃ©cute la commande directement dans le conteneur et affiche le rÃ
 
 <!-- snippet
 id: docker_exec_conteneur_arrete_warning
+type: warning
 tech: docker
 level: beginner
 importance: high
@@ -199,6 +203,7 @@ content: La commande docker exec ne fonctionne que sur un conteneur en cours dâ€
 
 <!-- snippet
 id: docker_exec_modifications_temporaires
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -210,6 +215,7 @@ content: Toute modification faite via docker exec (fichiers, paquets) est tempor
 
 <!-- snippet
 id: docker_exec_usage_debug
+type: warning
 tech: docker
 level: beginner
 importance: medium

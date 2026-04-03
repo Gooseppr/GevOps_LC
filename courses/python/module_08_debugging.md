@@ -132,6 +132,7 @@ Correction : lire ligne par ligne
 
 <!-- snippet
 id: python_pdb_usage
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -144,6 +145,7 @@ description: outil clé debug
 
 <!-- snippet
 id: python_stacktrace
+type: warning
 tech: python
 level: beginner
 importance: high
@@ -156,6 +158,7 @@ description: essentiel pour debug
 
 <!-- snippet
 id: python_debug_warning
+type: warning
 tech: python
 level: beginner
 importance: high

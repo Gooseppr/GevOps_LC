@@ -152,6 +152,7 @@ C’est un pilier du DevOps moderne.
 
 <!-- snippet
 id: aws_iac_definition
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -164,6 +165,7 @@ description: Base DevOps moderne
 
 <!-- snippet
 id: terraform_plan_command
+type: command
 tech: aws
 level: intermediate
 importance: high
@@ -176,6 +178,7 @@ description: Permet de voir les changements avant application
 
 <!-- snippet
 id: terraform_state_warning
+type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -188,6 +191,7 @@ description: Piège critique Terraform
 
 <!-- snippet
 id: terraform_vs_cf
+type: concept
 tech: aws
 level: intermediate
 importance: medium
@@ -200,6 +204,7 @@ description: Choix outil IaC
 
 <!-- snippet
 id: iac_best_practice_tip
+type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -212,6 +217,7 @@ description: Bonne pratique IaC
 
 <!-- snippet
 id: iac_manual_change_error
+type: warning
 tech: aws
 level: intermediate
 importance: high

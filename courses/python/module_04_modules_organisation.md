@@ -155,6 +155,7 @@ Correction : restructurer dépendances
 
 <!-- snippet
 id: python_module_definition
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -167,6 +168,7 @@ description: Base de l'organisation Python
 
 <!-- snippet
 id: python_import_usage
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -179,6 +181,7 @@ description: Essentiel pour modularité
 
 <!-- snippet
 id: python_main_guard
+type: concept
 tech: python
 level: beginner
 importance: high
@@ -191,6 +194,7 @@ description: Sépare script et module
 
 <!-- snippet
 id: python_import_cycle_warning
+type: warning
 tech: python
 level: beginner
 importance: high

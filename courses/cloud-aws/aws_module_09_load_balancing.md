@@ -129,6 +129,7 @@ Ensemble, ils permettent une architecture scalable et résiliente.
 
 <!-- snippet
 id: aws_alb_definition
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -141,6 +142,7 @@ description: Base du load balancing AWS
 
 <!-- snippet
 id: aws_autoscaling_definition
+type: concept
 tech: aws
 level: intermediate
 importance: high
@@ -153,6 +155,7 @@ description: Élément clé scalabilité
 
 <!-- snippet
 id: aws_health_check_warning
+type: warning
 tech: aws
 level: intermediate
 importance: high
@@ -165,6 +168,7 @@ description: Piège critique en prod
 
 <!-- snippet
 id: aws_elb_command
+type: command
 tech: aws
 level: intermediate
 importance: medium
@@ -177,6 +181,7 @@ description: Permet de voir les load balancers AWS
 
 <!-- snippet
 id: aws_scaling_tip
+type: tip
 tech: aws
 level: intermediate
 importance: medium
@@ -189,6 +194,7 @@ description: Bonne pratique architecture
 
 <!-- snippet
 id: aws_scaling_error
+type: warning
 tech: aws
 level: intermediate
 importance: high

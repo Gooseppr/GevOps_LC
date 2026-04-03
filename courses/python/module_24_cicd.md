@@ -138,6 +138,7 @@ Phrase clé : **Un bon pipeline remplace les erreurs humaines.**
 
 <!-- snippet
 id: cicd_pipeline_definition
+type: concept
 tech: cicd
 level: advanced
 importance: high
@@ -150,6 +151,7 @@ description: base DevOps
 
 <!-- snippet
 id: cicd_tests_block
+type: concept
 tech: cicd
 level: advanced
 importance: high
@@ -162,6 +164,7 @@ description: sécurité qualité
 
 <!-- snippet
 id: cicd_manual_warning
+type: warning
 tech: cicd
 level: advanced
 importance: high

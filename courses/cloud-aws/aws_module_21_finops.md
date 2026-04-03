@@ -133,6 +133,7 @@ C’est une compétence clé en entreprise.
 
 <!-- snippet
 id: aws_finops_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -145,6 +146,7 @@ description: Compétence clé AWS
 
 <!-- snippet
 id: aws_pricing_models
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -157,6 +159,7 @@ description: Base pricing AWS
 
 <!-- snippet
 id: aws_cost_warning
+type: warning
 tech: aws
 level: advanced
 importance: high
@@ -169,6 +172,7 @@ description: Piège fréquent
 
 <!-- snippet
 id: aws_cost_command
+type: command
 tech: aws
 level: advanced
 importance: medium
@@ -181,6 +185,7 @@ description: Permet d'analyser les coûts AWS
 
 <!-- snippet
 id: aws_finops_tip
+type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -193,6 +198,7 @@ description: Bonne pratique FinOps
 
 <!-- snippet
 id: aws_cost_incident
+type: concept
 tech: aws
 level: advanced
 importance: high

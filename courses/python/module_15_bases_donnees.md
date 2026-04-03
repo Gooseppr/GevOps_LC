@@ -198,6 +198,7 @@ Phrase clé : **Une mauvaise gestion DB = corruption de données.**
 
 <!-- snippet
 id: python_sql_connection
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -210,6 +211,7 @@ description: Base interaction DB
 
 <!-- snippet
 id: python_transaction_commit
+type: concept
 tech: python
 level: intermediate
 importance: high
@@ -222,6 +224,7 @@ description: Piège critique
 
 <!-- snippet
 id: python_sql_injection_warning
+type: warning
 tech: python
 level: intermediate
 importance: high
@@ -234,6 +237,7 @@ description: faille critique
 
 <!-- snippet
 id: python_orm_usage
+type: concept
 tech: python
 level: intermediate
 importance: medium

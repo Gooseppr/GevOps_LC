@@ -172,6 +172,7 @@ Swarm permet de :
 
 <!-- snippet
 id: docker_swarm_node_inspect
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -184,6 +185,7 @@ description: Affiche les détails complets d'un nœud : ressources, labels, stat
 
 <!-- snippet
 id: docker_swarm_service_inspect
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -196,6 +198,7 @@ description: Affiche la configuration complète du service : image, replicas, r�
 
 <!-- snippet
 id: docker_swarm_service_update_image
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -208,6 +211,7 @@ description: Met à jour le service de manière progressive (rolling update). Sw
 
 <!-- snippet
 id: docker_swarm_service_rollback
+type: command
 tech: docker
 level: advanced
 importance: medium
@@ -220,6 +224,7 @@ description: Revient à la version précédente du service. À utiliser immédia
 
 <!-- snippet
 id: docker_swarm_rolling_update
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -231,6 +236,7 @@ content: Les mises à jour de services dans Swarm sont progressives (rolling upd
 
 <!-- snippet
 id: docker_swarm_rollback_strategie
+type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -242,6 +248,7 @@ content: Avant chaque mise à jour en production, s'assurer qu'un rollback est p
 
 <!-- snippet
 id: docker_swarm_update_sans_rollback
+type: concept
 tech: docker
 level: advanced
 importance: medium

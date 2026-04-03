@@ -156,6 +156,7 @@ Docker propose plusieurs types de réseaux :
 
 <!-- snippet
 id: docker_network_type_bridge_concept
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -167,6 +168,7 @@ content: Le réseau bridge est le type de réseau Docker le plus utilisé. Les c
 
 <!-- snippet
 id: docker_network_host_run
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -179,6 +181,7 @@ description: Lance un conteneur en partageant directement le réseau de la machi
 
 <!-- snippet
 id: docker_network_none_run
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -191,6 +194,7 @@ description: Lance un conteneur sans aucune interface réseau. Le conteneur ne p
 
 <!-- snippet
 id: docker_network_host_warning
+type: warning
 tech: docker
 level: intermediate
 importance: medium
@@ -202,6 +206,7 @@ content: Utiliser --network host supprime complètement l'isolation réseau du c
 
 <!-- snippet
 id: docker_network_bridge_defaut
+type: concept
 tech: docker
 level: intermediate
 importance: medium
@@ -213,6 +218,7 @@ content: Sauf besoin de performance extrême (host) ou d'isolation totale (none)
 
 <!-- snippet
 id: docker_network_niveau_isolation
+type: concept
 tech: docker
 level: intermediate
 importance: medium

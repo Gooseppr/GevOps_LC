@@ -139,6 +139,7 @@ Le chaos engineering valide la robustesse réelle.
 
 <!-- snippet
 id: aws_resilience_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -151,6 +152,7 @@ description: Concept critique distribué
 
 <!-- snippet
 id: aws_retry_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -163,6 +165,7 @@ description: Base résilience
 
 <!-- snippet
 id: aws_backoff_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -175,6 +178,7 @@ description: Optimisation retry
 
 <!-- snippet
 id: aws_retry_warning
+type: warning
 tech: aws
 level: advanced
 importance: high
@@ -187,6 +191,7 @@ description: Piège critique
 
 <!-- snippet
 id: aws_circuit_breaker_definition
+type: concept
 tech: aws
 level: advanced
 importance: high
@@ -199,6 +204,7 @@ description: Protection système
 
 <!-- snippet
 id: aws_resilience_tip
+type: tip
 tech: aws
 level: advanced
 importance: medium
@@ -211,6 +217,7 @@ description: Bonne pratique
 
 <!-- snippet
 id: aws_resilience_error
+type: warning
 tech: aws
 level: advanced
 importance: high

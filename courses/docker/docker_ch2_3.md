@@ -169,6 +169,7 @@ Le build permet de :
 
 <!-- snippet
 id: docker_build_image_standard
+type: command
 tech: docker
 level: beginner
 importance: high
@@ -181,6 +182,7 @@ description: -t nomme l’image, le point désigne le contexte de build (dossier
 
 <!-- snippet
 id: docker_build_custom_dockerfile
+type: command
 tech: docker
 level: intermediate
 importance: medium
@@ -193,6 +195,7 @@ description: Utile pour avoir plusieurs Dockerfile selon l’environnement (dev,
 
 <!-- snippet
 id: docker_images_list
+type: command
 tech: docker
 level: beginner
 importance: low
@@ -205,6 +208,7 @@ description: Affiche la liste des images locales avec leur nom, tag, identifiant
 
 <!-- snippet
 id: docker_build_context_definition
+type: concept
 tech: docker
 level: beginner
 importance: high
@@ -216,6 +220,7 @@ content: Le contexte de build correspond à tous les fichiers envoyés à Docker
 
 <!-- snippet
 id: docker_piege_contexte_lourd
+type: concept
 tech: docker
 level: intermediate
 importance: low
@@ -227,6 +232,7 @@ content: Si le dossier courant contient des fichiers lourds (node_modules, logs,
 
 <!-- snippet
 id: docker_tip_dossier_courant
+type: tip
 tech: docker
 level: beginner
 importance: low

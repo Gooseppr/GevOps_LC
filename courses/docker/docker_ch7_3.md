@@ -180,6 +180,7 @@ Le registry permet de :
 
 <!-- snippet
 id: docker_registry_concept
+type: concept
 tech: docker
 level: advanced
 importance: high
@@ -192,6 +193,7 @@ description: Sans registry, il est impossible de partager des images entre machi
 
 <!-- snippet
 id: docker_registry_concept_b
+type: concept
 tech: docker
 level: advanced
 importance: medium
@@ -203,6 +205,7 @@ content: Une image buildée en CI doit être poussée dans un registry pour êtr
 
 <!-- snippet
 id: docker_registry_login
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -215,6 +218,7 @@ description: Authentifie le client Docker auprès du registry (Docker Hub par d�
 
 <!-- snippet
 id: docker_registry_tag_image
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -227,6 +231,7 @@ description: Associe un nom complet (username/nom:tag) à une image locale avant
 
 <!-- snippet
 id: docker_registry_push_image
+type: command
 tech: docker
 level: advanced
 importance: high
@@ -239,6 +244,7 @@ description: Envoie l’image taguée vers le registry distant. L’image doit �
 
 <!-- snippet
 id: docker_registry_warning_latest_only
+type: warning
 tech: docker
 level: advanced
 importance: medium
@@ -250,6 +256,7 @@ content: Le tag `latest` est écrasé à chaque build — impossible de revenir 
 
 <!-- snippet
 id: docker_registry_warning_credentials
+type: warning
 tech: docker
 level: advanced
 importance: high
@@ -262,6 +269,7 @@ description: Une fuite de credentials peut entraîner la compromission du compte
 
 <!-- snippet
 id: docker_registry_tip_versioning
+type: tip
 tech: docker
 level: advanced
 importance: low

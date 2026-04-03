@@ -233,6 +233,7 @@ Dans le prochain chapitre nous verrons **les relations entre tables et la normal
 
 <!-- snippet
 id: sql_contraintes_principales
+type: concept
 tech: sql
 level: intermediate
 importance: high
@@ -248,6 +249,7 @@ description: Les contraintes sont garanties par la base, pas seulement par l'app
 
 <!-- snippet
 id: sql_contraintes_valeurs
+type: concept
 tech: sql
 level: intermediate
 importance: high
@@ -263,6 +265,7 @@ description: Ces contraintes contrôlent le contenu des colonnes, garanties par 
 
 <!-- snippet
 id: sql_contraintes_bdd_vs_app
+type: concept
 tech: sql
 level: intermediate
 importance: high
