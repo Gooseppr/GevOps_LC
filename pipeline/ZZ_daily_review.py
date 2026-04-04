@@ -373,6 +373,15 @@ def render_content(text):
     return '\n'.join(html_parts)
 
 
+SITE_BASE_URL = "https://gooseppr.github.io/GevOps_LC"
+
+
+def source_to_url(source_file):
+    """Convertit un chemin source_file en URL publique du site Jekyll."""
+    path = source_file.replace('.md', '.html')
+    return f"{SITE_BASE_URL}/{path}"
+
+
 def render_snippet(s):
     stype  = s.get('type', 'concept')
     meta   = TYPE_META.get(stype, {
@@ -473,8 +482,11 @@ def render_snippet(s):
                   line-height:1.3;">{title}</div>
       <!-- contenu -->
       {body_html}
-      <!-- tags -->
-      <div style="margin-top:10px;">{tags_html}</div>
+      <!-- tags + lien cours -->
+      <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:6px;">
+        <div>{tags_html}</div>
+        {f'<a href="{source_to_url(s["source_file"])}" style="display:inline-block;font-size:12px;color:{accent};text-decoration:none;font-weight:600;white-space:nowrap;" target="_blank">Voir le cours →</a>' if s.get('source_file') else ''}
+      </div>
     </td>
   </tr>
 </table>'''

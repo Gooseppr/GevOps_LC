@@ -1186,6 +1186,7 @@ format: knowledge
 tags: ansible,role,galaxy,structure
 title: Créer la structure d'un rôle Ansible avec ansible-galaxy
 command: ansible-galaxy init roles/<NOM>
+example: ansible-galaxy init roles/nginx
 description: Génère l'arborescence standard (tasks, handlers, templates, vars, defaults, meta…). Ansible charge ces dossiers automatiquement à l'appel du rôle.
 -->
 

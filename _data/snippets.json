@@ -11812,6 +11812,7 @@
     "title": "Exporter la config SSH Vagrant pour VS Code",
     "context": "permettre la connexion depuis VS Code ou le terminal sans passer par vagrant ssh",
     "command": "vagrant ssh-config <ID> --host devbox >> ~/.ssh/config",
+    "example": "vagrant ssh-config default --host devbox >> ~/.ssh/config",
     "description": "Génère et ajoute une entrée SSH nommée devbox dans ~/.ssh/config, permettant ensuite ssh devbox ou la connexion depuis Remote-SSH dans VS Code",
     "source_file": "modules/M01_vagrant-bases-utiles.md"
   },
@@ -19613,6 +19614,7 @@
     "title": "Tester le round-robin HAProxy avec curl",
     "context": "vérifier que le trafic alterne bien entre les serveurs",
     "command": "curl http://<IP> && curl http://<IP> && curl http://<IP>",
+    "example": "curl http://192.168.1.50 && curl http://192.168.1.50 && curl http://192.168.1.50",
     "description": "Envoie trois requêtes successives au load balancer. Les réponses doivent alterner entre \"Serveur 1\" et \"Serveur 2\", prouvant que le round-robin fonctionne.",
     "source_file": "modules/M31_serveur-web-pratique.md"
   },
@@ -20354,6 +20356,7 @@
     ],
     "title": "Détailler une ressource dans le state Terraform",
     "command": "terraform state show <RESSOURCE>",
+    "example": "terraform state show aws_instance.web",
     "description": "Affiche tous les attributs d'une ressource précise (IP, AMI, tags…). Utile pour trouver l'attribut exact à référencer dans un output.",
     "context": "",
     "source_file": "modules/M34_terraform.md"
@@ -20393,6 +20396,7 @@
     ],
     "title": "Créer la structure d'un rôle Ansible avec ansible-galaxy",
     "command": "ansible-galaxy init roles/<NOM>",
+    "example": "ansible-galaxy init roles/nginx",
     "description": "Génère l'arborescence standard (tasks, handlers, templates, vars, defaults, meta…). Ansible charge ces dossiers automatiquement à l'appel du rôle.",
     "context": "",
     "source_file": "modules/M35_ansible-avancé.md"
@@ -20953,6 +20957,7 @@
     "title": "Créer une datasource Prometheus dans Grafana via l'API HTTP",
     "context": "automatiser la configuration d'une datasource Grafana dans un pipeline CI/CD",
     "command": "curl -X POST http://localhost:3000/api/datasources -H \"Authorization: Bearer <API_KEY>\" -H \"Content-Type: application/json\" -d '{\"name\": \"Prometheus\", \"type\": \"prometheus\", \"url\": \"http://localhost:9090\", \"access\": \"proxy\"}'",
+    "example": "curl -X POST http://localhost:3000/api/datasources -H \"Authorization: Bearer glsa_abc123xyz\" -H \"Content-Type: application/json\" -d '{\"name\": \"Prometheus\", \"type\": \"prometheus\", \"url\": \"http://localhost:9090\", \"access\": \"proxy\"}'",
     "description": "Crée une datasource Prometheus via l'API Grafana. Remplacez <API_KEY> par une clé générée dans Configuration → API Keys. L'accès proxy signifie que Grafana interroge Prometheus depuis le serveur, pas depuis le navigateur client.",
     "source_file": "modules/M37_grafana.md"
   },
@@ -20973,6 +20978,7 @@
     "title": "Exporter un dashboard Grafana en JSON via l'API",
     "context": "sauvegarder un dashboard Grafana pour le versionner dans Git ou le restaurer",
     "command": "curl -H \"Authorization: Bearer <API_KEY>\" http://localhost:3000/api/dashboards/uid/<UID> | jq '.' > dashboard.json",
+    "example": "curl -H \"Authorization: Bearer glsa_abc123xyz\" http://localhost:3000/api/dashboards/uid/abc1de2f | jq '.' > dashboard.json",
     "description": "Récupère le JSON complet d'un dashboard identifié par son UID. Ce fichier peut être versionné dans Git et réimporté via POST /api/dashboards/db. L'UID est visible dans l'URL du dashboard dans l'interface.",
     "source_file": "modules/M37_grafana.md"
   },
@@ -21698,6 +21704,7 @@
     "title": "Initialiser un cluster Docker Swarm sur le manager",
     "context": "Démarrer un cluster Swarm et récupérer le token de join pour les workers",
     "command": "docker swarm init --advertise-addr <IP_PRIVEE_APP_VM>",
+    "example": "docker swarm init --advertise-addr 10.0.1.10",
     "description": "Utiliser l'IP privée de la VM manager (pas l'IP publique). La commande retourne un token docker swarm join à utiliser sur les workers. Vérifier l'état du cluster avec docker node ls depuis le manager.",
     "source_file": "modules/M41_projet-J1-swarm.md"
   },
@@ -22444,6 +22451,7 @@
     "title": "Créer un réseau overlay Swarm de façon idempotente",
     "context": "créer les réseaux overlay sans erreur s'ils existent déjà",
     "command": "community.docker.docker_network name=\"<RESEAU>\" driver=\"overlay\" state=present",
+    "example": "community.docker.docker_network name=\"backend-net\" driver=\"overlay\" state=present",
     "description": "`state: present` est idempotent : retourne `ok` si le réseau existe déjà. Remplace les vérifications manuelles via `docker network ls`.",
     "source_file": "modules/M52_idempotence.md"
   },

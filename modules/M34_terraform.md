@@ -850,6 +850,7 @@ format: knowledge
 tags: terraform,state,show,debug
 title: Détailler une ressource dans le state Terraform
 command: terraform state show <RESSOURCE>
+example: terraform state show aws_instance.web
 description: Affiche tous les attributs d'une ressource précise (IP, AMI, tags…). Utile pour trouver l'attribut exact à référencer dans un output.
 -->
 

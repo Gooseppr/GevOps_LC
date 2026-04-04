@@ -693,6 +693,7 @@ tags: grafana,api,datasource,prometheus,automatisation
 title: Créer une datasource Prometheus dans Grafana via l'API HTTP
 context: automatiser la configuration d'une datasource Grafana dans un pipeline CI/CD
 command: curl -X POST http://localhost:3000/api/datasources -H "Authorization: Bearer <API_KEY>" -H "Content-Type: application/json" -d '{"name": "Prometheus", "type": "prometheus", "url": "http://localhost:9090", "access": "proxy"}'
+example: curl -X POST http://localhost:3000/api/datasources -H "Authorization: Bearer glsa_abc123xyz" -H "Content-Type: application/json" -d '{"name": "Prometheus", "type": "prometheus", "url": "http://localhost:9090", "access": "proxy"}'
 description: Crée une datasource Prometheus via l'API Grafana. Remplacez <API_KEY> par une clé générée dans Configuration → API Keys. L'accès proxy signifie que Grafana interroge Prometheus depuis le serveur, pas depuis le navigateur client.
 -->
 
@@ -707,6 +708,7 @@ tags: grafana,api,dashboard,export,json
 title: Exporter un dashboard Grafana en JSON via l'API
 context: sauvegarder un dashboard Grafana pour le versionner dans Git ou le restaurer
 command: curl -H "Authorization: Bearer <API_KEY>" http://localhost:3000/api/dashboards/uid/<UID> | jq '.' > dashboard.json
+example: curl -H "Authorization: Bearer glsa_abc123xyz" http://localhost:3000/api/dashboards/uid/abc1de2f | jq '.' > dashboard.json
 description: Récupère le JSON complet d'un dashboard identifié par son UID. Ce fichier peut être versionné dans Git et réimporté via POST /api/dashboards/db. L'UID est visible dans l'URL du dashboard dans l'interface.
 -->
 

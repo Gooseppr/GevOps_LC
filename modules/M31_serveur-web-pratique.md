@@ -372,6 +372,7 @@ tags: haproxy,curl,load-balancer,test
 title: Tester le round-robin HAProxy avec curl
 context: vérifier que le trafic alterne bien entre les serveurs
 command: curl http://<IP> && curl http://<IP> && curl http://<IP>
+example: curl http://192.168.1.50 && curl http://192.168.1.50 && curl http://192.168.1.50
 description: Envoie trois requêtes successives au load balancer. Les réponses doivent alterner entre "Serveur 1" et "Serveur 2", prouvant que le round-robin fonctionne.
 -->
 

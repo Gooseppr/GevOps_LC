@@ -297,6 +297,7 @@ tags: vagrant,ssh,config,vscode
 title: Exporter la config SSH Vagrant pour VS Code
 context: permettre la connexion depuis VS Code ou le terminal sans passer par vagrant ssh
 command: vagrant ssh-config <ID> --host devbox >> ~/.ssh/config
+example: vagrant ssh-config default --host devbox >> ~/.ssh/config
 description: Génère et ajoute une entrée SSH nommée devbox dans ~/.ssh/config, permettant ensuite ssh devbox ou la connexion depuis Remote-SSH dans VS Code
 -->
 

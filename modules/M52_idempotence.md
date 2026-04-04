@@ -258,6 +258,7 @@ tags: ansible,swarm,network,overlay,idempotent,community-docker
 title: Créer un réseau overlay Swarm de façon idempotente
 context: créer les réseaux overlay sans erreur s'ils existent déjà
 command: community.docker.docker_network name="<RESEAU>" driver="overlay" state=present
+example: community.docker.docker_network name="backend-net" driver="overlay" state=present
 description: `state: present` est idempotent : retourne `ok` si le réseau existe déjà. Remplace les vérifications manuelles via `docker network ls`.
 -->
 

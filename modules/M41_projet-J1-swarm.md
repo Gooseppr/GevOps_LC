@@ -388,6 +388,7 @@ tags: swarm,init,manager,advertise-addr
 title: Initialiser un cluster Docker Swarm sur le manager
 context: Démarrer un cluster Swarm et récupérer le token de join pour les workers
 command: docker swarm init --advertise-addr <IP_PRIVEE_APP_VM>
+example: docker swarm init --advertise-addr 10.0.1.10
 description: Utiliser l'IP privée de la VM manager (pas l'IP publique). La commande retourne un token docker swarm join à utiliser sur les workers. Vérifier l'état du cluster avec docker node ls depuis le manager.
 -->
 
