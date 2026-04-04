@@ -1239,6 +1239,7 @@ level: intermediate
 tags: kubectl,deployment,rollout,rollback
 title: Gérer le rollout d’un Deployment
 command: kubectl rollout status deployment/<name> -n <ns>
+example: kubectl rollout status deployment/api -n production
 description: Suivre la progression d’un déploiement ; utiliser `kubectl rollout undo deployment/<name> -n <ns>` pour revenir en arrière
 -->
 
@@ -1250,6 +1251,7 @@ level: beginner
 tags: kubectl,deployment,scaling,replicas
 title: Mettre à l’échelle un Deployment
 command: kubectl scale deployment <name> --replicas=3 -n <ns>
+example: kubectl scale deployment api --replicas=3 -n production
 description: Modifie immédiatement le nombre de réplicas d’un Deployment
 -->
 
@@ -1272,6 +1274,7 @@ level: beginner
 tags: kubectl,debug,exec,shell
 title: Ouvrir un shell dans un Pod
 command: kubectl exec -it <pod> -n <ns> -- sh
+example: kubectl exec -it api-7d6b9c-xkp2n -n production -- sh
 description: Entrer dans un conteneur pour debugger en interactif
 -->
 

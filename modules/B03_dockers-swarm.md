@@ -859,6 +859,7 @@ tags: swarm,cluster,init,manager
 title: Initialiser un cluster Docker Swarm
 context: créer un cluster Swarm sur le nœud manager
 command: docker swarm init --advertise-addr <IP_publique_du_manager>
+example: docker swarm init --advertise-addr 10.0.1.10
 description: Initialise le cluster Swarm et génère le token nécessaire pour rejoindre des workers. À exécuter uniquement sur le nœud manager.
 -->
 
@@ -873,6 +874,7 @@ tags: swarm,cluster,worker,join
 title: Ajouter un worker au cluster Swarm
 context: rejoindre un cluster Swarm depuis un nœud worker
 command: docker swarm join --token SWMTKN-xxxxx <IP_manager>:2377
+example: docker swarm join --token SWMTKN-1-49nj1cmq0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv 192.168.1.100:2377
 description: Commande à exécuter sur chaque worker pour l'intégrer au cluster. Le token est fourni lors du docker swarm init sur le manager.
 -->
 

@@ -51,6 +51,15 @@ STATE_PATH    = os.path.join(PIPELINE_DIR, "review_state.json")
 IMPORTANCE_ORDER = ['high', 'medium', 'low']
 
 
+def tech_match(snippet_tech, filter_tech):
+    """Vérifie si la tech d'un snippet correspond au filtre (None | str | list[str])."""
+    if filter_tech is None:
+        return True
+    if isinstance(filter_tech, list):
+        return snippet_tech in filter_tech
+    return snippet_tech == filter_tech
+
+
 # ──────────────────────────────────────────────
 # Persistance de l'état
 # ──────────────────────────────────────────────
@@ -106,13 +115,6 @@ def select_snippets_for_user(all_snippets, user_cfg, user_state):
 
     # Index de position pour le tri chronologique (ordre dans snippets.json)
     position_index = {s['id']: i for i, s in enumerate(all_snippets)}
-
-    def tech_match(snippet_tech, filter_tech):
-        if filter_tech is None:
-            return True
-        if isinstance(filter_tech, list):
-            return snippet_tech in filter_tech
-        return snippet_tech == filter_tech
 
     def sort_pool(pool):
         """
@@ -204,13 +206,6 @@ def check_and_rotate_cycle(all_snippets, user_cfg, user_state):
     filters = user_cfg.get('filters', {})
     f_tech  = filters.get('tech')
     f_level = filters.get('level')
-
-    def tech_match(snippet_tech, filter_tech):
-        if filter_tech is None:
-            return True
-        if isinstance(filter_tech, list):
-            return snippet_tech in filter_tech
-        return snippet_tech == filter_tech
 
     total = len([
         s for s in all_snippets
@@ -654,9 +649,13 @@ def main():
     parser = argparse.ArgumentParser(description='Coursite — Daily Review')
     parser.add_argument('--user', metavar='NOM_OU_EMAIL',
                         help='Envoyer uniquement pour cet utilisateur (nom ou email)')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='Génère le HTML sans envoyer ni modifier l\'état (fichiers : dry_run_<nom>.html)')
     args = parser.parse_args()
 
     print("📬 Coursite — Daily Review\n")
+    if args.dry_run:
+        print("🧪 Mode dry-run — aucun email ne sera envoyé, état inchangé\n")
 
     for path, label in [
         (SNIPPETS_PATH, "snippets.json"),
@@ -678,9 +677,12 @@ def main():
         save_json(STATE_PATH, {"users": {}})
     state = load_json(STATE_PATH)
 
-    password = _load_password(secrets)
-    if not password:
-        return
+    if not args.dry_run:
+        password = _load_password(secrets)
+        if not password:
+            return
+    else:
+        password = None
 
     smtp_cfg          = config['smtp']
     subject_template  = config.get('subject_template', 'Révision du {date} — {name}')
@@ -720,13 +722,9 @@ def main():
         filters     = user.get('filters', {})
         f_tech      = filters.get('tech')
         f_level     = filters.get('level')
-        def _tech_match(st, ft):
-            if ft is None: return True
-            if isinstance(ft, list): return st in ft
-            return st == ft
         total_avail = len([
             s for s in snippets
-            if _tech_match(s.get('tech'), f_tech)
+            if tech_match(s.get('tech'), f_tech)
             and (f_level is None or s.get('level') == f_level)
         ])
         total_seen_before = len(user_state['sent_ids'])
@@ -736,7 +734,7 @@ def main():
             importance_marker = ' ★' if s.get('importance') == 'high' else ''
             print(f"    [{s['type']:8s}] [{s.get('tech','?'):12s}] {s['id']}{importance_marker}")
 
-        # Construire et envoyer l'email
+        # Construire l'email
         today_str = date.today().strftime('%d %B %Y')
         html = build_email_html(
             selected, today_str, name,
@@ -744,14 +742,31 @@ def main():
             total_seen_before + len(selected),
             total_avail,
         )
-        send_email(html, email, name, smtp_cfg, subject_template, password)
+
+        if args.dry_run:
+            out_path = os.path.join(PIPELINE_DIR, f"dry_run_{name.lower()}.html")
+            with open(out_path, 'w', encoding='utf-8') as f:
+                f.write(html)
+            print(f"  💾 HTML écrit dans {out_path} (pas d'envoi)\n")
+            continue
+
+        try:
+            send_email(html, email, name, smtp_cfg, subject_template, password)
+        except Exception as e:
+            print(f"  ❌ Échec envoi email pour {name} : {e}")
+            print(f"  ⚠️  État non mis à jour pour {name} (sera renvoyé demain)\n")
+            continue
 
         # Mettre à jour l'état après envoi réussi
         update_state(user_state, selected)
         print(f"  📊 Progression : {len(user_state['sent_ids'])}/{total_avail} "
               f"(cycle #{user_state['cycle']})\n")
 
-    # Sauvegarder l'état mis à jour
+    if args.dry_run:
+        print("🧪 Dry-run terminé — état non modifié.")
+        return
+
+    # Sauvegarder l'état mis à jour (même si certains envois ont échoué)
     save_json(STATE_PATH, state)
     print("✅ État sauvegardé dans review_state.json")
 

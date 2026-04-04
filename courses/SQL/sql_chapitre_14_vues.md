@@ -224,6 +224,7 @@ format: knowledge
 tags: sql,view,create_view,requete
 title: Créer une vue SQL réutilisable
 command: CREATE OR REPLACE VIEW <nom_vue> AS SELECT ... FROM ... JOIN ...;
+example: CREATE OR REPLACE VIEW ventes_mensuelles AS SELECT mois, SUM(montant) AS total FROM commandes GROUP BY mois;
 description: Enregistre une requête comme table virtuelle. Utiliser CREATE OR REPLACE pour mettre à jour sans supprimer au préalable.
 -->
 

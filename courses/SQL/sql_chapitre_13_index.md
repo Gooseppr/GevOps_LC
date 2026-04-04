@@ -204,6 +204,7 @@ format: knowledge
 tags: sql,index,create_index,performance
 title: Créer un index sur une colonne
 command: CREATE INDEX <idx_nom> ON <table>(<colonne>);
+example: CREATE INDEX idx_email ON utilisateurs(email);
 description: Accélère les recherches sur la colonne indexée. Particulièrement utile sur les colonnes utilisées dans WHERE, JOIN et ORDER BY.
 -->
 

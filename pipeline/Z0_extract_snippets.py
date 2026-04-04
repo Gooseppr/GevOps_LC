@@ -81,7 +81,7 @@ def parse_snippet_block(block, source_file):
 
     # Valeurs par défaut pour les nouveaux champs
     snippet.setdefault('importance', 'medium')
-    snippet.setdefault('format', 'knowledge')
+    snippet.setdefault('format', 'knowledge')   # réservé (non utilisé par ZZ_daily_review)
     snippet.setdefault('context', '')
 
     # Chemin relatif pour la portabilité
@@ -107,6 +107,8 @@ def validate_snippet(s, filepath):
             warnings.append(f"  ⚠️  [{sid}] type=command sans 'command'")
         if not s.get('description'):
             warnings.append(f"  ⚠️  [{sid}] type=command sans 'description'")
+        if s.get('command') and '<' in s['command'] and not s.get('example'):
+            warnings.append(f"  ⚠️  [{sid}] command contient une <VAR> mais pas de champ 'example'")
     elif stype in ('concept', 'warning', 'tip', 'error'):
         if not s.get('content'):
             warnings.append(f"  ⚠️  [{sid}] type={stype} sans 'content'")
@@ -168,8 +170,6 @@ def main():
     importances = Counter(s.get('importance', '?') for s in all_snippets)
     formats     = Counter(s.get('format', '?')     for s in all_snippets)
 
-    # Champs manquants (snippets legacy sans les nouveaux champs)
-    missing_importance = sum(1 for s in all_snippets if not s.get('importance') or s['importance'] == 'medium' and 'importance' not in s.get('source_file',''))
     no_context = sum(1 for s in all_snippets if not s.get('context'))
 
     print(f"\n✅ {len(all_snippets)} snippets extraits depuis {file_count} fichiers")

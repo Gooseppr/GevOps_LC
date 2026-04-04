@@ -241,6 +241,7 @@ format: knowledge
 tags: sql,create_table,primary_key,ddl
 title: Créer une table avec clé primaire
 command: CREATE TABLE <table> (<col_id> INTEGER PRIMARY KEY, <col1> TEXT, <col2> NUMERIC);
+example: CREATE TABLE produits (id INTEGER PRIMARY KEY, nom TEXT, prix NUMERIC);
 description: Définit la structure d'une table avec ses colonnes et leur type. PRIMARY KEY garantit l'unicité et l'absence de NULL sur l'identifiant.
 -->
 

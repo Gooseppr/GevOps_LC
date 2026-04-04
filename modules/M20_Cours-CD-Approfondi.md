@@ -356,6 +356,7 @@ tags: vercel,cd,rollback,deploiement
 title: Rollback instantané avec Vercel CLI
 context: revenir rapidement à une version précédente après un incident en production Vercel
 command: vercel rollback <deployment-id>
+example: vercel rollback dpl_abc123xyz456
 description: Revient instantanément à un déploiement précédent identifié par son ID. Utiliser `vercel ls` pour lister les déploiements disponibles et trouver l'ID cible.
 -->
 

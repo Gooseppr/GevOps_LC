@@ -619,6 +619,7 @@ tags: bash,while,read,fichier,boucle
 title: Lire un fichier ligne par ligne avec read -r
 context: traiter chaque ligne d'un fichier dans un script
 command: while IFS= read -r line; do printf '%s\n' "$line"; done < fichier.txt
+example: while IFS= read -r line; do printf '%s\n' "$line"; done < /etc/hosts
 description: IFS= empêche le trim des espaces en début/fin, -r empêche l'interprétation des backslashes. Indispensable pour traiter des chemins ou des données structurées
 -->
 

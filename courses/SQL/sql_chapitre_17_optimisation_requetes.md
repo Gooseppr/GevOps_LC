@@ -250,6 +250,7 @@ format: knowledge
 tags: sql,explain,plan_execution,performance,postgresql
 title: Analyser le plan d'exécution d'une requête
 command: EXPLAIN SELECT * FROM <table> WHERE <condition>;
+example: EXPLAIN SELECT * FROM commandes WHERE statut = 'en_attente';
 description: Affiche comment la base exécute la requête. Chercher Seq Scan sur grandes tables pour identifier les requêtes nécessitant un index.
 -->
 

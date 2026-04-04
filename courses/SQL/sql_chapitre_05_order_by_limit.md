@@ -331,6 +331,7 @@ format: knowledge
 tags: sql,order_by,limit,classement
 title: Top N résultats triés par ordre décroissant
 command: SELECT * FROM <table> ORDER BY <colonne> DESC LIMIT <n>;
+example: SELECT * FROM commandes ORDER BY date DESC LIMIT 10;
 description: Récupère les N premières lignes dans l'ordre décroissant. Utile pour les classements, dashboards et top listes.
 -->
 

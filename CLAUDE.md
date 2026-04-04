@@ -59,9 +59,16 @@ Exécute : fix_frontmatter → update_course_indexes → scan_courses → scan_t
 
 ### Snippets & emails quotidiens
 ```bash
-python pipeline/Z0_extract_snippets.py   # Extrait les blocs <!-- snippet --> → _data/snippets.json
-python pipeline/ZZ_daily_review.py       # Envoie 5 snippets/utilisateur par email
+python pipeline/Z0_extract_snippets.py          # Extrait les blocs <!-- snippet --> → _data/snippets.json
+python pipeline/ZZ_daily_review.py              # Envoie 5 snippets/utilisateur par email
+python pipeline/ZZ_daily_review.py --dry-run    # Génère dry_run_<nom>.html sans envoyer ni toucher l'état
+python pipeline/ZZ_daily_review.py --user Greg  # Envoie uniquement pour un utilisateur (nom ou email)
 ```
+
+Le rendu HTML de `ZZ_daily_review.py` affiche pour chaque snippet `command` :
+1. La commande générique avec les `<VAR>` mises en valeur (violet/italique)
+2. Un bloc vert "▶ Exemple concret" si le champ `example:` est présent
+3. Un lien **"Voir le cours →"** en bas de carte pointant vers la page source sur le site
 
 ### API Flask (déclenchement externe / n8n)
 ```bash
@@ -84,12 +91,29 @@ python pipeline/api_server.py            # http://localhost:5055
 
 ## Snippets — format dans les `.md`
 
-Les snippets sont des blocs HTML dans les modules/cours :
+Les snippets sont des blocs de commentaires HTML dans les modules/cours, parsés en clés `key: value` :
+
 ```html
-<!-- snippet id="unique-id" tech="docker" level="medium" priority="high" title="Titre" -->
-Contenu du snippet (markdown ou code)
-<!-- /snippet -->
+<!-- snippet
+id: docker_run_port_mapping
+type: command              # command | concept | warning | tip | error
+tech: docker
+level: beginner            # beginner | intermediate | advanced
+importance: high           # high | medium | low
+format: knowledge
+tags: docker,port,run
+title: Exposer un port avec -p
+context: contexte d'usage optionnel
+command: docker run -p <PORT>:80 nginx     # obligatoire si type=command
+example: docker run -p 8080:80 nginx       # exemple concret (obligatoire si command contient <VAR>)
+description: Description courte du comportement.
+-->
 ```
+
+Pour les types `concept`, `warning`, `tip`, `error`, utiliser `content:` à la place de `command:`.
+
+**Règle `example`** : tout snippet `command` dont la commande contient une variable `<VAR>` doit avoir un champ `example:` avec une valeur concrète et réaliste. Les commandes sans variable n'ont pas besoin d'exemple.
+
 Extraits par `Z0_extract_snippets.py` → `_data/snippets.json`.
 
 ---
@@ -97,6 +121,7 @@ Extraits par `Z0_extract_snippets.py` → `_data/snippets.json`.
 ## Déploiement
 
 - **Push sur `main`** → GitHub Pages construit et déploie automatiquement le site Jekyll.
+- **URL du site** : `https://gooseppr.github.io/GevOps_LC`
 - **GitHub Actions** → email quotidien à 10h CET (08:00 UTC).
 - Les scripts Python commitent eux-mêmes via `ZY_auto_push.py`.
 

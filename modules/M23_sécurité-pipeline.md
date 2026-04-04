@@ -546,6 +546,7 @@ tags: hadolint,dockerfile,lint,securite,bonnes-pratiques
 title: Analyser un Dockerfile avec Hadolint
 context: détecter les mauvaises pratiques de sécurité dans un Dockerfile avant le build
 command: docker run --rm -i hadolint/hadolint < Dockerfile
+example: docker run --rm -i hadolint/hadolint < ./Dockerfile
 description: Analyse le Dockerfile et signale les problèmes : usage de FROM image:latest (interdit), absence de version fixe dans apt-get install, usage de root dans le conteneur. Ne nécessite pas d'installation locale de Hadolint.
 -->
 

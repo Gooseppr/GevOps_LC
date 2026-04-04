@@ -432,6 +432,7 @@ tags: revert,merge,annuler,production
 title: Annuler un merge commit déjà poussé
 context: rollback d'un merge défectueux sur une branche partagée
 command: git revert -m 1 <hash_du_merge>
+example: git revert -m 1 e5a4b3c
 description: Crée un commit qui annule les effets du merge, en conservant le parent 1 (la branche de destination). Ne réécrit pas l'historique, donc sûr sur une branche partagée.
 -->
 

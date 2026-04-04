@@ -9766,6 +9766,7 @@
     ],
     "title": "Lire des colonnes spécifiques d'une table",
     "command": "SELECT <col1>, <col2> FROM <table>;",
+    "example": "SELECT nom, email FROM utilisateurs;",
     "description": "Récupère uniquement les colonnes listées. Préférer cette forme à SELECT * pour plus de clarté et de performance.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_03_select.md"
@@ -9862,6 +9863,7 @@
     ],
     "title": "Top N résultats triés par ordre décroissant",
     "command": "SELECT * FROM <table> ORDER BY <colonne> DESC LIMIT <n>;",
+    "example": "SELECT * FROM commandes ORDER BY date DESC LIMIT 10;",
     "description": "Récupère les N premières lignes dans l'ordre décroissant. Utile pour les classements, dashboards et top listes.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_05_order_by_limit.md"
@@ -10038,6 +10040,7 @@
     ],
     "title": "Créer une table avec clé primaire",
     "command": "CREATE TABLE <table> (<col_id> INTEGER PRIMARY KEY, <col1> TEXT, <col2> NUMERIC);",
+    "example": "CREATE TABLE produits (id INTEGER PRIMARY KEY, nom TEXT, prix NUMERIC);",
     "description": "Définit la structure d'une table avec ses colonnes et leur type. PRIMARY KEY garantit l'unicité et l'absence de NULL sur l'identifiant.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_09_create_table.md"
@@ -10235,6 +10238,7 @@
     ],
     "title": "Créer un index sur une colonne",
     "command": "CREATE INDEX <idx_nom> ON <table>(<colonne>);",
+    "example": "CREATE INDEX idx_email ON utilisateurs(email);",
     "description": "Accélère les recherches sur la colonne indexée. Particulièrement utile sur les colonnes utilisées dans WHERE, JOIN et ORDER BY.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_13_index.md"
@@ -10294,6 +10298,7 @@
     ],
     "title": "Créer une vue SQL réutilisable",
     "command": "CREATE OR REPLACE VIEW <nom_vue> AS SELECT ... FROM ... JOIN ...;",
+    "example": "CREATE OR REPLACE VIEW ventes_mensuelles AS SELECT mois, SUM(montant) AS total FROM commandes GROUP BY mois;",
     "description": "Enregistre une requête comme table virtuelle. Utiliser CREATE OR REPLACE pour mettre à jour sans supprimer au préalable.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_14_vues.md"
@@ -10434,6 +10439,7 @@
     ],
     "title": "Analyser le plan d'exécution d'une requête",
     "command": "EXPLAIN SELECT * FROM <table> WHERE <condition>;",
+    "example": "EXPLAIN SELECT * FROM commandes WHERE statut = 'en_attente';",
     "description": "Affiche comment la base exécute la requête. Chercher Seq Scan sur grandes tables pour identifier les requêtes nécessitant un index.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_17_optimisation_requetes.md"
@@ -10615,6 +10621,7 @@
     ],
     "title": "Attribuer ou retirer une permission SQL",
     "command": "GRANT SELECT ON <table> TO <role>; -- REVOKE SELECT ON <table> FROM <role>;",
+    "example": "GRANT SELECT ON commandes TO lecteur; -- REVOKE SELECT ON commandes FROM lecteur;",
     "description": "GRANT attribue le droit, REVOKE le retire. Les permissions s’appliquent par table et par rôle.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_21_securite.md"
@@ -10696,6 +10703,7 @@
     ],
     "title": "Créer une table temporaire avec une CTE (WITH)",
     "command": "WITH <nom_cte> AS (SELECT ... FROM ... GROUP BY ...) SELECT * FROM <nom_cte> WHERE ...;",
+    "example": "WITH ventes_region AS (SELECT region, SUM(montant) AS total FROM ventes GROUP BY region) SELECT * FROM ventes_region WHERE total > 10000;",
     "description": "La CTE agit comme une table temporaire dans la requête. Améliore la lisibilité et évite les sous-requêtes imbriquées profondes.",
     "context": "",
     "source_file": "courses/SQL/sql_chapitre_23_sql_avance.md"
@@ -11072,6 +11080,7 @@
     ],
     "title": "Gérer le rollout d’un Deployment",
     "command": "kubectl rollout status deployment/<name> -n <ns>",
+    "example": "kubectl rollout status deployment/api -n production",
     "description": "Suivre la progression d’un déploiement ; utiliser `kubectl rollout undo deployment/<name> -n <ns>` pour revenir en arrière",
     "importance": "medium",
     "format": "knowledge",
@@ -11091,6 +11100,7 @@
     ],
     "title": "Mettre à l’échelle un Deployment",
     "command": "kubectl scale deployment <name> --replicas=3 -n <ns>",
+    "example": "kubectl scale deployment api --replicas=3 -n production",
     "description": "Modifie immédiatement le nombre de réplicas d’un Deployment",
     "importance": "medium",
     "format": "knowledge",
@@ -11129,6 +11139,7 @@
     ],
     "title": "Ouvrir un shell dans un Pod",
     "command": "kubectl exec -it <pod> -n <ns> -- sh",
+    "example": "kubectl exec -it api-7d6b9c-xkp2n -n production -- sh",
     "description": "Entrer dans un conteneur pour debugger en interactif",
     "importance": "medium",
     "format": "knowledge",
@@ -11208,6 +11219,7 @@
     "title": "Initialiser un cluster Docker Swarm",
     "context": "créer un cluster Swarm sur le nœud manager",
     "command": "docker swarm init --advertise-addr <IP_publique_du_manager>",
+    "example": "docker swarm init --advertise-addr 10.0.1.10",
     "description": "Initialise le cluster Swarm et génère le token nécessaire pour rejoindre des workers. À exécuter uniquement sur le nœud manager.",
     "source_file": "modules/B03_dockers-swarm.md"
   },
@@ -11227,6 +11239,7 @@
     "title": "Ajouter un worker au cluster Swarm",
     "context": "rejoindre un cluster Swarm depuis un nœud worker",
     "command": "docker swarm join --token SWMTKN-xxxxx <IP_manager>:2377",
+    "example": "docker swarm join --token SWMTKN-1-49nj1cmq0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv 192.168.1.100:2377",
     "description": "Commande à exécuter sur chaque worker pour l'intégrer au cluster. Le token est fourni lors du docker swarm init sur le manager.",
     "source_file": "modules/B03_dockers-swarm.md"
   },
@@ -12270,6 +12283,7 @@
     "title": "Lire un fichier ligne par ligne avec read -r",
     "context": "traiter chaque ligne d'un fichier dans un script",
     "command": "while IFS= read -r line; do printf '%s\\n' \"$line\"; done < fichier.txt",
+    "example": "while IFS= read -r line; do printf '%s\\n' \"$line\"; done < /etc/hosts",
     "description": "IFS= empêche le trim des espaces en début/fin, -r empêche l'interprétation des backslashes. Indispensable pour traiter des chemins ou des données structurées",
     "source_file": "modules/M02_scripting-bash.md"
   },
@@ -12432,6 +12446,7 @@
     ],
     "title": "Revert — annuler un commit sans réécrire l'historique",
     "command": "git revert <hash>",
+    "example": "git revert a3f2c1d",
     "description": "Crée un nouveau commit inverse, idéal pour annuler proprement sur une branche partagée",
     "importance": "medium",
     "format": "knowledge",
@@ -12838,6 +12853,7 @@
     "title": "Annuler un merge commit déjà poussé",
     "context": "rollback d'un merge défectueux sur une branche partagée",
     "command": "git revert -m 1 <hash_du_merge>",
+    "example": "git revert -m 1 e5a4b3c",
     "description": "Crée un commit qui annule les effets du merge, en conservant le parent 1 (la branche de destination). Ne réécrit pas l'historique, donc sûr sur une branche partagée.",
     "source_file": "modules/M03_git-historique-avance.md"
   },
@@ -12972,6 +12988,7 @@
     "title": "Identifier le commit qui a introduit un bug (bisect)",
     "context": "trouver rapidement l'origine d'une régression dans l'historique",
     "command": "git bisect start && git bisect bad && git bisect good <hash_bon>",
+    "example": "git bisect start && git bisect bad && git bisect good a1b2c3d",
     "description": "Recherche binaire dans l'historique. Git checkout les commits intermédiaires automatiquement. Tagger `good/bad`, terminer avec `git bisect reset`.",
     "source_file": "modules/M03_git-manipulation.md"
   },
@@ -16982,6 +16999,7 @@
     "title": "Rollback instantané avec Vercel CLI",
     "context": "revenir rapidement à une version précédente après un incident en production Vercel",
     "command": "vercel rollback <deployment-id>",
+    "example": "vercel rollback dpl_abc123xyz456",
     "description": "Revient instantanément à un déploiement précédent identifié par son ID. Utiliser `vercel ls` pour lister les déploiements disponibles et trouver l'ID cible.",
     "source_file": "modules/M20_Cours-CD-Approfondi.md"
   },
@@ -17537,6 +17555,7 @@
     "title": "Analyser un Dockerfile avec Hadolint",
     "context": "détecter les mauvaises pratiques de sécurité dans un Dockerfile avant le build",
     "command": "docker run --rm -i hadolint/hadolint < Dockerfile",
+    "example": "docker run --rm -i hadolint/hadolint < ./Dockerfile",
     "description": "Analyse le Dockerfile et signale les problèmes : usage de FROM image:latest (interdit), absence de version fixe dans apt-get install, usage de root dans le conteneur. Ne nécessite pas d'installation locale de Hadolint.",
     "source_file": "modules/M23_sécurité-pipeline.md"
   },

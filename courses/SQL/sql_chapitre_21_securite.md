@@ -221,6 +221,7 @@ format: knowledge
 tags: sql,grant,revoke,permissions,securite
 title: Attribuer ou retirer une permission SQL
 command: GRANT SELECT ON <table> TO <role>; -- REVOKE SELECT ON <table> FROM <role>;
+example: GRANT SELECT ON commandes TO lecteur; -- REVOKE SELECT ON commandes FROM lecteur;
 description: GRANT attribue le droit, REVOKE le retire. Les permissions s’appliquent par table et par rôle.
 -->
 

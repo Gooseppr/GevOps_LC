@@ -267,6 +267,7 @@ format: knowledge
 tags: sql,cte,with,lisibilite,analytique
 title: Créer une table temporaire avec une CTE (WITH)
 command: WITH <nom_cte> AS (SELECT ... FROM ... GROUP BY ...) SELECT * FROM <nom_cte> WHERE ...;
+example: WITH ventes_region AS (SELECT region, SUM(montant) AS total FROM ventes GROUP BY region) SELECT * FROM ventes_region WHERE total > 10000;
 description: La CTE agit comme une table temporaire dans la requête. Améliore la lisibilité et évite les sous-requêtes imbriquées profondes.
 -->
 

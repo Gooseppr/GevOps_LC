@@ -503,6 +503,7 @@ tags: bisect,debug,recherche-binaire,commit-fautif
 title: Identifier le commit qui a introduit un bug (bisect)
 context: trouver rapidement l'origine d'une régression dans l'historique
 command: git bisect start && git bisect bad && git bisect good <hash_bon>
+example: git bisect start && git bisect bad && git bisect good a1b2c3d
 description: Recherche binaire dans l'historique. Git checkout les commits intermédiaires automatiquement. Tagger `good/bad`, terminer avec `git bisect reset`.
 -->
 

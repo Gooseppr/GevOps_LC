@@ -284,6 +284,7 @@ format: knowledge
 tags: sql,select,from,requete
 title: Lire des colonnes spécifiques d'une table
 command: SELECT <col1>, <col2> FROM <table>;
+example: SELECT nom, email FROM utilisateurs;
 description: Récupère uniquement les colonnes listées. Préférer cette forme à SELECT * pour plus de clarté et de performance.
 -->
 

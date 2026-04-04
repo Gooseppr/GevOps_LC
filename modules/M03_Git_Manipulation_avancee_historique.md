@@ -376,6 +376,7 @@ level: intermediate
 tags: revert,annuler,historique-partagé
 title: Revert — annuler un commit sans réécrire l'historique
 command: git revert <hash>
+example: git revert a3f2c1d
 description: Crée un nouveau commit inverse, idéal pour annuler proprement sur une branche partagée
 -->
 
