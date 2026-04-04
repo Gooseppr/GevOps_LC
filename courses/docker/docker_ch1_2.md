@@ -209,6 +209,7 @@ format: knowledge
 tags: docker,run,nom,nommage
 title: Donner un nom à un conteneur
 command: docker run -d --name <NOM> nginx
+example: docker run -d --name webserver nginx
 description: Nommer un conteneur permet de le retrouver et de le manipuler plus facilement avec stop, start, rm.
 -->
 
@@ -222,6 +223,7 @@ format: knowledge
 tags: docker,stop,arret,conteneur
 title: Arrêter un conteneur
 command: docker stop <NOM>
+example: docker stop webserver
 description: Envoie un signal d’arrêt propre au conteneur. Le conteneur s’arrête mais n’est pas supprimé.
 -->
 
@@ -235,6 +237,7 @@ format: knowledge
 tags: docker,rm,suppression,conteneur
 title: Supprimer un conteneur
 command: docker rm <NOM>
+example: docker rm webserver
 description: Supprime un conteneur arrêté. Le conteneur doit être stoppé avant d’être supprimé, sauf avec l’option -f.
 -->
 

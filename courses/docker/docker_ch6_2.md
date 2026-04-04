@@ -184,6 +184,7 @@ tags: swarm,cluster,join,worker
 title: Ajouter un worker au cluster Swarm
 context: Sur la machine worker à joindre au cluster
 command: docker swarm join --token <TOKEN> <IP_MANAGER>:2377
+example: docker swarm join --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c 192.168.1.100:2377
 description: Rejoint le cluster Swarm en tant que worker. Le token est fourni après docker swarm init sur le manager.
 -->
 

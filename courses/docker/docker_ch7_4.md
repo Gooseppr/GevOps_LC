@@ -180,6 +180,7 @@ format: knowledge
 tags: cd,swarm,service,update,deploiement
 title: Mettre à jour un service Docker Swarm via CD
 command: docker service update --image <IMAGE>:v2 <SERVICE>
+example: docker service update --image monuser/mon-api:v2 api
 description: Met à jour l'image d'un service Swarm en production depuis un pipeline CD, après le push dans le registry.
 -->
 

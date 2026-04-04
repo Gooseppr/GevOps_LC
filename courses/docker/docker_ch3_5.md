@@ -173,6 +173,7 @@ format: knowledge
 tags: volume,partage,run,multi-conteneur
 title: Monter un volume partagé dans un conteneur API
 command: docker run -d --name <NOM> -v shared-data:/data <IMAGE>
+example: docker run -d --name api-server -v shared-data:/data node:18
 description: Lance un conteneur et monte le volume shared-data dans /data, permettant à d'autres conteneurs d'accéder aux mêmes fichiers.
 -->
 
@@ -186,6 +187,7 @@ format: knowledge
 tags: volume,partage,run,worker
 title: Monter le même volume partagé dans un second conteneur
 command: docker run -d --name <NOM> -v shared-data:/data <IMAGE>
+example: docker run -d --name data-processor -v shared-data:/data python:3.11
 description: Lance un second conteneur en montant le même volume shared-data dans /data pour lire ou traiter les fichiers écrits par le premier conteneur.
 -->
 

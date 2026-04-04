@@ -185,6 +185,7 @@ format: knowledge
 tags: aws,logs,cli
 title: Suivre logs temps réel
 command: aws logs tail <LOG_GROUP> --follow
+example: aws logs tail /aws/lambda/my-function --follow
 description: Permet de voir les logs en temps réel
 -->
 

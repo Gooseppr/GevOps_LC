@@ -188,6 +188,7 @@ tags: compose,logs,service
 title: Afficher les logs d'un service spécifique
 context: Remplacer `api` par le nom du service ciblé dans le docker-compose.yml
 command: docker compose logs <SERVICE>
+example: docker compose logs api
 description: Isole les logs d'un service précis dans une stack multi-conteneurs
 -->
 
@@ -201,6 +202,7 @@ format: knowledge
 tags: compose,restart,debug
 title: Redémarrer un service spécifique
 command: docker compose restart <SERVICE>
+example: docker compose restart worker
 description: Redémarre uniquement le service ciblé sans toucher au reste de la stack
 -->
 

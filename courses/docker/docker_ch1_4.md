@@ -226,6 +226,7 @@ format: knowledge
 tags: docker,start,demarrage,conteneur
 title: Démarrer un conteneur existant
 command: docker start <NOM>
+example: docker start webserver
 description: Démarre un conteneur déjà existant (arrêté). Différent de docker run qui crée ET démarre un nouveau conteneur.
 -->
 
@@ -239,6 +240,7 @@ format: knowledge
 tags: docker,restart,redemarrage,conteneur
 title: Redémarrer un conteneur
 command: docker restart <NOM>
+example: docker restart api-gateway
 description: Redémarre un conteneur sans le recréer. Utile après une modification de configuration.
 -->
 
@@ -252,6 +254,7 @@ format: knowledge
 tags: docker,rm,force,suppression
 title: Forcer la suppression d’un conteneur actif
 command: docker rm -f <NOM>
+example: docker rm -f webserver
 description: Supprime un conteneur même s’il est en cours d’exécution. À utiliser avec précaution.
 -->
 

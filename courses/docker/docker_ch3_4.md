@@ -202,6 +202,7 @@ format: knowledge
 tags: volume,run,stockage,persistance
 title: Monter un volume nommé dans un conteneur
 command: docker run -v mon-volume:/data <IMAGE>
+example: docker run -v mon-volume:/data postgres:15
 description: Monte le volume nommé sur le répertoire /data du conteneur. Docker crée le volume automatiquement s'il n'existe pas encore. Les données survivent à la suppression du conteneur.
 -->
 
@@ -215,6 +216,7 @@ format: knowledge
 tags: volume,bind-mount,dev,run
 title: Monter un bind mount (répertoire courant)
 command: docker run -v $(pwd):/app <IMAGE>
+example: docker run -v $(pwd):/app node:18
 description: Monte le répertoire courant sur /app dans le conteneur. Toute modification de fichier est immédiatement visible dans le conteneur sans le redémarrer.
 -->
 

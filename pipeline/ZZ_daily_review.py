@@ -421,6 +421,20 @@ def render_snippet(s):
             f'</div>'
         )
 
+    if s.get('example'):
+        ex = render_command(s['example'])
+        body_html += (
+            f'<div style="margin:-4px 0 12px 0;">'
+            f'<div style="font-size:11px;color:#6b7280;font-family:system-ui,sans-serif;'
+            f'margin-bottom:4px;font-weight:600;letter-spacing:0.04em;">▶ Exemple concret</div>'
+            f'<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;'
+            f'padding:12px 16px;overflow-x:auto;">'
+            f'<code style="font-family:\'Courier New\',Courier,monospace;font-size:14px;'
+            f'color:#166534;white-space:pre-wrap;word-break:break-all;">{ex}</code>'
+            f'</div>'
+            f'</div>'
+        )
+
     if s.get('context'):
         body_html += (
             f'<p style="margin:8px 0 4px;color:#64748b;font-size:13px;">'

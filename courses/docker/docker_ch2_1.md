@@ -193,6 +193,7 @@ format: knowledge
 tags: dockerfile,build,image
 title: Construire une image depuis un Dockerfile
 command: docker build -t <IMAGE> .
+example: docker build -t mon-api .
 description: Le point final désigne le dossier courant comme contexte de build. -t définit le nom de l'image.
 -->
 
@@ -206,6 +207,7 @@ format: knowledge
 tags: dockerfile,run,image
 title: Lancer une image construite localement
 command: docker run <IMAGE>
+example: docker run mon-api
 description: Lance un conteneur depuis une image construite localement avec docker build.
 -->
 

@@ -187,6 +187,7 @@ format: knowledge
 tags: docker,logs,conteneur
 title: Voir les logs d'un conteneur
 command: docker logs <NOM>
+example: docker logs webserver
 description: Affiche tout ce que le conteneur a produit depuis son démarrage.
 -->
 
@@ -200,6 +201,7 @@ format: knowledge
 tags: docker,logs,follow,temps-reel
 title: Suivre les logs en temps réel
 command: docker logs -f <NOM>
+example: docker logs -f api
 description: L'option -f (follow) affiche les logs en direct, comme tail -f. Utile pour surveiller une application qui démarre.
 -->
 
@@ -213,6 +215,7 @@ format: knowledge
 tags: docker,logs,tail,dernieres-lignes
 title: Afficher les dernières lignes de logs
 command: docker logs --tail 10 <NOM>
+example: docker logs --tail 10 api
 description: Affiche uniquement les N dernières lignes. Pratique pour les conteneurs avec beaucoup de logs.
 -->
 
@@ -226,6 +229,7 @@ format: knowledge
 tags: docker,logs,timestamp,date
 title: Afficher les logs avec timestamps
 command: docker logs -t <NOM>
+example: docker logs -t postgres
 description: Ajoute la date et l'heure devant chaque ligne de log pour faciliter le diagnostic temporel.
 -->
 

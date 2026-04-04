@@ -157,6 +157,7 @@
     ],
     "title": "Lancer instance EC2",
     "command": "aws ec2 run-instances --image-id <AMI_ID> --instance-type <TYPE>",
+    "example": "aws ec2 run-instances --image-id ami-0c55b159cbfafe1f0 --instance-type t2.micro",
     "description": "Permet de créer une instance EC2 via CLI",
     "context": "",
     "source_file": "courses/cloud-aws/aws_module_03_ec2.md"
@@ -265,6 +266,7 @@
     ],
     "title": "Upload fichier S3",
     "command": "aws s3 cp <FILE> s3://<BUCKET>/",
+    "example": "aws s3 cp rapport.pdf s3://mon-bucket-prod/",
     "description": "Permet d’envoyer un fichier vers S3",
     "context": "",
     "source_file": "courses/cloud-aws/aws_module_04_storage.md"
@@ -1454,6 +1456,7 @@
     ],
     "title": "Suivre logs temps réel",
     "command": "aws logs tail <LOG_GROUP> --follow",
+    "example": "aws logs tail /aws/lambda/my-function --follow",
     "description": "Permet de voir les logs en temps réel",
     "context": "",
     "source_file": "courses/cloud-aws/aws_module_15_observability.md"
@@ -1580,6 +1583,7 @@
     ],
     "title": "Utiliser profil AWS",
     "command": "aws --profile <PROFILE> ec2 describe-instances",
+    "example": "aws --profile staging ec2 describe-instances",
     "description": "Permet d'exécuter des commandes avec un profil spécifique",
     "context": "",
     "source_file": "courses/cloud-aws/aws_module_16_multi_env.md"
@@ -1706,6 +1710,7 @@
     ],
     "title": "Vérifier santé targets",
     "command": "aws elbv2 describe-target-health --target-group-arn <ARN>",
+    "example": "aws elbv2 describe-target-health --target-group-arn arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/api-tg/abc123def456",
     "description": "Permet de vérifier les instances derrière un load balancer",
     "context": "",
     "source_file": "courses/cloud-aws/aws_module_17_ha.md"
@@ -2264,6 +2269,7 @@
     ],
     "title": "Envoyer message SQS",
     "command": "aws sqs send-message --queue-url <URL> --message-body \"test\"",
+    "example": "aws sqs send-message --queue-url https://sqs.eu-west-1.amazonaws.com/123456789012/orders-queue --message-body \"test\"",
     "description": "Permet d'envoyer un message dans une queue",
     "context": "",
     "source_file": "courses/cloud-aws/aws_module_22_distributed.md"
@@ -2830,6 +2836,7 @@
     ],
     "title": "Donner un nom à un conteneur",
     "command": "docker run -d --name <NOM> nginx",
+    "example": "docker run -d --name webserver nginx",
     "description": "Nommer un conteneur permet de le retrouver et de le manipuler plus facilement avec stop, start, rm.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_2.md"
@@ -2849,6 +2856,7 @@
     ],
     "title": "Arrêter un conteneur",
     "command": "docker stop <NOM>",
+    "example": "docker stop webserver",
     "description": "Envoie un signal d’arrêt propre au conteneur. Le conteneur s’arrête mais n’est pas supprimé.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_2.md"
@@ -2868,6 +2876,7 @@
     ],
     "title": "Supprimer un conteneur",
     "command": "docker rm <NOM>",
+    "example": "docker rm webserver",
     "description": "Supprime un conteneur arrêté. Le conteneur doit être stoppé avant d’être supprimé, sauf avec l’option -f.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_2.md"
@@ -3049,6 +3058,7 @@
     ],
     "title": "Démarrer un conteneur existant",
     "command": "docker start <NOM>",
+    "example": "docker start webserver",
     "description": "Démarre un conteneur déjà existant (arrêté). Différent de docker run qui crée ET démarre un nouveau conteneur.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_4.md"
@@ -3068,6 +3078,7 @@
     ],
     "title": "Redémarrer un conteneur",
     "command": "docker restart <NOM>",
+    "example": "docker restart api-gateway",
     "description": "Redémarre un conteneur sans le recréer. Utile après une modification de configuration.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_4.md"
@@ -3087,6 +3098,7 @@
     ],
     "title": "Forcer la suppression d’un conteneur actif",
     "command": "docker rm -f <NOM>",
+    "example": "docker rm -f webserver",
     "description": "Supprime un conteneur même s’il est en cours d’exécution. À utiliser avec précaution.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_4.md"
@@ -3178,6 +3190,7 @@
     ],
     "title": "Exposer un port avec -p",
     "command": "docker run -p <PORT>:80 nginx",
+    "example": "docker run -p 8080:80 nginx",
     "description": "Relie un port de la machine hôte au port 80 du conteneur. Syntaxe : -p port_externe:port_interne.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_5.md"
@@ -3197,6 +3210,7 @@
     ],
     "title": "Lancer un conteneur avec port en mode détaché",
     "command": "docker run -d -p <PORT>:80 nginx",
+    "example": "docker run -d -p 3000:80 nginx",
     "description": "Lance nginx en arrière-plan et expose son port 80 sur le port choisi de la machine hôte.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_5.md"
@@ -3307,6 +3321,7 @@
     ],
     "title": "Lancer un conteneur avec un volume",
     "command": "docker run -d -v <NOM>:/data nginx",
+    "example": "docker run -d -v app-data:/data nginx",
     "description": "-v monte le volume nommé sur le chemin /data dans le conteneur. Les données y sont conservées après suppression du conteneur.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_6.md"
@@ -3343,6 +3358,7 @@
     ],
     "title": "Inspecter un volume",
     "command": "docker volume inspect <NOM>",
+    "example": "docker volume inspect app-data",
     "description": "Affiche les détails d'un volume : emplacement sur la machine hôte, date de création, etc.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_6.md"
@@ -3361,6 +3377,7 @@
     ],
     "title": "Supprimer un volume",
     "command": "docker volume rm <NOM>",
+    "example": "docker volume rm app-data",
     "description": "Supprime définitivement un volume et les données qu'il contient. À utiliser avec précaution.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_6.md"
@@ -3418,6 +3435,7 @@
     ],
     "title": "Entrer dans un conteneur avec bash",
     "command": "docker exec -it <NOM> bash",
+    "example": "docker exec -it webserver bash",
     "description": "Ouvre un terminal interactif dans le conteneur. -i = interactif, -t = terminal, bash = shell à lancer.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_7.md"
@@ -3438,6 +3456,7 @@
     ],
     "title": "Entrer dans un conteneur avec sh (alternative à bash)",
     "command": "docker exec -it <NOM> sh",
+    "example": "docker exec -it alpine-app sh",
     "description": "Utile quand bash n’est pas disponible dans l’image (ex : images Alpine légères).",
     "context": "",
     "source_file": "courses/docker/docker_ch1_7.md"
@@ -3457,6 +3476,7 @@
     ],
     "title": "Exécuter une commande dans un conteneur sans entrer dedans",
     "command": "docker exec <NOM> ls /",
+    "example": "docker exec webserver ls /",
     "description": "Exécute la commande directement dans le conteneur et affiche le résultat dans le terminal hôte, sans ouvrir de session interactive.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_7.md"
@@ -3548,6 +3568,7 @@
     ],
     "title": "Voir les logs d'un conteneur",
     "command": "docker logs <NOM>",
+    "example": "docker logs webserver",
     "description": "Affiche tout ce que le conteneur a produit depuis son démarrage.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_8.md"
@@ -3567,6 +3588,7 @@
     ],
     "title": "Suivre les logs en temps réel",
     "command": "docker logs -f <NOM>",
+    "example": "docker logs -f api",
     "description": "L'option -f (follow) affiche les logs en direct, comme tail -f. Utile pour surveiller une application qui démarre.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_8.md"
@@ -3586,6 +3608,7 @@
     ],
     "title": "Afficher les dernières lignes de logs",
     "command": "docker logs --tail 10 <NOM>",
+    "example": "docker logs --tail 10 api",
     "description": "Affiche uniquement les N dernières lignes. Pratique pour les conteneurs avec beaucoup de logs.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_8.md"
@@ -3605,6 +3628,7 @@
     ],
     "title": "Afficher les logs avec timestamps",
     "command": "docker logs -t <NOM>",
+    "example": "docker logs -t postgres",
     "description": "Ajoute la date et l'heure devant chaque ligne de log pour faciliter le diagnostic temporel.",
     "context": "",
     "source_file": "courses/docker/docker_ch1_8.md"
@@ -3678,6 +3702,7 @@
     ],
     "title": "Construire une image depuis un Dockerfile",
     "command": "docker build -t <IMAGE> .",
+    "example": "docker build -t mon-api .",
     "description": "Le point final désigne le dossier courant comme contexte de build. -t définit le nom de l'image.",
     "context": "",
     "source_file": "courses/docker/docker_ch2_1.md"
@@ -3696,6 +3721,7 @@
     ],
     "title": "Lancer une image construite localement",
     "command": "docker run <IMAGE>",
+    "example": "docker run mon-api",
     "description": "Lance un conteneur depuis une image construite localement avec docker build.",
     "context": "",
     "source_file": "courses/docker/docker_ch2_1.md"
@@ -4712,6 +4738,7 @@
     ],
     "title": "Lancer un conteneur avec le réseau host",
     "command": "docker run --network host <IMAGE>",
+    "example": "docker run --network host nginx",
     "description": "Lance un conteneur en partageant directement le réseau de la machine hôte. Il n'y a aucune isolation réseau : les ports du conteneur sont directement accessibles sur la machine.",
     "context": "",
     "source_file": "courses/docker/docker_ch3_3.md"
@@ -4731,6 +4758,7 @@
     ],
     "title": "Lancer un conteneur sans réseau",
     "command": "docker run --network none <IMAGE>",
+    "example": "docker run --network none alpine",
     "description": "Lance un conteneur sans aucune interface réseau. Le conteneur ne peut ni envoyer ni recevoir de trafic réseau, ce qui offre une isolation totale.",
     "context": "",
     "source_file": "courses/docker/docker_ch3_3.md"
@@ -4842,6 +4870,7 @@
     ],
     "title": "Monter un volume nommé dans un conteneur",
     "command": "docker run -v mon-volume:/data <IMAGE>",
+    "example": "docker run -v mon-volume:/data postgres:15",
     "description": "Monte le volume nommé sur le répertoire /data du conteneur. Docker crée le volume automatiquement s'il n'existe pas encore. Les données survivent à la suppression du conteneur.",
     "context": "",
     "source_file": "courses/docker/docker_ch3_4.md"
@@ -4861,6 +4890,7 @@
     ],
     "title": "Monter un bind mount (répertoire courant)",
     "command": "docker run -v $(pwd):/app <IMAGE>",
+    "example": "docker run -v $(pwd):/app node:18",
     "description": "Monte le répertoire courant sur /app dans le conteneur. Toute modification de fichier est immédiatement visible dans le conteneur sans le redémarrer.",
     "context": "",
     "source_file": "courses/docker/docker_ch3_4.md"
@@ -4954,6 +4984,7 @@
     ],
     "title": "Monter un volume partagé dans un conteneur API",
     "command": "docker run -d --name <NOM> -v shared-data:/data <IMAGE>",
+    "example": "docker run -d --name api-server -v shared-data:/data node:18",
     "description": "Lance un conteneur et monte le volume shared-data dans /data, permettant à d'autres conteneurs d'accéder aux mêmes fichiers.",
     "context": "",
     "source_file": "courses/docker/docker_ch3_5.md"
@@ -4973,6 +5004,7 @@
     ],
     "title": "Monter le même volume partagé dans un second conteneur",
     "command": "docker run -d --name <NOM> -v shared-data:/data <IMAGE>",
+    "example": "docker run -d --name data-processor -v shared-data:/data python:3.11",
     "description": "Lance un second conteneur en montant le même volume shared-data dans /data pour lire ou traiter les fichiers écrits par le premier conteneur.",
     "context": "",
     "source_file": "courses/docker/docker_ch3_5.md"
@@ -5841,6 +5873,7 @@
     "title": "Afficher les logs d'un service spécifique",
     "context": "Remplacer `api` par le nom du service ciblé dans le docker-compose.yml",
     "command": "docker compose logs <SERVICE>",
+    "example": "docker compose logs api",
     "description": "Isole les logs d'un service précis dans une stack multi-conteneurs",
     "source_file": "courses/docker/docker_ch4_7.md"
   },
@@ -5858,6 +5891,7 @@
     ],
     "title": "Redémarrer un service spécifique",
     "command": "docker compose restart <SERVICE>",
+    "example": "docker compose restart worker",
     "description": "Redémarre uniquement le service ciblé sans toucher au reste de la stack",
     "context": "",
     "source_file": "courses/docker/docker_ch4_7.md"
@@ -6155,6 +6189,7 @@
     ],
     "title": "Scanner une image avec docker scan",
     "command": "docker scan <IMAGE>",
+    "example": "docker scan nginx:latest",
     "description": "Outil de scan intégré à Docker pour détecter les vulnérabilités connues dans une image",
     "context": "",
     "source_file": "courses/docker/docker_ch5_3.md"
@@ -6174,6 +6209,7 @@
     ],
     "title": "Scanner une image avec Trivy",
     "command": "trivy image <IMAGE>",
+    "example": "trivy image postgres:15",
     "description": "Trivy est un outil open-source de scan de sécurité fournissant une analyse complète des vulnérabilités d'une image Docker",
     "context": "",
     "source_file": "courses/docker/docker_ch5_3.md"
@@ -6448,6 +6484,7 @@
     "title": "Ajouter un worker au cluster Swarm",
     "context": "Sur la machine worker à joindre au cluster",
     "command": "docker swarm join --token <TOKEN> <IP_MANAGER>:2377",
+    "example": "docker swarm join --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c 192.168.1.100:2377",
     "description": "Rejoint le cluster Swarm en tant que worker. Le token est fourni après docker swarm init sur le manager.",
     "source_file": "courses/docker/docker_ch6_2.md"
   },
@@ -6520,6 +6557,7 @@
     ],
     "title": "Créer un service Swarm",
     "command": "docker service create --name <NOM> <IMAGE>",
+    "example": "docker service create --name api nginx",
     "description": "Crée un service géré par Swarm. Swarm gère automatiquement le cycle de vie du conteneur.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_3.md"
@@ -6557,6 +6595,7 @@
     ],
     "title": "Voir les tâches (conteneurs) d'un service",
     "command": "docker service ps <SERVICE>",
+    "example": "docker service ps api",
     "description": "Affiche les conteneurs (tâches) associés au service, leur état et sur quel node ils tournent.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_3.md"
@@ -6576,6 +6615,7 @@
     ],
     "title": "Créer un service avec plusieurs replicas",
     "command": "docker service create --name <NOM> --replicas 3 <IMAGE>",
+    "example": "docker service create --name frontend --replicas 3 nginx",
     "description": "Lance 3 instances du service, réparties automatiquement sur les nœuds disponibles.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_3.md"
@@ -6595,6 +6635,7 @@
     ],
     "title": "Modifier le nombre de replicas d'un service",
     "command": "docker service scale <SERVICE>=5",
+    "example": "docker service scale api=5",
     "description": "Ajuste à la volée le nombre d'instances du service sans interruption de service.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_3.md"
@@ -6613,6 +6654,7 @@
     ],
     "title": "Supprimer un service Swarm",
     "command": "docker service rm <SERVICE>",
+    "example": "docker service rm api",
     "description": "Supprime le service et arrête tous les conteneurs associés sur l'ensemble des nœuds du cluster.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_3.md"
@@ -6702,6 +6744,7 @@
     ],
     "title": "Scaler un service Swarm",
     "command": "docker service scale <SERVICE>=5",
+    "example": "docker service scale webapp=5",
     "description": "Augmente ou diminue le nombre de replicas du service. La modification est appliquée progressivement sans interruption.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_4.md"
@@ -6792,6 +6835,7 @@
     ],
     "title": "Déployer une stack Swarm",
     "command": "docker stack deploy -c docker-compose.yml <NOM>",
+    "example": "docker stack deploy -c docker-compose.yml myapp",
     "description": "Déploie l'ensemble des services définis dans le fichier docker-compose.yml sous le nom de stack spécifié.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_5.md"
@@ -6829,6 +6873,7 @@
     ],
     "title": "Voir les services d'une stack",
     "command": "docker stack services <NOM>",
+    "example": "docker stack services myapp",
     "description": "Liste les services appartenant à la stack avec leur état, le nombre de replicas et les ports exposés.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_5.md"
@@ -6847,6 +6892,7 @@
     ],
     "title": "Supprimer une stack Swarm",
     "command": "docker stack rm <NOM>",
+    "example": "docker stack rm myapp",
     "description": "Supprime la stack et arrête tous les services associés sur le cluster Swarm.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_5.md"
@@ -6937,6 +6983,7 @@
     ],
     "title": "Créer un réseau overlay",
     "command": "docker network create --driver overlay <NOM>",
+    "example": "docker network create --driver overlay backend-net",
     "description": "Crée un réseau distribué accessible par tous les nœuds du cluster Swarm.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_6.md"
@@ -6956,6 +7003,7 @@
     ],
     "title": "Déployer un service avec un réseau overlay",
     "command": "docker service create --name <NOM> --network <NOM> <IMAGE>",
+    "example": "docker service create --name api --network backend-net nginx",
     "description": "Attache le service au réseau overlay, permettant la communication avec d'autres services sur n'importe quel nœud du cluster.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_6.md"
@@ -7013,6 +7061,7 @@
     ],
     "title": "Inspecter un nœud Swarm",
     "command": "docker node inspect <NOM>",
+    "example": "docker node inspect worker-1",
     "description": "Affiche les détails complets d'un nœud : ressources, labels, statut, disponibilité.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_7.md"
@@ -7032,6 +7081,7 @@
     ],
     "title": "Inspecter un service Swarm",
     "command": "docker service inspect <SERVICE>",
+    "example": "docker service inspect api",
     "description": "Affiche la configuration complète du service : image, replicas, réseau, contraintes de placement.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_7.md"
@@ -7052,6 +7102,7 @@
     ],
     "title": "Mettre à jour l'image d'un service",
     "command": "docker service update --image <IMAGE> <SERVICE>",
+    "example": "docker service update --image nginx:1.25 webapp",
     "description": "Met à jour le service de manière progressive (rolling update). Swarm remplace les conteneurs un par un pour éviter toute interruption de service.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_7.md"
@@ -7071,6 +7122,7 @@
     ],
     "title": "Rollback d'un service Swarm",
     "command": "docker service rollback <SERVICE>",
+    "example": "docker service rollback webapp",
     "description": "Revient à la version précédente du service. À utiliser immédiatement si une mise à jour casse l'application.",
     "context": "",
     "source_file": "courses/docker/docker_ch6_7.md"
@@ -7383,6 +7435,7 @@
     ],
     "title": "Build d'une image Docker dans GitHub Actions",
     "command": "docker build -t <IMAGE> .",
+    "example": "docker build -t mon-api .",
     "description": "Construit l'image Docker à partir du Dockerfile présent à la racine du dépôt dans un step GitHub Actions.",
     "context": "",
     "source_file": "courses/docker/docker_ch7_2.md"
@@ -7403,6 +7456,7 @@
     ],
     "title": "Lancer un conteneur dans GitHub Actions",
     "command": "docker run <IMAGE>",
+    "example": "docker run mon-api",
     "description": "Exécute le conteneur construit pour valider le fonctionnement de l'image après le build.",
     "context": "",
     "source_file": "courses/docker/docker_ch7_2.md"
@@ -7534,6 +7588,7 @@
     ],
     "title": "Tagger une image Docker pour le registry",
     "command": "docker tag <IMAGE> <NOM>:1.0",
+    "example": "docker tag mon-api monuser/mon-api:1.0",
     "description": "Associe un nom complet (username/nom:tag) à une image locale avant de la pousser vers un registry.",
     "context": "",
     "source_file": "courses/docker/docker_ch7_3.md"
@@ -7553,6 +7608,7 @@
     ],
     "title": "Pousser une image vers un registry",
     "command": "docker push <IMAGE>:1.0",
+    "example": "docker push monuser/mon-api:1.0",
     "description": "Envoie l’image taguée vers le registry distant. L’image doit être taguée avec le bon préfixe (username ou organisation) avant le push.",
     "context": "",
     "source_file": "courses/docker/docker_ch7_3.md"
@@ -7648,6 +7704,7 @@
     ],
     "title": "Mettre à jour un service Docker Swarm via CD",
     "command": "docker service update --image <IMAGE>:v2 <SERVICE>",
+    "example": "docker service update --image monuser/mon-api:v2 api",
     "description": "Met à jour l'image d'un service Swarm en production depuis un pipeline CD, après le push dans le registry.",
     "context": "",
     "source_file": "courses/docker/docker_ch7_4.md"
@@ -8383,6 +8440,7 @@
     ],
     "title": "Installer une dépendance",
     "command": "pip install <PACKAGE>",
+    "example": "pip install requests",
     "description": "Installe une librairie Python",
     "context": "",
     "source_file": "courses/python/module_11_dependencies_packaging.md"
@@ -9233,6 +9291,7 @@
     ],
     "title": "Build image Docker",
     "command": "docker build -t <IMAGE_NAME> .",
+    "example": "docker build -t flask-app .",
     "description": "Construit une image Docker à partir du Dockerfile",
     "context": "",
     "source_file": "courses/python/module_23_docker.md"
@@ -9250,6 +9309,7 @@
     ],
     "title": "Lancer container",
     "command": "docker run -p <PORT>:<PORT> <IMAGE>",
+    "example": "docker run -p 5000:5000 flask-app",
     "description": "Lance un conteneur Docker",
     "context": "",
     "source_file": "courses/python/module_23_docker.md"
@@ -10595,6 +10655,7 @@
     ],
     "title": "Sauvegarder et restaurer une base PostgreSQL",
     "command": "pg_dump <DB> > backup.sql",
+    "example": "pg_dump mabase > backup.sql",
     "context": "Restauration avec : psql <DB> < backup.sql",
     "description": "pg_dump exporte la structure et les données en SQL. psql les réimporte. Tester régulièrement la restauration.",
     "source_file": "courses/SQL/sql_chapitre_22_administration_bdd.md"

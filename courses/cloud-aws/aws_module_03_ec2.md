@@ -194,6 +194,7 @@ format: knowledge
 tags: aws,ec2,cli
 title: Lancer instance EC2
 command: aws ec2 run-instances --image-id <AMI_ID> --instance-type <TYPE>
+example: aws ec2 run-instances --image-id ami-0c55b159cbfafe1f0 --instance-type t2.micro
 description: Permet de créer une instance EC2 via CLI
 -->
 

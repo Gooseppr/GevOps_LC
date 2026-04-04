@@ -214,6 +214,7 @@ format: knowledge
 tags: docker,run,volume,-v
 title: Lancer un conteneur avec un volume
 command: docker run -d -v <NOM>:/data nginx
+example: docker run -d -v app-data:/data nginx
 description: -v monte le volume nommé sur le chemin /data dans le conteneur. Les données y sont conservées après suppression du conteneur.
 -->
 
@@ -240,6 +241,7 @@ format: knowledge
 tags: docker,volume,inspecter
 title: Inspecter un volume
 command: docker volume inspect <NOM>
+example: docker volume inspect app-data
 description: Affiche les détails d'un volume : emplacement sur la machine hôte, date de création, etc.
 -->
 
@@ -253,6 +255,7 @@ format: knowledge
 tags: docker,volume,suppression
 title: Supprimer un volume
 command: docker volume rm <NOM>
+example: docker volume rm app-data
 description: Supprime définitivement un volume et les données qu'il contient. À utiliser avec précaution.
 -->
 

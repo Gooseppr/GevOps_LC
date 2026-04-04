@@ -265,6 +265,7 @@ format: knowledge
 tags: sql,postgresql,pg_dump,backup,restauration
 title: Sauvegarder et restaurer une base PostgreSQL
 command: pg_dump <DB> > backup.sql
+example: pg_dump mabase > backup.sql
 context: Restauration avec : psql <DB> < backup.sql
 description: pg_dump exporte la structure et les données en SQL. psql les réimporte. Tester régulièrement la restauration.
 -->

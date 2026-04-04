@@ -226,6 +226,7 @@ format: knowledge
 tags: registry,tag,image,versionning
 title: Tagger une image Docker pour le registry
 command: docker tag <IMAGE> <NOM>:1.0
+example: docker tag mon-api monuser/mon-api:1.0
 description: Associe un nom complet (username/nom:tag) à une image locale avant de la pousser vers un registry.
 -->
 
@@ -239,6 +240,7 @@ format: knowledge
 tags: registry,push,image,dockerhub
 title: Pousser une image vers un registry
 command: docker push <IMAGE>:1.0
+example: docker push monuser/mon-api:1.0
 description: Envoie l’image taguée vers le registry distant. L’image doit être taguée avec le bon préfixe (username ou organisation) avant le push.
 -->
 

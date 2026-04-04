@@ -202,6 +202,7 @@ format: knowledge
 tags: aws,cli,ha
 title: Vérifier santé targets
 command: aws elbv2 describe-target-health --target-group-arn <ARN>
+example: aws elbv2 describe-target-health --target-group-arn arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/api-tg/abc123def456
 description: Permet de vérifier les instances derrière un load balancer
 -->
 

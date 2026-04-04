@@ -200,6 +200,7 @@ format: knowledge
 tags: swarm,service,deploiement
 title: Créer un service Swarm
 command: docker service create --name <NOM> <IMAGE>
+example: docker service create --name api nginx
 description: Crée un service géré par Swarm. Swarm gère automatiquement le cycle de vie du conteneur.
 -->
 
@@ -226,6 +227,7 @@ format: knowledge
 tags: swarm,service,taches,supervision
 title: Voir les tâches (conteneurs) d'un service
 command: docker service ps <SERVICE>
+example: docker service ps api
 description: Affiche les conteneurs (tâches) associés au service, leur état et sur quel node ils tournent.
 -->
 
@@ -239,6 +241,7 @@ format: knowledge
 tags: swarm,service,replicas,scaling
 title: Créer un service avec plusieurs replicas
 command: docker service create --name <NOM> --replicas 3 <IMAGE>
+example: docker service create --name frontend --replicas 3 nginx
 description: Lance 3 instances du service, réparties automatiquement sur les nœuds disponibles.
 -->
 
@@ -252,6 +255,7 @@ format: knowledge
 tags: swarm,service,scaling,replicas
 title: Modifier le nombre de replicas d'un service
 command: docker service scale <SERVICE>=5
+example: docker service scale api=5
 description: Ajuste à la volée le nombre d'instances du service sans interruption de service.
 -->
 
@@ -265,6 +269,7 @@ format: knowledge
 tags: swarm,service,suppression
 title: Supprimer un service Swarm
 command: docker service rm <SERVICE>
+example: docker service rm api
 description: Supprime le service et arrête tous les conteneurs associés sur l'ensemble des nœuds du cluster.
 -->
 

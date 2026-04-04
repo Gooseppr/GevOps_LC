@@ -176,6 +176,7 @@ format: knowledge
 tags: reseau,host,performance,run
 title: Lancer un conteneur avec le réseau host
 command: docker run --network host <IMAGE>
+example: docker run --network host nginx
 description: Lance un conteneur en partageant directement le réseau de la machine hôte. Il n'y a aucune isolation réseau : les ports du conteneur sont directement accessibles sur la machine.
 -->
 
@@ -189,6 +190,7 @@ format: knowledge
 tags: reseau,none,isolation,run
 title: Lancer un conteneur sans réseau
 command: docker run --network none <IMAGE>
+example: docker run --network none alpine
 description: Lance un conteneur sans aucune interface réseau. Le conteneur ne peut ni envoyer ni recevoir de trafic réseau, ce qui offre une isolation totale.
 -->
 

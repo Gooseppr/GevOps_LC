@@ -173,6 +173,7 @@ format: knowledge
 tags: aws,cli,profile
 title: Utiliser profil AWS
 command: aws --profile <PROFILE> ec2 describe-instances
+example: aws --profile staging ec2 describe-instances
 description: Permet d'exécuter des commandes avec un profil spécifique
 -->
 

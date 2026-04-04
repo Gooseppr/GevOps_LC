@@ -207,6 +207,7 @@ format: knowledge
 tags: swarm,stack,deploiement,compose
 title: Déployer une stack Swarm
 command: docker stack deploy -c docker-compose.yml <NOM>
+example: docker stack deploy -c docker-compose.yml myapp
 description: Déploie l'ensemble des services définis dans le fichier docker-compose.yml sous le nom de stack spécifié.
 -->
 
@@ -233,6 +234,7 @@ format: knowledge
 tags: swarm,stack,services,supervision
 title: Voir les services d'une stack
 command: docker stack services <NOM>
+example: docker stack services myapp
 description: Liste les services appartenant à la stack avec leur état, le nombre de replicas et les ports exposés.
 -->
 
@@ -246,6 +248,7 @@ format: knowledge
 tags: swarm,stack,suppression
 title: Supprimer une stack Swarm
 command: docker stack rm <NOM>
+example: docker stack rm myapp
 description: Supprime la stack et arrête tous les services associés sur le cluster Swarm.
 -->
 

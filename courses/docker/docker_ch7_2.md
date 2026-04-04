@@ -198,6 +198,7 @@ format: knowledge
 tags: github-actions,build,image,ci
 title: Build d'une image Docker dans GitHub Actions
 command: docker build -t <IMAGE> .
+example: docker build -t mon-api .
 description: Construit l'image Docker à partir du Dockerfile présent à la racine du dépôt dans un step GitHub Actions.
 -->
 
@@ -211,6 +212,7 @@ format: knowledge
 tags: github-actions,run,conteneur,test,ci
 title: Lancer un conteneur dans GitHub Actions
 command: docker run <IMAGE>
+example: docker run mon-api
 description: Exécute le conteneur construit pour valider le fonctionnement de l'image après le build.
 -->
 

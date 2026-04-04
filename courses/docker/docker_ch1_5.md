@@ -202,6 +202,7 @@ format: knowledge
 tags: docker,port,mapping,run
 title: Exposer un port avec -p
 command: docker run -p <PORT>:80 nginx
+example: docker run -p 8080:80 nginx
 description: Relie un port de la machine hôte au port 80 du conteneur. Syntaxe : -p port_externe:port_interne.
 -->
 
@@ -215,6 +216,7 @@ format: knowledge
 tags: docker,run,port,detache
 title: Lancer un conteneur avec port en mode détaché
 command: docker run -d -p <PORT>:80 nginx
+example: docker run -d -p 3000:80 nginx
 description: Lance nginx en arrière-plan et expose son port 80 sur le port choisi de la machine hôte.
 -->
 

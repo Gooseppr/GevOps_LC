@@ -209,6 +209,7 @@ format: knowledge
 tags: swarm,scaling,service
 title: Scaler un service Swarm
 command: docker service scale <SERVICE>=5
+example: docker service scale webapp=5
 description: Augmente ou diminue le nombre de replicas du service. La modification est appliquée progressivement sans interruption.
 -->
 

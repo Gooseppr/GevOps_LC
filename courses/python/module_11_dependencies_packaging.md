@@ -148,6 +148,7 @@ format: knowledge
 tags: python,pip
 title: Installer une dépendance
 command: pip install <PACKAGE>
+example: pip install requests
 description: Installe une librairie Python
 -->
 

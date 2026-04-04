@@ -175,6 +175,7 @@ format: knowledge
 tags: scan,securite,vulnerabilite,docker-scan
 title: Scanner une image avec docker scan
 command: docker scan <IMAGE>
+example: docker scan nginx:latest
 description: Outil de scan intégré à Docker pour détecter les vulnérabilités connues dans une image
 -->
 
@@ -188,6 +189,7 @@ format: knowledge
 tags: scan,trivy,securite,vulnerabilite
 title: Scanner une image avec Trivy
 command: trivy image <IMAGE>
+example: trivy image postgres:15
 description: Trivy est un outil open-source de scan de sécurité fournissant une analyse complète des vulnérabilités d'une image Docker
 -->
 

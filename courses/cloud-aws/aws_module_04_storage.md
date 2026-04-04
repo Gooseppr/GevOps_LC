@@ -180,6 +180,7 @@ format: knowledge
 tags: aws,s3,cli
 title: Upload fichier S3
 command: aws s3 cp <FILE> s3://<BUCKET>/
+example: aws s3 cp rapport.pdf s3://mon-bucket-prod/
 description: Permet d’envoyer un fichier vers S3
 -->
 

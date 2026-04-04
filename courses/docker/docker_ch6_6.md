@@ -194,6 +194,7 @@ format: knowledge
 tags: swarm,overlay,reseau
 title: Créer un réseau overlay
 command: docker network create --driver overlay <NOM>
+example: docker network create --driver overlay backend-net
 description: Crée un réseau distribué accessible par tous les nœuds du cluster Swarm.
 -->
 
@@ -207,6 +208,7 @@ format: knowledge
 tags: swarm,service,overlay,reseau
 title: Déployer un service avec un réseau overlay
 command: docker service create --name <NOM> --network <NOM> <IMAGE>
+example: docker service create --name api --network backend-net nginx
 description: Attache le service au réseau overlay, permettant la communication avec d'autres services sur n'importe quel nœud du cluster.
 -->
 

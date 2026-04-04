@@ -152,6 +152,7 @@ format: knowledge
 tags: docker,build
 title: Build image Docker
 command: docker build -t <IMAGE_NAME> .
+example: docker build -t flask-app .
 description: Construit une image Docker à partir du Dockerfile
 -->
 
@@ -165,6 +166,7 @@ format: knowledge
 tags: docker,run
 title: Lancer container
 command: docker run -p <PORT>:<PORT> <IMAGE>
+example: docker run -p 5000:5000 flask-app
 description: Lance un conteneur Docker
 -->
 

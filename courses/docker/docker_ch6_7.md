@@ -180,6 +180,7 @@ format: knowledge
 tags: swarm,nodes,supervision,inspect
 title: Inspecter un nœud Swarm
 command: docker node inspect <NOM>
+example: docker node inspect worker-1
 description: Affiche les détails complets d'un nœud : ressources, labels, statut, disponibilité.
 -->
 
@@ -193,6 +194,7 @@ format: knowledge
 tags: swarm,service,inspect,supervision
 title: Inspecter un service Swarm
 command: docker service inspect <SERVICE>
+example: docker service inspect api
 description: Affiche la configuration complète du service : image, replicas, réseau, contraintes de placement.
 -->
 
@@ -206,6 +208,7 @@ format: knowledge
 tags: swarm,service,update,image,rolling-update
 title: Mettre à jour l'image d'un service
 command: docker service update --image <IMAGE> <SERVICE>
+example: docker service update --image nginx:1.25 webapp
 description: Met à jour le service de manière progressive (rolling update). Swarm remplace les conteneurs un par un pour éviter toute interruption de service.
 -->
 
@@ -219,6 +222,7 @@ format: knowledge
 tags: swarm,service,rollback,deploiement
 title: Rollback d'un service Swarm
 command: docker service rollback <SERVICE>
+example: docker service rollback webapp
 description: Revient à la version précédente du service. À utiliser immédiatement si une mise à jour casse l'application.
 -->
 

@@ -160,6 +160,7 @@ format: knowledge
 tags: docker,exec,bash,terminal,interaction
 title: Entrer dans un conteneur avec bash
 command: docker exec -it <NOM> bash
+example: docker exec -it webserver bash
 description: Ouvre un terminal interactif dans le conteneur. -i = interactif, -t = terminal, bash = shell à lancer.
 -->
 
@@ -173,6 +174,7 @@ format: knowledge
 tags: docker,exec,sh,terminal,alpine
 title: Entrer dans un conteneur avec sh (alternative à bash)
 command: docker exec -it <NOM> sh
+example: docker exec -it alpine-app sh
 description: Utile quand bash n’est pas disponible dans l’image (ex : images Alpine légères).
 -->
 
@@ -186,6 +188,7 @@ format: knowledge
 tags: docker,exec,commande,liste-fichiers
 title: Exécuter une commande dans un conteneur sans entrer dedans
 command: docker exec <NOM> ls /
+example: docker exec webserver ls /
 description: Exécute la commande directement dans le conteneur et affiche le résultat dans le terminal hôte, sans ouvrir de session interactive.
 -->
 

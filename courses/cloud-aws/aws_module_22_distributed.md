@@ -186,6 +186,7 @@ format: knowledge
 tags: aws,sqs,cli
 title: Envoyer message SQS
 command: aws sqs send-message --queue-url <URL> --message-body "test"
+example: aws sqs send-message --queue-url https://sqs.eu-west-1.amazonaws.com/123456789012/orders-queue --message-body "test"
 description: Permet d'envoyer un message dans une queue
 -->
 
