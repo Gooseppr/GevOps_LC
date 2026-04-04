@@ -7,19 +7,35 @@
     },
     "austinpwr@zohomail.eu": {
       "sent_ids": [
+        "agile_user_story_format",
+        "aws_s3_lifecycle_tip",
+        "ansible_install_ppa",
         "ansible_pro_overlay_network_stack",
+        "ansible_pro_private_image_tag",
         "aws_ec2_user_data_tip",
         "aws_iam_cli_list_users",
+        "aws_ec2_launch_command",
         "ansible_pro_overlay_external_network",
         "agile_scrum_sprint_cycle"
       ],
       "cycle": 1,
-      "last_sent": "2026-04-03"
+      "last_sent": "2026-04-04"
     },
     "gregoire.elmacin@gmail.com": {
       "sent_ids": [],
       "cycle": 1,
       "last_sent": null
+    },
+    "j.t-elmacin@hotmail.fr": {
+      "sent_ids": [
+        "python_venv_setup",
+        "python_subprocess_shell_warning_b",
+        "python_property_decorator",
+        "python_datastructure_perf",
+        "python_pip_freeze"
+      ],
+      "cycle": 1,
+      "last_sent": "2026-04-04"
     }
   }
 }
