@@ -7,24 +7,29 @@
     },
     "austinpwr@zohomail.eu": {
       "sent_ids": [
-        "ansible_pro_swarm_no_container_name",
-        "ansible_pro_swarm_stack_deploy",
-        "aws_ec2_user_data_tip",
-        "ansible_install_ppa",
+        "agile_scrum_sprint_cycle",
         "agile_user_story_format_b",
-        "ansible_pro_private_image_tag",
-        "aws_s3_upload_command",
-        "aws_cli_security_tip",
+        "ansible_pro_overlay_network_stack",
+        "aws_iam_admin_warning",
+        "agile_user_story_format",
+        "ansible_pro_swarm_no_container_name",
+        "ansible_adv_docker_login_idempotent_b",
         "aws_s3_lifecycle_tip",
-        "aws_iam_cli_list_users",
+        "ansible_role_init",
         "aws_ec2_launch_command",
         "ansible_pro_overlay_external_network",
-        "agile_scrum_sprint_cycle",
-        "ansible_pro_overlay_network_stack",
-        "agile_user_story_format"
+        "aws_route_table_command",
+        "ansible_pro_private_image_tag",
+        "aws_s3_upload_command",
+        "agile_roles_scrum",
+        "aws_ec2_user_data_tip",
+        "aws_cli_security_tip",
+        "ansible_pro_swarm_stack_deploy",
+        "ansible_install_ppa",
+        "aws_iam_cli_list_users"
       ],
       "cycle": 1,
-      "last_sent": "2026-04-05"
+      "last_sent": "2026-04-06"
     },
     "gregoire.elmacin@gmail.com": {
       "sent_ids": [],
@@ -33,19 +38,24 @@
     },
     "j.t-elmacin@hotmail.fr": {
       "sent_ids": [
-        "python_venv_activation",
-        "python_pip_freeze",
-        "python_subprocess_shell_warning_b",
-        "python_property_decorator",
-        "python_datastructure_perf",
+        "python_file_error",
+        "api_flask_venv",
         "python_global_warning",
+        "python_devops_automation",
+        "python_pip_freeze",
         "python_multiprocessing_tip",
+        "python_datastructure_perf",
+        "python_cprofile_command",
+        "python_pathlib_tip",
+        "python_property_decorator",
+        "python_venv_activation",
         "python_venv_setup",
         "python_install_linux",
-        "python_devops_automation"
+        "python_subprocess_shell_warning_b",
+        "python_orm_usage"
       ],
       "cycle": 1,
-      "last_sent": "2026-04-05"
+      "last_sent": "2026-04-06"
     }
   }
 }
