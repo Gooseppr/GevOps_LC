@@ -7,29 +7,34 @@
     },
     "austinpwr@zohomail.eu": {
       "sent_ids": [
-        "agile_scrum_sprint_cycle",
-        "agile_user_story_format_b",
-        "ansible_pro_overlay_network_stack",
-        "aws_iam_admin_warning",
-        "agile_user_story_format",
-        "ansible_pro_swarm_no_container_name",
-        "ansible_adv_docker_login_idempotent_b",
+        "ansible_lint_check",
         "aws_s3_lifecycle_tip",
-        "ansible_role_init",
         "aws_ec2_launch_command",
-        "ansible_pro_overlay_external_network",
-        "aws_route_table_command",
-        "ansible_pro_private_image_tag",
         "aws_s3_upload_command",
+        "aws_ec2_open_port_warning",
         "agile_roles_scrum",
-        "aws_ec2_user_data_tip",
+        "aws_cli_configure_command",
+        "ansible_pro_overlay_network_stack",
+        "agile_user_story_format",
+        "aws_iam_admin_warning",
         "aws_cli_security_tip",
         "ansible_pro_swarm_stack_deploy",
+        "ansible_pro_overlay_external_network",
+        "aws_ec2_user_data_tip",
+        "agile_backlog_structure",
+        "ansible_adv_docker_login_idempotent_b",
+        "aws_route_table_command",
+        "agile_scrum_sprint_cycle",
+        "ansible_pro_private_image_tag",
         "ansible_install_ppa",
-        "aws_iam_cli_list_users"
+        "ansible_pro_swarm_no_container_name",
+        "agile_user_story_format_b",
+        "ansible_role_init",
+        "aws_iam_cli_list_users",
+        "ansible_pro_swarm_inventory_groups_b"
       ],
       "cycle": 1,
-      "last_sent": "2026-04-06"
+      "last_sent": "2026-04-07"
     },
     "gregoire.elmacin@gmail.com": {
       "sent_ids": [],
@@ -38,24 +43,29 @@
     },
     "j.t-elmacin@hotmail.fr": {
       "sent_ids": [
-        "python_file_error",
-        "api_flask_venv",
-        "python_global_warning",
-        "python_devops_automation",
+        "python_orm_usage",
+        "python_install_linux",
         "python_pip_freeze",
+        "api_flask_venv",
+        "python_venv_setup",
+        "python_async_tip",
         "python_multiprocessing_tip",
-        "python_datastructure_perf",
+        "python_uvicorn_run",
+        "python_global_warning",
         "python_cprofile_command",
         "python_pathlib_tip",
+        "python_datastructure_perf",
+        "python_list_operations",
+        "python_packaging_warning",
         "python_property_decorator",
+        "python_devops_automation",
         "python_venv_activation",
-        "python_venv_setup",
-        "python_install_linux",
         "python_subprocess_shell_warning_b",
-        "python_orm_usage"
+        "api_http_methods",
+        "python_file_error"
       ],
       "cycle": 1,
-      "last_sent": "2026-04-06"
+      "last_sent": "2026-04-07"
     }
   }
 }
