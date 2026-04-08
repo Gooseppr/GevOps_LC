@@ -143,8 +143,8 @@ importance: high
 format: knowledge
 tags: python,venv,concept
 title: Rôle des environnements virtuels
-content: Un environnement virtuel permet d'isoler les dépendances d'un projet Python
-description: Évite les conflits entre projets
+content: Sans venv, pip installe les packages dans Python global — deux projets qui requièrent des versions différentes de la même lib entrent en conflit. Chaque venv a son propre répertoire `site-packages` totalement indépendant.
+description: Toujours créer un venv avant d'installer quoi que ce soit dans un projet. C'est la première commande d'un projet Python propre.
 -->
 
 <!-- snippet

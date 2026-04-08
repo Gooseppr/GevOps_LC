@@ -182,6 +182,7 @@ format: knowledge
 tags: swarm,images,tags,deploiement,rollback
 title: Versionner les images Docker
 content: Utiliser des tags versionnés (mon-app:v1, mon-app:v2) plutôt que latest. Cela permet des rollbacks fiables et garantit la reproductibilité des déploiements.
+description: `latest` ne dit jamais quelle version tourne en prod. En cas d'incident, impossible de savoir quelle image a été déployée ni de rejouer un déploiement identique.
 -->
 
 <!-- snippet

@@ -169,6 +169,7 @@ format: knowledge
 tags: compose,environment,configuration
 title: Injecter des variables d'environnement dans un service
 content: La clé `environment` permet d'injecter des variables directement dans un service Compose. Les valeurs sont codées en dur dans le YAML — pratique pour des valeurs non sensibles et stables.
+description: Pour les secrets, ne jamais mettre la valeur en dur dans le YAML — utiliser `${MON_SECRET}` interpolé depuis un fichier `.env` non commité, ou Docker Secrets en Swarm.
 -->
 
 <!-- snippet

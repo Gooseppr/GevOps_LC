@@ -142,8 +142,8 @@ importance: high
 format: knowledge
 tags: aws,monitoring,cloudwatch
 title: CloudWatch définition
-content: CloudWatch permet de collecter métriques, logs et créer des alertes sur AWS
-description: Base observabilité AWS
+content: CloudWatch est le cerveau d'observabilité d'AWS : il ingère des métriques (chiffres), des logs (textes) et des traces, puis permet de déclencher des alarmes ou des actions automatiques (scaling, Lambda) quand un seuil est franchi.
+description: Contrairement à un simple logger, CloudWatch peut réagir : une alarme CPU > 80% peut déclencher un scale-out automatique.
 -->
 
 <!-- snippet
@@ -155,8 +155,8 @@ importance: high
 format: knowledge
 tags: aws,metrics,monitoring
 title: Metrics AWS
-content: Les metrics représentent des données chiffrées comme CPU, latence ou requêtes
-description: Indicateurs clés infra
+content: Une métrique CloudWatch est un point de données horodaté (valeur + timestamp + namespace). AWS publie des métriques standard toutes les 5 min gratuitement (CPU, réseau, disque) ; le monitoring détaillé descend à 1 min mais est facturé.
+description: Les métriques EC2 de base n'incluent PAS la RAM — il faut installer l'agent CloudWatch pour la surveiller.
 -->
 
 <!-- snippet
@@ -194,8 +194,8 @@ importance: medium
 format: knowledge
 tags: aws,logs,debug
 title: Logs exploitables
-content: Des logs clairs et structurés permettent un debug rapide et efficace
-description: Bonne pratique production
+content: Un log en texte libre se lit mais ne se filtre pas. En JSON, CloudWatch Logs Insights peut requêter `fields @message | filter level="ERROR"` en secondes sur des millions de lignes. La structuration des logs est la différence entre "chercher dans du texte" et "requêter une base".
+description: Ajouter systématiquement request_id, user_id et duration dans chaque log JSON pour corréler les événements.
 -->
 
 <!-- snippet

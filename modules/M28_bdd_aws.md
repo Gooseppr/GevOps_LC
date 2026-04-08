@@ -367,6 +367,7 @@ tags: dynamodb,nosql,clé-valeur,serverless
 title: Amazon DynamoDB – NoSQL clé-valeur entièrement managé
 context: stocker des données non relationnelles avec une scalabilité automatique
 content: DynamoDB est une base NoSQL entièrement managée : scalabilité automatique, latence en ms, multi-AZ, chiffrement KMS et accès via IAM. DynamoDB Streams permet de déclencher des Lambdas sur les changements.
+description: DynamoDB facture en lecture/écriture (RCU/WCU), pas en stockage. Un accès mal optimisé (scan au lieu de query) peut multiplier la facture par 10.
 -->
 
 <!-- snippet

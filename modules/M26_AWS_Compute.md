@@ -512,6 +512,7 @@ tags: ec2,compute,vm,iaas
 title: Amazon EC2 – Machines virtuelles dans le cloud
 context: comprendre le service de compute de base sur AWS
 content: EC2 permet de créer des VMs dans le cloud payées à la seconde (pay-as-you-go). Arrêter une instance stoppe la facturation compute, mais les volumes EBS restent facturés.
+description: Choisir le bon type d'instance dès le départ : t3 pour les workloads variables, c5 pour le CPU intensif, r5 pour la mémoire. Un rightsizing tardif est fastidieux.
 -->
 
 <!-- snippet

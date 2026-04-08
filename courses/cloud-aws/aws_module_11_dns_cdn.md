@@ -131,8 +131,8 @@ importance: high
 format: knowledge
 tags: aws,dns,route53
 title: DNS définition
-content: Le DNS permet de traduire un nom de domaine en adresse IP
-description: Base réseau
+content: Le DNS est un annuaire distribué mondial : quand un navigateur visite google.com, il interroge un résolveur (ISP ou 8.8.8.8) qui remonte la chaîne root → .com → google.com pour obtenir l'IP. La réponse est mise en cache selon le TTL du record.
+description: DNS n'est pas instantané : un changement de record met entre quelques secondes (TTL bas) et 48h (TTL élevé) à se propager partout.
 -->
 
 <!-- snippet
@@ -196,8 +196,8 @@ importance: medium
 format: knowledge
 tags: aws,cdn,performance
 title: Utiliser CDN
-content: Utiliser un CDN permet de réduire la latence et améliorer la performance utilisateur
-description: Optimisation clé web
+content: Sans CDN, chaque requête atteint l'origine (ex. Paris) même pour un utilisateur en Australie. CloudFront positionne le contenu statique dans ~400 points de présence mondiaux : la réponse vient du PoP le plus proche, typiquement en < 20ms au lieu de 200ms.
+description: Activer CloudFront devant S3 ou une API réduit la latence et les coûts de transfert sortant de l'origine.
 -->
 
 <!-- snippet

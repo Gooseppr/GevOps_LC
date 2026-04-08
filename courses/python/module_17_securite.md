@@ -194,8 +194,8 @@ importance: high
 format: knowledge
 tags: python,security
 title: Hash mot de passe
-content: bcrypt permet de hasher un mot de passe de manière sécurisée
-description: standard sécurité
+content: bcrypt intègre un sel aléatoire dans chaque hash (donc deux fois le même mot de passe → deux hashs différents) et un facteur de coût configurable qui ralentit intentionnellement le calcul. Un attaquant qui vole la BDD ne peut pas faire de crack en masse rapidement.
+description: MD5 et SHA-256 sont conçus pour être rapides — c'est un défaut pour le stockage de mots de passe. bcrypt, argon2 et scrypt sont conçus pour être lents exprès.
 -->
 
 <!-- snippet
@@ -207,8 +207,8 @@ importance: high
 format: knowledge
 tags: python,jwt
 title: JWT authentification
-content: JWT permet d'authentifier un utilisateur sans session serveur
-description: auth stateless
+content: Un JWT contient les données d'identité encodées en Base64 et signées (HMAC ou RSA). Le serveur vérifie la signature sans consulter de BDD — scalable et sans état. Mais un token valide reste valide jusqu'à expiration même si l'utilisateur est banni.
+description: Toujours définir un `exp` (expiration) court. Pour la révocation immédiate, tenir une liste noire en cache Redis — le JWT seul ne suffit pas.
 -->
 
 <!-- snippet

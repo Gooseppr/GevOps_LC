@@ -464,6 +464,7 @@ tags: nginx,reverse-proxy,http,sécurité
 title: Principe du reverse proxy avec Nginx
 context: exposer un backend interne via un reverse proxy en production
 content: Un reverse proxy (ex. Nginx) reçoit les requêtes HTTP sur le port 80/443 et les transmet au processus backend sur un port interne (ex. 8080). Cela permet de ne pas exposer directement le port de l'application, de gérer le TLS, et de centraliser les logs et la sécurité. La directive proxy_pass indique l'adresse cible.
+description: Nginx peut aussi faire du load balancing entre plusieurs instances backend, de la compression gzip, du cache statique — tout ça sans modifier le code de l'application.
 -->
 
 <!-- snippet

@@ -460,6 +460,7 @@ tags: locust,distribue,master,worker,scalabilite
 title: Exécution distribuée Locust (master/workers)
 context: générer une charge plus importante en répartissant les utilisateurs sur plusieurs machines
 content: Démarrer un master (--master) et un ou plusieurs workers (--worker --master-host ADRESSE). Le master centralise les stats et coordonne les workers. Utiliser --expect-workers N pour attendre N workers avant de démarrer. Permet de simuler des milliers d'utilisateurs répartis sur plusieurs instances.
+description: Un seul process Locust est limité par le CPU d'une machine (~500-1000 users selon la complexité). En distribué, la charge est linéaire : 4 workers × 1000 users = 4000 users simultanés.
 -->
 
 ---

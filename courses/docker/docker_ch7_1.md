@@ -177,7 +177,7 @@ format: knowledge
 tags: cicd,ci,cd,pipeline,devops
 title: CI — Intégration continue
 content: La CI (Continuous Integration) teste automatiquement le code à chaque commit. Elle garantit que le code fonctionne avant d’être livré.
-description: CI/CD est le cœur de l’automatisation DevOps moderne.
+description: Sans CI, les bugs dorment jusqu’à la revue de code ou la prod. Avec CI, chaque push déclenche build + tests — le feedback vient en minutes, pas en jours.
 -->
 
 <!-- snippet
@@ -227,6 +227,7 @@ format: knowledge
 tags: cicd,pipeline,bonne-pratique
 title: Docker simplifie le CI/CD
 content: Docker garantit un environnement identique à chaque étape. Automatiser, standardiser et versionner les images sont les piliers d’un bon pipeline CI/CD.
+description: Sans Docker dans le pipeline, "ça passe en CI mais échoue en prod" reste un problème fréquent à cause des différences d’environnement entre machines.
 -->
 
 <!-- snippet

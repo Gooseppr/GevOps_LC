@@ -182,8 +182,8 @@ importance: high
 format: knowledge
 tags: python,env
 title: Variable environnement
-content: Une variable d’environnement permet de configurer une app sans modifier le code
-description: base config moderne
+content: Les variables d’environnement sont des paires clé-valeur injectées dans le processus au démarrage. Elles permettent de changer DATABASE_URL, API_KEY ou LOG_LEVEL entre dev et prod sans toucher au code ni rebuilder une image Docker.
+description: C’est le facteur III du manifeste Twelve-Factor App : stocker la config dans l’environnement, jamais dans le code.
 -->
 
 <!-- snippet
@@ -195,8 +195,8 @@ importance: high
 format: knowledge
 tags: python,env
 title: Accès variable env
-content: os.getenv permet de récupérer une variable d’environnement en Python
-description: accès runtime config
+content: `os.getenv("MA_VAR")` retourne `None` si la variable n’est pas définie. `os.getenv("MA_VAR", "valeur_défaut")` retourne la valeur par défaut. `os.environ["MA_VAR"]` lève une `KeyError` si absente — utile pour forcer la présence d’une config obligatoire au démarrage.
+description: Préférer `os.environ["DB_URL"]` pour les variables critiques : l’app crashe au démarrage avec un message clair plutôt que de tourner silencieusement avec une config invalide.
 -->
 
 <!-- snippet

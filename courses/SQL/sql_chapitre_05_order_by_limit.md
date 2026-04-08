@@ -345,7 +345,7 @@ format: knowledge
 tags: sql,limit,order_by,ordre
 title: LIMIT sans ORDER BY = ordre imprévisible
 content: Sans ORDER BY, la base ne garantit aucun ordre. LIMIT seul peut retourner des lignes différentes à chaque exécution.
-description: Toujours coupler LIMIT avec ORDER BY pour des résultats stables et reproductibles.
+description: La pagination (`LIMIT 10 OFFSET 20`) sans ORDER BY peut sauter ou répéter des lignes entre pages si des insertions/suppressions ont lieu entre deux requêtes.
 -->
 
 <!-- snippet

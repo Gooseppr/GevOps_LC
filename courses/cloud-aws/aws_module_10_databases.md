@@ -207,8 +207,8 @@ importance: medium
 format: knowledge
 tags: aws,database,scaling
 title: Utiliser read replicas
-content: Les read replicas permettent de répartir la charge de lecture et améliorer les performances
-description: Bonne pratique DB
+content: 80% des requêtes d'une app web sont en lecture. Un read replica RDS reçoit les SELECT pendant que l'instance principale gère les écritures — sans modifier une ligne de schéma ni toucher à la réplication, gérée automatiquement par AWS.
+description: Un read replica ne remplace pas un Multi-AZ : il améliore la performance, pas la disponibilité en cas de panne du master.
 -->
 
 <!-- snippet

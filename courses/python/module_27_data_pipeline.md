@@ -155,8 +155,8 @@ importance: high
 format: knowledge
 tags: python,pandas
 title: pandas manipulation
-content: pandas permet de manipuler des données tabulaires efficacement
-description: outil clé data
+content: pandas charge un DataFrame (table en mémoire) depuis CSV, SQL ou JSON et expose des opérations vectorisées : `df.groupby('region')['ventes'].sum()` traite des millions de lignes sans boucle Python explicite, car le calcul se fait en C sous le capot.
+description: pandas garde tout en RAM. Au-delà de quelques Go, préférer Polars (plus rapide, lazy evaluation) ou DuckDB (SQL sur fichiers Parquet sans charger en mémoire).
 -->
 
 <!-- snippet

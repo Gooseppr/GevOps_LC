@@ -133,8 +133,8 @@ importance: high
 format: knowledge
 tags: aws,iam,security
 title: IAM rôle principal
-content: IAM permet de contrôler qui peut accéder à quelles ressources AWS et avec quelles permissions
-description: Base de toute sécurité AWS
+content: IAM est la couche d'identité d'AWS : chaque appel API est signé par une entité (user, role, service) et IAM décide si l'action est autorisée avant qu'AWS l'exécute.
+description: Sans IAM correctement configuré, n'importe quelle ressource AWS est potentiellement accessible depuis le compte.
 -->
 
 <!-- snippet
@@ -146,8 +146,8 @@ importance: high
 format: knowledge
 tags: aws,security,iam
 title: Principe du least privilege
-content: Donner uniquement les permissions strictement nécessaires réduit fortement les risques de sécurité
-description: Principe fondamental IAM
+content: Une politique IAM trop large reste silencieuse jusqu'au jour où un token est volé. Partir de zéro permission et ajouter uniquement ce qui est nécessaire — jamais l'inverse.
+description: AWS recommande de commencer avec AmazonReadOnlyAccess puis d'ajouter les droits d'écriture un à un selon les besoins réels.
 -->
 
 <!-- snippet
@@ -185,6 +185,6 @@ importance: medium
 format: knowledge
 tags: aws,iam,role
 title: Utiliser les roles IAM
-content: Utiliser des roles IAM au lieu de credentials statiques améliore la sécurité et la gestion des accès
-description: Bonne pratique AWS
+content: Les credentials statiques (access key + secret) ne expirent jamais et fuient dans les logs, le code ou les images Docker. Un role IAM génère des credentials temporaires (15min–1h) renouvelés automatiquement.
+description: Sur EC2, Lambda ou ECS, assigner un role au service élimine tout credential à gérer manuellement.
 -->

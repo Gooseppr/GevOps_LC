@@ -1254,6 +1254,7 @@ tags: ansible,serial,rolling-update,production,zero-downtime
 title: Rolling update avec serial pour déployer sans downtime
 context: mettre à jour un parc de serveurs web en production sans interrompre le service
 content: Utilisez serial: 2 dans un play pour qu'Ansible applique les tâches sur 2 hôtes à la fois. Les 2 premiers hôtes sont mis à jour et testés, puis les 2 suivants, etc. Combinez avec order: shuffle pour un ordre aléatoire. Cette stratégie garantit qu'il reste toujours des serveurs opérationnels derrière le load balancer pendant la mise à jour.
+description: `serial: "20%"` est une alternative : traiter 20% du parc à la fois quel que soit le nombre total de serveurs — plus robuste que serial: N fixe sur un parc qui grandit.
 -->
 
 <!-- snippet

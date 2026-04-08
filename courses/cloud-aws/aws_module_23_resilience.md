@@ -211,8 +211,8 @@ importance: medium
 format: knowledge
 tags: aws,resilience,bestpractice
 title: Tester les pannes
-content: Tester les pannes permet de valider la robustesse réelle du système
-description: Bonne pratique
+content: Un système jamais mis sous stress ne révèle ses faiblesses qu'en production. Terminer une instance aléatoirement, saturer une queue SQS ou couper une AZ volontairement — avant qu'un vrai incident le fasse — permet de découvrir les angles morts et de corriger les alertes manquantes.
+description: AWS Fault Injection Simulator (FIS) fournit des scénarios de pannes contrôlés pour tester la résilience sans casser la prod.
 -->
 
 <!-- snippet

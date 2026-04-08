@@ -146,8 +146,8 @@ importance: high
 format: knowledge
 tags: aws,caching,performance
 title: Caching principe
-content: Le caching permet de stocker temporairement des données pour éviter des calculs ou accès répétés
-description: Base optimisation
+content: Un cache intercale une mémoire rapide entre l'application et la source lente (BDD, API). La donnée est calculée une fois, stockée avec un TTL, et servie depuis le cache jusqu'à expiration. ElastiCache (Redis) répond en < 1ms là où RDS prend 5–50ms.
+description: Cache hit ratio = % de requêtes servies depuis le cache. En dessous de 80%, le cache n'est pas bien dimensionné ou le TTL trop court.
 -->
 
 <!-- snippet
@@ -198,8 +198,8 @@ importance: medium
 format: knowledge
 tags: aws,performance,bestpractice
 title: Mesurer avant optimiser
-content: Toujours mesurer la performance avant d’optimiser pour éviter les optimisations inutiles
-description: Bonne pratique
+content: Optimiser sans mesure revient à deviner. Activer CloudWatch detailed monitoring, identifier le percentile p99 de latence, repérer les Seq Scan PostgreSQL et les cold starts Lambda. Chaque optimisation doit cibler un chiffre connu, pas une intuition.
+description: La loi de Pareto s’applique à la performance : 20% des requêtes causent 80% de la charge — les identifier avec X-Ray avant d’agir.
 -->
 
 <!-- snippet

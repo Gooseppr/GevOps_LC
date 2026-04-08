@@ -1002,6 +1002,7 @@ tags: kubernetes,ingress,http,https,domaine
 title: L'Ingress : routage HTTP/HTTPS avancé
 context: exposer une application Kubernetes via un nom de domaine et des chemins HTTP
 content: L'Ingress gère le routage HTTP/HTTPS depuis l'extérieur vers les Services internes. Il permet de définir des domaines, des chemins (/api, /front) et du TLS via un Ingress Controller.
+description: L'Ingress n'est qu'une règle de routage — c'est l'Ingress Controller (nginx, traefik, AWS ALB) qui fait le travail réel. Sans controller déployé, les ressources Ingress sont ignorées.
 -->
 
 <!-- snippet

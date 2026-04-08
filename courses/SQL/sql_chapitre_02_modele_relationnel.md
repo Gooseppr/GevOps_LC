@@ -311,5 +311,5 @@ format: knowledge
 tags: sql,cle_etrangere,relation,join
 title: Clé étrangère = lien entre deux tables
 content: Une clé étrangère est une colonne qui référence la clé primaire d'une autre table. Elle permet de relier les données sans les dupliquer.
-description: Sans clé étrangère, les JOIN ne sont pas possibles proprement et les données risquent d'être incohérentes.
+description: La contrainte FK garantit l'intégrité référentielle : impossible d'insérer une commande avec un `client_id` qui n'existe pas. Sans elle, des enregistrements orphelins peuvent s'accumuler silencieusement.
 -->

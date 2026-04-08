@@ -158,8 +158,8 @@ importance: high
 format: knowledge
 tags: python,exception
 title: try except en Python
-content: try permet d'exécuter du code et except capture les erreurs
-description: Base de la gestion des erreurs
+content: `try/except` intercepte les exceptions sans arrêter le programme. Le bloc `finally` s'exécute dans tous les cas (succès ou erreur), utile pour libérer des ressources. `else` s'exécute uniquement si aucune exception n'a été levée.
+description: Capturer `Exception` est trop large — toujours spécifier le type exact (`ValueError`, `FileNotFoundError`) pour ne pas masquer des bugs inattendus.
 -->
 
 <!-- snippet
@@ -184,8 +184,8 @@ importance: high
 format: knowledge
 tags: python,raise
 title: Lever une exception
-content: raise permet de déclencher une erreur volontairement
-description: Contrôle du flux
+content: `raise` interrompt l'exécution et remonte la pile d'appels jusqu'au premier `except` compatible. Lever une exception personnalisée (`raise ValueError("message clair")`) donne au code appelant un signal précis sur ce qui s'est passé et pourquoi.
+description: `raise` sans argument re-lève l'exception courante dans un bloc `except`, utile pour logguer avant de propager l'erreur sans la modifier.
 -->
 
 <!-- snippet
@@ -197,7 +197,7 @@ importance: high
 format: knowledge
 tags: python,debug
 title: Fail fast
-content: détecter et arrêter immédiatement en cas d'erreur améliore le debug
-description: Bonne pratique production
+content: Un programme qui continue à tourner après une erreur silencieuse propage des données corrompues et produit des bugs difficiles à tracer. Lever une exception dès qu'une condition invalide est détectée localise le problème à sa source, pas 10 appels plus tard.
+description: `assert` est utile en développement mais désactivable avec `-O`. Préférer `raise ValueError` pour les vérifications qui doivent tenir en production.
 -->
 

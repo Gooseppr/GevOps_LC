@@ -175,8 +175,8 @@ importance: high
 format: knowledge
 tags: git,branch
 title: Branch Git
-content: Une branche permet d'isoler un développement sans impacter le main
-description: Base collaboration
+content: Une branche Git est juste un pointeur vers un commit. Créer une branche ne copie aucun fichier — c'est instantané. Travailler directement sur main sans branche signifie que tout commit instable est immédiatement partagé avec l'équipe.
+description: Convention : une branche par feature, bug ou PR. Un nom explicite (`feature/auth-jwt`, `fix/login-timeout`) remplace les commentaires dans l'historique.
 -->
 
 <!-- snippet
@@ -201,7 +201,7 @@ importance: medium
 format: knowledge
 tags: git,workflow
 title: Workflow Git
-content: branch → commit → push → PR → merge garantit un flux propre
-description: standard entreprise
+content: Chaque étape du flux branch → commit → push → PR → merge a un rôle : la branche isole le travail, le commit documente chaque changement, la PR centralise la revue, le merge intègre après validation. Court-circuiter une étape (ex. push direct sur main) supprime la safety net correspondante.
+description: La PR est le point de contrôle clé : c'est là que les bugs sont détectés par les pairs, avant d'atteindre la branche partagée.
 -->
 

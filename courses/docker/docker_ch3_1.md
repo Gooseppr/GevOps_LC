@@ -265,4 +265,5 @@ format: knowledge
 tags: reseau,bridge,concept,architecture
 title: Le réseau Docker agit comme un pont entre conteneurs
 content: Un réseau Docker permet de connecter plusieurs conteneurs entre eux. Il agit comme un pont virtuel, permettant la communication sans exposer les services à l'extérieur.
+description: Sur le réseau bridge par défaut, les conteneurs communiquent par IP. Sur un réseau nommé (`docker network create`), ils peuvent se joindre par nom de service — ce que fait Docker Compose automatiquement.
 -->

@@ -417,6 +417,7 @@ tags: user-story,backlog,agile
 title: Epic Story : regrouper et découper les grandes fonctionnalités
 context: Rédiger une User Story centrée utilisateur dans un backlog Scrum
 content: Une Epic Story regroupe plusieurs User Stories trop volumineuses pour un seul sprint. Elle doit être découpée pour respecter le rythme itératif et faciliter les tests.
+description: Un signe qu'une Epic doit être découpée : impossible de la "tester seule" ou de la livrer à un utilisateur sans les autres stories. Chaque User Story doit apporter de la valeur indépendamment.
 -->
 
 <!-- snippet

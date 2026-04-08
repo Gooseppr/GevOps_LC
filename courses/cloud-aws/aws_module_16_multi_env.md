@@ -146,8 +146,8 @@ importance: high
 format: knowledge
 tags: aws,multiaccount,security
 title: Multi account AWS
-content: Utiliser plusieurs comptes AWS permet une isolation forte entre environnements
-description: Bonne pratique pro
+content: Dans un compte unique, une mauvaise policy IAM ou un `terraform destroy` mal ciblé peut affecter prod et dev simultanément. Des comptes séparés (dev/staging/prod) imposent une limite de blast radius physique : un incident dans dev ne peut pas toucher prod, même avec les droits admin.
+description: AWS Organizations permet de centraliser la facturation et les politiques de contrôle (SCP) sur tous les comptes depuis un compte master.
 -->
 
 <!-- snippet
@@ -186,8 +186,8 @@ importance: medium
 format: knowledge
 tags: aws,devops,bestpractice
 title: Reproduire prod
-content: Un environnement staging proche de la production permet de détecter les bugs avant mise en prod
-description: Bonne pratique
+content: Un staging qui diffère de prod (taille d'instance, variables d'env, version de BDD) ne valide pas grand chose. Les bugs de prod apparaissent exactement là où staging diverge. Le staging doit être une copie conforme : même AMI, mêmes paramètres, trafic synthétique représentatif.
+description: Utiliser le même Terraform que prod avec juste les variables d'environnement qui changent garantit une infra identique.
 -->
 
 <!-- snippet

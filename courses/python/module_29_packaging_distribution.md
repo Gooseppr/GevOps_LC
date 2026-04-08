@@ -283,6 +283,6 @@ importance: medium
 format: knowledge
 tags: python,versioning
 title: Versioning semver
-content: versionner en MAJOR.MINOR.PATCH pour gérer compatibilité et releases
-description: Bonne pratique de distribution
+content: SemVer (1.2.3) encode un contrat de compatibilité : PATCH = correction de bug (rétrocompatible), MINOR = nouvelle fonctionnalité (rétrocompatible), MAJOR = changement cassant. Sans ce signal, les utilisateurs de la lib ne savent pas si une mise à jour est risquée.
+description: Une dépendance en `~=1.2` (compatible release) accepte 1.2.x mais pas 1.3.0 — safe pour les patches, bloquant pour les nouvelles features.
 -->

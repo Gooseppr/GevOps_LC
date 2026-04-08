@@ -234,5 +234,5 @@ format: knowledge
 tags: sql,index,composite,where,order_by
 title: Index composite pour les requêtes multi-colonnes
 content: `CREATE INDEX idx_orders_client_date ON orders(customer_id, created_at);` couvre les requêtes filtrant par client et triant par date en une seule structure.
-description: L'ordre des colonnes dans l'index composite est important : mettre la colonne de filtrage en premier.
+description: Règle du préfixe le plus à gauche : l'index `(a, b, c)` est utilisé pour les requêtes sur `a`, `a+b` ou `a+b+c`, mais pas pour `b` seul ni `c` seul.
 -->

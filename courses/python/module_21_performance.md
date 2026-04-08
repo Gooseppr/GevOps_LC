@@ -161,7 +161,7 @@ importance: high
 format: knowledge
 tags: python,performance
 title: Choix structure
-content: choisir la bonne structure de données impacte fortement la performance
-description: clé optimisation
+content: Liste : accès par index O(1), recherche O(n). Dict/Set : recherche O(1). deque : append/pop aux deux bouts O(1) (vs liste O(n) en début). Le mauvais choix ne se voit pas sur 100 éléments mais devient catastrophique à 100 000.
+description: `timeit` et `cProfile` mesurent les vraies performances — ne pas deviner. Souvent, remplacer une liste par un set est la seule optimisation nécessaire.
 -->
 

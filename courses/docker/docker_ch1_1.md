@@ -214,6 +214,7 @@ format: knowledge
 tags: docker,image,definition
 title: Définition d'une image Docker
 content: Une image est un modèle utilisé pour créer un conteneur. Comme une recette qui permet de produire un plat (le conteneur).
+description: Une image est immuable : elle ne change pas à l'exécution. C'est le conteneur qui est vivant — l'image reste toujours identique et reproductible.
 -->
 
 <!-- snippet

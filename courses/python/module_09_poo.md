@@ -188,7 +188,7 @@ importance: medium
 format: knowledge
 tags: python,poo
 title: Composition vs héritage
-content: préférer composition pour plus de flexibilité que héritage
-description: bonne pratique architecture
+content: L'héritage lie deux classes en permanence : changer le parent peut casser l'enfant. La composition assemble des comportements via des attributs — changer une dépendance ne touche pas le reste. Python favorise "has-a" (composition) plutôt que "is-a" (héritage) pour les relations complexes.
+description: Règle pratique : hériter uniquement quand la relation est vraiment de type IS-A (un Carré IS-A Forme). Pour tout le reste, composer.
 -->
 

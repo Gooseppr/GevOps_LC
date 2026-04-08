@@ -213,8 +213,8 @@ importance: high
 format: knowledge
 tags: python,fastapi
 title: API FastAPI simple
-content: FastAPI permet de créer rapidement des APIs HTTP en Python
-description: Framework moderne backend
+content: FastAPI génère automatiquement la documentation OpenAPI (Swagger UI sur `/docs`), valide les données d'entrée via Pydantic et supporte nativement async/await. Par rapport à Flask, les types Python servent directement de schéma de validation sans décorateurs supplémentaires.
+description: FastAPI est ~3x plus rapide que Flask sur des endpoints I/O-bound grâce à son support natif de l'asynchrone (ASGI vs WSGI).
 -->
 
 <!-- snippet

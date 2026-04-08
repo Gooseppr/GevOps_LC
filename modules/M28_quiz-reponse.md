@@ -628,6 +628,7 @@ tags: auto-scaling,multi-az,disponibilité,haute-disponibilité
 title: Auto Scaling + Multi-AZ – Architecture hautement disponible
 context: concevoir une architecture EC2 tolérante aux pannes et scalable
 content: Un Auto Scaling Group (ASG) peut distribuer les instances sur plusieurs AZ automatiquement. Si une AZ tombe, l'ASG recrée les instances dans les AZ restantes. Combiné avec un ELB (ALB), le trafic est distribué entre les instances saines. Pour une haute disponibilité optimale : ASG min=2, réparti sur 2+ AZ, derrière un ALB avec health checks. Cette combinaison garantit à la fois la résilience aux pannes et l'absorption des pics de charge.
+description: ASG min=1 sur une seule AZ n'offre aucune HA : si l'AZ tombe, l'instance est perdue et l'ASG recrée sur la même AZ qui est peut-être toujours down.
 -->
 
 <!-- snippet

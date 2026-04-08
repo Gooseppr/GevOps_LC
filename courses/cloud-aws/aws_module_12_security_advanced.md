@@ -156,8 +156,8 @@ importance: high
 format: knowledge
 tags: aws,secrets,security
 title: Secrets Manager rôle
-content: Secrets Manager permet de stocker et gérer les credentials de manière sécurisée avec rotation automatique
-description: Gestion sécurisée des secrets
+content: Secrets Manager stocke les credentials chiffrés par KMS et peut les faire tourner automatiquement (ex. mot de passe RDS renouvelé toutes les 30 jours sans redéploiement). L'application récupère le secret à l'exécution via l'API, jamais au build.
+description: La rotation automatique garantit que même un secret volé devient invalide rapidement, sans intervention manuelle.
 -->
 
 <!-- snippet
@@ -208,8 +208,8 @@ importance: medium
 format: knowledge
 tags: aws,security,architecture
 title: Sécurité en couches
-content: Combiner KMS, WAF et IAM permet une défense en profondeur efficace
-description: Bonne pratique sécurité
+content: KMS chiffre les données au repos, WAF filtre les requêtes HTTP malveillantes à la périphérie, IAM contrôle les actions dans le compte. Un attaquant qui contourne WAF tombe sur IAM ; un token IAM volé ne donne pas accès aux données sans la clé KMS.
+description: La défense en profondeur vaut parce que chaque couche protège contre un vecteur d'attaque différent : réseau, API, stockage.
 -->
 
 <!-- snippet

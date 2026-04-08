@@ -171,8 +171,8 @@ importance: medium
 format: knowledge
 tags: python,condition
 title: Structure conditionnelle
-content: if elif else permet de contrôler le flux logique
-description: Base du contrôle de flux
+content: `if/elif/else` évalue les conditions dans l'ordre et exécute le premier bloc vrai. Seul ce bloc s'exécute, les autres sont ignorés même s'ils seraient aussi vrais.
+description: Python n'a pas de `switch/case` natif avant 3.10 (match/case). Pour de nombreux cas, un dict de fonctions est plus lisible qu'une longue chaîne de elif.
 -->
 
 <!-- snippet

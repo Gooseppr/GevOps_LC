@@ -856,6 +856,7 @@ tags: prometheus,scrape_configs,jobs,yml,configuration
 title: Configurer plusieurs jobs dans prometheus.yml
 context: ajouter Prometheus lui-même, Node Exporter et Nginx Exporter comme cibles de scraping
 content: Dans le bloc scrape_configs de prometheus.yml, déclarez un job par exporter : job_name "prometheus" avec target localhost:9090, job_name "node" avec target localhost:9100, job_name "nginx" avec target localhost:9113. Ajoutez des labels (ex : app: "node") pour faciliter le filtrage en PromQL. Après modification, redémarrez Prometheus et vérifiez Status → Targets pour confirmer que chaque job est UP.
+description: Un target en état DOWN indique que l'exporter n'est pas accessible (port fermé, processus arrêté). Vérifier d'abord avec `curl localhost:9100/metrics` avant de chercher dans Prometheus.
 -->
 
 ---

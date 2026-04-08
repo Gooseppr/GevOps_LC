@@ -223,5 +223,5 @@ format: knowledge
 tags: sql,definition,sgbd,langage
 title: SQL est un langage de requête, pas un moteur
 content: SQL (Structured Query Language) permet de communiquer avec une base de données. Il ne stocke pas les données lui-même — c'est le SGBD (PostgreSQL, MySQL, SQLite…) qui s'en charge.
-description: Confondre SQL et le moteur de base de données est une erreur fréquente chez les débutants.
+description: Le même code SQL peut tourner sur PostgreSQL et SQLite avec des résultats identiques, mais des performances très différentes — c'est le moteur qui détermine comment la requête est exécutée.
 -->

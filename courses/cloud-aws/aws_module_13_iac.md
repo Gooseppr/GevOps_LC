@@ -159,8 +159,8 @@ importance: high
 format: knowledge
 tags: aws,iac,devops
 title: IaC définition
-content: Infrastructure as Code permet de définir et gérer l’infrastructure via du code versionné
-description: Base DevOps moderne
+content: L’IaC traite l’infrastructure comme du code : le fichier Terraform ou CloudFormation décrit l’état désiré, l’outil calcule le diff avec l’état actuel et applique uniquement les changements nécessaires. Résultat : l’infra est reproductible, auditée par git et déployable en un commit.
+description: Sans IaC, recréer un environnement de prod identique est impossible — on reconstruit de mémoire, donc différemment.
 -->
 
 <!-- snippet
@@ -211,8 +211,8 @@ importance: medium
 format: knowledge
 tags: aws,iac,bestpractice
 title: Modulariser IaC
-content: Découper l’infrastructure en modules permet une meilleure maintenance et réutilisation
-description: Bonne pratique IaC
+content: Un module Terraform regroupe un ensemble cohérent de ressources (ex. module VPC : subnets + IGW + route tables). Appelé avec des variables, il peut instancier dev, staging et prod en trois lignes sans dupliquer 200 lignes de HCL.
+description: La duplication de code IaC est pire que dans le code applicatif : un correctif de sécurité oublié dans une copie laisse un environnement vulnérable.
 -->
 
 <!-- snippet

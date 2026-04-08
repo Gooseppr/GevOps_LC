@@ -388,6 +388,7 @@ tags: flake8,python,per-file-ignores,select
 title: Options avancées du fichier .flake8
 context: affiner la configuration Flake8 pour ignorer des règles selon les fichiers
 content: per-file-ignores permet d'ignorer des règles spécifiques sur certains fichiers (ex. __init__.py:F401, tests/*:D). select restreint les vérifications à certaines catégories (C,E,F,W,B).
+description: F401 (import non utilisé) dans __init__.py est un faux positif classique : les imports y sont là pour l'API publique du module, pas pour être utilisés localement.
 -->
 
 <!-- snippet

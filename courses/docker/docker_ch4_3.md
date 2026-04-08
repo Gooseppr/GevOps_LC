@@ -243,6 +243,7 @@ format: knowledge
 tags: compose,restart,stabilite
 title: `restart: always` — redémarrage automatique du conteneur
 content: La directive `restart: always` redémarre automatiquement un conteneur s'il s'arrête ou échoue, ce qui améliore la stabilité en production.
+description: Attention : `restart: always` redémarre aussi au reboot du serveur — c'est le comportement voulu en prod. En dev, préférer `restart: unless-stopped` pour ne pas relancer après un arrêt manuel.
 -->
 
 <!-- snippet

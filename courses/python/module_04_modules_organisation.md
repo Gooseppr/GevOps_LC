@@ -175,8 +175,8 @@ importance: high
 format: knowledge
 tags: python,import
 title: Import en Python
-content: import permet de réutiliser du code d'autres modules
-description: Essentiel pour modularité
+content: `import module` charge le fichier et le met en cache dans `sys.modules` — les imports répétés ne rechargent pas le fichier. `from module import func` importe directement dans l'espace de noms local, sans préfixer par le nom du module.
+description: Préférer les imports explicites (`from os.path import join`) aux imports glob (`from os.path import *`) qui polluent l'espace de noms et rendent le code difficile à déboguer.
 -->
 
 <!-- snippet
@@ -188,8 +188,8 @@ importance: high
 format: knowledge
 tags: python,main
 title: __name__ == main
-content: Permet d'exécuter du code uniquement si fichier lancé directement
-description: Sépare script et module
+content: Quand un fichier est importé, `__name__` vaut le nom du module. Quand il est lancé directement, `__name__` vaut `"__main__"`. Le bloc `if __name__ == "__main__":` permet d'avoir un fichier qui fonctionne à la fois comme script exécutable et comme module importable.
+description: Sans ce garde-fou, importer un module qui contient `print()` ou des appels réseau au niveau module les exécuterait immédiatement à l'import.
 -->
 
 <!-- snippet

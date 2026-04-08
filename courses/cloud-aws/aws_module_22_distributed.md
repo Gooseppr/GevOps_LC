@@ -172,8 +172,8 @@ importance: high
 format: knowledge
 tags: aws,sns,pubsub
 title: SNS rôle
-content: SNS permet de diffuser des messages à plusieurs consommateurs simultanément
-description: Pub/Sub AWS
+content: SNS suit le pattern pub/sub : un producteur publie un message dans un topic, et SNS le pousse simultanément vers tous les abonnés (SQS, Lambda, email, HTTP endpoint). Un seul événement peut déclencher 10 workflows différents sans que le producteur les connaisse.
+description: SNS + SQS = fan-out fiable : SNS diffuse, SQS stocke pour que chaque consommateur traite à son rythme sans perdre de messages.
 -->
 
 <!-- snippet
@@ -212,8 +212,8 @@ importance: medium
 format: knowledge
 tags: aws,architecture,bestpractice
 title: Communication async
-content: La communication asynchrone améliore la résilience et la scalabilité des systèmes
-description: Bonne pratique
+content: En synchrone, si le service B est lent ou down, le service A attend ou échoue. En asynchrone via SQS, A dépose un message et continue immédiatement — B traite quand il peut. Un pic de trafic remplit la queue au lieu de faire crasher B sous la charge.
+description: La queue SQS joue le rôle de tampon : elle absorbe les pics et garantit qu'aucun message n'est perdu même si B redémarre.
 -->
 
 <!-- snippet

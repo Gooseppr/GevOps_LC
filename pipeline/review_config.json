@@ -35,6 +35,46 @@
       }
     },
     {
+      "email": "austinpwr@zohomail.eu",
+      "name": "Greg SQL",
+      "active": true,
+      "daily_mix": [
+        { "type": "command", "count": 2 },
+        { "type": "concept", "count": 1 },
+        { "type": "warning", "count": 1 },
+        { "type": "tip",     "count": 1 }
+      ],
+      "filters": {
+        "tech":  null,
+        "level": null
+      },
+      "max_per_tech": null,
+      "sort_order": "importance",
+      "tech_order": {
+        "sql":        "chronological"
+      }
+    },
+    {
+      "email": "austinpwr@zohomail.eu",
+      "name": "Greg AWS",
+      "active": true,
+      "daily_mix": [
+        { "type": "command", "count": 2 },
+        { "type": "concept", "count": 1 },
+        { "type": "warning", "count": 1 },
+        { "type": "tip",     "count": 1 }
+      ],
+      "filters": {
+        "tech":  null,
+        "level": null
+      },
+      "max_per_tech": null,
+      "sort_order": "importance",
+      "tech_order": {
+        "aws":        "chronological"
+      }
+    },
+    {
       "email": "j.t-elmacin@hotmail.fr",
       "name": "Teddy",
       "active": true,

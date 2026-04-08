@@ -132,8 +132,8 @@ importance: high
 format: knowledge
 tags: python,async
 title: Async avancé
-content: asyncio permet de gérer un grand nombre de tâches I/O non bloquantes
-description: base performance réseau
+content: asyncio utilise une boucle d'événements sur un seul thread : quand une coroutine attend du réseau (`await`), le thread est libéré pour d'autres coroutines. Un seul process peut gérer des milliers de connexions HTTP simultanées là où le threading créerait des milliers de threads.
+description: `await` ne crée pas de parallélisme CPU — deux calculs intensifs en async se séquencent. Pour du vrai parallélisme, combiner asyncio avec `ProcessPoolExecutor`.
 -->
 
 <!-- snippet
@@ -145,8 +145,8 @@ importance: high
 format: knowledge
 tags: python,queue
 title: Queue système
-content: une queue permet de déléguer le traitement à des workers
-description: base architecture distribuée
+content: Une queue (Redis/Celery, RabbitMQ, SQS) découple le producteur du consommateur : la tâche est déposée immédiatement, le worker la traite quand il peut. L'API répond en millisecondes même si la tâche prend 30 secondes — le traitement se fait en arrière-plan.
+description: Celery + Redis est la combinaison la plus courante en Python. Beat (scheduler) + Worker (exécuteur) remplacent les cron jobs complexes avec visibilité et retry intégrés.
 -->
 
 <!-- snippet

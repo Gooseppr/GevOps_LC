@@ -139,8 +139,8 @@ importance: high
 format: knowledge
 tags: python,debug
 title: pdb debugger Python
-content: pdb permet d'inspecter le code en cours d'exécution
-description: outil clé debug
+content: `import pdb; pdb.set_trace()` (ou `breakpoint()` depuis Python 3.7) suspend l'exécution et ouvre un shell interactif. On peut inspecter les variables, avancer pas à pas (`n`), entrer dans une fonction (`s`) et continuer (`c`).
+description: `breakpoint()` respecte la variable `PYTHONBREAKPOINT` : mettre `PYTHONBREAKPOINT=0` désactive tous les breakpoints sans modifier le code.
 -->
 
 <!-- snippet
@@ -152,8 +152,8 @@ importance: high
 format: knowledge
 tags: python,error
 title: Stack trace
-content: la stack trace indique où et pourquoi une erreur se produit
-description: essentiel pour debug
+content: La stack trace se lit de bas en haut : la dernière ligne indique l'erreur exacte (`TypeError: ...`) et la ligne juste au-dessus pointe le code qui l'a déclenchée. Les lignes suivantes remontent l'arbre d'appels jusqu'à l'origine.
+description: L'erreur est toujours à la dernière ligne — commencer par lire ça avant de remonter la stack trace.
 -->
 
 <!-- snippet

@@ -149,8 +149,8 @@ importance: high
 format: knowledge
 tags: aws,ha,architecture
 title: Haute disponibilité définition
-content: La haute disponibilité permet de maintenir un service actif même en cas de panne
-description: Concept critique production
+content: La haute disponibilité est un SLO exprimé en pourcentage de disponibilité annuelle : 99,9% = 8,7h de downtime/an, 99,99% = 52min/an. Chaque 9 supplémentaire exige une architecture plus complexe — redondance, health checks, failover automatique.
+description: La HA ne se décrète pas, elle se mesure : sans SLO défini et suivi, on ne sait pas si l'objectif est atteint.
 -->
 
 <!-- snippet
@@ -175,8 +175,8 @@ importance: high
 format: knowledge
 tags: aws,failover,network
 title: Failover
-content: Le failover redirige automatiquement le trafic vers une ressource saine en cas de panne
-description: Mécanisme clé HA
+content: Le failover repose sur un health check qui détecte la panne et un mécanisme de bascule : Route53 peut rediriger vers une région secondaire, un ALB retire automatiquement les instances unhealthy de sa pool, RDS Multi-AZ promeut le standby en quelques secondes.
+description: La vitesse de failover dépend du délai de health check × nombre d'échecs consécutifs requis — un ALB avec 30s × 2 = 60s d'indisponibilité avant bascule.
 -->
 
 <!-- snippet
@@ -215,8 +215,8 @@ importance: medium
 format: knowledge
 tags: aws,architecture,bestpractice
 title: Tester failover
-content: Tester régulièrement le failover permet de valider la résilience réelle de l’infrastructure
-description: Bonne pratique HA
+content: Une architecture HA non testée est une architecture HA dont on ne sait pas si elle fonctionne. Terminer une instance volontairement, couper une AZ avec des SCP ou utiliser AWS Fault Injection Simulator révèle les angles morts avant qu’un vrai incident le fasse.
+description: Netflix a popularisé le Chaos Engineering : tester les pannes en prod de façon contrôlée est moins risqué que de les découvrir lors d’un vrai incident.
 -->
 
 <!-- snippet

@@ -138,8 +138,8 @@ importance: high
 format: knowledge
 tags: python,cli
 title: argparse permet gérer arguments
-content: argparse permet de parser les arguments CLI de manière structurée
-description: outil standard Python
+content: argparse génère automatiquement le message d'aide (`--help`), valide les types des arguments et gère les valeurs par défaut. Contrairement à `sys.argv`, il rend les scripts auto-documentés et robustes sans code de parsing manuel.
+description: `add_argument('--verbose', action='store_true')` crée un flag booléen. `add_argument('nb', type=int)` valide que l'argument est bien un entier.
 -->
 
 <!-- snippet

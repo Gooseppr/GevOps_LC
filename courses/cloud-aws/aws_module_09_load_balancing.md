@@ -149,8 +149,8 @@ importance: high
 format: knowledge
 tags: aws,autoscaling,scaling
 title: Auto Scaling rôle
-content: Auto Scaling ajuste automatiquement le nombre d'instances selon la charge
-description: Élément clé scalabilité
+content: Un Auto Scaling Group (ASG) surveille des métriques CloudWatch et lance ou termine des instances pour maintenir un nombre entre min et max. La politique de scaling peut être réactive (CPU > 70%) ou prédictive (basée sur l'historique).
+description: Sans min > 0, un bug dans le health check peut vider complètement le groupe et mettre le service hors ligne.
 -->
 
 <!-- snippet
@@ -188,8 +188,8 @@ importance: medium
 format: knowledge
 tags: aws,scaling,architecture
 title: Instances stateless
-content: Utiliser des instances stateless permet un scaling efficace sans dépendance locale
-description: Bonne pratique architecture
+content: Une instance qui stocke des données localement (sessions en mémoire, fichiers uploadés sur disque) ne peut pas être supprimée sans perte. Déplacer l'état vers ElastiCache (sessions) et S3 (fichiers) rend chaque instance interchangeable et supprimable librement.
+description: Le test de statelessness : si une instance est terminée à froid et remplacée, le service continue sans perte de données.
 -->
 
 <!-- snippet

@@ -154,8 +154,8 @@ importance: high
 format: knowledge
 tags: aws,subnet,network
 title: Subnet public définition
-content: Un subnet public possède une route vers une Internet Gateway permettant l'accès Internet
-description: Différence clé public vs privé
+content: Un subnet est "public" uniquement parce que sa route table contient une entrée 0.0.0.0/0 → Internet Gateway. Sans cette route, même avec une IP publique, l'instance est injoignable depuis Internet.
+description: La confusion vient souvent de l'IP publique : elle ne suffit pas, c'est la route table qui qualifie un subnet de public.
 -->
 
 <!-- snippet

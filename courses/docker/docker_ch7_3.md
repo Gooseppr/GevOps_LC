@@ -279,4 +279,5 @@ format: knowledge
 tags: registry,tag,versionning,bonne-pratique
 title: Versionner les images avec des tags explicites
 content: Utiliser des tags versionnés (v1, v2, SHA du commit) permet de tracer l’image en production et de rollback facilement. Éviter `latest` en production.
+description: Tagger avec le SHA du commit Git lie directement l’image au code exact qui l’a produite — traçabilité parfaite pour les audits et les post-mortems.
 -->

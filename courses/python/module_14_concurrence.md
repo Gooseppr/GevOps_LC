@@ -229,8 +229,8 @@ importance: high
 format: knowledge
 tags: python,concurrency,design
 title: Choisir le bon modèle
-content: I/O-bound → threading/asyncio ; CPU-bound → multiprocessing
-description: Décision clé pour performance
+content: Le GIL Python permet aux threads de tourner en parallèle pour les opérations I/O (réseau, fichiers) mais pas pour le calcul CPU pur. Pour un scraper ou une API : threading ou asyncio. Pour du traitement d'image ou du ML : multiprocessing contourne le GIL en créant des process séparés.
+description: asyncio > threading pour I/O : un seul thread gère des milliers de connexions concurrentes sans le coût de context-switching entre threads.
 -->
 
 <!-- snippet

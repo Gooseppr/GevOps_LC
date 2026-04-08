@@ -181,8 +181,8 @@ importance: high
 format: knowledge
 tags: python,set,performance
 title: Set pour lookup rapide
-content: Un set permet des recherches en O(1) contrairement aux listes
-description: Important pour performance
+content: `val in ma_liste` parcourt chaque élément jusqu'à trouver (O(n)). `val in mon_set` calcule le hash et accède directement (O(1)). Sur 1 million d'éléments, la différence est de plusieurs secondes vs quelques microsecondes.
+description: Convertir une liste en set (`set(ma_liste)`) avant des recherches répétées réduit la complexité de O(n²) à O(n).
 -->
 
 <!-- snippet

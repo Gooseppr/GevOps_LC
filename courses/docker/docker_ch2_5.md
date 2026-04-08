@@ -193,6 +193,7 @@ format: knowledge
 tags: env,configuration,concept
 title: Définition d’une variable d’environnement
 content: Une variable d’environnement est une valeur externe à l’application qui permet de la configurer sans modifier le code source.
+description: C’est le mécanisme standard pour séparer le code de la configuration — même binaire, comportements différents selon l’environnement (dev/staging/prod).
 -->
 
 <!-- snippet
@@ -229,4 +230,5 @@ format: knowledge
 tags: env,configuration,flexibilite
 title: Les variables permettent d’adapter sans rebuild
 content: Passer des variables avec docker run permet de réutiliser la même image en dev, staging et prod sans reconstruire.
+description: Rebuilder une image à chaque changement d’env est lent et introduit un risque de divergence. Une image, plusieurs configs via les variables.
 -->

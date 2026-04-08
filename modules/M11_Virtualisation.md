@@ -321,6 +321,7 @@ tags: docker,conteneur,portabilité,microservices
 title: Les quatre garanties clés de Docker
 context: justifier l'utilisation de Docker en entretien ou en équipe
 content: Docker garantit l'isolation (pas d'interférences), la reproductibilité (même comportement partout) et la portabilité (build once, run anywhere). Instanciation en quelques secondes.
+description: Ces garanties résolvent le problème classique du "ça marche sur ma machine" : si l'image tourne en dev, elle tourne en prod — à condition de ne pas injecter des configs différentes qui changent le comportement.
 -->
 
 <!-- snippet

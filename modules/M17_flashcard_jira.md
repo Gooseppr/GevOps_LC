@@ -79,6 +79,7 @@ tags: jira,tickets,centralisation,devops
 title: Centralisation des tickets dans Jira
 context: comprendre pourquoi utiliser Jira pour gérer les demandes d'une équipe DevOps
 content: Centraliser les tickets dans Jira offre une vision globale du travail et facilite la planification des ressources. Tous les membres accèdent au même référentiel et au même suivi d'avancement.
+description: Sans outil centralisé, le travail se disperse dans des emails, Slack et tablettes. Jira rend le backlog visible par toute l'équipe, éliminant les doublons et les silences.
 -->
 
 <!-- snippet
@@ -92,6 +93,7 @@ tags: jira,suivi,responsable,echeance,priorite
 title: Suivi des tickets avec Jira
 context: mettre en place un suivi efficace de l'avancement des tâches dans Jira
 content: Jira permet d'attribuer un responsable, fixer des échéances et des priorités. Les tableaux de bord offrent un suivi en temps réel des délais, de l'état des tickets et des performances.
+description: Le cycle de vie standard d'un ticket : To Do → In Progress → In Review → Done. Chaque transition peut déclencher des notifications ou des hooks CI/CD.
 -->
 
 <!-- snippet
@@ -105,6 +107,7 @@ tags: jira,gitlab,integration,automatisation,traçabilite
 title: Intégration Jira et GitLab pour l'automatisation
 context: lier automatiquement les commits GitLab aux tickets Jira pour une traçabilité complète
 content: L'intégration Jira-GitLab lie automatiquement les commits aux tickets via les identifiants dans les messages. Elle permet d'automatiser la transition de statut d'un ticket lors d'un push ou d'une MR.
+description: Convention : inclure l'ID du ticket dans chaque message de commit (`git commit -m "PROJ-42 fix: timeout connexion"`). GitLab affiche alors le commit directement dans la timeline Jira.
 -->
 
 <!-- snippet

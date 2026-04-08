@@ -947,7 +947,7 @@ level: beginner
 tags: exception,try,except,raise
 title: Gestion des exceptions avec try/except
 content: Le bloc try contient le code qui peut échouer. except attrape un type d'exception précis. finally s'exécute toujours. raise permet de lever manuellement une exception avec un message personnalisé.
-description: Mécanisme standard de gestion des erreurs en Python
+description: Ne jamais capturer `Exception` à large spectre sans au moins logger l'erreur — un `except Exception: pass` avalera silencieusement des bugs critiques.
 -->
 
 <!-- snippet
@@ -969,7 +969,7 @@ level: intermediate
 tags: classe,oop,init,self
 title: Attributs d'instance vs attributs de classe
 content: Les attributs d'instance (définis via `self.x`) sont propres à chaque objet. Les attributs de classe (définis hors de `__init__`) sont partagés par toutes les instances.
-description: Distinction fondamentale entre attributs d'instance et attributs de classe
+description: Piège classique : un attribut de classe mutable (une liste) partagé entre toutes les instances — modifier `MaClasse.data.append(x)` depuis une instance modifie toutes les autres.
 -->
 
 <!-- snippet
@@ -980,7 +980,7 @@ level: intermediate
 tags: property,encapsulation,setter,validation
 title: Utiliser @property pour encapsuler et valider
 content: `@property` transforme une méthode en attribut lisible. `@<nom>.setter` permet de valider la valeur avant affectation, sans casser l'API publique.
-description: Bonne pratique OOP pour contrôler l'accès aux attributs
+description: Avantage clé : passer de `obj.age` (attribut direct) à `@property` plus tard ne casse pas le code existant qui l'utilise — impossible avec une méthode `get_age()`.
 -->
 
 <!-- snippet

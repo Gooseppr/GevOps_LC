@@ -157,8 +157,8 @@ importance: high
 format: knowledge
 tags: aws,governance,organization
 title: Gouvernance AWS définition
-content: La gouvernance AWS permet de contrôler et structurer les ressources à l’échelle organisationnelle
-description: Base entreprise
+content: La gouvernance AWS définit qui peut créer quoi, où et avec quel budget, à l’échelle de toute l’organisation. Sans elle, chaque équipe invente ses propres conventions — résultat : des ressources orphelines, des coûts incontrôlés et des trous de sécurité entre comptes.
+description: La gouvernance s’implémente via AWS Organizations + SCPs (ce qu’on interdit) + AWS Config (ce qu’on détecte) + budgets (ce qu’on contrôle).
 -->
 
 <!-- snippet
@@ -170,8 +170,8 @@ importance: high
 format: knowledge
 tags: aws,organizations,multiaccount
 title: AWS Organizations rôle
-content: AWS Organizations permet de gérer plusieurs comptes AWS de manière centralisée
-description: Multi-account management
+content: AWS Organizations regroupe tous les comptes sous un compte master qui centralise la facturation et applique des Service Control Policies (SCP) sur les Organizational Units. Une SCP `DenyRegion` bloquant eu-north-1 s'applique à 50 comptes en une modification.
+description: Consolidated billing = une seule facture pour tous les comptes, avec les remises de volume AWS cumulées sur l'ensemble de l'organisation.
 -->
 
 <!-- snippet
@@ -235,8 +235,8 @@ importance: medium
 format: knowledge
 tags: aws,governance,bestpractice
 title: Stratégie de tags
-content: Définir une stratégie de tags dès le début permet un meilleur contrôle des ressources et des coûts
-description: Bonne pratique
+content: Les tags ajoutés a posteriori ne couvrent jamais 100% des ressources. Définir dès le départ les tags obligatoires (ex. `env`, `project`, `owner`) et les enforcer via AWS Config rule `required-tags` garantit que toute ressource non taguée déclenche une alerte automatique.
+description: Sans tag `env`, impossible de distinguer ce qui tourne en prod de ce qui tourne en dev dans la facture AWS.
 -->
 
 <!-- snippet

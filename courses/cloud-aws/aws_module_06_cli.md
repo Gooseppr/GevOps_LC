@@ -164,8 +164,8 @@ importance: high
 format: knowledge
 tags: aws,cli,profile
 title: Profil AWS CLI
-content: Un profil permet de gérer plusieurs comptes AWS avec des configurations séparées
-description: Indispensable en entreprise
+content: `aws configure --profile mon-profil` crée un profil nommé dans ~/.aws/credentials. Ensuite chaque commande prend `--profile mon-profil` ou la variable AWS_PROFILE=mon-profil pour cibler ce compte sans écraser le profil par défaut.
+description: Pratique pour basculer entre compte perso, staging et prod sans reconfigurer à chaque fois.
 -->
 
 <!-- snippet
@@ -190,6 +190,6 @@ importance: medium
 format: knowledge
 tags: aws,security,cli
 title: Sécuriser AWS CLI
-content: Ne jamais stocker les credentials en clair, utiliser variables d'environnement ou roles IAM
-description: Bonne pratique sécurité
+content: ~/.aws/credentials est un fichier texte lisible par tout process local. Un repo cloné ou un Docker build peut l'embarquer accidentellement. Préférer AWS_ACCESS_KEY_ID en variable d'env (durée de vie limitée) ou un role IAM sur l'instance.
+description: Les leaks de credentials AWS sont la cause n°1 de factures AWS astronomiques chez les développeurs.
 -->

@@ -354,6 +354,7 @@ tags: gunicorn,flask,production,python
 title: Lancer Flask en production avec Gunicorn
 context: remplacer le serveur de développement Flask par un serveur WSGI adapté à la production
 content: Le serveur intégré de Flask n'est pas conçu pour la production (un seul thread, pas de gestion des workers). Gunicorn est un serveur WSGI robuste qui permet de gérer plusieurs requêtes simultanées. La commande type est : gunicorn -w 2 -b 0.0.0.0:5050 hello:app (ici 2 workers, écoute sur toutes les interfaces).
+description: Règle pour le nombre de workers : (2 × CPU) + 1. Sur un serveur 2 cœurs → 5 workers. Flask dev server en prod = une seule requête à la fois, les autres patientent.
 -->
 
 <!-- snippet

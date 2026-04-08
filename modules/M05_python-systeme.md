@@ -440,7 +440,7 @@ level: intermediate
 tags: subprocess,sécurité,injection,shell
 title: Éviter shell=True dans subprocess
 content: `shell=True` expose le script à l'injection de commandes si les arguments viennent de l'utilisateur. Préférer une liste de tokens `["commande", "arg1"]` sans `shell=True`.
-description: Bonne pratique sécurité pour l'exécution de commandes externes
+description: `subprocess.run(f"ls {user_input}", shell=True)` avec `user_input = "; rm -rf /"` exécuterait les deux commandes. La liste `["ls", user_input]` rend l'injection impossible.
 -->
 
 <!-- snippet
@@ -473,7 +473,7 @@ level: intermediate
 tags: pathlib,chemin,portabilité,fichiers
 title: Préférer pathlib à os.path pour les chemins
 content: pathlib.Path offre une API orientée objet plus lisible que os.path. Les opérations .read_text(), .write_text(), .iterdir(), .stem, .suffix rendent le code plus expressif et portable entre OS.
-description: Bonne pratique moderne pour manipuler les chemins de fichiers
+description: `Path("dir") / "sous-dir" / "fichier.txt"` construit des chemins de façon portable (/ fonctionne sur Windows comme sur Linux) contrairement à `os.path.join()` qui reste verbeux.
 -->
 
 <!-- snippet

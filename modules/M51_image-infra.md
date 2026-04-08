@@ -251,6 +251,7 @@ tags: aws,vpc,subnet,architecture,réseau
 title: Segmentation réseau AWS en subnets fonctionnels pour une infra DevOps
 context: Organiser les subnets d'un VPC AWS selon les responsabilités des VM
 content: Découper le VPC en 5 subnets fonctionnels : bastion, gateway/traefik, application, database, monitoring. Un NAT dédié (fck-nat) assure la sortie internet des subnets privés.
+description: La base de données dans son propre subnet privé sans route publique signifie qu'elle n'est joignable que depuis le subnet applicatif — même si un Security Group était mal configuré.
 -->
 
 <!-- snippet

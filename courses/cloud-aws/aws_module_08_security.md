@@ -132,8 +132,8 @@ importance: high
 format: knowledge
 tags: aws,security,cloud
 title: Sécurité AWS principe
-content: La sécurité AWS repose sur la configuration des accès et non sur AWS seul
-description: Concept fondamental
+content: AWS applique le modèle de responsabilité partagée : AWS sécurise le datacenter et l'hyperviseur, mais la configuration des accès IAM, des Security Groups, du chiffrement et des sauvegardes reste entièrement à la charge du client.
+description: Une instance EC2 compromise ou un bucket S3 public ouvert est toujours de la responsabilité du client, pas d'AWS.
 -->
 
 <!-- snippet
@@ -171,8 +171,8 @@ importance: medium
 format: knowledge
 tags: aws,kms,encryption
 title: KMS rôle
-content: KMS permet de gérer les clés de chiffrement pour sécuriser les données AWS
-description: Base encryption AWS
+content: KMS ne stocke pas les données chiffrées — il stocke les clés (CMK) et exécute les opérations de chiffrement/déchiffrement. Les services AWS (S3, RDS, EBS) appellent KMS à chaque accès, ce qui permet de révoquer l'accès aux données en désactivant la clé.
+description: Désactiver une CMK KMS rend les données inaccessibles immédiatement, même si les fichiers chiffrés existent toujours.
 -->
 
 <!-- snippet
@@ -184,8 +184,8 @@ importance: medium
 format: knowledge
 tags: aws,security,bestpractice
 title: Sécuriser AWS
-content: Toujours combiner IAM, MFA et encryption pour une sécurité complète
-description: Bonne pratique globale
+content: IAM contrôle qui peut faire quoi, MFA empêche l'accès même si le mot de passe fuite, et le chiffrement KMS garantit que les données restent illisibles même en cas d'accès physique au stockage. Aucune des trois couches ne remplace les deux autres.
+description: Activer MFA sur le compte root et sur tous les utilisateurs humains est le minimum absolu avant tout déploiement.
 -->
 
 <!-- snippet

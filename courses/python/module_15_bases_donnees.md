@@ -244,7 +244,7 @@ importance: medium
 format: knowledge
 tags: python,orm
 title: ORM Python
-content: Un ORM permet de manipuler la base via des objets Python
-description: abstraction SQL
+content: Un ORM (SQLAlchemy, Django ORM) traduit les opérations Python en SQL : `User.query.filter_by(active=True).all()` génère le SELECT correspondant. Le code reste en Python pur, agnostique du moteur SQL (PostgreSQL, MySQL, SQLite).
+description: L'ORM n'est pas toujours plus performant qu'un SQL brut. Pour les requêtes complexes (analytiques, jointures multiples), écrire le SQL manuellement via `text()` ou `cursor.execute()` donne plus de contrôle.
 -->
 

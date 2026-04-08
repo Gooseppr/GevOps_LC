@@ -201,8 +201,8 @@ importance: high
 format: knowledge
 tags: aws,security,error
 title: Réseau trop ouvert
-content: Un réseau ouvert permet des attaques latérales, restreindre les accès strictement
-description: Piège critique
+content: Dans un VPC sans segmentation, une instance compromise peut scanner et atteindre toutes les autres sur le réseau interne. Un Security Group en liste blanche explicite (port 5432 uniquement depuis le subnet applicatif) contient l'attaque à une seule instance.
+description: Le mouvement latéral est la technique n°1 après une compromission initiale — la micro-segmentation réseau le bloque.
 -->
 
 <!-- snippet
@@ -214,8 +214,8 @@ importance: medium
 format: knowledge
 tags: aws,security,bestpractice
 title: Utiliser endpoints privés
-content: Les VPC endpoints permettent de sécuriser les accès sans passer par Internet
-description: Bonne pratique
+content: Sans VPC endpoint, une Lambda ou une EC2 qui appelle S3 ou DynamoDB sort par Internet (via NAT Gateway) même si les deux sont dans le même compte AWS. Un VPC endpoint maintient le trafic dans le réseau AWS, élimine la NAT Gateway et supprime l'exposition Internet.
+description: VPC endpoint = sécurité + économie : les coûts de NAT Gateway disparaissent pour le trafic vers S3 et DynamoDB.
 -->
 
 <!-- snippet

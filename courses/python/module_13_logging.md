@@ -132,8 +132,8 @@ importance: high
 format: knowledge
 tags: python,logging
 title: Logging en Python
-content: logging permet d'enregistrer les événements d'une application
-description: Base observabilité
+content: Le module `logging` est configurable par niveau (DEBUG/INFO/WARNING/ERROR/CRITICAL), par handler (console, fichier, réseau) et par format. Contrairement à `print`, un log peut être filtré, redirigé et désactivé en production sans modifier le code.
+description: `logging.basicConfig(level=logging.DEBUG)` pour déboguer, `level=logging.WARNING` en prod — un seul changement de config filtre tout le bruit de debug.
 -->
 
 <!-- snippet

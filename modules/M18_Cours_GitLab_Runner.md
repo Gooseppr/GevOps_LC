@@ -305,6 +305,7 @@ tags: gitlab,runner,docker,isolation,reproductibilité
 title: Le mode Docker est recommandé pour les runners GitLab
 context: choisir le mode d'exécution d'un runner GitLab selon les besoins du projet
 content: Le mode Docker est recommandé car chaque job tourne dans un conteneur propre et isolé. Il garantit la reproductibilité et évite les effets de bord entre jobs.
+description: Le mode Shell est plus simple mais dangereux : un job qui installe des dépendances ou modifie des fichiers système affecte tous les jobs suivants sur le même runner.
 -->
 
 <!-- snippet

@@ -170,8 +170,8 @@ importance: high
 format: knowledge
 tags: python,file
 title: Utiliser with
-content: with garantit la fermeture automatique du fichier
-description: Bonne pratique essentielle
+content: `with open()` utilise le protocole de context manager : `__enter__` ouvre le fichier, `__exit__` le ferme garantie même si une exception se produit. Sans `with`, un crash avant `file.close()` laisse le fichier ouvert et peut corrompre les données.
+description: Le même pattern s'applique aux connexions BDD, locks, sessions réseau — tout objet qui doit être nettoyé après utilisation devrait s'utiliser avec `with`.
 -->
 
 <!-- snippet

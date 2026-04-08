@@ -162,8 +162,8 @@ importance: medium
 format: knowledge
 tags: aws,codedeploy,deploy
 title: CodeDeploy rôle
-content: CodeDeploy permet de déployer automatiquement une application sur des instances
-description: Déploiement AWS
+content: CodeDeploy orchestre le déploiement sur EC2, Lambda ou ECS selon des stratégies configurables : In-place (arrêt → mise à jour → redémarrage), Blue/Green (nouvelle flotte + bascule du load balancer) ou Canary (trafic progressif). L'appspec.yml pilote les hooks avant/après déploiement.
+description: CodeDeploy gère automatiquement le rollback si les health checks échouent après déploiement.
 -->
 
 <!-- snippet
@@ -201,8 +201,8 @@ importance: medium
 format: knowledge
 tags: aws,cicd,bestpractice
 title: Tester dans pipeline
-content: Ajouter des tests dans le pipeline permet de détecter les erreurs avant production
-description: Bonne pratique CI/CD
+content: Un test qui n'est pas dans le pipeline n'est pas exécuté. Chaque étape bloque la suivante : les tests unitaires bloquent le build, les tests d'intégration bloquent le déploiement en staging, les smoke tests bloquent la promotion en prod.
+description: Le coût d'un bug trouvé en CI est ~1h de dev. Le même bug en prod peut coûter des jours de hotfix, de communication et de perte client.
 -->
 
 <!-- snippet

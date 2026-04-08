@@ -147,8 +147,8 @@ importance: high
 format: knowledge
 tags: python,architecture
 title: Domaine indépendant
-content: La logique métier ne doit dépendre d'aucune technologie externe
-description: principe fondamental
+content: La logique métier (règles de calcul, validation, workflow) couplée à Flask, SQLAlchemy ou Redis devient impossible à tester unitairement et à migrer. En l'isolant dans des fonctions ou classes pures, on peut la tester sans démarrer une BDD ni un serveur.
+description: Principe de la Clean Architecture : les couches internes (domaine) ne connaissent pas les couches externes (frameworks). Les dépendances pointent vers l'intérieur.
 -->
 
 <!-- snippet

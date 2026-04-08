@@ -140,8 +140,8 @@ importance: high
 format: knowledge
 tags: aws,finops,cost
 title: FinOps définition
-content: FinOps permet de gérer et optimiser les coûts du cloud en continu
-description: Compétence clé AWS
+content: FinOps est la pratique qui aligne ingénieurs, finance et business sur les coûts cloud en temps réel. Contrairement à un budget annuel figé, le cloud facture à la seconde : sans FinOps, les coûts dérivent silencieusement jusqu'à la facture de fin de mois.
+description: Le premier réflexe FinOps : activer AWS Cost Explorer + des alertes de budget à 80% et 100% pour ne jamais être surpris.
 -->
 
 <!-- snippet
@@ -192,8 +192,8 @@ importance: medium
 format: knowledge
 tags: aws,finops,bestpractice
 title: Utiliser tags
-content: Les tags permettent de suivre les coûts par projet et équipe
-description: Bonne pratique FinOps
+content: Sans tags, AWS Cost Explorer montre une facture globale sans expliquer qui consomme quoi. Avec des tags `project`, `env` et `team` sur chaque ressource, on peut filtrer et voir que "projet-X en staging consomme 40% du budget" — et agir.
+description: Les tags doivent être obligatoires dès la création (enforced via AWS Config) sinon les ressources non taguées rendent l'analyse impossible.
 -->
 
 <!-- snippet

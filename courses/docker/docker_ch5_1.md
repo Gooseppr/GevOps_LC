@@ -209,7 +209,7 @@ format: knowledge
 tags: multistage,bonne-pratique,alpine,optimisation
 title: Séparer build et runtime avec alpine
 content: Utiliser une image lourde (ex. node:18) pour compiler, puis une image alpine légère pour le runtime. Cela réduit drastiquement la taille de l'image finale.
-description: Bonne pratique fondamentale : Build ≠ Runtime
+description: Une image node:18 pèse ~1 Go. Avec multi-stage + alpine, la même app en prod peut peser < 50 Mo — moins de surface d'attaque, transfert plus rapide en CI.
 -->
 
 <!-- snippet

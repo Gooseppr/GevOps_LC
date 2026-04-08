@@ -343,6 +343,7 @@ tags: cd,promotion,artefact,staging,prod
 title: La promotion garantit que staging et prod exécutent le même binaire
 context: comprendre pourquoi on ne rebuilde pas entre environnements en CD
 content: Rebuilder entre staging et prod risque d'introduire des différences (cache, dépendances, timestamp). Promouvoir le même artefact immuable garantit que ce qui passe en staging est exactement ce qui va en prod.
+description: La promotion se fait par tag ou digest d'image Docker : `docker tag mon-app:sha256-abc prod-registry/mon-app:v1.5.0` copie le même binaire sans rebuild.
 -->
 
 <!-- snippet

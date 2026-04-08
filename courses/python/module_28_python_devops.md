@@ -141,8 +141,8 @@ importance: high
 format: knowledge
 tags: python,devops
 title: Python DevOps
-content: Python permet d’automatiser les tâches d’infrastructure et d’intégrer des APIs
-description: outil clé DevOps
+content: Python est le langage de colle du DevOps : boto3 pour piloter AWS, paramiko pour SSH, requests pour les APIs, subprocess pour les commandes système. Un script Python remplace avantageusement un pipeline bash complexe dès que la logique dépasse 20 lignes.
+description: Les outils DevOps majeurs sont écrits en Python (Ansible, AWS CLI, Terraform providers) — leur comprendre les internals facilite le débogage et l’extension.
 -->
 
 <!-- snippet

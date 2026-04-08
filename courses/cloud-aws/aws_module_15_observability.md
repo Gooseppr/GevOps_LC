@@ -158,8 +158,8 @@ importance: high
 format: knowledge
 tags: aws,observability,monitoring
 title: Observabilité définition
-content: L’observabilité permet de comprendre le comportement d’un système via logs, metrics et traces
-description: Concept clé DevOps
+content: L’observabilité mesure dans quelle mesure on peut déduire l’état interne d’un système depuis ses sorties externes. Un système monitoré dit "ce qui se passe" ; un système observable permet de répondre à "pourquoi ça se passe" sans avoir à modifier le code pour investiguer.
+description: Monitoring = surveiller des métriques connues. Observabilité = pouvoir investiguer des problèmes inconnus.
 -->
 
 <!-- snippet
@@ -171,8 +171,8 @@ importance: high
 format: knowledge
 tags: aws,logs,metrics,tracing
 title: Différence logs metrics traces
-content: Logs expliquent les événements, metrics mesurent les performances, traces suivent le flux d'une requête
-description: Différence fondamentale
+content: Les logs racontent ce qui s'est passé (événements textuels horodatés), les métriques chiffrent l'état du système à un instant (CPU 72%, latence 120ms), et les traces suivent le chemin d'une requête à travers plusieurs services avec les temps à chaque étape.
+description: Les trois sont complémentaires : une alarme métrique dit "quelque chose cloche", les logs disent "quoi", les traces disent "où dans la chaîne".
 -->
 
 <!-- snippet
@@ -198,8 +198,8 @@ importance: high
 format: knowledge
 tags: aws,logs,error
 title: Logs non structurés
-content: Des logs non structurés sont difficiles à analyser, utiliser du JSON pour faciliter la recherche
-description: Piège fréquent observabilité
+content: Un log `ERROR: connexion échouée` oblige à lire chaque ligne pour comprendre le contexte. Le même log en JSON (`{"level":"error","msg":"connexion échouée","user_id":42,"db":"orders","duration_ms":3200}`) se filtre, se trie et s'agrège en une requête CloudWatch Insights.
+description: Ajouter un champ `request_id` dans chaque log JSON permet de retrouver toute la trace d'une requête en une seule recherche.
 -->
 
 <!-- snippet
@@ -211,8 +211,8 @@ importance: medium
 format: knowledge
 tags: aws,tracing,xray
 title: Utiliser X-Ray
-content: X-Ray permet de visualiser le parcours complet d'une requête et identifier les points de latence
-description: Outil clé debugging
+content: X-Ray instrumente automatiquement les appels entre Lambda, API Gateway, DynamoDB et services externes, et génère une carte de service avec les temps de réponse à chaque saut. Un segment rouge signale où la latence se concentre sans avoir à lire des milliers de logs.
+description: X-Ray s'active en une variable d'env sur Lambda (AWS_XRAY_DAEMON_ADDRESS) sans modifier le code applicatif.
 -->
 
 <!-- snippet

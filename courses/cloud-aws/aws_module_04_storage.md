@@ -193,6 +193,6 @@ importance: medium
 format: knowledge
 tags: aws,s3,cost
 title: Lifecycle S3
-content: Utiliser les lifecycle policies permet de réduire automatiquement les coûts de stockage
-description: Optimisation essentielle AWS
+content: Tout objet S3 reste en Standard indéfiniment. Les logs et backups s'accumulent au tarif plein alors qu'une lifecycle rule (transition S3-IA à 30j, Glacier à 90j) divise le coût par ~4.
+description: Les lifecycle rules sont la première optimisation coût à activer sur un bucket de logs ou de sauvegardes.
 -->

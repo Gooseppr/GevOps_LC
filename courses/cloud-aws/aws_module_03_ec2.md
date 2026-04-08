@@ -207,8 +207,8 @@ importance: medium
 format: knowledge
 tags: aws,automation,ec2
 title: Utiliser user data
-content: User Data permet d'exécuter automatiquement des scripts au démarrage de l'instance
-description: Automatisation clé en DevOps
+content: User Data s'exécute une seule fois au premier démarrage, en root, avant que l'instance soit accessible. C'est le bon endroit pour installer des packages, configurer l'agent CloudWatch ou cloner un repo — sans avoir à se connecter en SSH.
+description: Script limité à 16 Ko. Déboguer via /var/log/cloud-init-output.log sur l'instance.
 -->
 
 <!-- snippet

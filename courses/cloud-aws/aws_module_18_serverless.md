@@ -187,8 +187,8 @@ importance: medium
 format: knowledge
 tags: aws,serverless,architecture
 title: Event driven
-content: Une architecture event-driven améliore la scalabilité et le découplage
-description: Bonne pratique serverless
+content: Dans une architecture event-driven, les services ne s'appellent pas directement : ils publient des événements (S3 upload, SQS message, DynamoDB stream) et d'autres services y réagissent de façon asynchrone. Si le consommateur est down, l'événement attend dans la queue — aucune perte, aucun appel qui échoue.
+description: Le découplage évite l'effet domino : une Lambda lente ne bloque pas l'API Gateway qui l'a déclenchée.
 -->
 
 <!-- snippet

@@ -362,6 +362,7 @@ tags: gitlab,ci,needs,dépendances,jobs
 title: Dépendances inter-jobs avec needs dans GitLab CI
 context: faire démarrer un job build dès que les tests sont terminés, sans attendre le stage entier
 content: Le mot-clé `needs` permet de définir des dépendances directes entre jobs. Un job peut démarrer dès que son job prérequis est terminé, sans attendre la fin de tout le stage.
+description: Sans `needs`, les stages sont séquentiels et bloquants. Avec `needs`, le DAG des jobs est optimisé : le déploiement peut commencer pendant que les tests d'intégration tournent encore sur une autre branche.
 -->
 
 <!-- snippet

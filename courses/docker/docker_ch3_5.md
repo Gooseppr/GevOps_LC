@@ -237,4 +237,5 @@ format: knowledge
 tags: volume,partage,visibilite,temps-reel
 title: Les données d'un volume partagé sont immédiatement visibles
 content: Contrairement à une copie de fichiers, un volume partagé garantit que chaque modification est instantanément accessible à tous les conteneurs qui le montent.
+description: Cas typique : un conteneur générateur écrit dans un volume partagé, un conteneur Nginx sert immédiatement les fichiers générés — sans redéploiement ni synchronisation manuelle.
 -->

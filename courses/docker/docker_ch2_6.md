@@ -199,6 +199,7 @@ format: knowledge
 tags: dependances,versions,stabilite,reproductibilite
 title: Utiliser package-lock.json et requirements.txt pour figer les versions
 content: Utiliser package-lock.json pour Node.js et requirements.txt avec versions précises pour Python garantit des builds reproductibles.
+description: Sans versions figées, le même Dockerfile peut produire une image qui fonctionne aujourd'hui et échoue demain après une mise à jour de dépendance en amont.
 -->
 
 <!-- snippet
