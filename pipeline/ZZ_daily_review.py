@@ -74,15 +74,21 @@ def save_json(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def get_user_state(state, user_email):
-    """Retourne (et initialise si besoin) l'état d'un utilisateur."""
-    if user_email not in state['users']:
-        state['users'][user_email] = {
+def user_key(name, email):
+    """Génère une clé d'état stable combinant nom et email (ex: 'greg_aws|austinpwr@zohomail.eu')."""
+    return f"{name.lower().replace(' ', '_')}|{email.lower()}"
+
+
+def get_user_state(state, name, email):
+    """Retourne (et initialise si besoin) l'état d'un utilisateur (indexé par nom + email)."""
+    key = user_key(name, email)
+    if key not in state['users']:
+        state['users'][key] = {
             'sent_ids': [],
             'cycle': 1,
             'last_sent': None,
         }
-    return state['users'][user_email]
+    return state['users'][key]
 
 
 # ──────────────────────────────────────────────
@@ -707,7 +713,7 @@ def main():
         name  = user['name']
         print(f"─── {name} ({email})")
 
-        user_state = get_user_state(state, email)
+        user_state = get_user_state(state, name, email)
 
         # Vérifier si cycle terminé avant la sélection
         check_and_rotate_cycle(snippets, user, user_state)

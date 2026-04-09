@@ -1,11 +1,6 @@
 {
   "users": {
-    "austinpwr@yahoo.com": {
-      "sent_ids": [],
-      "cycle": 1,
-      "last_sent": null
-    },
-    "austinpwr@zohomail.eu": {
+    "greg|austinpwr@zohomail.eu": {
       "sent_ids": [
         "aws_ec2_user_data_tip",
         "aws_s3_public_warning",
@@ -56,12 +51,29 @@
       "cycle": 1,
       "last_sent": "2026-04-09"
     },
-    "gregoire.elmacin@gmail.com": {
-      "sent_ids": [],
+    "greg_sql|austinpwr@zohomail.eu": {
+      "sent_ids": [
+        "sql_order_by_limit_top",
+        "sql_definition_langage",
+        "sql_bind_address_tip",
+        "sql_select_colonnes",
+        "sql_select_star_warning"
+      ],
       "cycle": 1,
-      "last_sent": null
+      "last_sent": "2026-04-09"
     },
-    "j.t-elmacin@hotmail.fr": {
+    "greg_aws|austinpwr@zohomail.eu": {
+      "sent_ids": [
+        "aws_iam_admin_warning",
+        "aws_iam_definition",
+        "aws_iam_cli_list_users",
+        "aws_ec2_user_data_tip",
+        "aws_ec2_launch_command"
+      ],
+      "cycle": 1,
+      "last_sent": "2026-04-09"
+    },
+    "teddy|j.t-elmacin@hotmail.fr": {
       "sent_ids": [
         "python_poo_overengineering",
         "python_subprocess_shell_warning_b",
