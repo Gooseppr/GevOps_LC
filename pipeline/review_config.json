@@ -45,7 +45,7 @@
         { "type": "tip",     "count": 1 }
       ],
       "filters": {
-        "tech":  null,
+        "tech":  "sql",
         "level": null
       },
       "max_per_tech": null,
@@ -65,7 +65,7 @@
         { "type": "tip",     "count": 1 }
       ],
       "filters": {
-        "tech":  null,
+        "tech":  "aws",
         "level": null
       },
       "max_per_tech": null,
