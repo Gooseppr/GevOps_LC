@@ -7,13 +7,21 @@ layout: default
 {% include course-lock.html course_id=page.course %}
 
 <article class="post">
+  {% unless page.course %}
   <header class="post-header">
     <h1 class="post-title">{{ page.title | escape }}</h1>
   </header>
+  {% endunless %}
   <div class="post-content">
     {{ content }}
   </div>
 </article>
+
+<script>
+document.querySelectorAll('.post-content h2').forEach(function(h) {
+  if (h.textContent.trim().toUpperCase().includes('SNIPPETS')) h.style.display = 'none';
+});
+</script>
 
 {% if page.prev_module or page.next_module %}
 <nav class="module-nav" aria-label="Navigation entre modules">
