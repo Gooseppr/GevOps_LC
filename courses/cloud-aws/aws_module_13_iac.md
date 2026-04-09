@@ -187,6 +187,7 @@ aws cloudformation deploy \
 
 ### Un template minimal
 
+{% raw %}
 ```yaml
 # template.yaml
 AWSTemplateFormatVersion: "2010-09-09"
@@ -213,6 +214,7 @@ Outputs:
   InstanceId:
     Value: !Ref WebInstance
 ```
+{% endraw %}
 
 🧠 **L'avantage décisif de CloudFormation** : le rollback est automatique. Si une ressource échoue à la création ou la mise à jour, CloudFormation revient à l'état précédent sans intervention manuelle. Terraform, lui, laisse l'infrastructure dans un état partiel — à toi de nettoyer ou de corriger avant de relancer.
 
