@@ -7,6 +7,7 @@ pipeline/*
 !pipeline/ZZ_daily_review.py
 !pipeline/review_config.json
 !pipeline/review_state.json
+courses/**/PLAN.md
 __pycache__/
 *.pyc
 .env
