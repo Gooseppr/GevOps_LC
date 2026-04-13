@@ -86,7 +86,10 @@ importance: high
 format: knowledge
 tags: iaas,paas,saas,decision,architecture
 title: Choisir entre IaaS, PaaS et SaaS — critères de décision
-content: IaaS (EC2) = contrôle total, responsabilité OS/patchs. PaaS (Beanstalk) = focus code, AWS gère le runtime. SaaS (WorkMail) = outil clé-en-main, zéro administration. Choisir selon le niveau de contrôle requis et la capacité à gérer l'exploitation.
+content: |
+  - IaaS (EC2) : contrôle total, responsabilité OS et patchs
+  - PaaS (Beanstalk) : focus code uniquement, AWS gère le runtime et le scaling
+  - SaaS (WorkMail) : outil clé-en-main, zéro administration
 description: Critères de choix entre les modèles cloud : contrôle vs simplicité, coût de maintenance vs flexibilité.
 -->
 
@@ -99,8 +102,11 @@ importance: high
 format: knowledge
 tags: iaas,paas,saas,ec2,beanstalk,workmail
 title: Exemples AWS par modèle de service
-content: IaaS → EC2, EBS, VPC. PaaS → Elastic Beanstalk, RDS. SaaS → WorkMail, Chime, Amazon Connect. La frontière PaaS/SaaS est parfois floue selon le niveau de configuration disponible.
-description: Correspondance entre modèles IaaS/PaaS/SaaS et services AWS réels.
+content: |
+  - IaaS → EC2, EBS, VPC
+  - PaaS → Elastic Beanstalk, RDS
+  - SaaS → WorkMail, Chime, Amazon Connect
+description: La frontière PaaS/SaaS est parfois floue selon le niveau de configuration disponible.
 -->
 
 ---
@@ -252,8 +258,12 @@ importance: high
 format: knowledge
 tags: securite,s3,iam,configuration
 title: Responsabilité partagée — erreurs fréquentes côté client
-content: Buckets S3 publics par mauvaise configuration, utilisateurs IAM sans MFA, Security Groups trop permissifs (0.0.0.0/0 sur port 22), clés d'accès AWS dans le code source. Ces erreurs sont toutes côté client — AWS ne les détecte pas automatiquement par défaut.
-description: Exemples concrets de failles de sécurité relevant de la responsabilité du client, pas d'AWS.
+content: |
+  - Buckets S3 publics par mauvaise configuration
+  - Utilisateurs IAM sans MFA
+  - Security Groups trop permissifs (0.0.0.0/0 sur le port 22)
+  - Clés d'accès AWS dans le code source
+description: Ces erreurs sont toutes côté client — AWS ne les détecte pas automatiquement par défaut.
 -->
 
 ---

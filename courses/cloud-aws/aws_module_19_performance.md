@@ -299,7 +299,11 @@ format: knowledge
 tags: aws,caching,performance,elasticache
 title: Caching multi-couche AWS — principe et métriques
 context: Toute architecture AWS exposée à un trafic variable doit implémenter plusieurs couches de cache
-content: Un cache intercale une mémoire rapide entre l'application et la ressource lente (DB, API externe). La donnée est calculée une fois, stockée avec un TTL, et servie depuis le cache jusqu'à expiration. ElastiCache Redis répond en < 1ms là où RDS prend 5–50ms. CloudFront sert depuis l'edge en < 5ms là où l'origin peut prendre 200ms. Le cache hit ratio mesure l'efficacité : en dessous de 80%, le cache est mal configuré (TTL trop court, clés trop granulaires, données non cachées).
+content: |
+  Un cache stocke le résultat une fois et le sert depuis la mémoire jusqu'à expiration du TTL.
+  - ElastiCache Redis : < 1ms (vs 5–50ms pour RDS)
+  - CloudFront edge : < 5ms (vs ~200ms pour l'origin)
+  Un cache hit ratio < 80% signale un problème de configuration : TTL trop court, clés trop granulaires ou données non cachées.
 description: Cache hit ratio cible > 80%. En dessous, vérifier TTL, stratégie de clés et couverture des requêtes fréquentes.
 -->
 
@@ -422,7 +426,12 @@ format: knowledge
 tags: aws,cache,ttl,invalidation,redis
 title: Stratégie TTL — cohérence vs performance
 context: Le TTL détermine combien de temps une donnée reste valide en cache avant d'être re-fetchée depuis la source
-content: Un TTL trop court (< 10s) annule le bénéfice du cache — le cache miss rate reste élevé. Un TTL trop long crée des incohérences : l'utilisateur voit une donnée obsolète jusqu'à expiration. La règle : le TTL doit correspondre à la tolérance métier à la donnée périmée. Données de session → 30 min. Catalogue produit → 2 à 5 min. Prix et stocks → 30 s max. Toute mise à jour en base doit déclencher une invalidation explicite (DEL clé) plutôt que d'attendre l'expiration.
+content: |
+  Le TTL doit correspondre à la tolérance métier à la donnée périmée :
+  - Données de session → 30 min
+  - Catalogue produit → 2 à 5 min
+  - Prix et stocks → 30 s max
+  Toute mise à jour en base doit déclencher une invalidation explicite (`DEL clé`) plutôt qu'attendre l'expiration.
 description: Préférer l'invalidation explicite à l'expiration passive pour les données critiques. Le TTL est un filet de sécurité, pas le mécanisme principal d'invalidation.
 -->
 

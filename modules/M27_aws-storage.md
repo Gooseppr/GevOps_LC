@@ -412,7 +412,14 @@ format: knowledge
 tags: s3,glacier,classes,coûts,archive
 title: Classes de stockage S3 – Optimiser les coûts
 context: choisir la bonne classe S3 selon la fréquence d'accès
-content: S3 Standard (accès fréquent, production), S3 Intelligent-Tiering (accès variable, AWS gère automatiquement le tier), S3 Standard-IA (backups peu fréquents mais accès rapide), S3 Glacier Instant Retrieval (archives + accès en ms), S3 Glacier Flexible Retrieval (archives long terme, récupération en minutes à heures), S3 Glacier Deep Archive (retention légale > 7 ans, récupération en 12h, le moins cher). Utiliser le Lifecycle pour automatiser les transitions.
+content: |
+  - Standard : accès fréquent, production
+  - Intelligent-Tiering : accès variable, AWS gère automatiquement le tier
+  - Standard-IA : backups peu fréquents, accès rapide
+  - Glacier Instant Retrieval : archives + accès en millisecondes
+  - Glacier Flexible Retrieval : archives long terme, récupération en minutes à heures
+  - Glacier Deep Archive : rétention légale > 7 ans, récupération en 12h, le moins cher
+description: Utiliser le Lifecycle pour automatiser les transitions entre classes.
 -->
 
 <!-- snippet

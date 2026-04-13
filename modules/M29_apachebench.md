@@ -321,7 +321,12 @@ format: knowledge
 tags: apachebench,limites,alternatives,performance
 title: Limites d'ApacheBench – Quand utiliser une alternative
 context: choisir le bon outil de test de charge selon la complexité du scénario
-content: ApacheBench est mono-thread (ne sature pas les serveurs multi-CPU modernes), ne supporte pas les scénarios complexes (multi-étapes, cookies dynamiques, sessions), ne simule pas de "think time" utilisateur réel et ne produit pas de dashboard graphique. Pour les tests de production sérieux, préférer : k6 (scripting moderne, intégration CI, métriques Grafana), Locust (scénarios Python réalistes), wrk (multithread très performant). AB reste utile pour les benchmarks rapides et la validation d'optimisations simples.
+content: |
+  - Mono-thread : ne sature pas les serveurs multi-CPU modernes
+  - Pas de scénarios complexes (multi-étapes, cookies dynamiques, sessions)
+  - Pas de "think time" utilisateur réel simulé
+  - Pas de dashboard graphique natif
+description: Pour les tests de production sérieux, préférer k6 (CI/Grafana), Locust (scénarios Python) ou wrk (multithread). AB reste utile pour les benchmarks rapides.
 -->
 
 ---

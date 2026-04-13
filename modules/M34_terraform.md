@@ -824,7 +824,16 @@ format: knowledge
 tags: terraform,blocs,resource,variable,output,provider
 title: Les 8 types de blocs Terraform et leurs rôles
 context: comprendre la structure d'un projet Terraform et le rôle de chaque bloc
-content: Les 8 blocs Terraform sont : terraform (configuration globale, version, providers requis), provider (accès au cloud : région, credentials), resource (créer/modifier une ressource : EC2, VPC, S3…), data (lire une ressource existante sans la créer), variable (paramètres configurables), locals (valeurs internes calculées), output (exposer une info après apply : IP, URL) et module (regrouper et réutiliser des ressources). Seul resource crée effectivement quelque chose.
+content: |
+  - terraform : configuration globale, version, providers requis
+  - provider : accès au cloud (région, credentials)
+  - resource : créer/modifier une ressource (EC2, VPC, S3…)
+  - data : lire une ressource existante sans la créer
+  - variable : paramètres configurables
+  - locals : valeurs internes calculées
+  - output : exposer une info après apply (IP, URL)
+  - module : regrouper et réutiliser des ressources
+description: Seul `resource` crée effectivement quelque chose dans le cloud.
 -->
 
 <!-- snippet

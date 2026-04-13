@@ -240,7 +240,11 @@ format: knowledge
 tags: paas,serverless,iaas,modèles,cloud
 title: IaaS vs PaaS vs Serverless – Comparaison des modèles cloud
 context: choisir le bon modèle d'exécution cloud selon le besoin
-content: IaaS (EC2, GCE, Azure VM) : le cloud gère le matériel, toi l'OS, le runtime et le déploiement. Contrôle total. PaaS (AWS AppRunner, Azure App Service, Google App Engine) : le cloud gère OS + runtime + scaling, toi uniquement le code. Serverless (Lambda, Azure Functions, Cloud Functions) : le cloud gère tout, tu fournis uniquement le code déclenché par des événements. Facturation uniquement à l'exécution. Plus on monte vers Serverless, moins on gère d'infrastructure, mais moins on a de contrôle.
+content: |
+  - IaaS (EC2, GCE, Azure VM) : cloud gère le matériel, toi l'OS, le runtime et le déploiement
+  - PaaS (AppRunner, App Service, App Engine) : cloud gère OS + runtime + scaling, toi uniquement le code
+  - Serverless (Lambda, Azure Functions, Cloud Functions) : cloud gère tout, tu fournis le code déclenché par événements
+description: Plus on monte vers Serverless, moins on gère d'infrastructure, mais moins on a de contrôle.
 -->
 
 <!-- snippet
@@ -253,7 +257,13 @@ format: knowledge
 tags: lambda,cold-start,serverless,performance
 title: Cold Start Lambda – Latence au premier appel
 context: comprendre et atténuer les démarrages à froid des fonctions Lambda
-content: Un cold start se produit lorsqu'une Lambda est invoquée pour la première fois ou après une période d'inactivité : AWS doit initialiser le runtime et charger le code, ajoutant une latence de quelques centaines de ms à quelques secondes selon le langage et la taille du package. Pour réduire les cold starts : utiliser des runtimes compilés (Go, Rust), réduire la taille du déploiement, utiliser Provisioned Concurrency (Lambda keep-warm), éviter de charger des dépendances inutiles.
+content: |
+  Au premier appel ou après inactivité, AWS initialise le runtime et charge le code — latence de quelques centaines de ms à quelques secondes selon le langage.
+  Pour réduire les cold starts :
+  - Utiliser des runtimes compilés (Go, Rust)
+  - Réduire la taille du package de déploiement
+  - Activer Provisioned Concurrency pour maintenir des instances chaudes
+  - Éviter de charger des dépendances inutiles au démarrage
 -->
 
 <!-- snippet
@@ -279,7 +289,11 @@ format: knowledge
 tags: paas,apprunner,app-service,google-app-engine
 title: Services PaaS AWS, Azure et GCP
 context: déployer une application web sans gérer les serveurs
-content: AWS AppRunner : déploiement simplifié de containers ou code source, auto-scaling, CI/CD intégré, mais personnalisation limitée. Azure App Service : très complet, support Windows et Linux, staging slots, WebJobs. Google App Engine : simple, intégration Cloud, mais environnement parfois restrictif. En PaaS, l'application complète est déployée (contrairement au Serverless où seules des fonctions sont déclenchées). Durée d'exécution illimitée, facturation par ressources allouées.
+content: |
+  - AWS AppRunner : déploiement simplifié containers/code source, auto-scaling, CI/CD intégré, personnalisation limitée
+  - Azure App Service : très complet, Windows et Linux, staging slots, WebJobs
+  - Google App Engine : simple, intégration Cloud, environnement parfois restrictif
+description: En PaaS, l'application complète est déployée (≠ Serverless). Durée d'exécution illimitée, facturation par ressources allouées.
 -->
 
 <!-- snippet
@@ -292,7 +306,11 @@ format: knowledge
 tags: ci-cd,codepipeline,azure-devops,cloud-build
 title: Pipelines CI/CD cloud – AWS, Azure et GCP
 context: automatiser le build, les tests et le déploiement d'une application
-content: AWS CodePipeline : automatisation complète, excellente intégration avec Lambda, ECS, AppRunner et EC2. Azure DevOps Pipelines : très intégré à l'écosystème Microsoft, supporte de nombreux langages. Google Cloud Build : scalable, paiement à l'usage, moins de plugins. Les pipelines CI/CD dans le cloud éliminent les interventions manuelles, garantissent des déploiements cohérents, permettent le rollback automatique et s'intègrent nativement avec le PaaS et le Serverless.
+content: |
+  - AWS CodePipeline : intégration native Lambda, ECS, AppRunner et EC2
+  - Azure DevOps Pipelines : très intégré à l'écosystème Microsoft, support multi-langages
+  - Google Cloud Build : scalable, paiement à l'usage, moins de plugins
+description: Les pipelines CI/CD cloud éliminent les interventions manuelles, garantissent des déploiements cohérents et permettent le rollback automatique.
 -->
 
 <!-- snippet
@@ -305,7 +323,12 @@ format: knowledge
 tags: serverless,sécurité,iam,surface-attaque
 title: Sécurité Serverless – Surface d'attaque minimale
 context: comprendre les avantages sécurité du modèle serverless
-content: Le Serverless expose uniquement la fonction, pas un serveur entier : surface d'attaque minimale. AWS gère les patchs du runtime (pas de CVE à gérer). Les fonctions Lambda sont isolées dans des microVMs (Firecracker). Chaque fonction doit avoir son propre IAM Role avec le minimum de permissions (principe du moindre privilège). Excellente résistance naturelle aux DDoS grâce au scaling automatique et à l'isolation. Utiliser des variables d'environnement chiffrées ou AWS Secrets Manager pour les secrets.
+content: |
+  - Surface d'attaque minimale : seule la fonction est exposée, pas un serveur entier
+  - AWS gère les patchs du runtime (zéro CVE à gérer côté client)
+  - Isolation en microVMs Firecracker entre chaque invocation Lambda
+  - Résistance naturelle aux DDoS grâce au scaling automatique
+description: Chaque fonction doit avoir son propre IAM Role au minimum de permissions. Utiliser AWS Secrets Manager pour les secrets, pas des variables d'environnement en clair.
 -->
 
 ---

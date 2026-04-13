@@ -37,12 +37,12 @@ jobs:
           BREVO_SMTP_KEY: ${{ secrets.BREVO_SMTP_KEY }}
 
       - name: Extract snippets (mise à jour du cache)
-        run: python pipeline/Z0_extract_snippets.py
+        run: python pipeline/data_extract_snippets.py
 
       - name: Send daily review email
         env:
           BREVO_SMTP_KEY: ${{ secrets.BREVO_SMTP_KEY }}
-        run: python pipeline/ZZ_daily_review.py
+        run: python pipeline/email_daily_review.py
 
       - name: Commit updated state
         run: |

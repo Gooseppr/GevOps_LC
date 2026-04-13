@@ -1,0 +1,23 @@
+{
+  "sujet": "API REST",
+  "generated_at": "2026-04-12T19:58:34",
+  "total_modules": 24,
+  "generated_count": 15,
+  "files": [
+    "courses/api_rest/10_authentification_autorisation.md",
+    "courses/api_rest/11_securite_api.md",
+    "courses/api_rest/12_documentation_api.md",
+    "courses/api_rest/13_tests_api.md",
+    "courses/api_rest/14_observabilite_api.md",
+    "courses/api_rest/15_versioning_api.md",
+    "courses/api_rest/16_performance_api.md",
+    "courses/api_rest/17_api_gateway.md",
+    "courses/api_rest/18_protocoles_avances.md",
+    "courses/api_rest/19_resilience_api.md",
+    "courses/api_rest/20_securite_avancee.md",
+    "courses/api_rest/21_cicd_deploiement_api.md",
+    "courses/api_rest/22_monitoring_alerting.md",
+    "courses/api_rest/23_design_avance_api.md",
+    "courses/api_rest/24_antipatterns_api.md"
+  ]
+}

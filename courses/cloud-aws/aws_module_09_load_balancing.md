@@ -254,7 +254,9 @@ importance: high
 format: knowledge
 tags: aws,elb,healthcheck,incident
 title: Health check mal configuré — deux façons de provoquer un incident
-content: Un health check mal configuré a deux effets opposés et tout aussi désastreux : (1) Trop permissif — l'endpoint /health retourne 200 même quand RDS ou Redis est inaccessible, laissant des instances défaillantes recevoir du trafic. (2) Trop strict — timeout trop court ou threshold trop bas, des instances saines mais momentanément lentes sont retirées, aggravant la charge sur les restantes. Tester l'endpoint indépendamment ET simuler une défaillance de dépendance pour valider le comportement dans les deux sens.
+content: |
+  - Trop permissif : /health retourne 200 même si RDS ou Redis est inaccessible — le LB envoie du trafic vers des instances qui échouent sur chaque requête
+  - Trop strict : timeout trop court ou threshold trop bas — des instances saines mais lentes sont retirées, aggravant la charge sur les restantes
 description: L'endpoint /health doit refléter l'état réel des dépendances critiques. Tester les deux scénarios : instance saine et instance dégradée.
 -->
 
@@ -283,7 +285,12 @@ importance: high
 format: knowledge
 tags: aws,autoscaling,asg,scaling,cloudwatch
 title: Fonctionnement d'un Auto Scaling Group
-content: Un ASG est défini par trois valeurs : min (plancher absolu), max (plafond absolu) et desired (cible courante). Les politiques de scaling modifient desired en réponse aux métriques CloudWatch. Target Tracking est le mode recommandé : tu définis une valeur cible pour une métrique, AWS ajuste desired automatiquement. Le cooldown entre chaque action (défaut 300s) évite les oscillations. Important : un desired=0 avec min=0 vide complètement le groupe — toutes les instances sont terminées.
+content: |
+  Un ASG est défini par 3 valeurs : `min` (plancher), `max` (plafond), `desired` (cible courante modifiée par les politiques).
+  - Target Tracking (recommandé) : AWS ajuste `desired` pour atteindre une métrique cible (ex : CPU à 60%)
+  - Step Scaling : règles conditionnelles par seuils
+  - Scheduled Scaling : ajustements planifiés pour des pics prévisibles
+  Le cooldown (défaut 300s) évite les oscillations rapides entre scale-out et scale-in.
 description: Ne pas confondre desired (cible courante, modifiable) et min/max (limites absolues). desired=0 avec min=0 = ASG vide.
 -->
 
@@ -302,7 +309,7 @@ importance: high
 format: knowledge
 tags: aws,autoscaling,stateless,architecture,elasticache,s3
 title: Stateless — prérequis indispensable au scaling élastique
-content: Une instance qui conserve un état local (sessions en mémoire, fichiers sur disque) ne peut pas être supprimée sans perte. Pour que l'ASG puisse terminer n'importe quelle instance librement, externaliser les sessions vers ElastiCache (Redis ou Memcached) et les fichiers vers S3. Le test de validation : terminer une instance en cours d'utilisation et vérifier que les utilisateurs actifs ne perdent ni leur session ni leurs données. Si ce test échoue, l'architecture n'est pas prête pour le scaling élastique.
+content: Toute instance stockant un état local (sessions en mémoire, fichiers sur disque) ne peut pas être terminée sans perte — l'ASG ne peut pas scaler librement. Externaliser les sessions vers ElastiCache et les fichiers vers S3 avant d'activer le scaling. Test de validation : terminer une instance en cours d'utilisation et vérifier qu'aucun utilisateur ne perd sa session.
 description: Externaliser sessions (ElastiCache) et fichiers (S3) avant d'activer l'ASG. C'est un prérequis, pas une optimisation.
 -->
 

@@ -575,7 +575,10 @@ format: knowledge
 tags: dynamodb,rds,nosql,sql,choix
 title: Choisir entre DynamoDB et RDS
 context: sélectionner le bon service de base de données selon le type de données
-content: RDS (SQL) : données très structurées, contraintes d'intégrité (ACID), relations complexes (JOIN). Idéal pour finance, commandes, CRM. DynamoDB (NoSQL) : données flexibles, volumes massifs, scalabilité horizontale native, latence en ms. Idéal pour sessions, catalogues produits, events, logs. Si les données sont semi-structurées ou que les patterns d'accès sont simples → DynamoDB. Si on a besoin de transactions ACID et de jointures complexes → RDS ou Aurora.
+content: |
+  - RDS (SQL) : données structurées, contraintes ACID, relations complexes (JOIN) — finance, commandes, CRM
+  - DynamoDB (NoSQL) : données flexibles, volumes massifs, scalabilité horizontale, latence en ms — sessions, catalogues, events, logs
+description: Données semi-structurées ou patterns d'accès simples → DynamoDB. Transactions ACID et jointures → RDS ou Aurora.
 -->
 
 <!-- snippet
@@ -614,7 +617,7 @@ format: knowledge
 tags: rds,coûts,reserved-instances,finops
 title: Réduire les coûts RDS avec les Reserved Instances
 context: optimiser la facture RDS pour des workloads stables long terme
-content: Pour des bases RDS utilisées en continu (> 1 an), les Reserved Instances offrent des réductions de 30 à 60% par rapport au tarif à la demande. Engagement 1 ou 3 ans avec paiement upfront partiel ou total. À combiner avec un dimensionnement correct (surveiller CPU, IOPS, connexions avec CloudWatch avant de choisir la taille). Pour des bases très longues à utilisation prévisible : Reserved Instances avec paiement partiel upfront = meilleur rapport coût/engagement.
+content: Pour une base RDS qui tourne en continu, les Reserved Instances réduisent la facture de 30 à 60% (engagement 1 ou 3 ans, paiement upfront partiel ou total). Valider le dimensionnement avec CloudWatch (CPU, IOPS, connexions) avant de s'engager — une RI sur-dimensionnée n'amortit jamais l'économie attendue.
 -->
 
 <!-- snippet
@@ -641,7 +644,13 @@ format: knowledge
 tags: rds,sécurité,kms,tls,secrets-manager
 title: Sécurité RDS – Chiffrement, réseau et gestion des secrets
 context: sécuriser une instance RDS en production
-content: Sécurité RDS en couches. Réseau : VPC privé + Security Group (seule l'application peut se connecter sur le port DB). Données au repos : chiffrement KMS activé à la création. Données en transit : TLS obligatoire. Identité : IAM DB Auth (tokens STS au lieu de mots de passe). Secrets : AWS Secrets Manager gère et fait tourner automatiquement les mots de passe. Ne jamais exposer une instance RDS directement sur Internet (public accessibility = false en production).
+content: |
+  - Réseau : VPC privé + Security Group (seule l'application peut accéder au port DB)
+  - Données au repos : chiffrement KMS activé à la création
+  - Données en transit : TLS obligatoire
+  - Identité : IAM DB Auth (tokens STS au lieu de mots de passe fixes)
+  - Secrets : AWS Secrets Manager gère et fait tourner les credentials automatiquement
+description: Ne jamais exposer une instance RDS directement sur Internet (public accessibility = false en production).
 -->
 
 ---

@@ -18,10 +18,10 @@ Elle est composée de deux parties :
 | Frontend JS | `assets/nav.js` + `assets/nav-data.json` (arbre de navigation) |
 | Diagrammes | Mermaid (mindmaps, flowcharts dans les `.md`) |
 | Automation | Python 3.12+ (scripts `pipeline/`) |
-| Emails | Brevo SMTP (`ZZ_daily_review.py`) |
+| Emails | Brevo SMTP (`email_daily_review.py`) |
 | CI/CD | GitHub Actions (`.github/workflows/daily_review.yml`) |
 | Secrets | Windows Credential Manager (`keyring`) + GitHub Secrets |
-| Génération IA | API Anthropic via `pipeline/Z_generate_course.py` |
+| Génération IA | API Anthropic via `pipeline/ai_generate_course.py` |
 
 ---
 
@@ -43,29 +43,48 @@ Coursite/
 
 ---
 
-## Pipeline — scripts clés
+## Pipeline — runners et scripts clés
 
-### Modules pipeline (après édition de `modules/`)
+### Convention de nommage
+- `run_*.py` — orchestrateurs qui enchaînent plusieurs scripts
+- `mod_*.py` — scripts unitaires pour les modules
+- `crs_*.py` — scripts unitaires pour les cours
+- `data_*.py` — scripts unitaires pour les données/snippets
+- `ai_*.py` — scripts utilisant l'API Claude
+- `git_push.py`, `email_*.py`, `config_*.py` — scripts utilitaires
+
+### Après édition de `modules/`
 ```bash
-python pipeline/ZZ_run_push.py
+python pipeline/run_modules.py
 ```
-Exécute : sujets-module → modules_jours → tags_jours → update_index → modules_prec_suiv → git push
+Exécute : mod_extract_subjects → mod_build_days → mod_tags_to_days → mod_update_index → mod_nav_links → git_push
 
-### Cours pipeline (après édition de `courses/`)
+### Après édition de `courses/`
 ```bash
-python pipeline/ZZ_run_all.py
+python pipeline/run_courses.py
 ```
-Exécute : fix_frontmatter → update_course_indexes → scan_courses → scan_themes → courses_prec_suiv → git push
+Exécute : mod_fix_frontmatter → crs_update_indexes → crs_scan_index → crs_scan_themes → crs_nav_links → git_push
 
-### Snippets & emails quotidiens
+### Après ajout de snippets dans les `.md`
 ```bash
-python pipeline/Z0_extract_snippets.py          # Extrait les blocs <!-- snippet --> → _data/snippets.json
-python pipeline/ZZ_daily_review.py              # Envoie 5 snippets/utilisateur par email
-python pipeline/ZZ_daily_review.py --dry-run    # Génère dry_run_<nom>.html sans envoyer ni toucher l'état
-python pipeline/ZZ_daily_review.py --user Greg  # Envoie uniquement pour un utilisateur (nom ou email)
+python pipeline/run_snippets.py
+```
+Exécute : data_extract_snippets → git_push
+
+### Rebuild complet
+```bash
+python pipeline/run_full.py
+```
+Enchaîne run_modules + run_courses + data_extract_snippets + git_push
+
+### Emails quotidiens
+```bash
+python pipeline/email_daily_review.py              # Envoie 5 snippets/utilisateur par email
+python pipeline/email_daily_review.py --dry-run    # Génère dry_run_<nom>.html sans envoyer ni toucher l'état
+python pipeline/email_daily_review.py --user Greg  # Envoie uniquement pour un utilisateur (nom ou email)
 ```
 
-Le rendu HTML de `ZZ_daily_review.py` affiche pour chaque snippet `command` :
+Le rendu HTML de `email_daily_review.py` affiche pour chaque snippet `command` :
 1. La commande générique avec les `<VAR>` mises en valeur (violet/italique)
 2. Un bloc vert "▶ Exemple concret" si le champ `example:` est présent
 3. Un lien **"Voir le cours →"** en bas de carte pointant vers la page source sur le site
@@ -114,7 +133,7 @@ Pour les types `concept`, `warning`, `tip`, `error`, utiliser `content:` à la p
 
 **Règle `example`** : tout snippet `command` dont la commande contient une variable `<VAR>` doit avoir un champ `example:` avec une valeur concrète et réaliste. Les commandes sans variable n'ont pas besoin d'exemple.
 
-Extraits par `Z0_extract_snippets.py` → `_data/snippets.json`.
+Extraits par `data_extract_snippets.py` → `_data/snippets.json`.
 
 ---
 
@@ -123,7 +142,7 @@ Extraits par `Z0_extract_snippets.py` → `_data/snippets.json`.
 - **Push sur `main`** → GitHub Pages construit et déploie automatiquement le site Jekyll.
 - **URL du site** : `https://gooseppr.github.io/GevOps_LC`
 - **GitHub Actions** → email quotidien à 10h CET (08:00 UTC).
-- Les scripts Python commitent eux-mêmes via `ZY_auto_push.py`.
+- Les scripts Python commitent eux-mêmes via `git_push.py`.
 
 ---
 
@@ -156,5 +175,5 @@ next: /courses/docker/04-volumes
 ## Ce qu'il ne faut pas toucher sans raison
 
 - `_data/snippets.json`, `_data/courses.json`, `assets/nav-data.json` — **générés automatiquement**, ne pas éditer à la main.
-- `pipeline/review_state.json` — état vivant des envois email, ne pas réinitialiser sans `Z0_reset_state.py`.
-- `jours/` — pages générées par `Z0_modules_jours.py`.
+- `pipeline/review_state.json` — état vivant des envois email, ne pas réinitialiser sans `state_reset_review.py`.
+- `jours/` — pages générées par `mod_build_days.py`.

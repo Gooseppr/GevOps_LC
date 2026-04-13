@@ -344,7 +344,10 @@ importance: high
 format: knowledge
 tags: aws,incident,healthcheck,alb,dns
 title: Downtime total malgré une architecture "HA"
-content: Un downtime complet sur une archi présentée comme HA révèle généralement l'un de ces trois problèmes : (1) les health checks ALB vérifient juste le port 80 et marquent tout healthy même quand l'appli est cassée — ajouter un path qui vérifie la DB, (2) le security group bloque la connexion depuis la nouvelle AZ après failover RDS, (3) le DNS TTL est à 300s+ et les clients continuent de requêter l'ancien IP pendant plusieurs minutes — abaisser à 30-60s sur les enregistrements critiques.
+content: |
+  - Health checks ALB trop permissifs : vérifient juste le port 80, pas l'état de la DB — l'appli est cassée mais reste "healthy"
+  - Security Group bloquant la connexion depuis la nouvelle AZ après failover RDS
+  - DNS TTL trop long (≥ 300s) : les clients continuent de requêter l'ancien IP pendant plusieurs minutes — abaisser à 30-60s
 description: La configuration HA et son efficacité réelle ne sont pas la même chose — seuls des tests de failover réguliers permettent de valider que la bascule fonctionne comme prévu.
 -->
 
