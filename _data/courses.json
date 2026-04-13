@@ -12,24 +12,6 @@
     "index_path": "/GevOps_LC/courses/api_rest/index.html",
     "themes": [
       {
-        "id": "general",
-        "title": "Général",
-        "modules": [
-          {
-            "title": "00_Plan",
-            "path": "/GevOps_LC/courses/api_rest/00_plan.html",
-            "file": "00_plan.md",
-            "chapter_title": "Général",
-            "chapter": 0,
-            "section": 0,
-            "tags": [],
-            "difficulty": "",
-            "duration": "",
-            "mermaid": false
-          }
-        ]
-      },
-      {
         "id": "fondamentaux-des-api",
         "title": "Fondamentaux des API",
         "modules": [
