@@ -2,7 +2,7 @@
 layout: page
 title: "Sécurité des API REST"
 
-course: api-rest
+course: api_rest
 chapter_title: "Sécurité API"
 
 chapter: 6
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-icon: "🔐"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/08_creation_api_backend.html"
+prev_module_title: "Créer une API REST (backend)"
+next_module: "/courses/api_rest/17_api_gateway.html"
+next_module_title: "API Gateway & Architecture distribuée"
 ---
 
 # Sécurité des API REST

@@ -14,6 +14,10 @@ duration: 95
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_11_dependencies_packaging.html"
+prev_module_title: "Gestion des dépendances & packaging Python"
+next_module: "/courses/python/module_13_logging.html"
+next_module_title: "Logging & observabilité en Python"
 ---
 
 # Tests en Python avec pytest
@@ -188,4 +192,3 @@ title: Tester uniquement nominal
 content: tester seulement cas normal → bugs en prod → tester cas limites
 description: piège critique
 -->
-

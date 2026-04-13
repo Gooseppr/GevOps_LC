@@ -1,0 +1,90 @@
+{
+  "standalone": [
+    {
+      "id": "cloud-aws",
+      "title": "Cloud & AWS",
+      "icon": "☁️",
+      "status": "En construction",
+      "path": "/courses/cloud-aws/"
+    },
+    {
+      "id": "python",
+      "title": "Python",
+      "icon": "🐍",
+      "status": "En construction",
+      "path": "/courses/python/"
+    }
+  ],
+  "groups": [
+    {
+      "id": "conteneur",
+      "title": "Conteneur",
+      "icon": "🐳",
+      "courses": [
+        {
+          "id": "docker",
+          "title": "Docker",
+          "icon": "🐳",
+          "status": "published",
+          "path": "/courses/docker/"
+        }
+      ]
+    },
+    {
+      "id": "automatisation",
+      "title": "Automatisation",
+      "icon": "⚙️",
+      "courses": [
+        {
+          "id": "automation",
+          "title": "Automatisation",
+          "icon": "⚙️",
+          "status": "En construction",
+          "path": "/courses/automation/"
+        },
+        {
+          "id": "n8n",
+          "title": "n8n",
+          "icon": "🔄",
+          "status": "En construction",
+          "path": "/courses/n8n/"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "title": "Data",
+      "icon": "📈",
+      "courses": [
+        {
+          "id": "R",
+          "title": "R",
+          "icon": "📊",
+          "status": "En construction",
+          "path": "/courses/R/"
+        },
+        {
+          "id": "SQL",
+          "title": "SQL",
+          "icon": "🗄️",
+          "status": "published",
+          "path": "/courses/SQL/"
+        }
+      ]
+    },
+    {
+      "id": "event",
+      "title": "Event",
+      "icon": "📨",
+      "courses": [
+        {
+          "id": "kafka",
+          "title": "Kafka",
+          "icon": "📊",
+          "status": "En construction",
+          "path": "/courses/kafka/"
+        }
+      ]
+    }
+  ]
+}

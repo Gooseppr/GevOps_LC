@@ -2,7 +2,7 @@
 layout: page
 title: "Observabilité API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Observabilité API"
 
 chapter: 9
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-icon: "🔭"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/21_cicd_deploiement_api.html"
+prev_module_title: "CI/CD & déploiement API"
+next_module: "/courses/api_rest/19_resilience_api.html"
+next_module_title: "Résilience & fiabilité des API en production"
 ---
 
 # Observabilité API

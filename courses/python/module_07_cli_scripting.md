@@ -14,6 +14,10 @@ duration: 80
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_06_io_fichiers.html"
+prev_module_title: "I/O & manipulation de fichiers en Python"
+next_module: "/courses/python/module_08_debugging.html"
+next_module_title: "Debugging & introspection en Python"
 ---
 
 # CLI & scripting Python
@@ -167,4 +171,3 @@ title: Hardcoder arguments
 content: valeurs codées en dur → script non réutilisable → utiliser argparse
 description: piège courant
 -->
-

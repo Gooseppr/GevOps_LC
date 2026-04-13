@@ -10,6 +10,10 @@ difficulty: intermediate
 duration: 95
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_09_load_balancing.html"
+prev_module_title: "Load Balancer & Auto Scaling — Scalabilité AWS"
+next_module: "/courses/cloud-aws/aws_module_11_dns_cdn.html"
+next_module_title: "DNS & CDN — Route 53 et CloudFront"
 ---
 
 # Bases de données AWS — RDS, Aurora, DynamoDB

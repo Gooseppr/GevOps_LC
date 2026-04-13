@@ -2,7 +2,7 @@
 layout: page
 title: "Tests API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Tests API"
 
 chapter: 8
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 75
 mermaid: true
 
-icon: "🧪"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/18_protocoles_avances.html"
+prev_module_title: "Protocoles avancés : gRPC, WebSocket, GraphQL et Server-Sent Events"
+next_module: "/courses/api_rest/21_cicd_deploiement_api.html"
+next_module_title: "CI/CD & déploiement API"
 ---
 
 # Tests API

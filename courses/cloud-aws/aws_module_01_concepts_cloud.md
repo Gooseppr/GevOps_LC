@@ -10,6 +10,10 @@ difficulty: beginner
 duration: 45
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/PLAN.html"
+prev_module_title: "PLAN"
+next_module: "/courses/cloud-aws/aws_module_02_iam.html"
+next_module_title: "IAM — Gestion des identités AWS"
 ---
 
 # Concepts Cloud & Modèles AWS

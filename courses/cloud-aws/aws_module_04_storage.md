@@ -10,6 +10,10 @@ difficulty: beginner
 duration: 80
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_03_ec2.html"
+prev_module_title: "EC2 — Compute AWS (instances, réseau, bootstrap)"
+next_module: "/courses/cloud-aws/aws_module_05_vpc.html"
+next_module_title: "Réseau AWS — VPC, Subnets, Routing"
 ---
 
 # Stockage AWS — S3 / EBS / EFS

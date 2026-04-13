@@ -1,5 +1,1141 @@
 [
   {
+    "id": "api",
+    "title": "Api",
+    "description": "",
+    "icon": "",
+    "status": "En construction",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
+    "path": "/courses/api/",
+    "index_path": "/GevOps_LC/courses/api/index.html",
+    "themes": [
+      {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "Api_Modules_Table",
+            "path": "/GevOps_LC/courses/api/api_modules_table.html",
+            "file": "api_modules_table.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "api_rest",
+    "title": "Api_Rest",
+    "description": "",
+    "icon": "",
+    "status": "En construction",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
+    "path": "/courses/api_rest/",
+    "index_path": "/GevOps_LC/courses/api_rest/index.html",
+    "themes": [
+      {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "00_Plan",
+            "path": "/GevOps_LC/courses/api_rest/00_plan.html",
+            "file": "00_plan.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "fondamentaux-des-api",
+        "title": "Fondamentaux des API",
+        "modules": [
+          {
+            "title": "Fondamentaux des API",
+            "path": "/GevOps_LC/courses/api_rest/01_fondamentaux_api.html",
+            "file": "01_fondamentaux_api.md",
+            "chapter_title": "Fondamentaux des API",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "api",
+              "rest",
+              "http",
+              "contrat",
+              "interface",
+              "architecture"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "http-rest-indispensable",
+        "title": "HTTP & REST (indispensable)",
+        "modules": [
+          {
+            "title": "HTTP & REST — Les fondations indispensables des API",
+            "path": "/GevOps_LC/courses/api_rest/02_http_rest.html",
+            "file": "02_http_rest.md",
+            "chapter_title": "HTTP & REST (indispensable)",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "http",
+              "rest",
+              "api",
+              "méthodes http",
+              "codes de statut",
+              "idempotence",
+              "headers"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "consommer-une-api",
+        "title": "Consommer une API",
+        "modules": [
+          {
+            "title": "Consommer une API",
+            "path": "/GevOps_LC/courses/api_rest/03_consommation_api.html",
+            "file": "03_consommation_api.md",
+            "chapter_title": "Consommer une API",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "api",
+              "rest",
+              "curl",
+              "postman",
+              "json",
+              "http",
+              "bearer-token",
+              "python",
+              "javascript"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "formats-de-donnees",
+        "title": "Formats de données",
+        "modules": [
+          {
+            "title": "Formats de données : JSON, XML, CSV et les autres",
+            "path": "/GevOps_LC/courses/api_rest/04_formats_donnees.html",
+            "file": "04_formats_donnees.md",
+            "chapter_title": "Formats de données",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "json",
+              "xml",
+              "csv",
+              "api",
+              "formats",
+              "serialisation",
+              "content-type"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "fondations",
+        "title": "Fondations",
+        "modules": [
+          {
+            "title": "Gestion des erreurs API",
+            "path": "/GevOps_LC/courses/api_rest/06_gestion_erreurs_api.html",
+            "file": "06_gestion_erreurs_api.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 5,
+            "tags": [
+              "api",
+              "rest",
+              "erreurs",
+              "http",
+              "debug",
+              "codes-statut"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "http-rest",
+        "title": "HTTP & REST",
+        "modules": [
+          {
+            "title": "Structure d'une API REST",
+            "path": "/GevOps_LC/courses/api_rest/05_structure_api_rest.html",
+            "file": "05_structure_api_rest.md",
+            "chapter_title": "HTTP & REST",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "rest",
+              "http",
+              "architecture",
+              "api",
+              "endpoints",
+              "ressources"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "bonnes-pratiques-de-base",
+        "title": "Bonnes pratiques de base",
+        "modules": [
+          {
+            "title": "Bonnes pratiques de base pour une API REST",
+            "path": "/GevOps_LC/courses/api_rest/07_bonnes_pratiques_base.html",
+            "file": "07_bonnes_pratiques_base.md",
+            "chapter_title": "Bonnes pratiques de base",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "api",
+              "rest",
+              "architecture",
+              "bonnes-pratiques",
+              "conception"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "creer-une-api-backend",
+        "title": "Créer une API (backend)",
+        "modules": [
+          {
+            "title": "Créer une API REST (backend)",
+            "path": "/GevOps_LC/courses/api_rest/08_creation_api_backend.html",
+            "file": "08_creation_api_backend.md",
+            "chapter_title": "Créer une API (backend)",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "api",
+              "rest",
+              "backend",
+              "python",
+              "fastapi",
+              "http"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "architecture-api",
+        "title": "Architecture API",
+        "modules": [
+          {
+            "title": "Architecture API",
+            "path": "/GevOps_LC/courses/api_rest/09_architecture_api.html",
+            "file": "09_architecture_api.md",
+            "chapter_title": "Architecture API",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "api",
+              "rest",
+              "architecture",
+              "design",
+              "backend",
+              "microservices",
+              "gateway"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "authentification-autorisation",
+        "title": "Authentification & Autorisation",
+        "modules": [
+          {
+            "title": "Authentification & Autorisation dans les API REST",
+            "path": "/GevOps_LC/courses/api_rest/10_authentification_autorisation.html",
+            "file": "10_authentification_autorisation.md",
+            "chapter_title": "Authentification & Autorisation",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "authentification",
+              "autorisation",
+              "jwt",
+              "oauth2",
+              "api-key",
+              "bearer-token",
+              "securite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "securite-api",
+        "title": "Sécurité API",
+        "modules": [
+          {
+            "title": "Sécurité des API REST",
+            "path": "/GevOps_LC/courses/api_rest/11_securite_api.html",
+            "file": "11_securite_api.md",
+            "chapter_title": "Sécurité API",
+            "chapter": 6,
+            "section": 1,
+            "tags": [
+              "api",
+              "sécurité",
+              "authentification",
+              "autorisation",
+              "oauth2",
+              "jwt",
+              "rate-limiting",
+              "https"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "documentation-api",
+        "title": "Documentation API",
+        "modules": [
+          {
+            "title": "Documentation API",
+            "path": "/GevOps_LC/courses/api_rest/12_documentation_api.html",
+            "file": "12_documentation_api.md",
+            "chapter_title": "Documentation API",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "api",
+              "documentation",
+              "openapi",
+              "swagger",
+              "redoc",
+              "postman",
+              "markdown"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "tests-api",
+        "title": "Tests API",
+        "modules": [
+          {
+            "title": "Tests API",
+            "path": "/GevOps_LC/courses/api_rest/13_tests_api.html",
+            "file": "13_tests_api.md",
+            "chapter_title": "Tests API",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "api",
+              "tests",
+              "diagnostic",
+              "http",
+              "postman",
+              "curl",
+              "automatisation",
+              "ci-cd"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gestion-des-versions",
+        "title": "Gestion des versions",
+        "modules": [
+          {
+            "title": "Gestion des versions d'API",
+            "path": "/GevOps_LC/courses/api_rest/15_versioning_api.html",
+            "file": "15_versioning_api.md",
+            "chapter_title": "Gestion des versions",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "api",
+              "versioning",
+              "rest",
+              "compatibilité",
+              "url",
+              "header",
+              "négociation"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "performance-api",
+        "title": "Performance API",
+        "modules": [
+          {
+            "title": "Performance API : concevoir et opérer des API rapides en production",
+            "path": "/GevOps_LC/courses/api_rest/16_performance_api.html",
+            "file": "16_performance_api.md",
+            "chapter_title": "Performance API",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "api",
+              "performance",
+              "cache",
+              "rate-limiting",
+              "pagination",
+              "optimisation",
+              "latence"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "api-gateway-architecture-distribuee",
+        "title": "API Gateway & Architecture distribuée",
+        "modules": [
+          {
+            "title": "API Gateway & Architecture distribuée",
+            "path": "/GevOps_LC/courses/api_rest/17_api_gateway.html",
+            "file": "17_api_gateway.md",
+            "chapter_title": "API Gateway & Architecture distribuée",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "api-gateway",
+              "architecture",
+              "microservices",
+              "load-balancing",
+              "rate-limiting",
+              "service-mesh",
+              "reverse-proxy"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "protocoles-avances",
+        "title": "Protocoles avancés",
+        "modules": [
+          {
+            "title": "Protocoles avancés : gRPC, WebSocket, GraphQL et Server-Sent Events",
+            "path": "/GevOps_LC/courses/api_rest/18_protocoles_avances.html",
+            "file": "18_protocoles_avances.md",
+            "chapter_title": "Protocoles avancés",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "grpc",
+              "websocket",
+              "graphql",
+              "server-sent events",
+              "http2",
+              "protobuf",
+              "api",
+              "comparatif"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "design-avance-api",
+        "title": "Design avancé API",
+        "modules": [
+          {
+            "title": "Design avancé d'API REST",
+            "path": "/GevOps_LC/courses/api_rest/23_design_avance_api.html",
+            "file": "23_design_avance_api.md",
+            "chapter_title": "Design avancé API",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "api",
+              "rest",
+              "design",
+              "architecture",
+              "versioning",
+              "pagination",
+              "hypermedia",
+              "idempotence",
+              "contrat"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "observabilite-api",
+        "title": "Observabilité API",
+        "modules": [
+          {
+            "title": "Observabilité API",
+            "path": "/GevOps_LC/courses/api_rest/14_observabilite_api.html",
+            "file": "14_observabilite_api.md",
+            "chapter_title": "Observabilité API",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "api",
+              "observabilité",
+              "monitoring",
+              "logs",
+              "métriques",
+              "tracing",
+              "opentelemetry",
+              "alerting"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "resilience-fiabilite",
+        "title": "Résilience & fiabilité",
+        "modules": [
+          {
+            "title": "Résilience & fiabilité des API en production",
+            "path": "/GevOps_LC/courses/api_rest/19_resilience_api.html",
+            "file": "19_resilience_api.md",
+            "chapter_title": "Résilience & fiabilité",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "api",
+              "resilience",
+              "fiabilite",
+              "circuit-breaker",
+              "retry",
+              "timeout",
+              "rate-limiting",
+              "idempotence"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "securite-avancee",
+        "title": "Sécurité avancée",
+        "modules": [
+          {
+            "title": "Sécurité avancée des API REST",
+            "path": "/GevOps_LC/courses/api_rest/20_securite_avancee.html",
+            "file": "20_securite_avancee.md",
+            "chapter_title": "Sécurité avancée",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "api",
+              "sécurité",
+              "authentification",
+              "autorisation",
+              "oauth2",
+              "jwt",
+              "rate-limiting",
+              "injection",
+              "zero-trust"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "ci-cd-deploiement-api",
+        "title": "CI/CD & déploiement API",
+        "modules": [
+          {
+            "title": "CI/CD & déploiement API",
+            "path": "/GevOps_LC/courses/api_rest/21_cicd_deploiement_api.html",
+            "file": "21_cicd_deploiement_api.md",
+            "chapter_title": "CI/CD & déploiement API",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "ci/cd",
+              "déploiement",
+              "github actions",
+              "docker",
+              "api",
+              "devops",
+              "pipeline",
+              "tests",
+              "production"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "monitoring-alerting",
+        "title": "Monitoring & Alerting",
+        "modules": [
+          {
+            "title": "Monitoring & Alerting pour les API REST",
+            "path": "/GevOps_LC/courses/api_rest/22_monitoring_alerting.html",
+            "file": "22_monitoring_alerting.md",
+            "chapter_title": "Monitoring & Alerting",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "monitoring",
+              "alerting",
+              "api",
+              "observability",
+              "prometheus",
+              "grafana",
+              "slo",
+              "sla",
+              "devops"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "anti-patterns-api",
+        "title": "Anti-patterns API",
+        "modules": [
+          {
+            "title": "Anti-patterns API",
+            "path": "/GevOps_LC/courses/api_rest/24_antipatterns_api.html",
+            "file": "24_antipatterns_api.md",
+            "chapter_title": "Anti-patterns API",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "api",
+              "rest",
+              "anti-patterns",
+              "diagnostic",
+              "conception",
+              "erreurs",
+              "production"
+            ],
+            "difficulty": "advanced",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "api_rest_cheap",
+    "title": "Api_Rest_Cheap",
+    "description": "",
+    "icon": "",
+    "status": "En construction",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
+    "path": "/courses/api_rest_cheap/",
+    "index_path": "/GevOps_LC/courses/api_rest_cheap/index.html",
+    "themes": [
+      {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "00_Plan",
+            "path": "/GevOps_LC/courses/api_rest_cheap/00_plan.html",
+            "file": "00_plan.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "01_Fondamentaux_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/01_fondamentaux_api.html",
+            "file": "01_fondamentaux_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "04_Formats_Donnees",
+            "path": "/GevOps_LC/courses/api_rest_cheap/04_formats_donnees.html",
+            "file": "04_formats_donnees.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "05_Structure_Api_Rest",
+            "path": "/GevOps_LC/courses/api_rest_cheap/05_structure_api_rest.html",
+            "file": "05_structure_api_rest.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "06_Gestion_Erreurs_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/06_gestion_erreurs_api.html",
+            "file": "06_gestion_erreurs_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "07_Bonnes_Pratiques_Base",
+            "path": "/GevOps_LC/courses/api_rest_cheap/07_bonnes_pratiques_base.html",
+            "file": "07_bonnes_pratiques_base.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "09_Architecture_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/09_architecture_api.html",
+            "file": "09_architecture_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "11_Securite_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/11_securite_api.html",
+            "file": "11_securite_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "15_Versioning_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/15_versioning_api.html",
+            "file": "15_versioning_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "17_Api_Gateway",
+            "path": "/GevOps_LC/courses/api_rest_cheap/17_api_gateway.html",
+            "file": "17_api_gateway.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "18_Protocoles_Avances",
+            "path": "/GevOps_LC/courses/api_rest_cheap/18_protocoles_avances.html",
+            "file": "18_protocoles_avances.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "19_Resilience_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/19_resilience_api.html",
+            "file": "19_resilience_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "20_Securite_Avancee",
+            "path": "/GevOps_LC/courses/api_rest_cheap/20_securite_avancee.html",
+            "file": "20_securite_avancee.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "21_Cicd_Deploiement_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/21_cicd_deploiement_api.html",
+            "file": "21_cicd_deploiement_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "22_Monitoring_Alerting",
+            "path": "/GevOps_LC/courses/api_rest_cheap/22_monitoring_alerting.html",
+            "file": "22_monitoring_alerting.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "23_Design_Avance_Api",
+            "path": "/GevOps_LC/courses/api_rest_cheap/23_design_avance_api.html",
+            "file": "23_design_avance_api.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "fondations",
+        "title": "Fondations",
+        "modules": [
+          {
+            "title": "HTTP & REST : Fondamentaux pour les API",
+            "path": "/GevOps_LC/courses/api_rest_cheap/02_http_rest.html",
+            "file": "02_http_rest.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "http",
+              "rest",
+              "api",
+              "protocole",
+              "web",
+              "méthodes-http",
+              "codes-statut"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "integration-et-consommation",
+        "title": "Intégration et consommation",
+        "modules": [
+          {
+            "title": "Consommer une API REST",
+            "path": "/GevOps_LC/courses/api_rest_cheap/03_consommation_api.html",
+            "file": "03_consommation_api.md",
+            "chapter_title": "Intégration et consommation",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "api",
+              "http",
+              "rest",
+              "client",
+              "integration",
+              "beginner"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "creer-une-api-backend",
+        "title": "Créer une API (backend)",
+        "modules": [
+          {
+            "title": "Créer une API REST — du design au déploiement",
+            "path": "/GevOps_LC/courses/api_rest_cheap/08_creation_api_backend.html",
+            "file": "08_creation_api_backend.md",
+            "chapter_title": "Créer une API (backend)",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "api",
+              "rest",
+              "backend",
+              "design",
+              "http",
+              "python",
+              "nodejs"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "securite",
+        "title": "Sécurité",
+        "modules": [
+          {
+            "title": "Authentification & Autorisation dans les API REST",
+            "path": "/GevOps_LC/courses/api_rest_cheap/10_authentification_autorisation.html",
+            "file": "10_authentification_autorisation.md",
+            "chapter_title": "Sécurité",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "authentification",
+              "autorisation",
+              "jwt",
+              "oauth2",
+              "rbac",
+              "tokens",
+              "api-security"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "documentation-api",
+        "title": "Documentation API",
+        "modules": [
+          {
+            "title": "Documentation API — Concevoir une spécification exploitable",
+            "path": "/GevOps_LC/courses/api_rest_cheap/12_documentation_api.html",
+            "file": "12_documentation_api.md",
+            "chapter_title": "Documentation API",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "documentation",
+              "api",
+              "openapi",
+              "swagger",
+              "spécification",
+              "backend"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "tests-api",
+        "title": "Tests API",
+        "modules": [
+          {
+            "title": "Tests API — Stratégie et mise en œuvre",
+            "path": "/GevOps_LC/courses/api_rest_cheap/13_tests_api.html",
+            "file": "13_tests_api.md",
+            "chapter_title": "Tests API",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "tests",
+              "api",
+              "automation",
+              "postman",
+              "pytest",
+              "ci/cd"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "performance-api",
+        "title": "Performance API",
+        "modules": [
+          {
+            "title": "Performance API — Optimisation et scalabilité",
+            "path": "/GevOps_LC/courses/api_rest_cheap/16_performance_api.html",
+            "file": "16_performance_api.md",
+            "chapter_title": "Performance API",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "performance",
+              "api",
+              "architecture",
+              "scalabilité",
+              "optimisation"
+            ],
+            "difficulty": "intermediate",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "observabilite-et-operations",
+        "title": "Observabilité et opérations",
+        "modules": [
+          {
+            "title": "Observabilité API",
+            "path": "/GevOps_LC/courses/api_rest_cheap/14_observabilite_api.html",
+            "file": "14_observabilite_api.md",
+            "chapter_title": "Observabilité et opérations",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "observabilité",
+              "monitoring",
+              "logs",
+              "métriques",
+              "traces",
+              "api",
+              "production"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "anti-patterns-api",
+        "title": "Anti-patterns API",
+        "modules": [
+          {
+            "title": "Anti-patterns API — Diagnostic et correction des défauts de conception",
+            "path": "/GevOps_LC/courses/api_rest_cheap/24_antipatterns_api.html",
+            "file": "24_antipatterns_api.md",
+            "chapter_title": "Anti-patterns API",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "anti-patterns",
+              "diagnostic",
+              "production",
+              "conception",
+              "erreurs-courantes"
+            ],
+            "difficulty": "advanced",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "automation",
     "title": "Automatisation",
     "description": "Scripts, outils et orchestration pour automatiser vos infrastructures",
@@ -50,6 +1186,24 @@
     "index_path": "/GevOps_LC/courses/cloud-aws/index.html",
     "themes": [
       {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "Plan",
+            "path": "/GevOps_LC/courses/cloud-aws/PLAN.html",
+            "file": "PLAN.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      },
+      {
         "id": "fondations-aws",
         "title": "Fondations AWS",
         "modules": [
@@ -66,7 +1220,10 @@
               "architecture",
               "iaas",
               "paas",
-              "saas"
+              "saas",
+              "regions",
+              "az",
+              "responsabilite-partagee"
             ],
             "difficulty": "beginner",
             "duration": "45",
@@ -138,7 +1295,9 @@
               "vpc",
               "network",
               "subnet",
-              "nat"
+              "nat",
+              "routing",
+              "igw"
             ],
             "difficulty": "beginner",
             "duration": "90",
@@ -160,7 +1319,7 @@
             ],
             "difficulty": "beginner",
             "duration": "70",
-            "mermaid": false
+            "mermaid": true
           },
           {
             "title": "Monitoring AWS — CloudWatch (metrics, logs, alerting)",
@@ -174,7 +1333,8 @@
               "cloudwatch",
               "monitoring",
               "logs",
-              "metrics"
+              "metrics",
+              "alerting"
             ],
             "difficulty": "beginner",
             "duration": "80",
@@ -192,7 +1352,9 @@
               "security",
               "mfa",
               "encryption",
-              "iam"
+              "iam",
+              "cloudtrail",
+              "kms"
             ],
             "difficulty": "beginner",
             "duration": "85",
@@ -326,7 +1488,8 @@
               "cloudwatch",
               "xray",
               "logs",
-              "tracing"
+              "tracing",
+              "metrics"
             ],
             "difficulty": "intermediate",
             "duration": "110",
@@ -339,14 +1502,7 @@
             "chapter_title": "Services & Architecture",
             "chapter": 2,
             "section": 8,
-            "tags": [
-              "aws",
-              "environment",
-              "dev",
-              "staging",
-              "prod",
-              "multiaccount"
-            ],
+            "tags": [],
             "difficulty": "intermediate",
             "duration": "90",
             "mermaid": true
@@ -364,13 +1520,7 @@
             "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 1,
-            "tags": [
-              "aws",
-              "ha",
-              "highavailability",
-              "failover",
-              "dr"
-            ],
+            "tags": [],
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -405,7 +1555,10 @@
               "performance",
               "caching",
               "latency",
-              "optimization"
+              "optimization",
+              "elasticache",
+              "cloudfront",
+              "rds"
             ],
             "difficulty": "advanced",
             "duration": "110",
@@ -459,7 +1612,8 @@
               "microservices",
               "sqs",
               "sns",
-              "architecture"
+              "architecture",
+              "eventdriven"
             ],
             "difficulty": "advanced",
             "duration": "110",
@@ -472,13 +1626,7 @@
             "chapter_title": "Architecture Avancée",
             "chapter": 3,
             "section": 7,
-            "tags": [
-              "aws",
-              "resilience",
-              "chaos",
-              "retry",
-              "circuitbreaker"
-            ],
+            "tags": [],
             "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
@@ -517,6 +1665,24 @@
     "path": "/courses/docker/",
     "index_path": "/GevOps_LC/courses/docker/index.html",
     "themes": [
+      {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "Plan",
+            "path": "/GevOps_LC/courses/docker/PLAN.html",
+            "file": "PLAN.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      },
       {
         "id": "prise-en-main",
         "title": "Prise en main",

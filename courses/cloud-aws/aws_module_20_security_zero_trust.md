@@ -10,6 +10,10 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_19_performance.html"
+prev_module_title: "Performance & optimisation — Caching, Latence, Tuning AWS"
+next_module: "/courses/cloud-aws/aws_module_21_finops.html"
+next_module_title: "FinOps & optimisation des coûts AWS"
 ---
 
 # Sécurité avancée — Zero Trust, segmentation réseau, audit AWS

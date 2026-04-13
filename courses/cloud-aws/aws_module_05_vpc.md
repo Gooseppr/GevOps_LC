@@ -10,6 +10,10 @@ difficulty: beginner
 duration: 90
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_04_storage.html"
+prev_module_title: "Stockage AWS — S3 / EBS / EFS"
+next_module: "/courses/cloud-aws/aws_module_06_cli.html"
+next_module_title: "AWS CLI — Outils et automatisation"
 ---
 
 # Réseau AWS — VPC, Subnets, Routing

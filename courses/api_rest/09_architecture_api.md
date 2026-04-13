@@ -2,7 +2,7 @@
 layout: page
 title: "Architecture API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Architecture API"
 
 chapter: 5
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 75
 mermaid: true
 
-icon: "🏗️"
-domain: architecture
-domain_icon: "🧱"
 status: "published"
+prev_module: "/courses/api_rest/05_structure_api_rest.html"
+prev_module_title: "Structure d'une API REST"
+next_module: "/courses/api_rest/10_authentification_autorisation.html"
+next_module_title: "Authentification & Autorisation dans les API REST"
 ---
 
 # 🏗️ Architecture API

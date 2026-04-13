@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_23_docker.html"
+prev_module_title: "Conteneurisation & déploiement Python avec Docker"
+next_module: "/courses/python/module_25_observabilite.html"
+next_module_title: "Observabilité avancée en Python (metrics, tracing, monitoring)"
 ---
 
 # CI/CD Python (intégration & déploiement continus)
@@ -174,4 +178,3 @@ title: Déploiement manuel
 content: déployer à la main → erreurs → automatiser via CI/CD
 description: anti-pattern
 -->
-

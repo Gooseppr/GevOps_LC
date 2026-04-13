@@ -224,4 +224,3 @@ tags: swarm,manager,worker,cluster
 title: Manager = contrôle, Worker = exécution
 content: Dans Swarm, le manager est le cerveau du cluster (planification, orchestration). Le worker se contente d'exécuter les conteneurs assignés. Ne pas confondre les deux rôles.
 -->
-

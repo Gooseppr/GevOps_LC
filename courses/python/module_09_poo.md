@@ -14,6 +14,10 @@ duration: 90
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_08_debugging.html"
+prev_module_title: "Debugging & introspection en Python"
+next_module: "/courses/python/module_10_typage_qualite.html"
+next_module_title: "Typage & qualité de code en Python"
 ---
 
 # Programmation orientée objet (POO) en Python
@@ -191,4 +195,3 @@ title: Composition vs héritage
 content: L'héritage lie deux classes en permanence : changer le parent peut casser l'enfant. La composition assemble des comportements via des attributs — changer une dépendance ne touche pas le reste. Python favorise "has-a" (composition) plutôt que "is-a" (héritage) pour les relations complexes.
 description: Règle pratique : hériter uniquement quand la relation est vraiment de type IS-A (un Carré IS-A Forme). Pour tout le reste, composer.
 -->
-

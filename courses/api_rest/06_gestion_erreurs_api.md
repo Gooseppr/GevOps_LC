@@ -2,7 +2,7 @@
 layout: page
 title: "Gestion des erreurs API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Fondations"
 
 chapter: 1
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 45
 mermaid: false
 
-icon: "🚨"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/04_formats_donnees.html"
+prev_module_title: "Formats de données : JSON, XML, CSV et les autres"
+next_module: "/courses/api_rest/05_structure_api_rest.html"
+next_module_title: "Structure d'une API REST"
 ---
 
 # Gestion des erreurs API

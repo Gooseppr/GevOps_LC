@@ -14,6 +14,8 @@ duration: 105
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_28_python_devops.html"
+prev_module_title: "Python pour DevOps (automation, API cloud, scripts infra)"
 ---
 
 # Packaging avancé & distribution Python (wheels, CLI, publication)

@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_22_async_distributed.html"
+prev_module_title: "Asynchrone avancé & systèmes distribués en Python"
+next_module: "/courses/python/module_24_cicd.html"
+next_module_title: "CI/CD Python (intégration & déploiement continus)"
 ---
 
 # Conteneurisation & déploiement Python avec Docker
@@ -195,4 +199,3 @@ title: Image trop lourde
 content: image lourde → lenteur → optimiser Dockerfile
 description: problème fréquent
 -->
-

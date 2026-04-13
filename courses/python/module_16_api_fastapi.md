@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_15_bases_donnees.html"
+prev_module_title: "Accès données & bases en Python (SQL, ORM, transactions)"
+next_module: "/courses/python/module_17_securite.html"
+next_module_title: "Sécurité applicative en Python"
 ---
 
 # APIs & backend Python avec FastAPI
@@ -255,4 +259,3 @@ title: Pas de validation API
 content: entrée non validée → données corrompues → utiliser Pydantic
 description: fail critique backend
 -->
-

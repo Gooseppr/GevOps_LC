@@ -2,7 +2,7 @@
 layout: page
 title: "Authentification & Autorisation dans les API REST"
 
-course: "API REST"
+course: api_rest_cheap
 chapter_title: "Sécurité"
 
 chapter: 2
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 75
 mermaid: true
 
-icon: "🔐"
-domain: "sécurité applicative"
-domain_icon: "🛡️"
 status: "published"
+prev_module: "/courses/api_rest_cheap/03_consommation_api.html"
+prev_module_title: "Consommer une API REST"
+next_module: "/courses/api_rest_cheap/08_creation_api_backend.html"
+next_module_title: "Créer une API REST — du design au déploiement"
 ---
 
 # Authentification & Autorisation dans les API REST

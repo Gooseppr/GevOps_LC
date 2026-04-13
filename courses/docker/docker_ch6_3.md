@@ -296,4 +296,3 @@ tags: swarm,service,piege,conteneur
 title: Modifier un conteneur au lieu du service
 content: Modifier directement un conteneur dans Swarm est inutile : les modifications manuelles sont perdues à chaque recréation. Toujours modifier la définition du service.
 -->
-

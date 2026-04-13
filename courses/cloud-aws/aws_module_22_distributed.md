@@ -10,6 +10,10 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_21_finops.html"
+prev_module_title: "FinOps & optimisation des coûts AWS"
+next_module: "/courses/cloud-aws/aws_module_23_resilience.html"
+next_module_title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 ---
 
 # Architectures distribuées — Microservices, SQS, SNS

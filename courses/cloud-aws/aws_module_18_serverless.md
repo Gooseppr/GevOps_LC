@@ -10,6 +10,10 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_17_ha.html"
+prev_module_title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
+next_module: "/courses/cloud-aws/aws_module_19_performance.html"
+next_module_title: "Performance & optimisation — Caching, Latence, Tuning AWS"
 ---
 
 # Architecture Serverless — Lambda, API Gateway, Event-driven

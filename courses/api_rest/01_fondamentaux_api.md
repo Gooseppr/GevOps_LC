@@ -2,7 +2,7 @@
 layout: page
 title: "Fondamentaux des API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Fondamentaux des API"
 
 chapter: 1
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 45
 mermaid: true
 
-icon: "🔌"
-domain: api-rest
-domain_icon: "🌐"
 status: "published"
+prev_module: "/courses/api_rest/00_plan.html"
+prev_module_title: "00_plan"
+next_module: "/courses/api_rest/02_http_rest.html"
+next_module_title: "HTTP & REST — Les fondations indispensables des API"
 ---
 
 # Fondamentaux des API

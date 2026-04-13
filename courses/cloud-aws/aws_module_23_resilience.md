@@ -15,6 +15,10 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_22_distributed.html"
+prev_module_title: "Architectures distribuées — Microservices, SQS, SNS"
+next_module: "/courses/cloud-aws/aws_module_24_governance.html"
+next_module_title: "Gouvernance AWS — Organizations, Tagging, Compliance"
 ---
 
 # Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker

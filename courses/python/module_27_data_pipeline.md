@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_26_securite_avancee.html"
+prev_module_title: "Sécurité avancée Python (audit, dépendances, hardening)"
+next_module: "/courses/python/module_28_python_devops.html"
+next_module_title: "Python pour DevOps (automation, API cloud, scripts infra)"
 ---
 
 # Data & pipelines en Python (pandas, ETL, Airflow)
@@ -171,4 +175,3 @@ title: Données non nettoyées
 content: données brutes → erreurs → nettoyer avant traitement
 description: problème fréquent
 -->
-

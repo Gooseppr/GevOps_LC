@@ -212,4 +212,3 @@ tags: swarm,manager,worker,architecture
 title: Rôles manager et worker dans Swarm
 content: Le manager contrôle le cluster et distribue les tâches. Les workers exécutent les conteneurs. Plusieurs managers en production évitent un point de défaillance unique.
 -->
-

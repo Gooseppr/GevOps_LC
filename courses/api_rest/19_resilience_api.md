@@ -2,7 +2,7 @@
 layout: page
 title: "Résilience & fiabilité des API en production"
 
-course: api-rest
+course: api_rest
 chapter_title: "Résilience & fiabilité"
 
 chapter: 9
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 90
 mermaid: true
 
-icon: "🛡️"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/14_observabilite_api.html"
+prev_module_title: "Observabilité API"
+next_module: "/courses/api_rest/20_securite_avancee.html"
+next_module_title: "Sécurité avancée des API REST"
 ---
 
 # Résilience & fiabilité des API en production

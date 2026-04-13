@@ -10,6 +10,8 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_23_resilience.html"
+prev_module_title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 ---
 
 # Gouvernance AWS — Organizations, Tagging, Compliance

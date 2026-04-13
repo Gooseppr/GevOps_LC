@@ -2,7 +2,7 @@
 layout: page
 title: "Performance API : concevoir et opérer des API rapides en production"
 
-course: api-rest
+course: api_rest
 chapter_title: "Performance API"
 
 chapter: 8
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-icon: "⚡"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/15_versioning_api.html"
+prev_module_title: "Gestion des versions d'API"
+next_module: "/courses/api_rest/18_protocoles_avances.html"
+next_module_title: "Protocoles avancés : gRPC, WebSocket, GraphQL et Server-Sent Events"
 ---
 
 # Performance API : concevoir et opérer des API rapides en production

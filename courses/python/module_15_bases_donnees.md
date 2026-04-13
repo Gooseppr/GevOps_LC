@@ -14,6 +14,10 @@ duration: 100
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_14_concurrence.html"
+prev_module_title: "Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)"
+next_module: "/courses/python/module_16_api_fastapi.html"
+next_module_title: "APIs & backend Python avec FastAPI"
 ---
 
 # Accès données & bases en Python (SQL, ORM, transactions)
@@ -247,4 +251,3 @@ title: ORM Python
 content: Un ORM (SQLAlchemy, Django ORM) traduit les opérations Python en SQL : `User.query.filter_by(active=True).all()` génère le SELECT correspondant. Le code reste en Python pur, agnostique du moteur SQL (PostgreSQL, MySQL, SQLite).
 description: L'ORM n'est pas toujours plus performant qu'un SQL brut. Pour les requêtes complexes (analytiques, jointures multiples), écrire le SQL manuellement via `text()` ou `cursor.execute()` donne plus de contrôle.
 -->
-

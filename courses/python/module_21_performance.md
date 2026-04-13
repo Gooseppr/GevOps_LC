@@ -14,6 +14,10 @@ duration: 95
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_20_architecture.html"
+prev_module_title: "Architecture Python (Clean Architecture & Hexagonale)"
+next_module: "/courses/python/module_22_async_distributed.html"
+next_module_title: "Asynchrone avancé & systèmes distribués en Python"
 ---
 
 # Performance & optimisation en Python
@@ -164,4 +168,3 @@ title: Choix structure
 content: Liste : accès par index O(1), recherche O(n). Dict/Set : recherche O(1). deque : append/pop aux deux bouts O(1) (vs liste O(n) en début). Le mauvais choix ne se voit pas sur 100 éléments mais devient catastrophique à 100 000.
 description: `timeit` et `cProfile` mesurent les vraies performances — ne pas deviner. Souvent, remplacer une liste par un set est la seule optimisation nécessaire.
 -->
-

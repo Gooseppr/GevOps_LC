@@ -2,7 +2,7 @@
 layout: page
 title: "Gestion des versions d'API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Gestion des versions"
 
 chapter: 8
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 75
 mermaid: true
 
-icon: "🔖"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/12_documentation_api.html"
+prev_module_title: "Documentation API"
+next_module: "/courses/api_rest/16_performance_api.html"
+next_module_title: "Performance API : concevoir et opérer des API rapides en production"
 ---
 
 # Gestion des versions d'API

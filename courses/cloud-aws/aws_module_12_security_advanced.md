@@ -10,6 +10,10 @@ difficulty: intermediate
 duration: 95
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_11_dns_cdn.html"
+prev_module_title: "DNS & CDN — Route 53 et CloudFront"
+next_module: "/courses/cloud-aws/aws_module_13_iac.html"
+next_module_title: "Infrastructure as Code — Terraform & CloudFormation"
 ---
 
 # Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield

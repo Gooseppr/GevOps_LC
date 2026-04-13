@@ -2,7 +2,7 @@
 layout: page
 title: "Protocoles avancés : gRPC, WebSocket, GraphQL et Server-Sent Events"
 
-course: api-rest
+course: api_rest
 chapter_title: "Protocoles avancés"
 
 chapter: 8
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 90
 mermaid: true
 
-icon: "🔌"
-domain: api
-domain_icon: "🔗"
 status: "published"
+prev_module: "/courses/api_rest/16_performance_api.html"
+prev_module_title: "Performance API : concevoir et opérer des API rapides en production"
+next_module: "/courses/api_rest/13_tests_api.html"
+next_module_title: "Tests API"
 ---
 
 # Protocoles avancés : gRPC, WebSocket, GraphQL et Server-Sent Events

@@ -2,7 +2,7 @@
 layout: page
 title: "Créer une API REST (backend)"
 
-course: api-rest
+course: api_rest
 chapter_title: "Créer une API (backend)"
 
 chapter: 5
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 90
 mermaid: false
 
-icon: "🛠️"
-domain: backend
-domain_icon: "⚙️"
 status: "published"
+prev_module: "/courses/api_rest/07_bonnes_pratiques_base.html"
+prev_module_title: "Bonnes pratiques de base pour une API REST"
+next_module: "/courses/api_rest/11_securite_api.html"
+next_module_title: "Sécurité des API REST"
 ---
 
 # Créer une API REST (backend)

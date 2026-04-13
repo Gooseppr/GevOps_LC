@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_16_api_fastapi.html"
+prev_module_title: "APIs & backend Python avec FastAPI"
+next_module: "/courses/python/module_18_configuration.html"
+next_module_title: "Multi-environnement & configuration en Python"
 ---
 
 # Sécurité applicative en Python
@@ -236,4 +240,3 @@ title: Secrets en env
 content: les secrets doivent être stockés en variables d'environnement
 description: sécurité configuration
 -->
-

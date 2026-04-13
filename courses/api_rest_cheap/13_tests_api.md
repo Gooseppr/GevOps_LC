@@ -2,7 +2,7 @@
 layout: page
 title: "Tests API — Stratégie et mise en œuvre"
 
-course: "API REST"
+course: api_rest_cheap
 chapter_title: "Tests API"
 
 chapter: 3
@@ -13,10 +13,11 @@ difficulty: "intermediate"
 duration: 120
 mermaid: true
 
-icon: "🧪"
-domain: "Backend / DevOps / QA"
-domain_icon: "⚙️"
 status: "published"
+prev_module: "/courses/api_rest_cheap/12_documentation_api.html"
+prev_module_title: "Documentation API — Concevoir une spécification exploitable"
+next_module: "/courses/api_rest_cheap/16_performance_api.html"
+next_module_title: "Performance API — Optimisation et scalabilité"
 ---
 
 ## Objectifs pédagogiques

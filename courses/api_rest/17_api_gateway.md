@@ -2,7 +2,7 @@
 layout: page
 title: "API Gateway & Architecture distribuée"
 
-course: api-rest
+course: api_rest
 chapter_title: "API Gateway & Architecture distribuée"
 
 chapter: 8
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 120
 mermaid: true
 
-icon: "🔀"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/11_securite_api.html"
+prev_module_title: "Sécurité des API REST"
+next_module: "/courses/api_rest/23_design_avance_api.html"
+next_module_title: "Design avancé d'API REST"
 ---
 
 # API Gateway & Architecture distribuée

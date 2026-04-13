@@ -2,7 +2,7 @@
 layout: page
 title: "HTTP & REST : Fondamentaux pour les API"
 
-course: "API REST"
+course: api_rest_cheap
 chapter_title: "Fondations"
 
 chapter: 1
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 75
 mermaid: true
 
-icon: "🔵"
-domain: "API REST"
-domain_icon: "📡"
 status: "published"
+prev_module: "/courses/api_rest_cheap/23_design_avance_api.html"
+prev_module_title: "23_design_avance_api"
+next_module: "/courses/api_rest_cheap/03_consommation_api.html"
+next_module_title: "Consommer une API REST"
 ---
 
 ## Objectifs pédagogiques

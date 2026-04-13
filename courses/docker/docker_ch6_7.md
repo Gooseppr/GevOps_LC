@@ -261,4 +261,3 @@ tags: swarm,update,rollback,production
 title: Déployer sans possibilité de rollback
 content: Sans rollback prévu, une version cassée rend le service indisponible. Toujours versionner les images et tester les mises à jour hors production.
 -->
-

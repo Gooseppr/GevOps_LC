@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_25_observabilite.html"
+prev_module_title: "Observabilité avancée en Python (metrics, tracing, monitoring)"
+next_module: "/courses/python/module_27_data_pipeline.html"
+next_module_title: "Data & pipelines en Python (pandas, ETL, Airflow)"
 ---
 
 # Sécurité avancée Python (audit, dépendances, hardening)
@@ -164,4 +168,3 @@ title: Faire confiance aux libs
 content: dépendances non auditées → faille → scanner régulièrement
 description: piège critique
 -->
-

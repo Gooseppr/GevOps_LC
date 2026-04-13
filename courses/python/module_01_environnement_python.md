@@ -14,6 +14,8 @@ duration: 45
 mermaid: false
 
 status: draft
+next_module: "/courses/python/module_02_syntaxe_types.html"
+next_module_title: "Syntaxe de base & types Python"
 ---
 
 # Environnement Python & Toolchain
@@ -159,4 +161,3 @@ title: Installer en global est dangereux
 content: Installer globalement → conflits de dépendances → utiliser venv
 description: Toujours isoler les dépendances
 -->
-

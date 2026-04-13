@@ -2,7 +2,7 @@
 layout: page
 title: "Anti-patterns API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Anti-patterns API"
 
 chapter: 12
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 75
 mermaid: true
 
-icon: "🚨"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/20_securite_avancee.html"
+prev_module_title: "Sécurité avancée des API REST"
+next_module: "/courses/api_rest/22_monitoring_alerting.html"
+next_module_title: "Monitoring & Alerting pour les API REST"
 ---
 
 # Anti-patterns API

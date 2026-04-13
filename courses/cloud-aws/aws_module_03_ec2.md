@@ -10,6 +10,10 @@ difficulty: beginner
 duration: 75
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_02_iam.html"
+prev_module_title: "IAM — Gestion des identités AWS"
+next_module: "/courses/cloud-aws/aws_module_04_storage.html"
+next_module_title: "Stockage AWS — S3 / EBS / EFS"
 ---
 
 # EC2 — Compute AWS (instances, réseau, bootstrap)

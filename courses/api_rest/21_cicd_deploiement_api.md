@@ -2,7 +2,7 @@
 layout: page
 title: "CI/CD & déploiement API"
 
-course: api-rest
+course: api_rest
 chapter_title: "CI/CD & déploiement API"
 
 chapter: 9
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 120
 mermaid: true
 
-icon: "🚀"
-domain: devops
-domain_icon: "⚙️"
 status: "published"
+prev_module: "/courses/api_rest/13_tests_api.html"
+prev_module_title: "Tests API"
+next_module: "/courses/api_rest/14_observabilite_api.html"
+next_module_title: "Observabilité API"
 ---
 
 # CI/CD & déploiement API

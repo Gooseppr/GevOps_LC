@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_24_cicd.html"
+prev_module_title: "CI/CD Python (intégration & déploiement continus)"
+next_module: "/courses/python/module_26_securite_avancee.html"
+next_module_title: "Sécurité avancée Python (audit, dépendances, hardening)"
 ---
 
 # Observabilité avancée en Python (metrics, tracing, monitoring)
@@ -152,4 +156,3 @@ title: Logs seuls insuffisants
 content: utiliser uniquement logs → visibilité limitée → ajouter metrics et traces
 description: piège fréquent
 -->
-

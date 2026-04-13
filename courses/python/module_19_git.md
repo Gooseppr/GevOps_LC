@@ -14,6 +14,10 @@ duration: 95
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_18_configuration.html"
+prev_module_title: "Multi-environnement & configuration en Python"
+next_module: "/courses/python/module_20_architecture.html"
+next_module_title: "Architecture Python (Clean Architecture & Hexagonale)"
 ---
 
 # Git & travail en équipe pour développeur Python
@@ -204,4 +208,3 @@ title: Workflow Git
 content: Chaque étape du flux branch → commit → push → PR → merge a un rôle : la branche isole le travail, le commit documente chaque changement, la PR centralise la revue, le merge intègre après validation. Court-circuiter une étape (ex. push direct sur main) supprime la safety net correspondante.
 description: La PR est le point de contrôle clé : c'est là que les bugs sont détectés par les pairs, avant d'atteindre la branche partagée.
 -->
-

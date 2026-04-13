@@ -14,6 +14,10 @@ duration: 85
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_12_tests_pytest.html"
+prev_module_title: "Tests en Python avec pytest"
+next_module: "/courses/python/module_14_concurrence.html"
+next_module_title: "Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)"
 ---
 
 # Logging & observabilité en Python
@@ -161,4 +165,3 @@ title: print en production
 content: print non structuré → inutilisable → utiliser logging
 description: erreur classique
 -->
-

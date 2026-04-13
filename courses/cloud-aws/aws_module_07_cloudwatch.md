@@ -10,6 +10,10 @@ difficulty: beginner
 duration: 80
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_06_cli.html"
+prev_module_title: "AWS CLI — Outils et automatisation"
+next_module: "/courses/cloud-aws/aws_module_08_security.html"
+next_module_title: "Sécurité AWS — IAM, MFA, Encryption"
 ---
 
 # Monitoring AWS — CloudWatch

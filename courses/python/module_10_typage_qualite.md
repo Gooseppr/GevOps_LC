@@ -14,6 +14,10 @@ duration: 85
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_09_poo.html"
+prev_module_title: "Programmation orientée objet (POO) en Python"
+next_module: "/courses/python/module_11_dependencies_packaging.html"
+next_module_title: "Gestion des dépendances & packaging Python"
 ---
 
 # Typage & qualité de code en Python
@@ -170,4 +174,3 @@ title: Ignorer le typage
 content: ne pas typer → bugs invisibles → utiliser type hints
 description: piège courant
 -->
-

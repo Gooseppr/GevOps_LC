@@ -2,7 +2,7 @@
 layout: page
 title: "Formats de données : JSON, XML, CSV et les autres"
 
-course: api-rest
+course: api_rest
 chapter_title: "Formats de données"
 
 chapter: 1
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 45
 mermaid: false
 
-icon: "📦"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/03_consommation_api.html"
+prev_module_title: "Consommer une API"
+next_module: "/courses/api_rest/06_gestion_erreurs_api.html"
+next_module_title: "Gestion des erreurs API"
 ---
 
 # Formats de données

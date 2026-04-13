@@ -2,7 +2,7 @@
 layout: page
 title: "Créer une API REST — du design au déploiement"
 
-course: "API REST"
+course: api_rest_cheap
 chapter_title: "Créer une API (backend)"
 
 chapter: 2
@@ -13,10 +13,11 @@ difficulty: "intermediate"
 duration: 120
 mermaid: true
 
-icon: "⚙️"
-domain: "Backend / DevOps"
-domain_icon: "🔧"
 status: "published"
+prev_module: "/courses/api_rest_cheap/10_authentification_autorisation.html"
+prev_module_title: "Authentification & Autorisation dans les API REST"
+next_module: "/courses/api_rest_cheap/12_documentation_api.html"
+next_module_title: "Documentation API — Concevoir une spécification exploitable"
 ---
 
 ## Objectifs pédagogiques

@@ -2,7 +2,7 @@
 layout: page
 title: "Structure d'une API REST"
 
-course: api-rest
+course: api_rest
 chapter_title: "HTTP & REST"
 
 chapter: 2
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 45
 mermaid: true
 
-icon: "🏗️"
-domain: api
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/06_gestion_erreurs_api.html"
+prev_module_title: "Gestion des erreurs API"
+next_module: "/courses/api_rest/09_architecture_api.html"
+next_module_title: "Architecture API"
 ---
 
 # Structure d'une API REST

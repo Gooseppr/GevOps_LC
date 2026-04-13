@@ -14,6 +14,10 @@ duration: 65
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_03_structures_donnees.html"
+prev_module_title: "Structures de données Python"
+next_module: "/courses/python/module_05_gestion_erreurs.html"
+next_module_title: "Gestion des erreurs en Python"
 ---
 
 # Modules & organisation du code Python
@@ -204,4 +208,3 @@ title: Import circulaire
 content: Module A importe B et B importe A → erreur → refactoriser dépendances
 description: Problème classique
 -->
-

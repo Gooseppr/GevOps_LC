@@ -2,7 +2,7 @@
 layout: page
 title: "Observabilité API"
 
-course: "API REST"
+course: api_rest_cheap
 chapter_title: "Observabilité et opérations"
 
 chapter: 5
@@ -13,10 +13,9 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-icon: "📊"
-domain: "API & Intégration"
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest_cheap/24_antipatterns_api.html"
+prev_module_title: "Anti-patterns API — Diagnostic et correction des défauts de conception"
 ---
 
 # Observabilité API

@@ -10,6 +10,10 @@ difficulty: intermediate
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_14_cicd.html"
+prev_module_title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
+next_module: "/courses/cloud-aws/aws_module_16_multi_env.html"
+next_module_title: "Multi-environnement AWS — dev, staging, prod & multi-account"
 ---
 
 # Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)

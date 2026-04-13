@@ -2,7 +2,7 @@
 layout: page
 title: "Sécurité avancée des API REST"
 
-course: api-rest
+course: api_rest
 chapter_title: "Sécurité avancée"
 
 chapter: 9
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 180
 mermaid: true
 
-icon: "🔐"
-domain: security
-domain_icon: "🛡️"
 status: "published"
+prev_module: "/courses/api_rest/19_resilience_api.html"
+prev_module_title: "Résilience & fiabilité des API en production"
+next_module: "/courses/api_rest/24_antipatterns_api.html"
+next_module_title: "Anti-patterns API"
 ---
 
 # Sécurité avancée des API REST

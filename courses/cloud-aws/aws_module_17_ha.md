@@ -15,6 +15,10 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_16_multi_env.html"
+prev_module_title: "Multi-environnement AWS — dev, staging, prod & multi-account"
+next_module: "/courses/cloud-aws/aws_module_18_serverless.html"
+next_module_title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
 ---
 
 # Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery

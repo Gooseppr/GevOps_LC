@@ -2,7 +2,7 @@
 layout: page
 title: "Bonnes pratiques de base pour une API REST"
 
-course: api-rest
+course: api_rest
 chapter_title: "Bonnes pratiques de base"
 
 chapter: 5
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 45
 mermaid: true
 
-icon: "✅"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/10_authentification_autorisation.html"
+prev_module_title: "Authentification & Autorisation dans les API REST"
+next_module: "/courses/api_rest/08_creation_api_backend.html"
+next_module_title: "Créer une API REST (backend)"
 ---
 
 # Bonnes pratiques de base pour une API REST

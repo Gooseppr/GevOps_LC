@@ -14,6 +14,10 @@ duration: 105
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_27_data_pipeline.html"
+prev_module_title: "Data & pipelines en Python (pandas, ETL, Airflow)"
+next_module: "/courses/python/module_29_packaging_distribution.html"
+next_module_title: "Packaging avancé & distribution Python (wheels, CLI, publication)"
 ---
 
 # Python pour DevOps (automation, API cloud, scripts infra)
@@ -170,4 +174,3 @@ title: Script non robuste
 content: script sans gestion erreurs → crash → ajouter try/except + logs
 description: piège fréquent
 -->
-

@@ -2,7 +2,7 @@
 layout: page
 title: "Design avancé d'API REST"
 
-course: api-rest
+course: api_rest
 chapter_title: "Design avancé API"
 
 chapter: 8
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 120
 mermaid: true
 
-icon: "🏗️"
-domain: architecture
-domain_icon: "⚙️"
 status: "published"
+prev_module: "/courses/api_rest/17_api_gateway.html"
+prev_module_title: "API Gateway & Architecture distribuée"
+next_module: "/courses/api_rest/12_documentation_api.html"
+next_module_title: "Documentation API"
 ---
 
 # Design avancé d'API REST

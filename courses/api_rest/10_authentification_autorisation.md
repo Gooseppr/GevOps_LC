@@ -2,7 +2,7 @@
 layout: page
 title: "Authentification & Autorisation dans les API REST"
 
-course: api-rest
+course: api_rest
 chapter_title: "Authentification & Autorisation"
 
 chapter: 5
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-icon: "🔐"
-domain: security
-domain_icon: "🛡️"
 status: "published"
+prev_module: "/courses/api_rest/09_architecture_api.html"
+prev_module_title: "Architecture API"
+next_module: "/courses/api_rest/07_bonnes_pratiques_base.html"
+next_module_title: "Bonnes pratiques de base pour une API REST"
 ---
 
 # Authentification & Autorisation dans les API REST

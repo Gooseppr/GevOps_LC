@@ -817,6 +817,3 @@ Différence :
   priority: medium
 
 ```
-
-
-

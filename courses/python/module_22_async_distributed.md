@@ -14,6 +14,10 @@ duration: 120
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_21_performance.html"
+prev_module_title: "Performance & optimisation en Python"
+next_module: "/courses/python/module_23_docker.html"
+next_module_title: "Conteneurisation & déploiement Python avec Docker"
 ---
 
 # Asynchrone avancé & systèmes distribués en Python
@@ -174,4 +178,3 @@ title: Tout dans API
 content: logique lourde dans API → lenteur → utiliser queue/worker
 description: anti-pattern
 -->
-

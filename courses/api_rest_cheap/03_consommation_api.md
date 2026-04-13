@@ -2,7 +2,7 @@
 layout: page
 title: "Consommer une API REST"
 
-course: API REST
+course: api_rest_cheap
 chapter_title: "Intégration et consommation"
 
 chapter: 1
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 90
 mermaid: true
 
-icon: "🔌"
-domain: Backend
-domain_icon: "⚙️"
 status: "published"
+prev_module: "/courses/api_rest_cheap/02_http_rest.html"
+prev_module_title: "HTTP & REST : Fondamentaux pour les API"
+next_module: "/courses/api_rest_cheap/10_authentification_autorisation.html"
+next_module_title: "Authentification & Autorisation dans les API REST"
 ---
 
 ## Objectifs pédagogiques

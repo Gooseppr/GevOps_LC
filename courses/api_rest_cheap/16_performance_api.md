@@ -2,7 +2,7 @@
 layout: page
 title: "Performance API — Optimisation et scalabilité"
 
-course: "API REST"
+course: api_rest_cheap
 chapter_title: "Performance API"
 
 chapter: 4
@@ -13,10 +13,11 @@ difficulty: "intermediate"
 duration: 180
 mermaid: true
 
-icon: "⚡"
-domain: "API & Integration"
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest_cheap/13_tests_api.html"
+prev_module_title: "Tests API — Stratégie et mise en œuvre"
+next_module: "/courses/api_rest_cheap/24_antipatterns_api.html"
+next_module_title: "Anti-patterns API — Diagnostic et correction des défauts de conception"
 ---
 
 ## Objectifs pédagogiques

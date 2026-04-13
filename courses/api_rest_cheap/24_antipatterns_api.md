@@ -2,7 +2,7 @@
 layout: page
 title: "Anti-patterns API — Diagnostic et correction des défauts de conception"
 
-course: API REST
+course: api_rest_cheap
 chapter_title: "Anti-patterns API"
 
 chapter: 5
@@ -13,10 +13,11 @@ difficulty: advanced
 duration: 75
 mermaid: true
 
-icon: "⚠️"
-domain: "Conception & Intégration"
-domain_icon: "🏗️"
 status: "published"
+prev_module: "/courses/api_rest_cheap/16_performance_api.html"
+prev_module_title: "Performance API — Optimisation et scalabilité"
+next_module: "/courses/api_rest_cheap/14_observabilite_api.html"
+next_module_title: "Observabilité API"
 ---
 
 ## Objectifs pédagogiques

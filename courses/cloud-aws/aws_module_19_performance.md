@@ -10,6 +10,10 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_18_serverless.html"
+prev_module_title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
+next_module: "/courses/cloud-aws/aws_module_20_security_zero_trust.html"
+next_module_title: "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS"
 ---
 
 # Performance & optimisation — Caching, Latence, Tuning AWS

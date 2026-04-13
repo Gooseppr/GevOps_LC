@@ -10,6 +10,10 @@ difficulty: intermediate
 duration: 100
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_13_iac.html"
+prev_module_title: "Infrastructure as Code — Terraform & CloudFormation"
+next_module: "/courses/cloud-aws/aws_module_15_observability.html"
+next_module_title: "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)"
 ---
 
 # CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy

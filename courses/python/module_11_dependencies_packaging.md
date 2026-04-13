@@ -14,6 +14,10 @@ duration: 90
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_10_typage_qualite.html"
+prev_module_title: "Typage & qualité de code en Python"
+next_module: "/courses/python/module_12_tests_pytest.html"
+next_module_title: "Tests en Python avec pytest"
 ---
 
 # Gestion des dépendances & packaging Python
@@ -190,4 +194,3 @@ title: Poetry gestion deps
 content: Poetry permet gérer dépendances et packaging proprement
 description: outil moderne recommandé
 -->
-

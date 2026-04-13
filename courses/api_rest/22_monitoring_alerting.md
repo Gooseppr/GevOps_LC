@@ -2,7 +2,7 @@
 layout: page
 title: "Monitoring & Alerting pour les API REST"
 
-course: api-rest
+course: api_rest
 chapter_title: "Monitoring & Alerting"
 
 chapter: 12
@@ -13,10 +13,9 @@ difficulty: advanced
 duration: 90
 mermaid: true
 
-icon: "📡"
-domain: api-rest
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest/24_antipatterns_api.html"
+prev_module_title: "Anti-patterns API"
 ---
 
 # Monitoring & Alerting pour les API REST

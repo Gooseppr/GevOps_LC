@@ -689,4 +689,3 @@ query {
           id
           product { name }
           quantity
-          

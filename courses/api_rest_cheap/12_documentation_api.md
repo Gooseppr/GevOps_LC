@@ -2,7 +2,7 @@
 layout: page
 title: "Documentation API — Concevoir une spécification exploitable"
 
-course: API REST
+course: api_rest_cheap
 chapter_title: "Documentation API"
 
 chapter: 2
@@ -13,10 +13,11 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-icon: "📖"
-domain: API
-domain_icon: "🔌"
 status: "published"
+prev_module: "/courses/api_rest_cheap/08_creation_api_backend.html"
+prev_module_title: "Créer une API REST — du design au déploiement"
+next_module: "/courses/api_rest_cheap/13_tests_api.html"
+next_module_title: "Tests API — Stratégie et mise en œuvre"
 ---
 
 ## Objectifs pédagogiques

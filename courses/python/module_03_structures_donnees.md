@@ -14,6 +14,10 @@ duration: 70
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_02_syntaxe_types.html"
+prev_module_title: "Syntaxe de base & types Python"
+next_module: "/courses/python/module_04_modules_organisation.html"
+next_module_title: "Modules & organisation du code Python"
 ---
 
 # Structures de données Python
@@ -210,4 +214,3 @@ title: List vs Set
 content: list est ordonnée, set est unique et rapide
 description: Choisir selon usage
 -->
-

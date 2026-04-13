@@ -235,4 +235,3 @@ tags: swarm,overlay,reseau,firewall,ports
 title: Ports réseau nécessaires pour Swarm
 content: Swarm utilise des ports spécifiques : 2377 TCP (management), 7946 TCP/UDP (découverte), 4789 UDP (overlay). Si le firewall bloque ces ports, la communication inter-nœuds échoue.
 -->
-

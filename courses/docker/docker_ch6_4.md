@@ -248,4 +248,3 @@ tags: swarm,test,panne,resilience
 title: Ne pas tester le comportement en cas de panne
 content: Si l’application n’est pas stateless, Swarm recrée les conteneurs mais l’état est perdu. Toujours tester le comportement en cas de panne avant la production.
 -->
-

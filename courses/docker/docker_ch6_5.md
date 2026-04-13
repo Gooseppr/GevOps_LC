@@ -275,4 +275,3 @@ tags: swarm,stack,compose,deploy
 title: Section deploy dans docker-compose.yml
 content: La section `deploy` est utilisée uniquement en Swarm. Elle configure le nombre de replicas, les ressources et la stratégie de mise à jour de chaque service.
 -->
-

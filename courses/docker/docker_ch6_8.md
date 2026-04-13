@@ -220,4 +220,3 @@ tags: swarm,erreur,architecture,services
 title: Utiliser Swarm comme Docker classique
 content: Swarm ne s'utilise pas avec `docker run`. Les conteneurs doivent passer par des services et des stacks. Gérer manuellement des conteneurs contourne l'orchestration et crée des comportements imprévisibles.
 -->
-

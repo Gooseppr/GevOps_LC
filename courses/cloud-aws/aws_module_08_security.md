@@ -10,6 +10,10 @@ difficulty: beginner
 duration: 85
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_07_cloudwatch.html"
+prev_module_title: "Monitoring AWS — CloudWatch (metrics, logs, alerting)"
+next_module: "/courses/cloud-aws/aws_module_09_load_balancing.html"
+next_module_title: "Load Balancer & Auto Scaling — Scalabilité AWS"
 ---
 
 # Sécurité AWS — IAM, MFA, Encryption

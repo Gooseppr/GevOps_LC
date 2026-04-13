@@ -2,7 +2,7 @@
 layout: page
 title: "HTTP & REST — Les fondations indispensables des API"
 
-course: api-rest
+course: api_rest
 chapter_title: "HTTP & REST (indispensable)"
 
 chapter: 1
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 75
 mermaid: true
 
-icon: "🌐"
-domain: fondations
-domain_icon: "🟢"
 status: "published"
+prev_module: "/courses/api_rest/01_fondamentaux_api.html"
+prev_module_title: "Fondamentaux des API"
+next_module: "/courses/api_rest/03_consommation_api.html"
+next_module_title: "Consommer une API"
 ---
 
 # HTTP & REST — Les fondations indispensables des API

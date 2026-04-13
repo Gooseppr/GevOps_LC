@@ -2,7 +2,7 @@
 layout: page
 title: "Consommer une API"
 
-course: api-rest
+course: api_rest
 chapter_title: "Consommer une API"
 
 chapter: 1
@@ -13,10 +13,11 @@ difficulty: beginner
 duration: 90
 mermaid: true
 
-icon: "🔌"
-domain: api
-domain_icon: "🌐"
 status: "published"
+prev_module: "/courses/api_rest/02_http_rest.html"
+prev_module_title: "HTTP & REST — Les fondations indispensables des API"
+next_module: "/courses/api_rest/04_formats_donnees.html"
+next_module_title: "Formats de données : JSON, XML, CSV et les autres"
 ---
 
 # Consommer une API

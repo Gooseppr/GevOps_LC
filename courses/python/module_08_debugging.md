@@ -14,6 +14,10 @@ duration: 75
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_07_cli_scripting.html"
+prev_module_title: "CLI & scripting Python"
+next_module: "/courses/python/module_09_poo.html"
+next_module_title: "Programmation orientée objet (POO) en Python"
 ---
 
 # Debugging & introspection en Python
@@ -168,4 +172,3 @@ title: Corriger sans comprendre
 content: corriger sans analyser → nouveaux bugs → toujours comprendre avant
 description: erreur critique
 -->
-

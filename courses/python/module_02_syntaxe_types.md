@@ -14,6 +14,10 @@ duration: 60
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_01_environnement_python.html"
+prev_module_title: "Environnement Python & Toolchain"
+next_module: "/courses/python/module_03_structures_donnees.html"
+next_module_title: "Structures de données Python"
 ---
 
 # Syntaxe de base & types Python
@@ -187,4 +191,3 @@ title: Boucle for Python
 content: La boucle for itère sur une séquence directement
 description: Plus simple que dans d'autres langages
 -->
-

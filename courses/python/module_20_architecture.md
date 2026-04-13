@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_19_git.html"
+prev_module_title: "Git & travail en équipe pour développeur Python"
+next_module: "/courses/python/module_21_performance.html"
+next_module_title: "Performance & optimisation en Python"
 ---
 
 # Architecture Python (Clean Architecture & Hexagonale)
@@ -163,4 +167,3 @@ title: Code spaghetti
 content: mélange logique et infra → code non maintenable → appliquer architecture
 description: problème critique
 -->
-

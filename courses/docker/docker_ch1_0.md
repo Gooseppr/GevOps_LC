@@ -16,6 +16,8 @@ mermaid: false
 status: published
 next_module: "/courses/docker/docker_ch1_1.html"
 next_module_title: "Introduction à Docker"
+prev_module: "/courses/docker/PLAN.html"
+prev_module_title: "PLAN"
 ---
 
 # D'où vient Docker

@@ -14,6 +14,10 @@ duration: 70
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_04_modules_organisation.html"
+prev_module_title: "Modules & organisation du code Python"
+next_module: "/courses/python/module_06_io_fichiers.html"
+next_module_title: "I/O & manipulation de fichiers en Python"
 ---
 
 # Gestion des erreurs en Python
@@ -200,4 +204,3 @@ title: Fail fast
 content: Un programme qui continue à tourner après une erreur silencieuse propage des données corrompues et produit des bugs difficiles à tracer. Lever une exception dès qu'une condition invalide est détectée localise le problème à sa source, pas 10 appels plus tard.
 description: `assert` est utile en développement mais désactivable avec `-O`. Préférer `raise ValueError` pour les vérifications qui doivent tenir en production.
 -->
-

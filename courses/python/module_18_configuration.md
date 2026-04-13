@@ -14,6 +14,10 @@ duration: 85
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_17_securite.html"
+prev_module_title: "Sécurité applicative en Python"
+next_module: "/courses/python/module_19_git.html"
+next_module_title: "Git & travail en équipe pour développeur Python"
 ---
 
 # Multi-environnement & configuration en Python
@@ -224,4 +228,3 @@ title: dotenv usage
 content: dotenv permet de charger un fichier .env en variables d’environnement
 description: simplifie config locale
 -->
-

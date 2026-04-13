@@ -14,6 +14,10 @@ duration: 110
 mermaid: true
 
 status: draft
+prev_module: "/courses/python/module_13_logging.html"
+prev_module_title: "Logging & observabilité en Python"
+next_module: "/courses/python/module_15_bases_donnees.html"
+next_module_title: "Accès données & bases en Python (SQL, ORM, transactions)"
 ---
 
 # Concurrence & parallélisme en Python (threads, multiprocessing, asyncio)

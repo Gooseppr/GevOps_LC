@@ -10,6 +10,10 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 status: published
+prev_module: "/courses/cloud-aws/aws_module_08_security.html"
+prev_module_title: "Sécurité AWS — IAM, MFA, Encryption"
+next_module: "/courses/cloud-aws/aws_module_10_databases.html"
+next_module_title: "Bases de données AWS — RDS, Aurora, DynamoDB"
 ---
 
 # Load Balancer & Auto Scaling — Scalabilité AWS

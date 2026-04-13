@@ -14,6 +14,10 @@ duration: 75
 mermaid: false
 
 status: draft
+prev_module: "/courses/python/module_05_gestion_erreurs.html"
+prev_module_title: "Gestion des erreurs en Python"
+next_module: "/courses/python/module_07_cli_scripting.html"
+next_module_title: "CLI & scripting Python"
 ---
 
 # I/O & manipulation de fichiers en Python
@@ -199,4 +203,3 @@ title: FileNotFoundError
 content: fichier introuvable → mauvais chemin → vérifier le path
 description: Erreur fréquente
 -->
-
