@@ -52,6 +52,20 @@
       ]
     },
     {
+      "id": "backend",
+      "title": "Backend",
+      "icon": "⚙️",
+      "courses": [
+        {
+          "id": "api_rest",
+          "title": "API REST",
+          "icon": "🔌",
+          "status": "published",
+          "path": "/courses/api_rest/"
+        }
+      ]
+    },
+    {
       "id": "data",
       "title": "Data",
       "icon": "📈",
