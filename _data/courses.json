@@ -2198,6 +2198,50 @@
     ]
   },
   {
+    "id": "plan",
+    "title": "Plan",
+    "description": "",
+    "icon": "",
+    "status": "En construction",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
+    "path": "/courses/plan/",
+    "index_path": "/GevOps_LC/courses/plan/index.html",
+    "themes": [
+      {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "Plan_Support",
+            "path": "/GevOps_LC/courses/plan/plan_support.html",
+            "file": "plan_support.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "Plan_Testeur",
+            "path": "/GevOps_LC/courses/plan/plan_testeur.html",
+            "file": "plan_testeur.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "python",
     "title": "Python",
     "description": "Python appliqué à l'automatisation, les APIs, les scripts DevOps et la data.",
@@ -3503,6 +3547,1299 @@
             "difficulty": "advanced",
             "duration": "90",
             "mermaid": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "technicien_support_applicatif",
+    "title": "Technicien_Support_Applicatif",
+    "description": "",
+    "icon": "",
+    "status": "En construction",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
+    "path": "/courses/technicien_support_applicatif/",
+    "index_path": "/GevOps_LC/courses/technicien_support_applicatif/index.html",
+    "themes": [
+      {
+        "id": "comprendre-le-role-du-support-applicatif",
+        "title": "Comprendre le rôle du support applicatif",
+        "modules": [
+          {
+            "title": "Comprendre le rôle du support applicatif",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/01_role_support.html",
+            "file": "01_role_support.md",
+            "chapter_title": "Comprendre le rôle du support applicatif",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "support applicatif",
+              "itil",
+              "incident",
+              "sla",
+              "ticketing",
+              "niveaux de support"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Comprendre une application métier",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/06_comprendre_application.html",
+            "file": "06_comprendre_application.md",
+            "chapter_title": "Comprendre le rôle du support applicatif",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "application métier",
+              "support applicatif",
+              "architecture logicielle",
+              "couches applicatives",
+              "bases de données"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "environnement-de-travail-outils-support",
+        "title": "Environnement de travail & outils support",
+        "modules": [
+          {
+            "title": "Environnement de travail & outils support",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/02_outils_support.html",
+            "file": "02_outils_support.md",
+            "chapter_title": "Environnement de travail & outils support",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "ticketing",
+              "glpi",
+              "servicenow",
+              "jira",
+              "rdp",
+              "ssh",
+              "vpn",
+              "monitoring",
+              "logs",
+              "droits-acces"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "environnements-deploiements",
+        "title": "Environnements & déploiements",
+        "modules": [
+          {
+            "title": "Environnements & déploiements",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/16_environnements.html",
+            "file": "16_environnements.md",
+            "chapter_title": "Environnements & déploiements",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "environnements",
+              "déploiement",
+              "prod",
+              "preprod",
+              "dev",
+              "pipeline",
+              "release"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "bases-systemes-windows-linux",
+        "title": "Bases systèmes (Windows / Linux)",
+        "modules": [
+          {
+            "title": "Bases systèmes — Windows & Linux",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/03_bases_systemes.html",
+            "file": "03_bases_systemes.md",
+            "chapter_title": "Bases systèmes (Windows / Linux)",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "windows",
+              "linux",
+              "système de fichiers",
+              "processus",
+              "services",
+              "logs",
+              "variables d'environnement"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "bases-reseau-essentielles",
+        "title": "Bases réseau essentielles",
+        "modules": [
+          {
+            "title": "Bases réseau essentielles",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/04_bases_reseau.html",
+            "file": "04_bases_reseau.md",
+            "chapter_title": "Bases réseau essentielles",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "réseau",
+              "tcp/ip",
+              "dns",
+              "http",
+              "ports",
+              "protocoles",
+              "support"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "sql-pour-support-applicatif",
+        "title": "SQL pour support applicatif",
+        "modules": [
+          {
+            "title": "SQL pour le support applicatif",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/05_sql_support.html",
+            "file": "05_sql_support.md",
+            "chapter_title": "SQL pour support applicatif",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "sql",
+              "base de données",
+              "support",
+              "requêtes",
+              "diagnostic",
+              "débutant"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gestion-des-erreurs-diagnostic-initial",
+        "title": "Gestion des erreurs & diagnostic initial",
+        "modules": [
+          {
+            "title": "Gestion des erreurs & diagnostic initial",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/07_gestion_erreurs.html",
+            "file": "07_gestion_erreurs.md",
+            "chapter_title": "Gestion des erreurs & diagnostic initial",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "diagnostic",
+              "erreurs",
+              "logs",
+              "support",
+              "troubleshooting",
+              "incident"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "communication-gestion-utilisateur",
+        "title": "Communication & gestion utilisateur",
+        "modules": [
+          {
+            "title": "Communication & gestion utilisateur",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/08_communication.html",
+            "file": "08_communication.md",
+            "chapter_title": "Communication & gestion utilisateur",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "communication",
+              "support",
+              "utilisateur",
+              "ticket",
+              "empathie",
+              "escalade"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "travail-en-equipe-outils-collaboratifs",
+        "title": "Travail en équipe & outils collaboratifs",
+        "modules": [
+          {
+            "title": "Travail en équipe & outils collaboratifs",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/09_collaboration.html",
+            "file": "09_collaboration.md",
+            "chapter_title": "Travail en équipe & outils collaboratifs",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "collaboration",
+              "ticketing",
+              "communication",
+              "équipe",
+              "support",
+              "jira",
+              "slack",
+              "confluence",
+              "documentation"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "analyse-avancee-des-logs",
+        "title": "Analyse avancée des logs",
+        "modules": [
+          {
+            "title": "Analyse avancée des logs",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/10_logs_avances.html",
+            "file": "10_logs_avances.md",
+            "chapter_title": "Analyse avancée des logs",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "logs",
+              "grep",
+              "awk",
+              "sed",
+              "analyse",
+              "diagnostic",
+              "linux",
+              "troubleshooting",
+              "regex"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-applicative-reelle",
+        "title": "Architecture applicative réelle",
+        "modules": [
+          {
+            "title": "Architecture applicative réelle",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/11_architecture_app.html",
+            "file": "11_architecture_app.md",
+            "chapter_title": "Architecture applicative réelle",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "architecture",
+              "microservices",
+              "monolithe",
+              "api",
+              "middleware",
+              "load-balancer",
+              "base-de-données",
+              "support-applicatif"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "debugging-technique",
+        "title": "Debugging technique",
+        "modules": [
+          {
+            "title": "Debugging technique",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/12_debugging.html",
+            "file": "12_debugging.md",
+            "chapter_title": "Debugging technique",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "debugging",
+              "diagnostic",
+              "logs",
+              "erreurs",
+              "troubleshooting",
+              "support applicatif"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-comprehension-globale-si",
+        "title": "Architecture & compréhension globale SI",
+        "modules": [
+          {
+            "title": "Architecture & compréhension globale du SI",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/19_architecture_si.html",
+            "file": "19_architecture_si.md",
+            "chapter_title": "Architecture & compréhension globale SI",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "architecture",
+              "si",
+              "microservices",
+              "monolithe",
+              "api",
+              "middleware",
+              "infrastructure",
+              "systeme-information"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gestion-des-incidents-complexes",
+        "title": "Gestion des incidents complexes",
+        "modules": [
+          {
+            "title": "Gestion des incidents complexes",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/13_incidents_complexes.html",
+            "file": "13_incidents_complexes.md",
+            "chapter_title": "Gestion des incidents complexes",
+            "chapter": 6,
+            "section": 1,
+            "tags": [
+              "incident",
+              "diagnostic",
+              "support applicatif",
+              "troubleshooting",
+              "logs",
+              "escalade",
+              "itil"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gestion-des-donnees-integrite",
+        "title": "Gestion des données & intégrité",
+        "modules": [
+          {
+            "title": "Gestion des données & intégrité",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/14_data_integrite.html",
+            "file": "14_data_integrite.md",
+            "chapter_title": "Gestion des données & intégrité",
+            "chapter": 7,
+            "section": 1,
+            "tags": [
+              "données",
+              "intégrité",
+              "sql",
+              "diagnostic",
+              "corruption",
+              "support applicatif",
+              "base de données"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "automatisation-des-taches-support",
+        "title": "Automatisation des tâches support",
+        "modules": [
+          {
+            "title": "Automatisation des tâches support",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/15_automatisation.html",
+            "file": "15_automatisation.md",
+            "chapter_title": "Automatisation des tâches support",
+            "chapter": 7,
+            "section": 1,
+            "tags": [
+              "automatisation",
+              "scripting",
+              "bash",
+              "powershell",
+              "python",
+              "support",
+              "productivite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "210",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "observabilite-logs-metrics-traces",
+        "title": "Observabilité (logs / metrics / traces)",
+        "modules": [
+          {
+            "title": "Observabilité : logs, métriques et traces",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/17_observabilite.html",
+            "file": "17_observabilite.md",
+            "chapter_title": "Observabilité (logs / metrics / traces)",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "observabilité",
+              "logs",
+              "métriques",
+              "traces",
+              "monitoring",
+              "prometheus",
+              "grafana",
+              "opentelemetry"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "securite-applicative-niveau-support",
+        "title": "Sécurité applicative (niveau support)",
+        "modules": [
+          {
+            "title": "Sécurité applicative pour le support",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/18_securite.html",
+            "file": "18_securite.md",
+            "chapter_title": "Sécurité applicative (niveau support)",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "sécurité applicative",
+              "owasp",
+              "authentification",
+              "injection",
+              "logs",
+              "support"
+            ],
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "debugging-avance-troubleshooting",
+        "title": "Debugging avancé & troubleshooting",
+        "modules": [
+          {
+            "title": "Debugging avancé & troubleshooting",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/20_troubleshooting.html",
+            "file": "20_troubleshooting.md",
+            "chapter_title": "Debugging avancé & troubleshooting",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "debugging",
+              "troubleshooting",
+              "diagnostic",
+              "logs",
+              "strace",
+              "tcpdump",
+              "performance",
+              "support-applicatif"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "performance-optimisation",
+        "title": "Performance & optimisation",
+        "modules": [
+          {
+            "title": "Performance & optimisation : diagnostic et résolution",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/22_performance.html",
+            "file": "22_performance.md",
+            "chapter_title": "Performance & optimisation",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "performance",
+              "optimisation",
+              "diagnostic",
+              "cpu",
+              "memoire",
+              "base-de-donnees",
+              "logs",
+              "profiling"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "industrialisation-support-avance",
+        "title": "Industrialisation & support avancé",
+        "modules": [
+          {
+            "title": "Industrialisation & support avancé",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/23_industrialisation.html",
+            "file": "23_industrialisation.md",
+            "chapter_title": "Industrialisation & support avancé",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "industrialisation",
+              "support",
+              "automatisation",
+              "monitoring",
+              "runbook",
+              "alerting",
+              "incident",
+              "bash",
+              "python",
+              "observabilite"
+            ],
+            "difficulty": "advanced",
+            "duration": "240",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "pieges-avances-du-support-applicatif",
+        "title": "Pièges avancés du support applicatif",
+        "modules": [
+          {
+            "title": "Pièges avancés du support applicatif",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/24_pieges.html",
+            "file": "24_pieges.md",
+            "chapter_title": "Pièges avancés du support applicatif",
+            "chapter": 8,
+            "section": 2,
+            "tags": [
+              "support applicatif",
+              "diagnostic",
+              "incidents",
+              "production",
+              "pièges",
+              "investigation"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gestion-de-crise-incidents-majeurs",
+        "title": "Gestion de crise & incidents majeurs",
+        "modules": [
+          {
+            "title": "Gestion de crise & incidents majeurs",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/21_crise.html",
+            "file": "21_crise.md",
+            "chapter_title": "Gestion de crise & incidents majeurs",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "incident",
+              "crise",
+              "diagnostic",
+              "escalade",
+              "postmortem",
+              "sla",
+              "astreinte",
+              "war-room"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "passage-vers-devops-sre",
+        "title": "Passage vers DevOps / SRE",
+        "modules": [
+          {
+            "title": "Passage vers DevOps / SRE",
+            "path": "/GevOps_LC/courses/technicien_support_applicatif/25_devops_transition.html",
+            "file": "25_devops_transition.md",
+            "chapter_title": "Passage vers DevOps / SRE",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "devops",
+              "sre",
+              "infrastructure",
+              "automatisation",
+              "observabilité",
+              "carrière"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "testeur_qa",
+    "title": "Testeur_Qa",
+    "description": "",
+    "icon": "",
+    "status": "En construction",
+    "domain": "",
+    "domain_icon": "",
+    "domain_order": "",
+    "path": "/courses/testeur_qa/",
+    "index_path": "/GevOps_LC/courses/testeur_qa/index.html",
+    "themes": [
+      {
+        "id": "fondations",
+        "title": "Fondations",
+        "modules": [
+          {
+            "title": "Rôle du QA & cycle de vie logiciel",
+            "path": "/GevOps_LC/courses/testeur_qa/01_role_qa_cycle.html",
+            "file": "01_role_qa_cycle.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "qa",
+              "sdlc",
+              "stlc",
+              "qualité logicielle",
+              "tests",
+              "cycle de vie"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "types-de-tests-strategies",
+        "title": "Types de tests & stratégies",
+        "modules": [
+          {
+            "title": "Types de tests & stratégies",
+            "path": "/GevOps_LC/courses/testeur_qa/02_types_tests.html",
+            "file": "02_types_tests.md",
+            "chapter_title": "Types de tests & stratégies",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "qa",
+              "tests",
+              "smoke test",
+              "regression",
+              "test exploratoire",
+              "stratégie de test",
+              "manuel",
+              "automatisé"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "methodologie-de-test",
+        "title": "Méthodologie de test",
+        "modules": [
+          {
+            "title": "Méthodologie de test",
+            "path": "/GevOps_LC/courses/testeur_qa/03_methodologie_test.html",
+            "file": "03_methodologie_test.md",
+            "chapter_title": "Méthodologie de test",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "qa",
+              "test",
+              "cas de test",
+              "given-when-then",
+              "critères d'acceptation",
+              "priorisation"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "outils-qa-de-base",
+        "title": "Outils QA de base",
+        "modules": [
+          {
+            "title": "Outils QA de base",
+            "path": "/GevOps_LC/courses/testeur_qa/04_outils_qa.html",
+            "file": "04_outils_qa.md",
+            "chapter_title": "Outils QA de base",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "qa",
+              "jira",
+              "postman",
+              "devtools",
+              "bug-report",
+              "api-testing",
+              "logs"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "http-web-fundamentals",
+        "title": "HTTP & Web fundamentals",
+        "modules": [
+          {
+            "title": "HTTP & Web fundamentals",
+            "path": "/GevOps_LC/courses/testeur_qa/05_http_fundamentals.html",
+            "file": "05_http_fundamentals.md",
+            "chapter_title": "HTTP & Web fundamentals",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "http",
+              "web",
+              "requête",
+              "réponse",
+              "api",
+              "devtools",
+              "status-code",
+              "headers"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "bugs-reporting",
+        "title": "Bugs & reporting",
+        "modules": [
+          {
+            "title": "Bugs & reporting",
+            "path": "/GevOps_LC/courses/testeur_qa/06_bug_reporting.html",
+            "file": "06_bug_reporting.md",
+            "chapter_title": "Bugs & reporting",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "bug",
+              "reporting",
+              "jira",
+              "qa",
+              "débutant",
+              "ticket",
+              "reproduction"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gestion-des-donnees-de-test",
+        "title": "Gestion des données de test",
+        "modules": [
+          {
+            "title": "Gestion des données de test",
+            "path": "/GevOps_LC/courses/testeur_qa/07_test_data.html",
+            "file": "07_test_data.md",
+            "chapter_title": "Gestion des données de test",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "qa",
+              "données de test",
+              "test data",
+              "fixtures",
+              "anonymisation",
+              "environnement de test"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "git-collaboration",
+        "title": "Git & collaboration",
+        "modules": [
+          {
+            "title": "Git & collaboration",
+            "path": "/GevOps_LC/courses/testeur_qa/08_git_collaboration.html",
+            "file": "08_git_collaboration.md",
+            "chapter_title": "Git & collaboration",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "git",
+              "collaboration",
+              "versionning",
+              "branches",
+              "pull-request",
+              "qa"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "automatisation-des-tests-ui",
+        "title": "Automatisation des tests (UI)",
+        "modules": [
+          {
+            "title": "Automatisation des tests UI avec Playwright",
+            "path": "/GevOps_LC/courses/testeur_qa/10_automation_ui.html",
+            "file": "10_automation_ui.md",
+            "chapter_title": "Automatisation des tests (UI)",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "playwright",
+              "test-ui",
+              "automatisation",
+              "selenium",
+              "end-to-end",
+              "locators",
+              "assertions"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "tests-backend-unitaires",
+        "title": "Tests backend & unitaires",
+        "modules": [
+          {
+            "title": "Tests backend & unitaires",
+            "path": "/GevOps_LC/courses/testeur_qa/11_tests_backend.html",
+            "file": "11_tests_backend.md",
+            "chapter_title": "Tests backend & unitaires",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "tests unitaires",
+              "backend",
+              "pytest",
+              "jest",
+              "tdd",
+              "mocking",
+              "api testing"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "strategie-de-test-en-equipe",
+        "title": "Stratégie de test en équipe",
+        "modules": [
+          {
+            "title": "Stratégie de test en équipe",
+            "path": "/GevOps_LC/courses/testeur_qa/15_strategie_equipe.html",
+            "file": "15_strategie_equipe.md",
+            "chapter_title": "Stratégie de test en équipe",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "qa",
+              "stratégie",
+              "équipe",
+              "organisation",
+              "coverage",
+              "test-plan",
+              "collaboration"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "automatisation-architecture-de-tests",
+        "title": "Automatisation & architecture de tests",
+        "modules": [
+          {
+            "title": "Architecture de framework de test",
+            "path": "/GevOps_LC/courses/testeur_qa/17_framework_test.html",
+            "file": "17_framework_test.md",
+            "chapter_title": "Automatisation & architecture de tests",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "framework",
+              "test automation",
+              "architecture",
+              "page object model",
+              "design pattern"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "strategie-qa-entreprise",
+        "title": "Stratégie QA entreprise",
+        "modules": [
+          {
+            "title": "Stratégie QA entreprise",
+            "path": "/GevOps_LC/courses/testeur_qa/23_strategie_qa.html",
+            "file": "23_strategie_qa.md",
+            "chapter_title": "Stratégie QA entreprise",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "qa",
+              "strategie",
+              "architecture",
+              "test-pyramid",
+              "shift-left",
+              "ci-cd",
+              "gouvernance"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "api-testing-avance",
+        "title": "API Testing avancé",
+        "modules": [
+          {
+            "title": "API Testing avancé",
+            "path": "/GevOps_LC/courses/testeur_qa/09_api_testing.html",
+            "file": "09_api_testing.md",
+            "chapter_title": "API Testing avancé",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "api",
+              "postman",
+              "rest",
+              "testing",
+              "json",
+              "authentification",
+              "automatisation",
+              "newman"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "ci-cd-tests",
+        "title": "CI/CD & Tests",
+        "modules": [
+          {
+            "title": "CI/CD & Tests — Intégrer la qualité dans le pipeline",
+            "path": "/GevOps_LC/courses/testeur_qa/12_ci_cd_tests.html",
+            "file": "12_ci_cd_tests.md",
+            "chapter_title": "CI/CD & Tests",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "ci/cd",
+              "pipeline",
+              "tests automatisés",
+              "jenkins",
+              "github actions",
+              "qualité logicielle"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "performance-testing",
+        "title": "Performance Testing",
+        "modules": [
+          {
+            "title": "Performance Testing — Diagnostiquer les lenteurs avant qu'elles coûtent cher",
+            "path": "/GevOps_LC/courses/testeur_qa/13_performance_testing.html",
+            "file": "13_performance_testing.md",
+            "chapter_title": "Performance Testing",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "performance",
+              "load-testing",
+              "stress-testing",
+              "k6",
+              "jmeter",
+              "bottleneck",
+              "qa"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "securite-applicative-qa",
+        "title": "Sécurité applicative (QA)",
+        "modules": [
+          {
+            "title": "Sécurité applicative pour QA",
+            "path": "/GevOps_LC/courses/testeur_qa/14_security_testing.html",
+            "file": "14_security_testing.md",
+            "chapter_title": "Sécurité applicative (QA)",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "sécurité applicative",
+              "owasp",
+              "injection",
+              "xss",
+              "authentification",
+              "qa",
+              "test de sécurité"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "flaky-tests",
+        "title": "Flaky tests",
+        "modules": [
+          {
+            "title": "Flaky tests : identifier, diagnostiquer et éradiquer les tests instables",
+            "path": "/GevOps_LC/courses/testeur_qa/16_flaky_tests.html",
+            "file": "16_flaky_tests.md",
+            "chapter_title": "Flaky tests",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "flaky tests",
+              "tests instables",
+              "diagnostic",
+              "automatisation",
+              "ci/cd",
+              "qualité"
+            ],
+            "difficulty": "intermediate",
+            "duration": "55",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "data-quality-validation",
+        "title": "Data quality & validation",
+        "modules": [
+          {
+            "title": "Data quality & validation : diagnostiquer et corriger les problèmes de qualité",
+            "path": "/GevOps_LC/courses/testeur_qa/22_data_quality.html",
+            "file": "22_data_quality.md",
+            "chapter_title": "Data quality & validation",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "data quality",
+              "validation",
+              "testing",
+              "qa",
+              "pipeline",
+              "anomalie",
+              "diagnostic"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "dette-de-test",
+        "title": "Dette de test",
+        "modules": [
+          {
+            "title": "Dette de test",
+            "path": "/GevOps_LC/courses/testeur_qa/24_dette_test.html",
+            "file": "24_dette_test.md",
+            "chapter_title": "Dette de test",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "dette-technique",
+              "qualité",
+              "anti-patterns",
+              "stratégie-de-test",
+              "maintenance"
+            ],
+            "difficulty": "advanced",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "tests-distribues-parallelisation",
+        "title": "Tests distribués & parallélisation",
+        "modules": [
+          {
+            "title": "Tests distribués & parallélisation",
+            "path": "/GevOps_LC/courses/testeur_qa/18_parallelisation.html",
+            "file": "18_parallelisation.md",
+            "chapter_title": "Tests distribués & parallélisation",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "tests distribués",
+              "parallélisation",
+              "selenium grid",
+              "pytest-xdist",
+              "ci/cd",
+              "performance",
+              "scalabilité"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "observabilite-pour-qa",
+        "title": "Observabilité pour QA",
+        "modules": [
+          {
+            "title": "Observabilité pour QA",
+            "path": "/GevOps_LC/courses/testeur_qa/19_observabilite.html",
+            "file": "19_observabilite.md",
+            "chapter_title": "Observabilité pour QA",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "observabilité",
+              "logs",
+              "monitoring",
+              "tracing",
+              "debugging",
+              "qa",
+              "diagnostic"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "tests-en-production-safe",
+        "title": "Tests en production (safe)",
+        "modules": [
+          {
+            "title": "Tests en production (safe)",
+            "path": "/GevOps_LC/courses/testeur_qa/20_tests_production.html",
+            "file": "20_tests_production.md",
+            "chapter_title": "Tests en production (safe)",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "production",
+              "feature flags",
+              "canary release",
+              "shadow testing",
+              "observabilité",
+              "tests en prod"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "test-de-systemes-distribues",
+        "title": "Test de systèmes distribués",
+        "modules": [
+          {
+            "title": "Test de systèmes distribués",
+            "path": "/GevOps_LC/courses/testeur_qa/21_distributed_testing.html",
+            "file": "21_distributed_testing.md",
+            "chapter_title": "Test de systèmes distribués",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "systèmes distribués",
+              "tests avancés",
+              "chaos engineering",
+              "résilience",
+              "microservices",
+              "architecture"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
           }
         ]
       }

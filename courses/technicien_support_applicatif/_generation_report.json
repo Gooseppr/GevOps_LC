@@ -1,0 +1,33 @@
+{
+  "sujet": "Technicien Support Applicatif",
+  "generated_at": "2026-04-14T18:00:00",
+  "total_modules": 25,
+  "generated_count": 25,
+  "files": [
+    "courses/technicien_support_applicatif/01_role_support.md",
+    "courses/technicien_support_applicatif/02_outils_support.md",
+    "courses/technicien_support_applicatif/03_bases_systemes.md",
+    "courses/technicien_support_applicatif/04_bases_reseau.md",
+    "courses/technicien_support_applicatif/05_sql_support.md",
+    "courses/technicien_support_applicatif/06_comprendre_application.md",
+    "courses/technicien_support_applicatif/07_gestion_erreurs.md",
+    "courses/technicien_support_applicatif/08_communication.md",
+    "courses/technicien_support_applicatif/09_collaboration.md",
+    "courses/technicien_support_applicatif/10_logs_avances.md",
+    "courses/technicien_support_applicatif/11_architecture_app.md",
+    "courses/technicien_support_applicatif/12_debugging.md",
+    "courses/technicien_support_applicatif/13_incidents_complexes.md",
+    "courses/technicien_support_applicatif/14_data_integrite.md",
+    "courses/technicien_support_applicatif/15_automatisation.md",
+    "courses/technicien_support_applicatif/16_environnements.md",
+    "courses/technicien_support_applicatif/17_observabilite.md",
+    "courses/technicien_support_applicatif/18_securite.md",
+    "courses/technicien_support_applicatif/19_architecture_si.md",
+    "courses/technicien_support_applicatif/20_troubleshooting.md",
+    "courses/technicien_support_applicatif/21_crise.md",
+    "courses/technicien_support_applicatif/22_performance.md",
+    "courses/technicien_support_applicatif/23_industrialisation.md",
+    "courses/technicien_support_applicatif/24_pieges.md",
+    "courses/technicien_support_applicatif/25_devops_transition.md"
+  ]
+}

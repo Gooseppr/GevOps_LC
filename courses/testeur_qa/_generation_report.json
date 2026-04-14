@@ -1,0 +1,32 @@
+{
+  "sujet": "Testeur QA",
+  "generated_at": "2026-04-14T16:19:56",
+  "total_modules": 24,
+  "generated_count": 24,
+  "files": [
+    "courses/testeur_qa/01_role_qa_cycle.md",
+    "courses/testeur_qa/02_types_tests.md",
+    "courses/testeur_qa/03_methodologie_test.md",
+    "courses/testeur_qa/04_outils_qa.md",
+    "courses/testeur_qa/05_http_fundamentals.md",
+    "courses/testeur_qa/06_bug_reporting.md",
+    "courses/testeur_qa/07_test_data.md",
+    "courses/testeur_qa/08_git_collaboration.md",
+    "courses/testeur_qa/09_api_testing.md",
+    "courses/testeur_qa/10_automation_ui.md",
+    "courses/testeur_qa/11_tests_backend.md",
+    "courses/testeur_qa/12_ci_cd_tests.md",
+    "courses/testeur_qa/13_performance_testing.md",
+    "courses/testeur_qa/14_security_testing.md",
+    "courses/testeur_qa/15_strategie_equipe.md",
+    "courses/testeur_qa/16_flaky_tests.md",
+    "courses/testeur_qa/17_framework_test.md",
+    "courses/testeur_qa/18_parallelisation.md",
+    "courses/testeur_qa/19_observabilite.md",
+    "courses/testeur_qa/20_tests_production.md",
+    "courses/testeur_qa/21_distributed_testing.md",
+    "courses/testeur_qa/22_data_quality.md",
+    "courses/testeur_qa/23_strategie_qa.md",
+    "courses/testeur_qa/24_dette_test.md"
+  ]
+}
