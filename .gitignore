@@ -9,6 +9,8 @@ pipeline/*
 !pipeline/review_state.json
 courses/**/PLAN.md
 courses/**/00_plan.md
+!courses/plan
+!courses/plan/*
 __pycache__/
 *.pyc
 .env
