@@ -66,6 +66,20 @@
       ]
     },
     {
+      "id": "test",
+      "title": "Test",
+      "icon": "⚙️",
+      "courses": [
+        {
+          "id": "test",
+          "title": "Gros test",
+          "icon": "⚙️",
+          "status": "En construction",
+          "path": "/courses/test/"
+        }
+      ]
+    },
+    {
       "id": "data",
       "title": "Data",
       "icon": "📈",
