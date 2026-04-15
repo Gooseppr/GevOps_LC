@@ -5795,6 +5795,38 @@
       ]
     },
     {
+      "id": "test",
+      "title": "Gros test",
+      "description": "Je teste des choses.",
+      "icon": "⚙️",
+      "status": "En construction",
+      "domain": "Test",
+      "domain_icon": "⚙️",
+      "domain_order": "30",
+      "path": "/courses/test/",
+      "index_path": "/GevOps_LC/courses/test/index.html",
+      "themes": [
+        {
+          "id": "l-amour-c-est-quoi",
+          "title": "L'amour c'est quoi ?",
+          "modules": [
+            {
+              "title": "L'amour c'est quoi ?",
+              "path": "/GevOps_LC/courses/test/01_amour.html",
+              "file": "01_amour.md",
+              "chapter_title": "L'amour c'est quoi ?",
+              "chapter": 1,
+              "section": 1,
+              "tags": [],
+              "difficulty": "",
+              "duration": "",
+              "mermaid": false
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "testeur_qa",
       "title": "Testeur qa",
       "description": "",
