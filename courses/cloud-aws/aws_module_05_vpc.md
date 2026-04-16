@@ -169,6 +169,38 @@ Quand une instance privée veut télécharger une mise à jour depuis Internet, 
 5. L'IGW transmet le paquet sur Internet avec l'IP publique de la NAT
 6. La réponse revient à la NAT Gateway, qui retraduit et renvoie à `10.0.2.15`
 
+```mermaid
+sequenceDiagram
+    participant EC2 as EC2 (10.0.2.15)
+    participant NAT as NAT Gateway (nat-xxx)
+    participant IGW as Internet Gateway (igw-xxx)
+    participant WEB as Serveur Internet
+
+    %% Étape 1
+    EC2->>NAT: 1. Le paquet part de 10.0.2.15 → Web
+
+    %% Étape 2 (routage privé)
+    Note right of EC2: 2. Route table privée <br> 0.0.0.0/0 → nat-xxx
+
+    %% Étape 3 (NAT)
+    NAT->>NAT: 3. Remplacement IP source 10.0.2.15 → IP publique NAT
+
+    %% Étape 4 (routage public)
+    Note right of NAT: 4. Route table publique <br> 0.0.0.0/0 → igw-xxx
+
+    %% Étape 5 (sortie Internet)
+    NAT->>IGW: Envoi vers igw-xxx
+    IGW->>WEB: 5. Transmission vers Internet
+
+    %% Retour (non numéroté intermédiaire)
+    WEB-->>IGW: Réponse
+    IGW-->>NAT: Retour vers nat-xxx
+
+    %% Étape 6 (retour complet)
+    NAT->>NAT: 6. Retraduction IP
+    NAT-->>EC2: Renvoi vers 10.0.2.15
+```
+
 L'instance privée n'a jamais eu d'IP publique. Elle n'est jamais directement visible depuis Internet. C'est exactement le comportement voulu.
 
 🧠 **La route table est la seule vérité**
