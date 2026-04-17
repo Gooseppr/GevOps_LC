@@ -49,7 +49,7 @@ L'un sans l'autre reste incomplet : un load balancer sans scaling ne résout pas
 
 ```mermaid
 graph TD
-    User["🌐 Utilisateur"] --> ALB["ALB\n(Elastic Load Balancer)"]
+    User["🌐 Utilisateur"] --> ALB["Elastic Load Balancer\n(Type ALB)"]
     ALB --> TG["Target Group"]
     TG --> EC2A["EC2 Instance A"]
     TG --> EC2B["EC2 Instance B"]
@@ -61,6 +61,8 @@ graph TD
 Le flux est simple : le trafic arrive sur le Load Balancer, qui le route vers un **Target Group** — un ensemble d'instances enregistrées et considérées comme saines. L'ASG surveille en parallèle les métriques CloudWatch et décide d'ajouter ou de retirer des instances dans ce groupe.
 
 ### Quel type de Load Balancer choisir ?
+
+Le service AWS de load balancing (ELB) propose plusieurs types de Load Balancers, chacun adapté à des cas d’usage différents.
 
 | Type | Protocole | Cas d'usage typique | Niveau OSI |
 |------|-----------|---------------------|------------|
