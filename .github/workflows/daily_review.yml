@@ -2,9 +2,8 @@ name: Daily Review Email
 
 on:
   schedule:
-    # Tous les jours à 10h00 heure de Paris
-    # UTC+2 (été, mars→oct)  → 08:00 UTC  ✓
-    # UTC+1 (hiver, oct→mar) → 09:00 UTC  (soit 10h heure locale)
+    # Tous les jours à 10h00 heure de Paris (le filtrage par jour se fait dans le script)
+    # UTC+2 (été, mars→oct)  → 08:00 UTC
     - cron: '0 8 * * *'
   workflow_dispatch:   # Permet aussi de lancer manuellement depuis GitHub
 

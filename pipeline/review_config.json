@@ -12,6 +12,7 @@
       "email": "austinpwr@zohomail.eu",
       "name": "Greg",
       "active": true,
+      "days": ["lun", "mer", "ven"],
       "daily_mix": [
         { "type": "command", "count": 2 },
         { "type": "concept", "count": 1 },
@@ -38,6 +39,7 @@
       "email": "austinpwr@zohomail.eu",
       "name": "Greg SQL",
       "active": true,
+      "days": ["lun", "mer", "ven"],
       "daily_mix": [
         { "type": "command", "count": 2 },
         { "type": "concept", "count": 1 },
@@ -58,6 +60,7 @@
       "email": "austinpwr@zohomail.eu",
       "name": "Greg AWS",
       "active": true,
+      "days": ["lun", "mer", "ven"],
       "daily_mix": [
         { "type": "command", "count": 2 },
         { "type": "concept", "count": 1 },
@@ -78,6 +81,7 @@
       "email": "j.t-elmacin@hotmail.fr",
       "name": "Teddy",
       "active": true,
+      "days": ["lundi", "mardi", "mercredi", "jeudi", "vendredi"],
       "daily_mix": [
         { "type": "command", "count": 2 },
         { "type": "concept", "count": 1 },

@@ -692,11 +692,46 @@ def main():
 
     smtp_cfg          = config['smtp']
     subject_template  = config.get('subject_template', 'Révision du {date} — {name}')
-    active_users      = [u for u in config.get('users', []) if u.get('active', True)]
+    # Filtrage par jour de la semaine (configurable par utilisateur)
+    # Accepte français (lun, lundi) et anglais (mon) pour chaque jour
+    DAY_ALIASES = {
+        0: ['lun', 'lundi', 'mon'],
+        1: ['mar', 'mardi', 'tue'],
+        2: ['mer', 'mercredi', 'wed'],
+        3: ['jeu', 'jeudi', 'thu'],
+        4: ['ven', 'vendredi', 'fri'],
+        5: ['sam', 'samedi', 'sat'],
+        6: ['dim', 'dimanche', 'sun'],
+    }
+    today_aliases = DAY_ALIASES[date.today().weekday()]
+    today_label = today_aliases[1]  # nom complet français pour l'affichage
+    ALL_DAYS = [alias for aliases in DAY_ALIASES.values() for alias in aliases]
+
+    def is_today(user_days):
+        return any(d.lower() in today_aliases for d in user_days)
+
+    all_active = [u for u in config.get('users', []) if u.get('active', True)]
+    active_users = [
+        u for u in all_active
+        if is_today(u.get('days', ALL_DAYS))
+    ]
+
+    skipped = len(all_active) - len(active_users)
+    if skipped:
+        print(f"📅 {skipped} utilisateur(s) non prévu(s) aujourd'hui ({today_label})\n")
+
+    if not all_active:
+        print("❌ Aucun utilisateur actif dans review_config.json")
+        return
+
+    if not active_users and not args.user:
+        print(f"📅 Aucun utilisateur prévu pour aujourd'hui ({today_label}). Rien à envoyer.")
+        return
 
     if args.user:
         target = args.user.lower()
-        active_users = [u for u in active_users
+        # --user ignore le filtre de jour (permet de tester n'importe quand)
+        active_users = [u for u in all_active
                         if u['name'].lower() == target or u['email'].lower() == target]
         if not active_users:
             print(f"❌ Utilisateur '{args.user}' introuvable ou inactif.")
