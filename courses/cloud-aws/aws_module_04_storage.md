@@ -40,7 +40,7 @@ Considère ces trois situations :
 - Une base de données PostgreSQL a besoin d'un disque rapide avec des lectures/écritures à faible latence
 - Dix instances EC2 doivent accéder au même répertoire de configuration en temps réel
 
-Ce ne sont pas trois variantes du même problème — ce sont trois problèmes fondamentalement différents. AWS y répond avec trois services distincts : **S3**, **EBS** et **EFS**.
+Ce ne sont pas trois variantes du même problème — ce sont trois problèmes fondamentalement différents. AWS y répond avec trois services distincts : **S3** (Simple Storage Service), **EBS** et **EFS**.
 
 Le mauvais choix coûte cher : en performance d'abord, en argent ensuite. Ce module t'explique comment trancher.
 
@@ -52,7 +52,7 @@ Le mauvais choix coûte cher : en performance d'abord, en argent ensuite. Ce mod
 |---------|-----------|---------------------|--------------|
 | **S3** | Stockage objet | Fichiers, backups, assets statiques, data lake | API HTTP/HTTPS |
 | **EBS** | Stockage bloc | Disque système EC2, base de données | Attaché à une instance |
-| **EFS** | Système de fichiers réseau | Répertoire partagé entre plusieurs instances | NFS (montage réseau) |
+| **EFS** | Système de fichiers réseau | Répertoire partagé entre plusieurs instances | NFS (Network File System) |
 
 La distinction clé à retenir : **S3 n'est pas un disque**. On n'y monte pas un répertoire, on y envoie et récupère des objets via une API. EBS se comporte exactement comme un disque SSD vu de l'OS. EFS se situe entre les deux — il ressemble à un répertoire local mais est accessible depuis n'importe quelle instance dans le même VPC.
 
@@ -217,7 +217,7 @@ Trois points importants à retenir :
 | st1 | HDD séquentiel | Big data, logs, data warehouse |
 | sc1 | HDD froid | Archives rarement accédées |
 
-🧠 **gp3 est le choix par défaut dans la quasi-totalité des cas.** Il est plus performant et moins cher que son prédécesseur gp2 : 3 000 IOPS de base garanties, contre des IOPS variables et imprévisibles avec gp2.
+🧠 **gp3 est le choix par défaut dans la quasi-totalité des cas.** Il est plus performant et moins cher que son prédécesseur gp2 : 3 000 IOPS (Input/Output Operations Per Second) de base garanties, contre des IOPS variables et imprévisibles avec gp2.
 
 ### Opérations courantes
 
@@ -349,6 +349,8 @@ aws s3api put-public-access-block \
 ### Chiffrement au repos
 
 S3 chiffre tous les objets au repos par défaut depuis 2023 (SSE-S3, clés gérées par AWS). Pour des besoins de conformité ou d'audit granulaire, **SSE-KMS** permet d'utiliser tes propres clés et de tracer chaque accès dans CloudTrail. EBS supporte également le chiffrement AES-256, activable à la création du volume — sans impact mesurable sur les performances.
+
+*SSE-S3 : Server-Side Encryption with S3-managed keys. SSE-KMS : Server-Side Encryption with KMS-managed keys.
 
 <!-- snippet
 id: aws_s3_public_warning

@@ -134,7 +134,7 @@ description: La plupart des incidents IAM viennent de permissions trop larges ac
 
 ## MFA — Ce qu'un mot de passe seul ne peut pas faire
 
-Un mot de passe peut être volé — phishing, fuite de base de données, credential stuffing. MFA (Multi-Factor Authentication) ajoute une deuxième preuve d'identité, généralement un code OTP généré par une application comme Google Authenticator ou Authy. Même en possession du mot de passe, un attaquant ne peut pas se connecter sans ce second facteur physique.
+Un mot de passe peut être volé — phishing, fuite de base de données, credential stuffing. MFA (Multi-Factor Authentication) ajoute une deuxième preuve d'identité, généralement un code OTP (One-Time Password) généré par une application comme Google Authenticator ou Authy. Même en possession du mot de passe, un attaquant ne peut pas se connecter sans ce second facteur physique.
 
 **Le compte root est la priorité absolue.** Le root AWS dispose de droits illimités sur l'ensemble du compte et ne peut pas être restreint par des policies IAM — aucune règle ne peut lui être imposée de l'extérieur. Il doit être protégé par MFA dès la création du compte, et utilisé uniquement pour les opérations qui l'exigent explicitement (changer le plan de support, fermer le compte).
 

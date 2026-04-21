@@ -367,7 +367,7 @@ description: Tout partage de ressource entre environnements crée un vecteur d'i
 
 **Automatisez le déploiement vers staging, manualisez l'approbation vers prod.** Le merge déclenche staging automatiquement. La promotion vers prod demande une approbation humaine — mais une fois accordée, l'exécution doit être aussi automatisée que staging. L'humain décide, la machine exécute.
 
-**Limitez les accès prod au strict nécessaire.** Dans une équipe de moins de 50 personnes, 3 à 5 personnes avec accès prod suffisent. Chaque accès supplémentaire est une surface d'attaque potentielle. Utilisez des rôles assumés via `sts:AssumeRole` plutôt que des clés permanentes.
+**Limitez les accès prod au strict nécessaire.** Dans une équipe de moins de 50 personnes, 3 à 5 personnes avec accès prod suffisent. Chaque accès supplémentaire est une surface d'attaque potentielle. Utilisez des rôles assumés via `sts:AssumeRole` (Security Token Service) plutôt que des clés permanentes.
 
 <!-- snippet
 id: aws_env_definition

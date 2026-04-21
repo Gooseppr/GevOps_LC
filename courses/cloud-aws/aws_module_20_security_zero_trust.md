@@ -32,7 +32,7 @@ next_module_title: "FinOps & optimisation des coûts AWS"
 
 ## Le problème que le périmètre ne résout plus
 
-Pendant longtemps, la sécurité réseau reposait sur une idée simple : tout ce qui est à l'intérieur du réseau est de confiance, tout ce qui vient de l'extérieur est suspect. On construisait un mur solide — un firewall, une DMZ — et on dormait tranquille.
+Pendant longtemps, la sécurité réseau reposait sur une idée simple : tout ce qui est à l'intérieur du réseau est de confiance, tout ce qui vient de l'extérieur est suspect. On construisait un mur solide — un firewall, une DMZ (Demilitarized Zone) — et on dormait tranquille.
 
 Ce modèle s'est effondré. Non pas parce que les firewalls sont devenus inutiles, mais parce que la surface d'attaque a changé de nature. Les compromissions modernes passent rarement par une brèche frontale : elles exploitent un compte utilisateur mal configuré, une clé API exposée dans un dépôt Git, un accès légitime détourné. Une fois à l'intérieur, l'attaquant se déplace **latéralement** — de service en service, de subnet en subnet — jusqu'à atteindre la donnée qu'il cherche.
 
@@ -51,7 +51,7 @@ Le Zero Trust ne se configure pas en un seul endroit. Sur AWS, il se traduit par
 | Identité | IAM (policies, roles) | Qui peut faire quoi sur quelle ressource |
 | Réseau L3 | VPC subnets + Route Tables | Séparation des segments réseau |
 | Réseau L4 stateful | Security Groups | Flux autorisés entre ressources |
-| Réseau L4 stateless | NACLs | Filtrage au niveau subnet |
+| Réseau L4 stateless | NACLs (Network Access Control Lists) | Filtrage au niveau subnet |
 | Accès services | VPC Endpoints | Trafic AWS sans passer par Internet |
 | Audit | CloudTrail | Traçabilité de toutes les actions API |
 | Détection | GuardDuty | Anomalies comportementales en temps réel |

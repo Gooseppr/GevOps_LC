@@ -56,7 +56,7 @@ Ces trois services s'intègrent nativement avec IAM, S3, CloudWatch, SNS, et ave
 
 | Composant | Rôle dans le pipeline | Cibles typiques |
 |---|---|---|
-| **Source** | Détecte les changements de code | GitHub, CodeCommit, S3, ECR |
+| **Source** | Détecte les changements de code | GitHub, CodeCommit, S3, ECR (Elastic Container Registry) |
 | **CodePipeline** | Orchestre les stages et actions | — (plan de vol) |
 | **CodeBuild** | Compile, teste, produit l'artefact | Environnement managé (Docker) |
 | **CodeDeploy** | Déploie l'artefact selon une stratégie | EC2, Lambda, ECS |

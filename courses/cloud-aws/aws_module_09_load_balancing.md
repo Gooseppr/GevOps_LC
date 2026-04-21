@@ -64,11 +64,11 @@ Le flux est simple : le trafic arrive sur le Load Balancer, qui le route vers un
 
 Le service AWS de load balancing (ELB) propose plusieurs types de Load Balancers, chacun adapté à des cas d’usage différents.
 
-| Type | Protocole | Cas d'usage typique | Niveau OSI |
+| Type | Protocole | Cas d'usage typique | Niveau OSI (Open Systems Interconnection) |
 |------|-----------|---------------------|------------|
-| **ALB** (Application) | HTTP / HTTPS / WebSocket | Applications web, APIs REST, microservices | 7 (applicatif) |
-| **NLB** (Network) | TCP / UDP / TLS | Latence ultra-faible, flux non-HTTP, VoIP, jeux | 4 (transport) |
-| **CLB** (Classic) | HTTP / TCP | Legacy uniquement — ne pas utiliser pour de nouveaux projets | 4 et 7 |
+| **ALB** — Application Load Balancer | HTTP / HTTPS / WebSocket | Applications web, APIs REST, microservices | 7 (applicatif) |
+| **NLB** — Network Load Balancer | TCP / UDP / TLS | Latence ultra-faible, flux non-HTTP, VoIP, jeux | 4 (transport) |
+| **CLB** — Classic Load Balancer | HTTP / TCP | Legacy uniquement — ne pas utiliser pour de nouveaux projets | 4 et 7 |
 
 Pour la grande majorité des applications web modernes, **ALB est le bon choix**. Parce qu'il opère au niveau applicatif, il comprend le contenu des requêtes HTTP — ce qui ouvre des possibilités de routage avancé : envoyer `/api/*` vers un groupe d'instances dédié au backend, `/static/*` vers un autre optimisé pour le contenu statique.
 

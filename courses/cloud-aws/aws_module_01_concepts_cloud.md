@@ -125,7 +125,7 @@ Une **région AWS** est un ensemble de datacenters physiquement localisés dans 
 
 Exemples : `us-east-1` (Virginie du Nord), `eu-west-3` (Paris), `ap-southeast-1` (Singapour).
 
-La région que tu choisis détermine trois choses concrètes : la latence pour tes utilisateurs, le cadre légal applicable à tes données (RGPD en Europe), et la disponibilité de certains services AWS qui ne sont pas déployés partout au même moment.
+La région que tu choisis détermine trois choses concrètes : la latence pour tes utilisateurs, le cadre légal applicable à tes données (RGPD (Règlement Général sur la Protection des Données) en Europe), et la disponibilité de certains services AWS qui ne sont pas déployés partout au même moment.
 
 ### Les zones de disponibilité (AZ)
 

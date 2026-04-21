@@ -207,7 +207,7 @@ aws dynamodb get-item \
 
 **Solution :**
 
-Le catalogue et les commandes migrent vers **Aurora MySQL** via AWS DMS en réplication continue. La bascule finale est planifiée un dimanche à 2h : 8 minutes de fenêtre de maintenance, zéro perte de données.
+Le catalogue et les commandes migrent vers **Aurora MySQL** via AWS DMS (Database Migration Service) en réplication continue. La bascule finale est planifiée un dimanche à 2h : 8 minutes de fenêtre de maintenance, zéro perte de données.
 
 Les sessions et paniers sont extraits vers **DynamoDB** avec un TTL de 24h sur les paniers abandonnés. Un Global Secondary Index permet de retrouver les paniers par email pour le tunnel de relance marketing.
 

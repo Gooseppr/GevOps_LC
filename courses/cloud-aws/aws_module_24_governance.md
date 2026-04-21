@@ -278,7 +278,7 @@ Règles managées utiles pour la gouvernance :
 
 **Activer AWS Config en mode agrégateur.** Un Config Aggregator dans le compte management consolide la vue de conformité de l'ensemble des comptes. Sans ça, inspecter 50 comptes un par un prend des jours — et les dérives passent entre les mailles.
 
-**Documenter chaque décision de gouvernance comme une ADR.** Pourquoi ces tags obligatoires et pas d'autres ? Pourquoi cette structure OU ? Sans documentation, la gouvernance devient une boîte noire que personne n'ose modifier — et qui finit par être contournée.
+**Documenter chaque décision de gouvernance comme une ADR (Architecture Decision Record).** Pourquoi ces tags obligatoires et pas d'autres ? Pourquoi cette structure OU ? Sans documentation, la gouvernance devient une boîte noire que personne n'ose modifier — et qui finit par être contournée.
 
 ---
 

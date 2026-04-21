@@ -67,7 +67,7 @@ sequenceDiagram
     CLI-->>Dev: Affichage formaté
 ```
 
-Le point clé : AWS CLI ne fait rien de plus qu'appeler une API REST sécurisée. Tout ce que tu peux faire en CLI, tu pourrais le faire avec `curl` — CLI simplifie la signature des requêtes (protocole SigV4) et le parsing des réponses.
+Le point clé : AWS CLI ne fait rien de plus qu'appeler une API REST (Representational State Transfer) sécurisée. Tout ce que tu peux faire en CLI, tu pourrais le faire avec `curl` — CLI simplifie la signature des requêtes (protocole SigV4 (Signature Version 4)) et le parsing des réponses.
 
 | Composant | Rôle |
 |---|---|

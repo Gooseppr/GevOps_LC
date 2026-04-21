@@ -295,7 +295,7 @@ description: Chaque palier réduit le RTO/RPO mais augmente le coût opérationn
 
 ## Cas réel : plateforme SaaS financière, 0 downtime sur panne AZ
 
-**Contexte** : une fintech opérant une plateforme de paiement B2B avec un SLA contractuel de 99,95 % (downtime max : 4h20/an). L'architecture initiale tournait sur une seule AZ (`eu-west-1a`) avec une RDS sans réplication. Un incident AWS en 2023 sur cette AZ avait causé 2h15 d'indisponibilité — soit plus de 50 % du budget downtime annuel consommé en une seule nuit.
+**Contexte** : une fintech opérant une plateforme de paiement B2B avec un SLA (Service Level Agreement) contractuel de 99,95 % (downtime max : 4h20/an). L'architecture initiale tournait sur une seule AZ (`eu-west-1a`) avec une RDS sans réplication. Un incident AWS en 2023 sur cette AZ avait causé 2h15 d'indisponibilité — soit plus de 50 % du budget downtime annuel consommé en une seule nuit.
 
 **Refonte architecturale** :
 

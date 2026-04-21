@@ -52,7 +52,7 @@ Quel que soit l'outil, le mécanisme repose sur une idée centrale : tu décris 
 
 | Composant | Rôle | Terraform | CloudFormation |
 |-----------|------|-----------|----------------|
-| Template / Code | Description de l'état désiré | Fichiers `.tf` (HCL) | Template YAML ou JSON |
+| Template / Code | Description de l'état désiré | Fichiers `.tf` (HCL — HashiCorp Configuration Language) | Template YAML ou JSON |
 | State / Stack | Représentation de l'état actuel | `terraform.tfstate` | Stack AWS managée |
 | Provider | Interface vers l'API cloud | `hashicorp/aws` | Natif (pas de provider) |
 | Plan / Change set | Prévisualisation des changements | `terraform plan` | Change set CloudFormation |

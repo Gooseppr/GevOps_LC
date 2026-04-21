@@ -26,7 +26,7 @@ Sans visibilité sur ce qui se passe dans une infrastructure, la réactivité fa
 
 1. Distinguer les composants CloudWatch (metrics, logs, alarms, dashboards) et leur rôle respectif
 2. Interroger les métriques et groupes de logs via l'AWS CLI
-3. Créer une alarme CloudWatch déclenchant une notification SNS
+3. Créer une alarme CloudWatch déclenchant une notification SNS (Simple Notification Service)
 4. Diagnostiquer un incident de performance en croisant métriques et logs
 5. Structurer une stratégie de monitoring adaptée à un environnement de production
 
@@ -40,7 +40,7 @@ Le monitoring n'est pas une option. C'est la condition pour passer d'une posture
 
 CloudWatch résout trois problèmes distincts :
 
-- **La collecte de données de performance** : AWS publie automatiquement des métriques sur ses services (CPU EC2, latence ALB, requêtes S3…)
+- **La collecte de données de performance** : AWS publie automatiquement des métriques sur ses services (CPU EC2, latence ALB (Application Load Balancer), requêtes S3…)
 - **La centralisation des logs applicatifs** : chaque service peut envoyer ses logs vers CloudWatch Logs, où ils sont indexés et requêtables
 - **L'alerting automatisé** : des alarmes surveillent les seuils et déclenchent des actions — notification, auto-scaling, invocation Lambda
 

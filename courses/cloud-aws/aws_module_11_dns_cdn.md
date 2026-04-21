@@ -34,7 +34,7 @@ next_module_title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shiel
 
 Imagine une application déployée sur EC2 en `eu-west-1`. Un utilisateur en Australie charge ta page : chaque requête traverse l'océan Pacifique et l'océan Indien pour atteindre Paris, puis revient. Résultat : 200 à 400 ms de latence rien que pour le premier octet — avant même que le serveur commence à traiter la requête.
 
-Le problème est en réalité double. Les utilisateurs n'accèdent pas à des adresses IP — ils tapent des noms comme `app.example.com`. Il faut donc un mécanisme pour traduire ce nom en adresse joignable : c'est le DNS. Mais même avec la bonne IP, la distance physique crée une latence incompressible. C'est là qu'intervient un CDN.
+Le problème est en réalité double. Les utilisateurs n'accèdent pas à des adresses IP — ils tapent des noms comme `app.example.com`. Il faut donc un mécanisme pour traduire ce nom en adresse joignable : c'est le DNS. Mais même avec la bonne IP, la distance physique crée une latence incompressible. C'est là qu'intervient un CDN (Content Delivery Network).
 
 AWS répond à ces deux problèmes avec **Route 53** pour le DNS et **CloudFront** pour la mise en cache distribuée. Utilisés ensemble, ils permettent à un site servi depuis une seule région de paraître local pour des utilisateurs sur n'importe quel continent.
 
@@ -62,7 +62,7 @@ sequenceDiagram
     Resolver-->>Browser: 1.2.3.4
 ```
 
-La chaîne complète prend de quelques millisecondes à quelques secondes — mais elle ne se produit **qu'une fois par TTL**. Si le TTL d'un record est à 86 400 secondes (24h), le résolveur de l'ISP met l'IP en cache pendant 24h. Si tu changes l'IP entre-temps, les utilisateurs dont le cache n'a pas expiré continuent de pointer vers l'ancienne adresse.
+La chaîne complète prend de quelques millisecondes à quelques secondes — mais elle ne se produit **qu'une fois par TTL**. Si le TTL d'un record est à 86 400 secondes (24h), le résolveur de l'ISP (Internet Service Provider) met l'IP en cache pendant 24h. Si tu changes l'IP entre-temps, les utilisateurs dont le cache n'a pas expiré continuent de pointer vers l'ancienne adresse.
 
 🧠 **Règle pratique** : en production stable, un TTL de 300 à 3 600 secondes est raisonnable. Avant une migration ou un basculement planifié, descends à 60 secondes **48h à l'avance** pour vider les caches distribués. Après stabilisation, remonte le TTL.
 
@@ -83,7 +83,7 @@ Route 53 s'organise autour de quelques objets fondamentaux :
 
 - **A** : nom → IPv4. Le plus courant pour les serveurs.
 - **AAAA** : nom → IPv6.
-- **CNAME** : nom → autre nom. Ne peut pas être placé à la racine du domaine (`example.com` sans sous-domaine).
+- **CNAME** (Canonical Name) : nom → autre nom. Ne peut pas être placé à la racine du domaine (`example.com` sans sous-domaine).
 - **Alias** : spécifique à Route 53 — mappe un nom vers une ressource AWS (ELB, CloudFront, S3). Peut être placé à la racine. Aucun coût de requête DNS supplémentaire.
 
 ⚠️ Un Alias vers un ELB ou CloudFront est toujours préférable à un CNAME : il se résout en interne, sans round-trip supplémentaire, et il suit automatiquement les changements d'IP de la ressource cible.
@@ -208,7 +208,7 @@ aws cloudfront create-invalidation \
 
 ## Cas réel : migration d'une boutique e-commerce vers une architecture distribuée
 
-**Contexte** : une boutique en ligne française avec ~50 000 visiteurs/jour constate des abandons de panier élevés sur ses marchés en Amérique du Nord et en Asie du Sud-Est. Les analytics montrent un TTFB moyen de 380 ms pour ces zones, contre 45 ms en France.
+**Contexte** : une boutique en ligne française avec ~50 000 visiteurs/jour constate des abandons de panier élevés sur ses marchés en Amérique du Nord et en Asie du Sud-Est. Les analytics montrent un TTFB (Time to First Byte) moyen de 380 ms pour ces zones, contre 45 ms en France.
 
 **Diagnostic** : toute l'infrastructure est sur `eu-west-3` (Paris). Les assets statiques — images produits, CSS, JS — sont servis directement depuis le serveur applicatif, sans cache et sans CDN.
 

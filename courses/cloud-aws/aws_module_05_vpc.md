@@ -55,7 +55,7 @@ Avant de regarder les commandes, il faut comprendre comment ces pièces s'articu
 | **VPC** | Enveloppe réseau isolée pour ton compte | `10.0.0.0/16` — 65 536 adresses disponibles |
 | **Subnet** | Segment du VPC, ancré dans une AZ spécifique | `10.0.1.0/24` — 256 adresses dans `eu-west-1a` |
 | **Internet Gateway (IGW)** | Point d'entrée/sortie bidirectionnel vers Internet | S'attache au VPC, pas au subnet |
-| **NAT Gateway** | Sortie Internet pour les ressources privées, sans exposition entrante | Se place dans un subnet **public** |
+| **NAT Gateway** (Network Address Translation) | Sortie Internet pour les ressources privées, sans exposition entrante | Se place dans un subnet **public** |
 | **Route Table** | Décide où envoyer le trafic selon sa destination | `0.0.0.0/0 → igw-xxx` = sortie Internet |
 | **Security Group** | Pare-feu au niveau instance | Couvert en détail dans le module Sécurité |
 
@@ -102,7 +102,9 @@ Ces commandes te permettent d'auditer une architecture existante ou de vérifier
 aws ec2 describe-vpcs
 ```
 
-**Lister les subnets avec leur CIDR, leur AZ et leurs adresses disponibles :**
+**Lister les subnets avec leur CIDR*, leur AZ et leurs adresses disponibles :**
+
+*CIDR (Classless Inter-Domain Routing) : notation qui définit une plage d'adresses IP et la taille du réseau (ex : `10.0.0.0/16` = 65 536 adresses).
 
 ```bash
 aws ec2 describe-subnets

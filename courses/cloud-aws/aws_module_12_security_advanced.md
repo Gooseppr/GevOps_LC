@@ -38,7 +38,7 @@ Tu as vu comment IAM contrôle *qui* peut faire *quoi* dans ton compte. C'est un
 
 **Les credentials finissent dans le code.** Mot de passe de base de données hardcodé dans un fichier de config, versionné dans Git, visible dans les logs de CI — c'est l'erreur la plus fréquente et la plus difficile à corriger après coup. Secrets Manager est fait pour ça : stocker les secrets hors du code, les injecter à l'exécution, les renouveler automatiquement.
 
-**Les applications sont exposées à Internet sans filtrage.** SQL injection, XSS, scans automatisés, attaques DDoS volumétriques — une ALB nue n'a aucun mécanisme de filtrage applicatif. WAF et Shield comblent ce vide à deux niveaux différents.
+**Les applications sont exposées à Internet sans filtrage.** SQL injection, XSS (Cross-Site Scripting), scans automatisés, attaques DDoS volumétriques — une ALB nue n'a aucun mécanisme de filtrage applicatif. WAF (Web Application Firewall) et Shield comblent ce vide à deux niveaux différents.
 
 Ces quatre services forment ensemble une stratégie de **défense en profondeur** : chaque couche protège contre un vecteur d'attaque distinct, de sorte qu'un attaquant qui en contourne une tombe sur la suivante.
 
@@ -48,7 +48,7 @@ Ces quatre services forment ensemble une stratégie de **défense en profondeur*
 
 | Service | Couche protégée | Problème résolu |
 |---|---|---|
-| **Shield** | Réseau (L3/L4) | Attaques DDoS volumétriques et par état |
+| **Shield** | Réseau (L3/L4) | Attaques DDoS (Distributed Denial of Service) volumétriques et par état |
 | **WAF** | Applicatif (L7) | SQL injection, XSS, rate limiting par IP |
 | **Secrets Manager** | Accès applicatif | Credentials hors du code, rotation automatique |
 | **KMS** | Données au repos | Chiffrement des objets S3, volumes EBS, secrets |
@@ -152,7 +152,7 @@ WAF agit au niveau 7 du modèle OSI : il inspecte le contenu des requêtes HTTP/
 
 Ce qu'il ne fait pas : absorber une attaque volumétrique réseau L3/L4. Si quelqu'un t'envoie 50 Gbps de trafic UDP, WAF ne voit même pas passer les paquets — c'est le rôle de Shield. Les deux sont complémentaires, pas substituables.
 
-WAF s'attache à une **ALB**, une **API Gateway**, ou une distribution **CloudFront**.
+WAF s'attache à une **ALB**, une **API Gateway**, ou une distribution **CloudFront**. Les règles sont regroupées dans une Web ACL (Access Control List).
 
 ```bash
 # Créer une Web ACL (REGIONAL pour ALB/API Gateway, CLOUDFRONT pour CF)
@@ -174,7 +174,9 @@ aws wafv2 associate-web-acl \
   --resource-arn <ARN_ALB>
 ```
 
-💡 **Commence par les Managed Rule Groups AWS, en mode Count** — AWS maintient des groupes de règles prêts à l'emploi : `AWSManagedRulesCommonRuleSet` (OWASP Top 10), `AWSManagedRulesAmazonIpReputationList` (IP malveillantes connues), `AWSManagedRulesSQLiRuleSet`. Active-les en mode *Count* d'abord — WAF log les correspondances sans bloquer. Après 72h de trafic réel, analyse les requêtes échantillonnées dans CloudWatch, identifie les faux positifs, ajuste, puis passe en *Block*. Sans cette étape, tu risques de bloquer des utilisateurs légitimes dès le jour 1.
+💡 **Commence par les Managed Rule Groups AWS, en mode Count** — AWS maintient des groupes de règles prêts à l'emploi : `AWSManagedRulesCommonRuleSet` (OWASP Top 10)*, `AWSManagedRulesAmazonIpReputationList` (IP malveillantes connues), `AWSManagedRulesSQLiRuleSet`. Active-les en mode *Count* d'abord — WAF log les correspondances sans bloquer. Après 72h de trafic réel, analyse les requêtes échantillonnées dans CloudWatch, identifie les faux positifs, ajuste, puis passe en *Block*. Sans cette étape, tu risques de bloquer des utilisateurs légitimes dès le jour 1.
+
+*OWASP (Open Web Application Security Project) : organisation de référence qui publie un classement des 10 vulnérabilités web les plus critiques.
 
 ⚠️ **L'ordre des règles a un impact sur les coûts** — WAF facture par requête traitée et évalue les règles dans l'ordre. Place une règle IP reputation en tête : elle rejette les bots connus avant qu'ils atteignent les règles OWASP, qui sont plus coûteuses à évaluer. Sur un fort trafic, cet ordre peut réduire la facture WAF de 20 à 40 %.
 

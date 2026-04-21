@@ -38,7 +38,7 @@ C'est le problème du **couplage fort** : un composant défaillant paralyse tout
 
 Sur AWS, deux services sont au cœur de cette approche :
 
-- **SQS** — une file de messages entre un producteur et un ou plusieurs consommateurs. Le producteur dépose, le consommateur traite quand il est disponible. Le message est stocké durablement entre les deux.
+- **SQS** (Simple Queue Service) — une file de messages entre un producteur et un ou plusieurs consommateurs. Le producteur dépose, le consommateur traite quand il est disponible. Le message est stocké durablement entre les deux.
 - **SNS** — un topic de diffusion. Un événement publié déclenche simultanément tous les abonnés : queues SQS, Lambda, endpoints HTTP, emails.
 
 Combinés, ils permettent de construire des systèmes où les services ne se connaissent pas directement, ne dépendent pas de la disponibilité des autres, et absorbent les pics de charge sans s'effondrer.
@@ -80,7 +80,7 @@ Le service commande ne sait pas qu'il existe un service stock ou notification. I
 
 ### Queue standard vs FIFO : le choix en amont
 
-La décision se prend avant de créer la queue, pas après. Une queue standard offre un débit quasi illimité mais livre les messages **au moins une fois** et sans ordre garanti. Une queue FIFO garantit l'ordre et l'exactly-once delivery, mais est plafonnée à 3 000 messages par seconde.
+La décision se prend avant de créer la queue, pas après. Une queue standard offre un débit quasi illimité mais livre les messages **au moins une fois** et sans ordre garanti. Une queue FIFO (First In, First Out) garantit l'ordre et l'exactly-once delivery, mais est plafonnée à 3 000 messages par seconde.
 
 Règle pratique : FIFO pour les flux financiers ou les séquences strictes, Standard pour tout le reste.
 

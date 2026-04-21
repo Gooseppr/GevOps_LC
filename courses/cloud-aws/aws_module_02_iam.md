@@ -34,9 +34,9 @@ next_module_title: "EC2 — Compute AWS (instances, réseau, bootstrap)"
 
 Imagine une infrastructure AWS sans contrôle d'accès : chaque développeur, chaque script, chaque service peut lire, modifier ou supprimer n'importe quelle ressource. Un token qui fuite, une clé API exposée dans un dépôt GitHub public — et c'est l'ensemble du compte qui est compromis.
 
-IAM répond à une question fondamentale : **qui a le droit de faire quoi, sur quelle ressource ?**
+IAM (Identity and Access Management) répond à une question fondamentale : **qui a le droit de faire quoi, sur quelle ressource ?**
 
-Chaque appel vers l'API AWS — qu'il vienne d'un humain connecté à la console, d'un script CLI ou d'une Lambda — est intercepté par IAM avant d'être exécuté. IAM vérifie l'identité de l'appelant, consulte ses permissions, et répond par `Allow` ou `Deny`. C'est transparent pour l'utilisateur, mais systématique et sans exception.
+Chaque appel vers l'API AWS — qu'il vienne d'un humain connecté à la console, d'un script CLI (Command Line Interface) ou d'une Lambda — est intercepté par IAM avant d'être exécuté. IAM vérifie l'identité de l'appelant, consulte ses permissions, et répond par `Allow` ou `Deny`. C'est transparent pour l'utilisateur, mais systématique et sans exception.
 
 C'est pour ça qu'IAM est souvent décrit comme le **socle de sécurité AWS** : tous les autres services s'appuient dessus.
 
@@ -113,7 +113,7 @@ Décortiquons les champs clés :
 
 - **`Effect`** : `Allow` ou `Deny`. En cas de conflit, `Deny` l'emporte toujours, sans exception.
 - **`Action`** : les opérations autorisées. `s3:GetObject` = lire un objet. `s3:*` = tout faire sur S3. Préférer toujours le premier format.
-- **`Resource`** : sur quoi s'applique la règle. L'ARN identifie la ressource de façon unique dans tout AWS.
+- **`Resource`** : sur quoi s'applique la règle. L'ARN (Amazon Resource Name) identifie la ressource de façon unique dans tout AWS.
 
 💡 Remarque qu'il y a deux ARN dans `Resource` : `arn:aws:s3:::mon-bucket` pour autoriser `ListBucket` sur le bucket lui-même, et `arn:aws:s3:::mon-bucket/*` pour autoriser `GetObject` sur les objets qu'il contient. Oublier l'un des deux est une source classique d'erreur.
 

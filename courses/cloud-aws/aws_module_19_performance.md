@@ -48,7 +48,7 @@ Une architecture AWS performante s'organise en couches défensives. Chaque couch
 |--------|-------------|-----------------|------|
 | CDN edge | CloudFront | < 5 ms | Contenu statique et semi-statique, edge caching |
 | Cache applicatif | ElastiCache (Redis) | < 1 ms | Sessions, résultats de calculs, données fréquentes |
-| Load balancing | ALB | < 2 ms | Distribution du trafic, terminaison TLS |
+| Load balancing | ALB | < 2 ms | Distribution du trafic, terminaison TLS (Transport Layer Security) |
 | Compute | EC2 / Lambda | 5–200 ms | Logique métier |
 | Cache DB | RDS Read Replica | 2–10 ms | Requêtes en lecture seule |
 | Base de données | RDS / Aurora | 5–50 ms | Source de vérité |

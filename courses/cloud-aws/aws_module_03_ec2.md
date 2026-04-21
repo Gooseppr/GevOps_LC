@@ -22,7 +22,7 @@ next_module_title: "Stockage AWS — S3 / EBS / EFS"
 
 À la fin de ce module, tu seras capable de :
 
-- Lancer et configurer une instance EC2 en choisissant la bonne AMI, le bon type et les bonnes options réseau
+- Lancer et configurer une instance EC2 en choisissant la bonne AMI (Amazon Machine Image), le bon type et les bonnes options réseau
 - Expliquer le rôle de chaque composant EC2 (AMI, EBS, Security Group, Key Pair, ENI)
 - Sécuriser l'accès à une instance via les Security Groups et les rôles IAM
 - Automatiser la configuration au démarrage avec User Data
@@ -34,7 +34,7 @@ next_module_title: "Stockage AWS — S3 / EBS / EFS"
 
 Avant le cloud, déployer un serveur prenait des semaines : commande de matériel, installation, câblage, configuration réseau. Avec EC2, tu lances une machine virtuelle en moins de deux minutes, tu ne paies que ce que tu consommes, et tu la supprimes quand tu n'en as plus besoin.
 
-C'est le service de compute fondamental d'AWS. Il ne résout pas tout — pour des applications simples, Elastic Beanstalk ou Lambda sont plus appropriés, et les containers (ECS/EKS) gèrent mieux les architectures microservices — mais EC2 reste incontournable dès que tu as besoin d'un contrôle fin sur le système d'exploitation, le réseau, ou les dépendances logicielles.
+C'est le service de compute fondamental d'AWS. Il ne résout pas tout — pour des applications simples, Elastic Beanstalk ou Lambda sont plus appropriés, et les containers (ECS (Elastic Container Service) / EKS (Elastic Kubernetes Service)) gèrent mieux les architectures microservices — mais EC2 reste incontournable dès que tu as besoin d'un contrôle fin sur le système d'exploitation, le réseau, ou les dépendances logicielles.
 
 En résumé : EC2, c'est "loue une machine, configure-la comme tu veux, utilise-la aussi longtemps que tu veux."
 
@@ -53,7 +53,7 @@ Une instance EC2 n'est pas un objet isolé — c'est l'assemblage de plusieurs c
 | **Key Pair** | Authentification SSH par clé publique/privée | `ma-cle.pem` |
 | **ENI** | Interface réseau virtuelle (adresse IP) | `eth0`, IP privée + IP publique optionnelle |
 
-Le schéma ci-dessous montre comment ces composants s'articulent : l'utilisateur arrive par Internet, passe par l'Internet Gateway du VPC, traverse le Security Group avant d'atteindre l'instance, laquelle accède à son volume EBS séparément.
+Le schéma ci-dessous montre comment ces composants s'articulent : l'utilisateur arrive par Internet, passe par l'Internet Gateway du VPC, traverse le Security Group avant d'atteindre l'instance, laquelle accède à son volume EBS (Elastic Block Store) séparément.
 
 ```mermaid
 graph TD
@@ -108,7 +108,7 @@ aws ec2 run-instances \
   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=api-backend}]'
 ```
 
-**Se connecter en SSH :**
+**Se connecter en SSH (Secure Shell) :**
 
 ```bash
 chmod 400 <KEY_FILE>.pem
