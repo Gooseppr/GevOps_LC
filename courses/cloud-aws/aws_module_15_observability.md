@@ -4,7 +4,7 @@ title: "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)"
 course: cloud-aws
 chapter_title: "Services & Architecture"
 chapter: 2
-section: 7
+section: 8
 tags: aws,observability,cloudwatch,xray,logs,tracing,metrics
 difficulty: intermediate
 duration: 110

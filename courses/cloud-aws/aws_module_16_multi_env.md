@@ -4,7 +4,7 @@ title: "Multi-environnement AWS — dev, staging, prod & multi-account"
 course: cloud-aws
 chapter_title: "Services & Architecture"
 chapter: 2
-section: 8
+section: 9
 tags:
   - aws
   - environment
@@ -18,8 +18,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_15_observability.html"
 prev_module_title: "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)"
-next_module: "/courses/cloud-aws/aws_module_17_ha.html"
-next_module_title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
+next_module: "/courses/cloud-aws/aws_module_26_s3_advanced.html"
+next_module_title: "S3 avancé — Réplication, Performance, Sécurité"
 ---
 
 # Multi-environnement AWS — dev, staging, prod & multi-account

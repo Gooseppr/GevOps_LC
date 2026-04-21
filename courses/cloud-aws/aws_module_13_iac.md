@@ -4,7 +4,7 @@ title: "Infrastructure as Code — Terraform & CloudFormation"
 course: cloud-aws
 chapter_title: "Services & Architecture"
 chapter: 2
-section: 5
+section: 6
 tags: aws,terraform,cloudformation,iac,devops
 difficulty: intermediate
 duration: 100

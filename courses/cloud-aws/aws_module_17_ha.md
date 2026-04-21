@@ -3,7 +3,7 @@ layout: page
 title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
 course: cloud-aws
 chapter_title: "Architecture Avancée"
-chapter: 3
+chapter: 4
 section: 1
 tags:
   - aws
@@ -15,8 +15,8 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_16_multi_env.html"
-prev_module_title: "Multi-environnement AWS — dev, staging, prod & multi-account"
+prev_module: "/courses/cloud-aws/aws_module_32_migration.html"
+prev_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, Backup"
 next_module: "/courses/cloud-aws/aws_module_18_serverless.html"
 next_module_title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
 ---

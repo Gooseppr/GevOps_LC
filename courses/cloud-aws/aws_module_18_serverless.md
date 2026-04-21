@@ -3,7 +3,7 @@ layout: page
 title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
 course: cloud-aws
 chapter_title: "Architecture Avancée"
-chapter: 3
+chapter: 4
 section: 2
 tags: aws,lambda,apigateway,serverless,eventdriven
 difficulty: advanced

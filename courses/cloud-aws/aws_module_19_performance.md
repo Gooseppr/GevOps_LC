@@ -3,7 +3,7 @@ layout: page
 title: "Performance & optimisation — Caching, Latence, Tuning AWS"
 course: cloud-aws
 chapter_title: "Architecture Avancée"
-chapter: 3
+chapter: 4
 section: 3
 tags: aws,performance,caching,latency,optimization,elasticache,cloudfront,rds
 difficulty: advanced

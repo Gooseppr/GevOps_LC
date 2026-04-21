@@ -3,8 +3,8 @@ layout: page
 title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 course: cloud-aws
 chapter_title: "Architecture Avancée"
-chapter: 3
-section: 7
+chapter: 4
+section: 6
 tags:
   - aws
   - resilience
@@ -17,8 +17,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_22_distributed.html"
 prev_module_title: "Architectures distribuées — Microservices, SQS, SNS"
-next_module: "/courses/cloud-aws/aws_module_24_governance.html"
-next_module_title: "Gouvernance AWS — Organizations, Tagging, Compliance"
+next_module: "/courses/cloud-aws/aws_module_21_finops.html"
+next_module_title: "FinOps & optimisation des coûts AWS"
 ---
 
 # Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker

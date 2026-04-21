@@ -4,14 +4,14 @@ title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
 course: cloud-aws
 chapter_title: "Services & Architecture"
 chapter: 2
-section: 4
+section: 5
 tags: [aws, security, kms, secretsmanager, waf, shield]
 difficulty: intermediate
 duration: 95
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_11_dns_cdn.html"
-prev_module_title: "DNS & CDN — Route 53 et CloudFront"
+prev_module: "/courses/cloud-aws/aws_module_25_containers.html"
+prev_module_title: "Containers AWS — ECS, EKS, Fargate"
 next_module: "/courses/cloud-aws/aws_module_13_iac.html"
 next_module_title: "Infrastructure as Code — Terraform & CloudFormation"
 ---

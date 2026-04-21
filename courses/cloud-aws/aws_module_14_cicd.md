@@ -4,7 +4,7 @@ title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
 course: cloud-aws
 chapter_title: "Services & Architecture"
 chapter: 2
-section: 6
+section: 7
 tags: [aws, cicd, codepipeline, codebuild, codedeploy]
 difficulty: intermediate
 duration: 100

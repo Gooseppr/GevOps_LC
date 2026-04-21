@@ -3,15 +3,15 @@ layout: page
 title: "Architectures distribuées — Microservices, SQS, SNS"
 course: cloud-aws
 chapter_title: "Architecture Avancée"
-chapter: 3
-section: 6
+chapter: 4
+section: 5
 tags: aws,microservices,sqs,sns,architecture,eventdriven
 difficulty: advanced
 duration: 110
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_21_finops.html"
-prev_module_title: "FinOps & optimisation des coûts AWS"
+prev_module: "/courses/cloud-aws/aws_module_20_security_zero_trust.html"
+prev_module_title: "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS"
 next_module: "/courses/cloud-aws/aws_module_23_resilience.html"
 next_module_title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 ---

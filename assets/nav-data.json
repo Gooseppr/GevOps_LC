@@ -2289,6 +2289,18 @@
               "difficulty": "",
               "duration": "",
               "mermaid": false
+            },
+            {
+              "title": "Planbis",
+              "path": "/GevOps_LC/courses/cloud-aws/PLANBIS.html",
+              "file": "PLANBIS.md",
+              "chapter_title": "Général",
+              "chapter": 0,
+              "section": 0,
+              "tags": [],
+              "difficulty": "",
+              "duration": "",
+              "mermaid": false
             }
           ]
         },
@@ -2510,12 +2522,32 @@
               "mermaid": true
             },
             {
+              "title": "Containers AWS — ECS, EKS, Fargate",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_25_containers.html",
+              "file": "aws_module_25_containers.md",
+              "chapter_title": "Services & Architecture",
+              "chapter": 2,
+              "section": 4,
+              "tags": [
+                "aws",
+                "ecs",
+                "eks",
+                "fargate",
+                "containers",
+                "docker",
+                "ecr"
+              ],
+              "difficulty": "intermediate",
+              "duration": "110",
+              "mermaid": true
+            },
+            {
               "title": "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield",
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_12_security_advanced.html",
               "file": "aws_module_12_security_advanced.md",
               "chapter_title": "Services & Architecture",
               "chapter": 2,
-              "section": 4,
+              "section": 5,
               "tags": [
                 "aws",
                 "security",
@@ -2534,7 +2566,7 @@
               "file": "aws_module_13_iac.md",
               "chapter_title": "Services & Architecture",
               "chapter": 2,
-              "section": 5,
+              "section": 6,
               "tags": [
                 "aws",
                 "terraform",
@@ -2552,7 +2584,7 @@
               "file": "aws_module_14_cicd.md",
               "chapter_title": "Services & Architecture",
               "chapter": 2,
-              "section": 6,
+              "section": 7,
               "tags": [
                 "aws",
                 "cicd",
@@ -2570,7 +2602,7 @@
               "file": "aws_module_15_observability.md",
               "chapter_title": "Services & Architecture",
               "chapter": 2,
-              "section": 7,
+              "section": 8,
               "tags": [
                 "aws",
                 "observability",
@@ -2590,10 +2622,145 @@
               "file": "aws_module_16_multi_env.md",
               "chapter_title": "Services & Architecture",
               "chapter": 2,
-              "section": 8,
+              "section": 9,
               "tags": [],
               "difficulty": "intermediate",
               "duration": "90",
+              "mermaid": true
+            }
+          ]
+        },
+        {
+          "id": "approfondissements-saa-c03",
+          "title": "Approfondissements SAA-C03",
+          "modules": [
+            {
+              "title": "S3 avancé — Réplication, Performance, Sécurité",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_26_s3_advanced.html",
+              "file": "aws_module_26_s3_advanced.md",
+              "chapter_title": "Approfondissements SAA-C03",
+              "chapter": 3,
+              "section": 1,
+              "tags": [
+                "aws",
+                "s3",
+                "replication",
+                "performance",
+                "cors",
+                "presigned",
+                "objectlock",
+                "eventnotifications"
+              ],
+              "difficulty": "intermediate",
+              "duration": "120",
+              "mermaid": true
+            },
+            {
+              "title": "VPC avancé — Peering, VPN, Direct Connect, Transit Gateway",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_27_vpc_advanced.html",
+              "file": "aws_module_27_vpc_advanced.md",
+              "chapter_title": "Approfondissements SAA-C03",
+              "chapter": 3,
+              "section": 2,
+              "tags": [
+                "aws",
+                "vpc",
+                "networking",
+                "peering",
+                "vpn",
+                "directconnect",
+                "transitgateway",
+                "flowlogs",
+                "bastion",
+                "firewall"
+              ],
+              "difficulty": "intermediate",
+              "duration": "120",
+              "mermaid": true
+            },
+            {
+              "title": "IAM avancé — Identity Center, Policies avancées, Cross-Account",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_28_iam_advanced.html",
+              "file": "aws_module_28_iam_advanced.md",
+              "chapter_title": "Approfondissements SAA-C03",
+              "chapter": 3,
+              "section": 3,
+              "tags": [
+                "aws",
+                "iam",
+                "security",
+                "policies",
+                "permissions-boundary",
+                "identity-center",
+                "sso",
+                "sts",
+                "cross-account",
+                "control-tower"
+              ],
+              "difficulty": "intermediate",
+              "duration": "120",
+              "mermaid": true
+            },
+            {
+              "title": "Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_29_lambda_advanced.html",
+              "file": "aws_module_29_lambda_advanced.md",
+              "chapter_title": "Approfondissements SAA-C03",
+              "chapter": 3,
+              "section": 4,
+              "tags": [
+                "aws",
+                "lambda",
+                "serverless",
+                "step-functions",
+                "cognito",
+                "dynamodb",
+                "dax",
+                "rds-proxy",
+                "lambda-edge",
+                "cloudfront-functions",
+                "concurrency",
+                "snapstart"
+              ],
+              "difficulty": "advanced",
+              "duration": "130",
+              "mermaid": true
+            },
+            {
+              "title": "Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, Lake Formation",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_30_data_services.html",
+              "file": "aws_module_30_data_services.md",
+              "chapter_title": "Approfondissements SAA-C03",
+              "chapter": 3,
+              "section": 5,
+              "tags": [
+                "aws",
+                "athena",
+                "kinesis",
+                "redshift",
+                "glue",
+                "lake-formation",
+                "opensearch",
+                "emr",
+                "quicksight",
+                "msk",
+                "data",
+                "analytics"
+              ],
+              "difficulty": "advanced",
+              "duration": "180",
+              "mermaid": true
+            },
+            {
+              "title": "Migration AWS — DMS, Snow Family, Storage Gateway, Backup",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_32_migration.html",
+              "file": "aws_module_32_migration.md",
+              "chapter_title": "Approfondissements SAA-C03",
+              "chapter": 3,
+              "section": 6,
+              "tags": [],
+              "difficulty": "advanced",
+              "duration": "140",
               "mermaid": true
             }
           ]
@@ -2607,7 +2774,7 @@
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_17_ha.html",
               "file": "aws_module_17_ha.md",
               "chapter_title": "Architecture Avancée",
-              "chapter": 3,
+              "chapter": 4,
               "section": 1,
               "tags": [],
               "difficulty": "advanced",
@@ -2619,7 +2786,7 @@
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_18_serverless.html",
               "file": "aws_module_18_serverless.md",
               "chapter_title": "Architecture Avancée",
-              "chapter": 3,
+              "chapter": 4,
               "section": 2,
               "tags": [
                 "aws",
@@ -2637,7 +2804,7 @@
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_19_performance.html",
               "file": "aws_module_19_performance.md",
               "chapter_title": "Architecture Avancée",
-              "chapter": 3,
+              "chapter": 4,
               "section": 3,
               "tags": [
                 "aws",
@@ -2658,7 +2825,7 @@
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_20_security_zero_trust.html",
               "file": "aws_module_20_security_zero_trust.md",
               "chapter_title": "Architecture Avancée",
-              "chapter": 3,
+              "chapter": 4,
               "section": 4,
               "tags": [
                 "aws",
@@ -2672,30 +2839,12 @@
               "mermaid": true
             },
             {
-              "title": "FinOps & optimisation des coûts AWS",
-              "path": "/GevOps_LC/courses/cloud-aws/aws_module_21_finops.html",
-              "file": "aws_module_21_finops.md",
-              "chapter_title": "Architecture Avancée",
-              "chapter": 3,
-              "section": 5,
-              "tags": [
-                "aws",
-                "finops",
-                "cost",
-                "pricing",
-                "optimization"
-              ],
-              "difficulty": "advanced",
-              "duration": "100",
-              "mermaid": true
-            },
-            {
               "title": "Architectures distribuées — Microservices, SQS, SNS",
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_22_distributed.html",
               "file": "aws_module_22_distributed.md",
               "chapter_title": "Architecture Avancée",
-              "chapter": 3,
-              "section": 6,
+              "chapter": 4,
+              "section": 5,
               "tags": [
                 "aws",
                 "microservices",
@@ -2713,20 +2862,44 @@
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_23_resilience.html",
               "file": "aws_module_23_resilience.md",
               "chapter_title": "Architecture Avancée",
-              "chapter": 3,
-              "section": 7,
+              "chapter": 4,
+              "section": 6,
               "tags": [],
               "difficulty": "advanced",
               "duration": "110",
+              "mermaid": true
+            }
+          ]
+        },
+        {
+          "id": "gouvernance-patterns-certification",
+          "title": "Gouvernance, Patterns & Certification",
+          "modules": [
+            {
+              "title": "FinOps & optimisation des coûts AWS",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_21_finops.html",
+              "file": "aws_module_21_finops.md",
+              "chapter_title": "Gouvernance, Patterns & Certification",
+              "chapter": 5,
+              "section": 1,
+              "tags": [
+                "aws",
+                "finops",
+                "cost",
+                "pricing",
+                "optimization"
+              ],
+              "difficulty": "advanced",
+              "duration": "100",
               "mermaid": true
             },
             {
               "title": "Gouvernance AWS — Organizations, Tagging, Compliance",
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_24_governance.html",
               "file": "aws_module_24_governance.md",
-              "chapter_title": "Architecture Avancée",
-              "chapter": 3,
-              "section": 8,
+              "chapter_title": "Gouvernance, Patterns & Certification",
+              "chapter": 5,
+              "section": 2,
               "tags": [
                 "aws",
                 "governance",
@@ -2736,6 +2909,55 @@
               ],
               "difficulty": "advanced",
               "duration": "110",
+              "mermaid": true
+            },
+            {
+              "title": "Patterns d'architecture AWS — Etudes de cas SAA-C03",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_31_architecture_patterns.html",
+              "file": "aws_module_31_architecture_patterns.md",
+              "chapter_title": "Gouvernance, Patterns & Certification",
+              "chapter": 5,
+              "section": 3,
+              "tags": [
+                "aws",
+                "architecture",
+                "patterns",
+                "serverless",
+                "microservices",
+                "caching",
+                "alb",
+                "asg",
+                "elasticache",
+                "cloudfront",
+                "waf",
+                "elastic-beanstalk",
+                "saa-c03"
+              ],
+              "difficulty": "advanced",
+              "duration": "210",
+              "mermaid": true
+            },
+            {
+              "title": "Machine Learning AWS — Services managés (overview SAA-C03)",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_module_33_ml_overview.html",
+              "file": "aws_module_33_ml_overview.md",
+              "chapter_title": "Gouvernance, Patterns & Certification",
+              "chapter": 5,
+              "section": 4,
+              "tags": [
+                "aws",
+                "machine-learning",
+                "sagemaker",
+                "rekognition",
+                "comprehend",
+                "lex",
+                "polly",
+                "textract",
+                "kendra",
+                "personalize"
+              ],
+              "difficulty": "advanced",
+              "duration": "90",
               "mermaid": true
             }
           ]

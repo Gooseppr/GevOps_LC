@@ -2,16 +2,18 @@
 layout: page
 title: "Gouvernance AWS — Organizations, Tagging, Compliance"
 course: cloud-aws
-chapter_title: "Architecture Avancée"
-chapter: 3
-section: 8
+chapter_title: "Gouvernance, Patterns & Certification"
+chapter: 5
+section: 2
 tags: aws,governance,organizations,tagging,compliance
 difficulty: advanced
 duration: 110
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_23_resilience.html"
-prev_module_title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
+prev_module: "/courses/cloud-aws/aws_module_21_finops.html"
+prev_module_title: "FinOps & optimisation des coûts AWS"
+next_module: "/courses/cloud-aws/aws_module_31_architecture_patterns.html"
+next_module_title: "Patterns d'architecture AWS — Etudes de cas SAA-C03"
 ---
 
 # Gouvernance AWS — Organizations, Tagging, Compliance

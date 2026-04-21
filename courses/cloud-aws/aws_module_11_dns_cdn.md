@@ -12,8 +12,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_10_databases.html"
 prev_module_title: "Bases de données AWS — RDS, Aurora, DynamoDB"
-next_module: "/courses/cloud-aws/aws_module_12_security_advanced.html"
-next_module_title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
+next_module: "/courses/cloud-aws/aws_module_25_containers.html"
+next_module_title: "Containers AWS — ECS, EKS, Fargate"
 ---
 
 # DNS & CDN — Route 53 et CloudFront
