@@ -5,7 +5,7 @@ course: cloud-aws
 chapter_title: "Services & Architecture"
 chapter: 2
 section: 5
-tags: [aws, security, kms, secretsmanager, waf, shield]
+tags: [aws, security, kms, secretsmanager, waf, shield, acm]
 difficulty: intermediate
 duration: 95
 mermaid: true
@@ -213,6 +213,50 @@ Un point souvent oublié : si tu sais qu'une campagne approche, active Shield Ad
 
 ---
 
+## ACM — Certificats SSL/TLS managés
+
+AWS Certificate Manager (ACM) est le service qui te permet de provisionner, gérer et déployer des certificats SSL/TLS sans jamais manipuler de fichiers `.pem` ou de clés privées toi-même. Tu demandes un certificat, tu prouves que le domaine t'appartient, et AWS s'occupe du reste — y compris du renouvellement.
+
+### Certificats publics vs privés
+
+ACM propose deux types de certificats. Les **certificats publics** sont émis par l'autorité de certification Amazon et reconnus par tous les navigateurs — c'est ce que tu utilises pour exposer tes applications en HTTPS sur Internet. Ils sont **entièrement gratuits** lorsqu'ils sont utilisés avec des services AWS compatibles : ALB, CloudFront, API Gateway, Elastic Beanstalk. Les **certificats privés** (via AWS Private CA) servent au chiffrement interne entre services dans un VPC ou entre microservices — ils ont un coût (~400 $/mois pour la CA privée) et ne sont reconnus que par les systèmes que tu configures explicitement.
+
+💡 **Certificats publics gratuits** — Le coût d'un certificat SSL n'est plus une excuse pour ne pas chiffrer le trafic. ACM fournit des certificats publics sans frais, avec renouvellement automatique. La seule condition : les utiliser avec un service AWS compatible (ALB, CloudFront, API Gateway).
+
+### Ce qui fonctionne — et ce qui ne fonctionne pas
+
+ACM s'intègre nativement avec ALB, CloudFront, API Gateway et Elastic Beanstalk. Tu attaches le certificat au listener HTTPS de ton ALB ou à ta distribution CloudFront, et le trafic est chiffré de bout en bout côté client.
+
+⚠️ **ACM ne fonctionne PAS avec EC2 directement.** Tu ne peux pas exporter un certificat ACM public pour l'installer sur un serveur Apache ou Nginx tournant sur une instance EC2. Si tu as besoin d'un certificat sur EC2, tu dois soit passer par un ALB devant l'instance (solution recommandée), soit gérer ton propre certificat (Let's Encrypt, par exemple). C'est un piège classique à l'examen — retiens que ACM est un service d'intégration avec les services managés AWS, pas un gestionnaire de certificats généraliste.
+
+### Renouvellement automatique
+
+Les certificats ACM validés par DNS se renouvellent automatiquement avant expiration, sans aucune intervention de ta part. C'est un avantage considérable par rapport à la gestion manuelle de certificats : plus de risque d'oubli de renouvellement, plus de downtime surprise à 3h du matin parce qu'un certificat a expiré. La seule condition : que l'enregistrement CNAME de validation DNS reste en place dans ta zone.
+
+### Contrainte régionale
+
+ACM est un service **régional**. Un certificat créé dans `eu-west-1` ne peut être utilisé que par des ressources dans cette même région. Il y a une exception importante : **CloudFront exige que le certificat soit dans `us-east-1`** (N. Virginia), quelle que soit la localisation de ton origine. Pour une ALB dans `eu-west-3`, tu crées le certificat dans `eu-west-3`. Pour CloudFront, tu le crées dans `us-east-1`. Si tu oublies cette règle, CloudFront refuse simplement d'associer le certificat.
+
+🧠 **Validation DNS avec Route 53** — Lors de la demande de certificat, ACM te propose deux méthodes de validation : email ou DNS. Choisis systématiquement la validation DNS. ACM te donne un enregistrement CNAME à créer dans ta zone DNS. Si tu utilises Route 53, un seul clic dans la console (ou une commande CLI) crée l'enregistrement automatiquement. L'avantage décisif : tant que le CNAME existe, ACM renouvelle le certificat automatiquement. Avec la validation email, tu dois répondre manuellement à chaque renouvellement.
+
+```bash
+# Lister les certificats ACM dans une région
+aws acm list-certificates --region <REGION>
+
+# Demander un certificat public avec validation DNS
+aws acm request-certificate \
+  --domain-name <DOMAINE> \
+  --validation-method DNS \
+  --region <REGION>
+
+# Voir les détails d'un certificat (statut, expiration, domaines)
+aws acm describe-certificate \
+  --certificate-arn <ARN_CERTIFICAT> \
+  --region <REGION>
+```
+
+---
+
 ## Cas réel : sécurisation d'une API e-commerce
 
 **Contexte** — Une plateforme de vente en ligne héberge son API sur ALB + EC2, exposée publiquement. Sur un trimestre, l'équipe sécurité documente trois incidents distincts : 3 credentials exposés dans des pull requests GitHub (dont un mot de passe RDS prod), une tentative d'injection SQL détectée manuellement dans les logs applicatifs, et un vendredi soir de dégradation de service due à une saturation de l'ALB.
@@ -391,4 +435,44 @@ tags: aws,security,architecture,best-practice
 title: Défense en profondeur — quatre couches indépendantes
 content: Shield absorbe les attaques réseau L3/L4 avant qu'elles atteignent l'application. WAF filtre les requêtes HTTP malveillantes L7. IAM contrôle les actions autorisées dans le compte. KMS rend les données illisibles sans autorisation explicite sur la clé. Un attaquant qui contourne WAF tombe sur IAM ; un token IAM volé ne donne pas accès aux données sans la clé KMS. Chaque couche protège contre un vecteur différent — aucune n'est suffisante seule.
 description: La sécurité AWS efficace combine Shield, WAF, IAM et KMS en couches indépendantes — la compromission d'une couche ne suffit pas à atteindre les données.
+-->
+
+<!-- snippet
+id: aws_acm_concept
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aws,acm,ssl,tls,security,certificate
+title: ACM — certificats SSL/TLS managés par AWS
+content: AWS Certificate Manager (ACM) provisionne, gère et renouvelle automatiquement les certificats SSL/TLS. Les certificats publics sont gratuits lorsqu'ils sont utilisés avec ALB, CloudFront ou API Gateway. ACM est régional : les certificats pour CloudFront doivent être créés dans us-east-1, ceux pour ALB dans la région de l'ALB. La validation DNS (CNAME via Route 53) permet le renouvellement automatique sans intervention manuelle.
+description: ACM fournit des certificats SSL/TLS gratuits avec renouvellement automatique pour les services AWS managés — régional sauf CloudFront qui exige us-east-1.
+-->
+
+<!-- snippet
+id: aws_acm_ec2_warning
+type: warning
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aws,acm,ec2,ssl,exam
+title: ACM ne fonctionne pas avec EC2 directement
+content: Les certificats publics ACM ne peuvent pas être exportés ni installés sur une instance EC2 (Apache, Nginx). ACM s'intègre uniquement avec les services managés AWS (ALB, CloudFront, API Gateway). Pour du HTTPS sur EC2, il faut soit placer un ALB devant l'instance et y attacher le certificat ACM, soit gérer un certificat indépendant (Let's Encrypt). C'est un piège fréquent à l'examen AWS.
+description: ACM ne supporte pas EC2 directement — utiliser un ALB devant l'instance ou gérer un certificat séparé (Let's Encrypt).
+-->
+
+<!-- snippet
+id: aws_acm_list_certificates
+type: command
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: aws,acm,cli,certificate
+title: Lister les certificats ACM dans une région
+command: aws acm list-certificates --region <REGION>
+example: aws acm list-certificates --region eu-west-3
+description: Retourne la liste des certificats ACM (ARN, domaine, statut) dans la région spécifiée. Utile pour vérifier les certificats disponibles avant d'associer à un ALB ou CloudFront.
 -->

@@ -2554,7 +2554,8 @@
                 "kms",
                 "secretsmanager",
                 "waf",
-                "shield"
+                "shield",
+                "acm"
               ],
               "difficulty": "intermediate",
               "duration": "95",
@@ -2752,7 +2753,7 @@
               "mermaid": true
             },
             {
-              "title": "Migration AWS — DMS, Snow Family, Storage Gateway, Backup",
+              "title": "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup",
               "path": "/GevOps_LC/courses/cloud-aws/aws_module_32_migration.html",
               "file": "aws_module_32_migration.md",
               "chapter_title": "Approfondissements SAA-C03",
@@ -2832,7 +2833,9 @@
                 "security",
                 "zerotrust",
                 "network",
-                "cloudtrail"
+                "cloudtrail",
+                "guardduty",
+                "macie"
               ],
               "difficulty": "advanced",
               "duration": "110",
@@ -2959,6 +2962,49 @@
               "difficulty": "advanced",
               "duration": "90",
               "mermaid": true
+            }
+          ]
+        },
+        {
+          "id": "references",
+          "title": "Références",
+          "modules": [
+            {
+              "title": "Cheat Sheet AWS — Référence rapide SAA-C03",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_cheatsheet.html",
+              "file": "aws_cheatsheet.md",
+              "chapter_title": "Références",
+              "chapter": 5,
+              "section": 34,
+              "tags": [
+                "aws",
+                "cheatsheet",
+                "reference",
+                "saa-c03",
+                "exam"
+              ],
+              "difficulty": "intermediate",
+              "duration": "30",
+              "mermaid": true
+            },
+            {
+              "title": "Glossaire des services AWS — Dictionnaire SAA-C03",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_glossaire_services.html",
+              "file": "aws_glossaire_services.md",
+              "chapter_title": "Références",
+              "chapter": 5,
+              "section": 35,
+              "tags": [
+                "aws",
+                "glossaire",
+                "dictionnaire",
+                "services",
+                "saa-c03",
+                "reference"
+              ],
+              "difficulty": "beginner",
+              "duration": "20",
+              "mermaid": false
             }
           ]
         }

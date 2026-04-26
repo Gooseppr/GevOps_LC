@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Migration AWS — DMS, Snow Family, Storage Gateway, Backup"
+title: "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup"
 course: cloud-aws
 chapter_title: "Approfondissements SAA-C03"
 chapter: 3
@@ -12,6 +12,7 @@ tags:
   - snow
   - backup
   - storage-gateway
+  - fsx
   - datasync
 difficulty: advanced
 duration: 140
@@ -23,7 +24,7 @@ next_module: "/courses/cloud-aws/aws_module_17_ha.html"
 next_module_title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
 ---
 
-# Migration AWS — DMS, Snow Family, Storage Gateway, Backup
+# Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup
 
 ## Objectifs pédagogiques
 
@@ -226,6 +227,84 @@ tags: aws,storage-gateway,hybrid,s3,fsx
 title: Storage Gateway — quatre modes hybrides
 content: S3 File Gateway (NFS/SMB → S3 + Glacier), FSx File Gateway (SMB → FSx Windows), Volume Gateway Cached (iSCSI, cache local, données dans S3), Volume Gateway Stored (iSCSI, données locales, backup S3), Tape Gateway (VTL → S3 Glacier/Deep Archive). Le choix dépend du protocole requis et de l'emplacement souhaité des données — Storage Gateway est toujours la réponse pour un accès hybride on-prem/cloud transparent.
 description: Storage Gateway = pont entre on-prem et AWS. Chaque mode cible un protocole et un pattern d'accès différent.
+-->
+
+---
+
+## Amazon FSx — Systèmes de fichiers managés spécialisés
+
+AWS propose quatre variantes de FSx, chacune conçue pour un type de workload et de protocole précis. Ce ne sont pas des systèmes de fichiers génériques comme EFS — ce sont des systèmes de fichiers natifs, entièrement managés, qui remplacent des solutions on-prem spécifiques.
+
+### FSx for Windows File Server
+
+C'est un serveur de fichiers Windows natif, entièrement managé. Il expose le protocole **SMB** et repose sur un système de fichiers **NTFS**. Tu retrouves toutes les fonctionnalités que tu connais d'un serveur de fichiers Windows classique : quotas, ACLs NTFS, shadow copies (VSS), DFS namespaces.
+
+L'intégration avec **Active Directory** est native — tu peux joindre FSx à ton AD on-prem (via Direct Connect ou VPN) ou à un AWS Managed Microsoft AD. Les utilisateurs accèdent aux partages avec leurs credentials AD existants, exactement comme sur un serveur on-prem.
+
+Le cas d'usage typique : **lift-and-shift de workloads Windows**. Tu as des applications qui dépendent de partages SMB (répertoires utilisateurs, dossiers partagés d'équipe, stockage applicatif), et tu veux les migrer vers AWS sans réécrire le code d'accès aux fichiers. FSx for Windows remplace ton serveur de fichiers, pas ton application.
+
+### FSx for Lustre
+
+Lustre est un système de fichiers parallèle haute performance, conçu pour les workloads qui ont besoin de débits massifs et d'une latence sous la milliseconde. FSx for Lustre peut atteindre des centaines de Go/s de débit et des millions d'IOPS.
+
+Ce qui rend Lustre particulièrement puissant dans l'écosystème AWS, c'est son **intégration native avec S3**. Tu peux lier un système de fichiers Lustre à un bucket S3 : les données sont chargées **paresseusement** (lazy loading) depuis S3 quand un processus y accède pour la première fois, traitées à pleine vitesse sur Lustre, puis les résultats sont écrits directement dans S3. Tu n'as pas besoin de copier les données au préalable — Lustre les rend disponibles à la demande.
+
+Cas d'usage : **HPC** (High Performance Computing), **entraînement de modèles de machine learning**, traitement vidéo, simulations financières — tout workload qui lit et écrit massivement en parallèle.
+
+### FSx for NetApp ONTAP
+
+FSx for NetApp ONTAP apporte la compatibilité la plus large. Il supporte **trois protocoles simultanément** : NFS, SMB et iSCSI. Tu peux monter le même système de fichiers depuis Linux (NFS), Windows (SMB) et des blocs iSCSI — sur la même instance FSx.
+
+C'est la solution quand tu as un environnement hétérogène : des serveurs Linux, des postes Windows, des Mac, et tu veux un stockage partagé unique qui fonctionne avec tous. ONTAP supporte aussi les fonctionnalités avancées de NetApp : snapshots instantanés, cloning, compression, deduplication, tiering automatique.
+
+Cas d'usage : **environnements multi-OS** avec des besoins de compatibilité large, ou migration d'un NetApp on-prem existant vers AWS.
+
+### FSx for OpenZFS
+
+FSx for OpenZFS est destiné aux workloads qui tournent déjà sur ZFS en on-prem. Il expose le protocole **NFS** et offre les fonctionnalités ZFS standards : snapshots, clones, compression, deduplication.
+
+Cas d'usage : **migration de workloads ZFS on-prem** vers AWS sans changer le code applicatif ni les scripts de gestion.
+
+### Comparaison des quatre variantes
+
+| Variante | Protocole(s) | OS compatibles | Cas d'usage principal | Intégration S3 |
+|----------|-------------|----------------|----------------------|----------------|
+| **FSx for Windows** | SMB | Windows | Lift-and-shift Windows, partages AD | Non |
+| **FSx for Lustre** | POSIX (Lustre client) | Linux | HPC, ML training, vidéo | Oui (lazy load + writeback) |
+| **FSx for NetApp ONTAP** | NFS, SMB, iSCSI | Linux, Windows, macOS | Multi-OS, compatibilité large | Non |
+| **FSx for OpenZFS** | NFS | Linux, macOS | Migration de workloads ZFS | Non |
+
+🧠 **Points SAA** :
+- "Windows shared file system" ou "partage SMB avec Active Directory" → **FSx for Windows File Server**
+- "HPC", "machine learning training data" ou "high-performance parallel file system" → **FSx for Lustre**
+- "Lustre + S3" → les données sont chargées **paresseusement** depuis S3 quand un processus y accède, traitées sur Lustre, puis les résultats sont écrits dans S3
+- "Multi-protocol" ou "NFS + SMB sur le même stockage" → **FSx for NetApp ONTAP**
+- "ZFS on-prem migration" → **FSx for OpenZFS**
+
+<!-- snippet
+id: aws_fsx_types_comparison
+type: concept
+tech: aws
+level: advanced
+importance: high
+format: knowledge
+tags: aws,fsx,storage,windows,lustre,ontap,zfs
+title: Amazon FSx — quatre variantes de systèmes de fichiers managés
+content: FSx for Windows File Server (SMB, NTFS, intégration AD) pour lift-and-shift Windows. FSx for Lustre (haute performance, intégration S3 native) pour HPC et ML training. FSx for NetApp ONTAP (NFS + SMB + iSCSI) pour environnements multi-OS. FSx for OpenZFS (NFS, ZFS) pour migration de workloads ZFS on-prem. Chaque variante cible un protocole et un cas d'usage spécifique — le choix dépend du workload source.
+description: En SAA-C03, le mot-clé dans le scénario détermine la variante FSx : "Windows/SMB/AD" → Windows, "HPC/ML" → Lustre, "multi-protocole" → ONTAP, "ZFS" → OpenZFS.
+-->
+
+<!-- snippet
+id: aws_fsx_lustre_s3_integration
+type: tip
+tech: aws
+level: advanced
+importance: high
+format: knowledge
+tags: aws,fsx,lustre,s3,hpc,ml
+title: FSx for Lustre — intégration S3 avec lazy loading
+content: FSx for Lustre peut être lié à un bucket S3. Les données sont chargées paresseusement (lazy loading) depuis S3 la première fois qu'un processus y accède, traitées à pleine vitesse sur le système de fichiers Lustre, puis les résultats sont écrits directement dans S3. Tu n'as pas besoin de copier les données au préalable — Lustre les rend disponibles à la demande depuis S3.
+description: Pattern SAA classique : "traiter des données S3 avec haute performance" → FSx for Lustre lié au bucket, pas de copie préalable nécessaire.
 -->
 
 ---

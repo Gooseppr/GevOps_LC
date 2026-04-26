@@ -207,6 +207,38 @@ Ce scénario illustre concrètement pourquoi User Data et les rôles IAM sont le
 
 ---
 
+## EC2 Hibernate — Conserver l'état mémoire entre les arrêts
+
+Quand tu fais un `stop` classique sur une instance EC2, le contenu de la RAM est perdu. Au redémarrage, l'OS reboot de zéro, les processus doivent se relancer, les caches se reconstruire. Pour certaines applications, ce cold start peut prendre plusieurs minutes — voire plus si l'initialisation implique le chargement de gros modèles en mémoire ou la reconstruction d'index.
+
+**Hibernate** résout ce problème : au lieu de simplement couper le compute, AWS dumpe l'intégralité de la RAM sur le volume EBS root, puis stoppe l'instance. Au redémarrage, le contenu de la RAM est restauré depuis le disque, les processus reprennent exactement là où ils en étaient — PID identiques, connexions réseau à reconstruire, mais état applicatif intact.
+
+🧠 Concrètement, l'hibernation fonctionne comme la mise en veille prolongée d'un laptop : le système écrit la mémoire sur disque, s'éteint, puis restaure tout au réveil. La différence avec un simple `stop` est fondamentale — `stop` perd la RAM, `hibernate` la préserve.
+
+Le flux technique est le suivant :
+
+1. Tu déclenches l'hibernation (`aws ec2 stop-instances --hibernate`)
+2. L'OS reçoit le signal et dumpe la RAM sur le volume EBS root
+3. Le volume EBS root **doit être chiffré** — c'est une obligation, car la RAM peut contenir des secrets, des tokens, des données sensibles en clair
+4. L'instance passe en état `stopped` (facturation compute suspendue, EBS toujours facturé)
+5. Au `start`, AWS restaure la RAM depuis le disque, les processus reprennent leur exécution
+
+⚠️ L'hibernation a des contraintes strictes à connaître :
+
+- Le volume EBS root **doit être chiffré** — pas de négociation possible, l'hibernation échoue sinon
+- La RAM de l'instance doit être **inférieure à 150 Go**
+- Tous les types d'instances ne sont pas compatibles (vérifie la documentation AWS pour ta famille d'instances)
+- La durée maximale d'hibernation est de **60 jours** — au-delà, AWS ne garantit plus la restauration
+- L'hibernation doit être activée **au lancement** de l'instance, tu ne peux pas l'activer après coup
+
+**Cas d'usage typiques :**
+
+- **Applications avec un bootstrap lourd** — un serveur Java qui met 5 minutes à charger ses dépendances et réchauffer ses caches. Avec hibernate, tu éteins le soir, tu rallumes le matin, et l'application est opérationnelle en quelques secondes au lieu de 5 minutes.
+- **Environnements de développement** — tu travailles sur un projet avec un état complexe en mémoire (modèle ML chargé, environnement configuré). Tu hibernes en fin de journée et tu retrouves tout intact le lendemain.
+- **Économie de coûts avec préservation d'état** — tu ne paies pas le compute pendant l'hibernation, mais tu ne perds pas le temps d'initialisation au redémarrage.
+
+---
+
 ## Bonnes pratiques
 
 **Ne jamais ouvrir SSH à `0.0.0.0/0`**
@@ -385,4 +417,17 @@ tags: aws,ec2,tagging,governance
 title: Toujours tagger ses instances EC2
 content: Sans tags, aws ec2 describe-instances renvoie une liste illisible dès que l'infrastructure grandit. Tags recommandés au minimum : Name (identifiant humain), Environment (dev/staging/prod), Owner (équipe ou personne responsable). Les tags sont aussi utilisés pour la facturation AWS Cost Explorer et les politiques IAM basées sur les ressources.
 description: Bonne pratique de gouvernance — indispensable pour la lisibilité et le suivi des coûts
+-->
+
+<!-- snippet
+id: aws_ec2_hibernate
+type: concept
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: aws,ec2,hibernate,lifecycle
+title: EC2 Hibernate — sauvegarder la RAM entre les arrêts
+content: Hibernate dumpe le contenu de la RAM sur le volume EBS root chiffré, puis stoppe l'instance. Au redémarrage, la RAM est restaurée et les processus reprennent là où ils en étaient. Contraintes : EBS root chiffré obligatoire, RAM < 150 Go, durée max 60 jours, doit être activé au lancement. Différence clé avec Stop : stop perd la RAM, hibernate la préserve.
+description: Permet d'éviter les cold starts longs en conservant l'état mémoire — utile pour les applications avec un bootstrap lourd
 -->

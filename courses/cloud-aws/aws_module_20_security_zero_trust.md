@@ -5,7 +5,7 @@ course: cloud-aws
 chapter_title: "Architecture Avancée"
 chapter: 4
 section: 4
-tags: aws,security,zerotrust,network,cloudtrail
+tags: aws,security,zerotrust,network,cloudtrail,guardduty,macie
 difficulty: advanced
 duration: 110
 mermaid: true
@@ -305,6 +305,68 @@ description: Un trail sans validation d'intégrité ne peut pas servir de preuve
 
 ---
 
+## GuardDuty — Détection de menaces en temps réel
+
+CloudTrail te dit ce qui s'est passé. GuardDuty te dit ce qui est **en train de mal tourner**. C'est le service de détection de menaces intelligent d'AWS : il analyse en continu les logs CloudTrail, les VPC Flow Logs et les logs DNS de ton compte pour identifier les comportements suspects — sans que tu aies à écrire la moindre règle.
+
+Sous le capot, GuardDuty utilise du **machine learning** et des flux de renseignement sur les menaces (threat intelligence feeds) pour repérer des patterns anormaux. Tu n'as pas d'infrastructure à déployer, pas de règles de corrélation à maintenir, pas d'agent à installer sur tes instances. Tu actives le service en un clic, et il commence à analyser.
+
+### Types de findings
+
+GuardDuty classe ses détections en catégories qui correspondent aux étapes classiques d'une attaque :
+
+- **Reconnaissance** : un scan de ports détecté via les VPC Flow Logs, des appels API `DescribeInstances` ou `ListBuckets` depuis une IP connue comme malveillante
+- **Instance compromise** : une EC2 qui communique avec un serveur de commande et contrôle (C2), du minage de cryptomonnaie détecté via des patterns DNS, du trafic sortant vers des IP associées à des botnets
+- **Credentials compromise** : des appels API effectués depuis une géolocalisation inhabituelle, une clé d'accès utilisée depuis une IP jamais vue auparavant, des tentatives d'exfiltration de données S3
+
+### Activation et intégration
+
+L'activation est immédiate et AWS offre un essai gratuit de 30 jours — ce qui permet d'évaluer le volume de findings avant de s'engager financièrement.
+
+```bash
+aws guardduty list-detectors
+```
+
+Cette commande vérifie si GuardDuty est activé dans la région courante. Un résultat vide signifie qu'aucun détecteur n'est configuré — et donc qu'aucune détection ne tourne.
+
+La vraie puissance de GuardDuty apparaît quand tu le connectes à **EventBridge** pour déclencher des réponses automatisées. Par exemple : un finding de type `CryptoCurrency:EC2/BitcoinTool.B!DNS` déclenche une règle EventBridge qui invoque une Lambda, laquelle isole immédiatement l'instance en remplaçant son Security Group par un groupe sans aucune règle sortante. L'incident est contenu en secondes, sans intervention humaine.
+
+Pour les organisations multi-compte, GuardDuty s'intègre avec **AWS Organizations** : tu actives un compte administrateur qui agrège les findings de tous les comptes membres. Chaque nouveau compte ajouté à l'organisation est automatiquement protégé — pas de configuration manuelle à répéter.
+
+🧠 **Astuce examen** : si l'énoncé parle de "détection automatique de menaces sans écrire de règles" ou de "détection d'anomalies comportementales", la réponse est GuardDuty. Ce n'est pas un WAF (qui filtre les requêtes HTTP), ce n'est pas Inspector (qui scanne les vulnérabilités des instances) — c'est le service qui détecte les comportements malveillants en analysant les logs existants.
+
+---
+
+## Macie — Détection de données sensibles dans S3
+
+GuardDuty surveille les comportements suspects. Macie répond à une autre question : **qu'est-ce qui est stocké dans tes buckets S3, et est-ce que ça devrait y être ?**
+
+Amazon Macie utilise le machine learning et le pattern matching pour découvrir et classifier les données sensibles dans S3. Il scanne le contenu réel des objets — pas juste les métadonnées — et identifie les informations personnelles identifiables (PII) : noms, adresses email, numéros de carte de crédit, numéros de sécurité sociale, mais aussi des clés API, des credentials de base de données, des clés privées SSH qui auraient été stockées par erreur.
+
+### Inventaire et évaluation automatique
+
+Dès son activation, Macie génère un **inventaire complet de tes buckets S3** avec une évaluation de sécurité pour chacun : chiffrement activé ou non, accès public configuré, politique de versioning, etc. C'est une cartographie instantanée de ta surface d'exposition S3 — avant même de lancer le moindre scan de contenu.
+
+### Cas d'usage : conformité réglementaire
+
+C'est dans les contextes de conformité que Macie prend toute sa valeur. Si tu dois répondre au **RGPD**, tu as l'obligation de savoir où sont stockées les données personnelles de tes utilisateurs. Si tu es soumis à **HIPAA**, tu dois prouver que les données de santé ne se retrouvent pas dans des buckets non chiffrés ou accessibles publiquement.
+
+Macie répond à ces questions en quelques heures : lance un scan sur l'ensemble de tes buckets, récupère la liste des findings classés par sévérité, et tu sais exactement quels buckets contiennent des données sensibles et lesquels sont mal configurés.
+
+### Intégration et CLI
+
+Comme GuardDuty, Macie s'intègre avec **EventBridge** pour déclencher des actions automatisées. Un finding de type "credit card numbers detected in public bucket" peut déclencher une Lambda qui bloque immédiatement l'accès public au bucket concerné.
+
+```bash
+aws macie2 list-findings
+```
+
+Cette commande liste les findings Macie actifs — chaque finding identifie un bucket, le type de données sensibles détectées, et la sévérité.
+
+🧠 **Astuce examen** : dès que l'énoncé mentionne "données sensibles dans S3", "détection de PII", ou "classification de données", la réponse est Macie. Ne pas confondre avec GuardDuty (qui détecte les menaces comportementales) ni avec S3 Access Analyzer (qui analyse les politiques d'accès, pas le contenu).
+
+---
+
 ## Cas réel — Incident de mouvement latéral sur une plateforme SaaS
 
 **Contexte :** Une startup SaaS héberge son application sur AWS depuis deux ans. L'architecture a grandi vite : une dizaine de microservices dans un unique VPC, des Security Groups qui se sont accumulés et assouplis au fil des sprints. Aucun incident jusqu'ici — donc aucune raison d'y toucher.
@@ -353,4 +415,30 @@ Tenir à jour un diagramme des communications inter-services avec les ports et p
 
 Le Zero Trust n'est pas une fonctionnalité à activer : c'est une posture qui se construit couche par couche en combinant IAM restrictif, micro-segmentation réseau et audit complet. Sur AWS, cela se traduit concrètement par des Security Groups en liste blanche, des VPC Endpoints qui éliminent l'exposition Internet des services internes, et CloudTrail configuré avec validation d'intégrité pour garantir la traçabilité de toutes les actions API.
 
-La vraie valeur de cette approche apparaît lors d'un incident : une architecture bien segmentée contient la compromission à un périmètre minimal, et les logs CloudTrail permettent de reconstituer la timeline en heures plutôt qu'en jours. Ces principes de segmentation et d'audit prennent une dimension supplémentaire dans le module suivant, où la gouvernance multi-compte implique de les appliquer à l'échelle d'une organisation entière.
+La vraie valeur de cette approche apparaît lors d'un incident : une architecture bien segmentée contient la compromission à un périmètre minimal, et les logs CloudTrail permettent de reconstituer la timeline en heures plutôt qu'en jours. GuardDuty et Macie ajoutent une couche de détection intelligente — l'un sur les comportements malveillants, l'autre sur les données sensibles exposées. Ces principes de segmentation et d'audit prennent une dimension supplémentaire dans le module suivant, où la gouvernance multi-compte implique de les appliquer à l'échelle d'une organisation entière.
+
+<!-- snippet
+id: aws_guardduty_threat_detection
+type: concept
+tech: aws
+level: advanced
+importance: high
+format: knowledge
+tags: aws,security,guardduty,detection,monitoring
+title: GuardDuty — détection intelligente de menaces sans règles à écrire
+content: Amazon GuardDuty analyse en continu les logs CloudTrail, VPC Flow Logs et DNS pour détecter les comportements malveillants via machine learning. Il identifie les scans de ports, les instances compromises (crypto mining, communication C2), et les credentials utilisées depuis des localisations inhabituelles. Activation en un clic, intégration EventBridge pour réponse automatisée (ex. isoler une instance via Lambda), et support multi-compte via Organizations.
+description: Service managé de détection de menaces qui analyse les logs existants sans infrastructure à déployer ni règles à maintenir — la première ligne de défense automatisée sur AWS.
+-->
+
+<!-- snippet
+id: aws_macie_sensitive_data_s3
+type: concept
+tech: aws
+level: advanced
+importance: high
+format: knowledge
+tags: aws,security,macie,s3,compliance,pii
+title: Macie — découverte et classification de données sensibles dans S3
+content: Amazon Macie utilise le machine learning et le pattern matching pour scanner le contenu des buckets S3 et détecter les données sensibles : PII (noms, emails, cartes de crédit, SSN), clés API, credentials, clés privées. Il fournit un inventaire automatique des buckets avec évaluation de sécurité et s'intègre avec EventBridge pour des alertes ou remédiation automatisée. Indispensable pour la conformité RGPD, HIPAA et tout audit de données personnelles.
+description: Service managé qui scanne le contenu réel des objets S3 pour identifier les données sensibles — essentiel pour la conformité réglementaire et la gouvernance des données.
+-->

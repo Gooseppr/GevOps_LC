@@ -17,7 +17,7 @@ status: "published"
 
 prev: /courses/cloud-aws/aws_module_29_lambda_advanced
 next_module: "/courses/cloud-aws/aws_module_32_migration.html"
-next_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, Backup"
+next_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup"
 prev_module: "/courses/cloud-aws/aws_module_29_lambda_advanced.html"
 prev_module_title: "Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito"
 ---

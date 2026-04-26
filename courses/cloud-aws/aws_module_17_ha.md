@@ -16,7 +16,7 @@ duration: 110
 mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_32_migration.html"
-prev_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, Backup"
+prev_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup"
 next_module: "/courses/cloud-aws/aws_module_18_serverless.html"
 next_module_title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
 ---
