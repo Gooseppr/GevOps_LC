@@ -2314,6 +2314,28 @@
               "difficulty": "beginner",
               "duration": "20",
               "mermaid": false
+            },
+            {
+              "title": "Guide pratique — Concevoir une architecture AWS de A à Z",
+              "path": "/GevOps_LC/courses/cloud-aws/aws_guide_pratique.html",
+              "file": "aws_guide_pratique.md",
+              "chapter_title": "Références",
+              "chapter": 0,
+              "section": 3,
+              "tags": [
+                "aws",
+                "architecture",
+                "bonnes-pratiques",
+                "design",
+                "saa-c03",
+                "securite",
+                "resilience",
+                "performance",
+                "couts"
+              ],
+              "difficulty": "intermediate",
+              "duration": "120",
+              "mermaid": true
             }
           ]
         },

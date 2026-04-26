@@ -163,12 +163,59 @@ tags: [bash, scripting]
 ---
 layout: page
 title: "Titre chapitre"
-course: docker
-order: 3
-prev: /courses/docker/02-images
-next: /courses/docker/04-volumes
+course: cloud-aws
+chapter_title: "Fondations AWS"     # Nom de la section (groupement dans la sidebar)
+chapter: 1                          # Numéro du chapitre (tri principal)
+section: 3                          # Position dans le chapitre (tri secondaire)
+tags: aws,ec2,compute,network
+difficulty: beginner                # beginner | intermediate | advanced
+duration: 75                        # Durée estimée en minutes
+mermaid: true                       # Activer le support Mermaid
+status: published
+prev_module: "/courses/cloud-aws/aws_module_02_iam.html"
+prev_module_title: "IAM — Gestion des identités AWS"
+next_module: "/courses/cloud-aws/aws_module_04_storage.html"
+next_module_title: "Stockage AWS — S3 / EBS / EFS"
 ---
 ```
+
+> **Note** : `prev_module` / `next_module` sont générés automatiquement par `crs_nav_links.py`. Ne pas les renseigner à la main lors de la création d'un module — le pipeline s'en charge. En revanche `chapter`, `section` et `chapter_title` doivent être définis manuellement car ils déterminent l'ordre de tri.
+
+### Organisation des chapitres dans un cours
+
+Les modules sont triés par `(chapter, section, title)`. La convention de numérotation :
+
+| Chapter | Usage |
+|---------|-------|
+| **0** | Références (cheat sheet, glossaire) — apparaît en premier dans la sidebar |
+| **1** | Fondations / Bases |
+| **2** | Services / Intermédiaire |
+| **3+** | Avancé, spécialisations |
+
+Chaque nouveau cours devrait idéalement inclure un chapitre 0 "Références" avec :
+- Une **Cheat Sheet** (`<slug>_cheatsheet.md`) — tableaux comparatifs, arbres de décision, limites, aide-mémoire
+- Un **Glossaire** (`<slug>_glossaire_services.md`) — définitions courtes d'une ligne + liens vers les modules du cours
+
+### Exclure un fichier du site et de la sidebar (`published: false`)
+
+Pour qu'un fichier `.md` ne soit ni build par Jekyll, ni inclus dans la navigation (sidebar, index, prev/next) :
+
+```yaml
+---
+published: false
+---
+```
+
+C'est le **seul champ nécessaire** — il est respecté par :
+- **Jekyll** (natif : ne build pas la page HTML)
+- **`crs_scan_index.py`** (n'inclut pas le module dans `courses.json` / `nav-data.json`)
+- **`crs_nav_links.py`** (n'inclut pas le module dans la chaîne prev/next)
+
+Si `published: false` est placé dans le `index.md` d'un cours, **le cours entier** est exclu.
+
+**Cas d'usage** : fichiers de planification (PLAN.md, PLANBIS.md), brouillons, cours en préparation.
+
+> **Important** : ne pas utiliser de liste statique de noms de fichiers dans les scripts pipeline pour exclure des fichiers. Toujours utiliser `published: false` dans le frontmatter.
 
 ---
 
