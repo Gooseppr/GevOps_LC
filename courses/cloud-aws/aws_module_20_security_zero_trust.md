@@ -44,6 +44,18 @@ Le modèle **Zero Trust** part du principe inverse : **aucun accès n'est implic
 
 ## Architecture Zero Trust sur AWS
 
+> **SAA-C03** — Si la question mentionne…
+> - "never trust, always verify / ne jamais faire confiance" + "network segmentation / segmentation réseau" → approche **Zero Trust** (SG + NACL + VPC Endpoints + IAM)
+> - "prevent lateral movement / empêcher le mouvement latéral" + "micro-segmentation" → **Security Groups** restrictifs entre chaque tier (web → app → DB)
+> - "eliminate Internet exposure / éliminer l'exposition Internet" + "access AWS services privately" → **VPC Endpoints** (Gateway pour S3/DynamoDB, Interface pour le reste)
+> - "detect threats automatically / détecter les menaces automatiquement" + "no rules to configure / aucune règle à configurer" → **GuardDuty** (ML sur VPC Flow Logs, CloudTrail, DNS)
+> - "discover sensitive data / découvrir des données sensibles" + "PII" + "S3" → **Macie**
+> - "investigate incident / enquêter sur un incident" + "root cause / cause racine" → **Detective**
+> - "centralized findings / findings centralisés" + "compliance score" → **Security Hub**
+> - "validate CloudTrail log integrity / valider l'intégrité des logs" → activer **log file validation** dans CloudTrail
+> - "block specific IP / bloquer une IP spécifique" → **WAF** (sur ALB/CloudFront) ou **NACL** (sur subnet). SG ne supporte pas les règles Deny.
+> - ⛔ Security Groups = **Allow only** (pas de règle Deny). Pour bloquer une IP → NACL ou WAF.
+
 Le Zero Trust ne se configure pas en un seul endroit. Sur AWS, il se traduit par la combinaison de plusieurs couches de contrôle qui se renforcent mutuellement.
 
 | Couche | Composant AWS | Ce qu'il contrôle |

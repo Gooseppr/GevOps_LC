@@ -48,6 +48,14 @@ Concrètement :
 
 ## Comment ça fonctionne
 
+> **SAA-C03** — Si la question mentionne…
+> - "programmatic access / accès programmatique" + "EC2 instance" → **IAM Role** attaché à l'instance (jamais stocker des access keys)
+> - "programmatic access" + "human user / utilisateur humain" + "CLI / SDK" → **IAM User** avec access key + **MFA** activé
+> - "multiple AWS accounts / plusieurs comptes AWS" + "switch between / basculer entre" → **CLI profiles** (`aws configure --profile`) ou **IAM Identity Center** (`aws sso login`)
+> - "verify identity / vérifier l'identité" + "troubleshoot permissions / débugger les permissions" → `aws sts get-caller-identity`
+> - "filter output / filtrer la sortie" + "query" → **JMESPath** (`--query` parameter)
+> - ⛔ **Jamais** de credentials hardcodés dans le code ou les variables d'environnement en production → utiliser IAM Roles (EC2) ou Secrets Manager
+
 Quand tu tapes une commande `aws`, voici le chemin parcouru :
 
 ```mermaid

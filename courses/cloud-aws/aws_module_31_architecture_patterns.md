@@ -47,6 +47,20 @@ Ce module reprend les 12 cas d'etude classiques du SAA-C03. Pour chaque pattern,
 
 ## Pattern 1 — Application Web Stateless : WhatsTheTime.com
 
+> **SAA-C03** — Réflexes par pattern d'architecture :
+> - "stateless web app" → **ELB + ASG multi-AZ** (externaliser les sessions vers ElastiCache/DynamoDB)
+> - "stateful app" + "session persistence / persistance de session" → externaliser vers **ElastiCache Redis** ou **DynamoDB** (pas de sticky sessions)
+> - "static website / site statique" → **S3 + CloudFront + Route 53** (pas d'EC2)
+> - "serverless full-stack / architecture serverless complète" → **S3 (static) + CloudFront + API Gateway + Lambda + DynamoDB + Cognito (auth)**
+> - "mobile backend" + "direct S3 access from app" → **Cognito Identity Pool** → STS credentials temporaires → accès direct S3
+> - "microservices" + "asynchronous / asynchrone" + "decouple" → **SQS / SNS + Lambda** ou **EventBridge**
+> - "software updates distribution / distribution de mises à jour" → **S3 + CloudFront** (cache global, signed URLs pour la sécurité)
+> - "event processing / traitement événementiel" → **S3 Event → SQS → Lambda** ou **EventBridge → Step Functions**
+> - "multi-level caching / cache multi-niveaux" → **CloudFront (edge) → API Gateway (cache) → ElastiCache (app) → RDS (source)**
+> - "block an IP address / bloquer une IP" → ordre de priorité : **WAF** (L7, sur ALB/CloudFront) > **NACL** (L3/4, sur subnet) > SG (Allow only, pas de Deny)
+> - "fast instance boot / démarrage rapide d'instance" → **Golden AMI** (tout pré-installé) + User Data minimal
+> - ⛔ "Sticky sessions" = anti-pattern pour le scaling. Si la question dit "stateless" + "sticky sessions enabled" → **désactiver** les sticky sessions.
+
 ### Le probleme
 
 WhatsTheTime.com est un site qui affiche l'heure. C'est tout. Pas de base de donnees, pas de sessions, pas de donnees utilisateur. Le site connait un succes viral et passe de 100 visiteurs par jour a 10 millions. L'equipe veut que le site reste disponible, rapide, et que l'infrastructure s'adapte automatiquement au trafic.

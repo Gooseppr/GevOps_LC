@@ -52,6 +52,16 @@ Ces trois services s'intègrent nativement avec IAM, S3, CloudWatch, SNS, et ave
 
 ## Architecture d'un pipeline AWS
 
+> **SAA-C03** — Si la question mentionne…
+> - "orchestrate pipeline / orchestrer un pipeline" + "source → build → deploy" → **CodePipeline** (orchestrateur)
+> - "compile / build / test" + "buildspec.yml" → **CodeBuild** (CI)
+> - "deploy to EC2 / Lambda / ECS" + "appspec.yml" + "deployment strategy" → **CodeDeploy** (CD)
+> - "zero-downtime deployment / déploiement sans interruption" + "blue/green" → CodeDeploy **Blue/Green** strategy
+> - "canary deployment / déploiement canari" + "gradual traffic shift / bascule progressive" → CodeDeploy **Canary** (10 % puis 100 %)
+> - "automatic rollback / rollback automatique" + "deployment failure" → CodeDeploy (rollback natif sur échec)
+> - ⛔ CI/CD AWS (CodePipeline, CodeBuild, CodeDeploy) = **hors scope SAA-C03** mais présents comme réponses pièges. Savoir les distinguer suffit.
+> - ⛔ CodeDeploy ≠ CloudFormation. CodeDeploy = **déployer du code** sur des instances existantes. CloudFormation = **provisionner l'infrastructure**.
+
 ### Les composants en interaction
 
 | Composant | Rôle dans le pipeline | Cibles typiques |

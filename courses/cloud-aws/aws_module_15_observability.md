@@ -74,6 +74,15 @@ description: Une alarme métrique dit "quelque chose cloche", les logs disent "q
 
 ## Architecture d'observabilité AWS
 
+> **SAA-C03** — Si la question mentionne…
+> - "metrics / métriques" + "alarms / alarmes" + "dashboards" → **CloudWatch**
+> - "logs centralization / centralisation des logs" + "query / requêter" + "Insights" → **CloudWatch Logs** (+ Logs Insights pour les requêtes)
+> - "distributed tracing / traçage distribué" + "latency between services / latence entre services" + "service map" → **X-Ray**
+> - "audit API calls / auditer les appels API" + "who did what / qui a fait quoi" → **CloudTrail** (pas CloudWatch)
+> - "Prometheus / Grafana" + "containers monitoring / monitoring de conteneurs" → **Managed Prometheus** + **Managed Grafana**
+> - "three pillars of observability / trois piliers de l'observabilité" → **Metrics** (CloudWatch) + **Logs** (CloudWatch Logs) + **Traces** (X-Ray)
+> - ⛔ CloudWatch = **métriques + logs + alarmes** (état du système). CloudTrail = **audit des appels API** (qui a fait quoi). X-Ray = **tracing distribué** (latence entre services). Trois rôles distincts.
+
 En production, une requête utilisateur traverse plusieurs couches avant d'obtenir une réponse. L'observabilité consiste à instrumenter chacune d'elles pour pouvoir reconstituer le chemin complet après coup — sans toucher au code, sans reproduire le scénario.
 
 ```mermaid
