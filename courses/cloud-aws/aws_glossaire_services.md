@@ -3,8 +3,8 @@ layout: page
 title: "Glossaire des services AWS — Dictionnaire SAA-C03"
 course: cloud-aws
 chapter_title: "Références"
-chapter: 5
-section: 35
+chapter: 0
+section: 2
 tags: aws,glossaire,dictionnaire,services,saa-c03,reference
 difficulty: beginner
 duration: 20
@@ -12,6 +12,8 @@ mermaid: false
 status: published
 prev_module: "/courses/cloud-aws/aws_cheatsheet.html"
 prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
+next_module: "/courses/cloud-aws/aws_module_01_concepts_cloud.html"
+next_module_title: "Concepts Cloud & Modèles AWS"
 ---
 
 # Glossaire des services AWS — Dictionnaire SAA-C03

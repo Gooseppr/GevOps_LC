@@ -14,8 +14,6 @@ duration: 45
 mermaid: true
 
 status: "published"
-prev_module: "/courses/api_rest/00_plan.html"
-prev_module_title: "00_plan"
 next_module: "/courses/api_rest/02_http_rest.html"
 next_module_title: "HTTP & REST — Les fondations indispensables des API"
 ---

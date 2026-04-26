@@ -14,8 +14,6 @@ duration: 60
 mermaid: true
 
 status: "published"
-prev_module: "/courses/technicien_support_applicatif/00_plan.html"
-prev_module_title: "00_plan"
 next_module: "/courses/technicien_support_applicatif/06_comprendre_application.html"
 next_module_title: "Comprendre une application métier"
 ---

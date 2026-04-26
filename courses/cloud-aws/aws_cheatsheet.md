@@ -3,15 +3,13 @@ layout: page
 title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 course: cloud-aws
 chapter_title: "Références"
-chapter: 5
-section: 34
+chapter: 0
+section: 1
 tags: aws,cheatsheet,reference,saa-c03,exam
 difficulty: intermediate
 duration: 30
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_33_ml_overview.html"
-prev_module_title: "Machine Learning AWS — Services managés (overview SAA-C03)"
 next_module: "/courses/cloud-aws/aws_glossaire_services.html"
 next_module_title: "Glossaire des services AWS — Dictionnaire SAA-C03"
 ---

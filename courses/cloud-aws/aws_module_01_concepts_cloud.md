@@ -10,8 +10,8 @@ difficulty: beginner
 duration: 45
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/PLANBIS.html"
-prev_module_title: "PLANBIS"
+prev_module: "/courses/cloud-aws/aws_glossaire_services.html"
+prev_module_title: "Glossaire des services AWS — Dictionnaire SAA-C03"
 next_module: "/courses/cloud-aws/aws_module_02_iam.html"
 next_module_title: "IAM — Gestion des identités AWS"
 ---

@@ -697,31 +697,44 @@
     "index_path": "/GevOps_LC/courses/cloud-aws/index.html",
     "themes": [
       {
-        "id": "general",
-        "title": "Général",
+        "id": "references",
+        "title": "Références",
         "modules": [
           {
-            "title": "Plan",
-            "path": "/GevOps_LC/courses/cloud-aws/PLAN.html",
-            "file": "PLAN.md",
-            "chapter_title": "Général",
+            "title": "Cheat Sheet AWS — Référence rapide SAA-C03",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_cheatsheet.html",
+            "file": "aws_cheatsheet.md",
+            "chapter_title": "Références",
             "chapter": 0,
-            "section": 0,
-            "tags": [],
-            "difficulty": "",
-            "duration": "",
-            "mermaid": false
+            "section": 1,
+            "tags": [
+              "aws",
+              "cheatsheet",
+              "reference",
+              "saa-c03",
+              "exam"
+            ],
+            "difficulty": "intermediate",
+            "duration": "30",
+            "mermaid": true
           },
           {
-            "title": "Planbis",
-            "path": "/GevOps_LC/courses/cloud-aws/PLANBIS.html",
-            "file": "PLANBIS.md",
-            "chapter_title": "Général",
+            "title": "Glossaire des services AWS — Dictionnaire SAA-C03",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_glossaire_services.html",
+            "file": "aws_glossaire_services.md",
+            "chapter_title": "Références",
             "chapter": 0,
-            "section": 0,
-            "tags": [],
-            "difficulty": "",
-            "duration": "",
+            "section": 2,
+            "tags": [
+              "aws",
+              "glossaire",
+              "dictionnaire",
+              "services",
+              "saa-c03",
+              "reference"
+            ],
+            "difficulty": "beginner",
+            "duration": "20",
             "mermaid": false
           }
         ]
@@ -1386,49 +1399,6 @@
             "mermaid": true
           }
         ]
-      },
-      {
-        "id": "references",
-        "title": "Références",
-        "modules": [
-          {
-            "title": "Cheat Sheet AWS — Référence rapide SAA-C03",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_cheatsheet.html",
-            "file": "aws_cheatsheet.md",
-            "chapter_title": "Références",
-            "chapter": 5,
-            "section": 34,
-            "tags": [
-              "aws",
-              "cheatsheet",
-              "reference",
-              "saa-c03",
-              "exam"
-            ],
-            "difficulty": "intermediate",
-            "duration": "30",
-            "mermaid": true
-          },
-          {
-            "title": "Glossaire des services AWS — Dictionnaire SAA-C03",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_glossaire_services.html",
-            "file": "aws_glossaire_services.md",
-            "chapter_title": "Références",
-            "chapter": 5,
-            "section": 35,
-            "tags": [
-              "aws",
-              "glossaire",
-              "dictionnaire",
-              "services",
-              "saa-c03",
-              "reference"
-            ],
-            "difficulty": "beginner",
-            "duration": "20",
-            "mermaid": false
-          }
-        ]
       }
     ]
   },
@@ -1444,24 +1414,6 @@
     "path": "/courses/docker/",
     "index_path": "/GevOps_LC/courses/docker/index.html",
     "themes": [
-      {
-        "id": "general",
-        "title": "Général",
-        "modules": [
-          {
-            "title": "Plan",
-            "path": "/GevOps_LC/courses/docker/PLAN.html",
-            "file": "PLAN.md",
-            "chapter_title": "Général",
-            "chapter": 0,
-            "section": 0,
-            "tags": [],
-            "difficulty": "",
-            "duration": "",
-            "mermaid": false
-          }
-        ]
-      },
       {
         "id": "prise-en-main",
         "title": "Prise en main",

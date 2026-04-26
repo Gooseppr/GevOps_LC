@@ -12,9 +12,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
 
-exclude:
-  - courses/**/PLAN.md
-
 defaults:
   - scope:
       path: "modules"

@@ -17,8 +17,6 @@ status: "published"
 
 prev_module: "/courses/cloud-aws/aws_module_31_architecture_patterns.html"
 prev_module_title: "Patterns d'architecture AWS — Etudes de cas SAA-C03"
-next_module: "/courses/cloud-aws/aws_cheatsheet.html"
-next_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 ---
 
 # Machine Learning AWS — Services managés (overview SAA-C03)
