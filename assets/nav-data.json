@@ -3996,50 +3996,6 @@
       ]
     },
     {
-      "id": "plan",
-      "title": "Plan",
-      "description": "",
-      "icon": "",
-      "status": "published",
-      "domain": "",
-      "domain_icon": "",
-      "domain_order": "99",
-      "path": "/courses/plan/",
-      "index_path": "/GevOps_LC/courses/plan/index.html",
-      "themes": [
-        {
-          "id": "general",
-          "title": "Général",
-          "modules": [
-            {
-              "title": "Plan_Support",
-              "path": "/GevOps_LC/courses/plan/plan_support.html",
-              "file": "plan_support.md",
-              "chapter_title": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
-            },
-            {
-              "title": "Plan_Testeur",
-              "path": "/GevOps_LC/courses/plan/plan_testeur.html",
-              "file": "plan_testeur.md",
-              "chapter_title": "Général",
-              "chapter": 0,
-              "section": 0,
-              "tags": [],
-              "difficulty": "",
-              "duration": "",
-              "mermaid": false
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "python",
       "title": "Python",
       "description": "Python appliqué à l'automatisation, les APIs, les scripts DevOps et la data.",

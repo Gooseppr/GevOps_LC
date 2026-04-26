@@ -1,3 +1,7 @@
+---
+published: false
+---
+
 ```
 📘 PARCOURS : Testeur QA — de débutant à ingénieur qualité logiciel
 👤 Public cible : reconversion IT / support applicatif / junior dev souhaitant évoluer vers QA
