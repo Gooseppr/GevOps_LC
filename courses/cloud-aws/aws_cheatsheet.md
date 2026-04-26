@@ -78,15 +78,17 @@ next_module_title: "Glossaire des services AWS — Dictionnaire SAA-C03"
 
 ### S3 — Object Storage
 
-| Classe | Disponibilité | Cas d'usage | Coût relatif |
-|--------|---------------|-------------|--------------|
-| S3 Standard | 99,99 % | Données fréquemment accédées | $$$ |
-| S3 Standard-IA | 99,9 % | Accès peu fréquent, récupération rapide | $$ |
-| S3 One Zone-IA | 99,5 % | Données reproductibles, accès rare | $ |
-| S3 Glacier Instant | 99,9 % | Archive avec accès en millisecondes | $ |
-| S3 Glacier Flexible | 99,99 % | Archive, récupération en minutes/heures | ¢ |
-| S3 Glacier Deep Archive | 99,99 % | Archive long terme (7-10 ans) | ¢¢ |
+| Classe | Disponibilité | Cas d'usage | Coût stockage/Go/mois |
+|--------|---------------|-------------|----------------------|
+| S3 Standard | 99,99 % | Données fréquemment accédées | ~0,023 $ |
+| S3 Standard-IA | 99,9 % | Accès peu fréquent, récupération rapide | ~0,0125 $ |
+| S3 One Zone-IA | 99,5 % | Données reproductibles, accès rare | ~0,01 $ |
+| S3 Glacier Instant | 99,9 % | Archive avec accès en millisecondes | ~0,004 $ |
+| S3 Glacier Flexible | 99,99 % | Archive, récupération en minutes/heures | ~0,0036 $ |
+| S3 Glacier Deep Archive | 99,99 % | Archive long terme (7-10 ans) | ~0,00099 $ |
 | S3 Intelligent-Tiering | 99,9 % | Pattern d'accès imprévisible | Auto-optimisé |
+
+> **Note** : les prix sont indicatifs (région us-east-1). Le coût de stockage baisse avec la classe, mais les frais de récupération (retrieval) augmentent — Deep Archive coûte très peu à stocker mais la récupération prend 12-48h et est facturée par Go récupéré. Les classes IA facturent aussi un minimum de 30 jours de stockage par objet.
 
 **Fonctions clés :**
 
