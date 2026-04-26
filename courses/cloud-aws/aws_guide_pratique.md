@@ -110,6 +110,15 @@ graph TB
 | Roles IAM au lieu de cles d'acces | Pas de secret a rotation manuelle, impossible de fuiter dans le code |
 | Secrets Manager pour les credentials | Rotation automatique, audit via CloudTrail, pas de secret en clair |
 
+### Aller plus loin
+
+- **AWS Firewall Manager** : gerer les regles WAF, les Security Groups et les Shield protections de facon centralisee sur tous les comptes d'une organisation — indispensable quand on multiplie les applications
+- **VPC Flow Logs + Athena** : activer les Flow Logs sur le VPC et les analyser avec Athena pour detecter du trafic anormal (scan de ports, exfiltration de donnees vers des IP suspectes)
+- **AWS Network Firewall** : inspection de trafic de niveau 3 a 7 (deep packet inspection) dans le VPC — plus puissant que les Security Groups et les NACL pour detecter des patterns de malware ou du trafic C2
+- **mTLS sur l'ALB** : au lieu d'un simple TLS cote client, exiger un certificat client — utile pour les API B2B ou les architectures zero trust
+- **AWS Config Rules** : surveiller en continu que les Security Groups ne s'ouvrent pas en 0.0.0.0/0, que tous les buckets sont chiffres, que les volumes EBS ont le chiffrement active — alerte automatique si quelqu'un derive de la politique
+- **GuardDuty** : activer la detection de menaces — analyse les VPC Flow Logs, les DNS logs et CloudTrail pour detecter les compromissions (credential exfiltration, crypto-mining, appels API depuis un pays inattendu)
+
 ---
 
 ## Guide 2 — Concevoir un stockage evolutif et economique
@@ -184,6 +193,15 @@ graph LR
 | Intelligent-Tiering sur les buckets imprevisibles | Pas besoin de deviner le pattern d'acces — AWS optimise automatiquement |
 | CRR en mode compliance | Separation physique entre donnee principale et copie de conformite |
 
+### Aller plus loin
+
+- **S3 Access Points** : creer des points d'acces dedies par equipe ou par application, chacun avec sa propre politique d'acces — plus propre et plus securise que de multiplier les bucket policies
+- **S3 Batch Operations** : appliquer des transformations en masse sur des millions d'objets existants (changer la classe de stockage, copier vers un autre bucket, appliquer un tag) — indispensable quand on corrige une politique de lifecycle a posteriori
+- **S3 Event Notifications + Lambda** : declencher un traitement automatique a chaque upload (generation de thumbnail, extraction de metadonnees, scan antivirus avec ClamAV)
+- **Macie** : scanner automatiquement les buckets S3 pour detecter des donnees sensibles (numeros de carte, PII, credentials) qui n'auraient jamais du etre stockees la
+- **Requester Pays** : si des partenaires externes accedent a vos donnees sur S3, activer le mode Requester Pays pour que les couts de transfert soient a leur charge
+- **S3 Storage Lens avec metriques avancees** : activer les metriques premium pour des recommandations automatiques par prefixe (quel prefixe couterait moins cher en Glacier, quel prefixe a un taux de requetes anormalement eleve)
+
 ---
 
 ## Guide 3 — Rendre une architecture hautement disponible
@@ -256,6 +274,17 @@ graph TB
 | RDS Multi-AZ synchrone | RPO = 0 — aucune transaction perdue lors du failover |
 | ASG min_size = N+1 | Capacite suffisante pour absorber le trafic si une AZ tombe |
 | ElastiCache Multi-AZ | Les sessions survivent au failover — pas de deconnexion utilisateur |
+
+### Aller plus loin
+
+- **Chaos Engineering avec AWS Fault Injection Service (FIS)** : simuler la panne d'une AZ, la saturation CPU, la perte de connectivite reseau — verifier que le failover fonctionne vraiment avant qu'un incident reel ne le teste pour vous
+- **Auto Scaling predictif** : au lieu de reagir au CPU en temps reel, utiliser le scaling predictif qui analyse les patterns de trafic historiques et pre-provisionne les instances avant le pic (ex: tous les lundis a 9h)
+- **Health checks multi-couches** : configurer des health checks a chaque niveau — Route 53 surveille l'ALB, l'ALB surveille l'application (pas juste le port, un endpoint `/health` qui teste la connexion BDD et le cache)
+- **Aurora au lieu de RDS Multi-AZ** : Aurora replique les donnees sur 6 copies dans 3 AZ et repare automatiquement les blocs corrompus — failover en 30 secondes contre 1-2 minutes pour RDS classique
+- **Global Accelerator** : si les utilisateurs sont repartis mondialement, Global Accelerator route le trafic via le reseau prive AWS (backbone Anycast) vers l'ALB le plus proche — latence reduite et failover multi-region automatique
+- **Runbooks automatises avec Systems Manager** : documenter et automatiser les procedures de failover dans des runbooks SSM — en cas d'incident, un operateur lance le runbook au lieu d'improviser sous la pression
+
+→ [Module 23 — Resilience & Chaos Engineering](/courses/cloud-aws/aws_module_23_resilience.html)
 
 ---
 
@@ -332,6 +361,17 @@ graph LR
 | DAX devant DynamoDB | Absorbe les lectures repetitives — reduit les couts DynamoDB et la latence |
 | Cognito plutot qu'un auth custom | Service manage, integration native avec API Gateway, zero code JWT |
 | Cache API Gateway | Les reponses identiques ne declenchent pas Lambda — economies et latence reduite |
+
+### Aller plus loin
+
+- **Lambda@Edge ou CloudFront Functions** : executer du code au plus pres de l'utilisateur (A/B testing, redirections, validation de tokens) pour une latence sub-milliseconde — ideal pour le pre-processing avant que la requete n'atteigne API Gateway
+- **Step Functions pour les workflows complexes** : si un endpoint declenche une chaine d'operations (paiement → stock → notification → facturation), orchestrer avec Step Functions au lieu d'enchainer les invocations Lambda — gestion native des erreurs, retries et timeouts
+- **API Gateway WebSocket** : pour les cas temps reel (chat, notifications push, dashboards live), utiliser les WebSocket APIs plutot que du polling HTTP — connexion persistante, facturation a la minute de connexion
+- **X-Ray pour le tracing distribue** : instrumenter Lambda + API Gateway + DynamoDB avec X-Ray pour visualiser la latence de chaque composant et identifier les goulots d'etranglement
+- **Reserved Concurrency par fonction** : limiter la concurrence d'une fonction Lambda non-critique pour garantir que les fonctions critiques ont toujours de la capacite disponible — evite qu'un pic sur un endpoint secondaire affame les endpoints vitaux
+- **DynamoDB Streams + Lambda** : reagir aux changements dans DynamoDB en temps reel (envoyer une notification quand une commande change de statut, mettre a jour un index de recherche) — architecture event-driven sans code de polling
+
+→ [Module 29 — Serverless avance](/courses/cloud-aws/aws_module_29_lambda_advanced.html)
 
 ---
 
@@ -427,6 +467,15 @@ graph TB
 | SSO au lieu d'utilisateurs IAM | Credentials temporaires, un seul annuaire, revocation instantanee |
 | Logs dans un compte dedie | Le compte Log Archive est en lecture seule — personne ne peut alterer les preuves |
 
+### Aller plus loin
+
+- **AWS Control Tower** : au lieu de configurer Organizations, SCPs, SSO et le logging manuellement, Control Tower fournit une landing zone pre-configuree avec des guardrails (preventives et detectives) — accelere la mise en place et reduit les erreurs
+- **Permission Boundaries** : en plus des SCPs (qui limitent le compte), appliquer des permission boundaries sur les roles IAM pour limiter ce qu'un developpeur peut creer — meme s'il a le droit de creer des roles, les roles crees ne pourront pas depasser les limites definies
+- **AWS Security Hub** : agreger les findings de GuardDuty, Config, Macie, Inspector et IAM Access Analyzer dans un dashboard unique avec un score de conformite — vue consolidee multi-compte
+- **IAM Access Analyzer** : detecter automatiquement les ressources (buckets S3, roles, KMS keys) qui sont accessibles depuis l'exterieur du compte ou de l'organisation — souvent la source des fuites de donnees les plus graves
+- **Delegated Administrator** : plutot que d'administrer GuardDuty et Config depuis le compte management de l'organisation, deleguer l'administration au compte Audit — principe du moindre privilege applique au compte root de l'organisation
+- **SCPs conditionnelles avec tags** : autoriser ou interdire des actions en fonction de tags (ex: interdire de terminer une instance qui a le tag `protected: true`) — granularite fine sans multiplier les policies
+
 ---
 
 ## Guide 6 — Deployer un reseau hybride entreprise-cloud
@@ -499,6 +548,15 @@ graph LR
 | BGP pour le routage | Basculement automatique Direct Connect → VPN sans intervention |
 | Route 53 Resolver bidirectionnel | Les deux mondes resolvent les noms de l'autre — transparent pour les applications |
 
+### Aller plus loin
+
+- **Direct Connect avec LAG (Link Aggregation Group)** : agreger plusieurs connexions physiques Direct Connect pour augmenter la bande passante et la redondance — si un lien tombe, les autres absorbent le trafic sans bascule sur le VPN
+- **Direct Connect Gateway** : connecter le datacenter a des VPC dans plusieurs regions AWS via un seul Direct Connect — sans Direct Connect Gateway, il faudrait une connexion physique par region
+- **AWS PrivateLink** : exposer des services specifiques (API internes, bases de donnees) du VPC vers le reseau on-premise via des endpoints prives — le trafic ne traverse jamais Internet et n'a pas besoin de routes VPC Peering
+- **Network Manager** : dashboard centralise pour visualiser la topologie du reseau hybride (Direct Connect, VPN, Transit Gateway), surveiller les metriques et detecter les anomalies de routage
+- **Transit Gateway inter-region peering** : connecter les Transit Gateways de differentes regions pour creer un reseau global — le datacenter accede a toutes les regions via un seul point d'entree
+- **AWS CloudWAN** : pour les architectures multi-region complexes avec des dizaines de VPC, CloudWAN fournit un reseau global manage avec des policies de segmentation et de routage centralisees — remplace les configurations manuelles Transit Gateway + Peering
+
 ---
 
 ## Guide 7 — Mettre en place une strategie de reprise apres sinistre
@@ -562,6 +620,15 @@ Toutes les applications ne meritent pas la meme strategie DR. Le choix depend du
 **En cas de sinistre** : Route 53 detecte la panne via health checks et arrete de router vers la region defaillante. Les utilisateurs sont automatiquement rediriges — sans interruption perceptible.
 
 **Cout** : double infrastructure. Reserve pour les applications ou chaque seconde de downtime coute tres cher.
+
+### Aller plus loin
+
+- **Aurora Global Database** : replication cross-region avec un lag < 1 seconde et promotion du cluster secondaire en moins de 1 minute — combine le RPO quasi nul du Warm Standby avec la simplicite d'un service manage
+- **DynamoDB Global Tables** : replication active/active multi-region native — les ecritures dans n'importe quelle region sont propagees automatiquement, ideal pour les applications globales sans gestion manuelle de failover BDD
+- **S3 Cross-Region Replication avec RTC (Replication Time Control)** : garantie SLA de replication en moins de 15 minutes (au lieu du best-effort standard) — critique si les donnees S3 doivent etre disponibles dans la region DR rapidement
+- **AWS Elastic Disaster Recovery (DRS)** : pour les serveurs on-premise ou EC2 qui ne peuvent pas etre facilement recrees par IaC, DRS replique les disques en continu et peut lancer des instances de recuperation en quelques minutes — Pilot Light automatise
+- **GameDay / DR Drills reguliers** : planifier des exercices de DR trimestriels ou l'on simule la perte d'une region et on execute le plan de bascule — un plan DR non teste est un plan qui ne fonctionne pas
+- **Route 53 Application Recovery Controller** : readiness checks pour verifier en permanence que la region DR est prete (quotas suffisants, replicas a jour, config identique) et routing controls pour basculer le trafic en un clic
 
 ### L'arbre de decision
 
@@ -643,6 +710,15 @@ Parfois, le meilleur moyen de reduire les couts n'est pas de negocier le prix ma
 - **Cost anomaly detection** : AWS detecte les variations de couts inhabituelles et alerte automatiquement
 
 → [Module 24 — Gouvernance & Tagging](/courses/cloud-aws/aws_module_24_governance.html)
+
+### Aller plus loin
+
+- **Graviton instances** : les instances basees sur les processeurs ARM Graviton d'AWS offrent un rapport prix/performance 20-40% meilleur que les equivalents x86 — migration souvent transparente pour les workloads Linux/conteneurs
+- **Spot Fleet avec diversification** : au lieu de demander un seul type d'instance Spot, configurer une Spot Fleet diversifiee sur plusieurs types et AZ — reduit drastiquement le risque d'interruption tout en gardant les 60-90% d'economie
+- **Licence Manager** : suivre et optimiser l'utilisation des licences logicielles (Windows, SQL Server, Oracle) — detecter les licences sous-utilisees et consolider sur moins d'instances
+- **Gateway VPC Endpoints pour S3 et DynamoDB** : chaque Go de trafic qui passe par une NAT Gateway coute 0,045 $ — un Gateway Endpoint est gratuit. Sur un workload data-intensive, l'economie est massive
+- **CloudWatch Contributor Insights** : identifier les top consumers (quels endpoints API coutent le plus en Lambda, quels clients generent le plus de trafic NAT) — cible les optimisations la ou l'impact est maximal
+- **Cost Allocation Tags + Shared Services split** : tagger les ressources partagees (ALB, Transit Gateway, NAT Gateway) et repartir leur cout proportionnellement entre les equipes — sans ca, 20-30% de la facture reste dans un pot commun que personne n'optimise
 
 ### Le tableau de bord FinOps
 
@@ -730,6 +806,15 @@ graph LR
 | Stockage dual (DynamoDB + S3) | Temps reel pour le dashboard, data lake pour l'analytique longue duree |
 | Firehose pour l'ecriture S3 | Zero code — buffering, compression et conversion de format automatiques |
 | Parquet sur S3 | Columnar = requetes Athena 10x plus rapides et 90% moins cheres que CSV |
+
+### Aller plus loin
+
+- **Schema Registry (AWS Glue)** : versionner et valider les schemas des evenements pour eviter qu'un producteur ne casse le pipeline en changeant le format — detection des incompatibilites avant que les donnees corrompues n'atteignent le data lake
+- **Lake Formation** : gerer les permissions d'acces au data lake de facon centralisee avec un controle au niveau colonne et ligne — au lieu de multiplier les bucket policies S3, on definit qui voit quoi dans un catalogue unifie
+- **Kinesis Enhanced Fan-Out** : chaque consommateur obtient un debit dedie de 2 Mo/s par shard au lieu de partager — indispensable quand plusieurs applications lisent le meme stream sans se ralentir mutuellement
+- **Dead Letter Queue sur les consommateurs Lambda** : si un batch d'evenements echoue apres les retries, l'envoyer dans une SQS DLQ au lieu de le perdre — permet d'analyser et rejouer les echecs sans perte de donnees
+- **Partitionnement S3 par date** : ecrire les donnees dans des prefixes `year=2026/month=04/day=26/` — Athena ne scanne que les partitions demandees, ce qui reduit les couts et le temps de requete de 90%+
+- **Amazon OpenSearch** : si les requetes analytiques temps reel depassent ce que DynamoDB peut offrir (recherche full-text, agregations complexes, visualisation Kibana), ajouter un cluster OpenSearch alimente par le stream Kinesis
 
 ---
 
@@ -824,6 +909,15 @@ graph LR
 | DMS avec CDC pour la base | Replication continue = quasi zero downtime lors du cutover |
 | MGN plutot que export/import d'images | Replication continue des disques — le cutover est un simple clic |
 | Oracle → PostgreSQL | Eliminer les couts de licence Oracle — PostgreSQL est open source et supporte par RDS |
+
+### Aller plus loin
+
+- **AWS Migration Evaluator** : avant de migrer, generer un business case detaille avec les couts actuels on-premise vs les couts projetes sur AWS — convaincre le management avec des chiffres, pas des intuitions
+- **CloudEndure / MGN avec test continu** : planifier des test cutovers automatiques chaque semaine pour verifier que les serveurs repliques demarrent correctement sur AWS — le jour J n'est pas le moment de decouvrir un probleme de driver ou de licence
+- **Strangler Fig Pattern** : au lieu de migrer l'application entiere d'un coup, router progressivement les fonctionnalites vers AWS (via un reverse proxy ou API Gateway) — chaque fonctionnalite migree est independante, le risque est isole
+- **AWS App2Container** : conteneuriser automatiquement des applications Java ou .NET existantes sans modifier le code — genere un Dockerfile, une image et une task definition ECS prete a deployer
+- **RDS Proxy** : apres la migration de la base vers RDS, ajouter un RDS Proxy pour pooler les connexions — les applications legacy qui ouvrent trop de connexions simultanees ne saturent plus la base
+- **Landing Zone Assessment** : avant la migration, valider que l'architecture cible respecte les Well-Architected Framework pillars — une migration vers une architecture mal concue ne fait que deplacer les problemes
 
 ---
 
