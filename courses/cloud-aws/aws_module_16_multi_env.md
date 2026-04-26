@@ -52,15 +52,6 @@ AWS pousse cette logique plus loin qu'une convention de nommage. L'approche reco
 
 ## Architecture multi-compte avec AWS Organizations
 
-> **SAA-C03** — Si la question mentionne…
-> - "isolate environments / isoler les environnements" + "blast radius" + "dev / staging / prod" → **comptes séparés** via **Organizations** (pas des VPC dans le même compte)
-> - "consolidated billing / facturation consolidée" + "volume discounts / remises sur volume" → **Organizations** (billing au niveau de l'organization)
-> - "enforce policies across accounts / appliquer des politiques sur plusieurs comptes" → **SCP** (Service Control Policies) sur les OU
-> - "environment-specific configuration / configuration par environnement" + "no secrets in code" → **SSM Parameter Store** (par compte/région)
-> - "staging must mirror production / staging doit refléter la production" → même IaC (CloudFormation/Terraform) avec des paramètres différents par environnement
-> - "cross-account access / accès inter-comptes" → **STS AssumeRole** ou **resource-based policies**
-> - ⛔ Isoler par VPC dans le même compte ≠ isoler par comptes séparés. Les comptes séparés offrent une isolation **bien plus forte** (billing, IAM, limites de service).
-
 ### Les trois environnements et leurs rôles
 
 | Environnement | Rôle principal | Niveau de risque | Fréquence de déploiement |

@@ -42,17 +42,6 @@ Ce changement n'est pas juste technique — il est économique et organisationne
 
 ## Les trois modèles de service : IaaS, PaaS, SaaS
 
-> **SAA-C03** — Si la question mentionne…
-> - "full control over OS / contrôle total sur l'OS" + "manage everything above the hypervisor" → **IaaS** (ex : EC2)
-> - "just deploy code / juste déployer du code" + "platform managed / plateforme gérée" → **PaaS** (ex : Elastic Beanstalk)
-> - "consume a service / consommer un service" + "no infrastructure / pas d'infrastructure" → **SaaS** (ex : Gmail, Salesforce)
-> - "choose a region / choisir une région" → facteurs : **latency / latence** vers les utilisateurs, **compliance / conformité** des données, **service availability / disponibilité des services**, **pricing / tarification**
-> - "Availability Zone / zone de disponibilité" → datacenter isolé physiquement dans une région. Minimum **2 AZ** pour toute architecture HA
-> - "edge location" → points de présence CloudFront/Route 53, **pas** une AZ (pas pour héberger EC2)
-> - "vertical scaling / scaling vertical" → augmenter la taille d'une instance (ex : t3.micro → m5.large)
-> - "horizontal scaling / scaling horizontal" → ajouter plus d'instances (ASG + ELB)
-> - ⛔ "Region" ≠ "AZ" ≠ "Edge location". Une région contient >= 3 AZ. Les edge locations sont séparées (CDN/DNS uniquement).
-
 Le cloud ne se présente pas en un seul bloc. Il existe trois niveaux d'abstraction, chacun définissant jusqu'où AWS gère les choses à ta place — et donc ce qui reste sous ta responsabilité.
 
 La meilleure façon de comprendre la différence : pense à la location d'un logement.

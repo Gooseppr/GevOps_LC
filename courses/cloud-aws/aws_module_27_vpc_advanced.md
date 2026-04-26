@@ -34,18 +34,7 @@ Ce module étend le module 05 (VPC) qui couvre les fondamentaux : création de V
 
 ## VPC Peering — Connecter deux VPC directement
 
-> **SAA-C03** — Si la question mentionne…
-> - "connect two VPCs / connecter deux VPC" + "private / privé" + "non-transitive" → **VPC Peering** (attention : A↔B et B↔C ne signifie pas A↔C)
-> - "connect many VPCs / connecter plusieurs VPC" + "hub and spoke" + "transitive routing / routage transitif" → **Transit Gateway**
-> - "connect on-premises to AWS / connecter on-prem à AWS" + "over Internet / via Internet" + "encrypted / chiffré" + "quick setup / rapide" → **Site-to-Site VPN**
-> - "connect on-premises to AWS" + "dedicated / dédié" + "high bandwidth / haut débit" + "predictable latency / latence prévisible" + "not over Internet" → **Direct Connect**
-> - "Direct Connect" + "encrypted / chiffré" → ajouter un **VPN over Direct Connect** (DX seul n'est PAS chiffré)
-> - "expose a service privately between VPCs / exposer un service en priv��" + "no peering / pas de peering" → **PrivateLink** (Interface VPC Endpoint)
-> - "remote employee access / accès distant des employés" + "VPN client" → **AWS Client VPN** (OpenVPN)
-> - "VPN" + "Customer Gateway" + "static IP / IP publique statique" → l'IP publique est côté **on-prem** (Customer Gateway), pas côté AWS
-> - ⛔ VPC Peering = **non-transitif**. Pour du transitif → Transit Gateway
-> - ⛔ Direct Connect = **pas chiffré par défaut**. Pour chiffrer → VPN over DX
-> - ⛔ ELB = **une seule région**. Pour du multi-région → Route 53 devant les ELB
+> **SAA-C03** — VPC Peering = **non-transitif** (A-B + B-C ne donne pas A-C, il faut Transit Gateway). Direct Connect = **PAS chiffré par défaut** (ajouter un VPN over DX pour chiffrer).
 
 ### Le problème que ça résout
 

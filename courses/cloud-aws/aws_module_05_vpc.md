@@ -61,19 +61,8 @@ Avant de regarder les commandes, il faut comprendre comment ces pièces s'articu
 
 Le point qui crée le plus de confusion chez les débutants mérite d'être dit clairement dès maintenant : **un subnet n'est pas "public" parce qu'il s'appelle `public-subnet`. Il est public parce que sa route table contient une entrée `0.0.0.0/0` pointant vers un IGW.** Le nom ne change rien — c'est la route qui qualifie.
 
-> **SAA-C03** — Si la question mentionne…
-> - "instance not accessible from Internet / instance non accessible depuis Internet" → vérifier : 1) **IP publique** 2) **route table → IGW** 3) Security Group inbound
-> - "private subnet needs Internet access / subnet privé a besoin d'Internet" → **NAT Gateway** dans un subnet public
-> - "access S3 or DynamoDB privately / accéder à S3 ou DynamoDB sans passer par Internet" → **Gateway VPC Endpoint** (gratuit)
-> - "access other AWS services privately / accéder à d'autres services en privé" → **Interface VPC Endpoint** (PrivateLink, payant)
-> - "stateful firewall / pare-feu stateful" + "instance level / niveau instance" → **Security Group** (Allow only, toutes les règles évaluées)
-> - "stateless firewall / pare-feu stateless" + "subnet level / niveau subnet" → **NACL** (Allow + Deny, évaluées par numéro de règle = first-match)
-> - "dedicated connection / connexion dédiée" + "high bandwidth / haut débit" + "not over Internet / pas via Internet" → **Direct Connect**
-> - "quick setup / rapide à déployer" + "encrypted / chiffré" + "over Internet / via Internet" → **Site-to-Site VPN**
-> - "connect multiple VPCs / connecter plusieurs VPC" + "hub" → **Transit Gateway**
-> - "IPv4 exhaustion / épuisement IPv4" → créer un **subnet IPv6-only** (on ne peut pas supprimer IPv4 d'un VPC)
-> - ⛔ NACL rule numéro **bas** → évaluée en **premier** (un Allow #100 avant un Deny #101 = trafic autorisé)
-> - ⛔ "Customer Gateway / CGW" = côté **on-prem** du VPN (pas pour l'accès Internet)
+> **SAA-C03** — Accès privé à S3/DynamoDB → **Gateway VPC Endpoint** (gratuit). Autres services → **Interface Endpoint** (payant).
+> SG = stateful, Allow only, niveau instance. NACL = stateless, Allow + Deny, **first-match par numéro de règle** (un Allow #100 avant un Deny #101 = autorisé).
 
 ### Vue d'ensemble de l'architecture
 

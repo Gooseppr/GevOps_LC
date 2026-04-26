@@ -74,15 +74,7 @@ Pour la grande majorité des applications web modernes, **ALB est le bon choix**
 
 Le NLB s'impose dans deux cas précis : tu as besoin de latences sub-milliseconde, ou tu travailles avec des protocoles non-HTTP (TCP brut, UDP, flux temps réel).
 
-> **SAA-C03** — Si la question mentionne…
-> - "HTTP / HTTPS" + "path-based routing / routing par chemin" + "microservices" → **ALB** (Layer 7)
-> - "ultra-low latency / latence ultra-faible" + "TCP / UDP" + "static IP / IP statique" → **NLB** (Layer 4)
-> - "network appliances / appliances réseau" + "firewall / IDS" → **GLB** (Gateway Load Balancer, Layer 3)
-> - "distribute evenly across AZs / distribuer uniformément entre les AZ" → activer **cross-zone load balancing**
-> - "traffic always goes to same instance / trafic toujours vers la même instance" + "stateless" → désactiver **sticky sessions**
-> - "session affinity / affinité de session" + "stateful application" → activer **sticky sessions** (mais préférer externaliser les sessions vers ElastiCache/DynamoDB)
-> - ⛔ "Classic Load Balancer / CLB" → **ne jamais** proposer pour de nouvelles architectures (legacy uniquement)
-> - ⛔ Un ELB fonctionne dans **une seule région** — si "multi-region / multi-région" → utiliser **Route 53** devant les ELB
+> **SAA-C03** — "network appliances / firewall" → **GLB** (Layer 3). "traffic always to same instance / trafic toujours vers la même instance" + stateless → désactiver les **sticky sessions**. Cross-zone load balancing : activé par défaut sur ALB, **désactivé** par défaut sur NLB.
 
 <!-- snippet
 id: aws_alb_vs_nlb_choice
@@ -292,14 +284,7 @@ Les politiques de scaling définissent comment `desired` évolue dans le temps :
 
 🧠 Le scaling-out (ajout d'instances) est rapide — de l'ordre de quelques minutes. Le scaling-in (suppression) inclut intentionnellement un délai appelé *cooldown*, typiquement 300 secondes. L'objectif : éviter le thrashing — lancer puis détruire des instances en boucle parce que la charge fluctue autour du seuil de déclenchement.
 
-> **SAA-C03** — Si la question mentionne…
-> - "maintain CPU at X% / maintenir le CPU à X%" → **Target Tracking** policy (la plus simple, recommandée)
-> - "if CPU > 70% add 2, if > 90% add 5 / si CPU > 70% ajouter 2" → **Step Scaling** policy
-> - "every Monday at 8 AM / chaque lundi à 8h" + "predictable peaks / pics prévisibles" → **Scheduled Scaling**
-> - "scale-in policy" + "which instance terminated / quelle instance terminée" → default = **AZ la plus peuplée** → **plus ancien launch template**
-> - "change AMI / changer d'AMI" dans un ASG → créer un **nouveau launch template** (immuable après création)
-> - "fault tolerance / tolérance aux pannes" + "N instances minimum" → répartir sur >= 2 AZ avec `ceil(N / (nb_AZ - 1))` par AZ
-> - ⛔ "min = 0" + "desired = 0" → l'ASG sera **vide** (aucune instance) — attention si la question exige "always running / toujours actif"
+> **SAA-C03** — Scale-in default : l'ASG termine d'abord dans l'**AZ la plus peuplée**, puis l'instance avec le **plus ancien launch template**. Changer d'AMI = créer un **nouveau launch template** (immuable).
 
 <!-- snippet
 id: aws_autoscaling_group_concept

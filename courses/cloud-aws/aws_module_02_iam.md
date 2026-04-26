@@ -84,16 +84,6 @@ graph TD
 
 > **Un Role n'est pas un User.** Un rôle n'a pas de mot de passe, pas de clé API permanente. Il émet des credentials temporaires à chaque fois qu'il est assumé, avec une durée de vie de 15 minutes à 12 heures. C'est exactement ce qui le rend plus sûr qu'un utilisateur classique pour les services automatisés.
 
-> **SAA-C03** — Si la question mentionne…
-> - "EC2 needs access to S3 / EC2 doit accéder à S3" ou tout service AWS accédant à un autre → **IAM Role** (jamais stocker des access keys sur l'instance)
-> - "temporary credentials / credentials temporaires" + "cross-account access / accès inter-comptes" → **STS AssumeRole**
-> - "centralized SSO / SSO centralisé" + "multiple AWS accounts / plusieurs comptes AWS" → **IAM Identity Center** (anciennement AWS SSO)
-> - "extra layer of protection / couche de protection supplémentaire" + "sign-in / connexion" → **MFA** (Multi-Factor Authentication)
-> - "least privilege / moindre privilège" → policy avec uniquement les actions nécessaires sur la ressource spécifique (ARN exact, pas de wildcard)
-> - "Lambda execution role" vs "Lambda resource policy" → **execution role** = ce que Lambda peut faire ; **resource policy** = qui peut invoquer Lambda
-> - ⛔ **Jamais** d'access keys sur une instance EC2 — toujours un IAM Role
-> - ⛔ Un IAM User par instance = anti-pattern → utiliser un IAM Role
-
 ---
 
 ## Lire une policy IAM
@@ -256,15 +246,6 @@ Quand un appel API arrive, IAM suit une séquence déterministe — toujours dan
 3. **Implicit deny** → si aucune policy n'autorise l'action, elle est refusée par défaut.
 
 🧠 Ce que ça implique concrètement : une nouvelle entité IAM sans policy attachée ne peut **strictement rien faire**, pas même lire ses propres informations. Chaque permission doit être accordée explicitement. C'est l'inverse de nombreux systèmes où le compte admin peut tout faire sauf restriction explicite.
-
-> **SAA-C03** — Si la question mentionne…
-> - "explicit Deny / Deny explicite" dans une policy → l'action est **toujours refusée**, même si un Allow existe ailleurs
-> - "no policy attached / aucune policy attachée" → **implicit deny** = aucun accès (pas d'accès par défaut)
-> - "policy with Resource `table/*`" → accès à **toutes** les tables (wildcard) → viole le least privilege
-> - "policy with Resource `table/tutorialsdojo`" → accès à **une seule** table spécifique → least privilege respecté
-> - "SCP (Service Control Policy)" + "Organizations" → limite maximale applicable à tous les comptes d'une OU (même si les policies locales autorisent)
-> - "Permission Boundary" → limite maximale pour un user/role spécifique
-> - ⛔ Un Allow + un Deny sur la même action → **Deny gagne toujours**
 
 ⚠️ **Piège classique** : avoir un `Allow` sur `s3:GetObject` mais oublier `s3:ListBucket`. L'utilisateur peut théoriquement lire un fichier s'il connaît son chemin exact, mais la console S3 affichera une erreur parce qu'elle tente de lister le bucket en premier. Ce n'est pas une erreur de droit de lecture — c'est une permission de listage manquante.
 

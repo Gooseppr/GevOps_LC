@@ -87,20 +87,7 @@ content: On-demand : flexibilité totale, prix plein. Reserved Instances / Savin
 description: Règle pratique : on-demand pour le nouveau, Reserved/Savings Plans pour la prod connue, Spot pour tout ce qui peut recommencer.
 -->
 
-> **SAA-C03** — Si la question mentionne…
-> - "cost-effective / économique" + "stable/predictable workload / charge stable" → **Reserved Instances** ou **Savings Plans** (1-3 ans, ~72 %)
-> - "most flexible commitment / engagement le plus flexible" + "EC2 + Lambda + Fargate" → **Compute Savings Plans**
-> - "cheapest / le moins cher" + "interruptible / tolérant aux pannes" + "batch / CI/CD / ML" → **Spot Instances** (~90 %)
-> - "mission-critical" + "batch processing" → **Reserved (critical) + Spot (batch)** combinés
-> - "unused Reserved Instances / RI inutilisées" → vendre sur le **Reserved Instance Marketplace**
-> - "only runs during business hours / uniquement en heures de bureau" → **Instance Scheduler** (pas RI ni Savings Plans)
-> - "analyze costs programmatically / analyser les coûts programmatiquement" + "forecast / prévision" → **Cost Explorer API**
-> - "budget alert / alerte budget" + "threshold / seuil" → **AWS Budgets** (pas Cost Explorer)
-> - "rightsizing recommendations / recommandations de dimensionnement" → **Compute Optimizer**
-> - "5 checks / vérifications automatiques" + "cost, performance, security" → **Trusted Advisor** (Basic = 7 checks, Business/Enterprise = tous)
-> - "S3 bucket configuration analysis / analyse de config S3" + "versioning status" + "across regions" → **S3 Storage Lens**
-> - ⛔ Cost Explorer = **analyser et prévoir** les coûts. Budgets = **alerter** sur les dépassements. Deux services complémentaires.
-> - ⛔ Savings Plans pour RDS → **n'existe pas**. Pour RDS → uniquement **Reserved DB Instances**.
+> **SAA-C03** — Savings Plans pour RDS **n'existent pas** (uniquement Reserved DB Instances). **Instance Scheduler** = workloads heures ouvrées uniquement. Cost Explorer = analyse/prévision programmatique ; Budgets = alertes sur seuils.
 
 **On-demand** — vous payez à la seconde, sans engagement. C'est le mode par défaut, le plus cher, mais justifié pour les charges imprévisibles ou les expérimentations. Dès qu'un workload devient prévisible, rester en on-demand est de l'argent gaspillé.
 

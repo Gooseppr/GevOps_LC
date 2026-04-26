@@ -40,19 +40,7 @@ Tu as un bucket de production en `eu-west-1`. Tes utilisateurs en Asie constaten
 
 La réplication S3 répond à ces trois cas avec le même mécanisme : chaque objet uploadé dans le bucket source est automatiquement copié dans un bucket de destination, de façon asynchrone.
 
-> **SAA-C03** — Si la question mentionne…
-> - "cross-region replication / réplication inter-régions" + "disaster recovery / latency reduction" → **CRR** (Cross-Region Replication)
-> - "same-region replication / réplication même région" + "compliance / logs aggregation" → **SRR** (Same-Region Replication)
-> - "prevent accidental deletion / empêcher la suppression accidentelle" → **S3 Versioning + MFA Delete**
-> - "WORM / Write Once Read Many" + "compliance / retention obligatoire" → **S3 Object Lock** (Compliance mode = personne ne peut supprimer, Governance = admins peuvent contourner)
-> - "temporary access to private object / accès temporaire à un objet privé" + "URL" → **Presigned URL** (expirent après une durée définie)
-> - "private content via CloudFront / contenu privé via CloudFront" → **Signed URLs** ou **Signed Cookies** (pas presigned URL S3)
-> - "large file upload / upload de gros fichier" + "> 100 MB" → **Multipart Upload** (obligatoire > 5 GB)
-> - "accelerate uploads / accélérer les uploads" + "global users" → **S3 Transfer Acceleration** (via edge locations)
-> - "simplify access management / simplifier la gestion d'accès" + "multiple teams / data lake" → **S3 Access Points**
-> - "query data in S3 without downloading / requêter sans télécharger" + "filter / CSV / JSON" → **S3 Select** (filtrage côté serveur)
-> - ⛔ Presigned URL = accès direct à **S3**. Signed URL CloudFront = accès via **CloudFront**. Deux mécanismes différents.
-> - ⛔ Object Lock **Compliance** mode = immuable (personne ne peut supprimer). **Governance** mode = contournable par des admins.
+> **SAA-C03** — Object Lock **Compliance** = immuable (personne ne peut supprimer). **Governance** = admins peuvent contourner. Presigned URL (accès S3 direct) ≠ CloudFront Signed URL (accès via CDN).
 
 ### CRR vs SRR
 
@@ -125,6 +113,8 @@ aws s3api list-multipart-uploads --bucket <BUCKET_NAME>
 Transfer Acceleration utilise les edge locations CloudFront pour accélérer les uploads longue distance. Le fichier est d'abord reçu par l'edge location la plus proche de l'utilisateur, puis transféré vers le bucket via le backbone réseau AWS — optimisé et privé.
 
 Le gain est significatif pour les uploads intercontinentaux : un fichier envoyé depuis Sydney vers un bucket en `eu-west-1` peut gagner 50 à 80% de vitesse.
+
+**Transfer Acceleration vs CloudFront** : les deux utilisent les edge locations, mais pour des usages opposés. Transfer Acceleration accélère les **uploads** (client → S3) en routant via l'edge la plus proche puis le backbone AWS. CloudFront accélère les **downloads** (S3 → client) en **cachant les fichiers** aux edge locations. Transfer Acceleration ne cache rien — chaque requête va jusqu'au bucket. Si un même fichier est téléchargé par des centaines de serveurs dans le monde (mises à jour logicielles, assets partagés), CloudFront est la bonne réponse car le fichier est servi depuis le cache edge sans retourner au bucket. Transfer Acceleration n'apporterait pas de gain dans ce cas.
 
 L'URL change : `mybucket.s3-accelerate.amazonaws.com` au lieu de `mybucket.s3.amazonaws.com`.
 

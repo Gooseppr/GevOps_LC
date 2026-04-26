@@ -84,20 +84,17 @@ La décision se prend avant de créer la queue, pas après. Une queue standard o
 
 Règle pratique : FIFO pour les flux financiers ou les séquences strictes, Standard pour tout le reste.
 
-> **SAA-C03** — Si la question mentionne…
-> - "decouple / découpler" + "asynchronous / asynchrone" + "buffering" → **SQS** (queue point-to-point)
-> - "duplicate messages / messages dupliqués" + "order not guaranteed / ordre non garanti" → problème de SQS **Standard** → passer à **SQS FIFO**
-> - "exactly-once processing" + "ordered / ordonné" + "limited throughput / débit limité" → **SQS FIFO** (3 000 msg/s max avec batching)
-> - "fan-out / distribution multi-cibles" + "pub/sub" → **SNS** topic (distribue à tous les abonnés)
-> - "fan-out" + "SNS" + "multiple queues" → pattern **SNS + SQS** (SNS publie, chaque SQS traite indépendamment)
-> - "notifications / alertes" + "email / SMS / HTTP" → **SNS** (pas SQS — SQS est une queue, pas un service de notification)
-> - "event bus" + "rules / patterns" + "SaaS integration" → **EventBridge** (pas SNS)
-> - "message broker" + "ActiveMQ / RabbitMQ" + "on-premises migration" → **Amazon MQ** (pas SQS/SNS)
-> - "real-time streaming / streaming temps réel" + "ordered per shard / ordonné par shard" + "replay" → **Kinesis Data Streams**
-> - "deliver streaming data to S3/Redshift/OpenSearch / livrer du streaming vers S3" → **Data Firehose** (livraison, pas traitement)
-> - "SMS marketing campaign / campagne SMS" + "multi-engagement" → **Amazon Pinpoint** (pas SNS)
-> - ⛔ SQS = **queue** (un consumer traite le message). SNS = **pub/sub** (tous les abonnés reçoivent). Ne pas confondre.
-> - ⛔ Kinesis Data Streams = **ingestion + traitement ordonné**. Firehose = **livraison vers destinations**. Pas interchangeables.
+### SQS comme buffer devant un Auto Scaling Group
+
+Un des patterns les plus importants à connaître : quand des requêtes sont perdues parce que l'ASG n'a pas le temps de scaler assez vite, **placer une queue SQS entre le producteur et les consumers** résout le problème. Les requêtes ne sont plus envoyées directement aux instances — elles sont d'abord stockées dans la queue, puis consommées par les instances à leur rythme. Si un pic de trafic arrive, les messages s'accumulent dans la queue sans être perdus, et l'ASG a le temps de lancer de nouvelles instances.
+
+Le scaling de l'ASG se fait alors sur la métrique **`ApproximateNumberOfMessages`** (profondeur de la queue) au lieu du CPU. Le calcul est simple :
+- **Backlog par instance** = `ApproximateNumberOfMessages` / nombre d'instances en service
+- **Target** = latence acceptable / temps moyen de traitement d'un message
+
+Exemple : 1 500 messages en queue, 10 instances, traitement moyen 0,1 s/message, latence acceptable 10 s → target = 10 / 0,1 = 100 messages/instance. Backlog actuel = 1 500 / 10 = 150 → l'ASG ajoute 5 instances.
+
+Ce pattern est la réponse dès qu'une question mentionne "requests being lost / requêtes perdues" + "Auto Scaling" + "load spikes / pics de charge". L'idée clé : SQS absorbe le pic, l'ASG rattrape.
 
 ### Créer une queue standard
 
@@ -241,6 +238,10 @@ description: Le Long Polling réduit le nombre d'appels API à vide. Latence ide
 ---
 
 ## SNS — Publier et distribuer
+
+SNS (Simple Notification Service) est un service pub/sub : un message publié sur un topic est distribué à **tous les abonnés** (Lambda, SQS, email, SMS, HTTP). C'est le service à utiliser pour les **notifications opérationnelles** — typiquement, une alarme CloudWatch déclenche une notification SNS qui envoie un email à l'équipe ops.
+
+**SNS vs SES (Simple Email Service)** : une confusion fréquente. SNS envoie des notifications courtes (alertes, alarmes, confirmations) vers des abonnés via email, SMS, HTTP ou d'autres services AWS. SES est un service d'envoi d'emails en masse — marketing, emails transactionnels (factures, confirmations d'inscription), newsletters. Si la question parle de "monitor and notify / surveiller et notifier" une équipe → **SNS**. Si la question parle de "send bulk emails / envoyer des emails en masse" ou "marketing campaign" → **SES** (ou Pinpoint pour les campagnes multicanal).
 
 ### Créer un topic
 

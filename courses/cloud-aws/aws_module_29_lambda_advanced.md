@@ -76,18 +76,7 @@ Quand tu conçois une architecture serverless, les limites Lambda ne sont pas un
 
 ## Lambda Concurrency — unreserved, reserved, provisioned
 
-> **SAA-C03** — Si la question mentionne…
-> - "cold start / démarrage à froid" + "eliminate / éliminer" → **Provisioned Concurrency** (instances pré-chauffées, coût fixe)
-> - "guarantee concurrency / garantir la concurrence" + "isolate from other functions" → **Reserved Concurrency** (réserve un quota, pas de pré-chauffage)
-> - "Lambda@Edge" + "modify request/response at edge / modifier la requête à l'edge" → exécution aux edge locations CloudFront (viewer/origin request/response)
-> - "CloudFront Functions" vs "Lambda@Edge" → CF Functions = plus rapide, moins cher, JS uniquement, < 1 ms. Lambda@Edge = plus puissant, multi-langage, < 30 s
-> - "authenticate users / authentifier des utilisateurs" + "sign-up / sign-in" + "MFA / social login" → **Cognito User Pool**
-> - "get temporary AWS credentials / obtenir des credentials AWS temporaires" + "for app users" → **Cognito Identity Pool** (fédère User Pool + providers externes)
-> - "orchestrate multiple Lambda / orchestrer plusieurs Lambda" + "state machine / machine à états" → **Step Functions**
-> - "Step Functions Standard" = longue durée (1 an max), exactly-once. "Step Functions Express" = haut débit (5 min max), at-least-once.
-> - "GraphQL API" + "real-time subscriptions / abonnements temps réel" → **AppSync**
-> - ⛔ Lambda max **15 min timeout**. Si le traitement dure plus → Fargate, ECS ou EC2.
-> - ⛔ Lambda default concurrency = **1 000 par région** (extensible via support). Une seule fonction peut consommer tout le quota.
+> **SAA-C03** — **Provisioned Concurrency** = no cold start (pré-chauffé, coût fixe). **Reserved Concurrency** = quota garanti (cold starts possibles). CF Functions = JS only, < 1 ms. Lambda@Edge = multi-langage, < 30 s. Step Functions Standard = 1 an max ; Express = 5 min max.
 
 La concurrence Lambda désigne le nombre d'instances de ta fonction qui s'exécutent simultanément. C'est le levier principal pour gérer la scalabilité et la stabilité d'une architecture serverless. Mal configurée, une seule fonction peut consommer toute la concurrence du compte et provoquer le throttling de toutes les autres.
 

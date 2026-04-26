@@ -93,22 +93,6 @@ graph LR
 
 ## Amazon Athena — SQL serverless sur S3
 
-> **SAA-C03** — Si la question mentionne…
-> - "query S3 with SQL / requêter S3 avec SQL" + "serverless" + "ad hoc" → **Athena** (facturé au volume scanné)
-> - "Athena slow / Athena lent" → convertir en **Parquet/ORC** (format colonnaire, predicate pushdown)
-> - "data warehouse" + "complex joins / jointures complexes" + "BI / analytics" → **Redshift** (MPP, colonnes)
-> - "full-text search / recherche plein texte" + "log analytics" → **OpenSearch** (ex-Elasticsearch)
-> - "big data processing / traitement big data" + "Hadoop / Spark" + "cluster" → **EMR**
-> - "BI dashboards / tableaux de bord" + "serverless" + "ML Insights" → **QuickSight** (moteur SPICE)
-> - "ETL" + "data catalog / catalogue de données" + "crawlers" → **Glue**
-> - "data lake governance / gouvernance data lake" + "column-level access / accès au niveau colonne" → **Lake Formation** (data filters)
-> - "real-time streaming / streaming temps réel" + "ordered / ordonné" + "custom consumers" → **Kinesis Data Streams**
-> - "deliver streaming to S3/Redshift/OpenSearch / livrer du streaming vers S3" + "near real-time" → **Data Firehose**
-> - "real-time SQL on streams / SQL temps réel sur des flux" → **Kinesis Data Analytics** (Apache Flink)
-> - ⛔ Athena = **requêtes ad hoc** sur S3 (serverless, pay-per-query). Redshift = **data warehouse permanent** (provisionné ou serverless). Pas interchangeables.
-> - ⛔ Kinesis Data Streams = **ingestion + traitement ordonné** (tu codes les consumers). Firehose = **livraison automatique** vers des destinations (pas de code consumer). Pas la même chose.
-> - ⛔ "Column-level access" sur un data lake → **Lake Formation data filters** (pas IAM policies, pas S3 bucket policies)
-
 ### Ce que c'est
 
 Athena est un service de requete **serverless** qui te permet d'executer du SQL standard (Presto/Trino sous le capot) directement sur des fichiers stockes dans S3. Tu ne provisionnes rien, tu ne geres aucun serveur. Tu ecris une requete, tu l'executes, tu paies.
@@ -169,7 +153,9 @@ Depuis 2022, tu peux utiliser Redshift **sans provisionner de cluster**. AWS ger
 
 ### Snapshots et DR
 
-Redshift supporte les snapshots automatiques et manuels. Tu peux copier un snapshot vers une autre Region pour le disaster recovery. Les snapshots sont stockes dans S3 (gere par AWS, pas ton bucket).
+Redshift prend des **snapshots automatiques** (toutes les 8h ou tous les 5 Go de changements) et tu peux aussi créer des **snapshots manuels** à tout moment. Les snapshots sont stockés dans S3 (géré par AWS, pas ton bucket).
+
+Point critique : les snapshots automatiques restent **dans la même région** que le cluster. Si la région tombe, les snapshots sont inaccessibles. Pour un vrai disaster recovery cross-region, il faut activer la fonctionnalité **Cross-Region Snapshot Copy** directement sur le cluster. Une fois activée, chaque nouveau snapshot (automatique et manuel) est automatiquement copié vers la région de destination que tu choisis, avec une rétention configurable. C'est la seule approche recommandée — créer un job custom qui copie des snapshots manuellement vers S3 fonctionne mais ajoute de la complexité inutile.
 
 ### Ce que Redshift ne fait PAS
 
@@ -315,7 +301,7 @@ Kinesis Data Streams (KDS) est un service d'ingestion de donnees **en temps reel
 
 - **Shard** : unite de capacite. Chaque shard supporte 1 Mo/s en entree et 2 Mo/s en sortie.
 - **Partition Key** : determine dans quel shard un record atterrit. Un mauvais choix de cle cree des "hot shards".
-- **Retention** : 24h par defaut, extensible jusqu'a 365 jours.
+- **Retention** : 24h par defaut, extensible jusqu'a 365 jours. **Consequence directe** : si un consumer lit les donnees moins souvent que la periode de retention, les records expires sont perdus definitivement. Exemple : un consumer qui traite les donnees toutes les 48h avec la retention par defaut de 24h perd la moitie des donnees. La solution est soit d'augmenter la retention, soit de faire consommer plus frequemment.
 - **Consumers** : applications qui lisent les donnees (Lambda, KCL, API).
 
 ### Enhanced Fan-Out

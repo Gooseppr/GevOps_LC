@@ -78,19 +78,7 @@ graph TD
 
 Une fonction Lambda, c'est quatre choses : du code (Python, Node.js, Java, Go…), un handler (le point d'entrée), un rôle IAM (ce qu'elle a le droit de faire), et une configuration (mémoire, timeout, variables d'environnement).
 
-> **SAA-C03** — Si la question mentionne…
-> - "serverless" + "event-driven / déclenché par événement" + "short-lived / courte durée" → **Lambda** (max 15 min)
-> - "serverless" + "containers / conteneurs" → **Fargate** (pas Lambda)
-> - "REST API" + "serverless" + "throttling / cache / authorization" → **API Gateway** + Lambda
-> - "process data close to users / traiter les données au plus proche des utilisateurs" + "CloudFront" → **Lambda@Edge** (pas Route 53)
-> - "orchestrate workflows / orchestrer des workflows" + "state machine" → **Step Functions** (Standard = longue durée, Express = haut débit)
-> - "event bus / bus d'événements" + "rules / patterns" + "decouple services / découpler les services" → **EventBridge**
-> - "cold start" + "eliminate / éliminer" → **Provisioned Concurrency** (instances pré-chauffées)
-> - "Lambda needs to decrypt / Lambda doit déchiffrer" + "KMS" → `kms:decrypt` sur l'**execution role** (pas la resource policy)
-> - "automatically handle load balancing, scaling, monitoring / gérer automatiquement le LB, scaling, monitoring" + "Docker" → **Elastic Beanstalk** (pas ECS — ECS nécessite une config manuelle)
-> - ⛔ Lambda timeout **max = 15 minutes** — si le traitement dure plus → ECS/Fargate ou EC2
-> - ⛔ Lambda **execution role** = ce que Lambda peut faire. **Resource policy** = qui peut invoquer Lambda. Ne pas confondre.
-> - ⛔ Athena = **requêtes SQL ad hoc** sur S3. Ce n'est **pas** du traitement streaming temps réel → utiliser Kinesis pour ça
+> **SAA-C03** — Lambda max **15 min** (au-delà → Fargate/EC2). **Execution role** = ce que Lambda peut faire ; **resource policy** = qui peut l'invoquer. **Provisioned Concurrency** = supprime les cold starts (pré-chauffage).
 
 ### Les commandes essentielles
 

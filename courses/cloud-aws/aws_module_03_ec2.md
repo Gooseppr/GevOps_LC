@@ -70,20 +70,10 @@ graph TD
 
 💡 L'adresse `169.254.169.254` est le service de métadonnées interne à EC2. C'est par là que l'instance récupère son rôle IAM, son IP, son hostname — sans passer par Internet.
 
-> **SAA-C03** — Si la question mentionne…
-> - "cost-effective / économique" + "stable workload / charge stable" + "1 or 3 year commitment / engagement 1-3 ans" → **Reserved Instances** (~72 % d'économie)
-> - "cost-effective" + "flexible commitment / engagement flexible" + "$/hour" → **Savings Plans** (~72 %, multi-instance/région)
-> - "cheapest / le moins cher" + "fault-tolerant / tolérant aux pannes" + "interruptible" → **Spot Instances** (~90 % d'économie)
-> - "mission-critical / critique" → **jamais Spot** (peut être interrompu) → Reserved ou On-Demand
-> - "BYOL / licensing" + "dedicated hardware / matériel dédié" → **Dedicated Host**
-> - "HPC" + "low-latency node-to-node / faible latence entre nœuds" + "tightly-coupled" → **Cluster Placement Group** (même AZ)
-> - "distributed workload" + "Hadoop / Kafka / Cassandra" → **Partition Placement Group**
-> - "critical instances isolated / instances critiques isolées" + "max 7 per AZ" → **Spread Placement Group**
-> - "hibernate / hibernation" → sauvegarde la RAM sur EBS → redémarrage instantané. Doit être activé **à la création** de l'instance
-> - "stop/start" + "instance store" → données **perdues** (éphémère). "stop/start" + "EBS" → données **conservées**
-> - "stop/start" + "EIP" (dans un VPC) → EIP **reste** associée. L'hôte physique peut changer.
-> - ⛔ "unused Reserved Instances / RI inutilisées" → les vendre sur le **Reserved Instance Marketplace** (pas Amazon.com)
-> - ⛔ "only runs during business hours / tourne uniquement en heures de bureau" → **Instance Scheduler** (pas RI ni Savings Plans)
+> **SAA-C03** — Options d'achat EC2 :
+> - "stable workload" → **Reserved** (~72 %). "interruptible / fault-tolerant" → **Spot** (~90 %). "mission-critical" → **jamais Spot**.
+> - "HPC / tightly-coupled" → **Cluster Placement Group** (1 AZ). "Hadoop / Kafka" → **Partition**. "isolated critical instances" → **Spread** (max 7/AZ).
+> - Hibernation = RAM sauvée sur EBS → doit être activé **à la création**. Stop/start = Instance Store **perdu**, EBS **conservé**, EIP **reste** (VPC).
 
 ---
 

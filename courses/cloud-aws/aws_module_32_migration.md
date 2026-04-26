@@ -50,21 +50,7 @@ AWS propose une galaxie de services de migration — chacun résout un problème
 
 ## Les 6R — stratégies de migration cloud
 
-> **SAA-C03** — Si la question mentionne…
-> - "migrate database / migrer une base de données" + "homogeneous / homogène" (MySQL → MySQL) → **DMS** seul
-> - "migrate database" + "heterogeneous / hétérogène" (Oracle → Aurora) → **DMS + SCT** (Schema Conversion Tool)
-> - "lift-and-shift / rehost" + "migrate servers / migrer des serveurs" → **MGN** (Application Migration Service)
-> - "transfer data on-prem → S3 / transférer des données on-prem vers S3" + "one-time or scheduled / ponctuel ou planifié" → **DataSync**
-> - "hybrid access / accès hybride" + "mount NFS/SMB" + "continuous / continu" → **Storage Gateway** (File/Volume/Tape Gateway)
-> - "File Gateway" = NFS/SMB → S3. "Volume Gateway" = iSCSI block. "Tape Gateway" = VTL backup
-> - "large data transfer / transfert massif" + "physical device / appareil physique" + "< 80 TB" → **Snowball Edge**
-> - "large data transfer" + "> 10 PB / exaoctets" → **Snowmobile**
-> - "SFTP / FTPS / FTP" + "managed / managé" + "S3 or EFS" → **Transfer Family**
-> - "centralized backup / sauvegarde centralisée" + "multi-service" → **AWS Backup**
-> - "immutable backups / sauvegardes immuables" + "compliance" + "no one can delete / personne ne peut supprimer" → **Backup Vault Lock** en mode **compliance** (pas governance)
-> - "Vault Lock governance mode" → les admins privilégiés **peuvent** contourner �� pas suffisant pour la compliance stricte
-> - ⛔ DataSync = **transférer** (migration). Storage Gateway = **accéder en continu** (hybride). Pas interchangeables.
-> - ⛔ S3 Transfer Acceleration = accélérer les **uploads vers S3** (pas les downloads). Pour les downloads → **CloudFront**.
+> **SAA-C03** — **DataSync** = transférer/migrer. **Storage Gateway** = accès hybride continu (pas interchangeables). Vault Lock **compliance** = immuable (personne ne supprime). Vault Lock **governance** = admins peuvent contourner.
 
 Avant de choisir un outil, il faut choisir une stratégie. AWS définit six approches, connues sous le nom de 6R :
 
@@ -116,6 +102,10 @@ DMS est le service managé pour migrer des bases de données vers AWS. Il foncti
 | **Homogène** | Même moteur | DMS seul | Oracle → RDS Oracle |
 | **Hétérogène** | Moteur différent | SCT + DMS | Oracle → Aurora PostgreSQL |
 
+La distinction est importante : pour une migration homogène (Oracle → Oracle sur RDS), **SCT n'est pas nécessaire** puisque le schéma reste identique. DMS seul transfère les données. Si la question propose SCT dans un scénario Oracle → Oracle, c'est un piège.
+
+Autre piège fréquent pour Oracle sur RDS : les outils natifs Oracle comme **RMAN (Recovery Manager)** ne sont pas supportés dans RDS, car tu n'as pas accès au système de fichiers sous-jacent de l'instance. RDS gère les backups via ses propres mécanismes (snapshots automatiques vers S3). Ne pas choisir RMAN comme solution de backup ou migration vers RDS.
+
 Pour une migration hétérogène, tu dois d'abord convertir le schéma avec **AWS Schema Conversion Tool (SCT)**. SCT analyse les procédures stockées, les vues, les types de données et produit un rapport de conversion — certains éléments se convertissent automatiquement, d'autres nécessitent une intervention manuelle.
 
 ### Continuous Data Replication (CDC)
@@ -136,7 +126,7 @@ sequenceDiagram
     Note over Source,Target: Cutover quand le lag ≈ 0
 ```
 
-💡 **Astuce SAA** — DMS supporte la migration vers S3 (export) et depuis S3 (import). C'est un cas fréquent pour alimenter un data lake à partir d'une base transactionnelle.
+💡 **Astuce SAA** — DMS ne sert pas qu'aux migrations on-prem → AWS. Il est aussi utilisé pour les migrations **intra-AWS** : par exemple, migrer d'un cluster Aurora Provisioned vers un cluster Aurora Serverless, ou d'un RDS MySQL vers Aurora. Dès qu'il faut migrer une base avec un **downtime minimal**, DMS avec CDC est la réponse — quel que soit le sens de la migration. DMS supporte aussi la migration vers S3 (export) et depuis S3 (import), un cas fréquent pour alimenter un data lake à partir d'une base transactionnelle.
 
 ⚠️ **Piège** — L'instance de réplication DMS tourne sur EC2 dans ton VPC. Si source et cible sont dans des réseaux différents, tu dois configurer le VPC peering ou un VPN. Et si la source est on-prem, il faut un Direct Connect ou un VPN site-to-site.
 

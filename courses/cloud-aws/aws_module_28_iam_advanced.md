@@ -117,20 +117,7 @@ Cette policy, attachée à un groupe ou à un rôle, empêche la création de re
 
 ## Permission Boundaries — limiter ce qu'un administrateur délégué peut accorder
 
-> **SAA-C03** — Si la question mentionne…
-> - "limit what an admin can grant / limiter ce qu'un admin peut accorder" + "delegated administration" → **Permission Boundary**
-> - "limit what an account can do / limiter ce qu'un compte peut faire" + "Organization / OU" → **SCP** (Service Control Policy)
-> - "full permission evaluation / évaluation complète des permissions" → ordre : **SCP → Permission Boundary → Identity Policy → Resource Policy** (Deny explicite gagne toujours)
-> - "cross-account access / accès inter-comptes" + "temporary / temporaire" → **STS AssumeRole** (credentials temporaires)
-> - "cross-account access" + "S3 bucket / Lambda / SQS" → **Resource-based policy** (pas besoin d'AssumeRole si le service supporte les resource policies)
-> - "centralized SSO / SSO centralisé" + "workforce / employés" + "multiple AWS accounts" → **IAM Identity Center**
-> - "web/mobile app users / utilisateurs d'apps" + "sign-up / sign-in / social login" → **Cognito User Pool**
-> - "AWS credentials for app users / credentials AWS pour les utilisateurs d'apps" → **Cognito Identity Pool**
-> - "Active Directory" + "on-prem" + "proxy" → **AD Connector**
-> - "Active Directory" + "fully managed / entièrement managé" + "AWS" → **AWS Managed Microsoft AD**
-> - "automate account creation / automatiser la création de comptes" + "guardrails / landing zone" → **Control Tower**
-> - ⛔ SCP = plafond pour un **compte/OU**. Permission Boundary = plafond pour un **user/role**. Deux niveaux différents.
-> - ⛔ Cognito = auth pour **utilisateurs d'apps**. Identity Center = SSO pour **employés accédant à AWS**. Ne pas confondre.
+> **SAA-C03** — **SCP** = plafond par compte/OU. **Permission Boundary** = plafond par user/role. **Cognito** = auth utilisateurs d'apps. **Identity Center** = SSO employés AWS.
 
 ### Le problème de la délégation
 
@@ -301,6 +288,10 @@ graph TD
 **Assignment** : le lien entre un utilisateur (ou groupe), un Permission Set et un compte. "Le groupe Developers a le Permission Set DeveloperAccess sur les comptes dev et staging."
 
 💡 **Pour l'examen** : si l'énoncé mentionne "single sign-on", "gestion centralisée des accès multi-comptes", "un portail unique pour tous les comptes", ou "simplifier l'accès à AWS Organizations" — la réponse est IAM Identity Center. C'est le successeur d'AWS SSO, et AWS le pousse comme la solution de référence pour la gouvernance d'identité.
+
+**Permission Sets = accès granulaire par équipe** : un Permission Set est un ensemble de policies IAM que tu crées une seule fois, puis que tu assignes à des groupes sur des comptes spécifiques. Si la question décrit des équipes (data science, engineering, compliance) qui ont besoin d'accès différents aux mêmes ressources (Aurora, EFS…) — la réponse est de créer des **Permission Sets par rôle d'équipe** et de les assigner via des groupes dans Identity Center. C'est moins d'overhead administratif que de créer des comptes séparés par équipe (Organizations) ou que d'introduire Cognito (prévu pour les utilisateurs d'applications, pas pour les employés accédant à l'infra AWS).
+
+**Quand Identity Center est déjà en place**, il ne faut pas introduire un second mécanisme d'authentification (Cognito, cross-account IAM roles manuels, Control Tower). La bonne approche est d'exploiter Identity Center plus finement avec des Permission Sets granulaires. Control Tower et les SCP opèrent au niveau compte/OU — ils ne fournissent pas le contrôle granulaire **par ressource** (Aurora, EFS) dont des équipes spécifiques ont besoin.
 
 ### Attribution fine avec ABAC
 

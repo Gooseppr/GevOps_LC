@@ -66,20 +66,6 @@ graph TD
     Dynamo -->|"Réplication multi-région"| Dynamo_G["Global Tables"]
 ```
 
-> **SAA-C03** — Si la question mentionne…
-> - "relational database / base relationnelle" + "managed / managé" + "MySQL, PostgreSQL, Oracle, SQL Server" → **RDS**
-> - "relational / relationnel" + "high performance / haute performance" + "critical workload / workload critique" → **Aurora**
-> - "relational / relationnel" + "intermittent / sporadic / unpredictable workload" → **Aurora Serverless**
-> - "NoSQL" + "key-value / clé-valeur" + "millisecond latency / latence en millisecondes" + "unlimited scale" → **DynamoDB**
-> - "in-memory cache" + "sessions" + "leaderboard / classement" → **ElastiCache** (Redis ou Memcached)
-> - "data warehouse" + "analytics / BI" + "complex queries / requêtes complexes" → **Redshift**
-> - "graph database / base graphe" + "social network / knowledge graph" → **Neptune**
-> - "ledger / immuable" + "audit trail" + "cryptographically verifiable" → **QLDB**
-> - "MongoDB compatible" → **DocumentDB**
-> - "Cassandra compatible" → **Keyspaces**
-> - ⛔ "relational / relationnel" → **jamais** DynamoDB (NoSQL = pas de jointures, pas de schéma fixe)
-> - ⛔ "analytics / BI" → **jamais** RDS/Aurora (OLTP) → préférer **Redshift** (OLAP) ou **Athena** (serverless sur S3)
-
 ---
 
 ## RDS — Le SQL managé sans surprises
@@ -88,18 +74,19 @@ RDS (Relational Database Service) prend en charge les moteurs que tu connais dé
 
 Ce que RDS fait en arrière-plan, sans intervention de ta part : backups quotidiens vers S3 (rétention configurable de 1 à 35 jours), application des patchs moteur pendant les fenêtres de maintenance, surveillance via CloudWatch (CPU, connexions, IOPS, latence), chiffrement at-rest et in-transit.
 
+**Limite de stockage importante** : RDS utilise des volumes EBS standard. Avec InnoDB (le moteur par défaut de MySQL/MariaDB), chaque table est stockée dans son propre tablespace avec une limite de **16 To par table**. Le volume total peut aller jusqu'à 64 To, mais au-delà de 16 To par table il faut partitionner manuellement — ce qui ajoute de la complexité opérationnelle. Le stockage RDS ne grandit **pas automatiquement** de façon transparente comme Aurora : tu définis une taille maximale et RDS alloue dans cette limite. Si ta base de données dépasse 50 To ou est en forte croissance, Aurora est un meilleur choix grâce à son stockage distribué qui scale automatiquement jusqu'à 128 To sans intervention.
+
 ### Multi-AZ : disponibilité sans compromis
 
-Quand tu actives Multi-AZ, AWS crée un standby synchrone dans une autre zone de disponibilité. Ce standby n'est **pas accessible en lecture** — il sert uniquement au failover. En cas de panne de l'instance primaire, le basculement prend entre 60 et 120 secondes, de façon transparente pour l'application si le DNS est correctement géré.
+Quand tu actives Multi-AZ, AWS crée un standby synchrone dans une autre zone de disponibilité. Ce standby n'est **pas accessible en lecture** — il sert uniquement au failover.
 
-⚠️ Confondre Multi-AZ et read replica est une erreur fréquente. Multi-AZ = haute disponibilité. Read replica = montée en charge en lecture. Ce ne sont pas des substituts l'un de l'autre.
+**Comment le failover fonctionne concrètement** : en cas de panne de l'instance primaire, AWS bascule le **CNAME** (canonical name record / enregistrement DNS) de l'endpoint RDS pour pointer vers l'instance standby, qui est alors promue en nouvelle primaire. C'est un switch DNS, pas un changement d'IP — les adresses IP sont liées aux subnets et les subnets ne traversent pas les AZ. L'application ne voit aucun changement si elle utilise l'endpoint DNS fourni par RDS (et non une IP en dur). Le basculement prend entre 60 et 120 secondes.
 
-> **SAA-C03** — Si la question mentionne…
-> - "high availability / haute disponibilité" + "automatic failover / basculement automatique" → **Multi-AZ** (standby synchrone, même région)
-> - "read-heavy workload / lecture intensive" + "scale reads / monter en charge en lecture" → **Read Replicas** (réplication asynchrone)
-> - "cross-region disaster recovery / reprise inter-régions" → **Read Replica cross-region** (pas Multi-AZ qui est même région uniquement)
-> - "database performance / performances" → Multi-AZ **n'améliore pas** les performances (le standby n'est pas lisible)
-> - ⛔ "Multi-AZ" ≠ "multi-region" — Multi-AZ = même région, 2 AZ différentes
+Ce mécanisme a deux conséquences importantes :
+- Ton application doit **toujours utiliser l'endpoint DNS** RDS, jamais l'IP directe — sinon le failover est silencieusement ignoré
+- Le standby n'est **pas créé au moment de la panne** — il existe déjà, avec les données synchronisées. Le failover est une promotion instantanée, pas une reconstruction
+
+⚠️ Confondre Multi-AZ et read replica est l'erreur classique. Multi-AZ = haute disponibilité (failover automatique, standby synchrone, même région). Read replica = montée en charge en lecture (réplication asynchrone, peut être cross-region). **Multi-AZ n'améliore pas les performances** — le standby n'est pas lisible tant qu'il n'est pas promu.
 
 ### Read replicas : délester les lectures
 
@@ -140,10 +127,12 @@ Ce découplage calcul/stockage change plusieurs choses concrètes :
 
 - **Failover en moins de 30 secondes** contre 1-2 minutes pour RDS Multi-AZ — Aurora n'a pas à promouvoir un standby, le stockage est déjà partagé entre tous les nœuds
 - **Jusqu'à 15 read replicas** contre 5 pour RDS, tous connectés au même volume — pas de décalage de réplication lié aux I/O disque
-- **Auto-scaling du stockage** de 10 Go jusqu'à 128 To sans intervention manuelle
+- **Auto-scaling du stockage** de 10 Go jusqu'à 128 To par incréments de 10 Go, sans intervention manuelle ni downtime — c'est la raison principale pour laquelle Aurora est le bon choix dès qu'une base OLTP dépasse les dizaines de To ou est en forte croissance, là où RDS serait limité par la taille maximale de ses tablespaces EBS
 - **Performances** annoncées à 5× MySQL et 3× PostgreSQL standard — les benchmarks indépendants confirment en général un facteur 2 à 4× selon le workload
 
 Aurora propose également un mode **Serverless v2** : la capacité de calcul s'ajuste automatiquement en fractions d'ACU (Aurora Capacity Units) selon la charge réelle. Utile pour des environnements à trafic imprévisible ou des bases de développement inactives la nuit.
+
+**Migrer de Aurora Provisioned vers Serverless** : on ne peut pas simplement changer l'instance class d'un cluster existant de Provisioned à Serverless — ce sont deux types de clusters distincts. Pour migrer avec un downtime minimal, il faut utiliser **AWS DMS** (Database Migration Service) avec la réplication continue (CDC) vers un nouveau cluster Aurora Serverless. DMS réplique les données en temps réel depuis la source vers la cible : tu bascules l'application quand le lag est proche de zéro. L'alternative par snapshot (arrêter la base → snapshot → restaurer en Serverless) fonctionne mais impose un downtime pendant toute la restauration.
 
 ```bash
 # Lister les clusters Aurora avec leur statut
@@ -160,13 +149,7 @@ aws rds create-db-instance \
 
 🧠 Aurora coûte environ 20 % de plus qu'une instance RDS équivalente. Ce surcoût devient négligeable dès que la charge dépasse ~500 connexions simultanées ou ~1 000 req/s — là où RDS commence à montrer ses limites et où les opérations manuelles de réplication se multiplient. En dessous de ce seuil, RDS est souvent le bon choix.
 
-> **SAA-C03** — Si la question mentionne…
-> - "5× MySQL / 3× PostgreSQL" + "critical / critique" + "high availability / haute disponibilité" → **Aurora**
-> - "15 read replicas" ou "failover < 30 seconds / basculement < 30 secondes" → **Aurora** (RDS = 5 replicas, failover 60-120s)
-> - "auto-scaling storage / stockage auto-extensible" + "up to 128 TB" → **Aurora**
-> - "serverless" + "relational / relationnel" + "intermittent / variable workload" → **Aurora Serverless v2**
-> - "MySQL/PostgreSQL compatible" + "managed / managé" + budget serré → **RDS** (20 % moins cher qu'Aurora)
-> - ⛔ Aurora n'est compatible qu'avec **MySQL et PostgreSQL** — si Oracle ou SQL Server → **RDS uniquement**
+> **SAA-C03** — Aurora = **MySQL et PostgreSQL uniquement**. Si Oracle ou SQL Server → **RDS**. "Serverless + relational + intermittent" → **Aurora Serverless v2**.
 
 ---
 
@@ -226,15 +209,7 @@ aws dynamodb get-item \
 
 ⚠️ **Le piège de la partition key** : si tous tes items partagent la même partition key — ou des valeurs peu distribuées comme un `user_id` séquentiel — DynamoDB concentre toute la charge sur une seule partition physique. C'est le "hot partition" : throttling et latence dégradée malgré une charge globale apparemment faible. Une bonne partition key présente une cardinalité élevée : UUID v4, hash d'identifiant, combinaison d'attributs.
 
-> **SAA-C03** — Si la question mentionne…
-> - "single-digit millisecond latency / latence en millisecondes" + "any scale / n'importe quelle échelle" → **DynamoDB**
-> - "session data / données de session" + "shopping cart / panier" + "serverless" → **DynamoDB** (avec TTL)
-> - "on-demand capacity / capacité à la demande" + "unpredictable traffic / trafic imprévisible" → DynamoDB **On-Demand mode**
-> - "provisioned capacity" + "stable/predictable load / charge stable" → DynamoDB **Provisioned mode** (moins cher)
-> - "react to changes in real-time / réagir aux changements en temps réel" + "DynamoDB" → **DynamoDB Streams** + Lambda trigger
-> - "global replication / réplication mondiale" + "multi-region / multi-région" + "DynamoDB" → **Global Tables**
-> - ⛔ "complex joins / jointures complexes" ou "ACID transactions across tables" → **jamais** DynamoDB → utiliser **RDS/Aurora**
-> - ⛔ "notifications / alertes" → **jamais** SQS (c'est une queue) → utiliser **SNS** pour notifier
+> **SAA-C03** — "react to DynamoDB changes in real-time / réagir aux changements" → **DynamoDB Streams** + Lambda trigger. "multi-region / global replication" → **Global Tables**. Les consumers Kinesis Data Streams peuvent stocker les résultats dans **S3**, **Redshift** ou **DynamoDB** (pas Athena, pas Glue — ce ne sont pas des destinations de stockage).
 
 ---
 

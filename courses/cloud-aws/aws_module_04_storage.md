@@ -66,16 +66,9 @@ graph TD
 
 > EBS est exclusif à une instance à la fois (mode standard). EFS peut être monté simultanément sur des dizaines d'instances. S3 ne se monte pas — il se requête via API.
 
-> **SAA-C03** — Si la question mentionne…
-> - "shared storage / stockage partagé" + "Linux" + "NFS" + "multiple instances" → **EFS**
-> - "shared storage / stockage partagé" + "Windows" + "SMB" + "Active Directory" → **FSx for Windows File Server**
-> - "block storage / stockage bloc" + "single instance / une seule instance" → **EBS**
-> - "block storage" + "Windows" + "Multi-AZ" + "iSCSI" → **FSx for NetApp ONTAP**
-> - "object storage / stockage objet" + "durability / durabilité" + "unlimited / illimité" → **S3**
-> - "analyze data in S3 with SQL / analyser des données dans S3 avec SQL" → **Athena** (pas RDS ni Redshift)
-> - ⛔ EBS ne peut **jamais** être partagé entre instances (sauf io1/io2 Multi-Attach sur Nitro, cas rare)
-> - ⛔ EFS ne supporte **jamais** Windows — si la question mentionne Windows → FSx
-> - ⛔ S3 n'est **pas** un système de fichiers — si la question mentionne "mount / monter" + "file system" → EFS ou FSx
+> **SAA-C03** — Choix du stockage :
+> - Linux + NFS + multi-instance → **EFS**. Windows + SMB + AD → **FSx for Windows**. Block + iSCSI + Multi-AZ → **FSx for NetApp ONTAP**.
+> - ⛔ EFS = **Linux only**. EBS = **1 instance, 1 AZ**. S3 = **pas un file system** (API HTTP, pas de mount).
 
 ---
 
@@ -150,16 +143,9 @@ Une **lifecycle rule** automatise les transitions entre classes. Exemple concret
 
 Ce fichier dit : après 30 jours, passer en Standard-IA. Après 90 jours, Glacier. Après 1 an, supprimer automatiquement. Le gain sur un bucket de logs actif est typiquement de **60 à 75% sur la facture stockage** — pour cinq minutes de configuration.
 
-> **SAA-C03** — Si la question mentionne…
-> - "frequently accessed / fréquemment accédé" → **S3 Standard**
-> - "infrequently accessed / rarement accédé" + "rapid retrieval / récupération rapide" → **S3 Standard-IA**
-> - "unpredictable access patterns / accès imprévisibles" → **S3 Intelligent-Tiering**
-> - "archive" + "retrieval in milliseconds / récupération en millisecondes" → **S3 Glacier Instant Retrieval**
-> - "archive" + "retrieval in minutes to hours / récupération en minutes ou heures" → **S3 Glacier Flexible Retrieval**
-> - "long-term archive / archivage long terme" + "retrieval in hours / récupération en heures (12-48h)" → **S3 Glacier Deep Archive**
-> - "automatically move between tiers / transition automatique" + "cost optimization / optimisation des coûts" → **S3 Intelligent-Tiering** ou **Lifecycle Policy**
-> - ⛔ "high availability / haute disponibilité" ou "durability / durabilité" → **jamais** S3 One Zone-IA (une seule AZ)
-> - ⛔ "rapidly changing data / données changeant rapidement" → **jamais** S3 (pas de file locking) → préférer **EFS** ou **EBS**
+> **SAA-C03** — Classes S3 :
+> - "unpredictable access / accès imprévisible" → **Intelligent-Tiering**. "archive, retrieval ms" → **Glacier Instant**. "archive, retrieval hours" → **Glacier Flexible**. "archive long-term 12-48h" → **Deep Archive**.
+> - ⛔ **Jamais** One Zone-IA si "high availability / durability" est requis. **Jamais** S3 pour "rapidly changing data" (pas de file locking).
 
 <!-- snippet
 id: aws_s3_definition
@@ -241,13 +227,7 @@ Trois points importants à retenir :
 
 🧠 **gp3 est le choix par défaut dans la quasi-totalité des cas.** Il est plus performant et moins cher que son prédécesseur gp2 : 3 000 IOPS (Input/Output Operations Per Second) de base garanties, contre des IOPS variables et imprévisibles avec gp2.
 
-> **SAA-C03** — Si la question mentionne…
-> - "general purpose / usage général" ou pas de contrainte IOPS → **gp3** (défaut)
-> - "high IOPS / IOPS élevées" + "database / base de données" + "sub-millisecond latency / latence < 1ms" → **io2 Block Express**
-> - "throughput-intensive / débit intensif" + "big data" + "sequential I/O / I/O séquentiel" → **st1** (HDD)
-> - "cold storage / stockage froid" + "infrequently accessed / rarement accédé" → **sc1** (HDD)
-> - ⛔ EBS vit dans **une seule AZ** — si "cross-AZ" ou "multi-AZ" est requis → utiliser des **snapshots** pour copier ou **EFS** pour du partage
-> - ⛔ "instance store" = **éphémère** — données perdues au stop/terminaison. Si "persistent / persistant" → toujours **EBS**
+> **SAA-C03** — Types EBS : "high IOPS / database" → **io2**. "big data / sequential" → **st1**. Sinon → **gp3** (défaut). EBS = **1 AZ uniquement**, Instance Store = **éphémère**.
 
 ### Opérations courantes
 
@@ -331,13 +311,7 @@ sudo mount -t nfs4 <EFS_DNS>:/ /mnt/efs
 
 ⚠️ **Point d'attention sur le coût** : EFS est environ **3x plus cher que EBS gp3** au Go. À réserver aux cas où le partage multi-instance est réellement nécessaire — pas comme solution de stockage généraliste.
 
-> **SAA-C03** — Si la question mentionne…
-> - "thousands of instances / milliers d'instances" + "NFS" + "Linux" → **EFS**
-> - "HPC / high-performance computing" + "parallel / parallèle" + "Linux" → **FSx for Lustre** (pas EFS)
-> - "Provisioned Throughput" → EFS quand le ratio débit/stockage est élevé (peu de données, beaucoup de throughput)
-> - "Max I/O performance mode" → EFS quand des centaines de clients accèdent en parallèle
-> - ⛔ "Windows" + "file share / partage de fichiers" → **jamais** EFS → **FSx for Windows**
-> - ⛔ "cost-effective / économique" + single instance → **jamais** EFS → **EBS** (3× moins cher)
+> **SAA-C03** — "HPC / parallel" → **FSx for Lustre** (pas EFS). "Max I/O" → EFS pour des centaines de clients simultanés. "Provisioned Throughput" → EFS quand peu de données mais beaucoup de débit.
 
 <!-- snippet
 id: aws_efs_definition

@@ -139,17 +139,7 @@ Un ratio inférieur à 80 % signifie que le cache est mal exploité : TTL trop c
 
 Le principe est élémentaire : calculer une fois, servir mille fois. Un résultat de requête SQL qui prend 30 ms à produire, mis en cache 60 secondes avec un taux de lecture de 100 rps, évite 6 000 requêtes DB par minute. Sans changer une ligne d'infrastructure.
 
-> **SAA-C03** — Si la question mentionne…
-> - "reduce database load / réduire la charge BDD" + "frequently accessed data / données fréquemment accédées" → **ElastiCache**
-> - "session store / stockage de sessions" + "leaderboard / classement" + "pub/sub" + "persistence" → **ElastiCache Redis**
-> - "simple caching / cache simple" + "multi-threaded" + "no persistence needed / pas besoin de persistance" → **ElastiCache Memcached**
-> - "DynamoDB" + "microsecond latency / latence en microsecondes" + "read-heavy" → **DAX** (DynamoDB Accelerator) — pas ElastiCache
-> - "cache HTTP responses / cacher des réponses HTTP" + "close to users / proche des utilisateurs" → **CloudFront** (edge cache)
-> - "cache at application level / cache au niveau applicatif" + "close to backend / proche du backend" → **ElastiCache** (in-memory)
-> - "large file upload / upload de gros fichier" + "slow / lent" + "> 100 MB" → **S3 Multipart Upload** (parallélisme)
-> - "accelerate uploads to S3 / accélérer les uploads vers S3" + "global users / utilisateurs mondiaux" → **S3 Transfer Acceleration**
-> - ⛔ CloudFront = cache **HTTP au niveau réseau** (edge). ElastiCache = cache **données au niveau applicatif** (in-memory). Complémentaires, pas interchangeables.
-> - ⛔ DAX = cache pour **DynamoDB uniquement**. ElastiCache = cache pour **tout** (RDS, API results, sessions…)
+> **SAA-C03** — **DAX** = cache DynamoDB uniquement. **ElastiCache** = cache applicatif généraliste. **CloudFront** = cache HTTP edge. **Multipart Upload** obligatoire > 100 Mo.
 
 ### ElastiCache Redis — Cache applicatif
 

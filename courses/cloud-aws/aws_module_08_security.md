@@ -32,19 +32,6 @@ next_module_title: "Load Balancer & Auto Scaling — Scalabilité AWS"
 
 ## Ce que "sécurité AWS" veut dire concrètement
 
-> **SAA-C03** — Si la question mentionne…
-> - "who is responsible / qui est responsable" + "patching OS" + "security groups configuration" → **Client** (shared responsibility = le client gère tout ce qui est "dans" le cloud)
-> - "who is responsible" + "physical security / sécurité physique" + "hypervisor / hardware" → **AWS** (AWS gère l'infrastructure "du" cloud)
-> - "encrypt at rest / chiffrement au repos" + "S3" + "AES-256" + "least overhead / minimum de gestion" → **SSE-S3** (clés gérées par AWS, rotation automatique intégrée)
-> - "encrypt at rest" + "S3" + "customer-managed key / clé gérée par le client" + "audit via CloudTrail" → **SSE-KMS** (CMK dans KMS)
-> - "encrypt at rest" + "S3" + "client provides key / le client fournit la clé" → **SSE-C** (le client gère tout)
-> - "encrypt at rest" + "EBS / RDS / EFS" → chiffrement via **KMS** (activé à la création, pas modifiable après pour EBS/RDS)
-> - "encrypt in transit / chiffrement en transit" → **TLS/SSL** (HTTPS, VPN)
-> - "bucket policy" + "deny unencrypted uploads / refuser les uploads non chiffrés" → exiger le header `s3:x-amz-server-side-encryption`
-> - "header value AES256" → **SSE-S3**. "header value aws:kms" → **SSE-KMS**. Ne pas confondre.
-> - ⛔ "S3 objects are public by default / les objets S3 sont publics par défaut" → **FAUX** — tout est **privé par défaut**
-> - ⛔ SSE-S3 rotation = **automatique** (gérée par AWS). SSE-KMS rotation = à **activer manuellement** sur la CMK (puis automatique chaque année)
-
 La question qui revient systématiquement quand on débute sur AWS : *qui est responsable de quoi ?* La réponse est structurée par le **modèle de responsabilité partagée**. AWS sécurise l'infrastructure physique — les datacenters, les hyperviseurs, le réseau mondial. Tout ce qui tourne *dessus* — la configuration IAM, les Security Groups, le chiffrement des données, les sauvegardes — c'est votre responsabilité.
 
 Ce découpage a des conséquences concrètes. Un bucket S3 public exposant des données clients n'est pas un bug AWS, c'est une mauvaise configuration côté client. La quasi-totalité des incidents de sécurité cloud documentés ont la même origine : non pas une faille dans l'infrastructure AWS, mais une erreur humaine dans la configuration.
