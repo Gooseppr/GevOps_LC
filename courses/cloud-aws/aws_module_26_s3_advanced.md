@@ -40,6 +40,20 @@ Tu as un bucket de production en `eu-west-1`. Tes utilisateurs en Asie constaten
 
 La réplication S3 répond à ces trois cas avec le même mécanisme : chaque objet uploadé dans le bucket source est automatiquement copié dans un bucket de destination, de façon asynchrone.
 
+> **SAA-C03** — Si la question mentionne…
+> - "cross-region replication / réplication inter-régions" + "disaster recovery / latency reduction" → **CRR** (Cross-Region Replication)
+> - "same-region replication / réplication même région" + "compliance / logs aggregation" → **SRR** (Same-Region Replication)
+> - "prevent accidental deletion / empêcher la suppression accidentelle" → **S3 Versioning + MFA Delete**
+> - "WORM / Write Once Read Many" + "compliance / retention obligatoire" → **S3 Object Lock** (Compliance mode = personne ne peut supprimer, Governance = admins peuvent contourner)
+> - "temporary access to private object / accès temporaire à un objet privé" + "URL" → **Presigned URL** (expirent après une durée définie)
+> - "private content via CloudFront / contenu privé via CloudFront" → **Signed URLs** ou **Signed Cookies** (pas presigned URL S3)
+> - "large file upload / upload de gros fichier" + "> 100 MB" → **Multipart Upload** (obligatoire > 5 GB)
+> - "accelerate uploads / accélérer les uploads" + "global users" → **S3 Transfer Acceleration** (via edge locations)
+> - "simplify access management / simplifier la gestion d'accès" + "multiple teams / data lake" → **S3 Access Points**
+> - "query data in S3 without downloading / requêter sans télécharger" + "filter / CSV / JSON" → **S3 Select** (filtrage côté serveur)
+> - ⛔ Presigned URL = accès direct à **S3**. Signed URL CloudFront = accès via **CloudFront**. Deux mécanismes différents.
+> - ⛔ Object Lock **Compliance** mode = immuable (personne ne peut supprimer). **Governance** mode = contournable par des admins.
+
 ### CRR vs SRR
 
 Deux modes existent, qui se distinguent uniquement par la portée géographique :

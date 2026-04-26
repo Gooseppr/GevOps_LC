@@ -758,6 +758,25 @@
             "difficulty": "intermediate",
             "duration": "120",
             "mermaid": true
+          },
+          {
+            "title": "Entraînement SAA-C03 — Questions & explications",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_exam_practice.html",
+            "file": "aws_exam_practice.md",
+            "chapter_title": "Références",
+            "chapter": 0,
+            "section": 4,
+            "tags": [
+              "aws",
+              "saa-c03",
+              "exam",
+              "quiz",
+              "practice",
+              "questions"
+            ],
+            "difficulty": "intermediate",
+            "duration": "60",
+            "mermaid": false
           }
         ]
       },

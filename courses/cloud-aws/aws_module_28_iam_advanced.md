@@ -117,6 +117,21 @@ Cette policy, attachée à un groupe ou à un rôle, empêche la création de re
 
 ## Permission Boundaries — limiter ce qu'un administrateur délégué peut accorder
 
+> **SAA-C03** — Si la question mentionne…
+> - "limit what an admin can grant / limiter ce qu'un admin peut accorder" + "delegated administration" → **Permission Boundary**
+> - "limit what an account can do / limiter ce qu'un compte peut faire" + "Organization / OU" → **SCP** (Service Control Policy)
+> - "full permission evaluation / évaluation complète des permissions" → ordre : **SCP → Permission Boundary → Identity Policy → Resource Policy** (Deny explicite gagne toujours)
+> - "cross-account access / accès inter-comptes" + "temporary / temporaire" → **STS AssumeRole** (credentials temporaires)
+> - "cross-account access" + "S3 bucket / Lambda / SQS" → **Resource-based policy** (pas besoin d'AssumeRole si le service supporte les resource policies)
+> - "centralized SSO / SSO centralisé" + "workforce / employés" + "multiple AWS accounts" → **IAM Identity Center**
+> - "web/mobile app users / utilisateurs d'apps" + "sign-up / sign-in / social login" → **Cognito User Pool**
+> - "AWS credentials for app users / credentials AWS pour les utilisateurs d'apps" → **Cognito Identity Pool**
+> - "Active Directory" + "on-prem" + "proxy" → **AD Connector**
+> - "Active Directory" + "fully managed / entièrement managé" + "AWS" → **AWS Managed Microsoft AD**
+> - "automate account creation / automatiser la création de comptes" + "guardrails / landing zone" → **Control Tower**
+> - ⛔ SCP = plafond pour un **compte/OU**. Permission Boundary = plafond pour un **user/role**. Deux niveaux différents.
+> - ⛔ Cognito = auth pour **utilisateurs d'apps**. Identity Center = SSO pour **employés accédant à AWS**. Ne pas confondre.
+
 ### Le problème de la délégation
 
 Tu veux permettre aux tech leads de créer des rôles IAM pour leurs fonctions Lambda. Mais sans garde-fou, un tech lead pourrait créer un rôle avec `AdministratorAccess` et l'attacher à sa Lambda — ce qui revient à s'auto-promouvoir admin. La Permission Boundary résout exactement ce problème.

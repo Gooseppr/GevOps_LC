@@ -42,6 +42,18 @@ Docker a popularisé cette approche. AWS y a greffé trois services d'orchestrat
 
 ## Les trois services en perspective
 
+> **SAA-C03** — Si la question mentionne…
+> - "containers / conteneurs" + "AWS native" + "simple orchestration" → **ECS**
+> - "containers" + "Kubernetes" + "multi-cloud / portability / portabilité" → **EKS**
+> - "serverless containers / conteneurs serverless" + "no server management / pas de gestion de serveurs" → **Fargate** (avec ECS ou EKS)
+> - "need control over instances / besoin de contrôle sur les instances" + "GPU" + "custom AMI" → **EC2 launch type** (avec ECS ou EKS)
+> - "Docker image registry / registre d'images Docker" + "vulnerability scanning / scan de vulnérabilités" → **ECR**
+> - "automatically handle load balancing, scaling, monitoring / gérer automatiquement le LB, scaling, monitoring" + "Docker" + "no infrastructure config" → **Elastic Beanstalk** (PaaS, pas ECS)
+> - "ECS control plane cost / coût du control plane ECS" → **gratuit** (tu paies uniquement les ressources EC2/Fargate)
+> - "EKS control plane cost" → **~74 $/mois** par cluster
+> - ⛔ Fargate ≠ service autonome. C'est un **launch type** pour ECS ou EKS. On dit "ECS on Fargate", pas "Fargate tout seul".
+> - ⛔ Beanstalk = tout automatique (PaaS). ECS = orchestration fine (tu configures). Ne pas confondre.
+
 | Service | Ce que c'est | Qui gère les serveurs | Quand le choisir |
 |---------|-------------|----------------------|-----------------|
 | **ECS** (Elastic Container Service) | Orchestrateur natif AWS | Toi (mode EC2) ou AWS (mode Fargate) | Cas standard, équipe AWS-native |

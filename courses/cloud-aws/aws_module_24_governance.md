@@ -87,6 +87,19 @@ graph TD
 
 ## AWS Organizations — Structure et contrôle
 
+> **SAA-C03** — Si la question mentionne…
+> - "multi-account management / gestion multi-comptes" + "consolidated billing / facturation consolidée" → **AWS Organizations**
+> - "limit permissions across accounts / limiter les permissions entre comptes" + "OU (Organizational Unit)" → **SCP** (Service Control Policy)
+> - "automate account creation / automatiser la création de comptes" + "guardrails" + "landing zone" → **AWS Control Tower**
+> - "deploy approved products / déployer des produits approuvés" + "self-service" + "CloudFormation templates" → **Service Catalog**
+> - "patch management" + "run command" + "parameter store" + "session manager" → **Systems Manager**
+> - "compliance rules / règles de conformité" + "configuration history / historique de configuration" + "remediation" → **AWS Config**
+> - "cost recommendations / recommandations de coûts" + "security checks" + "service limits" → **Trusted Advisor**
+> - "architecture review / revue d'architecture" + "6 pillars / 6 piliers" → **Well-Architected Tool**
+> - "share resources between accounts / partager des ressources entre comptes" + "subnets / Transit Gateway" → **AWS RAM** (Resource Access Manager)
+> - ⛔ SCP **ne donne pas** de permissions — elle définit le **plafond maximum**. Même un admin ne peut pas dépasser une SCP.
+> - ⛔ "create accounts / créer des comptes" → **Control Tower** (pas RAM, pas Config, pas Systems Manager)
+
 ### Explorer l'organisation
 
 ```bash

@@ -12,8 +12,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_glossaire_services.html"
 prev_module_title: "Glossaire des services AWS — Dictionnaire SAA-C03"
-next_module: "/courses/cloud-aws/aws_module_01_concepts_cloud.html"
-next_module_title: "Concepts Cloud & Modèles AWS"
+next_module: "/courses/cloud-aws/aws_exam_practice.html"
+next_module_title: "Entraînement SAA-C03 — Questions & explications"
 ---
 
 # Guide pratique — Concevoir une architecture AWS de A a Z

@@ -71,6 +71,25 @@ graph TD
 
 Le flux se lit de l'extérieur vers l'intérieur : Shield absorbe les attaques volumétriques en amont, WAF filtre le trafic HTTP malveillant avant qu'il atteigne ton application, Secrets Manager contrôle ce que l'application peut consommer comme credentials, KMS garantit que les données stockées restent illisibles sans autorisation explicite.
 
+> **SAA-C03** — Si la question mentionne…
+> - "encrypt at rest / chiffrement au repos" + "managed keys / clés managées" → **KMS** (CMK ou AWS-managed)
+> - "encrypt at rest" + "customer controls HSM / le client contrôle le HSM" + "FIPS 140-2 Level 3" → **CloudHSM**
+> - "encrypt in transit / chiffrement en transit" + "TLS/SSL certificates" → **ACM** (gratuit pour les certificats publics)
+> - "store secrets / stocker des secrets" + "automatic rotation / rotation automatique" + "RDS credentials" → **Secrets Manager**
+> - "store configuration / stocker des configs" + "free / gratuit" + "non-critical" → **SSM Parameter Store** (Standard tier)
+> - "SQL injection" + "XSS" + "rate limiting" + "HTTP filtering / filtrage HTTP" → **WAF** (Layer 7)
+> - "DDoS protection" + "volumetric attacks / attaques volumétriques" + "L3/L4" → **Shield** (Standard = gratuit, Advanced = $3000/mois)
+> - "threat detection / détection de menaces" + "ML" + "VPC Flow Logs / CloudTrail / DNS logs" → **GuardDuty**
+> - "vulnerability scanning / scan de vulnérabilités" + "EC2 / ECR / Lambda" + "CVE" → **Inspector**
+> - "sensitive data discovery / découverte de données sensibles" + "PII" + "S3" → **Macie**
+> - "centralized security findings / findings centralisés" + "compliance scoring" → **Security Hub**
+> - "investigate security incidents / enquêter sur des incidents" + "root cause analysis" → **Detective**
+> - "centralized WAF/Shield/SG rules across accounts / règles centralisées multi-comptes" → **Firewall Manager**
+> - ⛔ WAF **ne protège pas** contre les DDoS volumétriques L3/L4 → c'est **Shield**
+> - ⛔ Shield **ne filtre pas** le contenu HTTP → c'est **WAF**
+> - ⛔ ACM **ne fonctionne pas** directement sur EC2 → il faut un ALB ou CloudFront devant
+> - ⛔ Pour CloudFront, le certificat ACM doit être en **us-east-1** (contrainte régionale)
+
 ---
 
 ## KMS — Gestion des clés de chiffrement
@@ -142,6 +161,13 @@ aws secretsmanager list-secrets
 
 🧠 **Secrets Manager vs SSM Parameter Store** — SSM Parameter Store (tier Standard) est gratuit et suffisant pour des configurations non-critiques. Secrets Manager coûte ~0,40 $/secret/mois mais apporte la rotation native, la réplication multi-région, et une intégration directe avec RDS. Pour des credentials de production, ce coût est négligeable face au risque d'exposition.
 
+> **SAA-C03** — Si la question mentionne…
+> - "automatic rotation / rotation automatique" + "database credentials / credentials de BDD" → **Secrets Manager** (pas Parameter Store)
+> - "free / gratuit" + "configuration values / valeurs de configuration" + "non-sensitive" → **SSM Parameter Store** (Standard)
+> - "AES-256 encryption / chiffrement AES-256" + "least operational overhead / minimum d'overhead" → **SSE-S3** (rotation auto intégrée, clés gérées par AWS)
+> - "customer-managed key / clé gérée par le client" + "key rotation / rotation de clé" → **KMS CMK** avec rotation automatique activée
+> - "Lambda decrypt files / Lambda déchiffre des fichiers" → `kms:decrypt` sur l'**execution role** (pas la resource policy) + KMS key policy autorise l'execution role
+
 ---
 
 ## WAF — Filtrage applicatif HTTP
@@ -208,6 +234,13 @@ aws shield create-protection \
 ```
 
 🧠 **Qui a réellement besoin de Shield Advanced ?** Les applications avec un SLA strict sur la disponibilité, les plateformes e-commerce pendant les pics de trafic planifiés (Black Friday, lancement produit), les médias ou services financiers ciblés historiquement. Pour une startup, un environnement interne, ou une application à trafic modéré, Shield Standard combiné à un WAF correctement configuré couvre l'essentiel — sans les 3 000 $/mois.
+
+> **SAA-C03** — Si la question mentionne…
+> - "DDoS protection / protection DDoS" + "free / gratuit" + "automatic / automatique" → **Shield Standard** (activé par défaut)
+> - "DDoS" + "24/7 support" + "cost protection / protection financière" + "L7 coordination" → **Shield Advanced**
+> - "block SQL injection / bloquer les injections SQL" + "rate limit by IP / limiter par IP" → **WAF** (attaché à ALB, CloudFront ou API Gateway)
+> - "geo-restriction / restriction géographique" + "block by country / bloquer par pays" → **CloudFront Geo Restriction** (pas WAF seul)
+> - ⛔ Ne **jamais** confondre WAF et Shield : WAF = filtrage HTTP intelligent (L7), Shield = absorption de volume réseau (L3/L4). Les deux ensemble = défense en profondeur
 
 Un point souvent oublié : si tu sais qu'une campagne approche, active Shield Advanced **48 heures avant**, pas pendant l'attaque. Les protections prennent du temps à se propager.
 

@@ -84,6 +84,21 @@ La décision se prend avant de créer la queue, pas après. Une queue standard o
 
 Règle pratique : FIFO pour les flux financiers ou les séquences strictes, Standard pour tout le reste.
 
+> **SAA-C03** — Si la question mentionne…
+> - "decouple / découpler" + "asynchronous / asynchrone" + "buffering" → **SQS** (queue point-to-point)
+> - "duplicate messages / messages dupliqués" + "order not guaranteed / ordre non garanti" → problème de SQS **Standard** → passer à **SQS FIFO**
+> - "exactly-once processing" + "ordered / ordonné" + "limited throughput / débit limité" → **SQS FIFO** (3 000 msg/s max avec batching)
+> - "fan-out / distribution multi-cibles" + "pub/sub" → **SNS** topic (distribue à tous les abonnés)
+> - "fan-out" + "SNS" + "multiple queues" → pattern **SNS + SQS** (SNS publie, chaque SQS traite indépendamment)
+> - "notifications / alertes" + "email / SMS / HTTP" → **SNS** (pas SQS — SQS est une queue, pas un service de notification)
+> - "event bus" + "rules / patterns" + "SaaS integration" → **EventBridge** (pas SNS)
+> - "message broker" + "ActiveMQ / RabbitMQ" + "on-premises migration" → **Amazon MQ** (pas SQS/SNS)
+> - "real-time streaming / streaming temps réel" + "ordered per shard / ordonné par shard" + "replay" → **Kinesis Data Streams**
+> - "deliver streaming data to S3/Redshift/OpenSearch / livrer du streaming vers S3" → **Data Firehose** (livraison, pas traitement)
+> - "SMS marketing campaign / campagne SMS" + "multi-engagement" → **Amazon Pinpoint** (pas SNS)
+> - ⛔ SQS = **queue** (un consumer traite le message). SNS = **pub/sub** (tous les abonnés reçoivent). Ne pas confondre.
+> - ⛔ Kinesis Data Streams = **ingestion + traitement ordonné**. Firehose = **livraison vers destinations**. Pas interchangeables.
+
 ### Créer une queue standard
 
 ```bash

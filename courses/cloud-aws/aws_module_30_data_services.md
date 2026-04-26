@@ -93,6 +93,22 @@ graph LR
 
 ## Amazon Athena — SQL serverless sur S3
 
+> **SAA-C03** — Si la question mentionne…
+> - "query S3 with SQL / requêter S3 avec SQL" + "serverless" + "ad hoc" → **Athena** (facturé au volume scanné)
+> - "Athena slow / Athena lent" → convertir en **Parquet/ORC** (format colonnaire, predicate pushdown)
+> - "data warehouse" + "complex joins / jointures complexes" + "BI / analytics" → **Redshift** (MPP, colonnes)
+> - "full-text search / recherche plein texte" + "log analytics" → **OpenSearch** (ex-Elasticsearch)
+> - "big data processing / traitement big data" + "Hadoop / Spark" + "cluster" → **EMR**
+> - "BI dashboards / tableaux de bord" + "serverless" + "ML Insights" → **QuickSight** (moteur SPICE)
+> - "ETL" + "data catalog / catalogue de données" + "crawlers" → **Glue**
+> - "data lake governance / gouvernance data lake" + "column-level access / accès au niveau colonne" → **Lake Formation** (data filters)
+> - "real-time streaming / streaming temps réel" + "ordered / ordonné" + "custom consumers" → **Kinesis Data Streams**
+> - "deliver streaming to S3/Redshift/OpenSearch / livrer du streaming vers S3" + "near real-time" → **Data Firehose**
+> - "real-time SQL on streams / SQL temps réel sur des flux" → **Kinesis Data Analytics** (Apache Flink)
+> - ⛔ Athena = **requêtes ad hoc** sur S3 (serverless, pay-per-query). Redshift = **data warehouse permanent** (provisionné ou serverless). Pas interchangeables.
+> - ⛔ Kinesis Data Streams = **ingestion + traitement ordonné** (tu codes les consumers). Firehose = **livraison automatique** vers des destinations (pas de code consumer). Pas la même chose.
+> - ⛔ "Column-level access" sur un data lake → **Lake Formation data filters** (pas IAM policies, pas S3 bucket policies)
+
 ### Ce que c'est
 
 Athena est un service de requete **serverless** qui te permet d'executer du SQL standard (Presto/Trino sous le capot) directement sur des fichiers stockes dans S3. Tu ne provisionnes rien, tu ne geres aucun serveur. Tu ecris une requete, tu l'executes, tu paies.
@@ -338,6 +354,14 @@ Data Firehose est un service de **livraison** de donnees en quasi temps reel (la
 ---
 
 ## Kinesis vs SQS vs SNS — le tableau decisif
+
+> **SAA-C03** — Résumé décisionnel rapide :
+> - "messages entre services / decouple" + "one consumer" → **SQS**
+> - "messages dupliqués / duplicates" → passer de SQS Standard à **SQS FIFO**
+> - "fan-out / distribuer à plusieurs cibles" → **SNS** (+ SQS derrière chaque cible)
+> - "streaming ordonné / ordered streaming" + "replay" + "multiple consumers" → **Kinesis Data Streams**
+> - "deliver to S3/Redshift / livrer vers S3" + "no custom code" → **Data Firehose**
+> - "message broker legacy" + "ActiveMQ / RabbitMQ" → **Amazon MQ**
 
 C'est **LE** sujet de confusion a l'examen. Voici le tableau a graver dans ta memoire :
 

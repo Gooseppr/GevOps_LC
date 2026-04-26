@@ -222,6 +222,18 @@ Outputs:
 
 🧠 **L'avantage décisif de CloudFormation** : le rollback est automatique. Si une ressource échoue à la création ou la mise à jour, CloudFormation revient à l'état précédent sans intervention manuelle. Terraform, lui, laisse l'infrastructure dans un état partiel — à toi de nettoyer ou de corriger avant de relancer.
 
+> **SAA-C03** — Si la question mentionne…
+> - "Infrastructure as Code / IaC" + "AWS native" + "YAML/JSON templates" + "automatic rollback" → **CloudFormation**
+> - "IaC" + "multi-cloud" + "HCL" → **Terraform** (hors scope SAA-C03 mais présent dans les réponses pièges)
+> - "deploy serverless applications / déployer des applications serverless" + "extension of CloudFormation" → **SAM** (Serverless Application Model)
+> - "high-level programming language / langage haut niveau" + "TypeScript / Python" + "synthesize to CloudFormation" → **CDK** (Cloud Development Kit)
+> - "deploy web apps easily / déployer des apps web facilement" + "auto load balancing, scaling, monitoring" + "Docker / Java / Python / PHP" → **Elastic Beanstalk** (PaaS)
+> - "deploy CloudFormation stacks across multiple accounts/regions / déployer des stacks multi-comptes/régions" → **StackSets**
+> - "model infrastructure in a text file / modéliser l'infra dans un fichier texte" + "version control / gestion de version" → **CloudFormation** (ou Terraform)
+> - "CloudFormation is free / CloudFormation est gratuit" → **vrai** pour le service, **faux** pour les ressources créées (elles sont facturées normalement)
+> - ⛔ Elastic Beanstalk = PaaS (tout automatique, tu déploies ton code). CloudFormation = IaC (tu définis chaque ressource). Pas interchangeables.
+> - ⛔ CloudFormation **rollback automatique** en cas d'échec. Terraform = état **partiel** à nettoyer manuellement.
+
 ### Terraform vs CloudFormation : lequel choisir ?
 
 | Critère | Terraform | CloudFormation |

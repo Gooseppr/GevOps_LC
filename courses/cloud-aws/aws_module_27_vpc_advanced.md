@@ -34,6 +34,19 @@ Ce module étend le module 05 (VPC) qui couvre les fondamentaux : création de V
 
 ## VPC Peering — Connecter deux VPC directement
 
+> **SAA-C03** — Si la question mentionne…
+> - "connect two VPCs / connecter deux VPC" + "private / privé" + "non-transitive" → **VPC Peering** (attention : A↔B et B↔C ne signifie pas A↔C)
+> - "connect many VPCs / connecter plusieurs VPC" + "hub and spoke" + "transitive routing / routage transitif" → **Transit Gateway**
+> - "connect on-premises to AWS / connecter on-prem à AWS" + "over Internet / via Internet" + "encrypted / chiffré" + "quick setup / rapide" → **Site-to-Site VPN**
+> - "connect on-premises to AWS" + "dedicated / dédié" + "high bandwidth / haut débit" + "predictable latency / latence prévisible" + "not over Internet" → **Direct Connect**
+> - "Direct Connect" + "encrypted / chiffré" → ajouter un **VPN over Direct Connect** (DX seul n'est PAS chiffré)
+> - "expose a service privately between VPCs / exposer un service en priv��" + "no peering / pas de peering" → **PrivateLink** (Interface VPC Endpoint)
+> - "remote employee access / accès distant des employés" + "VPN client" → **AWS Client VPN** (OpenVPN)
+> - "VPN" + "Customer Gateway" + "static IP / IP publique statique" → l'IP publique est côté **on-prem** (Customer Gateway), pas côté AWS
+> - ⛔ VPC Peering = **non-transitif**. Pour du transitif → Transit Gateway
+> - ⛔ Direct Connect = **pas chiffré par défaut**. Pour chiffrer → VPN over DX
+> - ⛔ ELB = **une seule région**. Pour du multi-région → Route 53 devant les ELB
+
 ### Le problème que ça résout
 
 Tu as deux VPC : un pour la production (`10.0.0.0/16`) et un pour le staging (`10.1.0.0/16`). L'équipe QA a besoin que le staging accède à la base de données de production en lecture seule pour les tests de migration. Passer par Internet est exclu — trop lent, pas sécurisé. Le VPC Peering crée un lien privé entre les deux VPC, comme si les deux réseaux étaient connectés par un câble direct.

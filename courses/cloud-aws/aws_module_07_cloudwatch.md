@@ -100,6 +100,17 @@ content: Une métrique CloudWatch est un point de données horodaté (valeur + t
 description: Les métriques EC2 de base n'incluent PAS la RAM — il faut installer l'agent CloudWatch pour la surveiller.
 -->
 
+> **SAA-C03** — Si la question mentionne…
+> - "memory utilization / utilisation mémoire" ou "swap utilization" ou "disk space utilization / espace disque" → **custom metric** = installer le **CloudWatch Agent** (pas disponible par défaut)
+> - "CPU utilization" ou "network packets" ou "disk read/write" → **default metric** (disponible sans agent)
+> - "detailed monitoring / monitoring détaillé" → métriques toutes les **1 min** (payant) au lieu de 5 min (gratuit)
+> - "RDS CPU per process / CPU par processus RDS" ou "RDS memory per process" → **Enhanced Monitoring** (agent sur l'instance RDS, pas CloudWatch standard)
+> - "audit all API calls / auditer tous les appels API" → **CloudTrail** (pas CloudWatch)
+> - "real-time metrics / métriques temps réel" + "dashboards" → **CloudWatch Dashboards**
+> - "tracing / traçage distribué" + "latency between services / latence entre services" → **X-Ray** (pas CloudWatch)
+> - ⛔ CloudWatch = **métriques + logs + alarmes**. CloudTrail = **audit des appels API**. Ne pas confondre.
+> - ⛔ "detailed monitoring" n'ajoute **pas** de nouvelles métriques — il augmente la fréquence (5 min → 1 min)
+
 ---
 
 ## Commandes essentielles

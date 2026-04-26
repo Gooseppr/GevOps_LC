@@ -10,8 +10,8 @@ difficulty: beginner
 duration: 45
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_guide_pratique.html"
-prev_module_title: "Guide pratique — Concevoir une architecture AWS de A à Z"
+prev_module: "/courses/cloud-aws/aws_exam_practice.html"
+prev_module_title: "Entraînement SAA-C03 — Questions & explications"
 next_module: "/courses/cloud-aws/aws_module_02_iam.html"
 next_module_title: "IAM — Gestion des identités AWS"
 ---

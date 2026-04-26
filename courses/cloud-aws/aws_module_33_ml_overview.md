@@ -38,6 +38,21 @@ La logique est simple : AWS a créé un service spécialisé pour chaque grand d
 
 ## Services de Vision
 
+> **SAA-C03** — Si la question mentionne…
+> - "image analysis / analyse d'images" + "face detection / détection de visages" + "content moderation / modération de contenu" → **Rekognition**
+> - "extract text from documents / extraire du texte de documents" + "OCR" + "forms / tables / invoices" → **Textract**
+> - "speech-to-text" + "transcription" + "subtitles / sous-titres" → **Transcribe**
+> - "text-to-speech" + "natural voice / voix naturelle" → **Polly**
+> - "translation / traduction" + "multi-language" → **Translate**
+> - "sentiment analysis / analyse de sentiments" + "NLP" + "entities / key phrases" → **Comprehend**
+> - "chatbot / conversational bot" + "voice recognition / reconnaissance vocale" + "Alexa" → **Lex**
+> - "custom ML model / modèle ML personnalisé" + "train / deploy / build" → **SageMaker**
+> - "intelligent search / recherche intelligente" + "natural language / langage naturel" + "knowledge base" → **Kendra**
+> - "personalized recommendations / recommandations personnalisées" + "like Amazon.com" → **Personalize**
+> - "time-series forecasting / prévisions temporelles" + "demand planning / planification de la demande" → **Forecast**
+> - "fraud detection / détection de fraude" + "online transactions" → **Fraud Detector**
+> - ⛔ Pour le SAA-C03 : tu dois **reconnaître le bon service par le mot-clé**, pas construire un modèle. Chaque service = 1 cas d'usage spécifique.
+
 ### Amazon Rekognition
 
 Rekognition analyse des **images et vidéos** sans que tu aies besoin d'entraîner un modèle. Il détecte :

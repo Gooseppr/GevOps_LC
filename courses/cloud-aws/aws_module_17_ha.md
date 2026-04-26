@@ -73,6 +73,15 @@ La différence entre 99,9 % et 99,99 % paraît faible sur le papier. En pratique
 
 ## L'architecture Multi-AZ : le socle de toute HA sur AWS
 
+> **SAA-C03** — Si la question mentionne…
+> - "highly available / hautement disponible" → déployer sur **au moins 2 AZ** (ELB + ASG ou RDS Multi-AZ)
+> - "fault tolerant / tolérant aux pannes" + "N instances minimum" → répartir pour que **chaque sous-ensemble de N-1 AZ ≥ N**. Formule : `ceil(N / (nb_AZ - 1))` par AZ
+> - "100% fault tolerance" + "most cost-effective / le plus économique" → trouver le déploiement avec le **moins d'instances total** qui satisfait la formule
+> - "ELB distributes across AZs / ELB répartit entre les AZ" + "uneven distribution / distribution inégale" → activer **cross-zone load balancing**
+> - "NAT Gateway HA" → **une NAT Gateway par AZ** en production (zonale, pas cross-AZ)
+> - ⛔ "highly available" ≠ "fault tolerant". HA = au moins 1 instance tourne si panne. FT = le nombre minimum requis est **toujours** maintenu.
+> - ⛔ ELB/ASG = **une seule région**. Pour du multi-région → Route 53 failover devant des ELB régionaux.
+
 Une zone de disponibilité (AZ) est un datacenter physiquement séparé des autres AZ d'une même région. AWS garantit que la panne d'une AZ n'affecte pas les autres — des alimentations électriques distinctes, des connexions réseau indépendantes, une localisation géographique différente.
 
 Déployer sur plusieurs AZ, c'est accepter que l'une d'elles tombe et que le service continue sans intervention.
@@ -239,6 +248,17 @@ description: Un health check trop agressif génère des bascules inutiles ; trop
 ---
 
 ## Disaster Recovery : quand l'AZ ne suffit plus
+
+> **SAA-C03** — Si la question mentionne…
+> - "lowest cost DR / DR le moins cher" + "RTO hours / RTO en heures" → **Backup & Restore**
+> - "core infrastructure replicated / infra core répliquée" + "compute off / compute éteint" + "RTO 30-60 min" → **Pilot Light**
+> - "scaled-down environment / environnement réduit" + "ready to scale up / prêt à monter en charge" + "RTO minutes" → **Warm Standby**
+> - "zero downtime / zéro interruption" + "active in both regions / actif dans les deux régions" + "RPO ~0" → **Multi-site Active/Active**
+> - "RTO" = combien de temps pour restaurer. "RPO" = combien de données on peut perdre.
+> - "prevent accidental deletion / empêcher la suppression accidentelle" + "S3" → **Versioning + MFA Delete**
+> - "immutable retention / rétention immuable" + "compliance / conformité" + "5 years / 5 ans" → **Glacier Vault Lock** ou **Backup Vault Lock compliance mode**
+> - ⛔ Backup Vault Lock **governance** mode → les admins privilégiés peuvent contourner. **Compliance** mode → personne ne peut supprimer (vraie immuabilité)
+> - ⛔ AWS Backup = **sauvegarde planifiée** (RPO heures/jours). Pour un RPO de secondes → **Elastic Disaster Recovery** ou réplication synchrone (Aurora Global, DynamoDB Global Tables)
 
 La HA Multi-AZ protège contre la panne d'une zone de disponibilité. Le Disaster Recovery (DR) adresse des scénarios plus graves : région AWS entièrement indisponible, corruption de données, suppression accidentelle d'infrastructure, cyberattaque.
 

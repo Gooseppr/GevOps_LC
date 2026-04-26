@@ -50,6 +50,22 @@ AWS propose une galaxie de services de migration — chacun résout un problème
 
 ## Les 6R — stratégies de migration cloud
 
+> **SAA-C03** — Si la question mentionne…
+> - "migrate database / migrer une base de données" + "homogeneous / homogène" (MySQL → MySQL) → **DMS** seul
+> - "migrate database" + "heterogeneous / hétérogène" (Oracle → Aurora) → **DMS + SCT** (Schema Conversion Tool)
+> - "lift-and-shift / rehost" + "migrate servers / migrer des serveurs" → **MGN** (Application Migration Service)
+> - "transfer data on-prem → S3 / transférer des données on-prem vers S3" + "one-time or scheduled / ponctuel ou planifié" → **DataSync**
+> - "hybrid access / accès hybride" + "mount NFS/SMB" + "continuous / continu" → **Storage Gateway** (File/Volume/Tape Gateway)
+> - "File Gateway" = NFS/SMB → S3. "Volume Gateway" = iSCSI block. "Tape Gateway" = VTL backup
+> - "large data transfer / transfert massif" + "physical device / appareil physique" + "< 80 TB" → **Snowball Edge**
+> - "large data transfer" + "> 10 PB / exaoctets" → **Snowmobile**
+> - "SFTP / FTPS / FTP" + "managed / managé" + "S3 or EFS" → **Transfer Family**
+> - "centralized backup / sauvegarde centralisée" + "multi-service" → **AWS Backup**
+> - "immutable backups / sauvegardes immuables" + "compliance" + "no one can delete / personne ne peut supprimer" → **Backup Vault Lock** en mode **compliance** (pas governance)
+> - "Vault Lock governance mode" → les admins privilégiés **peuvent** contourner �� pas suffisant pour la compliance stricte
+> - ⛔ DataSync = **transférer** (migration). Storage Gateway = **accéder en continu** (hybride). Pas interchangeables.
+> - ⛔ S3 Transfer Acceleration = accélérer les **uploads vers S3** (pas les downloads). Pour les downloads → **CloudFront**.
+
 Avant de choisir un outil, il faut choisir une stratégie. AWS définit six approches, connues sous le nom de 6R :
 
 | Stratégie | Principe | Exemple |

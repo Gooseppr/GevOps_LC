@@ -66,6 +66,20 @@ graph TD
     Dynamo -->|"Réplication multi-région"| Dynamo_G["Global Tables"]
 ```
 
+> **SAA-C03** — Si la question mentionne…
+> - "relational database / base relationnelle" + "managed / managé" + "MySQL, PostgreSQL, Oracle, SQL Server" → **RDS**
+> - "relational / relationnel" + "high performance / haute performance" + "critical workload / workload critique" → **Aurora**
+> - "relational / relationnel" + "intermittent / sporadic / unpredictable workload" → **Aurora Serverless**
+> - "NoSQL" + "key-value / clé-valeur" + "millisecond latency / latence en millisecondes" + "unlimited scale" → **DynamoDB**
+> - "in-memory cache" + "sessions" + "leaderboard / classement" → **ElastiCache** (Redis ou Memcached)
+> - "data warehouse" + "analytics / BI" + "complex queries / requêtes complexes" → **Redshift**
+> - "graph database / base graphe" + "social network / knowledge graph" → **Neptune**
+> - "ledger / immuable" + "audit trail" + "cryptographically verifiable" → **QLDB**
+> - "MongoDB compatible" → **DocumentDB**
+> - "Cassandra compatible" → **Keyspaces**
+> - ⛔ "relational / relationnel" → **jamais** DynamoDB (NoSQL = pas de jointures, pas de schéma fixe)
+> - ⛔ "analytics / BI" → **jamais** RDS/Aurora (OLTP) → préférer **Redshift** (OLAP) ou **Athena** (serverless sur S3)
+
 ---
 
 ## RDS — Le SQL managé sans surprises
@@ -79,6 +93,13 @@ Ce que RDS fait en arrière-plan, sans intervention de ta part : backups quotidi
 Quand tu actives Multi-AZ, AWS crée un standby synchrone dans une autre zone de disponibilité. Ce standby n'est **pas accessible en lecture** — il sert uniquement au failover. En cas de panne de l'instance primaire, le basculement prend entre 60 et 120 secondes, de façon transparente pour l'application si le DNS est correctement géré.
 
 ⚠️ Confondre Multi-AZ et read replica est une erreur fréquente. Multi-AZ = haute disponibilité. Read replica = montée en charge en lecture. Ce ne sont pas des substituts l'un de l'autre.
+
+> **SAA-C03** — Si la question mentionne…
+> - "high availability / haute disponibilité" + "automatic failover / basculement automatique" → **Multi-AZ** (standby synchrone, même région)
+> - "read-heavy workload / lecture intensive" + "scale reads / monter en charge en lecture" → **Read Replicas** (réplication asynchrone)
+> - "cross-region disaster recovery / reprise inter-régions" → **Read Replica cross-region** (pas Multi-AZ qui est même région uniquement)
+> - "database performance / performances" → Multi-AZ **n'améliore pas** les performances (le standby n'est pas lisible)
+> - ⛔ "Multi-AZ" ≠ "multi-region" — Multi-AZ = même région, 2 AZ différentes
 
 ### Read replicas : délester les lectures
 
@@ -139,6 +160,14 @@ aws rds create-db-instance \
 
 🧠 Aurora coûte environ 20 % de plus qu'une instance RDS équivalente. Ce surcoût devient négligeable dès que la charge dépasse ~500 connexions simultanées ou ~1 000 req/s — là où RDS commence à montrer ses limites et où les opérations manuelles de réplication se multiplient. En dessous de ce seuil, RDS est souvent le bon choix.
 
+> **SAA-C03** — Si la question mentionne…
+> - "5× MySQL / 3× PostgreSQL" + "critical / critique" + "high availability / haute disponibilité" → **Aurora**
+> - "15 read replicas" ou "failover < 30 seconds / basculement < 30 secondes" → **Aurora** (RDS = 5 replicas, failover 60-120s)
+> - "auto-scaling storage / stockage auto-extensible" + "up to 128 TB" → **Aurora**
+> - "serverless" + "relational / relationnel" + "intermittent / variable workload" → **Aurora Serverless v2**
+> - "MySQL/PostgreSQL compatible" + "managed / managé" + budget serré → **RDS** (20 % moins cher qu'Aurora)
+> - ⛔ Aurora n'est compatible qu'avec **MySQL et PostgreSQL** — si Oracle ou SQL Server → **RDS uniquement**
+
 ---
 
 ## DynamoDB — Le NoSQL qui ne connaît pas les limites
@@ -196,6 +225,16 @@ aws dynamodb get-item \
 💡 **TTL (Time to Live)** : DynamoDB permet de définir un attribut numérique contenant un timestamp Unix sur chaque item. Une fois l'heure dépassée, l'item est automatiquement supprimé — gratuitement. C'est l'outil naturel pour les sessions, les paniers abandonnés ou les données temporaires sans avoir à gérer une purge applicative.
 
 ⚠️ **Le piège de la partition key** : si tous tes items partagent la même partition key — ou des valeurs peu distribuées comme un `user_id` séquentiel — DynamoDB concentre toute la charge sur une seule partition physique. C'est le "hot partition" : throttling et latence dégradée malgré une charge globale apparemment faible. Une bonne partition key présente une cardinalité élevée : UUID v4, hash d'identifiant, combinaison d'attributs.
+
+> **SAA-C03** — Si la question mentionne…
+> - "single-digit millisecond latency / latence en millisecondes" + "any scale / n'importe quelle échelle" → **DynamoDB**
+> - "session data / données de session" + "shopping cart / panier" + "serverless" → **DynamoDB** (avec TTL)
+> - "on-demand capacity / capacité à la demande" + "unpredictable traffic / trafic imprévisible" → DynamoDB **On-Demand mode**
+> - "provisioned capacity" + "stable/predictable load / charge stable" → DynamoDB **Provisioned mode** (moins cher)
+> - "react to changes in real-time / réagir aux changements en temps réel" + "DynamoDB" → **DynamoDB Streams** + Lambda trigger
+> - "global replication / réplication mondiale" + "multi-region / multi-région" + "DynamoDB" → **Global Tables**
+> - ⛔ "complex joins / jointures complexes" ou "ACID transactions across tables" → **jamais** DynamoDB → utiliser **RDS/Aurora**
+> - ⛔ "notifications / alertes" → **jamais** SQS (c'est une queue) → utiliser **SNS** pour notifier
 
 ---
 

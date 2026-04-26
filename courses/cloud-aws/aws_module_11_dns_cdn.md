@@ -88,6 +88,20 @@ Route 53 s'organise autour de quelques objets fondamentaux :
 
 ⚠️ Un Alias vers un ELB ou CloudFront est toujours préférable à un CNAME : il se résout en interne, sans round-trip supplémentaire, et il suit automatiquement les changements d'IP de la ressource cible.
 
+> **SAA-C03** — Si la question mentionne…
+> - "zone apex / racine du domaine" (ex: `example.com`) → **Alias A record** (jamais CNAME — restriction DNS RFC)
+> - "CNAME" + "zone apex" → **toujours faux** — CNAME ne fonctionne que pour les sous-domaines (`www.example.com`)
+> - "A/B testing" + "traffic split / répartition du trafic" → **Weighted routing** policy
+> - "lowest latency / latence la plus faible" + "multi-region / multi-région" → **Latency routing** policy
+> - "active-passive failover / basculement actif-passif" + "health check" → **Failover routing** policy
+> - "compliance / conformité" + "content by country / contenu par pays" → **Geolocation routing** policy
+> - "distribute globally / distribuer globalement" + "reduce latency / réduire la latence" + "cache" → **CloudFront**
+> - "update files behind CloudFront / mettre à jour des fichiers derrière CloudFront" ��� **versioned objects** (pas invalidation — plus cher et moins fiable)
+> - "geo-restriction / restriction géographique" + "block by country / bloquer par pays" → **CloudFront Geo Restriction** (Allow/Deny list)
+> - "private content / contenu privé" + "temporary access / accès temporaire" → **CloudFront signed URLs / signed cookies**
+> - "global low-latency / faible latence globale" + "static IP" + "not caching / pas de cache" → **Global Accelerator** (pas CloudFront)
+> - ⛔ CloudFront = **cache + CDN** (contenu). Global Accelerator = **routing réseau optimisé** (pas de cache)
+
 ### Routing policies — choisir la bonne
 
 Route 53 propose plusieurs stratégies de routage. Chacune répond à un besoin distinct :
