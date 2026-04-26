@@ -70,6 +70,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **Amazon CloudSearch** — Service de recherche managé. *Hors scope SAA-C03.*
 {: #cloudsearch}
 
+---
+
 ## Intégration d'applications
 {: #integration}
 
@@ -103,6 +105,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **Amazon MWAA** — Apache Airflow managé. *Hors scope SAA-C03.*
 {: #mwaa}
 
+---
+
 ## Gestion des coûts AWS
 {: #couts}
 
@@ -121,6 +125,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **Savings Plans** — Engagement $/heure sur 1 ou 3 ans pour EC2, Lambda, Fargate. Deux types : Compute (flexible) et EC2 Instance (spécifique).
 → [Module 21](/courses/cloud-aws/aws_module_21_finops.html)
 {: #savings-plans}
+
+---
 
 ## Compute
 {: #compute}
@@ -155,6 +161,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **Amazon Lightsail** — VPS simplifié à prix fixe. *Hors scope SAA-C03.*
 {: #lightsail}
 
+---
+
 ## Containers
 {: #containers}
 
@@ -178,6 +186,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 
 **Amazon EKS Distro** — Distribution open-source Kubernetes identique à celle d'EKS.
 {: #eks-distro}
+
+---
 
 ## Base de données
 {: #database}
@@ -219,6 +229,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **Amazon RDS on VMware** — RDS sur infrastructure VMware on-prem. *Hors scope SAA-C03.*
 {: #rds-vmware}
 
+---
+
 ## Outils pour développeur
 {: #devtools}
 
@@ -227,6 +239,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 {: #x-ray}
 
 *Les autres outils développeur (Cloud9, CDK, CodeBuild, CodeDeploy, CodePipeline…) sont hors scope SAA-C03. Voir [Module 14 — CI/CD](/courses/cloud-aws/aws_module_14_cicd.html) pour les détails.*
+
+---
 
 ## Frontend — Web et mobile
 {: #frontend}
@@ -243,6 +257,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 
 **Amazon Pinpoint** — Communication multicanal (email, SMS, push, voix) avec segmentation et analytique.
 {: #pinpoint}
+
+---
 
 ## Machine Learning
 {: #ml}
@@ -292,6 +308,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 {: #translate}
 
 *Les autres services ML (Personalize, DeepRacer, Lookout, Panorama, SageMaker Ground Truth…) sont hors scope SAA-C03.*
+
+---
 
 ## Management et gouvernance
 {: #management}
@@ -368,6 +386,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 → [Module 24](/courses/cloud-aws/aws_module_24_governance.html)
 {: #well-architected-tool}
 
+---
+
 ## Services multimédias
 {: #media}
 
@@ -376,6 +396,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 
 **Amazon Kinesis Video Streams** — Ingestion et stockage de flux vidéo pour analyse (intégration Rekognition).
 {: #kinesis-video}
+
+---
 
 ## Migration et transfert
 {: #migration}
@@ -407,6 +429,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **AWS Transfer Family** — SFTP/FTPS/FTP/AS2 managé avec stockage sur S3 ou EFS.
 → [Module 32](/courses/cloud-aws/aws_module_32_migration.html)
 {: #transfer-family}
+
+---
 
 ## Mise en réseau et diffusion de contenu
 {: #networking}
@@ -450,6 +474,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **Amazon VPC** — Réseau virtuel isolé : subnets, route tables, IGW, NAT Gateway, NACL, Security Groups, VPC Endpoints.
 → [Module 05](/courses/cloud-aws/aws_module_05_vpc.html) · [Module 27](/courses/cloud-aws/aws_module_27_vpc_advanced.html)
 {: #vpc}
+
+---
 
 ## Sécurité, identité et conformité
 {: #security}
@@ -532,6 +558,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 → [Module 12](/courses/cloud-aws/aws_module_12_security_advanced.html)
 {: #waf}
 
+---
+
 ## Serverless
 {: #serverless}
 
@@ -542,6 +570,8 @@ prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
 **AWS Lambda** — FaaS : exécution de code sur événement, facturation à la milliseconde. Limites : 15 min timeout, 10 Go RAM, 1 000 concurrence/région par défaut.
 → [Module 18](/courses/cloud-aws/aws_module_18_serverless.html) · [Module 29](/courses/cloud-aws/aws_module_29_lambda_advanced.html)
 {: #lambda}
+
+---
 
 ## Stockage
 {: #storage}
