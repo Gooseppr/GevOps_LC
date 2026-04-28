@@ -515,6 +515,14 @@
     var src = mermaidEl.textContent || "";
     var segs = [];
 
+    // Strip mermaid styling directives before parsing
+    src = src.replace(/^\s*style\s+\w+\s+fill:.*$/gm, "");
+    src = src.replace(/^\s*classDef\s+.*$/gm, "");
+    src = src.replace(/^\s*class\s+\w.*$/gm, "");
+    src = src.replace(/^\s*linkStyle\s+.*$/gm, "");
+    src = src.replace(/^\s*click\s+.*$/gm, "");
+    src = src.replace(/^\s*%%.*$/gm, "");  // mermaid comments
+
     // Detect diagram type
     var typeMatch = src.match(/^\s*(graph|flowchart|sequenceDiagram|classDiagram|mindmap|pie|gantt)/m);
     var dtype = typeMatch ? typeMatch[1].toLowerCase() : "graph";
