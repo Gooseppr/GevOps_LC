@@ -23,6 +23,15 @@ document.querySelectorAll('.post-content h2').forEach(function(h) {
 });
 </script>
 
+{% if page.course %}
+  {% for c in site.data.courses %}
+    {% if c.id == page.course and c.audio %}
+      {% include tts-player.html %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
 {% if page.prev_module or page.next_module %}
 <nav class="module-nav" aria-label="Navigation entre modules">
   {% if page.prev_module %}

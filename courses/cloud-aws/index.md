@@ -5,6 +5,7 @@ title: Cloud & AWS
 description: Infrastructure cloud, services AWS, déploiements et bonnes pratiques.
 icon: "☁️"
 status: En construction
+audio: true
 ---
 
 <div class="home-hero" style="margin-bottom:2rem">

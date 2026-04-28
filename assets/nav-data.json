@@ -1586,6 +1586,7 @@
       "domain": "Backend",
       "domain_icon": "⚙️",
       "domain_order": "30",
+      "audio": false,
       "path": "/courses/api_rest/",
       "index_path": "/GevOps_LC/courses/api_rest/index.html",
       "themes": [
@@ -2233,6 +2234,7 @@
       "domain": "Automatisation",
       "domain_icon": "⚙️",
       "domain_order": "30",
+      "audio": false,
       "path": "/courses/automation/",
       "index_path": "/GevOps_LC/courses/automation/index.html",
       "themes": [
@@ -2271,6 +2273,7 @@
       "domain": "",
       "domain_icon": "",
       "domain_order": "",
+      "audio": true,
       "path": "/courses/cloud-aws/",
       "index_path": "/GevOps_LC/courses/cloud-aws/index.html",
       "themes": [
@@ -3069,6 +3072,7 @@
       "domain": "Conteneur",
       "domain_icon": "🐳",
       "domain_order": "10",
+      "audio": false,
       "path": "/courses/docker/",
       "index_path": "/GevOps_LC/courses/docker/index.html",
       "themes": [
@@ -3939,6 +3943,7 @@
       "domain": "Event",
       "domain_icon": "📨",
       "domain_order": "40",
+      "audio": false,
       "path": "/courses/kafka/",
       "index_path": "/GevOps_LC/courses/kafka/index.html",
       "themes": [
@@ -4084,6 +4089,7 @@
       "domain": "",
       "domain_icon": "",
       "domain_order": "",
+      "audio": false,
       "path": "/courses/python/",
       "index_path": "/GevOps_LC/courses/python/index.html",
       "themes": [
@@ -4680,6 +4686,7 @@
       "domain": "Data",
       "domain_icon": "📈",
       "domain_order": "40",
+      "audio": false,
       "path": "/courses/R/",
       "index_path": "/GevOps_LC/courses/R/index.html",
       "themes": [
@@ -5087,6 +5094,7 @@
       "domain": "Data",
       "domain_icon": "📈",
       "domain_order": "40",
+      "audio": false,
       "path": "/courses/SQL/",
       "index_path": "/GevOps_LC/courses/SQL/index.html",
       "themes": [
@@ -5395,6 +5403,7 @@
       "domain": "",
       "domain_icon": "",
       "domain_order": "99",
+      "audio": false,
       "path": "/courses/technicien_support_applicatif/",
       "index_path": "/GevOps_LC/courses/technicien_support_applicatif/index.html",
       "themes": [
@@ -6059,6 +6068,7 @@
       "domain": "Test",
       "domain_icon": "⚙️",
       "domain_order": "30",
+      "audio": false,
       "path": "/courses/test/",
       "index_path": "/GevOps_LC/courses/test/index.html",
       "themes": [
@@ -6091,6 +6101,7 @@
       "domain": "",
       "domain_icon": "",
       "domain_order": "99",
+      "audio": false,
       "path": "/courses/testeur_qa/",
       "index_path": "/GevOps_LC/courses/testeur_qa/index.html",
       "themes": [

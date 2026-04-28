@@ -1074,3 +1074,118 @@ details.cat-block summary {
   .module-nav-next { margin-left: 0; text-align: left; }
   .module-nav-next .module-nav-arrow { order: -1; }
 }
+
+/* ── TTS Player ────────────────────────────────────────── */
+
+.tts-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.85rem;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.25);
+}
+
+.tts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 6px;
+  background: #334155;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.tts-btn:hover {
+  background: #475569;
+}
+
+.tts-btn-play,
+.tts-btn-pause {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.tts-btn-play:hover,
+.tts-btn-pause:hover {
+  background: #2563eb;
+}
+
+.tts-status {
+  flex: 1;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tts-speed-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  cursor: pointer;
+}
+
+.tts-speed-icon {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.tts-speed {
+  background: #334155;
+  color: #e2e8f0;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 0.15rem 0.3rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.tts-speed:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+/* Highlight for current block being read */
+.tts-highlight {
+  background: #fef9c3 !important;
+  border-left: 3px solid #eab308;
+  padding-left: 0.5rem;
+  transition: background 0.3s;
+}
+
+/* Offset bottom content so player doesn't overlap */
+body:has(.tts-player[style*="display"]:not([style*="display: none"])) {
+  padding-bottom: 3.5rem;
+}
+
+/* Adjust for sidebar offset on desktop */
+@media (min-width: 960px) {
+  .tts-player {
+    left: var(--nav-width, 280px);
+  }
+}
+
+@media (max-width: 640px) {
+  .tts-player {
+    padding: 0.4rem 0.6rem;
+    gap: 0.35rem;
+  }
+  .tts-btn { width: 30px; height: 30px; }
+  .tts-status { font-size: 0.75rem; }
+}
