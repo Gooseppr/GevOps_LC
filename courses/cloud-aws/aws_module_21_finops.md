@@ -2,16 +2,16 @@
 layout: page
 title: "FinOps & optimisation des coûts AWS"
 course: cloud-aws
-chapter_title: "Gouvernance, Patterns & Certification"
+chapter_title: "Spécialisations & Certification"
 chapter: 5
-section: 1
+section: 4
 tags: aws,finops,cost,pricing,optimization
 difficulty: advanced
 duration: 100
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_23_resilience.html"
-prev_module_title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
+prev_module: "/courses/cloud-aws/aws_module_33_ml_overview.html"
+prev_module_title: "Machine Learning AWS — Services managés (overview SAA-C03)"
 next_module: "/courses/cloud-aws/aws_module_24_governance.html"
 next_module_title: "Gouvernance AWS — Organizations, Tagging, Compliance"
 ---

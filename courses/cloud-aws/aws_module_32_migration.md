@@ -2,9 +2,9 @@
 layout: page
 title: "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup"
 course: cloud-aws
-chapter_title: "Approfondissements SAA-C03"
-chapter: 3
-section: 6
+chapter_title: "Spécialisations & Certification"
+chapter: 5
+section: 2
 tags:
   - aws
   - migration
@@ -20,8 +20,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_30_data_services.html"
 prev_module_title: "Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, Lake Formation"
-next_module: "/courses/cloud-aws/aws_module_17_ha.html"
-next_module_title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
+next_module: "/courses/cloud-aws/aws_module_33_ml_overview.html"
+next_module_title: "Machine Learning AWS — Services managés (overview SAA-C03)"
 ---
 
 # Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup

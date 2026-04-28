@@ -2,8 +2,8 @@
 layout: page
 title: "Réseau AWS — VPC, Subnets, Routing"
 course: cloud-aws
-chapter_title: "Fondations AWS"
-chapter: 1
+chapter_title: "Les briques fondamentales"
+chapter: 2
 section: 5
 tags: aws,vpc,network,subnet,nat,routing,igw
 difficulty: beginner
@@ -12,8 +12,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_04_storage.html"
 prev_module_title: "Stockage AWS — S3 / EBS / EFS"
-next_module: "/courses/cloud-aws/aws_module_06_cli.html"
-next_module_title: "AWS CLI — Outils et automatisation"
+next_module: "/courses/cloud-aws/aws_module_10_databases.html"
+next_module_title: "Bases de données AWS — RDS, Aurora, DynamoDB"
 ---
 
 # Réseau AWS — VPC, Subnets, Routing

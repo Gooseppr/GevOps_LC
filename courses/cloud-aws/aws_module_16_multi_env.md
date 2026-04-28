@@ -2,9 +2,9 @@
 layout: page
 title: "Multi-environnement AWS — dev, staging, prod & multi-account"
 course: cloud-aws
-chapter_title: "Services & Architecture"
-chapter: 2
-section: 9
+chapter_title: "Approfondissements par domaine"
+chapter: 4
+section: 11
 tags:
   - aws
   - environment
@@ -16,10 +16,10 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_15_observability.html"
-prev_module_title: "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)"
-next_module: "/courses/cloud-aws/aws_module_26_s3_advanced.html"
-next_module_title: "S3 avancé — Réplication, Performance, Sécurité"
+prev_module: "/courses/cloud-aws/aws_module_containers_advanced.html"
+prev_module_title: "Containers avancé — Auto Scaling, ALB, Migration microservices"
+next_module: "/courses/cloud-aws/aws_module_30_data_services.html"
+next_module_title: "Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, Lake Formation"
 ---
 
 # Multi-environnement AWS — dev, staging, prod & multi-account

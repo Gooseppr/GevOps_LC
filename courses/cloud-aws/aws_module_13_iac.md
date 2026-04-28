@@ -2,16 +2,16 @@
 layout: page
 title: "Infrastructure as Code — Terraform & CloudFormation"
 course: cloud-aws
-chapter_title: "Services & Architecture"
-chapter: 2
-section: 6
+chapter_title: "Approfondissements par domaine"
+chapter: 4
+section: 1
 tags: aws,terraform,cloudformation,iac,devops
 difficulty: intermediate
 duration: 100
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_12_security_advanced.html"
-prev_module_title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
+prev_module: "/courses/cloud-aws/aws_module_23_resilience.html"
+prev_module_title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 next_module: "/courses/cloud-aws/aws_module_14_cicd.html"
 next_module_title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
 ---

@@ -3,10 +3,10 @@ layout: page
 title: "Machine Learning AWS — Services managés (overview SAA-C03)"
 
 course: cloud-aws
-chapter_title: "Gouvernance, Patterns & Certification"
+chapter_title: "Spécialisations & Certification"
 
 chapter: 5
-section: 4
+section: 3
 
 tags: aws,machine-learning,sagemaker,rekognition,comprehend,lex,polly,textract,kendra,personalize
 difficulty: advanced
@@ -15,8 +15,10 @@ mermaid: true
 
 status: "published"
 
-prev_module: "/courses/cloud-aws/aws_module_31_architecture_patterns.html"
-prev_module_title: "Patterns d'architecture AWS — Etudes de cas SAA-C03"
+prev_module: "/courses/cloud-aws/aws_module_32_migration.html"
+prev_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup"
+next_module: "/courses/cloud-aws/aws_module_21_finops.html"
+next_module_title: "FinOps & optimisation des coûts AWS"
 ---
 
 # Machine Learning AWS — Services managés (overview SAA-C03)

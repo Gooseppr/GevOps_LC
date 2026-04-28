@@ -2,16 +2,16 @@
 layout: page
 title: "S3 avancé — Réplication, Performance, Sécurité"
 course: cloud-aws
-chapter_title: "Approfondissements SAA-C03"
-chapter: 3
-section: 1
+chapter_title: "Approfondissements par domaine"
+chapter: 4
+section: 7
 tags: aws,s3,replication,performance,cors,presigned,objectlock,eventnotifications
 difficulty: intermediate
 duration: 120
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_16_multi_env.html"
-prev_module_title: "Multi-environnement AWS — dev, staging, prod & multi-account"
+prev_module: "/courses/cloud-aws/aws_module_28_iam_advanced.html"
+prev_module_title: "IAM avancé — Identity Center, Policies avancées, Cross-Account"
 next_module: "/courses/cloud-aws/aws_module_27_vpc_advanced.html"
 next_module_title: "VPC avancé — Peering, VPN, Direct Connect, Transit Gateway"
 ---

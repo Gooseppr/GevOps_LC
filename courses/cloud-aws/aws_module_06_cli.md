@@ -4,16 +4,16 @@ title: "AWS CLI — Outils et automatisation"
 course: cloud-aws
 chapter_title: "Fondations AWS"
 chapter: 1
-section: 6
+section: 3
 tags: aws,cli,automation,devops,tools
 difficulty: beginner
 duration: 70
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_05_vpc.html"
-prev_module_title: "Réseau AWS — VPC, Subnets, Routing"
-next_module: "/courses/cloud-aws/aws_module_07_cloudwatch.html"
-next_module_title: "Monitoring AWS — CloudWatch (metrics, logs, alerting)"
+prev_module: "/courses/cloud-aws/aws_module_02_iam.html"
+prev_module_title: "IAM — Gestion des identités AWS"
+next_module: "/courses/cloud-aws/aws_module_pricing_101.html"
+next_module_title: "Pricing 101 — Comprendre la facturation AWS"
 ---
 
 # AWS CLI — Outils et automatisation

@@ -2,8 +2,8 @@
 layout: page
 title: "Load Balancer & Auto Scaling — Scalabilité AWS"
 course: cloud-aws
-chapter_title: "Services & Architecture"
-chapter: 2
+chapter_title: "Assembler les briques"
+chapter: 3
 section: 1
 tags: aws,elb,autoscaling,scalability,highavailability
 difficulty: intermediate
@@ -12,8 +12,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_08_security.html"
 prev_module_title: "Sécurité AWS — IAM, MFA, Encryption"
-next_module: "/courses/cloud-aws/aws_module_10_databases.html"
-next_module_title: "Bases de données AWS — RDS, Aurora, DynamoDB"
+next_module: "/courses/cloud-aws/aws_module_11_dns_cdn.html"
+next_module_title: "DNS & CDN — Route 53 et CloudFront"
 ---
 
 # Load Balancer & Auto Scaling — Scalabilité AWS

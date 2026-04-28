@@ -2,18 +2,18 @@
 layout: page
 title: "DNS & CDN — Route 53 et CloudFront"
 course: cloud-aws
-chapter_title: "Services & Architecture"
-chapter: 2
-section: 3
+chapter_title: "Assembler les briques"
+chapter: 3
+section: 2
 tags: aws,dns,route53,cloudfront,cdn
 difficulty: intermediate
 duration: 85
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_10_databases.html"
-prev_module_title: "Bases de données AWS — RDS, Aurora, DynamoDB"
-next_module: "/courses/cloud-aws/aws_module_25_containers.html"
-next_module_title: "Containers AWS — ECS, EKS, Fargate"
+prev_module: "/courses/cloud-aws/aws_module_09_load_balancing.html"
+prev_module_title: "Load Balancer & Auto Scaling — Scalabilité AWS"
+next_module: "/courses/cloud-aws/aws_module_17_ha.html"
+next_module_title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
 ---
 
 # DNS & CDN — Route 53 et CloudFront

@@ -2,18 +2,18 @@
 layout: page
 title: "Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito"
 course: cloud-aws
-chapter_title: "Approfondissements SAA-C03"
-chapter: 3
-section: 4
+chapter_title: "Approfondissements par domaine"
+chapter: 4
+section: 9
 tags: aws,lambda,serverless,step-functions,cognito,dynamodb,dax,rds-proxy,lambda-edge,cloudfront-functions,concurrency,snapstart
 difficulty: advanced
 duration: 130
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_28_iam_advanced.html"
-prev_module_title: "IAM avancé — Identity Center, Policies avancées, Cross-Account"
-next_module: "/courses/cloud-aws/aws_module_30_data_services.html"
-next_module_title: "Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, Lake Formation"
+prev_module: "/courses/cloud-aws/aws_module_27_vpc_advanced.html"
+prev_module_title: "VPC avancé — Peering, VPN, Direct Connect, Transit Gateway"
+next_module: "/courses/cloud-aws/aws_module_containers_advanced.html"
+next_module_title: "Containers avancé — Auto Scaling, ALB, Migration microservices"
 ---
 
 # Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito
@@ -22,17 +22,88 @@ next_module_title: "Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, La
 
 À l'issue de ce module, tu seras capable de :
 
-1. **Citer de mémoire** les limites Lambda critiques pour l'examen (mémoire, timeout, /tmp, package, concurrence)
-2. **Choisir** entre unreserved, reserved et provisioned concurrency selon le workload
-3. **Expliquer** le fonctionnement de SnapStart et son impact sur les cold starts Java
-4. **Comparer** Lambda@Edge et CloudFront Functions pour le edge computing
-5. **Diagnostiquer** les problèmes de Lambda en VPC (ENI, cold start, accès internet)
-6. **Justifier** l'usage de RDS Proxy devant une Lambda connectée à une base relationnelle
-7. **Concevoir** un workflow multi-étapes avec Step Functions (choice, parallel, wait)
-8. **Distinguer** Cognito User Pools et Identity Pools et savoir quand utiliser chacun
-9. **Exploiter** les fonctionnalités avancées de DynamoDB (DAX, Streams, Global Tables, GSI/LSI)
+1. **Concevoir un flux event-driven** en articulant Lambda avec SQS, SNS ou EventBridge
+2. **Citer de mémoire** les limites Lambda critiques pour l'examen (mémoire, timeout, /tmp, package, concurrence)
+3. **Choisir** entre unreserved, reserved et provisioned concurrency selon le workload
+4. **Expliquer** le fonctionnement de SnapStart et son impact sur les cold starts Java
+5. **Comparer** Lambda@Edge et CloudFront Functions pour le edge computing
+6. **Diagnostiquer** les problèmes de Lambda en VPC (ENI, cold start, accès internet)
+7. **Justifier** l'usage de RDS Proxy devant une Lambda connectée à une base relationnelle
+8. **Concevoir** un workflow multi-étapes avec Step Functions (choice, parallel, wait)
+9. **Distinguer** Cognito User Pools et Identity Pools et savoir quand utiliser chacun
+10. **Exploiter** les fonctionnalités avancées de DynamoDB (DAX, Streams, Global Tables, GSI/LSI)
 
-Ce module prolonge le module 18 (Lambda basics, API Gateway, event-driven avec SQS/SNS/EventBridge, DynamoDB fondamental). On ne reviendra pas sur le handler Lambda, le modèle d'invocation ou la configuration de base d'API Gateway — ici on plonge dans les limites, l'optimisation et les services complémentaires qui transforment un prototype serverless en architecture de production.
+Ce module prolonge le module 18 (Lambda basics, API Gateway). On couvre ici l'architecture event-driven avec SQS/SNS/EventBridge, les limites Lambda, l'optimisation de la concurrence et les services complémentaires qui transforment un prototype serverless en architecture de production.
+
+---
+
+## Architecture event-driven — SQS, SNS, EventBridge
+
+Exposer une API via Lambda, c'est utile. Mais ce qui rend le serverless réellement puissant, c'est le modèle event-driven : les services ne s'appellent pas directement, ils publient des événements, et d'autres services y réagissent de façon autonome.
+
+Prenons un exemple concret. Un utilisateur uploade un fichier CSV sur S3. Plutôt qu'un appel synchrone vers un service de traitement :
+
+1. S3 publie un événement `ObjectCreated` vers une Lambda ou une queue SQS
+2. La Lambda reçoit l'événement, valide le fichier, et publie un message SNS
+3. SNS notifie en fan-out : une Lambda envoie un email de confirmation, une autre démarre le traitement analytique, une troisième indexe les métadonnées
+
+Le composant clé qui orchestre tout ça est **EventBridge** : un bus d'événements qui route les messages selon des règles basées sur la source, le type d'événement ou le contenu du payload. Il peut déclencher des Lambdas, des Step Functions, des targets HTTP ou des queues SQS — et reçoit nativement les événements de plus de 200 services AWS.
+
+### Les composants d'une architecture serverless event-driven
+
+| Composant | Rôle | Usage typique |
+|-----------|------|---------------|
+| **SQS** | File de messages asynchrone | Découplage producteur/consommateur, bufferisation de charge |
+| **SNS** | Publication d'événements vers plusieurs abonnés | Fan-out, notifications, déclenchement multi-Lambda |
+| **EventBridge** | Bus d'événements avec routage par règles | Orchestration inter-services, événements AWS natifs |
+| **DynamoDB** | Base NoSQL serverless, streams d'événements | Persistance d'état, déclencheur Lambda via DynamoDB Streams |
+
+```mermaid
+graph TD
+    User([Utilisateur]) -->|HTTPS| APIGW[API Gateway]
+    APIGW -->|Invoke| Lambda1[Lambda — handler API]
+    Lambda1 -->|Read/Write| DDB[(DynamoDB)]
+    Lambda1 -->|Publish| SNS[SNS Topic]
+    SNS -->|Fan-out| Lambda2[Lambda — Email]
+    SNS -->|Fan-out| Lambda3[Lambda — Analytics]
+    S3[S3 Bucket] -->|Upload event| Lambda4[Lambda — Traitement fichier]
+    Lambda4 -->|Enqueue| SQS[SQS Queue]
+    SQS -->|Trigger| Lambda5[Lambda — Worker]
+
+    style Lambda1 fill:#f90,color:#000
+    style Lambda2 fill:#f90,color:#000
+    style Lambda3 fill:#f90,color:#000
+    style Lambda4 fill:#f90,color:#000
+    style Lambda5 fill:#f90,color:#000
+```
+
+🧠 **Pourquoi ce modèle change tout** : dans une architecture synchrone, si le service de traitement est lent ou indisponible, l'utilisateur attend ou reçoit une erreur. Dans un modèle event-driven avec SQS, l'événement attend dans la queue jusqu'à ce qu'un worker soit disponible. L'expérience utilisateur est découplée de la performance interne du système.
+
+⚠️ **La complexité cachée** : le découplage a un coût. Le débogage devient plus difficile quand une requête traverse cinq services asynchrones. Les erreurs sont moins visibles, la cohérence éventuelle peut surprendre. Sans tracing distribué (X-Ray), retrouver pourquoi un événement n'a pas été traité peut devenir laborieux. Ce sujet est couvert dans le module Observabilité avancée — mais l'instrumentation doit être pensée dès la conception, pas ajoutée après coup.
+
+---
+
+## Cas réel : migration d'une API monolithique vers serverless
+
+**Contexte** — Une fintech gère une API de scoring crédit. L'architecture initiale : deux instances EC2 derrière un ALB, avec un pic de charge prévisible en fin de mois (ouverture des fenêtres de crédit) et quasiment zéro trafic le reste du temps. Coût mensuel : ~800€ pour les instances, auxquels s'ajoutent les coûts d'ops.
+
+**Problème** — Les instances doivent être surdimensionnées pour absorber le pic. 90% du temps, les ressources sont idle. De plus, chaque déploiement nécessite une coordination manuelle pour éviter les downtime.
+
+**Architecture cible** :
+
+- API Gateway (HTTP API) comme frontal, avec authentification via Lambda Authorizer
+- Lambda en backend (Python, 512 MB, timeout 10s) pour le calcul de scoring
+- DynamoDB pour la persistance des scores (accès < 5ms en lecture)
+- SQS + Lambda worker pour les traitements batch asynchrones (rapport mensuel)
+- EventBridge pour déclencher les workflows de fin de mois
+
+**Migration** — Le basculement s'est fait en shadow mode pendant deux semaines : les deux architectures recevaient le même trafic, les résultats étaient comparés. Après validation, le trafic a migré progressivement (10% → 50% → 100%) via les stages API Gateway, sans coupure de service.
+
+**Résultats** :
+- Coût mensuel : de 800€ à ~90€ (dont ~60€ concentrés sur le pic de fin de mois)
+- Déploiements : de 45 minutes de freeze coordonné à un `aws lambda update-function-code` en 30 secondes
+- Disponibilité : 99,97% sur les 6 premiers mois, sans aucune intervention manuelle sur l'infrastructure
+- Cold start moyen constaté : 180ms (Python, package < 5 MB) — dans le SLA accepté par le client
 
 ---
 
@@ -417,6 +488,10 @@ Les Global Tables permettent une réplication **multi-région et multi-active** 
 
 **Choisir le bon index DynamoDB dès la conception.** Les LSI doivent être créés à la création de la table — tu ne pourras pas en ajouter après. Les GSI ont leur propre capacité — provisionne-la ou utilise le mode on-demand pour éviter le throttling.
 
+**Configure une Dead Letter Queue sur chaque Lambda asynchrone.** Par défaut, si une Lambda asynchrone échoue, l'événement est réessayé 2 fois puis perdu silencieusement. Une DLQ (SQS) sur la destination en cas d'échec capture ces invocations ratées pour permettre le rejeu après correction. Sans ça, tu as des pertes de données invisibles.
+
+**Instrumente avec X-Ray dès le départ.** Activer X-Ray sur Lambda et API Gateway coûte quasi rien sur un trafic léger, mais t'évite des heures de debug quand un flux event-driven part en vrille à 2h du matin. Dans une architecture multi-Lambda, le tracing distribué n'est pas optionnel.
+
 ---
 
 ## Résumé
@@ -430,6 +505,32 @@ Pour l'examen SAA-C03 : Lambda throttling = concurrence. Java cold start = SnapS
 ---
 
 ## Snippets
+
+<!-- snippet
+id: aws_eventdriven_concept
+type: concept
+tech: aws
+level: advanced
+importance: high
+format: knowledge
+tags: aws,eventbridge,sqs,sns,architecture,event-driven
+title: Architecture event-driven — découplage via événements
+content: Dans un modèle event-driven, les services publient des événements (S3 upload, DynamoDB stream, message SQS) sans connaître leurs consommateurs. Les Lambdas abonnées réagissent de façon asynchrone. Avantage : si un consommateur est lent ou en erreur, l'événement attend dans la queue sans impacter le producteur. Inconvénient : la traçabilité nécessite un outil de tracing distribué (X-Ray).
+description: Le découplage event-driven élimine les dépendances directes entre services — au prix d'une complexité de débogage accrue.
+-->
+
+<!-- snippet
+id: aws_lambda_dlq_tip
+type: tip
+tech: aws
+level: advanced
+importance: high
+format: knowledge
+tags: aws,lambda,sqs,erreur,async
+title: Dead Letter Queue — capturer les invocations en échec
+content: Pour les Lambdas déclenchées de façon asynchrone (SQS, SNS, S3, EventBridge), configurer une DLQ (SQS) sur la destination en cas d'échec. Sans DLQ, après 2 tentatives automatiques, l'événement est silencieusement perdu. La DLQ permet de rejouer les messages échoués après correction du bug.
+description: Sans DLQ sur les Lambdas async, les échecs sont invisibles et les données perdues — à configurer systématiquement.
+-->
 
 <!-- snippet
 id: aws_lambda_limits_memory_timeout

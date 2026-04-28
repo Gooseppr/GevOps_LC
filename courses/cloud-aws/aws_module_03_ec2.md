@@ -2,18 +2,18 @@
 layout: page
 title: "EC2 — Compute AWS (instances, réseau, bootstrap)"
 course: cloud-aws
-chapter_title: "Fondations AWS"
-chapter: 1
-section: 3
+chapter_title: "Les briques fondamentales"
+chapter: 2
+section: 1
 tags: aws,ec2,compute,network,security
 difficulty: beginner
 duration: 75
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_02_iam.html"
-prev_module_title: "IAM — Gestion des identités AWS"
-next_module: "/courses/cloud-aws/aws_module_04_storage.html"
-next_module_title: "Stockage AWS — S3 / EBS / EFS"
+prev_module: "/courses/cloud-aws/aws_module_pricing_101.html"
+prev_module_title: "Pricing 101 — Comprendre la facturation AWS"
+next_module: "/courses/cloud-aws/aws_module_18_serverless.html"
+next_module_title: "Serverless AWS — Lambda & API Gateway"
 ---
 
 # EC2 — Compute AWS (instances, réseau, bootstrap)

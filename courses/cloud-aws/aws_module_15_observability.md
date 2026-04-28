@@ -2,9 +2,9 @@
 layout: page
 title: "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)"
 course: cloud-aws
-chapter_title: "Services & Architecture"
-chapter: 2
-section: 8
+chapter_title: "Approfondissements par domaine"
+chapter: 4
+section: 3
 tags: aws,observability,cloudwatch,xray,logs,tracing,metrics
 difficulty: intermediate
 duration: 110
@@ -12,8 +12,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_14_cicd.html"
 prev_module_title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
-next_module: "/courses/cloud-aws/aws_module_16_multi_env.html"
-next_module_title: "Multi-environnement AWS — dev, staging, prod & multi-account"
+next_module: "/courses/cloud-aws/aws_module_12_security_advanced.html"
+next_module_title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
 ---
 
 # Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)

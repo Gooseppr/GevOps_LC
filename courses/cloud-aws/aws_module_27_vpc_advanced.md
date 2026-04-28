@@ -2,9 +2,9 @@
 layout: page
 title: "VPC avancé — Peering, VPN, Direct Connect, Transit Gateway"
 course: cloud-aws
-chapter_title: "Approfondissements SAA-C03"
-chapter: 3
-section: 2
+chapter_title: "Approfondissements par domaine"
+chapter: 4
+section: 8
 tags: aws,vpc,networking,peering,vpn,directconnect,transitgateway,flowlogs,bastion,firewall
 difficulty: intermediate
 duration: 120
@@ -12,8 +12,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_26_s3_advanced.html"
 prev_module_title: "S3 avancé — Réplication, Performance, Sécurité"
-next_module: "/courses/cloud-aws/aws_module_28_iam_advanced.html"
-next_module_title: "IAM avancé — Identity Center, Policies avancées, Cross-Account"
+next_module: "/courses/cloud-aws/aws_module_29_lambda_advanced.html"
+next_module_title: "Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito"
 ---
 
 # VPC avancé — Peering, VPN, Direct Connect, Transit Gateway

@@ -2,18 +2,18 @@
 layout: page
 title: "IAM avancé — Identity Center, Policies avancées, Cross-Account"
 course: cloud-aws
-chapter_title: "Approfondissements SAA-C03"
-chapter: 3
-section: 3
+chapter_title: "Approfondissements par domaine"
+chapter: 4
+section: 6
 tags: aws,iam,security,policies,permissions-boundary,identity-center,sso,sts,cross-account,control-tower
 difficulty: intermediate
 duration: 120
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_27_vpc_advanced.html"
-prev_module_title: "VPC avancé — Peering, VPN, Direct Connect, Transit Gateway"
-next_module: "/courses/cloud-aws/aws_module_29_lambda_advanced.html"
-next_module_title: "Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito"
+prev_module: "/courses/cloud-aws/aws_module_20_security_zero_trust.html"
+prev_module_title: "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS"
+next_module: "/courses/cloud-aws/aws_module_26_s3_advanced.html"
+next_module_title: "S3 avancé — Réplication, Performance, Sécurité"
 ---
 
 # IAM avancé — Identity Center, Policies avancées, Cross-Account

@@ -2,16 +2,16 @@
 layout: page
 title: "Stockage AWS — S3 / EBS / EFS"
 course: cloud-aws
-chapter_title: "Fondations AWS"
-chapter: 1
+chapter_title: "Les briques fondamentales"
+chapter: 2
 section: 4
 tags: aws,storage,s3,ebs,efs
 difficulty: beginner
 duration: 80
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_03_ec2.html"
-prev_module_title: "EC2 — Compute AWS (instances, réseau, bootstrap)"
+prev_module: "/courses/cloud-aws/aws_module_25_containers.html"
+prev_module_title: "Containers AWS — ECS, EKS, Fargate"
 next_module: "/courses/cloud-aws/aws_module_05_vpc.html"
 next_module_title: "Réseau AWS — VPC, Subnets, Routing"
 ---

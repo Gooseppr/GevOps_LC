@@ -3,10 +3,10 @@ layout: page
 title: "Patterns d'architecture AWS — Etudes de cas SAA-C03"
 
 course: cloud-aws
-chapter_title: "Gouvernance, Patterns & Certification"
+chapter_title: "Spécialisations & Certification"
 
 chapter: 5
-section: 3
+section: 6
 
 tags: aws,architecture,patterns,serverless,microservices,caching,alb,asg,elasticache,cloudfront,waf,elastic-beanstalk,saa-c03
 difficulty: advanced
@@ -17,8 +17,6 @@ status: "published"
 
 prev_module: "/courses/cloud-aws/aws_module_24_governance.html"
 prev_module_title: "Gouvernance AWS — Organizations, Tagging, Compliance"
-next_module: "/courses/cloud-aws/aws_module_33_ml_overview.html"
-next_module_title: "Machine Learning AWS — Services managés (overview SAA-C03)"
 ---
 
 # Patterns d'architecture AWS — Etudes de cas SAA-C03

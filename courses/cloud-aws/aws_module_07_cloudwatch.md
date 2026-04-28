@@ -2,16 +2,16 @@
 layout: page
 title: "Monitoring AWS — CloudWatch (metrics, logs, alerting)"
 course: cloud-aws
-chapter_title: "Fondations AWS"
-chapter: 1
+chapter_title: "Les briques fondamentales"
+chapter: 2
 section: 7
 tags: aws,cloudwatch,monitoring,logs,metrics,alerting
 difficulty: beginner
 duration: 80
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_06_cli.html"
-prev_module_title: "AWS CLI — Outils et automatisation"
+prev_module: "/courses/cloud-aws/aws_module_10_databases.html"
+prev_module_title: "Bases de données AWS — RDS, Aurora, DynamoDB"
 next_module: "/courses/cloud-aws/aws_module_08_security.html"
 next_module_title: "Sécurité AWS — IAM, MFA, Encryption"
 ---

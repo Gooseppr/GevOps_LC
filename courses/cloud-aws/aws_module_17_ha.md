@@ -2,9 +2,9 @@
 layout: page
 title: "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery"
 course: cloud-aws
-chapter_title: "Architecture Avancée"
-chapter: 4
-section: 1
+chapter_title: "Assembler les briques"
+chapter: 3
+section: 3
 tags:
   - aws
   - ha
@@ -15,10 +15,10 @@ difficulty: advanced
 duration: 110
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_32_migration.html"
-prev_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup"
-next_module: "/courses/cloud-aws/aws_module_18_serverless.html"
-next_module_title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
+prev_module: "/courses/cloud-aws/aws_module_11_dns_cdn.html"
+prev_module_title: "DNS & CDN — Route 53 et CloudFront"
+next_module: "/courses/cloud-aws/aws_module_22_distributed.html"
+next_module_title: "Architectures distribuées — Microservices, SQS, SNS"
 ---
 
 # Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery

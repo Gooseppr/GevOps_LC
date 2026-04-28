@@ -2,18 +2,18 @@
 layout: page
 title: "Bases de données AWS — RDS, Aurora, DynamoDB"
 course: cloud-aws
-chapter_title: "Services & Architecture"
+chapter_title: "Les briques fondamentales"
 chapter: 2
-section: 2
+section: 6
 tags: aws,rds,aurora,dynamodb,database
 difficulty: intermediate
 duration: 95
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_09_load_balancing.html"
-prev_module_title: "Load Balancer & Auto Scaling — Scalabilité AWS"
-next_module: "/courses/cloud-aws/aws_module_11_dns_cdn.html"
-next_module_title: "DNS & CDN — Route 53 et CloudFront"
+prev_module: "/courses/cloud-aws/aws_module_05_vpc.html"
+prev_module_title: "Réseau AWS — VPC, Subnets, Routing"
+next_module: "/courses/cloud-aws/aws_module_07_cloudwatch.html"
+next_module_title: "Monitoring AWS — CloudWatch (metrics, logs, alerting)"
 ---
 
 # Bases de données AWS — RDS, Aurora, DynamoDB

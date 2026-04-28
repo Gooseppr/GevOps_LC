@@ -2,9 +2,9 @@
 layout: page
 title: "Gouvernance AWS — Organizations, Tagging, Compliance"
 course: cloud-aws
-chapter_title: "Gouvernance, Patterns & Certification"
+chapter_title: "Spécialisations & Certification"
 chapter: 5
-section: 2
+section: 5
 tags: aws,governance,organizations,tagging,compliance
 difficulty: advanced
 duration: 110

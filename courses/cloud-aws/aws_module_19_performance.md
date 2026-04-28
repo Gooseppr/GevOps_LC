@@ -2,18 +2,18 @@
 layout: page
 title: "Performance & optimisation — Caching, Latence, Tuning AWS"
 course: cloud-aws
-chapter_title: "Architecture Avancée"
-chapter: 4
-section: 3
+chapter_title: "Assembler les briques"
+chapter: 3
+section: 5
 tags: aws,performance,caching,latency,optimization,elasticache,cloudfront,rds
 difficulty: advanced
 duration: 110
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_18_serverless.html"
-prev_module_title: "Architecture Serverless — Lambda, API Gateway, Event-driven"
-next_module: "/courses/cloud-aws/aws_module_20_security_zero_trust.html"
-next_module_title: "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS"
+prev_module: "/courses/cloud-aws/aws_module_22_distributed.html"
+prev_module_title: "Architectures distribuées — Microservices, SQS, SNS"
+next_module: "/courses/cloud-aws/aws_module_23_resilience.html"
+next_module_title: "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker"
 ---
 
 # Performance & optimisation — Caching, Latence, Tuning AWS

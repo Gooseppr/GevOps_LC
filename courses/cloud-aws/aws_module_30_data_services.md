@@ -3,10 +3,10 @@ layout: page
 title: "Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, Lake Formation"
 
 course: cloud-aws
-chapter_title: "Approfondissements SAA-C03"
+chapter_title: "Spécialisations & Certification"
 
-chapter: 3
-section: 5
+chapter: 5
+section: 1
 
 tags: aws,athena,kinesis,redshift,glue,lake-formation,opensearch,emr,quicksight,msk,data,analytics
 difficulty: advanced
@@ -14,12 +14,10 @@ duration: 180
 mermaid: true
 
 status: "published"
-
-prev: /courses/cloud-aws/aws_module_29_lambda_advanced
+prev_module: "/courses/cloud-aws/aws_module_16_multi_env.html"
+prev_module_title: "Multi-environnement AWS — dev, staging, prod & multi-account"
 next_module: "/courses/cloud-aws/aws_module_32_migration.html"
 next_module_title: "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup"
-prev_module: "/courses/cloud-aws/aws_module_29_lambda_advanced.html"
-prev_module_title: "Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito"
 ---
 
 # Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, Lake Formation

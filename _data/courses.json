@@ -825,12 +825,56 @@
             "mermaid": true
           },
           {
-            "title": "EC2 — Compute AWS (instances, réseau, bootstrap)",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_03_ec2.html",
-            "file": "aws_module_03_ec2.md",
+            "title": "AWS CLI — Outils et automatisation",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_06_cli.html",
+            "file": "aws_module_06_cli.md",
             "chapter_title": "Fondations AWS",
             "chapter": 1,
             "section": 3,
+            "tags": [
+              "aws",
+              "cli",
+              "automation",
+              "devops",
+              "tools"
+            ],
+            "difficulty": "beginner",
+            "duration": "70",
+            "mermaid": true
+          },
+          {
+            "title": "Pricing 101 — Comprendre la facturation AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_pricing_101.html",
+            "file": "aws_module_pricing_101.md",
+            "chapter_title": "Fondations AWS",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "aws",
+              "pricing",
+              "cost",
+              "free-tier",
+              "on-demand",
+              "reserved",
+              "spot"
+            ],
+            "difficulty": "beginner",
+            "duration": "50",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "les-briques-fondamentales",
+        "title": "Les briques fondamentales",
+        "modules": [
+          {
+            "title": "EC2 — Compute AWS (instances, réseau, bootstrap)",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_03_ec2.html",
+            "file": "aws_module_03_ec2.md",
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
+            "section": 1,
             "tags": [
               "aws",
               "ec2",
@@ -843,11 +887,48 @@
             "mermaid": true
           },
           {
+            "title": "Serverless AWS — Lambda & API Gateway",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_18_serverless.html",
+            "file": "aws_module_18_serverless.md",
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "aws",
+              "lambda",
+              "apigateway",
+              "serverless"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Containers AWS — ECS, EKS, Fargate",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_25_containers.html",
+            "file": "aws_module_25_containers.md",
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
+            "section": 3,
+            "tags": [
+              "aws",
+              "ecs",
+              "eks",
+              "fargate",
+              "containers",
+              "docker",
+              "ecr"
+            ],
+            "difficulty": "beginner",
+            "duration": "65",
+            "mermaid": true
+          },
+          {
             "title": "Stockage AWS — S3 / EBS / EFS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_04_storage.html",
             "file": "aws_module_04_storage.md",
-            "chapter_title": "Fondations AWS",
-            "chapter": 1,
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
             "section": 4,
             "tags": [
               "aws",
@@ -864,8 +945,8 @@
             "title": "Réseau AWS — VPC, Subnets, Routing",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_05_vpc.html",
             "file": "aws_module_05_vpc.md",
-            "chapter_title": "Fondations AWS",
-            "chapter": 1,
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
             "section": 5,
             "tags": [
               "aws",
@@ -881,29 +962,29 @@
             "mermaid": true
           },
           {
-            "title": "AWS CLI — Outils et automatisation",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_06_cli.html",
-            "file": "aws_module_06_cli.md",
-            "chapter_title": "Fondations AWS",
-            "chapter": 1,
+            "title": "Bases de données AWS — RDS, Aurora, DynamoDB",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_10_databases.html",
+            "file": "aws_module_10_databases.md",
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
             "section": 6,
             "tags": [
               "aws",
-              "cli",
-              "automation",
-              "devops",
-              "tools"
+              "rds",
+              "aurora",
+              "dynamodb",
+              "database"
             ],
-            "difficulty": "beginner",
-            "duration": "70",
+            "difficulty": "intermediate",
+            "duration": "95",
             "mermaid": true
           },
           {
             "title": "Monitoring AWS — CloudWatch (metrics, logs, alerting)",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_07_cloudwatch.html",
             "file": "aws_module_07_cloudwatch.md",
-            "chapter_title": "Fondations AWS",
-            "chapter": 1,
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
             "section": 7,
             "tags": [
               "aws",
@@ -921,8 +1002,8 @@
             "title": "Sécurité AWS — IAM, MFA, Encryption",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_08_security.html",
             "file": "aws_module_08_security.md",
-            "chapter_title": "Fondations AWS",
-            "chapter": 1,
+            "chapter_title": "Les briques fondamentales",
+            "chapter": 2,
             "section": 8,
             "tags": [
               "aws",
@@ -940,15 +1021,15 @@
         ]
       },
       {
-        "id": "services-architecture",
-        "title": "Services & Architecture",
+        "id": "assembler-les-briques",
+        "title": "Assembler les briques",
         "modules": [
           {
             "title": "Load Balancer & Auto Scaling — Scalabilité AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_09_load_balancing.html",
             "file": "aws_module_09_load_balancing.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
+            "chapter_title": "Assembler les briques",
+            "chapter": 3,
             "section": 1,
             "tags": [
               "aws",
@@ -962,30 +1043,12 @@
             "mermaid": true
           },
           {
-            "title": "Bases de données AWS — RDS, Aurora, DynamoDB",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_10_databases.html",
-            "file": "aws_module_10_databases.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
-            "section": 2,
-            "tags": [
-              "aws",
-              "rds",
-              "aurora",
-              "dynamodb",
-              "database"
-            ],
-            "difficulty": "intermediate",
-            "duration": "95",
-            "mermaid": true
-          },
-          {
             "title": "DNS & CDN — Route 53 et CloudFront",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_11_dns_cdn.html",
             "file": "aws_module_11_dns_cdn.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
-            "section": 3,
+            "chapter_title": "Assembler les briques",
+            "chapter": 3,
+            "section": 2,
             "tags": [
               "aws",
               "dns",
@@ -998,52 +1061,82 @@
             "mermaid": true
           },
           {
-            "title": "Containers AWS — ECS, EKS, Fargate",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_25_containers.html",
-            "file": "aws_module_25_containers.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
-            "section": 4,
-            "tags": [
-              "aws",
-              "ecs",
-              "eks",
-              "fargate",
-              "containers",
-              "docker",
-              "ecr"
-            ],
-            "difficulty": "intermediate",
+            "title": "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_17_ha.html",
+            "file": "aws_module_17_ha.md",
+            "chapter_title": "Assembler les briques",
+            "chapter": 3,
+            "section": 3,
+            "tags": [],
+            "difficulty": "advanced",
             "duration": "110",
             "mermaid": true
           },
           {
-            "title": "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_12_security_advanced.html",
-            "file": "aws_module_12_security_advanced.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
+            "title": "Architectures distribuées — Microservices, SQS, SNS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_22_distributed.html",
+            "file": "aws_module_22_distributed.md",
+            "chapter_title": "Assembler les briques",
+            "chapter": 3,
+            "section": 4,
+            "tags": [
+              "aws",
+              "microservices",
+              "sqs",
+              "sns",
+              "architecture",
+              "eventdriven"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Performance & optimisation — Caching, Latence, Tuning AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_19_performance.html",
+            "file": "aws_module_19_performance.md",
+            "chapter_title": "Assembler les briques",
+            "chapter": 3,
             "section": 5,
             "tags": [
               "aws",
-              "security",
-              "kms",
-              "secretsmanager",
-              "waf",
-              "shield",
-              "acm"
+              "performance",
+              "caching",
+              "latency",
+              "optimization",
+              "elasticache",
+              "cloudfront",
+              "rds"
             ],
-            "difficulty": "intermediate",
-            "duration": "95",
+            "difficulty": "advanced",
+            "duration": "110",
             "mermaid": true
           },
+          {
+            "title": "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_23_resilience.html",
+            "file": "aws_module_23_resilience.md",
+            "chapter_title": "Assembler les briques",
+            "chapter": 3,
+            "section": 6,
+            "tags": [],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "approfondissements-par-domaine",
+        "title": "Approfondissements par domaine",
+        "modules": [
           {
             "title": "Infrastructure as Code — Terraform & CloudFormation",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_13_iac.html",
             "file": "aws_module_13_iac.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
-            "section": 6,
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 1,
             "tags": [
               "aws",
               "terraform",
@@ -1059,9 +1152,9 @@
             "title": "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_14_cicd.html",
             "file": "aws_module_14_cicd.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
-            "section": 7,
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 2,
             "tags": [
               "aws",
               "cicd",
@@ -1077,9 +1170,9 @@
             "title": "Observabilité avancée — Logs, Metrics, Tracing (CloudWatch & X-Ray)",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_15_observability.html",
             "file": "aws_module_15_observability.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
-            "section": 8,
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 3,
             "tags": [
               "aws",
               "observability",
@@ -1094,30 +1187,75 @@
             "mermaid": true
           },
           {
-            "title": "Multi-environnement AWS — dev, staging, prod & multi-account",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_16_multi_env.html",
-            "file": "aws_module_16_multi_env.md",
-            "chapter_title": "Services & Architecture",
-            "chapter": 2,
-            "section": 9,
-            "tags": [],
+            "title": "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_12_security_advanced.html",
+            "file": "aws_module_12_security_advanced.md",
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 4,
+            "tags": [
+              "aws",
+              "security",
+              "kms",
+              "secretsmanager",
+              "waf",
+              "shield",
+              "acm"
+            ],
             "difficulty": "intermediate",
-            "duration": "90",
+            "duration": "95",
             "mermaid": true
-          }
-        ]
-      },
-      {
-        "id": "approfondissements-saa-c03",
-        "title": "Approfondissements SAA-C03",
-        "modules": [
+          },
+          {
+            "title": "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_20_security_zero_trust.html",
+            "file": "aws_module_20_security_zero_trust.md",
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 5,
+            "tags": [
+              "aws",
+              "security",
+              "zerotrust",
+              "network",
+              "cloudtrail",
+              "guardduty",
+              "macie"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "IAM avancé — Identity Center, Policies avancées, Cross-Account",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_28_iam_advanced.html",
+            "file": "aws_module_28_iam_advanced.md",
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 6,
+            "tags": [
+              "aws",
+              "iam",
+              "security",
+              "policies",
+              "permissions-boundary",
+              "identity-center",
+              "sso",
+              "sts",
+              "cross-account",
+              "control-tower"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          },
           {
             "title": "S3 avancé — Réplication, Performance, Sécurité",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_26_s3_advanced.html",
             "file": "aws_module_26_s3_advanced.md",
-            "chapter_title": "Approfondissements SAA-C03",
-            "chapter": 3,
-            "section": 1,
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 7,
             "tags": [
               "aws",
               "s3",
@@ -1136,9 +1274,9 @@
             "title": "VPC avancé — Peering, VPN, Direct Connect, Transit Gateway",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_27_vpc_advanced.html",
             "file": "aws_module_27_vpc_advanced.md",
-            "chapter_title": "Approfondissements SAA-C03",
-            "chapter": 3,
-            "section": 2,
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 8,
             "tags": [
               "aws",
               "vpc",
@@ -1156,35 +1294,12 @@
             "mermaid": true
           },
           {
-            "title": "IAM avancé — Identity Center, Policies avancées, Cross-Account",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_28_iam_advanced.html",
-            "file": "aws_module_28_iam_advanced.md",
-            "chapter_title": "Approfondissements SAA-C03",
-            "chapter": 3,
-            "section": 3,
-            "tags": [
-              "aws",
-              "iam",
-              "security",
-              "policies",
-              "permissions-boundary",
-              "identity-center",
-              "sso",
-              "sts",
-              "cross-account",
-              "control-tower"
-            ],
-            "difficulty": "intermediate",
-            "duration": "120",
-            "mermaid": true
-          },
-          {
             "title": "Serverless avancé — Lambda Limits, Concurrency, Step Functions, Cognito",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_29_lambda_advanced.html",
             "file": "aws_module_29_lambda_advanced.md",
-            "chapter_title": "Approfondissements SAA-C03",
-            "chapter": 3,
-            "section": 4,
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 9,
             "tags": [
               "aws",
               "lambda",
@@ -1204,12 +1319,50 @@
             "mermaid": true
           },
           {
+            "title": "Containers avancé — Auto Scaling, ALB, Migration microservices",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_containers_advanced.html",
+            "file": "aws_module_containers_advanced.md",
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 10,
+            "tags": [
+              "aws",
+              "ecs",
+              "containers",
+              "auto-scaling",
+              "alb",
+              "microservices",
+              "codepipeline"
+            ],
+            "difficulty": "intermediate",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Multi-environnement AWS — dev, staging, prod & multi-account",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_16_multi_env.html",
+            "file": "aws_module_16_multi_env.md",
+            "chapter_title": "Approfondissements par domaine",
+            "chapter": 4,
+            "section": 11,
+            "tags": [],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "specialisations-certification",
+        "title": "Spécialisations & Certification",
+        "modules": [
+          {
             "title": "Data & Analytics AWS — Athena, Kinesis, Redshift, Glue, Lake Formation",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_30_data_services.html",
             "file": "aws_module_30_data_services.md",
-            "chapter_title": "Approfondissements SAA-C03",
-            "chapter": 3,
-            "section": 5,
+            "chapter_title": "Spécialisations & Certification",
+            "chapter": 5,
+            "section": 1,
             "tags": [
               "aws",
               "athena",
@@ -1232,135 +1385,44 @@
             "title": "Migration AWS — DMS, Snow Family, Storage Gateway, FSx, Backup",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_32_migration.html",
             "file": "aws_module_32_migration.md",
-            "chapter_title": "Approfondissements SAA-C03",
-            "chapter": 3,
-            "section": 6,
+            "chapter_title": "Spécialisations & Certification",
+            "chapter": 5,
+            "section": 2,
             "tags": [],
             "difficulty": "advanced",
             "duration": "140",
             "mermaid": true
-          }
-        ]
-      },
-      {
-        "id": "architecture-avancee",
-        "title": "Architecture Avancée",
-        "modules": [
-          {
-            "title": "Architectures hautement disponibles — Multi-AZ, Failover, Disaster Recovery",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_17_ha.html",
-            "file": "aws_module_17_ha.md",
-            "chapter_title": "Architecture Avancée",
-            "chapter": 4,
-            "section": 1,
-            "tags": [],
-            "difficulty": "advanced",
-            "duration": "110",
-            "mermaid": true
           },
           {
-            "title": "Architecture Serverless — Lambda, API Gateway, Event-driven",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_18_serverless.html",
-            "file": "aws_module_18_serverless.md",
-            "chapter_title": "Architecture Avancée",
-            "chapter": 4,
-            "section": 2,
-            "tags": [
-              "aws",
-              "lambda",
-              "apigateway",
-              "serverless",
-              "eventdriven"
-            ],
-            "difficulty": "advanced",
-            "duration": "110",
-            "mermaid": true
-          },
-          {
-            "title": "Performance & optimisation — Caching, Latence, Tuning AWS",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_19_performance.html",
-            "file": "aws_module_19_performance.md",
-            "chapter_title": "Architecture Avancée",
-            "chapter": 4,
+            "title": "Machine Learning AWS — Services managés (overview SAA-C03)",
+            "path": "/GevOps_LC/courses/cloud-aws/aws_module_33_ml_overview.html",
+            "file": "aws_module_33_ml_overview.md",
+            "chapter_title": "Spécialisations & Certification",
+            "chapter": 5,
             "section": 3,
             "tags": [
               "aws",
-              "performance",
-              "caching",
-              "latency",
-              "optimization",
-              "elasticache",
-              "cloudfront",
-              "rds"
+              "machine-learning",
+              "sagemaker",
+              "rekognition",
+              "comprehend",
+              "lex",
+              "polly",
+              "textract",
+              "kendra",
+              "personalize"
             ],
             "difficulty": "advanced",
-            "duration": "110",
+            "duration": "90",
             "mermaid": true
           },
-          {
-            "title": "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_20_security_zero_trust.html",
-            "file": "aws_module_20_security_zero_trust.md",
-            "chapter_title": "Architecture Avancée",
-            "chapter": 4,
-            "section": 4,
-            "tags": [
-              "aws",
-              "security",
-              "zerotrust",
-              "network",
-              "cloudtrail",
-              "guardduty",
-              "macie"
-            ],
-            "difficulty": "advanced",
-            "duration": "110",
-            "mermaid": true
-          },
-          {
-            "title": "Architectures distribuées — Microservices, SQS, SNS",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_22_distributed.html",
-            "file": "aws_module_22_distributed.md",
-            "chapter_title": "Architecture Avancée",
-            "chapter": 4,
-            "section": 5,
-            "tags": [
-              "aws",
-              "microservices",
-              "sqs",
-              "sns",
-              "architecture",
-              "eventdriven"
-            ],
-            "difficulty": "advanced",
-            "duration": "110",
-            "mermaid": true
-          },
-          {
-            "title": "Résilience & Chaos Engineering — Retry, Backoff, Circuit Breaker",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_23_resilience.html",
-            "file": "aws_module_23_resilience.md",
-            "chapter_title": "Architecture Avancée",
-            "chapter": 4,
-            "section": 6,
-            "tags": [],
-            "difficulty": "advanced",
-            "duration": "110",
-            "mermaid": true
-          }
-        ]
-      },
-      {
-        "id": "gouvernance-patterns-certification",
-        "title": "Gouvernance, Patterns & Certification",
-        "modules": [
           {
             "title": "FinOps & optimisation des coûts AWS",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_21_finops.html",
             "file": "aws_module_21_finops.md",
-            "chapter_title": "Gouvernance, Patterns & Certification",
+            "chapter_title": "Spécialisations & Certification",
             "chapter": 5,
-            "section": 1,
+            "section": 4,
             "tags": [
               "aws",
               "finops",
@@ -1376,9 +1438,9 @@
             "title": "Gouvernance AWS — Organizations, Tagging, Compliance",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_24_governance.html",
             "file": "aws_module_24_governance.md",
-            "chapter_title": "Gouvernance, Patterns & Certification",
+            "chapter_title": "Spécialisations & Certification",
             "chapter": 5,
-            "section": 2,
+            "section": 5,
             "tags": [
               "aws",
               "governance",
@@ -1394,9 +1456,9 @@
             "title": "Patterns d'architecture AWS — Etudes de cas SAA-C03",
             "path": "/GevOps_LC/courses/cloud-aws/aws_module_31_architecture_patterns.html",
             "file": "aws_module_31_architecture_patterns.md",
-            "chapter_title": "Gouvernance, Patterns & Certification",
+            "chapter_title": "Spécialisations & Certification",
             "chapter": 5,
-            "section": 3,
+            "section": 6,
             "tags": [
               "aws",
               "architecture",
@@ -1414,29 +1476,6 @@
             ],
             "difficulty": "advanced",
             "duration": "210",
-            "mermaid": true
-          },
-          {
-            "title": "Machine Learning AWS — Services managés (overview SAA-C03)",
-            "path": "/GevOps_LC/courses/cloud-aws/aws_module_33_ml_overview.html",
-            "file": "aws_module_33_ml_overview.md",
-            "chapter_title": "Gouvernance, Patterns & Certification",
-            "chapter": 5,
-            "section": 4,
-            "tags": [
-              "aws",
-              "machine-learning",
-              "sagemaker",
-              "rekognition",
-              "comprehend",
-              "lex",
-              "polly",
-              "textract",
-              "kendra",
-              "personalize"
-            ],
-            "difficulty": "advanced",
-            "duration": "90",
             "mermaid": true
           }
         ]

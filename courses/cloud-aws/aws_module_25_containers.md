@@ -2,18 +2,18 @@
 layout: page
 title: "Containers AWS — ECS, EKS, Fargate"
 course: cloud-aws
-chapter_title: "Services & Architecture"
+chapter_title: "Les briques fondamentales"
 chapter: 2
-section: 4
+section: 3
 tags: aws,ecs,eks,fargate,containers,docker,ecr
-difficulty: intermediate
-duration: 110
+difficulty: beginner
+duration: 65
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_11_dns_cdn.html"
-prev_module_title: "DNS & CDN — Route 53 et CloudFront"
-next_module: "/courses/cloud-aws/aws_module_12_security_advanced.html"
-next_module_title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
+prev_module: "/courses/cloud-aws/aws_module_18_serverless.html"
+prev_module_title: "Serverless AWS — Lambda & API Gateway"
+next_module: "/courses/cloud-aws/aws_module_04_storage.html"
+next_module_title: "Stockage AWS — S3 / EBS / EFS"
 ---
 
 # Containers AWS — ECS, EKS, Fargate
@@ -24,9 +24,9 @@ next_module_title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shiel
 
 1. **Expliquer** pourquoi les containers ont remplacé le déploiement direct sur EC2 pour la majorité des architectures modernes
 2. **Distinguer** ECS, EKS et Fargate et choisir le bon service selon le contexte technique et organisationnel
-3. **Décrire** l'architecture d'un service ECS (cluster, task definition, service, target group) et le flux d'une requête
+3. **Décrire** l'architecture d'un service ECS (cluster, task definition, service, task) et le flux d'une requête
 4. **Déployer et inspecter** un service conteneurisé via la CLI AWS
-5. **Identifier** les anti-patterns courants et les pièges de l'examen SAA-C03 sur les containers
+5. **Comparer** EC2, Lambda et ECS/Fargate pour choisir le bon modèle de compute
 
 ---
 
@@ -55,16 +55,13 @@ Un point qui crée beaucoup de confusion : **Fargate n'est pas un service autono
 
 ```mermaid
 graph TD
-    User["👤 Utilisateur"] --> ALB["Application Load Balancer"]
-    ALB --> SVC["ECS Service"]
-    SVC --> T1["Task A\n(container API)"]
+    SVC["ECS Service"] --> T1["Task A\n(container API)"]
     SVC --> T2["Task B\n(container API)"]
     SVC --> T3["Task C\n(container API)"]
     T1 --> DB[(RDS)]
     T2 --> DB
     T3 --> DB
     ECR["ECR\n(registre d'images)"] -.->|"pull image"| SVC
-    ASG["Auto Scaling"] -.->|"ajuste le nombre\nde tasks"| SVC
 
     style SVC fill:#ff9900,color:#000
     style ECR fill:#232f3e,color:#fff
@@ -84,7 +81,7 @@ ECS s'articule autour de quatre objets dont la hiérarchie est stricte :
 
 **3. Task** — Une instance en cours d'exécution d'une task definition. Si ta task definition décrit un container Nginx, une task est un container Nginx qui tourne réellement sur une infrastructure (EC2 ou Fargate).
 
-**4. Service** — Le contrôleur qui maintient N tasks actives en permanence. Si tu demandes `desired_count=3` et qu'une task plante, le service en relance une automatiquement. Le service s'enregistre auprès d'un target group ALB pour recevoir du trafic.
+**4. Service** — Le contrôleur qui maintient N tasks actives en permanence. Si tu demandes `desired_count=3` et qu'une task plante, le service en relance une automatiquement. Le service peut recevoir du trafic via un load balancer (détaillé dans un module ultérieur).
 
 ### EC2 launch type vs Fargate launch type
 
@@ -125,9 +122,7 @@ Trois raisons légitimes de choisir EKS plutôt qu'ECS :
 
 ## ECR — Le registre d'images
 
-ECR est le Docker Hub privé d'AWS. Chaque image poussée est chiffrée au repos, scannée pour les vulnérabilités connues, et accessible via les rôles IAM — pas de credentials Docker à gérer.
-
-Le flux standard en production : le pipeline CI/CD construit l'image, la pousse dans ECR, puis met à jour la task definition ECS pour pointer vers la nouvelle révision de l'image.
+ECR est le Docker Hub privé d'AWS. Il stocke tes images Docker de manière sécurisée. Chaque image poussée est chiffrée au repos, scannée pour les vulnérabilités connues, et accessible via les rôles IAM — pas de credentials Docker à gérer.
 
 ---
 
@@ -179,41 +174,29 @@ docker push <ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/<REPO>:latest
 
 ---
 
-## ECS Auto Scaling — Adapter la capacité à la charge
+## EC2 vs Lambda vs ECS/Fargate — Les trois modèles de compute AWS
 
-ECS propose deux niveaux de scaling indépendants :
+Maintenant que tu connais EC2, Lambda et ECS/Fargate, voici comment les comparer :
 
-**Service Auto Scaling** — Ajuste le nombre de tasks dans un service selon des métriques CloudWatch. C'est l'équivalent de l'ASG pour les containers. Trois modes disponibles : Target Tracking (maintenir CPU moyen à 60%), Step Scaling (règles conditionnelles), et Scheduled Scaling (pics prévisibles).
+| Critère | EC2 | Lambda | ECS/Fargate |
+|---------|-----|--------|-------------|
+| Modèle | Serveur complet | Fonction | Container |
+| Scaling | Manuel ou ASG | Automatique | Service Auto Scaling |
+| Durée max | Illimitée | 15 min | Illimitée |
+| Coût à l'arrêt | Oui | Non | Oui (tasks actives) |
+| Gestion serveur | Toi | AWS | AWS (Fargate) ou toi (EC2) |
+| Cas idéal | Apps monolithiques, GPU, contrôle total | APIs légères, events, traitements courts | Apps conteneurisées, microservices |
 
-**Cluster Auto Scaling** (EC2 launch type uniquement) — Ajuste le nombre d'instances EC2 dans le cluster pour accueillir les tasks demandées. Utilise un Capacity Provider qui coordonne le scaling du cluster avec le scaling des services.
-
-Avec Fargate, seul le Service Auto Scaling existe — AWS gère la capacité infrastructure automatiquement.
-
-🧠 En examen, si l'énoncé demande "scaling automatique des containers sans gérer de serveurs", la réponse combine **ECS + Fargate + Service Auto Scaling**.
-
----
-
-## Cas réel : migration d'un monolithe vers des microservices conteneurisés
-
-**Contexte** : une plateforme SaaS B2B (30 développeurs, 150 000 utilisateurs actifs) tourne sur 6 instances EC2 derrière un ALB. Le déploiement prend 45 minutes avec 5 à 10 minutes de downtime à chaque release. Trois équipes travaillent sur le même codebase, et chaque merge crée des conflits de dépendances.
-
-**Décision architecturale** : l'équipe choisit ECS avec Fargate — pas EKS, parce que personne dans l'équipe ne connaît Kubernetes et que l'infrastructure est 100% AWS. Le monolithe est découpé en 4 services : API publique, service de paiement, service de notification, worker de traitement asynchrone.
-
-**Architecture mise en place** :
-- 1 cluster ECS par environnement (`prod`, `staging`)
-- 4 services ECS, chacun avec sa task definition et son repository ECR
-- ALB avec path-based routing : `/api/*` → service API, `/payments/*` → service paiement
-- Fargate launch type — zéro instance EC2 à gérer
-- Service Auto Scaling sur CPU moyen (cible 60%) pour l'API et le worker
-- Pipeline CodePipeline : push sur `main` → build image → push ECR → update service ECS (rolling deployment)
-
-**Résultats après 3 mois** :
-- Déploiement : de 45 minutes à **8 minutes**, zéro downtime (rolling update)
-- Chaque équipe déploie son service indépendamment — de 1 release/semaine à **3-4 releases/jour**
-- Coût compute : +12% par rapport aux EC2 (surcoût Fargate), mais -2 jours/mois d'ops économisés
-- Incident isolation : une régression dans le service notification n'impacte plus l'API publique
-
-L'erreur initiale de l'équipe : avoir voulu découper en 12 microservices dès le départ. Après 2 semaines de complexité réseau et de debugging distribué, ils sont revenus à 4 services — le bon niveau de granularité pour leur taille d'équipe.
+```mermaid
+graph TD
+    A[Besoin compute] --> B{Durée > 15 min ?}
+    B -->|Non| C{Besoin d'un serveur complet ?}
+    B -->|Oui| D{Application conteneurisée ?}
+    C -->|Non| E[Lambda]
+    C -->|Oui| F[EC2]
+    D -->|Oui| G[ECS / Fargate]
+    D -->|Non| F
+```
 
 ---
 
@@ -225,13 +208,7 @@ L'erreur initiale de l'équipe : avoir voulu découper en 12 microservices dès 
 
 **Rôle IAM par task, pas par cluster.** Chaque task definition a son propre `taskRoleArn` avec les permissions minimales nécessaires. Un rôle partagé entre tous les services du cluster est un vecteur de propagation en cas de compromission.
 
-**Health checks ALB → container, pas juste TCP.** Le target group doit pointer vers un endpoint applicatif (`/health`) qui vérifie les dépendances critiques (base de données, cache). Un container qui répond sur le port mais dont l'application est plantée doit être détecté.
-
 **Stocker les images dans ECR, pas sur Docker Hub.** ECR est intégré avec IAM (pas de credentials Docker à gérer), scanne les vulnérabilités automatiquement, et le pull est gratuit depuis les services AWS dans la même région.
-
-**Limiter le nombre de microservices à la taille de l'équipe.** Deux pizzas, deux services. Un service par développeur est un anti-pattern qui noie l'équipe dans la complexité opérationnelle. Mieux vaut 4 services bien découpés que 15 mal maintenus.
-
-**Activer les Container Insights pour le monitoring.** CloudWatch Container Insights collecte les métriques CPU, mémoire et réseau au niveau task et service. Sans ça, diagnostiquer un problème de performance dans un cluster de 30 tasks revient à chercher une aiguille dans une botte de foin.
 
 ---
 
@@ -240,6 +217,8 @@ L'erreur initiale de l'équipe : avoir voulu découper en 12 microservices dès 
 ECS est l'orchestrateur de containers natif AWS — simple, bien intégré, suffisant pour la grande majorité des architectures. EKS apporte Kubernetes managé pour les équipes qui en ont déjà l'expertise ou qui visent le multi-cloud. Fargate n'est pas un service autonome mais un mode de lancement qui élimine la gestion des serveurs, disponible dans ECS et EKS. ECR complète le tableau comme registre d'images privé intégré avec IAM.
 
 Le choix se fait en deux questions : "Avons-nous besoin de Kubernetes ?" (non → ECS, oui → EKS) puis "Voulons-nous gérer des serveurs ?" (non → Fargate, oui → EC2 launch type). En examen SAA-C03, "sans gérer de serveurs" pointe systématiquement vers Fargate, et l'absence de mention de Kubernetes exclut EKS.
+
+Le module Containers avancé (plus loin dans le parcours) couvre l'Auto Scaling des services, l'intégration avec un load balancer, et les patterns de migration vers les microservices.
 
 ---
 
@@ -337,17 +316,4 @@ tags: aws,fargate,ecs,eks
 title: Fargate n'est pas un service autonome
 content: Fargate est un mode de lancement (launch type), pas un service indépendant. Il s'utilise au sein d'ECS ou d'EKS. Tu ne "déploies pas sur Fargate" — tu déploies sur ECS en choisissant Fargate comme launch type. Cette confusion est exploitée en examen.
 description: Fargate = mode d'exécution serverless au sein d'ECS ou EKS, pas un service à part entière.
--->
-
-<!-- snippet
-id: aws_ecs_microservices_warning
-type: warning
-tech: aws
-level: intermediate
-importance: medium
-format: knowledge
-tags: aws,ecs,microservices,architecture
-title: Trop de microservices tue les microservices
-content: Découper un monolithe en 15 microservices pour une équipe de 8 développeurs noie l'équipe dans la complexité opérationnelle (debugging distribué, latence inter-services, configuration réseau). Règle pratique : le nombre de services ne doit pas dépasser le nombre d'équipes autonomes. Mieux vaut 4 services bien découpés que 15 mal maintenus.
-description: Le nombre de microservices doit refléter la taille de l'équipe, pas la granularité du domaine métier.
 -->

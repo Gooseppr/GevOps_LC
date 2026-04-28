@@ -2,18 +2,18 @@
 layout: page
 title: "Sécurité avancée — Zero Trust, segmentation réseau, audit AWS"
 course: cloud-aws
-chapter_title: "Architecture Avancée"
+chapter_title: "Approfondissements par domaine"
 chapter: 4
-section: 4
+section: 5
 tags: aws,security,zerotrust,network,cloudtrail,guardduty,macie
 difficulty: advanced
 duration: 110
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_module_19_performance.html"
-prev_module_title: "Performance & optimisation — Caching, Latence, Tuning AWS"
-next_module: "/courses/cloud-aws/aws_module_22_distributed.html"
-next_module_title: "Architectures distribuées — Microservices, SQS, SNS"
+prev_module: "/courses/cloud-aws/aws_module_12_security_advanced.html"
+prev_module_title: "Sécurité avancée AWS — KMS, Secrets Manager, WAF, Shield"
+next_module: "/courses/cloud-aws/aws_module_28_iam_advanced.html"
+next_module_title: "IAM avancé — Identity Center, Policies avancées, Cross-Account"
 ---
 
 # Sécurité avancée — Zero Trust, segmentation réseau, audit AWS

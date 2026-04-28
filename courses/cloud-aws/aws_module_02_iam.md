@@ -12,8 +12,8 @@ mermaid: true
 status: published
 prev_module: "/courses/cloud-aws/aws_module_01_concepts_cloud.html"
 prev_module_title: "Concepts Cloud & Modèles AWS"
-next_module: "/courses/cloud-aws/aws_module_03_ec2.html"
-next_module_title: "EC2 — Compute AWS (instances, réseau, bootstrap)"
+next_module: "/courses/cloud-aws/aws_module_06_cli.html"
+next_module_title: "AWS CLI — Outils et automatisation"
 ---
 
 # IAM — Gestion des identités AWS

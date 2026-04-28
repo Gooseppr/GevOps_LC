@@ -2,8 +2,8 @@
 layout: page
 title: "Sécurité AWS — IAM, MFA, Encryption"
 course: cloud-aws
-chapter_title: "Fondations AWS"
-chapter: 1
+chapter_title: "Les briques fondamentales"
+chapter: 2
 section: 8
 tags: aws,security,mfa,encryption,iam,cloudtrail,kms
 difficulty: beginner
