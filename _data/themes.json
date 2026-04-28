@@ -8,6 +8,13 @@
       "path": "/courses/cloud-aws/"
     },
     {
+      "id": "observabilité",
+      "title": "Observabilité",
+      "icon": "📡",
+      "status": "En construction",
+      "path": "/courses/observabilité/"
+    },
+    {
       "id": "python",
       "title": "Python",
       "icon": "🐍",

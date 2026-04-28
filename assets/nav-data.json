@@ -4081,6 +4081,75 @@
       ]
     },
     {
+      "id": "observabilité",
+      "title": "Observabilité",
+      "description": "Guides pratiques pour s'entraîner en observabilité — stack open source (Prometheus, Grafana, Loki, Tempo) et stack AWS (CloudWatch, X-Ray).",
+      "icon": "📡",
+      "status": "En construction",
+      "domain": "",
+      "domain_icon": "",
+      "domain_order": "",
+      "audio": false,
+      "path": "/courses/observabilité/",
+      "index_path": "/GevOps_LC/courses/observabilité/index.html",
+      "themes": [
+        {
+          "id": "guides-pratiques",
+          "title": "Guides pratiques",
+          "modules": [
+            {
+              "title": "Guide pratique — Stack open source (Prometheus, Grafana, Loki, Tempo)",
+              "path": "/GevOps_LC/courses/observabilité/guide-pratique_open-source.html",
+              "file": "guide-pratique_open-source.md",
+              "chapter_title": "Guides pratiques",
+              "chapter": 1,
+              "section": 1,
+              "tags": [
+                "observabilité",
+                "prometheus",
+                "grafana",
+                "loki",
+                "tempo",
+                "opentelemetry",
+                "docker",
+                "alerting",
+                "logs",
+                "metriques",
+                "traces"
+              ],
+              "difficulty": "intermediate",
+              "duration": "180",
+              "mermaid": false
+            },
+            {
+              "title": "Guide pratique — Observabilité sur AWS (CloudWatch, X-Ray, ADOT)",
+              "path": "/GevOps_LC/courses/observabilité/guide-pratique_aws.html",
+              "file": "guide-pratique_aws.md",
+              "chapter_title": "Guides pratiques",
+              "chapter": 1,
+              "section": 2,
+              "tags": [
+                "observabilité",
+                "aws",
+                "cloudwatch",
+                "xray",
+                "adot",
+                "opentelemetry",
+                "ec2",
+                "logs",
+                "metriques",
+                "traces",
+                "sre"
+              ],
+              "difficulty": "intermediate",
+              "duration": "150",
+              "mermaid": false
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "python",
       "title": "Python",
       "description": "Python appliqué à l'automatisation, les APIs, les scripts DevOps et la data.",

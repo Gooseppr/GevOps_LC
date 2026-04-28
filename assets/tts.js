@@ -753,6 +753,13 @@
       // ── Skip nested elements inside already-processed containers ──
       if (el.closest("pre, .highlight, .mermaid, svg")) return;
 
+      // ── Skip elements that are nested inside another matched block ──
+      // e.g. a <p> inside a <li>, or a <p> inside a <blockquote>
+      var parent = el.parentElement;
+      if (parent && parent.closest("li, blockquote, dd, dt") && tag === "p") return;
+      // Also skip <li> text if already captured by a child <p>
+      if (tag === "li" && el.querySelector("p")) return;
+
       // ── Regular text blocks ──
       // Clone to normalize inline code without mutating the page
       var clone = el.cloneNode(true);
