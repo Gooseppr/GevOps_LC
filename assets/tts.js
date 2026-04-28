@@ -21,41 +21,48 @@
   // ── Visibility toggle with localStorage persistence ──
   var STORAGE_KEY = "tts-visible";
 
-  function isPlayerVisible() {
-    return localStorage.getItem(STORAGE_KEY) === "true";
+  function readVisibleState() {
+    var val = localStorage.getItem(STORAGE_KEY);
+    // Default to hidden if never set
+    return val === "true";
   }
 
-  function setPlayerVisible(visible) {
-    localStorage.setItem(STORAGE_KEY, visible ? "true" : "false");
+  function applyVisibleState(visible) {
+    // Always apply BOTH sides explicitly
     if (visible) {
       player.classList.remove("tts-hidden");
       if (btnToggle) btnToggle.classList.add("tts-toggle-active");
     } else {
       player.classList.add("tts-hidden");
       if (btnToggle) btnToggle.classList.remove("tts-toggle-active");
-      // Stop playback when hiding
-      if (playing) stopAll();
     }
   }
 
-  // Restore saved state on page load
-  if (isPlayerVisible()) {
-    player.classList.remove("tts-hidden");
-    if (btnToggle) btnToggle.classList.add("tts-toggle-active");
+  function togglePlayer() {
+    var next = !readVisibleState();
+    localStorage.setItem(STORAGE_KEY, next ? "true" : "false");
+    applyVisibleState(next);
+    // Stop playback when hiding
+    if (!next && playing) stopAll();
   }
+
+  function hidePlayer() {
+    localStorage.setItem(STORAGE_KEY, "false");
+    applyVisibleState(false);
+    if (playing) stopAll();
+  }
+
+  // Restore saved state on page load — force both classes to match stored state
+  applyVisibleState(readVisibleState());
 
   // Show the toggle button (CSS has display:none, JS must set flex explicitly)
   if (btnToggle) {
     btnToggle.style.display = "inline-flex";
-    btnToggle.addEventListener("click", function () {
-      setPlayerVisible(!isPlayerVisible());
-    });
+    btnToggle.addEventListener("click", togglePlayer);
   }
 
   if (btnHide) {
-    btnHide.addEventListener("click", function () {
-      setPlayerVisible(false);
-    });
+    btnHide.addEventListener("click", hidePlayer);
   }
 
   var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
