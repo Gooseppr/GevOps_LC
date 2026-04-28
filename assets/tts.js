@@ -10,81 +10,430 @@
   var btnStop = document.getElementById("tts-stop");
   var statusEl = document.getElementById("tts-status");
   var speedSelect = document.getElementById("tts-speed");
+  var progressBar = document.getElementById("tts-progress");
+  var voiceInfo = document.getElementById("tts-voice-info");
+
+  var btnToggle = document.getElementById("tts-toggle");
+  var btnHide = document.getElementById("tts-hide");
 
   if (!player || !btnPlay) return;
-  player.style.display = "";
 
-  // ── iOS detection ──
+  // ── Visibility toggle with localStorage persistence ──
+  var STORAGE_KEY = "tts-visible";
+
+  function isPlayerVisible() {
+    return localStorage.getItem(STORAGE_KEY) === "true";
+  }
+
+  function setPlayerVisible(visible) {
+    localStorage.setItem(STORAGE_KEY, visible ? "true" : "false");
+    if (visible) {
+      player.classList.remove("tts-hidden");
+      if (btnToggle) btnToggle.classList.add("tts-toggle-active");
+    } else {
+      player.classList.add("tts-hidden");
+      if (btnToggle) btnToggle.classList.remove("tts-toggle-active");
+      // Stop playback when hiding
+      if (playing) stopAll();
+    }
+  }
+
+  // Restore saved state on page load
+  if (isPlayerVisible()) {
+    player.classList.remove("tts-hidden");
+    if (btnToggle) btnToggle.classList.add("tts-toggle-active");
+  }
+
+  // Show the toggle button (hidden by default until JS confirms speechSynthesis works)
+  if (btnToggle) {
+    btnToggle.style.display = "";
+    btnToggle.addEventListener("click", function () {
+      setPlayerVisible(!isPlayerVisible());
+    });
+  }
+
+  if (btnHide) {
+    btnHide.addEventListener("click", function () {
+      setPlayerVisible(false);
+    });
+  }
+
   var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
     (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-  // ── Extract readable text from .post-content ──
-  function extractText() {
+  // ═══════════════════════════════════════════════════════════════
+  //  1. TEXT NORMALISATION PIPELINE
+  // ═══════════════════════════════════════════════════════════════
+
+  // ── 1a. Acronym dictionary ──
+  // "spell" = epeler lettre par lettre, "say" = prononcer comme un mot
+  var ACRONYMS = {
+    // ── Cloud / AWS services ──
+    "AWS":    { mode: "spell" },
+    "EC2":    { mode: "say", as: "E C 2" },
+    "S3":     { mode: "say", as: "S 3" },
+    "IAM":    { mode: "spell" },
+    "VPC":    { mode: "spell" },
+    "EBS":    { mode: "spell" },
+    "EFS":    { mode: "spell" },
+    "RDS":    { mode: "spell" },
+    "ECS":    { mode: "spell" },
+    "EKS":    { mode: "spell" },
+    "ELB":    { mode: "spell" },
+    "ALB":    { mode: "spell" },
+    "NLB":    { mode: "spell" },
+    "SNS":    { mode: "spell" },
+    "SQS":    { mode: "spell" },
+    "AMI":    { mode: "spell" },
+    "ARN":    { mode: "spell" },
+    "CDN":    { mode: "spell" },
+    "KMS":    { mode: "spell" },
+    "WAF":    { mode: "say", as: "waf" },
+    "EMR":    { mode: "spell" },
+    "SES":    { mode: "spell" },
+    // ── *aaS patterns ──
+    "SaaS":   { mode: "say", as: "sasse" },
+    "IaaS":   { mode: "say", as: "yasse" },
+    "PaaS":   { mode: "say", as: "passe" },
+    "FaaS":   { mode: "say", as: "fasse" },
+    "DaaS":   { mode: "say", as: "dasse" },
+    "BaaS":   { mode: "say", as: "basse" },
+    "CaaS":   { mode: "say", as: "casse" },
+    "XaaS":   { mode: "say", as: "X asse" },
+    // ── DevOps / infra ──
+    "CI":     { mode: "spell" },
+    "CD":     { mode: "spell" },
+    "VM":     { mode: "spell" },
+    "OS":     { mode: "spell" },
+    "SSH":    { mode: "spell" },
+    "SSL":    { mode: "spell" },
+    "TLS":    { mode: "spell" },
+    "DNS":    { mode: "spell" },
+    "TCP":    { mode: "spell" },
+    "UDP":    { mode: "spell" },
+    "IP":     { mode: "spell" },
+    "HTTP":   { mode: "spell" },
+    "HTTPS":  { mode: "say", as: "H T T P S" },
+    "API":    { mode: "spell" },
+    "CLI":    { mode: "spell" },
+    "SDK":    { mode: "spell" },
+    "MFA":    { mode: "spell" },
+    "SSO":    { mode: "spell" },
+    "ACL":    { mode: "spell" },
+    "SMTP":   { mode: "spell" },
+    "IOPS":   { mode: "say", as: "aille opse" },
+    "CIDR":   { mode: "say", as: "ci-deure" },
+    "RBAC":   { mode: "say", as: "eur-bac" },
+    "FIFO":   { mode: "say", as: "fi-fo" },
+    "LIFO":   { mode: "say", as: "li-fo" },
+    // ── Data / formats ──
+    "REST":   { mode: "say", as: "resste" },
+    "CRUD":   { mode: "say", as: "crude" },
+    "JSON":   { mode: "say", as: "jéyzone" },
+    "YAML":   { mode: "say", as: "ya-meul" },
+    "SQL":    { mode: "spell" },
+    "NoSQL":  { mode: "say", as: "no S Q L" },
+    "HTML":   { mode: "spell" },
+    "CSS":    { mode: "spell" },
+    "CSV":    { mode: "spell" },
+    "XML":    { mode: "spell" },
+    "URL":    { mode: "spell" },
+    "URI":    { mode: "spell" },
+    "PDF":    { mode: "spell" },
+    // ── Hardware / misc ──
+    "CPU":    { mode: "spell" },
+    "GPU":    { mode: "spell" },
+    "RAM":    { mode: "say", as: "rame" },
+    "SSD":    { mode: "spell" },
+    "HDD":    { mode: "spell" },
+    "SLA":    { mode: "spell" },
+    "DOM":    { mode: "say", as: "domme" },
+    "IDE":    { mode: "spell" },
+    "AZ":     { mode: "spell" },
+    // ── Networking ──
+    "NAT":    { mode: "say", as: "natte" },
+    "VPN":    { mode: "spell" },
+    "BGP":    { mode: "spell" },
+    "VLAN":   { mode: "say", as: "vi-lane" },
+    "LAN":    { mode: "say", as: "lane" },
+    "WAN":    { mode: "say", as: "wane" },
+  };
+
+  // Build regex for known acronyms (longest first, case-sensitive)
+  var acronymKeys = Object.keys(ACRONYMS).sort(function (a, b) {
+    return b.length - a.length;
+  });
+  var acronymRe = new RegExp(
+    "\\b(" + acronymKeys.map(function (k) {
+      return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }).join("|") + ")\\b", "g"
+  );
+
+  function spellWord(w) {
+    return w.split("").join(" ");
+  }
+
+  // ── 1b. AWS service names (English pronunciation hints) ──
+  var SERVICE_NAMES = {
+    "CloudFront":       "Cloud-Fronte",
+    "CloudWatch":       "Cloud-Wotch",
+    "CloudFormation":   "Cloud-Formation",
+    "CloudTrail":       "Cloud-Traile",
+    "Elastic Beanstalk":"Elastic Bine-stok",
+    "Beanstalk":        "Bine-stok",
+    "Lambda":           "Lamm-da",
+    "DynamoDB":         "Dynamo D B",
+    "ElastiCache":      "Élasti-cache",
+    "Fargate":          "Far-guéte",
+    "CodePipeline":     "Code-Païpe-laïne",
+    "CodeBuild":        "Code-Bilde",
+    "CodeDeploy":       "Code-Diploy",
+    "CodeCommit":       "Code-Comite",
+    "Redshift":         "Rède-chifte",
+    "Lightsail":        "Laïte-séle",
+    "Snowball":         "Snô-bôl",
+    "Glacier":          "Gla-ci-ère",
+    "Athena":           "Atéhna",
+    "Kinesis":          "Ki-né-cisse",
+    "Cognito":          "Co-gni-to",
+    "GuardDuty":        "Garde-Diou-ti",
+    "Macie":            "Mé-ci",
+    "Inspector":        "Ins-pèk-teur",
+    "Shield":           "Childe",
+    "Route 53":         "Route 53",
+    "Terraform":        "Terra-forme",
+    "Kubernetes":       "Kou-ber-né-tice",
+    "Docker":           "Do-keur",
+    "Ansible":          "Anne-si-beul",
+    "Jenkins":          "Djène-kinsse",
+    "Nginx":            "Ène-jinnx",
+    "Apache":           "A-patche",
+  };
+
+  var serviceKeys = Object.keys(SERVICE_NAMES).sort(function (a, b) {
+    return b.length - a.length;
+  });
+  var serviceRe = new RegExp(
+    "(" + serviceKeys.map(function (k) {
+      return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }).join("|") + ")", "gi"
+  );
+
+  // ── 1c. Units normalisation ──
+  function normalizeUnits(text) {
+    text = text.replace(/(\d+)\s*ms\b/gi, "$1 millisecondes");
+    text = text.replace(/(\d+)\s*GB\b/gi, "$1 gigaoctets");
+    text = text.replace(/(\d+)\s*MB\b/gi, "$1 mégaoctets");
+    text = text.replace(/(\d+)\s*KB\b/gi, "$1 kilooctets");
+    text = text.replace(/(\d+)\s*TB\b/gi, "$1 téraoctets");
+    text = text.replace(/(\d+)\s*Go\b/g, "$1 gigaoctets");
+    text = text.replace(/(\d+)\s*Mo\b/g, "$1 mégaoctets");
+    text = text.replace(/(\d+)\s*Ko\b/g, "$1 kilooctets");
+    text = text.replace(/(\d+)\s*GHz\b/gi, "$1 gigahertz");
+    text = text.replace(/(\d+)\s*MHz\b/gi, "$1 mégahertz");
+    text = text.replace(/(\d+)\s*Gbps\b/gi, "$1 gigabits par seconde");
+    text = text.replace(/(\d+)\s*Mbps\b/gi, "$1 mégabits par seconde");
+    text = text.replace(/(\d+)\s*%/g, "$1 pourcent");
+    text = text.replace(/(\d+)\s*€/g, "$1 euros");
+    text = text.replace(/\$\s*(\d+)/g, "$1 dollars");
+    return text;
+  }
+
+  // ── 1d. CLI commands & code-like strings ──
+  function normalizeCLI(text) {
+    // Skip lines that look like full CLI commands
+    if (/^\s*(aws|docker|kubectl|terraform|git|npm|pip|curl|ssh)\s+/i.test(text)) {
+      return "... commande technique ...";
+    }
+    // Inline: replace common CLI patterns
+    text = text.replace(/`([^`]+)`/g, function (_, code) {
+      if (code.length > 30) return " ... extrait de code ... ";
+      // Short inline code: try to read it
+      return " " + code.replace(/[_\-\/\.]/g, " ") + " ";
+    });
+    return text;
+  }
+
+  // ── 1e. URLs ──
+  function normalizeURLs(text) {
+    text = text.replace(/https?:\/\/[^\s)]+/g, " ... lien ... ");
+    return text;
+  }
+
+  // ── 1f. Symbols & punctuation for prosody ──
+  function normalizeSymbols(text) {
+    text = text.replace(/→/g, ", c'est-a-dire, ");
+    text = text.replace(/←/g, ", vient de, ");
+    text = text.replace(/⇒/g, ", donc, ");
+    text = text.replace(/✅/g, "");
+    text = text.replace(/❌/g, "");
+    text = text.replace(/⚠️?/g, ", attention, ");
+    text = text.replace(/💡/g, "");
+    text = text.replace(/🔒/g, "");
+    text = text.replace(/[📌📎🔗🎯🧠📝📦🛠️⚙️☁️🐳🚀💻🔧📋]/gu, "");
+    text = text.replace(/\*\*/g, "");      // markdown bold
+    text = text.replace(/\*([^*]+)\*/g, "$1"); // markdown italic
+    text = text.replace(/#{1,6}\s*/g, "");  // markdown headings
+    text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"); // markdown links → text only
+    return text;
+  }
+
+  // ── 1g. Prosody: enrich punctuation for natural pauses ──
+  function enrichProsody(text) {
+    // Add micro-pauses after colons (common in explanations)
+    text = text.replace(/:\s*/g, ": ... ");
+    // Longer pause after section titles (short sentences ending without period)
+    if (text.length < 60 && !/[.!?]$/.test(text.trim())) {
+      text = text + " ...";
+    }
+    // Break very long sentences at semicolons
+    text = text.replace(/;\s*/g, ". ");
+    return text;
+  }
+
+  // ── MASTER NORMALISATION FUNCTION ──
+  function normalizeText(text) {
+    text = normalizeURLs(text);
+    text = normalizeSymbols(text);
+    text = normalizeCLI(text);
+    text = normalizeUnits(text);
+
+    // Known acronyms
+    text = text.replace(acronymRe, function (match) {
+      var entry = ACRONYMS[match];
+      if (!entry) return match;
+      if (entry.mode === "spell") return spellWord(match);
+      return entry.as;
+    });
+
+    // Service names pronunciation
+    text = text.replace(serviceRe, function (match) {
+      // Case-insensitive lookup
+      for (var key in SERVICE_NAMES) {
+        if (key.toLowerCase() === match.toLowerCase()) return SERVICE_NAMES[key];
+      }
+      return match;
+    });
+
+    // Unknown ALL-CAPS 2-6 letters → spell
+    text = text.replace(/\b([A-Z]{2,6})\b/g, function (match) {
+      return spellWord(match);
+    });
+
+    // Dash-separated technical terms → spaces
+    text = text.replace(/([a-z])-([a-z])/gi, "$1 $2");
+
+    text = enrichProsody(text);
+
+    // Clean up multiple spaces / dots
+    text = text.replace(/\s{2,}/g, " ");
+    text = text.replace(/\.{4,}/g, "...");
+
+    return text.trim();
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  //  2. TEXT EXTRACTION & SEGMENTATION
+  // ═══════════════════════════════════════════════════════════════
+
+  var SKIP_SELECTORS = [
+    "pre", "code", ".mermaid", "svg", ".highlight",
+    "script", "style", "table", ".module-nav", ".snippet-block"
+  ].join(",");
+
+  var BLOCK_SELECTORS = "h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt";
+
+  // Segment type determines prosody
+  var SEG_HEADING = "heading";
+  var SEG_TEXT = "text";
+  var SEG_LIST = "list";
+
+  function extractSegments() {
     var content = document.querySelector(".post-content");
     if (!content) return [];
 
     var clone = content.cloneNode(true);
+    clone.querySelectorAll(SKIP_SELECTORS).forEach(function (el) { el.remove(); });
 
-    var selectors = [
-      "pre", "code", ".mermaid", "svg", ".highlight",
-      "script", "style", "table", ".module-nav", ".snippet-block"
-    ];
-    clone.querySelectorAll(selectors.join(",")).forEach(function (el) {
-      el.remove();
-    });
+    var blocks = clone.querySelectorAll(BLOCK_SELECTORS);
+    var segments = [];
 
-    var blocks = clone.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt");
-    var chunks = [];
     blocks.forEach(function (block) {
-      var text = block.textContent.replace(/\s+/g, " ").trim();
-      if (text.length > 0) chunks.push(text);
+      var raw = block.textContent.replace(/\s+/g, " ").trim();
+      if (raw.length === 0) return;
+
+      var tag = block.tagName.toLowerCase();
+      var type = SEG_TEXT;
+      if (/^h[1-6]$/.test(tag)) type = SEG_HEADING;
+      else if (tag === "li") type = SEG_LIST;
+
+      // Split long paragraphs into sentences for smoother flow
+      if (type === SEG_TEXT && raw.length > 200) {
+        var sentences = splitSentences(raw);
+        sentences.forEach(function (s, i) {
+          segments.push({ text: s, type: type, first: i === 0 });
+        });
+      } else {
+        segments.push({ text: raw, type: type, first: true });
+      }
     });
 
-    return chunks;
+    return segments;
   }
 
-  // ── Map chunks back to real DOM elements for highlighting ──
+  // Smart sentence splitting: split on . ! ? but not on abbreviations or numbers
+  function splitSentences(text) {
+    var parts = text.split(/(?<=[.!?])\s+(?=[A-ZÀ-Ü])/);
+    var result = [];
+    var buffer = "";
+
+    for (var i = 0; i < parts.length; i++) {
+      buffer += (buffer ? " " : "") + parts[i];
+      // Only emit if buffer is substantial enough
+      if (buffer.length >= 40 || i === parts.length - 1) {
+        result.push(buffer);
+        buffer = "";
+      }
+    }
+    if (buffer) result.push(buffer);
+    return result;
+  }
+
+  // Map segments back to DOM elements for highlighting
   function getBlockElements() {
     var content = document.querySelector(".post-content");
     if (!content) return [];
 
-    var all = content.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt");
+    var all = content.querySelectorAll(BLOCK_SELECTORS);
     var blocks = [];
     all.forEach(function (el) {
-      if (el.closest("pre, code, .mermaid, svg, .highlight, script, style, table, .module-nav")) return;
+      if (el.closest(SKIP_SELECTORS)) return;
       var text = el.textContent.replace(/\s+/g, " ").trim();
       if (text.length > 0) blocks.push(el);
     });
     return blocks;
   }
 
-  // ── Pick the best French voice available ──
-  var chosenVoice = null;
+  // ═══════════════════════════════════════════════════════════════
+  //  3. VOICE SELECTION
+  // ═══════════════════════════════════════════════════════════════
 
-  // Quality keywords ranked from best to worst
-  var QUALITY_KEYWORDS = [
-    "neural", "enhanced", "premium", "natural",  // best: neural/enhanced voices
-    "google",                                     // Chrome's Google voices are good
-    "microsoft",                                  // Edge/Windows neural voices
+  var voiceFR = null;
+
+  var VOICE_QUALITY = [
+    "neural", "enhanced", "premium", "natural",
+    "google", "microsoft", "samantha",
   ];
 
   function scoreVoice(v) {
     var name = v.name.toLowerCase();
-    var score = 0;
-
-    // Penalize compact/eSpeak voices heavily
     if (name.includes("compact") || name.includes("espeak")) return -100;
 
-    // Bonus for quality keywords
-    for (var i = 0; i < QUALITY_KEYWORDS.length; i++) {
-      if (name.includes(QUALITY_KEYWORDS[i])) {
-        score += (QUALITY_KEYWORDS.length - i) * 10;
-      }
+    var score = 0;
+    for (var i = 0; i < VOICE_QUALITY.length; i++) {
+      if (name.includes(VOICE_QUALITY[i])) score += (VOICE_QUALITY.length - i) * 10;
     }
-
-    // Prefer non-local voices (usually higher quality on Chrome)
     if (!v.localService) score += 5;
-
     return score;
   }
 
@@ -92,18 +441,17 @@
     var voices = synth.getVoices();
     if (voices.length === 0) return;
 
-    var frVoices = voices.filter(function (v) {
-      return v.lang && v.lang.startsWith("fr");
-    });
-
-    if (frVoices.length > 0) {
-      // Sort by quality score descending
-      frVoices.sort(function (a, b) { return scoreVoice(b) - scoreVoice(a); });
-      chosenVoice = frVoices[0];
+    var fr = voices.filter(function (v) { return v.lang && v.lang.startsWith("fr"); });
+    if (fr.length > 0) {
+      fr.sort(function (a, b) { return scoreVoice(b) - scoreVoice(a); });
+      voiceFR = fr[0];
     } else {
-      // No French voice: pick best overall
-      var sorted = voices.slice().sort(function (a, b) { return scoreVoice(b) - scoreVoice(a); });
-      chosenVoice = sorted[0];
+      var all = voices.slice().sort(function (a, b) { return scoreVoice(b) - scoreVoice(a); });
+      voiceFR = all[0];
+    }
+
+    if (voiceInfo && voiceFR) {
+      voiceInfo.textContent = voiceFR.name.replace(/^Microsoft\s+/i, "").replace(/\s+Online.*$/i, "");
     }
   }
 
@@ -112,28 +460,66 @@
     synth.onvoiceschanged = pickVoice;
   }
 
-  // ── State ──
-  var chunks = [];
+  // ═══════════════════════════════════════════════════════════════
+  //  4. PROSODY ENGINE
+  // ═══════════════════════════════════════════════════════════════
+
+  var BASE_RATE = 1;
+  var BASE_PITCH = 1;
+
+  // Rate/pitch adjustments per segment type
+  function prosodyFor(segment) {
+    var userSpeed = parseFloat(speedSelect.value) || 1;
+    var rate = userSpeed;
+    var pitch = BASE_PITCH;
+
+    switch (segment.type) {
+      case SEG_HEADING:
+        rate = userSpeed * 0.88;   // slower for titles → emphasis
+        pitch = 1.08;              // slightly higher → announces a section
+        break;
+      case SEG_LIST:
+        rate = userSpeed * 0.95;   // slightly slower for bullet points
+        pitch = 0.98;
+        break;
+      default:
+        rate = userSpeed;
+        pitch = 1.0;
+    }
+
+    // Clamp rate to API limits
+    rate = Math.max(0.5, Math.min(rate, 3));
+    pitch = Math.max(0.5, Math.min(pitch, 1.5));
+    return { rate: rate, pitch: pitch };
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  //  5. PLAYBACK ENGINE
+  // ═══════════════════════════════════════════════════════════════
+
+  var segments = [];
   var blockEls = [];
-  var currentIndex = 0;
+  var segToBlock = [];    // maps segment index → block element index
+  var currentSeg = 0;
   var playing = false;
   var paused = false;
   var highlightedEl = null;
   var keepAliveTimer = null;
-  var TTS_HIGHLIGHT_CLASS = "tts-highlight";
+  var TTS_HIGHLIGHT = "tts-highlight";
 
   function clearHighlight() {
     if (highlightedEl) {
-      highlightedEl.classList.remove(TTS_HIGHLIGHT_CLASS);
+      highlightedEl.classList.remove(TTS_HIGHLIGHT);
       highlightedEl = null;
     }
   }
 
-  function highlightBlock(index) {
+  function highlightBlock(segIndex) {
     clearHighlight();
-    if (index < blockEls.length) {
-      highlightedEl = blockEls[index];
-      highlightedEl.classList.add(TTS_HIGHLIGHT_CLASS);
+    var blockIdx = segToBlock[segIndex];
+    if (blockIdx !== undefined && blockIdx < blockEls.length) {
+      highlightedEl = blockEls[blockIdx];
+      highlightedEl.classList.add(TTS_HIGHLIGHT);
       highlightedEl.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }
@@ -142,142 +528,181 @@
     if (statusEl) statusEl.textContent = text;
   }
 
-  function showPlayBtn() {
-    btnPlay.style.display = "";
-    btnPause.style.display = "none";
+  function updateProgress() {
+    if (!progressBar) return;
+    var pct = segments.length > 0 ? Math.round((currentSeg / segments.length) * 100) : 0;
+    progressBar.style.width = pct + "%";
   }
 
-  function showPauseBtn() {
-    btnPlay.style.display = "none";
-    btnPause.style.display = "";
-  }
+  function showPlayBtn() { btnPlay.style.display = ""; btnPause.style.display = "none"; }
+  function showPauseBtn() { btnPlay.style.display = "none"; btnPause.style.display = ""; }
 
-  // ── iOS keep-alive workaround ──
-  // iOS Safari silently stops speechSynthesis after ~15s.
-  // Workaround: pause+resume every 10s to keep it alive.
+  // iOS keep-alive
   function startKeepAlive() {
     stopKeepAlive();
     if (!isIOS) return;
     keepAliveTimer = setInterval(function () {
-      if (synth.speaking && !synth.paused) {
-        synth.pause();
-        synth.resume();
-      }
+      if (synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
     }, 10000);
   }
-
   function stopKeepAlive() {
-    if (keepAliveTimer) {
-      clearInterval(keepAliveTimer);
-      keepAliveTimer = null;
-    }
+    if (keepAliveTimer) { clearInterval(keepAliveTimer); keepAliveTimer = null; }
   }
 
-  // ── Speak one chunk, then chain to the next ──
-  function speakChunk(index) {
-    if (index >= chunks.length) {
+  // ── Insert a silent pause between segments using a silent utterance ──
+  function insertPause(ms, callback) {
+    // Use an utterance of silence (a single space + very low volume doesn't work,
+    // so we use the rate trick: speak "." very fast)
+    if (ms <= 0) { callback(); return; }
+    var pause = new SpeechSynthesisUtterance(".");
+    pause.rate = 10;   // max speed → near-instant
+    pause.volume = 0;  // silent
+    pause.lang = "fr-FR";
+    if (voiceFR) pause.voice = voiceFR;
+    pause.onend = function () {
+      setTimeout(callback, Math.max(0, ms - 50));
+    };
+    pause.onerror = function () { callback(); };
+    synth.speak(pause);
+  }
+
+  // Pause duration based on segment type transition
+  function pauseBetween(prevSeg, nextSeg) {
+    if (!prevSeg) return 0;
+    if (nextSeg.type === SEG_HEADING) return 600;  // big pause before headings
+    if (prevSeg.type === SEG_HEADING) return 400;   // pause after heading
+    if (nextSeg.first) return 200;                  // new paragraph
+    return 80;                                       // between sentences
+  }
+
+  // ── Core: speak one segment, then chain ──
+  function speakSegment(index) {
+    if (index >= segments.length) {
       stopAll();
       setStatus("Termine");
+      updateProgress();
       return;
     }
 
-    currentIndex = index;
+    currentSeg = index;
     highlightBlock(index);
-    setStatus("Lecture " + (index + 1) + "/" + chunks.length);
+    updateProgress();
 
-    var utt = new SpeechSynthesisUtterance(chunks[index]);
-    utt.rate = parseFloat(speedSelect.value) || 1;
+    var total = segments.length;
+    var blockNum = (segToBlock[index] || 0) + 1;
+    setStatus("Lecture " + blockNum + "/" + blockEls.length);
+
+    var seg = segments[index];
+    var normalized = normalizeText(seg.text);
+
+    // Skip empty segments after normalisation
+    if (!normalized || normalized.length < 2) {
+      if (playing && !paused) speakSegment(index + 1);
+      return;
+    }
+
+    var pros = prosodyFor(seg);
+    var utt = new SpeechSynthesisUtterance(normalized);
+    utt.rate = pros.rate;
+    utt.pitch = pros.pitch;
     utt.lang = "fr-FR";
-    if (chosenVoice) utt.voice = chosenVoice;
+    if (voiceFR) utt.voice = voiceFR;
 
     utt.onend = function () {
-      if (playing && !paused) {
-        speakChunk(index + 1);
+      if (!playing || paused) return;
+      var nextIdx = index + 1;
+      if (nextIdx >= segments.length) {
+        stopAll();
+        setStatus("Termine");
+        updateProgress();
+        return;
+      }
+      var delay = pauseBetween(seg, segments[nextIdx]);
+      if (delay > 0) {
+        insertPause(delay, function () {
+          if (playing && !paused) speakSegment(nextIdx);
+        });
+      } else {
+        speakSegment(nextIdx);
       }
     };
 
     utt.onerror = function (e) {
       if (e.error !== "interrupted" && e.error !== "canceled") {
         console.warn("TTS error:", e.error);
-        // On iOS, errors can happen silently — try next chunk
-        if (playing && !paused) {
-          speakChunk(index + 1);
-        }
       }
+      if (playing && !paused) speakSegment(index + 1);
     };
 
     synth.speak(utt);
   }
 
-  // ── Controls ──
+  // ── Build segment-to-block mapping ──
+  function buildSegToBlock(segs, blocks) {
+    var map = [];
+    var blockIdx = 0;
+    for (var i = 0; i < segs.length; i++) {
+      map.push(blockIdx);
+      // If this is the last sub-sentence of a block, advance to next block
+      if (i + 1 < segs.length && segs[i + 1].first) {
+        blockIdx++;
+      }
+    }
+    return map;
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  //  6. CONTROLS
+  // ═══════════════════════════════════════════════════════════════
+
   function startPlaying() {
     if (paused && !isIOS) {
-      // Resume (not reliable on iOS, so iOS always restarts chunk)
       synth.resume();
-      paused = false;
-      playing = true;
-      showPauseBtn();
-      startKeepAlive();
-      setStatus("Lecture " + (currentIndex + 1) + "/" + chunks.length);
+      paused = false; playing = true;
+      showPauseBtn(); startKeepAlive();
+      setStatus("Lecture...");
       return;
     }
-
     if (paused && isIOS) {
-      // iOS: resume by re-speaking current chunk
       synth.cancel();
-      paused = false;
-      playing = true;
-      showPauseBtn();
-      startKeepAlive();
-      speakChunk(currentIndex);
+      paused = false; playing = true;
+      showPauseBtn(); startKeepAlive();
+      speakSegment(currentSeg);
       return;
     }
 
-    // Fresh start — on iOS, must call synth from direct user gesture
     synth.cancel();
-    chunks = extractText();
+    segments = extractSegments();
     blockEls = getBlockElements();
+    segToBlock = buildSegToBlock(segments, blockEls);
 
-    if (chunks.length === 0) {
-      setStatus("Aucun texte");
-      return;
-    }
+    if (segments.length === 0) { setStatus("Aucun texte"); return; }
 
-    playing = true;
-    paused = false;
-    currentIndex = 0;
-    showPauseBtn();
-    startKeepAlive();
-    speakChunk(0);
+    playing = true; paused = false; currentSeg = 0;
+    showPauseBtn(); startKeepAlive();
+    speakSegment(0);
   }
 
   function pausePlaying() {
-    if (playing && !paused) {
-      if (!isIOS) {
-        synth.pause();
-      } else {
-        // iOS: pause() is unreliable, just cancel and remember position
-        synth.cancel();
-      }
-      paused = true;
-      stopKeepAlive();
-      showPlayBtn();
-      setStatus("Pause");
-    }
+    if (!playing || paused) return;
+    if (!isIOS) { synth.pause(); } else { synth.cancel(); }
+    paused = true;
+    stopKeepAlive(); showPlayBtn();
+    setStatus("Pause");
   }
 
   function stopAll() {
     synth.cancel();
-    playing = false;
-    paused = false;
-    currentIndex = 0;
-    stopKeepAlive();
-    clearHighlight();
-    showPlayBtn();
+    playing = false; paused = false; currentSeg = 0;
+    stopKeepAlive(); clearHighlight(); showPlayBtn();
     setStatus("Pret");
+    if (progressBar) progressBar.style.width = "0%";
   }
 
-  // ── Event listeners ──
+  // ═══════════════════════════════════════════════════════════════
+  //  7. EVENT BINDING
+  // ═══════════════════════════════════════════════════════════════
+
   btnPlay.addEventListener("click", startPlaying);
   btnPause.addEventListener("click", pausePlaying);
   btnStop.addEventListener("click", stopAll);
@@ -285,12 +710,11 @@
   speedSelect.addEventListener("change", function () {
     if (playing && !paused) {
       synth.cancel();
-      speakChunk(currentIndex);
+      speakSegment(currentSeg);
     }
   });
 
   window.addEventListener("beforeunload", function () {
-    stopKeepAlive();
-    synth.cancel();
+    stopKeepAlive(); synth.cancel();
   });
 })();
