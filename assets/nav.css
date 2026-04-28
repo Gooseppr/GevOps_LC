@@ -1246,14 +1246,14 @@ details.cat-block summary {
   border-radius: 2px;
 }
 
-.tts-btn-hide {
+.tts-btn-nav {
   background: transparent;
-  color: #64748b;
-  width: 28px;
-  height: 28px;
+  color: #94a3b8;
+  width: 30px;
+  height: 30px;
 }
 
-.tts-btn-hide:hover {
+.tts-btn-nav:hover {
   background: #334155;
   color: #e2e8f0;
 }

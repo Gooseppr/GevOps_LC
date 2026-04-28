@@ -14,7 +14,8 @@
   var voiceInfo = document.getElementById("tts-voice-info");
 
   var btnToggle = document.getElementById("tts-toggle");
-  var btnHide = document.getElementById("tts-hide");
+  var btnPrev = document.getElementById("tts-prev");
+  var btnNext = document.getElementById("tts-next");
 
   if (!player || !btnPlay) return;
 
@@ -46,12 +47,6 @@
     if (!next && playing) stopAll();
   }
 
-  function hidePlayer() {
-    localStorage.setItem(STORAGE_KEY, "false");
-    applyVisibleState(false);
-    if (playing) stopAll();
-  }
-
   // Restore saved state on page load — force both classes to match stored state
   applyVisibleState(readVisibleState());
 
@@ -59,10 +54,6 @@
   if (btnToggle) {
     btnToggle.style.display = "inline-flex";
     btnToggle.addEventListener("click", togglePlayer);
-  }
-
-  if (btnHide) {
-    btnHide.addEventListener("click", hidePlayer);
   }
 
   var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
@@ -1150,6 +1141,49 @@
   btnPlay.addEventListener("click", startPlaying);
   btnPause.addEventListener("click", pausePlaying);
   btnStop.addEventListener("click", stopAll);
+
+  // ── Prev / Next segment navigation ──
+  function skipTo(index) {
+    if (segments.length === 0) {
+      // Not started yet — extract first
+      segments = extractSegments();
+      blockEls = getBlockElements();
+      segToBlock = buildSegToBlock(segments, blockEls);
+    }
+    if (segments.length === 0) return;
+
+    var target = Math.max(0, Math.min(index, segments.length - 1));
+
+    if (playing && !paused) {
+      // Currently playing — cancel and speak new segment
+      synth.cancel();
+      currentSeg = target;
+      speakSegment(target);
+    } else {
+      // Not playing or paused — just highlight and update status
+      currentSeg = target;
+      highlightBlock(target);
+      updateProgress();
+      var blockNum = (segToBlock[target] || 0) + 1;
+      setStatus("Segment " + blockNum + "/" + blockEls.length);
+      // If was paused, stay paused at new position
+      if (paused) {
+        // On resume, it will start from currentSeg
+      }
+    }
+  }
+
+  if (btnPrev) {
+    btnPrev.addEventListener("click", function () {
+      skipTo(currentSeg - 1);
+    });
+  }
+
+  if (btnNext) {
+    btnNext.addEventListener("click", function () {
+      skipTo(currentSeg + 1);
+    });
+  }
 
   speedSelect.addEventListener("change", function () {
     if (playing && !paused) {
