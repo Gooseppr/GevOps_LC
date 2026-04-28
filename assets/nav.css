@@ -66,6 +66,25 @@ body.nav-open #course-nav {
   flex: 1;
   overflow-y: auto;
   padding: 0.75rem 1rem 1.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+#course-nav .nav-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+#course-nav .nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#course-nav .nav-scroll::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+#course-nav .nav-scroll::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }
 
 #course-nav .nav-section {
