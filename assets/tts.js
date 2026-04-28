@@ -67,6 +67,8 @@
 
   var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
     (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var isChrome = /Chrome\//.test(navigator.userAgent) && !/Edg\//.test(navigator.userAgent);
+  var needsKeepAlive = isIOS || isChrome;
 
   // ═══════════════════════════════════════════════════════════════
   //  1. TEXT NORMALISATION PIPELINE
@@ -252,13 +254,30 @@
     if (/^\s*(aws|docker|kubectl|terraform|git|npm|pip|curl|ssh)\s+/i.test(text)) {
       return "... commande technique ...";
     }
-    // Inline: replace common CLI patterns
+    // Inline: replace common CLI patterns (markdown backticks)
     text = text.replace(/`([^`]+)`/g, function (_, code) {
       if (code.length > 30) return " ... extrait de code ... ";
-      // Short inline code: try to read it
-      return " " + code.replace(/[_\-\/\.]/g, " ") + " ";
+      return " " + makeCodeReadable(code) + " ";
     });
     return text;
+  }
+
+  // ── 1d-bis. Make inline code pronounceable ──
+  function makeCodeReadable(code) {
+    // Instance types: t3.micro → "t 3 micro"
+    code = code.replace(/^([a-z])(\d+)\.(\w+)$/i, "$1 $2 point $3");
+    // Region codes: us-east-1 → "us east 1", eu-west-3a → "eu west 3 a"
+    code = code.replace(/^([a-z]{2})-([a-z]+)-(\d[a-z]?)$/i, "$1 $2 $3");
+    // CIDR: 10.0.0.0/16 → "10 point 0 point 0 point 0 slash 16"
+    code = code.replace(/(\d+)\.(\d+)\.(\d+)\.(\d+)\/(\d+)/g, "$1 point $2 point $3 point $4 slash $5");
+    // IP: 10.0.1.0 → "10 point 0 point 1 point 0"
+    code = code.replace(/(\d+)\.(\d+)\.(\d+)\.(\d+)/g, "$1 point $2 point $3 point $4");
+    // Port: :443 → "port 443"
+    code = code.replace(/^:(\d+)$/, "port $1");
+    // Remaining separators
+    code = code.replace(/[_\-\/]/g, " ");
+    code = code.replace(/\./g, " point ");
+    return code;
   }
 
   // ── 1e. URLs ──
@@ -343,38 +362,370 @@
   //  2. TEXT EXTRACTION & SEGMENTATION
   // ═══════════════════════════════════════════════════════════════
 
+  // Only skip code BLOCKS (pre), not inline <code>
   var SKIP_SELECTORS = [
-    "pre", "code", ".mermaid", "svg", ".highlight",
-    "script", "style", "table", ".module-nav", ".snippet-block"
+    "pre", ".mermaid", "svg", ".highlight",
+    "script", "style", ".module-nav", ".snippet-block"
   ].join(",");
 
-  var BLOCK_SELECTORS = "h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt";
+  var BLOCK_SELECTORS = "h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt, table";
 
   // Segment type determines prosody
   var SEG_HEADING = "heading";
   var SEG_TEXT = "text";
   var SEG_LIST = "list";
+  var SEG_TABLE = "table";
+  var SEG_DIAGRAM = "diagram";
+
+  // ── Read inline <code> as pronounceable text ──
+  function readInlineCode(el) {
+    // Replace <code> elements with readable text before extracting textContent
+    var codes = el.querySelectorAll("code");
+    codes.forEach(function (codeEl) {
+      var readable = makeCodeReadable(codeEl.textContent);
+      codeEl.textContent = readable;
+    });
+  }
+
+  // ── "a, b et c" — natural French list joining ──
+  function joinNatural(arr) {
+    if (arr.length === 0) return "";
+    if (arr.length === 1) return arr[0];
+    if (arr.length === 2) return arr[0] + " et " + arr[1];
+    return arr.slice(0, -1).join(", ") + " et " + arr[arr.length - 1];
+  }
+
+  // ── Detect header semantic role ──
+  var H_EXAMPLE   = /exemple|ex\.|sample|cas|illustration|concret/i;
+  var H_DESC      = /r[oô]le|description|d[eé]finition|fonction|usage|utilit[eé]|but|signification|explication/i;
+  var H_VALUE     = /valeur|prix|co[uû]t|tarif|montant|limit|quota|capacit/i;
+  var H_CONDITION = /quand|condition|si|pr[eé]requis|contrainte|restriction/i;
+  var H_COMPARE   = /avantage|inconv[eé]nient|diff[eé]rence|vs|compar/i;
+
+  // ── Convert a <table> into fluent French narration ──
+  function tableToSegments(table) {
+    var segs = [];
+    var headers = [];
+
+    table.querySelectorAll("thead th").forEach(function (th) {
+      readInlineCode(th);
+      headers.push(th.textContent.replace(/\s+/g, " ").trim());
+    });
+
+    // Collect rows
+    var rowsData = [];
+    table.querySelectorAll("tbody tr").forEach(function (tr) {
+      var cells = [];
+      tr.querySelectorAll("td").forEach(function (td) {
+        readInlineCode(td);
+        cells.push(td.textContent.replace(/\s+/g, " ").trim());
+      });
+      if (cells.length > 0) rowsData.push(cells);
+    });
+
+    if (rowsData.length === 0) return segs;
+
+    var ncols = headers.length;
+
+    // ---- Strategy: narrate each row as a coherent sentence ----
+
+    rowsData.forEach(function (cells, rowIdx) {
+      var subject = cells[0] || "";
+      var sentence = "";
+
+      if (ncols === 1) {
+        sentence = subject + ".";
+
+      } else if (ncols === 2) {
+        var h1 = (headers[1] || "").toLowerCase();
+        var val = cells[1] || "";
+        if (H_DESC.test(h1)) {
+          // "AMI : c'est l'image systeme de base."
+          sentence = subject + ", c'est " + lowFirst(val) + ".";
+        } else if (H_EXAMPLE.test(h1)) {
+          sentence = subject + ". Par exemple, " + val + ".";
+        } else if (H_VALUE.test(h1)) {
+          sentence = subject + " correspond a " + val + ".";
+        } else if (H_COMPARE.test(h1)) {
+          sentence = subject + ". " + val + ".";
+        } else {
+          // Generic 2-col: "Subject: value."
+          sentence = subject + ". " + val + ".";
+        }
+
+      } else {
+        // 3+ columns: build a rich sentence
+        // Subject is first cell; build description from remaining columns
+        var parts = [];
+
+        for (var i = 1; i < cells.length; i++) {
+          var val = cells[i];
+          if (!val) continue;
+          var h = headers[i] || "";
+
+          if (H_DESC.test(h)) {
+            // Core description: weave it directly
+            parts.push({ role: "desc", text: val });
+          } else if (H_EXAMPLE.test(h)) {
+            parts.push({ role: "example", text: val });
+          } else if (H_VALUE.test(h)) {
+            parts.push({ role: "value", text: h + " " + val });
+          } else if (H_CONDITION.test(h)) {
+            parts.push({ role: "condition", text: val });
+          } else if (H_COMPARE.test(h)) {
+            parts.push({ role: "compare", text: val });
+          } else {
+            parts.push({ role: "other", text: val, header: h });
+          }
+        }
+
+        // Assemble: description first, then examples, then the rest
+        var descParts = parts.filter(function (p) { return p.role === "desc"; });
+        var exParts = parts.filter(function (p) { return p.role === "example"; });
+        var otherParts = parts.filter(function (p) {
+          return p.role !== "desc" && p.role !== "example";
+        });
+
+        var phrases = [];
+
+        if (descParts.length > 0) {
+          phrases.push(subject + ", c'est " + lowFirst(descParts.map(function (p) { return p.text; }).join(", ")));
+        } else {
+          phrases.push(subject);
+        }
+
+        otherParts.forEach(function (p) {
+          if (p.header) {
+            phrases.push(p.header + " " + p.text);
+          } else {
+            phrases.push(p.text);
+          }
+        });
+
+        if (exParts.length > 0) {
+          phrases.push("Par exemple, " + exParts.map(function (p) { return p.text; }).join(", "));
+        }
+
+        sentence = phrases.join(". ") + ".";
+      }
+
+      // Clean up punctuation artifacts
+      sentence = sentence.replace(/\.\s*\./g, ".").replace(/,\s*\./g, ".").replace(/\.{2,}/g, ".");
+      segs.push({ text: sentence, type: SEG_TABLE, first: rowIdx === 0 });
+    });
+
+    return segs;
+  }
+
+  function lowFirst(s) {
+    if (!s) return s;
+    // Don't lowercase acronyms or proper nouns
+    if (/^[A-Z]{2}/.test(s)) return s;
+    return s.charAt(0).toLowerCase() + s.slice(1);
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  //  MERMAID → NATURAL LANGUAGE
+  // ═══════════════════════════════════════════════════════════════
+
+  // Clean a mermaid label: remove emojis, \n → comma, <br/> → comma, HTML
+  function cleanLabel(raw) {
+    return raw
+      .replace(/<br\s*\/?>/gi, ", ")
+      .replace(/\\n/g, ", ")
+      .replace(/[🌍☁️🔒📦⚙️🐳🚀💻🔧🔑🛡️⚡📊🌐👤🏠🔐💾🗄️📁🖥️📡🧠💡⚠️❌✅]/gu, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function mermaidToSegments(mermaidEl) {
+    var src = mermaidEl.textContent || "";
+    var segs = [];
+
+    // Detect diagram type
+    var typeMatch = src.match(/^\s*(graph|flowchart|sequenceDiagram|classDiagram|mindmap|pie|gantt)/m);
+    var dtype = typeMatch ? typeMatch[1].toLowerCase() : "graph";
+
+    // ── Extract nodes ──
+    var nodes = {};
+    var nodeRe = /(\w+)\s*[\[\(\{]([^\]\)\}]+)[\]\)\}]/g;
+    var m;
+    while ((m = nodeRe.exec(src)) !== null) {
+      var label = cleanLabel(m[2]);
+      if (label.length > 1) nodes[m[1]] = label;
+    }
+
+    // Also handle round-bracket database nodes: id[(Label)]
+    var dbRe = /(\w+)\s*\[\(([^)]+)\)\]/g;
+    while ((m = dbRe.exec(src)) !== null) {
+      var label = cleanLabel(m[2]);
+      if (label.length > 1) nodes[m[1]] = label;
+    }
+
+    // ── Extract edges with optional labels ──
+    var edges = [];
+    // Match: A -->|label| B, A --> B, A -.-> B, A ==> B, A <--> B, A --- B
+    var edgeRe = /(\w+)\s*(<?)[-=.]+>?\s*(?:\|([^|]*)\|)?\s*(\w+)/g;
+    while ((m = edgeRe.exec(src)) !== null) {
+      var bidir = m[2] === "<";
+      edges.push({
+        from: m[1],
+        to: m[4],
+        label: (m[3] || "").trim(),
+        bidir: bidir
+      });
+    }
+
+    // ── No nodes parsed → fallback ──
+    if (Object.keys(nodes).length === 0) {
+      segs.push({ text: "Un diagramme est presente ici.", type: SEG_DIAGRAM, first: true });
+      return segs;
+    }
+
+    // ── Build parent→children map ──
+    var childrenOf = {};   // parent label → [{label, edgeLabel}]
+    var mentioned = {};    // track nodes that are children
+    var rootCandidates = {};
+
+    edges.forEach(function (e) {
+      var fromLabel = nodes[e.from] || e.from;
+      var toLabel = nodes[e.to] || e.to;
+      if (!childrenOf[fromLabel]) childrenOf[fromLabel] = [];
+      childrenOf[fromLabel].push({
+        label: toLabel,
+        edgeLabel: e.label,
+        bidir: e.bidir
+      });
+      mentioned[toLabel] = true;
+      rootCandidates[fromLabel] = true;
+    });
+
+    // Find root nodes (parents that are never children)
+    var roots = Object.keys(rootCandidates).filter(function (p) {
+      return !mentioned[p];
+    });
+    if (roots.length === 0) roots = Object.keys(childrenOf).slice(0, 1);
+
+    // ── Narrate as a tree traversal ──
+    // Intro sentence based on diagram type
+    var introVerb = "la structure suivante";
+    if (dtype === "flowchart" || dtype === "graph") {
+      introVerb = "le flux suivant";
+    } else if (dtype === "sequencediagram") {
+      introVerb = "les echanges suivants";
+    }
+    segs.push({
+      text: "Ce diagramme illustre " + introVerb + ".",
+      type: SEG_DIAGRAM, first: true
+    });
+
+    // BFS narration — each parent describes its children
+    var visited = {};
+    var queue = roots.slice();
+
+    while (queue.length > 0) {
+      var parent = queue.shift();
+      if (visited[parent]) continue;
+      visited[parent] = true;
+
+      var children = childrenOf[parent];
+      if (!children || children.length === 0) continue;
+
+      // Group children by edge label for more natural sentences
+      var labeled = children.filter(function (c) { return c.edgeLabel; });
+      var unlabeled = children.filter(function (c) { return !c.edgeLabel; });
+
+      // Children with edge labels → individual sentences with context
+      labeled.forEach(function (c) {
+        var verb = c.bidir ? " communique avec " : " " + c.edgeLabel + " ";
+        segs.push({
+          text: parent + verb + c.label + ".",
+          type: SEG_DIAGRAM, first: false
+        });
+        queue.push(c.label);
+      });
+
+      // Children without edge labels → grouped sentence
+      if (unlabeled.length === 1) {
+        var c = unlabeled[0];
+        segs.push({
+          text: parent + " est relie a " + c.label + ".",
+          type: SEG_DIAGRAM, first: false
+        });
+        queue.push(c.label);
+      } else if (unlabeled.length > 1) {
+        // Decide verb based on context
+        var verb = " comprend ";
+        // If all children have similar labels → "se decline en"
+        // If parent seems hierarchical → "comprend"
+        var childLabels = unlabeled.map(function (c) { return c.label; });
+        segs.push({
+          text: parent + verb + joinNatural(childLabels) + ".",
+          type: SEG_DIAGRAM, first: false
+        });
+        unlabeled.forEach(function (c) { queue.push(c.label); });
+      }
+    }
+
+    // Mention leaf nodes that have interesting labels but weren't described
+    var allNodeLabels = Object.keys(nodes).map(function (k) { return nodes[k]; });
+    var orphans = allNodeLabels.filter(function (l) {
+      return !visited[l] && !mentioned[l] && l.length > 3;
+    });
+    // Don't narrate orphans — they add noise
+
+    return segs;
+  }
 
   function extractSegments() {
     var content = document.querySelector(".post-content");
     if (!content) return [];
 
     var clone = content.cloneNode(true);
-    clone.querySelectorAll(SKIP_SELECTORS).forEach(function (el) { el.remove(); });
 
-    var blocks = clone.querySelectorAll(BLOCK_SELECTORS);
+    // Remove only non-readable blocks (but keep tables, keep inline code)
+    clone.querySelectorAll("pre, .highlight, script, style, .module-nav, .snippet-block").forEach(function (el) {
+      el.remove();
+    });
+
+    // Process all direct children in DOM order to preserve reading flow
     var segments = [];
+    var allElements = clone.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt, table, .mermaid, svg");
 
-    blocks.forEach(function (block) {
-      var raw = block.textContent.replace(/\s+/g, " ").trim();
+    allElements.forEach(function (el) {
+      // Skip nested elements (e.g. a <p> inside a <li> we already processed)
+      if (el.closest && el.closest(".mermaid, svg")) {
+        if (el.tagName.toLowerCase() !== "div" && !el.classList.contains("mermaid")) return;
+      }
+
+      var tag = el.tagName.toLowerCase();
+
+      // Mermaid diagrams → narrative description
+      if (el.classList && el.classList.contains("mermaid")) {
+        mermaidToSegments(el).forEach(function (s) { segments.push(s); });
+        return;
+      }
+      // SVG → skip (decorative)
+      if (tag === "svg") return;
+
+      // Tables → structured reading
+      if (tag === "table") {
+        var tableSegs = tableToSegments(el);
+        tableSegs.forEach(function (s) { segments.push(s); });
+        return;
+      }
+
+      // Regular block elements — make inline code readable first
+      readInlineCode(el);
+
+      var raw = el.textContent.replace(/\s+/g, " ").trim();
       if (raw.length === 0) return;
 
-      var tag = block.tagName.toLowerCase();
       var type = SEG_TEXT;
       if (/^h[1-6]$/.test(tag)) type = SEG_HEADING;
       else if (tag === "li") type = SEG_LIST;
 
-      // Split long paragraphs into sentences for smoother flow
+      // Split long paragraphs into sentences
       if (type === SEG_TEXT && raw.length > 200) {
         var sentences = splitSentences(raw);
         sentences.forEach(function (s, i) {
@@ -411,10 +762,13 @@
     var content = document.querySelector(".post-content");
     if (!content) return [];
 
-    var all = content.querySelectorAll(BLOCK_SELECTORS);
+    var all = content.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt, table, .mermaid");
     var blocks = [];
     all.forEach(function (el) {
-      if (el.closest(SKIP_SELECTORS)) return;
+      if (el.closest("pre, .highlight, script, style, .module-nav, .snippet-block")) return;
+      // For mermaid/table, always include; for text blocks, require content
+      if (el.classList && el.classList.contains("mermaid")) { blocks.push(el); return; }
+      if (el.tagName.toLowerCase() === "table") { blocks.push(el); return; }
       var text = el.textContent.replace(/\s+/g, " ").trim();
       if (text.length > 0) blocks.push(el);
     });
@@ -489,6 +843,14 @@
         rate = userSpeed * 0.95;   // slightly slower for bullet points
         pitch = 0.98;
         break;
+      case SEG_TABLE:
+        rate = userSpeed * 0.90;   // slower for structured data
+        pitch = 0.95;              // slightly lower → data reading tone
+        break;
+      case SEG_DIAGRAM:
+        rate = userSpeed * 0.85;   // slow for diagram descriptions
+        pitch = 1.05;
+        break;
       default:
         rate = userSpeed;
         pitch = 1.0;
@@ -544,10 +906,10 @@
   function showPlayBtn() { btnPlay.style.display = ""; btnPause.style.display = "none"; }
   function showPauseBtn() { btnPlay.style.display = "none"; btnPause.style.display = ""; }
 
-  // iOS keep-alive
+  // Keep-alive: Chrome and iOS both silently kill speechSynthesis after ~15s
   function startKeepAlive() {
     stopKeepAlive();
-    if (!isIOS) return;
+    if (!needsKeepAlive) return;
     keepAliveTimer = setInterval(function () {
       if (synth.speaking && !synth.paused) { synth.pause(); synth.resume(); }
     }, 10000);
@@ -576,10 +938,15 @@
   // Pause duration based on segment type transition
   function pauseBetween(prevSeg, nextSeg) {
     if (!prevSeg) return 0;
-    if (nextSeg.type === SEG_HEADING) return 600;  // big pause before headings
-    if (prevSeg.type === SEG_HEADING) return 400;   // pause after heading
-    if (nextSeg.first) return 200;                  // new paragraph
-    return 80;                                       // between sentences
+    if (nextSeg.type === SEG_HEADING) return 600;    // big pause before headings
+    if (prevSeg.type === SEG_HEADING) return 400;     // pause after heading
+    if (nextSeg.type === SEG_DIAGRAM) return 500;     // pause before diagram description
+    if (prevSeg.type === SEG_DIAGRAM) return 500;     // pause after diagram
+    if (nextSeg.type === SEG_TABLE && nextSeg.first) return 400; // pause before table
+    if (prevSeg.type === SEG_TABLE && nextSeg.type !== SEG_TABLE) return 400; // pause after table
+    if (nextSeg.type === SEG_TABLE) return 150;       // between table rows
+    if (nextSeg.first) return 200;                    // new paragraph
+    return 80;                                         // between sentences
   }
 
   // ── Core: speak one segment, then chain ──
@@ -663,18 +1030,20 @@
   // ═══════════════════════════════════════════════════════════════
 
   function startPlaying() {
-    if (paused && !isIOS) {
-      synth.resume();
-      paused = false; playing = true;
-      showPauseBtn(); startKeepAlive();
-      setStatus("Lecture...");
-      return;
-    }
-    if (paused && isIOS) {
-      synth.cancel();
-      paused = false; playing = true;
-      showPauseBtn(); startKeepAlive();
-      speakSegment(currentSeg);
+    if (paused) {
+      // On Chrome & iOS, synth.resume() is unreliable → cancel + re-speak
+      // On Edge/Firefox, resume() works fine
+      if (needsKeepAlive) {
+        synth.cancel();
+        paused = false; playing = true;
+        showPauseBtn(); startKeepAlive();
+        speakSegment(currentSeg);
+      } else {
+        synth.resume();
+        paused = false; playing = true;
+        showPauseBtn();
+        setStatus("Lecture...");
+      }
       return;
     }
 
@@ -692,7 +1061,12 @@
 
   function pausePlaying() {
     if (!playing || paused) return;
-    if (!isIOS) { synth.pause(); } else { synth.cancel(); }
+    if (needsKeepAlive) {
+      // Chrome & iOS: pause() is unreliable, cancel and remember position
+      synth.cancel();
+    } else {
+      synth.pause();
+    }
     paused = true;
     stopKeepAlive(); showPlayBtn();
     setStatus("Pause");
