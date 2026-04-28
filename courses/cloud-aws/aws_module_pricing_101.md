@@ -196,6 +196,27 @@ Un système d'alertes qui t'envoie une notification quand tes dépenses dépasse
 
 ---
 
+## Cas réel : première facture AWS d'un étudiant — 83 € au lieu de 0 €
+
+**Contexte** — Un étudiant crée un compte AWS pour suivre un cours cloud. Il lance une instance EC2 `t2.micro` (Free Tier) pour tester un déploiement. Il crée aussi une base RDS `db.t3.small` pour tester une connexion applicative. Après le TP, il ferme son navigateur et passe à autre chose.
+
+**Ce qui s'est passé** :
+
+- L'instance EC2 `t2.micro` était couverte par le Free Tier → **0 €**
+- La base RDS `db.t3.small` n'est **pas** dans le Free Tier (seul `db.t2.micro` l'est) → **~50 €/mois**
+- Un volume EBS de 100 Go créé par erreur (au lieu de 8 Go par défaut) → **~10 €/mois**
+- Un NAT Gateway créé pour un test VPC et jamais supprimé → **~33 €/mois**
+
+**Leçon** :
+
+- Toujours vérifier que le type d'instance est éligible Free Tier **avant** de le lancer
+- Configurer un budget avec alerte dès la création du compte — il aurait reçu un email à 10 €
+- Lister les ressources actives avant de quitter la console : EC2, RDS, VPC, EBS
+
+> Ce scénario est le plus fréquent chez les débutants. La bonne nouvelle : il est entièrement évitable avec les réflexes décrits ci-dessous.
+
+---
+
 ## Bonnes pratiques fondamentales
 
 **1. Estimer avant de provisionner**
@@ -277,4 +298,30 @@ tags: aws,free-tier,ec2,lambda,s3
 title: Free Tier — 3 catégories à connaître
 content: Always Free (Lambda 1M req/mois, DynamoDB 25 Go). 12 mois gratuits (EC2 t2.micro 750h, S3 5 Go, RDS db.t2.micro 750h). Essais ponctuels (Redshift 2 mois, Inspector 90 jours). Attention : 750h EC2 = une seule instance t2.micro en continu, deux instances en parallèle dépassent le quota.
 description: Exploiter le Free Tier pour apprendre sans risque financier, en restant vigilant sur les limites.
+-->
+
+<!-- snippet
+id: aws_pricing_budget_alert_tip
+type: tip
+tech: aws
+level: beginner
+importance: high
+format: knowledge
+tags: aws,budgets,alerting,cost
+title: Budget AWS — configurer une alerte dès le jour 1
+content: Première action sur un nouveau compte AWS : créer un budget mensuel avec alerte email à 80% et 100% du seuil. Même dans le Free Tier, un NAT Gateway ou une instance hors quota peut générer une facture inattendue. La configuration prend 2 minutes dans la console Billing.
+description: Un budget avec alerte est la protection minimale contre les factures surprises — à configurer avant tout le reste.
+-->
+
+<!-- snippet
+id: aws_pricing_calculator_tip
+type: tip
+tech: aws
+level: beginner
+importance: medium
+format: knowledge
+tags: aws,pricing,calculator,estimation
+title: AWS Pricing Calculator — estimer avant de lancer
+content: Avant de provisionner une architecture, simuler le coût mensuel dans le Pricing Calculator (calculator.aws). Sélectionner les services, configurer les paramètres (type d'instance, stockage, trafic estimé). Une estimation même approximative évite les surprises en fin de mois. Prend 10 minutes et peut économiser des centaines d'euros.
+description: Le Pricing Calculator est le réflexe à avoir avant chaque nouveau déploiement — 10 minutes pour éviter des mois de surprises.
 -->

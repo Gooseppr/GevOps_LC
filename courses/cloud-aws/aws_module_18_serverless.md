@@ -137,6 +137,24 @@ Deux types d'API coexistent dans API Gateway :
 
 ---
 
+## Cas réel : API de notifications push pour une app mobile
+
+**Contexte** — Une startup de 5 développeurs maintient une application mobile. L'équipe a besoin d'une API pour envoyer des notifications push déclenchées par des actions utilisateur (nouveau message, changement de statut de commande). Solution initiale : une instance EC2 t3.small qui tourne 24h/24 avec un serveur Node.js Express.
+
+**Problème** — Le serveur traite en moyenne 50 requêtes par jour, avec des pics occasionnels à 500 req/min lors des campagnes marketing. 95% du temps, l'instance ne fait rien — mais coûte quand même ~30€/mois.
+
+**Solution** — Migration vers Lambda + API Gateway (HTTP API). Chaque requête de notification déclenche une fonction Lambda (Node.js, 128 Mo de mémoire, timeout 5s) qui appelle le service de notifications push.
+
+**Résultats** :
+- **Coût** : de 30€/mois à ~2€/mois (facturation à la requête)
+- **Maintenance serveur** : zéro — plus de mises à jour OS, plus de monitoring d'instance
+- **Scaling automatique** pendant les pics de campagne — aucune intervention manuelle
+- **Cold start** : 80ms en moyenne (Node.js, package minimal)
+
+La migration a pris deux jours. Le code métier (appel au service push) n'a quasiment pas changé — seul le point d'entrée a été adapté au format handler Lambda.
+
+---
+
 ## Bonnes pratiques
 
 **Une fonction = une responsabilité.** Résiste à la tentation de faire une Lambda "god function" qui gère quinze routes. Une fonction doit faire une chose précise. Ça facilite le test unitaire, le déploiement indépendant et la gestion des permissions IAM.
@@ -146,6 +164,8 @@ Deux types d'API coexistent dans API Gateway :
 **Externalise la configuration.** Ne hardcode jamais de valeurs sensibles (credentials, URLs, feature flags) dans le code. Utilise les variables d'environnement Lambda pour les valeurs non-sensibles, et Secrets Manager ou Parameter Store pour les secrets. Ça permet de changer la configuration sans redéployer.
 
 **Calibre les timeouts sur les métriques réelles.** Le timeout par défaut (3s) est souvent trop court dès qu'une Lambda fait un appel réseau. Analyse les durées p50/p95/p99 en production via CloudWatch, et fixe le timeout à environ 2x le p99 observé. Mettre 15 minutes par défaut masque les régressions et augmente les coûts.
+
+**Monitore les invocations dès le début.** Active CloudWatch Metrics sur tes fonctions Lambda dès le premier déploiement. Les métriques Invocations, Errors, Duration et Throttles sont disponibles sans configuration. Sans monitoring, un cold start de 3 secondes ou un taux d'erreur de 5% passent inaperçus jusqu'à ce qu'un utilisateur se plaigne.
 
 ---
 

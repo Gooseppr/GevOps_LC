@@ -18,6 +18,16 @@ next_module_title: "Multi-environnement AWS — dev, staging, prod & multi-accou
 
 # Containers avancé — Auto Scaling, ALB, Migration microservices
 
+## Objectifs pédagogiques
+
+À l'issue de ce module, tu seras capable de :
+
+1. **Configurer** le Service Auto Scaling et le Cluster Auto Scaling pour adapter la capacité ECS à la charge
+2. **Intégrer** un service ECS avec un Application Load Balancer via les target groups
+3. **Concevoir** un path-based routing ALB pour router vers plusieurs services ECS
+4. **Planifier** une migration progressive d'un monolithe vers des microservices conteneurisés
+5. **Appliquer** les bonnes pratiques de health checks applicatifs et de monitoring Container Insights
+
 Ce module prolonge le module Containers (ECS, EKS, Fargate). On aborde ici le scaling automatique, l'intégration avec un Application Load Balancer, et les patterns de migration.
 
 ---
@@ -63,6 +73,33 @@ graph TD
 
 ---
 
+## Commandes essentielles
+
+### Auto Scaling
+
+```bash
+# Enregistrer un service ECS comme cible scalable
+aws application-autoscaling register-scalable-target \
+  --service-namespace ecs \
+  --resource-id service/<CLUSTER_NAME>/<SERVICE_NAME> \
+  --scalable-dimension ecs:service:DesiredCount \
+  --min-capacity <MIN> \
+  --max-capacity <MAX>
+```
+
+```bash
+# Configurer une politique de Target Tracking sur le CPU moyen
+aws application-autoscaling put-scaling-policy \
+  --service-namespace ecs \
+  --resource-id service/<CLUSTER_NAME>/<SERVICE_NAME> \
+  --scalable-dimension ecs:service:DesiredCount \
+  --policy-name <POLICY_NAME> \
+  --policy-type TargetTrackingScaling \
+  --target-tracking-scaling-policy-configuration '{"TargetValue": 60.0, "PredefinedMetricSpecification": {"PredefinedMetricType": "ECSServiceAverageCPUUtilization"}}'
+```
+
+---
+
 ## Cas réel : migration d'un monolithe vers des microservices conteneurisés
 
 **Contexte** : une plateforme SaaS B2B (30 développeurs, 150 000 utilisateurs actifs) tourne sur 6 instances EC2 derrière un ALB. Le déploiement prend 45 minutes avec 5 à 10 minutes de downtime à chaque release. Trois équipes travaillent sur le même codebase, et chaque merge crée des conflits de dépendances.
@@ -95,6 +132,12 @@ L'erreur initiale de l'équipe : avoir voulu découper en 12 microservices dès 
 
 **Activer les Container Insights pour le monitoring.** CloudWatch Container Insights collecte les métriques CPU, mémoire et réseau au niveau task et service. Sans ça, diagnostiquer un problème de performance dans un cluster de 30 tasks revient à chercher une aiguille dans une botte de foin.
 
+**Configurer le deregistration delay sur l'ALB.** Quand une task est remplacée (rolling update), l'ALB continue de lui envoyer du trafic pendant 300 secondes par défaut. Réduire ce délai à 30-60 secondes accélère les déploiements sans perte de requêtes — à condition que les connexions en cours aient le temps de se terminer.
+
+**Utiliser le rolling update avec un minimum healthy percent de 100%.** Avec `minimumHealthyPercent=100` et `maximumPercent=200`, ECS démarre les nouvelles tasks AVANT de stopper les anciennes. Zéro downtime garanti, au prix d'un doublement temporaire de la capacité pendant le déploiement.
+
+**Séparer les logs applicatifs avec awslogs driver.** Configurer le log driver `awslogs` dans la task definition pour envoyer stdout/stderr vers CloudWatch Logs. Un log group par service permet de filtrer et diagnostiquer les problèmes sans SSH dans un container.
+
 ---
 
 ## Résumé
@@ -114,4 +157,70 @@ tags: aws,ecs,microservices,architecture
 title: Trop de microservices tue les microservices
 content: Découper un monolithe en 15 microservices pour une équipe de 8 développeurs noie l'équipe dans la complexité opérationnelle (debugging distribué, latence inter-services, configuration réseau). Règle pratique : le nombre de services ne doit pas dépasser le nombre d'équipes autonomes. Mieux vaut 4 services bien découpés que 15 mal maintenus.
 description: Le nombre de microservices doit refléter la taille de l'équipe, pas la granularité du domaine métier.
+-->
+
+<!-- snippet
+id: aws_ecs_service_autoscaling
+type: command
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aws,ecs,auto-scaling,cli
+title: Enregistrer un service ECS comme cible Auto Scaling
+command: aws application-autoscaling register-scalable-target --service-namespace ecs --resource-id service/<CLUSTER_NAME>/<SERVICE_NAME> --scalable-dimension ecs:service:DesiredCount --min-capacity <MIN> --max-capacity <MAX>
+example: aws application-autoscaling register-scalable-target --service-namespace ecs --resource-id service/api-prod/api-backend --scalable-dimension ecs:service:DesiredCount --min-capacity 2 --max-capacity 10
+description: Définit les bornes de scaling pour un service ECS. Première étape avant de configurer une politique de scaling.
+-->
+
+<!-- snippet
+id: aws_ecs_alb_health_check_tip
+type: tip
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aws,ecs,alb,health-check
+title: Health check ALB — viser un endpoint applicatif
+content: Le target group ALB doit pointer vers un endpoint applicatif (/health) qui vérifie les dépendances critiques (DB, cache), pas juste un TCP check sur le port. Un container qui répond sur le port mais dont l'app est plantée doit être détecté et remplacé automatiquement par le service ECS.
+description: Un health check TCP ne détecte pas les pannes applicatives — toujours utiliser un endpoint /health.
+-->
+
+<!-- snippet
+id: aws_ecs_rolling_update_concept
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aws,ecs,deploy,rolling-update
+title: Rolling update ECS — zéro downtime
+content: Avec minimumHealthyPercent=100 et maximumPercent=200, ECS démarre les nouvelles tasks avant de stopper les anciennes. Le service double temporairement sa capacité pendant le déploiement. L'ALB ne route vers les nouvelles tasks qu'après validation du health check. Résultat : zéro requête perdue pendant le déploiement.
+description: Le rolling update ECS garantit zéro downtime en démarrant les nouvelles tasks avant de stopper les anciennes.
+-->
+
+<!-- snippet
+id: aws_ecs_container_insights_tip
+type: tip
+tech: aws
+level: intermediate
+importance: medium
+format: knowledge
+tags: aws,ecs,monitoring,cloudwatch
+title: Container Insights — monitoring CPU/mémoire par task
+content: CloudWatch Container Insights collecte les métriques CPU, mémoire et réseau au niveau task et service. Sans Container Insights, diagnostiquer un problème de performance dans un cluster de 30 tasks revient à chercher une aiguille dans une botte de foin. Activation en un clic sur le cluster.
+description: Container Insights donne la visibilité par task et par service — indispensable dès que le cluster dépasse 5 tasks.
+-->
+
+<!-- snippet
+id: aws_ecs_path_routing_concept
+type: concept
+tech: aws
+level: intermediate
+importance: high
+format: knowledge
+tags: aws,ecs,alb,routing,microservices
+title: Path-based routing ALB — un ALB pour plusieurs services ECS
+content: Un même ALB peut router vers plusieurs services ECS selon le chemin de la requête (path-based routing). Chaque service a son propre target group. Exemple : /api/* vers le service API, /payments/* vers le service paiement. Cela évite de multiplier les ALB (coût) tout en isolant les services.
+description: Le path-based routing permet de partager un ALB entre plusieurs microservices ECS — un target group par service.
 -->

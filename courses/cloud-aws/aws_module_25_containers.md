@@ -174,6 +174,25 @@ docker push <ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/<REPO>:latest
 
 ---
 
+## Cas réel : conteneurisation d'une API Python pour une équipe data
+
+**Contexte** — Une équipe data de 3 ingénieurs maintient une API Flask qui sert des prédictions ML. Elle tourne sur une instance EC2 avec Python 3.10, scikit-learn, pandas et une douzaine de dépendances. À chaque changement de dépendance, le déploiement prend 2 heures de configuration manuelle et casse parfois l'environnement de production.
+
+**Problème** — Conflits de dépendances, syndrome du "ça marche sur ma machine", déploiements risqués avec des étapes manuelles non reproductibles.
+
+**Solution** — Conteneuriser l'API avec Docker, pousser l'image sur ECR, déployer sur ECS avec Fargate. La task definition spécifie Python 3.10, 1 vCPU, 2 Go de mémoire. Deux tasks tournent en permanence pour absorber la charge.
+
+**Résultats** :
+
+- **Déploiement** : de 2 heures à 10 minutes (`docker build` + push ECR + update service)
+- **Zéro "ça marche sur ma machine"** — l'image est identique partout (laptop, CI, production)
+- **Rollback** : revenir à la révision précédente de la task definition en 30 secondes
+- **Coût** : ~45 €/mois (Fargate, 2 tasks) vs ~35 €/mois (EC2 t3.small) — légèrement plus cher mais zéro charge opérationnelle
+
+L'investissement initial (écrire le `Dockerfile`, configurer ECR et la task definition ECS) a pris une journée. Le gain de temps se rentabilise dès le deuxième déploiement.
+
+---
+
 ## EC2 vs Lambda vs ECS/Fargate — Les trois modèles de compute AWS
 
 Maintenant que tu connais EC2, Lambda et ECS/Fargate, voici comment les comparer :
@@ -209,6 +228,8 @@ graph TD
 **Rôle IAM par task, pas par cluster.** Chaque task definition a son propre `taskRoleArn` avec les permissions minimales nécessaires. Un rôle partagé entre tous les services du cluster est un vecteur de propagation en cas de compromission.
 
 **Stocker les images dans ECR, pas sur Docker Hub.** ECR est intégré avec IAM (pas de credentials Docker à gérer), scanne les vulnérabilités automatiquement, et le pull est gratuit depuis les services AWS dans la même région.
+
+**Versionner les images avec des tags explicites.** Ne pas utiliser uniquement le tag `latest` — utiliser un tag basé sur le commit SHA ou le numéro de build (`api:a3f2c1b`, `api:build-42`). Avec `latest`, impossible de savoir quelle version tourne réellement en production, et le rollback revient à deviner quelle image précédente relancer.
 
 ---
 
