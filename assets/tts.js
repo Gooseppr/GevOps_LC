@@ -147,161 +147,51 @@
 
   // ═══════════════════════════════════════════════════════════════
   //  1. TEXT NORMALISATION PIPELINE
+  //     Dictionary loaded from _data/tts_dictionary.json via Liquid
+  //     → edit that JSON file to add/fix pronunciations
   // ═══════════════════════════════════════════════════════════════
 
-  // ── 1a. Acronym dictionary ──
-  // "spell" = epeler lettre par lettre, "say" = prononcer comme un mot
-  var ACRONYMS = {
-    // ── Cloud / AWS services ──
-    "AWS":    { mode: "spell" },
-    "EC2":    { mode: "say", as: "E C 2" },
-    "S3":     { mode: "say", as: "S 3" },
-    "IAM":    { mode: "spell" },
-    "VPC":    { mode: "spell" },
-    "EBS":    { mode: "spell" },
-    "EFS":    { mode: "spell" },
-    "RDS":    { mode: "spell" },
-    "ECS":    { mode: "spell" },
-    "EKS":    { mode: "spell" },
-    "ELB":    { mode: "spell" },
-    "ALB":    { mode: "spell" },
-    "NLB":    { mode: "spell" },
-    "SNS":    { mode: "spell" },
-    "SQS":    { mode: "spell" },
-    "AMI":    { mode: "spell" },
-    "ARN":    { mode: "spell" },
-    "CDN":    { mode: "spell" },
-    "KMS":    { mode: "spell" },
-    "WAF":    { mode: "say", as: "waf" },
-    "EMR":    { mode: "spell" },
-    "SES":    { mode: "spell" },
-    // ── *aaS patterns ──
-    "SaaS":   { mode: "say", as: "sasse" },
-    "IaaS":   { mode: "say", as: "yasse" },
-    "PaaS":   { mode: "say", as: "passe" },
-    "FaaS":   { mode: "say", as: "fasse" },
-    "DaaS":   { mode: "say", as: "dasse" },
-    "BaaS":   { mode: "say", as: "basse" },
-    "CaaS":   { mode: "say", as: "casse" },
-    "XaaS":   { mode: "say", as: "X asse" },
-    // ── DevOps / infra ──
-    "CI":     { mode: "spell" },
-    "CD":     { mode: "spell" },
-    "VM":     { mode: "spell" },
-    "OS":     { mode: "spell" },
-    "SSH":    { mode: "spell" },
-    "SSL":    { mode: "spell" },
-    "TLS":    { mode: "spell" },
-    "DNS":    { mode: "spell" },
-    "TCP":    { mode: "spell" },
-    "UDP":    { mode: "spell" },
-    "IP":     { mode: "spell" },
-    "HTTP":   { mode: "spell" },
-    "HTTPS":  { mode: "say", as: "H T T P S" },
-    "API":    { mode: "spell" },
-    "CLI":    { mode: "spell" },
-    "SDK":    { mode: "spell" },
-    "MFA":    { mode: "spell" },
-    "SSO":    { mode: "spell" },
-    "ACL":    { mode: "spell" },
-    "SMTP":   { mode: "spell" },
-    "IOPS":   { mode: "say", as: "aille opse" },
-    "CIDR":   { mode: "say", as: "ci-deure" },
-    "RBAC":   { mode: "say", as: "eur-bac" },
-    "FIFO":   { mode: "say", as: "fi-fo" },
-    "LIFO":   { mode: "say", as: "li-fo" },
-    // ── Data / formats ──
-    "REST":   { mode: "say", as: "resste" },
-    "CRUD":   { mode: "say", as: "crude" },
-    "JSON":   { mode: "say", as: "jéyzone" },
-    "YAML":   { mode: "say", as: "ya-meul" },
-    "SQL":    { mode: "spell" },
-    "NoSQL":  { mode: "say", as: "no S Q L" },
-    "HTML":   { mode: "spell" },
-    "CSS":    { mode: "spell" },
-    "CSV":    { mode: "spell" },
-    "XML":    { mode: "spell" },
-    "URL":    { mode: "spell" },
-    "URI":    { mode: "spell" },
-    "PDF":    { mode: "spell" },
-    // ── Hardware / misc ──
-    "CPU":    { mode: "spell" },
-    "GPU":    { mode: "spell" },
-    "RAM":    { mode: "say", as: "rame" },
-    "SSD":    { mode: "spell" },
-    "HDD":    { mode: "spell" },
-    "SLA":    { mode: "spell" },
-    "DOM":    { mode: "say", as: "domme" },
-    "IDE":    { mode: "spell" },
-    "AZ":     { mode: "spell" },
-    // ── Networking ──
-    "NAT":    { mode: "say", as: "natte" },
-    "VPN":    { mode: "spell" },
-    "BGP":    { mode: "spell" },
-    "VLAN":   { mode: "say", as: "vi-lane" },
-    "LAN":    { mode: "say", as: "lane" },
-    "WAN":    { mode: "say", as: "wane" },
-  };
+  var DICT = window.__TTS_DICT || { acronyms: {}, words: {}, services: {} };
 
-  // Build regex for known acronyms (longest first, case-sensitive)
+  // ── 1a. Acronyms (from dictionary) ──
+  var ACRONYMS = DICT.acronyms || {};
+
   var acronymKeys = Object.keys(ACRONYMS).sort(function (a, b) {
     return b.length - a.length;
   });
-  var acronymRe = new RegExp(
-    "\\b(" + acronymKeys.map(function (k) {
-      return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }).join("|") + ")\\b", "g"
-  );
+  var acronymRe = acronymKeys.length > 0
+    ? new RegExp("\\b(" + acronymKeys.map(function (k) {
+        return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }).join("|") + ")\\b", "g")
+    : null;
 
   function spellWord(w) {
     return w.split("").join(" ");
   }
 
-  // ── 1b. AWS service names (English pronunciation hints) ──
-  var SERVICE_NAMES = {
-    "CloudFront":       "Cloud-Fronte",
-    "CloudWatch":       "Cloud-Wotch",
-    "CloudFormation":   "Cloud-Formation",
-    "CloudTrail":       "Cloud-Traile",
-    "Elastic Beanstalk":"Elastic Bine-stok",
-    "Beanstalk":        "Bine-stok",
-    "Lambda":           "Lamm-da",
-    "DynamoDB":         "Dynamo D B",
-    "ElastiCache":      "Élasti-cache",
-    "Fargate":          "Far-guéte",
-    "CodePipeline":     "Code-Païpe-laïne",
-    "CodeBuild":        "Code-Bilde",
-    "CodeDeploy":       "Code-Diploy",
-    "CodeCommit":       "Code-Comite",
-    "Redshift":         "Rède-chifte",
-    "Lightsail":        "Laïte-séle",
-    "Snowball":         "Snô-bôl",
-    "Glacier":          "Gla-ci-ère",
-    "Athena":           "Atéhna",
-    "Kinesis":          "Ki-né-cisse",
-    "Cognito":          "Co-gni-to",
-    "GuardDuty":        "Garde-Diou-ti",
-    "Macie":            "Mé-ci",
-    "Inspector":        "Ins-pèk-teur",
-    "Shield":           "Childe",
-    "Route 53":         "Route 53",
-    "Terraform":        "Terra-forme",
-    "Kubernetes":       "Kou-ber-né-tice",
-    "Docker":           "Do-keur",
-    "Ansible":          "Anne-si-beul",
-    "Jenkins":          "Djène-kinsse",
-    "Nginx":            "Ène-jinnx",
-    "Apache":           "A-patche",
-  };
+  // ── 1b. Words — anglicisms & mispronounced terms (from dictionary) ──
+  var WORDS = DICT.words || {};
+
+  var wordKeys = Object.keys(WORDS).sort(function (a, b) {
+    return b.length - a.length;
+  });
+  var wordRe = wordKeys.length > 0
+    ? new RegExp("\\b(" + wordKeys.map(function (k) {
+        return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }).join("|") + ")\\b", "gi")
+    : null;
+
+  // ── 1c. Service/tool names (from dictionary) ──
+  var SERVICE_NAMES = DICT.services || {};
 
   var serviceKeys = Object.keys(SERVICE_NAMES).sort(function (a, b) {
     return b.length - a.length;
   });
-  var serviceRe = new RegExp(
-    "(" + serviceKeys.map(function (k) {
-      return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }).join("|") + ")", "gi"
-  );
+  var serviceRe = serviceKeys.length > 0
+    ? new RegExp("(" + serviceKeys.map(function (k) {
+        return k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }).join("|") + ")", "gi")
+    : null;
 
   // ── 1c. Units normalisation ──
   function normalizeUnits(text) {
@@ -399,29 +289,44 @@
     text = normalizeCLI(text);
     text = normalizeUnits(text);
 
-    // Known acronyms
-    text = text.replace(acronymRe, function (match) {
-      var entry = ACRONYMS[match];
-      if (!entry) return match;
-      if (entry.mode === "spell") return spellWord(match);
-      return entry.as;
-    });
+    // Service/tool names pronunciation (before acronyms — longer matches first)
+    if (serviceRe) {
+      text = text.replace(serviceRe, function (match) {
+        for (var key in SERVICE_NAMES) {
+          if (key.toLowerCase() === match.toLowerCase()) return SERVICE_NAMES[key];
+        }
+        return match;
+      });
+    }
 
-    // Service names pronunciation
-    text = text.replace(serviceRe, function (match) {
-      // Case-insensitive lookup
-      for (var key in SERVICE_NAMES) {
-        if (key.toLowerCase() === match.toLowerCase()) return SERVICE_NAMES[key];
-      }
-      return match;
-    });
+    // Known acronyms (case-sensitive)
+    if (acronymRe) {
+      text = text.replace(acronymRe, function (match) {
+        var entry = ACRONYMS[match];
+        if (!entry) return match;
+        if (entry.mode === "spell") return spellWord(match);
+        return entry.as || match;
+      });
+    }
+
+    // Words / anglicisms (case-insensitive)
+    if (wordRe) {
+      text = text.replace(wordRe, function (match) {
+        // Lookup case-insensitive
+        var lower = match.toLowerCase();
+        for (var key in WORDS) {
+          if (key.toLowerCase() === lower) return WORDS[key];
+        }
+        return match;
+      });
+    }
 
     // Unknown ALL-CAPS 2-6 letters → spell
     text = text.replace(/\b([A-Z]{2,6})\b/g, function (match) {
       return spellWord(match);
     });
 
-    // Dash-separated technical terms → spaces
+    // Dash-separated technical terms → spaces (after word replacements)
     text = text.replace(/([a-z])-([a-z])/gi, "$1 $2");
 
     text = enrichProsody(text);

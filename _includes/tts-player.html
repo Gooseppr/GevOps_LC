@@ -34,4 +34,5 @@
     </button>
   </div>
 </div>
-<script defer src="{{ '/assets/tts.js' | relative_url }}?v=7"></script>
+<script>window.__TTS_DICT = {{ site.data.tts_dictionary | jsonify }};</script>
+<script defer src="{{ '/assets/tts.js' | relative_url }}?v=8"></script>
