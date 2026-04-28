@@ -44,9 +44,9 @@
     if (btnToggle) btnToggle.classList.add("tts-toggle-active");
   }
 
-  // Show the toggle button (hidden by default until JS confirms speechSynthesis works)
+  // Show the toggle button (CSS has display:none, JS must set flex explicitly)
   if (btnToggle) {
-    btnToggle.style.display = "";
+    btnToggle.style.display = "inline-flex";
     btnToggle.addEventListener("click", function () {
       setPlayerVisible(!isPlayerVisible());
     });
