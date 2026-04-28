@@ -69,6 +69,81 @@
     (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   var isChrome = /Chrome\//.test(navigator.userAgent) && !/Edg\//.test(navigator.userAgent);
   var needsKeepAlive = isIOS || isChrome;
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  // ═══════════════════════════════════════════════════════════════
+  //  0. BACKGROUND AUDIO KEEP-ALIVE + MEDIA SESSION
+  // ═══════════════════════════════════════════════════════════════
+  //
+  // Mobile OSes kill speechSynthesis when the screen locks.
+  // Workaround: play a silent <audio> loop so the OS thinks media is active.
+  // Bonus: Media Session API shows native controls on the lock screen.
+
+  // Tiny silent MP3 (173 bytes) — avoids a network request
+  var SILENT_MP3 = "data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABhgC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAAYYoRwRHAAAAAAAAAAAAAAAAAAAA//tQZAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQZB8P8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==";
+
+  var bgAudio = null;
+
+  function startBackgroundAudio() {
+    if (!isMobile) return;
+    if (bgAudio) { bgAudio.play().catch(function () {}); return; }
+
+    bgAudio = new Audio(SILENT_MP3);
+    bgAudio.loop = true;
+    bgAudio.volume = 0.01; // near-silent, some browsers ignore volume=0
+    bgAudio.play().catch(function () {
+      // Autoplay blocked — will be started on next user gesture
+    });
+  }
+
+  function stopBackgroundAudio() {
+    if (bgAudio) {
+      bgAudio.pause();
+    }
+  }
+
+  // ── Media Session API: native lock-screen controls ──
+  function updateMediaSession(state, title) {
+    if (!("mediaSession" in navigator)) return;
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: title || "Cours Coursite",
+      artist: "Lecteur Coursite",
+      album: document.title || "Coursite"
+    });
+
+    navigator.mediaSession.playbackState = state; // "playing", "paused", "none"
+  }
+
+  function setupMediaSessionHandlers() {
+    if (!("mediaSession" in navigator)) return;
+
+    navigator.mediaSession.setActionHandler("play", function () {
+      startPlaying();
+    });
+    navigator.mediaSession.setActionHandler("pause", function () {
+      pausePlaying();
+    });
+    navigator.mediaSession.setActionHandler("stop", function () {
+      stopAll();
+    });
+    // Next/previous → skip segments
+    navigator.mediaSession.setActionHandler("nexttrack", function () {
+      if (playing && currentSeg < segments.length - 1) {
+        synth.cancel();
+        speakSegment(currentSeg + 1);
+      }
+    });
+    navigator.mediaSession.setActionHandler("previoustrack", function () {
+      if (playing && currentSeg > 0) {
+        synth.cancel();
+        speakSegment(currentSeg - 1);
+      }
+    });
+  }
+
+  setupMediaSessionHandlers();
 
   // ═══════════════════════════════════════════════════════════════
   //  1. TEXT NORMALISATION PIPELINE
@@ -967,6 +1042,8 @@
     setStatus("Lecture " + blockNum + "/" + blockEls.length);
 
     var seg = segments[index];
+    // Update lock screen with current text snippet
+    updateMediaSession("playing", seg.text.slice(0, 80));
     var normalized = normalizeText(seg.text);
 
     // Skip empty segments after normalisation
@@ -1031,17 +1108,19 @@
 
   function startPlaying() {
     if (paused) {
-      // On Chrome & iOS, synth.resume() is unreliable → cancel + re-speak
-      // On Edge/Firefox, resume() works fine
       if (needsKeepAlive) {
         synth.cancel();
         paused = false; playing = true;
         showPauseBtn(); startKeepAlive();
+        startBackgroundAudio();
+        updateMediaSession("playing", segments[currentSeg] ? segments[currentSeg].text.slice(0, 60) : "Lecture");
         speakSegment(currentSeg);
       } else {
         synth.resume();
         paused = false; playing = true;
         showPauseBtn();
+        startBackgroundAudio();
+        updateMediaSession("playing", "Lecture");
         setStatus("Lecture...");
       }
       return;
@@ -1056,19 +1135,22 @@
 
     playing = true; paused = false; currentSeg = 0;
     showPauseBtn(); startKeepAlive();
+    startBackgroundAudio();
+    updateMediaSession("playing", document.title || "Cours");
     speakSegment(0);
   }
 
   function pausePlaying() {
     if (!playing || paused) return;
     if (needsKeepAlive) {
-      // Chrome & iOS: pause() is unreliable, cancel and remember position
       synth.cancel();
     } else {
       synth.pause();
     }
     paused = true;
     stopKeepAlive(); showPlayBtn();
+    stopBackgroundAudio();
+    updateMediaSession("paused");
     setStatus("Pause");
   }
 
@@ -1076,6 +1158,8 @@
     synth.cancel();
     playing = false; paused = false; currentSeg = 0;
     stopKeepAlive(); clearHighlight(); showPlayBtn();
+    stopBackgroundAudio();
+    updateMediaSession("none");
     setStatus("Pret");
     if (progressBar) progressBar.style.width = "0%";
   }
