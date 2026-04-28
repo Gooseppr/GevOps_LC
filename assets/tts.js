@@ -1,7 +1,6 @@
 (function () {
   "use strict";
 
-  // ── Guard: no speechSynthesis → hide player, bail out ──
   if (!window.speechSynthesis) return;
 
   var synth = window.speechSynthesis;
@@ -9,45 +8,36 @@
   var btnPlay = document.getElementById("tts-play");
   var btnPause = document.getElementById("tts-pause");
   var btnStop = document.getElementById("tts-stop");
-  var status = document.getElementById("tts-status");
+  var statusEl = document.getElementById("tts-status");
   var speedSelect = document.getElementById("tts-speed");
 
   if (!player || !btnPlay) return;
   player.style.display = "";
+
+  // ── iOS detection ──
+  var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   // ── Extract readable text from .post-content ──
   function extractText() {
     var content = document.querySelector(".post-content");
     if (!content) return [];
 
-    // Clone to avoid mutating the DOM
     var clone = content.cloneNode(true);
 
-    // Remove elements that should not be read aloud
     var selectors = [
-      "pre",                   // code blocks
-      "code",                  // inline code
-      ".mermaid",              // diagrams
-      "svg",                   // SVG graphics
-      ".highlight",            // syntax-highlighted blocks
-      "script",
-      "style",
-      "table",                 // tables are hard to read aloud
-      ".module-nav",           // navigation buttons
-      ".snippet-block",        // snippet HTML comments rendered
+      "pre", "code", ".mermaid", "svg", ".highlight",
+      "script", "style", "table", ".module-nav", ".snippet-block"
     ];
     clone.querySelectorAll(selectors.join(",")).forEach(function (el) {
       el.remove();
     });
 
-    // Get text from remaining block-level elements as separate chunks
     var blocks = clone.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt");
     var chunks = [];
     blocks.forEach(function (block) {
       var text = block.textContent.replace(/\s+/g, " ").trim();
-      if (text.length > 0) {
-        chunks.push(text);
-      }
+      if (text.length > 0) chunks.push(text);
     });
 
     return chunks;
@@ -61,37 +51,62 @@
     var all = content.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt");
     var blocks = [];
     all.forEach(function (el) {
-      // Skip elements inside removed containers
       if (el.closest("pre, code, .mermaid, svg, .highlight, script, style, table, .module-nav")) return;
       var text = el.textContent.replace(/\s+/g, " ").trim();
-      if (text.length > 0) {
-        blocks.push(el);
-      }
+      if (text.length > 0) blocks.push(el);
     });
     return blocks;
   }
 
-  // ── Pick a French voice (prefer higher-quality ones) ──
+  // ── Pick the best French voice available ──
   var chosenVoice = null;
+
+  // Quality keywords ranked from best to worst
+  var QUALITY_KEYWORDS = [
+    "neural", "enhanced", "premium", "natural",  // best: neural/enhanced voices
+    "google",                                     // Chrome's Google voices are good
+    "microsoft",                                  // Edge/Windows neural voices
+  ];
+
+  function scoreVoice(v) {
+    var name = v.name.toLowerCase();
+    var score = 0;
+
+    // Penalize compact/eSpeak voices heavily
+    if (name.includes("compact") || name.includes("espeak")) return -100;
+
+    // Bonus for quality keywords
+    for (var i = 0; i < QUALITY_KEYWORDS.length; i++) {
+      if (name.includes(QUALITY_KEYWORDS[i])) {
+        score += (QUALITY_KEYWORDS.length - i) * 10;
+      }
+    }
+
+    // Prefer non-local voices (usually higher quality on Chrome)
+    if (!v.localService) score += 5;
+
+    return score;
+  }
 
   function pickVoice() {
     var voices = synth.getVoices();
-    // Prefer French voices, then any available
+    if (voices.length === 0) return;
+
     var frVoices = voices.filter(function (v) {
       return v.lang && v.lang.startsWith("fr");
     });
+
     if (frVoices.length > 0) {
-      // Prefer non-compact / high quality
-      var preferred = frVoices.filter(function (v) {
-        return !v.name.toLowerCase().includes("compact");
-      });
-      chosenVoice = preferred.length > 0 ? preferred[0] : frVoices[0];
-    } else if (voices.length > 0) {
-      chosenVoice = voices[0];
+      // Sort by quality score descending
+      frVoices.sort(function (a, b) { return scoreVoice(b) - scoreVoice(a); });
+      chosenVoice = frVoices[0];
+    } else {
+      // No French voice: pick best overall
+      var sorted = voices.slice().sort(function (a, b) { return scoreVoice(b) - scoreVoice(a); });
+      chosenVoice = sorted[0];
     }
   }
 
-  // Voices may load asynchronously
   pickVoice();
   if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = pickVoice;
@@ -104,6 +119,7 @@
   var playing = false;
   var paused = false;
   var highlightedEl = null;
+  var keepAliveTimer = null;
   var TTS_HIGHLIGHT_CLASS = "tts-highlight";
 
   function clearHighlight() {
@@ -123,7 +139,7 @@
   }
 
   function setStatus(text) {
-    if (status) status.textContent = text;
+    if (statusEl) statusEl.textContent = text;
   }
 
   function showPlayBtn() {
@@ -136,10 +152,30 @@
     btnPause.style.display = "";
   }
 
+  // ── iOS keep-alive workaround ──
+  // iOS Safari silently stops speechSynthesis after ~15s.
+  // Workaround: pause+resume every 10s to keep it alive.
+  function startKeepAlive() {
+    stopKeepAlive();
+    if (!isIOS) return;
+    keepAliveTimer = setInterval(function () {
+      if (synth.speaking && !synth.paused) {
+        synth.pause();
+        synth.resume();
+      }
+    }, 10000);
+  }
+
+  function stopKeepAlive() {
+    if (keepAliveTimer) {
+      clearInterval(keepAliveTimer);
+      keepAliveTimer = null;
+    }
+  }
+
   // ── Speak one chunk, then chain to the next ──
   function speakChunk(index) {
     if (index >= chunks.length) {
-      // Done
       stopAll();
       setStatus("Termine");
       return;
@@ -161,9 +197,12 @@
     };
 
     utt.onerror = function (e) {
-      // "interrupted" is normal when user stops/pauses
       if (e.error !== "interrupted" && e.error !== "canceled") {
         console.warn("TTS error:", e.error);
+        // On iOS, errors can happen silently — try next chunk
+        if (playing && !paused) {
+          speakChunk(index + 1);
+        }
       }
     };
 
@@ -172,17 +211,29 @@
 
   // ── Controls ──
   function startPlaying() {
-    if (paused) {
-      // Resume
+    if (paused && !isIOS) {
+      // Resume (not reliable on iOS, so iOS always restarts chunk)
       synth.resume();
       paused = false;
       playing = true;
       showPauseBtn();
+      startKeepAlive();
       setStatus("Lecture " + (currentIndex + 1) + "/" + chunks.length);
       return;
     }
 
-    // Fresh start
+    if (paused && isIOS) {
+      // iOS: resume by re-speaking current chunk
+      synth.cancel();
+      paused = false;
+      playing = true;
+      showPauseBtn();
+      startKeepAlive();
+      speakChunk(currentIndex);
+      return;
+    }
+
+    // Fresh start — on iOS, must call synth from direct user gesture
     synth.cancel();
     chunks = extractText();
     blockEls = getBlockElements();
@@ -196,13 +247,20 @@
     paused = false;
     currentIndex = 0;
     showPauseBtn();
+    startKeepAlive();
     speakChunk(0);
   }
 
   function pausePlaying() {
     if (playing && !paused) {
-      synth.pause();
+      if (!isIOS) {
+        synth.pause();
+      } else {
+        // iOS: pause() is unreliable, just cancel and remember position
+        synth.cancel();
+      }
       paused = true;
+      stopKeepAlive();
       showPlayBtn();
       setStatus("Pause");
     }
@@ -213,6 +271,7 @@
     playing = false;
     paused = false;
     currentIndex = 0;
+    stopKeepAlive();
     clearHighlight();
     showPlayBtn();
     setStatus("Pret");
@@ -225,14 +284,13 @@
 
   speedSelect.addEventListener("change", function () {
     if (playing && !paused) {
-      // Restart current chunk at new speed
       synth.cancel();
       speakChunk(currentIndex);
     }
   });
 
-  // Clean up on page unload
   window.addEventListener("beforeunload", function () {
+    stopKeepAlive();
     synth.cancel();
   });
 })();
