@@ -14,116 +14,97 @@ prev_module: "/courses/observabilité/guide-pratique_open-source.html"
 prev_module_title: "Guide pratique — Stack open source (Prometheus, Grafana, Loki, Tempo)"
 ---
 
-# Observabilite sur AWS (EC2 + CloudWatch + X-Ray)
+# Guide pratique — Observabilite sur AWS (CloudWatch, X-Ray, ADOT)
+
+> Meme application de demo (OpenTelemetry Astronomy Shop), mais cette fois deployee sur EC2 avec la stack d'observabilite native AWS.
+> L'objectif est de maitriser CloudWatch Logs, CloudWatch Metrics, les alarmes et X-Ray pour le tracing distribue.
 
 ---
 
-# 3.1 Architecture cible AWS
+## 1. Architecture cible
 
-## Vision globale
+### Composants
 
-```
+| Composant | Role |
+|-----------|------|
+| EC2 | Machine hote |
+| Docker | Runtime applicatif |
+| CloudWatch Logs | Logs centralises |
+| CloudWatch Metrics | Metriques |
+| CloudWatch Agent | Collecte avancee (RAM, disque) |
+| X-Ray | Tracing distribue |
+| ADOT Collector | OpenTelemetry AWS (bridge vers X-Ray) |
 
-```
+### Flux des donnees
 
----
-
-## Rôle des composants
-
-| Composant | Rôle |
-| --- | --- |
-| EC2 | machine hôte |
-| Docker | runtime app |
-| CloudWatch Logs | logs centralisés |
-| CloudWatch Metrics | métriques |
-| CloudWatch Agent | collecte avancée |
-| X-Ray | tracing distribué |
-| ADOT | OpenTelemetry AWS |
+- Logs Docker → driver `awslogs` → CloudWatch Logs
+- Metriques systeme → CloudWatch Agent → CloudWatch Metrics
+- Traces → ADOT Collector → X-Ray
 
 ---
 
-## Flux des données
+## 2. Preparation de l'environnement AWS
 
-- Logs Docker → CloudWatch Logs
-- Métriques système → CloudWatch Agent → CloudWatch Metrics
-- Traces → OpenTelemetry → X-Ray
+### Instance recommandee
 
----
-
-# 3.2 Préparation AWS
-
----
-
-## Instance recommandée
-
-- Type : `t3.medium` (minimum réaliste)
+- Type : `t3.medium` (minimum realiste)
 - OS : Amazon Linux 2023
 
----
-
-## Security Group (minimal)
+### Security Group minimal
 
 | Port | Usage |
-| --- | --- |
+|------|-------|
 | 22 | SSH |
-| 8080 | app |
-| 3000 | (optionnel debug Grafana) |
+| 8080 | Application |
+| 3000 | Grafana (optionnel, debug) |
 
----
+### IAM Role (obligatoire)
 
-## IAM Role (obligatoire)
-
-Créer un rôle EC2 avec :
-
+Creer un role EC2 avec les policies suivantes :
 - `CloudWatchAgentServerPolicy`
 - `AWSXrayWriteOnlyAccess`
 
----
+Sans ce role, ni le CloudWatch Agent ni le ADOT Collector ne pourront envoyer de donnees.
 
-## Installation Docker
+### Installation Docker
 
-```
-sudo dnf update-y
-sudo dnf install docker-y
-sudo systemctlstart docker
+```bash
+sudo dnf update -y
+sudo dnf install docker -y
+sudo systemctl start docker
 sudo systemctl enable docker
-sudo usermod-aG docker ec2-user
+sudo usermod -aG docker ec2-user
 ```
 
----
+### Installation Docker Compose
 
-## Docker Compose
-
+```bash
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64" \
+  -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 ```
-sudocurl-L"https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64"-o /usr/local/bin/docker-compose
-sudochmod+x /usr/local/bin/docker-compose
-```
 
----
+### Verification
 
-## Vérification
-
-```
-docker--version
+```bash
+docker --version
 docker compose version
 ```
 
 ---
 
-# 3.3 Déploiement application
+## 3. Deploiement de l'application
 
----
+### docker-compose.yml (adapte AWS)
 
-## docker-compose.yml (AWS adapté)
-
-```
-version:"3.9"
+```yaml
+version: "3.9"
 
 services:
   app:
     image: ghcr.io/open-telemetry/opentelemetry-demo:latest
     ports:
-      -"8080:8080"
+      - "8080:8080"
     logging:
       driver: awslogs
       options:
@@ -138,116 +119,89 @@ services:
     command: ["--config=/etc/otel/config.yaml"]
 ```
 
----
+La difference cle avec la version open source : le driver de logs est `awslogs` au lieu de la sortie standard. Les logs partent directement dans CloudWatch sans passer par Promtail/Loki.
 
-## Lancement
+### Lancement et verification
 
-```
-docker compose up-d
-```
-
----
-
-## Vérification
-
-```
+```bash
+docker compose up -d
 curl http://localhost:8080
 ```
 
----
+### Generer du trafic
 
-## Générer du trafic
-
-```
-whiletrue;docurl-s http://localhost:8080 > /dev/null;done
+```bash
+while true; do curl -s http://localhost:8080 > /dev/null; sleep 0.5; done
 ```
 
 ---
 
-# 3.4 Logs avec CloudWatch
+## 4. Logs avec CloudWatch Logs
 
----
+### Structure
 
-## Concept
-
-- Chaque conteneur → log stream
-- Chaque app → log group
-
----
-
-## Structure
+Chaque conteneur ecrit dans un log stream, regroupe dans un log group :
 
 ```
 /observability-app
   ├── app/container-1
-  ├── app/container-2
+  └── app/container-2
 ```
 
----
+### Requetes CloudWatch Logs Insights
 
-## Requêtes Logs Insights
-
-### erreurs HTTP
+Trouver les erreurs HTTP 500 :
 
 ```
 fields @timestamp, @message
-| filter @messagelike/500/
-| sort @timestampdesc
+| filter @message like /500/
+| sort @timestamp desc
 ```
 
----
-
-### latence
+Chercher les messages lies a la latence :
 
 ```
 fields @timestamp, @message
-| filter @messagelike/duration/
+| filter @message like /duration/
 ```
 
----
-
-### logs par service
+Lister les logs par service :
 
 ```
 fields @logStream, @message
-| sort @timestampdesc
+| sort @timestamp desc
 ```
 
----
+### Objectif
 
-## Objectif pédagogique
-
-👉 répondre à :
-
-- où sont les erreurs ?
-- quel service ?
-- quand ?
+Savoir repondre rapidement a trois questions :
+- Ou sont les erreurs ?
+- Quel service ?
+- Quand ca a commence ?
 
 ---
 
-# 3.5 Métriques avec CloudWatch
+## 5. Metriques avec CloudWatch Metrics
 
----
+### Metriques natives EC2
 
-## Métriques natives EC2
+Ces metriques sont disponibles sans aucune configuration :
 
-- CPUUtilization
-- NetworkIn / Out
-- DiskRead / Write
+- `CPUUtilization`
+- `NetworkIn` / `NetworkOut`
+- `DiskReadOps` / `DiskWriteOps`
 
-⚠️ Limite : pas de RAM par défaut
+Limite importante : la memoire (RAM) n'est **pas** collectee par defaut. Il faut le CloudWatch Agent.
 
----
+### Ajouter le CloudWatch Agent
 
-## Ajouter CloudWatch Agent
+Configuration (`config.json`) :
 
-### config
-
-```
+```json
 {
   "metrics": {
     "append_dimensions": {
-      "InstanceId":"${aws:InstanceId}"
+      "InstanceId": "${aws:InstanceId}"
     },
     "metrics_collected": {
       "mem": {
@@ -262,69 +216,45 @@ fields @logStream, @message
 }
 ```
 
----
+Demarrage :
 
-## Démarrage
-
-```
+```bash
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
--a fetch-config \
--m ec2 \
--c file:config.json \
--s
+  -a fetch-config \
+  -m ec2 \
+  -c file:config.json \
+  -s
 ```
 
----
-
-## Dashboards essentiels
+### Dashboard essentiel a construire
 
 - CPU EC2
-- mémoire
-- disque
-- trafic réseau
-- erreurs applicatives
+- Memoire (via Agent)
+- Disque (via Agent)
+- Trafic reseau
+- Erreurs applicatives (via log-based metric)
+
+### Alarmes utiles
+
+| Alarme | Seuil | Periode |
+|--------|-------|---------|
+| CPU eleve | > 80% | 5 minutes |
+| Memoire elevee | > 75% | 5 minutes |
+| Erreurs HTTP 5xx | > 10/min | 1 minute |
+
+Pour les erreurs HTTP : creer un **metric filter** sur le log group qui compte les occurrences de `500` et genere une metrique custom, puis configurer une alarme dessus.
 
 ---
 
-## Alarmes utiles
+## 6. Traces avec X-Ray
 
-### CPU élevé
+### Instrumentation via ADOT
 
-- seuil : > 80% sur 5 min
+ADOT (AWS Distro for OpenTelemetry) sert de bridge entre l'instrumentation OpenTelemetry de l'application et X-Ray.
 
----
+Configuration minimale de l'OTEL Collector pour exporter vers X-Ray :
 
-### mémoire
-
-- 75%
-
----
-
-### erreurs HTTP
-
-(log-based metric)
-
----
-
-# 3.6 Traces avec X-Ray
-
----
-
-## Définition
-
-X-Ray = tracing distribué AWS
-
----
-
-## Instrumentation
-
-Via ADOT (OpenTelemetry AWS)
-
----
-
-## Exemple config OTEL
-
-```
+```yaml
 exporters:
   awsxray:
 
@@ -334,238 +264,159 @@ service:
       exporters: [awsxray]
 ```
 
----
+### Lecture d'une trace dans X-Ray
 
-## Lecture d’une trace
+La console X-Ray offre trois vues :
+
+- **Service Map** : graphe des dependances entre services avec latence et taux d'erreurs sur chaque lien
+- **Traces** : liste des traces individuelles, filtrables par duree, statut, service
+- **Analyse par span** : detail de chaque etape d'une requete avec sa duree
+
+### Exemple de diagnostic
+
+Probleme : lenteur sur le checkout.
 
 Dans X-Ray :
+- Frontend → 12 ms (OK)
+- Backend → 18 ms (OK)
+- Base de donnees → 1 800 ms (lent)
 
-- service map
-- latence par service
-- erreurs
-
----
-
-## Diagnostic type
-
-👉 lenteur checkout
-
-- frontend OK
-- backend lent
-- DB lent
-
-👉 conclusion : bottleneck DB
+Conclusion : le goulot d'etranglement est la base de donnees, pas l'application.
 
 ---
 
-# 3.7 Méthode de diagnostic AWS (SRE)
+## 7. Methode de diagnostic SRE sur AWS
+
+Quand une alarme se declenche, suivre ces etapes dans l'ordre :
+
+### Etape 1 — Alarme
+
+Identifier le symptome : latence elevee ? taux d'erreurs en hausse ? CPU sature ?
+
+### Etape 2 — Metriques
+
+Ouvrir CloudWatch Metrics :
+- CPU inhabituellement eleve ?
+- Pic de trafic reseau ?
+- Memoire proche de la saturation ?
+
+### Etape 3 — Logs
+
+Ouvrir CloudWatch Logs Insights :
+- Des erreurs dans les logs applicatifs ?
+- Un pattern qui se repete (ex: `connection refused`, `timeout`) ?
+
+### Etape 4 — Traces
+
+Ouvrir X-Ray :
+- Quel service est le plus lent dans la chaine ?
+- Y a-t-il des erreurs sur un span specifique ?
+
+### Etape 5 — Conclusion et action
+
+Exemples de conclusions :
+- CPU sature → scaling horizontal (ASG) ou vertical (type d'instance)
+- Service externe lent → circuit breaker, retry avec backoff
+- Base de donnees lente → read replicas, cache, optimisation de requetes
 
 ---
 
-## Étape 1 : alarme
+## 8. Exercices pratiques
 
-ex : latence ↑
+### Exercice 1 — Trouver la cause d'erreurs 500
 
----
+**Declencher** :
 
-## Étape 2 : métriques
-
-CloudWatch :
-
-- CPU ?
-- trafic ?
-
----
-
-## Étape 3 : logs
-
-Logs Insights :
-
-- erreurs ?
-
----
-
-## Étape 4 : traces
-
-X-Ray :
-
-- quel service ?
-
----
-
-## Étape 5 : conclusion
-
-ex :
-
-- CPU saturé → scaling
-- service lent → optimisation
-
----
-
-# 3.8 Exercices pratiques AWS
-
----
-
-## 1. erreurs 500
-
-### déclencher
-
-endpoint checkout
-
----
-
-### observer
-
-- Logs Insights
-- métrique erreur
-
----
-
-## 2. latence
-
-### déclencher
-
-hey / curl load
-
----
-
-### observer
-
-- métriques latency
-- X-Ray trace lente
-
----
-
-## 3. CPU élevé
-
-```
-docker run--rm progrium/stress--cpu4
+```bash
+curl http://localhost:8080/api/checkout
 ```
 
----
+**Observer** :
+- CloudWatch Logs Insights → filtrer par `500`
+- CloudWatch Metrics → pic sur la metrique d'erreurs
 
-### observer
+### Exercice 2 — Diagnostiquer une latence elevee
 
-- CloudWatch CPU
-- latence ↑
+**Declencher** : generer de la charge
 
----
-
-## 4. conteneur down
-
-```
-dockerstop <id>
+```bash
+hey -z 2m -q 10 -c 50 http://<EC2_IP>:8080
 ```
 
----
+**Observer** :
+- CloudWatch Metrics → latence en hausse
+- X-Ray → identifier le span le plus lent
 
-### observer
+### Exercice 3 — Reagir a une saturation CPU
 
-- logs stop
-- métriques anomalies
+**Declencher** :
 
----
-
-## 5. disque plein
-
-```
-fallocate-l 10G testfile
+```bash
+docker run --rm progrium/stress --cpu 4
 ```
 
----
+**Observer** :
+- CloudWatch → `CPUUtilization` monte
+- Correlation avec la latence applicative
 
-### observer
+### Exercice 4 — Detecter un conteneur qui tombe
 
-- CloudWatch disk
+**Declencher** :
 
----
-
-## 6. dépendance KO
-
-stop service interne
-
----
-
-### observer
-
-- erreurs ↑
-- traces montrent dépendance
-
----
-
-## 7. trafic élevé
-
-```
-hey-z 2m-c100 http://EC2_IP:8080
+```bash
+docker stop <container_id>
 ```
 
----
+**Observer** :
+- CloudWatch Logs → les logs du conteneur s'arretent
+- CloudWatch Metrics → anomalies sur les metriques applicatives
+
+### Exercice 5 — Simuler un disque plein
+
+**Declencher** :
+
+```bash
+fallocate -l 10G testfile
+```
+
+**Observer** :
+- CloudWatch Agent → metrique `disk_used_percent` monte
+
+### Exercice 6 — Observer une dependance KO
+
+**Declencher** : arreter un service interne
+
+**Observer** :
+- Taux d'erreurs en hausse
+- X-Ray → la trace montre que le span vers le service arrete echoue
+
+### Exercice 7 — Tester le comportement sous forte charge
+
+**Declencher** :
+
+```bash
+hey -z 2m -c 100 http://<EC2_IP>:8080
+```
+
+**Observer** : saturation progressive, augmentation de la latence, apparition d'erreurs.
 
 ---
 
-# 📊 4. COMPARAISON Open Source vs AWS
+## 9. Comparaison Open Source vs AWS
 
----
+| Critere | Open Source (Prometheus, Grafana, Loki, Tempo) | AWS (CloudWatch, X-Ray) |
+|---------|------------------------------------------------|------------------------|
+| Cout | Gratuit (hors infra) | Facture a l'usage (logs ingeres, metriques custom, traces) |
+| Complexite de mise en place | Elevee — tout a configurer soi-meme | Moyenne — integration native avec les services AWS |
+| Maintenance | A ta charge (mises a jour, stockage, scaling) | Geree par AWS |
+| Flexibilite | Maximale — tout est personnalisable | Limitee au perimetre CloudWatch/X-Ray |
+| Scalabilite | Manuelle (Federation Prometheus, sharding Loki) | Native et transparente |
+| Portabilite | Fonctionne partout (cloud, on-premise, hybrid) | Dependant d'AWS |
 
-## Open source
+### Quand choisir quoi
 
-### Avantages
+**Open Source** quand tu veux comprendre les briques fondamentales de l'observabilite, quand tu travailles en multi-cloud ou on-premise, ou quand tu as besoin d'une flexibilite maximale sur les requetes et les dashboards.
 
-- contrôle total
-- gratuit (infra locale)
-- flexible
+**AWS** quand tu es deja sur AWS et que tu veux une mise en place rapide sans maintenance, quand l'equipe est petite et ne peut pas se permettre de gerer l'infra d'observabilite en plus du produit.
 
----
-
-### Inconvénients
-
-- maintenance lourde
-- config complexe
-- scaling manuel
-
----
-
-## AWS
-
-### Avantages
-
-- intégré
-- scalable
-- rapide à mettre en place
-
----
-
-### Inconvénients
-
-- coût
-- vendor lock-in
-- moins flexible
-
----
-
-## Résumé
-
-| Critère | Open Source | AWS |
-| --- | --- | --- |
-| coût | faible | variable |
-| complexité | élevée | moyenne |
-| maintenance | élevée | faible |
-| flexibilité | maximale | limitée |
-| scalabilité | manuelle | native |
-
----
-
-# 🎯 Ce que tu dois retenir
-
----
-
-👉 Open source = comprendre les briques
-
-👉 AWS = comprendre le système intégré
-
-👉 SRE réel = capacité à :
-
-- corréler logs / metrics / traces
-- diagnostiquer rapidement
-- éviter le bruit
-- créer des alertes utiles
+**En realite** : un SRE doit maitriser les deux. Les concepts sont les memes (logs, metriques, traces, correlation). Seuls les outils changent. La capacite a diagnostiquer rapidement un incident repose sur la methode, pas sur l'outil.
