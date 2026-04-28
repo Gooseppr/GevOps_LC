@@ -1,281 +1,824 @@
 {
   "_comment": "Dictionnaire de prononciation TTS — editer ce fichier pour corriger la lecture audio",
   "_usage": {
-    "acronyms": "spell = epeler lettre par lettre (AWS → A W S), say = prononcer le champ 'as'",
-    "words": "Mots courants mal prononces par la synthese vocale. Cle = mot exact, valeur = phonetique FR",
-    "services": "Noms de services/outils tech avec prononciation anglaise phonetisee pour voix FR"
+    "acronyms": "spell = epeler lettre par lettre (AWS -> A W S), say = prononcer le champ 'as'",
+    "words": "Mots courants mal prononces. Cle = mot exact, valeur = phonetique FR",
+    "services": "Noms de services/outils tech avec prononciation phonetisee"
   },
-
   "acronyms": {
-    "AWS":    { "mode": "spell" },
-    "EC2":    { "mode": "say", "as": "E C 2" },
-    "S3":     { "mode": "say", "as": "S 3" },
-    "IAM":    { "mode": "spell" },
-    "VPC":    { "mode": "spell" },
-    "EBS":    { "mode": "spell" },
-    "EFS":    { "mode": "spell" },
-    "RDS":    { "mode": "spell" },
-    "ECS":    { "mode": "spell" },
-    "EKS":    { "mode": "spell" },
-    "ELB":    { "mode": "spell" },
-    "ALB":    { "mode": "spell" },
-    "NLB":    { "mode": "spell" },
-    "SNS":    { "mode": "spell" },
-    "SQS":    { "mode": "spell" },
-    "AMI":    { "mode": "spell" },
-    "ARN":    { "mode": "spell" },
-    "CDN":    { "mode": "spell" },
-    "KMS":    { "mode": "spell" },
-    "WAF":    { "mode": "say", "as": "waf" },
-    "EMR":    { "mode": "spell" },
-    "SES":    { "mode": "spell" },
-    "SaaS":   { "mode": "say", "as": "sasse" },
-    "IaaS":   { "mode": "say", "as": "yasse" },
-    "PaaS":   { "mode": "say", "as": "passe" },
-    "FaaS":   { "mode": "say", "as": "fasse" },
-    "DaaS":   { "mode": "say", "as": "dasse" },
-    "BaaS":   { "mode": "say", "as": "basse" },
-    "CaaS":   { "mode": "say", "as": "casse" },
-    "XaaS":   { "mode": "say", "as": "X asse" },
-    "CI":     { "mode": "spell" },
-    "CD":     { "mode": "spell" },
-    "VM":     { "mode": "spell" },
-    "OS":     { "mode": "spell" },
-    "SSH":    { "mode": "spell" },
-    "SSL":    { "mode": "spell" },
-    "TLS":    { "mode": "spell" },
-    "DNS":    { "mode": "spell" },
-    "TCP":    { "mode": "spell" },
-    "UDP":    { "mode": "spell" },
-    "IP":     { "mode": "spell" },
-    "HTTP":   { "mode": "spell" },
-    "HTTPS":  { "mode": "say", "as": "H T T P S" },
-    "API":    { "mode": "spell" },
-    "CLI":    { "mode": "spell" },
-    "SDK":    { "mode": "spell" },
-    "MFA":    { "mode": "spell" },
-    "SSO":    { "mode": "spell" },
-    "ACL":    { "mode": "spell" },
-    "SMTP":   { "mode": "spell" },
-    "IOPS":   { "mode": "say", "as": "aille-opse" },
-    "CIDR":   { "mode": "say", "as": "ci-deure" },
-    "RBAC":   { "mode": "say", "as": "eur-bac" },
-    "FIFO":   { "mode": "say", "as": "fi-fo" },
-    "LIFO":   { "mode": "say", "as": "li-fo" },
-    "REST":   { "mode": "say", "as": "resste" },
-    "CRUD":   { "mode": "say", "as": "crude" },
-    "JSON":   { "mode": "say", "as": "jéyzone" },
-    "YAML":   { "mode": "say", "as": "ya-meul" },
-    "SQL":    { "mode": "spell" },
-    "NoSQL":  { "mode": "say", "as": "no S Q L" },
-    "HTML":   { "mode": "spell" },
-    "CSS":    { "mode": "spell" },
-    "CSV":    { "mode": "spell" },
-    "XML":    { "mode": "spell" },
-    "URL":    { "mode": "spell" },
-    "URI":    { "mode": "spell" },
-    "PDF":    { "mode": "spell" },
-    "CPU":    { "mode": "spell" },
-    "GPU":    { "mode": "spell" },
-    "RAM":    { "mode": "say", "as": "rame" },
-    "SSD":    { "mode": "spell" },
-    "HDD":    { "mode": "spell" },
-    "SLA":    { "mode": "spell" },
-    "DOM":    { "mode": "say", "as": "domme" },
-    "IDE":    { "mode": "spell" },
-    "AZ":     { "mode": "spell" },
-    "NAT":    { "mode": "say", "as": "natte" },
-    "VPN":    { "mode": "spell" },
-    "BGP":    { "mode": "spell" },
-    "VLAN":   { "mode": "say", "as": "vi-lane" },
-    "LAN":    { "mode": "say", "as": "lane" },
-    "WAN":    { "mode": "say", "as": "wane" },
-    "PID":    { "mode": "spell" },
-    "EIP":    { "mode": "spell" },
-    "ENI":    { "mode": "spell" },
-    "TTL":    { "mode": "spell" },
-    "IAC":    { "mode": "spell" },
-    "HPC":    { "mode": "spell" }
+    "ACL": {
+      "mode": "spell"
+    },
+    "ACM": {
+      "mode": "spell"
+    },
+    "ACU": {
+      "mode": "spell"
+    },
+    "AD": {
+      "mode": "spell"
+    },
+    "AES": {
+      "mode": "spell"
+    },
+    "ALB": {
+      "mode": "spell"
+    },
+    "AMI": {
+      "mode": "spell"
+    },
+    "API": {
+      "mode": "spell"
+    },
+    "ARN": {
+      "mode": "spell"
+    },
+    "ASG": {
+      "mode": "spell"
+    },
+    "AWS": {
+      "mode": "spell"
+    },
+    "AZ": {
+      "mode": "spell"
+    },
+    "BDD": {
+      "mode": "spell"
+    },
+    "BGP": {
+      "mode": "spell"
+    },
+    "BI": {
+      "mode": "spell"
+    },
+    "BYOL": {
+      "mode": "spell"
+    },
+    "BaaS": {
+      "mode": "say",
+      "as": "basse"
+    },
+    "CA": {
+      "mode": "spell"
+    },
+    "CD": {
+      "mode": "spell"
+    },
+    "CDC": {
+      "mode": "spell"
+    },
+    "CDK": {
+      "mode": "spell"
+    },
+    "CDN": {
+      "mode": "spell"
+    },
+    "CF": {
+      "mode": "spell"
+    },
+    "CGW": {
+      "mode": "spell"
+    },
+    "CI": {
+      "mode": "spell"
+    },
+    "CIDR": {
+      "mode": "say",
+      "as": "ci-deure"
+    },
+    "CLB": {
+      "mode": "spell"
+    },
+    "CLI": {
+      "mode": "spell"
+    },
+    "CMK": {
+      "mode": "spell"
+    },
+    "CNAME": {
+      "mode": "spell"
+    },
+    "CORS": {
+      "mode": "spell"
+    },
+    "CPU": {
+      "mode": "spell"
+    },
+    "CRM": {
+      "mode": "spell"
+    },
+    "CRR": {
+      "mode": "spell"
+    },
+    "CRUD": {
+      "mode": "say",
+      "as": "crude"
+    },
+    "CSS": {
+      "mode": "spell"
+    },
+    "CSV": {
+      "mode": "spell"
+    },
+    "CTO": {
+      "mode": "spell"
+    },
+    "CUR": {
+      "mode": "spell"
+    },
+    "CaaS": {
+      "mode": "say",
+      "as": "casse"
+    },
+    "DAX": {
+      "mode": "spell"
+    },
+    "DB": {
+      "mode": "spell"
+    },
+    "DLQ": {
+      "mode": "spell"
+    },
+    "DMS": {
+      "mode": "spell"
+    },
+    "DNS": {
+      "mode": "spell"
+    },
+    "DOM": {
+      "mode": "say",
+      "as": "domme"
+    },
+    "DR": {
+      "mode": "spell"
+    },
+    "DRS": {
+      "mode": "spell"
+    },
+    "DSS": {
+      "mode": "spell"
+    },
+    "DX": {
+      "mode": "spell"
+    },
+    "DaaS": {
+      "mode": "say",
+      "as": "dasse"
+    },
+    "EBS": {
+      "mode": "spell"
+    },
+    "EC2": {
+      "mode": "say",
+      "as": "E C 2"
+    },
+    "ECR": {
+      "mode": "spell"
+    },
+    "ECS": {
+      "mode": "spell"
+    },
+    "EFS": {
+      "mode": "spell"
+    },
+    "EIP": {
+      "mode": "spell"
+    },
+    "EKS": {
+      "mode": "spell"
+    },
+    "ELB": {
+      "mode": "spell"
+    },
+    "EMR": {
+      "mode": "spell"
+    },
+    "ENI": {
+      "mode": "spell"
+    },
+    "ETL": {
+      "mode": "spell"
+    },
+    "FIFO": {
+      "mode": "say",
+      "as": "fi-fo"
+    },
+    "FIS": {
+      "mode": "spell"
+    },
+    "FTP": {
+      "mode": "spell"
+    },
+    "FTPS": {
+      "mode": "spell"
+    },
+    "FaaS": {
+      "mode": "say",
+      "as": "fasse"
+    },
+    "GCP": {
+      "mode": "spell"
+    },
+    "GLB": {
+      "mode": "spell"
+    },
+    "GPU": {
+      "mode": "spell"
+    },
+    "HA": {
+      "mode": "spell"
+    },
+    "HCL": {
+      "mode": "spell"
+    },
+    "HDD": {
+      "mode": "spell"
+    },
+    "HDFS": {
+      "mode": "spell"
+    },
+    "HIPAA": {
+      "mode": "spell"
+    },
+    "HPC": {
+      "mode": "spell"
+    },
+    "HSM": {
+      "mode": "spell"
+    },
+    "HTML": {
+      "mode": "spell"
+    },
+    "HTTP": {
+      "mode": "spell"
+    },
+    "HTTPS": {
+      "mode": "say",
+      "as": "H T T P S"
+    },
+    "IA": {
+      "mode": "spell"
+    },
+    "IAC": {
+      "mode": "spell"
+    },
+    "IAM": {
+      "mode": "spell"
+    },
+    "ID": {
+      "mode": "spell"
+    },
+    "IDE": {
+      "mode": "spell"
+    },
+    "IDS": {
+      "mode": "spell"
+    },
+    "IGW": {
+      "mode": "spell"
+    },
+    "IOPS": {
+      "mode": "say",
+      "as": "aille-opse"
+    },
+    "IP": {
+      "mode": "spell"
+    },
+    "IPS": {
+      "mode": "spell"
+    },
+    "ISO": {
+      "mode": "spell"
+    },
+    "IaaS": {
+      "mode": "say",
+      "as": "yasse"
+    },
+    "JS": {
+      "mode": "spell"
+    },
+    "JSON": {
+      "mode": "say",
+      "as": "jéyzone"
+    },
+    "JWT": {
+      "mode": "spell"
+    },
+    "KMS": {
+      "mode": "spell"
+    },
+    "LAN": {
+      "mode": "say",
+      "as": "lane"
+    },
+    "LB": {
+      "mode": "spell"
+    },
+    "LIFO": {
+      "mode": "say",
+      "as": "li-fo"
+    },
+    "LSI": {
+      "mode": "spell"
+    },
+    "MFA": {
+      "mode": "spell"
+    },
+    "MGN": {
+      "mode": "spell"
+    },
+    "ML": {
+      "mode": "spell"
+    },
+    "MQ": {
+      "mode": "spell"
+    },
+    "MQTT": {
+      "mode": "spell"
+    },
+    "MSK": {
+      "mode": "spell"
+    },
+    "NACL": {
+      "mode": "spell"
+    },
+    "NAT": {
+      "mode": "say",
+      "as": "natte"
+    },
+    "NET": {
+      "mode": "spell"
+    },
+    "NFS": {
+      "mode": "spell"
+    },
+    "NLB": {
+      "mode": "spell"
+    },
+    "NLP": {
+      "mode": "spell"
+    },
+    "NTFS": {
+      "mode": "spell"
+    },
+    "NoSQL": {
+      "mode": "say",
+      "as": "no S Q L"
+    },
+    "OAC": {
+      "mode": "spell"
+    },
+    "OCR": {
+      "mode": "spell"
+    },
+    "OIDC": {
+      "mode": "spell"
+    },
+    "OLAP": {
+      "mode": "spell"
+    },
+    "OLTP": {
+      "mode": "spell"
+    },
+    "ONTAP": {
+      "mode": "spell"
+    },
+    "ORC": {
+      "mode": "spell"
+    },
+    "OS": {
+      "mode": "spell"
+    },
+    "OSI": {
+      "mode": "spell"
+    },
+    "OU": {
+      "mode": "spell"
+    },
+    "PAS": {
+      "mode": "spell"
+    },
+    "PCI": {
+      "mode": "spell"
+    },
+    "PDF": {
+      "mode": "spell"
+    },
+    "PHP": {
+      "mode": "spell"
+    },
+    "PID": {
+      "mode": "spell"
+    },
+    "PII": {
+      "mode": "spell"
+    },
+    "POSIX": {
+      "mode": "spell"
+    },
+    "PROD": {
+      "mode": "spell"
+    },
+    "PaaS": {
+      "mode": "say",
+      "as": "passe"
+    },
+    "QLDB": {
+      "mode": "spell"
+    },
+    "RAM": {
+      "mode": "say",
+      "as": "rame"
+    },
+    "RBAC": {
+      "mode": "say",
+      "as": "eur-bac"
+    },
+    "RCU": {
+      "mode": "spell"
+    },
+    "RDS": {
+      "mode": "spell"
+    },
+    "REST": {
+      "mode": "say",
+      "as": "resste"
+    },
+    "RFC": {
+      "mode": "spell"
+    },
+    "RGPD": {
+      "mode": "spell"
+    },
+    "RI": {
+      "mode": "spell"
+    },
+    "RPO": {
+      "mode": "spell"
+    },
+    "RTO": {
+      "mode": "spell"
+    },
+    "S3": {
+      "mode": "say",
+      "as": "S 3"
+    },
+    "SAA": {
+      "mode": "spell"
+    },
+    "SAM": {
+      "mode": "spell"
+    },
+    "SAML": {
+      "mode": "spell"
+    },
+    "SAP": {
+      "mode": "spell"
+    },
+    "SCP": {
+      "mode": "spell"
+    },
+    "SCT": {
+      "mode": "spell"
+    },
+    "SDK": {
+      "mode": "spell"
+    },
+    "SES": {
+      "mode": "spell"
+    },
+    "SFTP": {
+      "mode": "spell"
+    },
+    "SG": {
+      "mode": "spell"
+    },
+    "SHA": {
+      "mode": "spell"
+    },
+    "SLA": {
+      "mode": "spell"
+    },
+    "SLO": {
+      "mode": "spell"
+    },
+    "SMB": {
+      "mode": "spell"
+    },
+    "SMS": {
+      "mode": "spell"
+    },
+    "SMTP": {
+      "mode": "spell"
+    },
+    "SNS": {
+      "mode": "spell"
+    },
+    "SPICE": {
+      "mode": "spell"
+    },
+    "SPOF": {
+      "mode": "spell"
+    },
+    "SQL": {
+      "mode": "spell"
+    },
+    "SQS": {
+      "mode": "spell"
+    },
+    "SRR": {
+      "mode": "spell"
+    },
+    "SSD": {
+      "mode": "spell"
+    },
+    "SSE": {
+      "mode": "spell"
+    },
+    "SSH": {
+      "mode": "spell"
+    },
+    "SSL": {
+      "mode": "spell"
+    },
+    "SSM": {
+      "mode": "spell"
+    },
+    "SSO": {
+      "mode": "spell"
+    },
+    "STS": {
+      "mode": "spell"
+    },
+    "SaaS": {
+      "mode": "say",
+      "as": "sasse"
+    },
+    "TCP": {
+      "mode": "spell"
+    },
+    "TLS": {
+      "mode": "spell"
+    },
+    "TTL": {
+      "mode": "spell"
+    },
+    "UDP": {
+      "mode": "spell"
+    },
+    "URI": {
+      "mode": "spell"
+    },
+    "URL": {
+      "mode": "spell"
+    },
+    "VIF": {
+      "mode": "spell"
+    },
+    "VLAN": {
+      "mode": "say",
+      "as": "vi-lane"
+    },
+    "VM": {
+      "mode": "spell"
+    },
+    "VPC": {
+      "mode": "spell"
+    },
+    "VPN": {
+      "mode": "spell"
+    },
+    "VTL": {
+      "mode": "spell"
+    },
+    "WAF": {
+      "mode": "say",
+      "as": "waf"
+    },
+    "WAN": {
+      "mode": "say",
+      "as": "wane"
+    },
+    "WCU": {
+      "mode": "spell"
+    },
+    "WORM": {
+      "mode": "spell"
+    },
+    "XML": {
+      "mode": "spell"
+    },
+    "XSS": {
+      "mode": "spell"
+    },
+    "XaaS": {
+      "mode": "say",
+      "as": "X asse"
+    },
+    "YAML": {
+      "mode": "say",
+      "as": "ya-meul"
+    }
   },
-
   "words": {
-    "datacenter": "data-centeur",
-    "datacenters": "data-centeurs",
-    "tagger": "tagué",
-    "taggera": "taguera",
-    "taggers": "tague",
-    "taggé": "tagué",
-    "taggés": "tagués",
-    "taggée": "taguée",
-    "taggées": "taguées",
+    "autoscaling": "ôto-skéïling",
+    "backup": "bak-eupe",
+    "backups": "bak-eupse",
+    "bastion": "bas-tione",
+    "bastions": "bas-tionse",
+    "bootstrap": "boute-strape",
+    "bootstrapper": "boute-strapé",
+    "broker": "brô-keur",
+    "brokers": "brô-keurse",
+    "bucket": "beu-kète",
+    "buckets": "beu-kètse",
+    "build": "bilde",
+    "builder": "bil-deur",
+    "builds": "bildse",
+    "burstable": "beur-sta-beul",
+    "cache": "cache",
+    "caching": "ca-ching",
+    "cloud": "claoude",
     "cluster": "cleusteur",
     "clusters": "cleusteurs",
     "container": "conntèneure",
-    "containers": "conntèneurse",
     "containerisation": "conntèneurisation",
-    "runtime": "ronne-taïme",
-    "runtimes": "ronne-taïmse",
-    "throughput": "throue-poutte",
-    "throughputs": "throue-pouttse",
-    "endpoint": "ènde-poïnte",
-    "endpoints": "ènde-poïntse",
+    "containers": "conntèneurse",
     "dashboard": "dache-borde",
     "dashboards": "dache-bordse",
-    "workflow": "weurk-flô",
-    "workflows": "weurk-flôse",
-    "framework": "fréïme-weurk",
-    "frameworks": "fréïme-weurkse",
-    "feedback": "fide-bak",
-    "middleware": "midle-wère",
-    "middlewares": "midle-wèrse",
-    "template": "tèmme-pléte",
-    "templates": "tèmme-plétse",
-    "snapshot": "snape-chote",
-    "snapshots": "snape-chotse",
-    "bootstrap": "boute-strape",
-    "bootstrapper": "boute-strapé",
-    "load balancer": "lôde balanceur",
-    "load balancers": "lôde balanceurse",
-    "serverless": "serveur-laisse",
-    "cloud": "claoude",
-    "scaling": "skéïling",
-    "autoscaling": "ôto-skéïling",
-    "scalable": "skéïla-beul",
-    "scalabilité": "skéïla-bilité",
-    "scheduler": "ské-diou-leur",
-    "schedulers": "ské-diou-leurse",
-    "handler": "hanne-dleur",
-    "handlers": "hanne-dleurse",
-    "listener": "lisseu-neur",
-    "listeners": "lisseu-neurse",
-    "provider": "pro-vaï-deur",
-    "providers": "pro-vaï-deurse",
-    "resolver": "ri-zol-veur",
-    "resolver": "ri-zol-veur",
-    "broker": "brô-keur",
-    "brokers": "brô-keurse",
-    "trigger": "tri-gueur",
-    "triggers": "tri-gueurse",
-    "pipeline": "païpe-laïne",
-    "pipelines": "païpe-laïnse",
-    "staging": "stéï-djing",
+    "datacenter": "data-centeur",
+    "datacenters": "data-centeurs",
     "deploy": "di-ploye",
     "déployer": "dé-ployé",
-    "build": "bilde",
-    "builds": "bildse",
-    "builder": "bil-deur",
-    "release": "ri-lice",
-    "releases": "ri-licese",
-    "rollback": "rôle-bak",
-    "rollbacks": "rôle-bakse",
+    "egress": "i-grèsse",
+    "endpoint": "ènde-poïnte",
+    "endpoints": "ènde-poïntse",
     "failover": "féïle-ôveur",
     "failovers": "féïle-ôveurse",
-    "backup": "bak-eupe",
-    "backups": "bak-eupse",
-    "bucket": "beu-kète",
-    "buckets": "beu-kètse",
-    "token": "tô-keune",
-    "tokens": "tô-keunse",
-    "header": "hè-deur",
-    "headers": "hè-deurse",
-    "timeout": "taïme-aoute",
-    "timeouts": "taïme-aoutse",
-    "timestamp": "taïme-stampe",
-    "timestamps": "taïme-stampse",
-    "cache": "cache",
-    "caching": "ca-ching",
-    "subnet": "seub-nète",
-    "subnets": "seub-nètse",
-    "gateway": "guéïte-wéï",
-    "gateways": "guéïte-wéïse",
-    "bastion": "bas-tione",
-    "bastions": "bas-tionse",
+    "feedback": "fide-bak",
     "firewall": "faïeur-wol",
     "firewalls": "faïeur-wolse",
-    "stateful": "stéïte-foule",
-    "stateless": "stéïte-laisse",
-    "ingress": "inne-grèsse",
-    "egress": "i-grèsse",
-    "overhead": "ô-veur-hède",
-    "on-premise": "onne-prè-mice",
-    "on-premises": "onne-prè-micese",
-    "open source": "ôpenne-source",
-    "open-source": "ôpenne-source",
-    "microservices": "micro-servicese",
-    "microservice": "micro-service",
-    "serverless": "serveur-laisse",
-    "throughput": "throue-poutte",
-    "latency": "léï-tenn-ci",
-    "latence": "la-tance",
-    "node": "node",
-    "nodes": "nodse",
-    "master": "mas-teur",
-    "worker": "weur-keur",
-    "workers": "weur-keurse",
+    "framework": "fréïme-weurk",
+    "frameworks": "fréïme-weurkse",
+    "gateway": "guéïte-wéï",
+    "gateways": "guéïte-wéïse",
+    "handler": "hanne-dleur",
+    "handlers": "hanne-dleurse",
+    "header": "hè-deur",
+    "headers": "hè-deurse",
     "health check": "hèlf-tchèk",
     "health checks": "hèlf-tchèkse",
     "healthcheck": "hèlf-tchèk",
     "healthchecks": "hèlf-tchèkse",
-    "lifecycle": "laïfe-saï-keul",
-    "burstable": "beur-sta-beul",
     "hostname": "hôste-néme",
-    "hostnames": "hôste-némse"
+    "hostnames": "hôste-némse",
+    "ingress": "inne-grèsse",
+    "latence": "la-tance",
+    "latency": "léï-tenn-ci",
+    "lifecycle": "laïfe-saï-keul",
+    "listener": "lisseu-neur",
+    "listeners": "lisseu-neurse",
+    "load balancer": "lôde balanceur",
+    "load balancers": "lôde balanceurse",
+    "master": "mas-teur",
+    "microservice": "micro-service",
+    "microservices": "micro-servicese",
+    "middleware": "midle-wère",
+    "middlewares": "midle-wèrse",
+    "node": "node",
+    "nodes": "nodse",
+    "on-premise": "onne-prè-mice",
+    "on-premises": "onne-prè-micese",
+    "open source": "ôpenne-source",
+    "open-source": "ôpenne-source",
+    "overhead": "ô-veur-hède",
+    "pipeline": "païpe-laïne",
+    "pipelines": "païpe-laïnse",
+    "provider": "pro-vaï-deur",
+    "providers": "pro-vaï-deurse",
+    "release": "ri-lice",
+    "releases": "ri-licese",
+    "resolver": "ri-zol-veur",
+    "rollback": "rôle-bak",
+    "rollbacks": "rôle-bakse",
+    "runtime": "ronne-taïme",
+    "runtimes": "ronne-taïmse",
+    "scalabilité": "skéïla-bilité",
+    "scalable": "skéïla-beul",
+    "scaling": "skéïling",
+    "scheduler": "ské-diou-leur",
+    "schedulers": "ské-diou-leurse",
+    "serverless": "serveur-laisse",
+    "snapshot": "snape-chote",
+    "snapshots": "snape-chotse",
+    "staging": "stéï-djing",
+    "stateful": "stéïte-foule",
+    "stateless": "stéïte-laisse",
+    "subnet": "seub-nète",
+    "subnets": "seub-nètse",
+    "tagger": "tagué",
+    "taggera": "taguera",
+    "taggers": "tague",
+    "taggé": "tagué",
+    "taggée": "taguée",
+    "taggées": "taguées",
+    "taggés": "tagués",
+    "template": "tèmme-pléte",
+    "templates": "tèmme-plétse",
+    "throughput": "throue-poutte",
+    "throughputs": "throue-pouttse",
+    "timeout": "taïme-aoute",
+    "timeouts": "taïme-aoutse",
+    "timestamp": "taïme-stampe",
+    "timestamps": "taïme-stampse",
+    "token": "tô-keune",
+    "tokens": "tô-keunse",
+    "trigger": "tri-gueur",
+    "triggers": "tri-gueurse",
+    "worker": "weur-keur",
+    "workers": "weur-keurse",
+    "workflow": "weurk-flô",
+    "workflows": "weurk-flôse"
   },
-
   "services": {
-    "CloudFront": "Cloud-Fronte",
-    "CloudWatch": "Cloud-Wotch",
-    "CloudFormation": "Cloud-Forméïchone",
-    "CloudTrail": "Cloud-Tréïle",
-    "Elastic Beanstalk": "Elastic Bine-stok",
+    "AccessDenied": "AccessDenied",
+    "AdministratorAccess": "AdministratorAccess",
+    "Ansible": "Anne-si-beul",
+    "Apache": "A-patche",
+    "AppFlow": "AppFlow",
+    "AppSync": "AppSync",
+    "AssumeRole": "AssumeRole",
+    "Athena": "Atéhna",
     "Beanstalk": "Bine-stok",
-    "Lambda": "Lamm-da",
+    "Bitbucket": "Bite-beu-kète",
+    "CloudEndure": "CloudEndure",
+    "CloudFormation": "Cloud-Forméïchone",
+    "CloudFront": "Cloud-Fronte",
+    "CloudTrail": "Cloud-Tréïle",
+    "CloudWatch": "Cloud-Wotch",
+    "CodeBuild": "Code-Bilde",
+    "CodeCommit": "Code-Comite",
+    "CodeDeploy": "Code-Diploy",
+    "CodePipeline": "Code-Païpe-laïne",
+    "Cognito": "Co-gni-to",
+    "Consul": "Conne-seul",
+    "DataSync": "DataSync",
+    "Datadog": "Déïta-dog",
+    "DeleteTrail": "DeleteTrail",
+    "Docker": "Do-keur",
     "DynamoDB": "Dynamo D B",
     "ElastiCache": "Élasti-cache",
+    "Elastic Beanstalk": "Elastic Bine-stok",
+    "Envoy": "Enn-voy",
+    "EventBridge": "EventBridge",
     "Fargate": "Far-guéte",
-    "CodePipeline": "Code-Païpe-laïne",
-    "CodeBuild": "Code-Bilde",
-    "CodeDeploy": "Code-Diploy",
-    "CodeCommit": "Code-Comite",
-    "Redshift": "Rède-chifte",
-    "Lightsail": "Laïte-séle",
-    "Snowball": "Snô-bôl",
-    "Glacier": "Gla-ci-ère",
-    "Athena": "Atéhna",
-    "Kinesis": "Ki-né-cisse",
-    "Cognito": "Co-gni-to",
-    "GuardDuty": "Garde-Diou-ti",
-    "Macie": "Mé-ci",
-    "Inspector": "Ins-pèk-teur",
-    "Shield": "Childe",
-    "Route 53": "Route 53",
-    "Terraform": "Tèra-forme",
-    "Kubernetes": "Kou-ber-né-tice",
-    "Docker": "Do-keur",
-    "Ansible": "Anne-si-beul",
-    "Jenkins": "Djène-kinsse",
-    "Nginx": "Ène-jinnx",
-    "Apache": "A-patche",
-    "Grafana": "Gra-fa-na",
-    "Prometheus": "Pro-mé-ti-eusse",
-    "Kafka": "Kaf-ka",
-    "RabbitMQ": "Ra-bite M Q",
-    "Redis": "Ré-disse",
-    "MongoDB": "Mongo D B",
-    "PostgreSQL": "Poste-grèsse S Q L",
-    "MySQL": "Maï S Q L",
+    "FinOps": "FinOps",
+    "GetObject": "GetObject",
     "GitHub": "Guite-eub",
     "GitLab": "Guite-lab",
-    "Bitbucket": "Bite-beu-kète",
+    "Glacier": "Gla-ci-ère",
+    "Grafana": "Gra-fa-na",
+    "GuardDuty": "Garde-Diou-ti",
     "HashiCorp": "Hachi-corp",
-    "Datadog": "Déïta-dog",
-    "Splunk": "Splonnk",
-    "Vault": "Volte",
-    "Consul": "Conne-seul",
-    "Istio": "Is-ti-o",
-    "Envoy": "Enn-voy",
     "Helm": "Hèlme",
+    "Inspector": "Ins-pèk-teur",
+    "Istio": "Is-ti-o",
+    "Jenkins": "Djène-kinsse",
+    "Kafka": "Kaf-ka",
+    "Kinesis": "Ki-né-cisse",
+    "Kubernetes": "Kou-ber-né-tice",
+    "Lambda": "Lamm-da",
+    "Lightsail": "Laïte-séle",
+    "Macie": "Mé-ci",
+    "MapReduce": "MapReduce",
+    "MongoDB": "Mongo D B",
+    "MultiFactorAuthPresent": "MultiFactorAuthPresent",
+    "MySQL": "Maï S Q L",
+    "NetApp": "NetApp",
+    "Nginx": "Ène-jinnx",
+    "OpenSearch": "OpenSearch",
     "Packer": "Pa-keur",
-    "Vagrant": "Vé-grannte"
+    "PostgreSQL": "Poste-grèsse S Q L",
+    "PrivateLink": "PrivateLink",
+    "Prometheus": "Pro-mé-ti-eusse",
+    "QuickSight": "QuickSight",
+    "RabbitMQ": "Ra-bite M Q",
+    "Redis": "Ré-disse",
+    "Redshift": "Rède-chifte",
+    "Route 53": "Route 53",
+    "SageMaker": "SageMaker",
+    "SharePoint": "SharePoint",
+    "Shield": "Childe",
+    "SnapStart": "SnapStart",
+    "Snowball": "Snô-bôl",
+    "Splunk": "Splonnk",
+    "StackSets": "StackSets",
+    "StopLogging": "StopLogging",
+    "TargetResponseTime": "TargetResponseTime",
+    "TerminateInstances": "TerminateInstances",
+    "Terraform": "Tèra-forme",
+    "Vagrant": "Vé-grannte",
+    "Vault": "Volte",
+    "WebSocket": "WebSocket"
   }
 }

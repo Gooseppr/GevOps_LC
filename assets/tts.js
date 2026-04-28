@@ -213,15 +213,11 @@
     return text;
   }
 
-  // ── 1d. CLI commands & code-like strings ──
+  // ── 1d. CLI commands & inline code ──
   function normalizeCLI(text) {
-    // Skip lines that look like full CLI commands
-    if (/^\s*(aws|docker|kubectl|terraform|git|npm|pip|curl|ssh)\s+/i.test(text)) {
-      return "... commande technique ...";
-    }
-    // Inline: replace common CLI patterns (markdown backticks)
+    // Inline code in backticks
     text = text.replace(/`([^`]+)`/g, function (_, code) {
-      if (code.length > 30) return " ... extrait de code ... ";
+      if (code.length > 40) return " ... extrait de code ... ";
       return " " + makeCodeReadable(code) + " ";
     });
     return text;
@@ -253,6 +249,10 @@
 
   // ── 1f. Symbols & punctuation for prosody ──
   function normalizeSymbols(text) {
+    // Arrow before a link (glossary pattern "→ Module X") → remove entirely
+    text = text.replace(/→\s*\[?Module\s*\d+\]?(\([^)]*\))?/gi, "");
+    text = text.replace(/→\s*\[[^\]]*\]\([^)]*\)/g, "");
+    // Remaining arrows
     text = text.replace(/→/g, ", c'est-a-dire, ");
     text = text.replace(/←/g, ", vient de, ");
     text = text.replace(/⇒/g, ", donc, ");
@@ -262,6 +262,7 @@
     text = text.replace(/💡/g, "");
     text = text.replace(/🔒/g, "");
     text = text.replace(/[📌📎🔗🎯🧠📝📦🛠️⚙️☁️🐳🚀💻🔧📋]/gu, "");
+    text = text.replace(/\s*—\s*/g, ". ");  // em dash → pause (glossary entries)
     text = text.replace(/\*\*/g, "");      // markdown bold
     text = text.replace(/\*([^*]+)\*/g, "$1"); // markdown italic
     text = text.replace(/#{1,6}\s*/g, "");  // markdown headings
@@ -356,6 +357,7 @@
   var SEG_LIST = "list";
   var SEG_TABLE = "table";
   var SEG_DIAGRAM = "diagram";
+  var SEG_CODE = "code";
 
   // ── Read inline <code> as pronounceable text ──
   function readInlineCode(el) {
@@ -657,58 +659,120 @@
     return segs;
   }
 
+  // ── Describe a code block briefly ──
+  function codeBlockToSegment(preEl) {
+    var codeEl = preEl.querySelector("code");
+    var text = (codeEl || preEl).textContent || "";
+    var firstLine = text.trim().split("\n")[0].trim();
+
+    // Detect language/type from class or content
+    var lang = "";
+    if (codeEl && codeEl.className) {
+      var langMatch = codeEl.className.match(/language-(\w+)/);
+      if (langMatch) lang = langMatch[1];
+    }
+
+    // Detect what kind of command it is from the first line
+    if (/^#!\/bin\/bash|^#!.*sh/i.test(firstLine) || lang === "bash" || lang === "sh") {
+      // Try to find a meaningful comment in the first few lines
+      var lines = text.trim().split("\n");
+      for (var i = 0; i < Math.min(lines.length, 5); i++) {
+        var commentMatch = lines[i].match(/^#\s+(.{5,})/);
+        if (commentMatch && !/^#!/.test(lines[i])) {
+          return "Un bloc de commandes bash suit. " + commentMatch[1] + ".";
+        }
+      }
+      // Detect the tool from the first real command
+      var cmdMatch = text.match(/^\s*(aws|docker|kubectl|terraform|git|npm|pip|curl|ssh|yum|apt|chmod|systemctl)\s+/m);
+      if (cmdMatch) {
+        var tool = cmdMatch[1];
+        return "Un bloc de commandes " + tool + " suit dans le cours.";
+      }
+      return "Un bloc de commandes suit dans le cours.";
+    }
+
+    if (lang === "json") return "Un exemple de configuration JSON suit.";
+    if (lang === "yaml" || lang === "yml") return "Un exemple de configuration YAML suit.";
+    if (lang === "python" || lang === "py") return "Un extrait de code Python suit.";
+    if (lang === "javascript" || lang === "js") return "Un extrait de code JavaScript suit.";
+    if (lang === "hcl") return "Un extrait de code Terraform suit.";
+    if (lang === "dockerfile") return "Un extrait de Dockerfile suit.";
+
+    if (lang) return "Un extrait de code " + lang + " suit.";
+    return "Un extrait de code suit dans le cours.";
+  }
+
   function extractSegments() {
     var content = document.querySelector(".post-content");
     if (!content) return [];
 
-    var clone = content.cloneNode(true);
-
-    // Remove only non-readable blocks (but keep tables, keep inline code)
-    clone.querySelectorAll("pre, .highlight, script, style, .module-nav, .snippet-block").forEach(function (el) {
-      el.remove();
-    });
-
-    // Process all direct children in DOM order to preserve reading flow
+    // Work on the REAL DOM to preserve order between text, code blocks, tables, etc.
+    // We'll walk through all children and build segments in reading order.
     var segments = [];
-    var allElements = clone.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt, table, .mermaid, svg");
+    var processedEls = new Set();
+
+    // Get all interesting elements in DOM order
+    var allElements = content.querySelectorAll(
+      "h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt, table, .mermaid, pre, .highlight"
+    );
 
     allElements.forEach(function (el) {
-      // Skip nested elements (e.g. a <p> inside a <li> we already processed)
-      if (el.closest && el.closest(".mermaid, svg")) {
-        if (el.tagName.toLowerCase() !== "div" && !el.classList.contains("mermaid")) return;
-      }
+      if (processedEls.has(el)) return;
+
+      // Skip elements inside other processed blocks
+      if (el.closest("script, style, .module-nav, .snippet-block")) return;
 
       var tag = el.tagName.toLowerCase();
 
-      // Mermaid diagrams → narrative description
+      // ── Code blocks → brief description instead of silence ──
+      if (tag === "pre" || (el.classList && el.classList.contains("highlight"))) {
+        var preEl = tag === "pre" ? el : el.querySelector("pre") || el;
+        // Skip mermaid (handled separately)
+        var codeEl = preEl.querySelector("code");
+        if (codeEl && codeEl.className && /language-mermaid/.test(codeEl.className)) return;
+
+        var desc = codeBlockToSegment(preEl);
+        segments.push({ text: desc, type: SEG_CODE, first: true });
+        processedEls.add(el);
+        return;
+      }
+
+      // ── Mermaid diagrams ──
       if (el.classList && el.classList.contains("mermaid")) {
         mermaidToSegments(el).forEach(function (s) { segments.push(s); });
+        processedEls.add(el);
         return;
       }
-      // SVG → skip (decorative)
-      if (tag === "svg") return;
 
-      // Tables → structured reading
+      // ── Tables ──
       if (tag === "table") {
-        var tableSegs = tableToSegments(el);
-        tableSegs.forEach(function (s) { segments.push(s); });
+        tableToSegments(el).forEach(function (s) { segments.push(s); });
+        processedEls.add(el);
         return;
       }
 
-      // Regular block elements — make inline code readable first
-      readInlineCode(el);
+      // ── Skip nested elements inside already-processed containers ──
+      if (el.closest("pre, .highlight, .mermaid, svg")) return;
 
-      var raw = el.textContent.replace(/\s+/g, " ").trim();
+      // ── Regular text blocks ──
+      // Clone to normalize inline code without mutating the page
+      var clone = el.cloneNode(true);
+      readInlineCode(clone);
+
+      var raw = clone.textContent.replace(/\s+/g, " ").trim();
       if (raw.length === 0) return;
+
+      // Skip paragraphs that are only reference links (glossary pattern: "→ Module 30")
+      if (/^→?\s*(Module\s*\d+\s*[·•]?\s*)*$/i.test(raw)) return;
+      // Skip paragraphs that are only "Hors scope" markers
+      if (/^hors scope/i.test(raw.replace(/[*_]/g, ""))) return;
 
       var type = SEG_TEXT;
       if (/^h[1-6]$/.test(tag)) type = SEG_HEADING;
       else if (tag === "li") type = SEG_LIST;
 
-      // Split long paragraphs into sentences
       if (type === SEG_TEXT && raw.length > 200) {
-        var sentences = splitSentences(raw);
-        sentences.forEach(function (s, i) {
+        splitSentences(raw).forEach(function (s, i) {
           segments.push({ text: s, type: type, first: i === 0 });
         });
       } else {
@@ -742,13 +806,17 @@
     var content = document.querySelector(".post-content");
     if (!content) return [];
 
-    var all = content.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt, table, .mermaid");
+    var all = content.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li, blockquote, dd, dt, table, .mermaid, pre, .highlight");
     var blocks = [];
     all.forEach(function (el) {
-      if (el.closest("pre, .highlight, script, style, .module-nav, .snippet-block")) return;
-      // For mermaid/table, always include; for text blocks, require content
+      if (el.closest("script, style, .module-nav, .snippet-block")) return;
+      var tag = el.tagName.toLowerCase();
+      // Always include structural elements
       if (el.classList && el.classList.contains("mermaid")) { blocks.push(el); return; }
-      if (el.tagName.toLowerCase() === "table") { blocks.push(el); return; }
+      if (tag === "table") { blocks.push(el); return; }
+      if (tag === "pre" || (el.classList && el.classList.contains("highlight"))) { blocks.push(el); return; }
+      // Skip text inside pre/highlight (already counted as their parent)
+      if (el.closest("pre, .highlight")) return;
       var text = el.textContent.replace(/\s+/g, " ").trim();
       if (text.length > 0) blocks.push(el);
     });
@@ -830,6 +898,10 @@
       case SEG_DIAGRAM:
         rate = userSpeed * 0.85;   // slow for diagram descriptions
         pitch = 1.05;
+        break;
+      case SEG_CODE:
+        rate = userSpeed * 0.90;   // calm transition tone
+        pitch = 0.95;
         break;
       default:
         rate = userSpeed;
@@ -922,6 +994,8 @@
     if (prevSeg.type === SEG_HEADING) return 400;     // pause after heading
     if (nextSeg.type === SEG_DIAGRAM) return 500;     // pause before diagram description
     if (prevSeg.type === SEG_DIAGRAM) return 500;     // pause after diagram
+    if (nextSeg.type === SEG_CODE) return 300;        // pause before code block mention
+    if (prevSeg.type === SEG_CODE) return 300;        // pause after code block mention
     if (nextSeg.type === SEG_TABLE && nextSeg.first) return 400; // pause before table
     if (prevSeg.type === SEG_TABLE && nextSeg.type !== SEG_TABLE) return 400; // pause after table
     if (nextSeg.type === SEG_TABLE) return 150;       // between table rows
