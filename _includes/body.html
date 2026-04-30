@@ -12,6 +12,9 @@
       var container = document.createElement('div');
       container.className = 'mermaid';
       container.textContent = code.textContent;
+      // Preserve original mermaid source for TTS — after mermaid renders,
+      // the div content becomes SVG with style blocks we don't want to read
+      container.setAttribute('data-mermaid-source', code.textContent);
       pre.replaceWith(container);
     });
 

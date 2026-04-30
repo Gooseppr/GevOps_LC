@@ -21,7 +21,7 @@ prev_module_title: "Guide pratique — Stack open source (Prometheus, Grafana, L
 
 ---
 
-## 1. Architecture cible
+## Architecture cible
 
 ### Composants
 
@@ -43,7 +43,7 @@ prev_module_title: "Guide pratique — Stack open source (Prometheus, Grafana, L
 
 ---
 
-## 2. Preparation de l'environnement AWS
+## Preparation de l'environnement AWS
 
 ### Instance recommandee
 
@@ -93,7 +93,7 @@ docker compose version
 
 ---
 
-## 3. Deploiement de l'application
+## Deploiement de l'application
 
 ### docker-compose.yml (adapte AWS)
 
@@ -136,7 +136,7 @@ while true; do curl -s http://localhost:8080 > /dev/null; sleep 0.5; done
 
 ---
 
-## 4. Logs avec CloudWatch Logs
+## Logs avec CloudWatch Logs
 
 ### Structure
 
@@ -181,7 +181,7 @@ Savoir repondre rapidement a trois questions :
 
 ---
 
-## 5. Metriques avec CloudWatch Metrics
+## Metriques avec CloudWatch Metrics
 
 ### Metriques natives EC2
 
@@ -246,7 +246,7 @@ Pour les erreurs HTTP : creer un **metric filter** sur le log group qui compte l
 
 ---
 
-## 6. Traces avec X-Ray
+## Traces avec X-Ray
 
 ### Instrumentation via ADOT
 
@@ -285,7 +285,7 @@ Conclusion : le goulot d'etranglement est la base de donnees, pas l'application.
 
 ---
 
-## 7. Methode de diagnostic SRE sur AWS
+## Methode de diagnostic SRE sur AWS
 
 Quand une alarme se declenche, suivre ces etapes dans l'ordre :
 
@@ -321,7 +321,7 @@ Exemples de conclusions :
 
 ---
 
-## 8. Exercices pratiques
+## Exercices pratiques
 
 ### Exercice 1 — Trouver la cause d'erreurs 500
 
@@ -402,7 +402,7 @@ hey -z 2m -c 100 http://<EC2_IP>:8080
 
 ---
 
-## 9. Comparaison Open Source vs AWS
+## Comparaison Open Source vs AWS
 
 | Critere | Open Source (Prometheus, Grafana, Loki, Tempo) | AWS (CloudWatch, X-Ray) |
 |---------|------------------------------------------------|------------------------|

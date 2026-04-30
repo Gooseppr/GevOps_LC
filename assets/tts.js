@@ -512,7 +512,10 @@
   }
 
   function mermaidToSegments(mermaidEl) {
-    var src = mermaidEl.textContent || "";
+    // Prefer the original source captured before mermaid rendered the SVG.
+    // Otherwise mermaidEl.textContent would include the rendered SVG's <style>
+    // block (with font-family, fill rules, etc.) which we must NOT read aloud.
+    var src = mermaidEl.getAttribute("data-mermaid-source") || mermaidEl.textContent || "";
     var segs = [];
 
     // Strip mermaid styling directives before parsing
@@ -932,6 +935,9 @@
   var paused = false;
   var highlightedEl = null;
   var keepAliveTimer = null;
+  // Each new utterance gets an incremented token; callbacks from previous
+  // utterances (after cancel/skip/speed-change) check that they're still current
+  var utteranceToken = 0;
   var TTS_HIGHLIGHT = "tts-highlight";
 
   function clearHighlight() {
@@ -1037,6 +1043,9 @@
       return;
     }
 
+    // Invalidate any pending callbacks from previous utterances
+    var myToken = ++utteranceToken;
+
     var pros = prosodyFor(seg);
     var utt = new SpeechSynthesisUtterance(normalized);
     utt.rate = pros.rate;
@@ -1045,6 +1054,8 @@
     if (voiceFR) utt.voice = voiceFR;
 
     utt.onend = function () {
+      // Ignore callbacks from obsolete utterances (cancelled by skip/speed/etc.)
+      if (myToken !== utteranceToken) return;
       if (!playing || paused) return;
       var nextIdx = index + 1;
       if (nextIdx >= segments.length) {
@@ -1056,6 +1067,7 @@
       var delay = pauseBetween(seg, segments[nextIdx]);
       if (delay > 0) {
         insertPause(delay, function () {
+          if (myToken !== utteranceToken) return;
           if (playing && !paused) speakSegment(nextIdx);
         });
       } else {
@@ -1064,9 +1076,12 @@
     };
 
     utt.onerror = function (e) {
-      if (e.error !== "interrupted" && e.error !== "canceled") {
-        console.warn("TTS error:", e.error);
-      }
+      // Ignore errors from cancelled utterances — they're expected when we
+      // intentionally cancel (skip, speed change, stop)
+      if (myToken !== utteranceToken) return;
+      if (e.error === "interrupted" || e.error === "canceled") return;
+      console.warn("TTS error:", e.error);
+      // Real error: try to advance to next segment
       if (playing && !paused) speakSegment(index + 1);
     };
 
@@ -1129,6 +1144,7 @@
     if (!playing || paused) return;
     if (needsKeepAlive) {
       synth.cancel();
+      utteranceToken++; // invalidate pending callbacks (we cancelled)
     } else {
       synth.pause();
     }
@@ -1141,6 +1157,7 @@
 
   function stopAll() {
     synth.cancel();
+    utteranceToken++; // invalidate pending callbacks
     playing = false; paused = false; currentSeg = 0;
     stopKeepAlive(); clearHighlight(); showPlayBtn();
     stopBackgroundAudio();

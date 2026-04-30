@@ -26,6 +26,8 @@
         var div = document.createElement('div');
         div.className = 'mermaid';
         div.textContent = code.textContent;
+        // Preserve original source for TTS (mermaid will replace innerHTML with SVG)
+        div.setAttribute('data-mermaid-source', code.textContent);
         pre.replaceWith(div);
       });
       mermaid.initialize({

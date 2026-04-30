@@ -21,7 +21,7 @@ next_module_title: "Guide pratique — Observabilité sur AWS (CloudWatch, X-Ray
 
 ---
 
-## 1. Application de demo : OpenTelemetry Demo (Astronomy Shop)
+## Application de demo : OpenTelemetry Demo (Astronomy Shop)
 
 ### Pourquoi ce choix
 
@@ -94,7 +94,7 @@ docker stop <container>
 
 ---
 
-## 2. Architecture cible — stack open source complete
+## Architecture cible — stack open source complete
 
 ### Composants
 
@@ -192,7 +192,7 @@ docker compose up -d
 
 ---
 
-## 3. Logs
+## Logs
 
 ### Definition
 
@@ -235,7 +235,7 @@ Savoir trouver rapidement :
 
 ---
 
-## 4. Metriques
+## Metriques
 
 ### Types de metriques Prometheus
 
@@ -285,7 +285,7 @@ histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
 
 ---
 
-## 5. Traces
+## Traces
 
 ### Concepts
 
@@ -308,7 +308,7 @@ Conclusion : la dependance externe (service de paiement) est le goulot d'etrangl
 
 ---
 
-## 6. Alerting
+## Alerting
 
 ### Bonnes pratiques
 
@@ -332,7 +332,7 @@ Conclusion : la dependance externe (service de paiement) est le goulot d'etrangl
 
 ---
 
-## 7. Exercices pratiques
+## Exercices pratiques
 
 ### Exercice 1 — Diagnostiquer une latence elevee
 
@@ -399,7 +399,7 @@ docker run --rm -it williamyeh/hey \
 
 ---
 
-## 8. Pieges frequents
+## Pieges frequents
 
 | Piege | Consequence |
 |-------|-------------|
