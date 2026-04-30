@@ -81,7 +81,7 @@
       "email": "j.t-elmacin@hotmail.fr",
       "name": "Teddy",
       "active": true,
-      "days": ["lundi", "mardi", "mercredi", "jeudi", "vendredi"],
+      "days": ["lundi", "mercredi"],
       "daily_mix": [
         { "type": "command", "count": 2 },
         { "type": "concept", "count": 1 },
