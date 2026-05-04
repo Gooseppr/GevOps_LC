@@ -52,27 +52,27 @@ Les 12 catégories en grille 4 × 3, chacune avec sa propre couleur. Le titre en
 flowchart TB
     subgraph R1[" "]
         direction LR
-        C1["`**Compute**<br/>EC2 · Auto Scaling<br/>Beanstalk · Batch · Outposts`"]
-        C2["`**Containers**<br/>ECS · EKS<br/>ECR · Fargate`"]
-        C3["`**Serverless**<br/>Lambda · Fargate<br/>Step Functions`"]
+        C1[COMPUTE<br/>━━━━━━━<br/>EC2 · Auto Scaling<br/>Beanstalk · Batch · Outposts]
+        C2[CONTAINERS<br/>━━━━━━━<br/>ECS · EKS<br/>ECR · Fargate]
+        C3[SERVERLESS<br/>━━━━━━━<br/>Lambda · Fargate<br/>Step Functions]
     end
     subgraph R2[" "]
         direction LR
-        C4["`**Storage**<br/>S3 · Glacier · EBS<br/>EFS · FSx · Backup<br/>Storage Gateway`"]
-        C5["`**Database**<br/>RDS · Aurora · DynamoDB<br/>ElastiCache · DocumentDB<br/>Neptune · QLDB · Keyspaces`"]
-        C6["`**Analytics**<br/>Athena · Redshift · EMR · Glue<br/>Kinesis · OpenSearch · QuickSight<br/>Lake Formation`"]
+        C4[STORAGE<br/>━━━━━━━<br/>S3 · Glacier · EBS<br/>EFS · FSx · Backup<br/>Storage Gateway]
+        C5[DATABASE<br/>━━━━━━━<br/>RDS · Aurora · DynamoDB<br/>ElastiCache · DocumentDB<br/>Neptune · QLDB · Keyspaces]
+        C6[ANALYTICS<br/>━━━━━━━<br/>Athena · Redshift · EMR · Glue<br/>Kinesis · OpenSearch · QuickSight<br/>Lake Formation]
     end
     subgraph R3[" "]
         direction LR
-        C7["`**Networking**<br/>VPC · Route 53 · CloudFront · ELB<br/>Direct Connect · Transit Gateway<br/>PrivateLink · Global Accelerator`"]
-        C8["`**Security**<br/>IAM · Cognito · KMS · ACM<br/>Secrets Manager · WAF · Shield<br/>GuardDuty · Inspector · Security Hub`"]
-        C9["`**Integration**<br/>SQS · SNS · EventBridge<br/>Step Functions · API Gateway<br/>AppSync · MQ`"]
+        C7[NETWORKING<br/>━━━━━━━<br/>VPC · Route 53 · CloudFront · ELB<br/>Direct Connect · Transit Gateway<br/>PrivateLink · Global Accelerator]
+        C8[SECURITY<br/>━━━━━━━<br/>IAM · Cognito · KMS · ACM<br/>Secrets Manager · WAF · Shield<br/>GuardDuty · Inspector · Security Hub]
+        C9[INTEGRATION<br/>━━━━━━━<br/>SQS · SNS · EventBridge<br/>Step Functions · API Gateway<br/>AppSync · MQ]
     end
     subgraph R4[" "]
         direction LR
-        C10["`**Management**<br/>Organizations · Control Tower<br/>CloudFormation · CloudWatch<br/>CloudTrail · Config · Systems Manager`"]
-        C11["`**Migration**<br/>MGN · DMS · DataSync<br/>Snow Family · Migration Hub<br/>Transfer Family`"]
-        C12["`**Cost & ML**<br/>Budgets · Cost Explorer · Savings Plans<br/>SageMaker · Rekognition · Comprehend<br/>Polly · Transcribe · Textract`"]
+        C10[MANAGEMENT<br/>━━━━━━━<br/>Organizations · Control Tower<br/>CloudFormation · CloudWatch<br/>CloudTrail · Config · Systems Manager]
+        C11[MIGRATION<br/>━━━━━━━<br/>MGN · DMS · DataSync<br/>Snow Family · Migration Hub<br/>Transfer Family]
+        C12[COST AND ML<br/>━━━━━━━<br/>Budgets · Cost Explorer · Savings Plans<br/>SageMaker · Rekognition · Comprehend<br/>Polly · Transcribe · Textract]
     end
     style R1 fill:none,stroke:none
     style R2 fill:none,stroke:none
