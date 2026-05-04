@@ -1086,39 +1086,4 @@ Erreurs fréquentes qu'on retrouve dans les comptes AWS — et qui tombent souve
 
 ---
 
-## 6. Comment naviguer entre les documents
-{: #navigation}
-
-Le cours comporte plusieurs documents de référence. Voici quand utiliser quel document selon votre besoin :
-
-| Vous avez besoin de... | Document à consulter |
-|------------------------|---------------------|
-| **La définition d'un service** | [Glossaire](/courses/cloud-aws/aws_glossaire_services.html) |
-| **Une commande ou une formule rapide** | [Cheat Sheet](/courses/cloud-aws/aws_cheatsheet.html) |
-| **Comprendre où se range un service** | Cette cartographie — section [Cartes par catégorie](#categories) |
-| **Choisir entre deux services** | Cette cartographie — section [Arbres de décision](#decision) |
-| **Voir comment combiner des services** | Cette cartographie — section [Matrices de combinaisons](#combinaisons) |
-| **Concevoir une architecture pour un cas concret** | [Guide pratique](/courses/cloud-aws/aws_guide_pratique.html) |
-| **Approfondir un service précis** | Le module dédié (suivre les liens depuis le glossaire) |
-| **S'entraîner pour l'examen** | [Entraînement SAA-C03](/courses/cloud-aws/aws_exam_practice.html) |
-
-**Flux d'apprentissage recommandé** :
-
-```mermaid
-flowchart LR
-    Glossaire[1 — Glossaire<br/>Définitions]
-    Carto[2 — Cartographie<br/>Vue systémique]
-    Pratique[3 — Guide pratique<br/>Scénarios]
-    Modules[4 — Modules dédiés<br/>Approfondissement]
-    Exam[5 — Entraînement<br/>Validation]
-    Glossaire --> Carto
-    Carto --> Pratique
-    Pratique --> Modules
-    Modules --> Exam
-    Carto -.->|Lookup| Glossaire
-    Pratique -.->|Lookup| Carto
-```
-
----
-
 > **Dernière mise à jour** : Mai 2026 — Aligné sur le programme SAA-C03 et les 33 modules du cours Coursite Cloud & AWS.
