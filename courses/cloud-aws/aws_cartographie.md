@@ -44,141 +44,9 @@ next_module_title: "Guide pratique — Concevoir une architecture AWS de A à Z"
 
 L'écosystème AWS au programme SAA-C03 se découpe en 12 grandes catégories. Chaque catégorie répond à une question fondamentale : *« où exécuter mon code ? »*, *« où stocker mes données ? »*, *« comment connecter mes ressources ? »*, etc.
 
-> **Note** : trois variantes de la carte panoramique sont proposées ci-dessous pour comparer la lisibilité. Les variantes B et C seront supprimées une fois le choix fait — elles n'ont pas vocation à coexister dans la version finale.
+### Vue visuelle — Atlas en grille
 
-### Variante A — Mindmaps thématiques (4 cartes)
-
-Les 12 catégories regroupées par famille d'usage. Chaque mindmap a 3-4 branches max, ce qui évite les croisements et garde un layout lisible.
-
-**A.1 — Compute, conteneurs et serverless** (où exécuter le code ?)
-
-```mermaid
-mindmap
-  root((Compute))
-    Compute
-      EC2
-      Auto Scaling
-      Beanstalk
-      Batch
-      Outposts
-    Containers
-      ECS
-      EKS
-      ECR
-      Fargate
-    Serverless
-      Lambda
-      Fargate
-      Step Functions
-```
-
-**A.2 — Données : stockage, bases, analytique** (où vivent les données ?)
-
-```mermaid
-mindmap
-  root((Data))
-    Storage
-      S3
-      Glacier
-      EBS
-      EFS
-      FSx
-      Backup
-      Storage Gateway
-    Database
-      RDS
-      Aurora
-      DynamoDB
-      ElastiCache
-      DocumentDB
-      Neptune
-      QLDB
-      Keyspaces
-    Analytics
-      Athena
-      Redshift
-      EMR
-      Glue
-      Kinesis
-      OpenSearch
-      QuickSight
-      Lake Formation
-```
-
-**A.3 — Réseau, sécurité, intégration** (comment connecter et protéger ?)
-
-```mermaid
-mindmap
-  root((Réseau<br/>et sécurité))
-    Networking
-      VPC
-      Route 53
-      CloudFront
-      ELB
-      Direct Connect
-      Transit Gateway
-      PrivateLink
-      Global Accelerator
-    Security
-      IAM
-      Cognito
-      KMS
-      Secrets Manager
-      ACM
-      WAF
-      Shield
-      GuardDuty
-      Inspector
-      Security Hub
-    Integration
-      SQS
-      SNS
-      EventBridge
-      Step Functions
-      API Gateway
-      AppSync
-      MQ
-```
-
-**A.4 — Opérations : pilotage, migration, coûts, ML** (comment gérer le tout ?)
-
-```mermaid
-mindmap
-  root((Opérations))
-    Management
-      Organizations
-      Control Tower
-      CloudFormation
-      CloudWatch
-      CloudTrail
-      Config
-      Systems Manager
-    Migration
-      MGN
-      DMS
-      DataSync
-      Snow Family
-      Migration Hub
-    Cost
-      Budgets
-      Cost Explorer
-      Compute Optimizer
-      Savings Plans
-    ML
-      SageMaker
-      Rekognition
-      Comprehend
-      Polly
-      Transcribe
-      Translate
-      Textract
-```
-
----
-
-### Variante B — Atlas en grille (flowchart structuré)
-
-Une seule carte présentant les 12 catégories en grille de 4 lignes × 3 colonnes. Layout 100 % contrôlé, chaque catégorie est un bloc dont le contenu est lisible d'un coup d'œil.
+Les 12 catégories en grille 4 × 3, teintées par famille d'usage : **Compute** (orange), **Data** (bleu), **Réseau et sécurité** (vert), **Opérations** (violet). Layout entièrement contrôlé — chaque case est lisible d'un coup d'œil.
 
 ```mermaid
 flowchart TB
@@ -210,13 +78,25 @@ flowchart TB
     style R2 fill:none,stroke:none
     style R3 fill:none,stroke:none
     style R4 fill:none,stroke:none
+    style C1 fill:#FFE4B5,stroke:#D4A574,stroke-width:2px,color:#000
+    style C2 fill:#FFE4B5,stroke:#D4A574,stroke-width:2px,color:#000
+    style C3 fill:#FFE4B5,stroke:#D4A574,stroke-width:2px,color:#000
+    style C4 fill:#B5D5FF,stroke:#6A9BD4,stroke-width:2px,color:#000
+    style C5 fill:#B5D5FF,stroke:#6A9BD4,stroke-width:2px,color:#000
+    style C6 fill:#B5D5FF,stroke:#6A9BD4,stroke-width:2px,color:#000
+    style C7 fill:#C5E8B7,stroke:#7AB562,stroke-width:2px,color:#000
+    style C8 fill:#C5E8B7,stroke:#7AB562,stroke-width:2px,color:#000
+    style C9 fill:#C5E8B7,stroke:#7AB562,stroke-width:2px,color:#000
+    style C10 fill:#E0C5E8,stroke:#A578B5,stroke-width:2px,color:#000
+    style C11 fill:#E0C5E8,stroke:#A578B5,stroke-width:2px,color:#000
+    style C12 fill:#E0C5E8,stroke:#A578B5,stroke-width:2px,color:#000
 ```
 
 ---
 
-### Variante C — Tableau structuré
+### Vue détaillée — Tableau structuré
 
-Pas de Mermaid : juste un tableau Markdown. Le plus robuste à afficher, le plus dense en information utile, scannable au clavier.
+Pour chaque catégorie, la **question fondamentale** à laquelle elle répond et les services principaux. Plus dense en information utile, scannable d'un coup au clavier.
 
 | Catégorie | Question fondamentale | Services principaux |
 |-----------|----------------------|---------------------|
