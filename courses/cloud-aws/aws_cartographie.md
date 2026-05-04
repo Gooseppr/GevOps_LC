@@ -46,50 +46,83 @@ L'écosystème AWS au programme SAA-C03 se découpe en 12 grandes catégories. C
 
 ### Vue visuelle — Atlas en grille
 
-Les 12 catégories en grille 4 × 3, teintées par famille d'usage : **Compute** (orange), **Data** (bleu), **Réseau et sécurité** (vert), **Opérations** (violet). Layout entièrement contrôlé — chaque case est lisible d'un coup d'œil.
+Les 12 catégories en grille 4 × 3, chacune avec sa propre couleur. Le titre en gras sépare clairement le nom de la catégorie de la liste des services.
 
 ```mermaid
 flowchart TB
     subgraph R1[" "]
         direction LR
-        C1[Compute<br/>EC2 · Auto Scaling<br/>Beanstalk · Batch · Outposts]
-        C2[Containers<br/>ECS · EKS<br/>ECR · Fargate]
-        C3[Serverless<br/>Lambda · Fargate<br/>Step Functions]
+        C1["`**Compute**
+        EC2 · Auto Scaling
+        Beanstalk · Batch · Outposts`"]
+        C2["`**Containers**
+        ECS · EKS
+        ECR · Fargate`"]
+        C3["`**Serverless**
+        Lambda · Fargate
+        Step Functions`"]
     end
     subgraph R2[" "]
         direction LR
-        C4[Storage<br/>S3 · Glacier · EBS<br/>EFS · FSx · Backup<br/>Storage Gateway]
-        C5[Database<br/>RDS · Aurora · DynamoDB<br/>ElastiCache · DocumentDB<br/>Neptune · QLDB · Keyspaces]
-        C6[Analytics<br/>Athena · Redshift · EMR · Glue<br/>Kinesis · OpenSearch · QuickSight<br/>Lake Formation]
+        C4["`**Storage**
+        S3 · Glacier · EBS
+        EFS · FSx · Backup
+        Storage Gateway`"]
+        C5["`**Database**
+        RDS · Aurora · DynamoDB
+        ElastiCache · DocumentDB
+        Neptune · QLDB · Keyspaces`"]
+        C6["`**Analytics**
+        Athena · Redshift · EMR · Glue
+        Kinesis · OpenSearch · QuickSight
+        Lake Formation`"]
     end
     subgraph R3[" "]
         direction LR
-        C7[Networking<br/>VPC · Route 53 · CloudFront · ELB<br/>Direct Connect · Transit Gateway<br/>PrivateLink · Global Accelerator]
-        C8[Security<br/>IAM · Cognito · KMS · ACM<br/>Secrets Manager · WAF · Shield<br/>GuardDuty · Inspector · Security Hub]
-        C9[Integration<br/>SQS · SNS · EventBridge<br/>Step Functions · API Gateway<br/>AppSync · MQ]
+        C7["`**Networking**
+        VPC · Route 53 · CloudFront · ELB
+        Direct Connect · Transit Gateway
+        PrivateLink · Global Accelerator`"]
+        C8["`**Security**
+        IAM · Cognito · KMS · ACM
+        Secrets Manager · WAF · Shield
+        GuardDuty · Inspector · Security Hub`"]
+        C9["`**Integration**
+        SQS · SNS · EventBridge
+        Step Functions · API Gateway
+        AppSync · MQ`"]
     end
     subgraph R4[" "]
         direction LR
-        C10[Management<br/>Organizations · Control Tower<br/>CloudFormation · CloudWatch<br/>CloudTrail · Config · Systems Manager]
-        C11[Migration<br/>MGN · DMS · DataSync<br/>Snow Family · Migration Hub<br/>Transfer Family]
-        C12[Cost & ML<br/>Budgets · Cost Explorer · Savings Plans<br/>SageMaker · Rekognition · Comprehend<br/>Polly · Transcribe · Textract]
+        C10["`**Management**
+        Organizations · Control Tower
+        CloudFormation · CloudWatch
+        CloudTrail · Config · Systems Manager`"]
+        C11["`**Migration**
+        MGN · DMS · DataSync
+        Snow Family · Migration Hub
+        Transfer Family`"]
+        C12["`**Cost & ML**
+        Budgets · Cost Explorer · Savings Plans
+        SageMaker · Rekognition · Comprehend
+        Polly · Transcribe · Textract`"]
     end
     style R1 fill:none,stroke:none
     style R2 fill:none,stroke:none
     style R3 fill:none,stroke:none
     style R4 fill:none,stroke:none
-    style C1 fill:#FFE4B5,stroke:#D4A574,stroke-width:2px,color:#000
-    style C2 fill:#FFE4B5,stroke:#D4A574,stroke-width:2px,color:#000
-    style C3 fill:#FFE4B5,stroke:#D4A574,stroke-width:2px,color:#000
-    style C4 fill:#B5D5FF,stroke:#6A9BD4,stroke-width:2px,color:#000
-    style C5 fill:#B5D5FF,stroke:#6A9BD4,stroke-width:2px,color:#000
-    style C6 fill:#B5D5FF,stroke:#6A9BD4,stroke-width:2px,color:#000
-    style C7 fill:#C5E8B7,stroke:#7AB562,stroke-width:2px,color:#000
-    style C8 fill:#C5E8B7,stroke:#7AB562,stroke-width:2px,color:#000
-    style C9 fill:#C5E8B7,stroke:#7AB562,stroke-width:2px,color:#000
-    style C10 fill:#E0C5E8,stroke:#A578B5,stroke-width:2px,color:#000
-    style C11 fill:#E0C5E8,stroke:#A578B5,stroke-width:2px,color:#000
-    style C12 fill:#E0C5E8,stroke:#A578B5,stroke-width:2px,color:#000
+    style C1 fill:#FFD8A8,stroke:#E89D4F,stroke-width:2px,color:#000
+    style C2 fill:#FFB8A8,stroke:#E87555,stroke-width:2px,color:#000
+    style C3 fill:#FFF0A8,stroke:#E8C649,stroke-width:2px,color:#000
+    style C4 fill:#A8D5FF,stroke:#5A9FE8,stroke-width:2px,color:#000
+    style C5 fill:#FFB8D5,stroke:#E8709A,stroke-width:2px,color:#000
+    style C6 fill:#A8E8E0,stroke:#4FB8AA,stroke-width:2px,color:#000
+    style C7 fill:#B8E8A8,stroke:#6FB855,stroke-width:2px,color:#000
+    style C8 fill:#FFA8B8,stroke:#E85570,stroke-width:2px,color:#000
+    style C9 fill:#A8D8E8,stroke:#4F95B8,stroke-width:2px,color:#000
+    style C10 fill:#D5A8E8,stroke:#9555B8,stroke-width:2px,color:#000
+    style C11 fill:#E8D5A8,stroke:#B89555,stroke-width:2px,color:#000
+    style C12 fill:#C5BFE8,stroke:#7570B8,stroke-width:2px,color:#000
 ```
 
 ---
