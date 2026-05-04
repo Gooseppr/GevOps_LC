@@ -44,9 +44,17 @@ next_module_title: "Guide pratique — Concevoir une architecture AWS de A à Z"
 
 L'écosystème AWS au programme SAA-C03 se découpe en 12 grandes catégories. Chaque catégorie répond à une question fondamentale : *« où exécuter mon code ? »*, *« où stocker mes données ? »*, *« comment connecter mes ressources ? »*, etc.
 
+> **Note** : trois variantes de la carte panoramique sont proposées ci-dessous pour comparer la lisibilité. Les variantes B et C seront supprimées une fois le choix fait — elles n'ont pas vocation à coexister dans la version finale.
+
+### Variante A — Mindmaps thématiques (4 cartes)
+
+Les 12 catégories regroupées par famille d'usage. Chaque mindmap a 3-4 branches max, ce qui évite les croisements et garde un layout lisible.
+
+**A.1 — Compute, conteneurs et serverless** (où exécuter le code ?)
+
 ```mermaid
 mindmap
-  root((AWS<br/>SAA-C03))
+  root((Compute))
     Compute
       EC2
       Auto Scaling
@@ -62,6 +70,13 @@ mindmap
       Lambda
       Fargate
       Step Functions
+```
+
+**A.2 — Données : stockage, bases, analytique** (où vivent les données ?)
+
+```mermaid
+mindmap
+  root((Data))
     Storage
       S3
       Glacier
@@ -79,13 +94,28 @@ mindmap
       Neptune
       QLDB
       Keyspaces
+    Analytics
+      Athena
+      Redshift
+      EMR
+      Glue
+      Kinesis
+      OpenSearch
+      QuickSight
+      Lake Formation
+```
+
+**A.3 — Réseau, sécurité, intégration** (comment connecter et protéger ?)
+
+```mermaid
+mindmap
+  root((Réseau<br/>et sécurité))
     Networking
       VPC
       Route 53
       CloudFront
       ELB
       Direct Connect
-      VPN
       Transit Gateway
       PrivateLink
       Global Accelerator
@@ -99,7 +129,6 @@ mindmap
       Shield
       GuardDuty
       Inspector
-      Macie
       Security Hub
     Integration
       SQS
@@ -109,16 +138,13 @@ mindmap
       API Gateway
       AppSync
       MQ
-    Analytics
-      Athena
-      Redshift
-      EMR
-      Glue
-      Kinesis
-      MSK
-      OpenSearch
-      QuickSight
-      Lake Formation
+```
+
+**A.4 — Opérations : pilotage, migration, coûts, ML** (comment gérer le tout ?)
+
+```mermaid
+mindmap
+  root((Opérations))
     Management
       Organizations
       Control Tower
@@ -127,18 +153,15 @@ mindmap
       CloudTrail
       Config
       Systems Manager
-      Trusted Advisor
     Migration
       MGN
       DMS
       DataSync
       Snow Family
       Migration Hub
-      Transfer Family
     Cost
       Budgets
       Cost Explorer
-      CUR
       Compute Optimizer
       Savings Plans
     ML
@@ -148,11 +171,72 @@ mindmap
       Polly
       Transcribe
       Translate
-      Lex
       Textract
 ```
 
-**Comment lire cette carte** : chaque branche principale est une catégorie « business » (un besoin), et les feuilles sont les services qui répondent à ce besoin. Plusieurs services peuvent apparaître dans deux catégories (ex: Fargate est à la fois Containers et Serverless, Step Functions est à la fois Serverless et Integration) — c'est normal, AWS découpe son catalogue par usage et un service peut servir plusieurs usages.
+---
+
+### Variante B — Atlas en grille (flowchart structuré)
+
+Une seule carte présentant les 12 catégories en grille de 4 lignes × 3 colonnes. Layout 100 % contrôlé, chaque catégorie est un bloc dont le contenu est lisible d'un coup d'œil.
+
+```mermaid
+flowchart TB
+    subgraph R1[" "]
+        direction LR
+        C1[Compute<br/>EC2 · Auto Scaling<br/>Beanstalk · Batch · Outposts]
+        C2[Containers<br/>ECS · EKS<br/>ECR · Fargate]
+        C3[Serverless<br/>Lambda · Fargate<br/>Step Functions]
+    end
+    subgraph R2[" "]
+        direction LR
+        C4[Storage<br/>S3 · Glacier · EBS<br/>EFS · FSx · Backup<br/>Storage Gateway]
+        C5[Database<br/>RDS · Aurora · DynamoDB<br/>ElastiCache · DocumentDB<br/>Neptune · QLDB · Keyspaces]
+        C6[Analytics<br/>Athena · Redshift · EMR · Glue<br/>Kinesis · OpenSearch · QuickSight<br/>Lake Formation]
+    end
+    subgraph R3[" "]
+        direction LR
+        C7[Networking<br/>VPC · Route 53 · CloudFront · ELB<br/>Direct Connect · Transit Gateway<br/>PrivateLink · Global Accelerator]
+        C8[Security<br/>IAM · Cognito · KMS · ACM<br/>Secrets Manager · WAF · Shield<br/>GuardDuty · Inspector · Security Hub]
+        C9[Integration<br/>SQS · SNS · EventBridge<br/>Step Functions · API Gateway<br/>AppSync · MQ]
+    end
+    subgraph R4[" "]
+        direction LR
+        C10[Management<br/>Organizations · Control Tower<br/>CloudFormation · CloudWatch<br/>CloudTrail · Config · Systems Manager]
+        C11[Migration<br/>MGN · DMS · DataSync<br/>Snow Family · Migration Hub<br/>Transfer Family]
+        C12[Cost & ML<br/>Budgets · Cost Explorer · Savings Plans<br/>SageMaker · Rekognition · Comprehend<br/>Polly · Transcribe · Textract]
+    end
+    style R1 fill:none,stroke:none
+    style R2 fill:none,stroke:none
+    style R3 fill:none,stroke:none
+    style R4 fill:none,stroke:none
+```
+
+---
+
+### Variante C — Tableau structuré
+
+Pas de Mermaid : juste un tableau Markdown. Le plus robuste à afficher, le plus dense en information utile, scannable au clavier.
+
+| Catégorie | Question fondamentale | Services principaux |
+|-----------|----------------------|---------------------|
+| **Compute** | Où exécuter le code ? | EC2, Auto Scaling, Beanstalk, Batch, Outposts |
+| **Containers** | Comment orchestrer mes conteneurs ? | ECS, EKS, ECR, Fargate |
+| **Serverless** | Comment ne pas gérer d'infra ? | Lambda, Fargate, Step Functions |
+| **Storage** | Où stocker mes fichiers et objets ? | S3, Glacier, EBS, EFS, FSx, Backup, Storage Gateway |
+| **Database** | Où stocker mes données structurées ? | RDS, Aurora, DynamoDB, ElastiCache, DocumentDB, Neptune, QLDB, Keyspaces |
+| **Analytics** | Comment analyser mes données ? | Athena, Redshift, EMR, Glue, Kinesis, MSK, OpenSearch, QuickSight, Lake Formation |
+| **Networking** | Comment connecter mes ressources ? | VPC, Route 53, CloudFront, ELB, Direct Connect, VPN, Transit Gateway, PrivateLink, Global Accelerator |
+| **Security** | Comment protéger et tracer ? | IAM, Cognito, KMS, Secrets Manager, ACM, WAF, Shield, GuardDuty, Inspector, Macie, Security Hub |
+| **Integration** | Comment découpler mes composants ? | SQS, SNS, EventBridge, Step Functions, API Gateway, AppSync, MQ |
+| **Management** | Comment piloter et auditer ? | Organizations, Control Tower, CloudFormation, CloudWatch, CloudTrail, Config, Systems Manager, Trusted Advisor |
+| **Migration** | Comment passer de on-prem à AWS ? | MGN, DMS, DataSync, Snow Family, Migration Hub, Transfer Family |
+| **Cost** | Comment maîtriser la facture ? | Budgets, Cost Explorer, CUR, Compute Optimizer, Savings Plans |
+| **ML** | Comment ajouter de l'IA ? | SageMaker, Rekognition, Comprehend, Polly, Transcribe, Translate, Lex, Textract |
+
+---
+
+**Comment lire cette carte** : chaque catégorie répond à une question business (un besoin), et les services listés sont les briques qui y répondent. Plusieurs services apparaissent dans deux catégories (Fargate = Containers et Serverless, Step Functions = Serverless et Integration) — c'est normal, AWS découpe son catalogue par usage et un service peut servir plusieurs usages.
 
 ---
 
