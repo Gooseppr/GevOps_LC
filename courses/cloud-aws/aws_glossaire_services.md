@@ -12,8 +12,8 @@ mermaid: false
 status: published
 prev_module: "/courses/cloud-aws/aws_cheatsheet.html"
 prev_module_title: "Cheat Sheet AWS — Référence rapide SAA-C03"
-next_module: "/courses/cloud-aws/aws_guide_pratique.html"
-next_module_title: "Guide pratique — Concevoir une architecture AWS de A à Z"
+next_module: "/courses/cloud-aws/aws_cartographie.html"
+next_module_title: "Cartographie AWS — Catégories, services et combinaisons"
 ---
 
 # Glossaire des services AWS — Dictionnaire SAA-C03

@@ -27,6 +27,9 @@
     "AMI": {
       "mode": "spell"
     },
+    "AMQP": {
+      "mode": "spell"
+    },
     "API": {
       "mode": "spell"
     },
@@ -85,6 +88,9 @@
     "CIDR": {
       "mode": "say",
       "as": "ci-deure"
+    },
+    "CIS": {
+      "mode": "spell"
     },
     "CLB": {
       "mode": "spell"
@@ -153,6 +159,9 @@
       "mode": "spell"
     },
     "DRS": {
+      "mode": "spell"
+    },
+    "DRT": {
       "mode": "spell"
     },
     "DSS": {
@@ -307,6 +316,9 @@
     "KMS": {
       "mode": "spell"
     },
+    "LAG": {
+      "mode": "spell"
+    },
     "LAN": {
       "mode": "say",
       "as": "lane"
@@ -340,6 +352,9 @@
       "mode": "spell"
     },
     "NACL": {
+      "mode": "spell"
+    },
+    "NAS": {
       "mode": "spell"
     },
     "NAT": {
@@ -437,6 +452,9 @@
     "RCU": {
       "mode": "spell"
     },
+    "RDP": {
+      "mode": "spell"
+    },
     "RDS": {
       "mode": "spell"
     },
@@ -514,6 +532,9 @@
     "SNS": {
       "mode": "spell"
     },
+    "SOC": {
+      "mode": "spell"
+    },
     "SPICE": {
       "mode": "spell"
     },
@@ -547,6 +568,9 @@
     "SSO": {
       "mode": "spell"
     },
+    "STOMP": {
+      "mode": "spell"
+    },
     "STS": {
       "mode": "spell"
     },
@@ -555,6 +579,9 @@
       "as": "sasse"
     },
     "TCP": {
+      "mode": "spell"
+    },
+    "TGW": {
       "mode": "spell"
     },
     "TLS": {
@@ -586,6 +613,9 @@
       "mode": "spell"
     },
     "VPN": {
+      "mode": "spell"
+    },
+    "VPS": {
       "mode": "spell"
     },
     "VTL": {

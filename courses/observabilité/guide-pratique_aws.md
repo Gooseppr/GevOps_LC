@@ -12,6 +12,8 @@ mermaid: false
 status: published
 prev_module: "/courses/observabilité/guide-pratique_open-source.html"
 prev_module_title: "Guide pratique — Stack open source (Prometheus, Grafana, Loki, Tempo)"
+next_module: "/courses/observabilité/guide-pratique_test.html"
+next_module_title: "Guide pratique — Tester et observer simultanément (Cypress, k6, Supertest)"
 ---
 
 # Guide pratique — Observabilite sur AWS (CloudWatch, X-Ray, ADOT)

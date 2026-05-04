@@ -4,7 +4,7 @@ title: "Entraînement SAA-C03 — Questions & explications"
 course: cloud-aws
 chapter_title: "Références"
 chapter: 0
-section: 4
+section: 5
 tags: aws,saa-c03,exam,quiz,practice,questions
 difficulty: intermediate
 duration: 60

@@ -4,14 +4,14 @@ title: "Guide pratique — Concevoir une architecture AWS de A à Z"
 course: cloud-aws
 chapter_title: "Références"
 chapter: 0
-section: 3
+section: 4
 tags: aws,architecture,bonnes-pratiques,design,saa-c03,securite,resilience,performance,couts
 difficulty: intermediate
 duration: 120
 mermaid: true
 status: published
-prev_module: "/courses/cloud-aws/aws_glossaire_services.html"
-prev_module_title: "Glossaire des services AWS — Dictionnaire SAA-C03"
+prev_module: "/courses/cloud-aws/aws_cartographie.html"
+prev_module_title: "Cartographie AWS — Catégories, services et combinaisons"
 next_module: "/courses/cloud-aws/aws_exam_practice.html"
 next_module_title: "Entraînement SAA-C03 — Questions & explications"
 ---
