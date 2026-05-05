@@ -2069,4 +2069,185 @@ Pourquoi les autres sont faux :
 
 ---
 
-> **Dernière mise à jour** : Avril 2026 — 65 questions alignées sur le programme SAA-C03.
+## Question 66 — SQS et priorité (premium vs free)
+
+**Contexte** : Un site de traitement vidéo a deux types de comptes : free et premium. Tous les jobs passent par une seule queue SQS, traitée par un ASG d'EC2. Il faut garantir que les utilisateurs premium soient traités avant les free.
+
+**Quelle re-conception adopter ?**
+
+- A. Marquer les messages premium avec une priorité plus élevée dans la queue SQS.
+- B. Créer deux queues SQS distinctes (premium et free). Les EC2 vident la queue premium en premier, puis la free quand la premium est vide.
+- C. Utiliser Kinesis pour traiter les photos en temps réel.
+- D. Stocker et traiter les photos directement dans S3.
+
+<details>
+<summary><strong>Voir la réponse</strong></summary>
+
+**Réponse : B — Deux queues distinctes, polling prioritaire**
+
+SQS **ne supporte pas la priorité par message** — c'est le piège central. Aucune option `priority` ou `weight` n'existe sur les messages d'une queue, qu'elle soit Standard ou FIFO. Pour gérer des niveaux de priorité différents, le pattern AWS est :
+1. Créer une queue par niveau de priorité (ex : `requests-premium`, `requests-free`)
+2. Configurer les workers pour poller d'abord la queue prioritaire
+3. Ne passer à la queue moins prioritaire que si la première est vide
+
+Pourquoi les autres sont faux :
+- **A** : la "priorité de message" n'existe pas dans SQS — c'est inventé
+- **C (Kinesis)** : Kinesis = streaming temps réel, pas du traitement de jobs vidéo asynchrones
+- **D (S3)** : S3 stocke, ne traite pas — pas de logique de priorité
+
+**Piège exam** : si une question SQS parle de "priority", "premium vs free", "tiered processing" → la réponse est **plusieurs queues**, jamais "ajouter une priorité au message".
+
+📖 [Module 22 — Architectures distribuées](/courses/cloud-aws/aws_module_22_distributed.html)
+</details>
+
+---
+
+## Question 67 — Bastion host pour accès admin
+
+**Contexte** : Une web app multi-tier dans un VPC sans connexion au réseau corporate. Les admins se connectent via Internet pour gérer les EC2 (publics et privés). Un bastion host avec RDP a été ajouté. Comment limiter l'accès admin de manière sécurisée ?
+
+- A. Bastion Windows dans le réseau corporate avec RDP vers les EC2.
+- B. Bastion Windows avec EIP dans un **subnet privé**, RDP restreint aux IPs corporate.
+- C. Bastion Windows avec EIP dans un **subnet public**, RDP restreint aux IPs corporate.
+- D. Bastion Windows avec EIP dans un subnet public, **SSH** autorisé depuis n'importe où.
+
+<details>
+<summary><strong>Voir la réponse</strong></summary>
+
+**Réponse : C — Bastion en subnet public, RDP restreint aux IPs corporate**
+
+Un bastion host doit être :
+1. **En subnet public** avec une Elastic IP — sinon il est inaccessible depuis Internet
+2. **Avec un Security Group qui restreint SSH/RDP aux IPs publiques connues** (jamais `0.0.0.0/0`)
+3. **Dans le VPC**, pas dans le réseau corporate
+
+Les SG des instances privées autorisent ensuite SSH/RDP **uniquement depuis le SG du bastion** (référence par SG ID, pas par IP).
+
+Pourquoi les autres sont faux :
+- **A** : un bastion dans le réseau corporate n'est pas une architecture AWS — le bastion appartient au VPC
+- **B** : en subnet privé, le bastion n'a pas de route vers Internet entrant → impossible d'y accéder depuis l'extérieur
+- **D** : SSH (port 22) est pour Linux. Un bastion **Windows** utilise **RDP** (port 3389). Et `0.0.0.0/0` est un défaut de sécurité majeur.
+
+**Piège exam** : ne jamais confondre SSH (Linux) et RDP (Windows). Bastion = toujours subnet public + SG restreint aux IPs admin. Alternative moderne : **Systems Manager Session Manager** (sans bastion, sans port ouvert).
+
+📖 [Module 20 — Zero Trust](/courses/cloud-aws/aws_module_20_security_zero_trust.html)
+</details>
+
+---
+
+## Question 68 — ASG ne scale pas sur la mémoire
+
+**Contexte** : Un ASG d'EC2 Linux + FSx for OpenZFS, monitoring CloudWatch basique. L'app est lente et l'ASG ne lance pas de nouvelles instances **alors que la RAM est saturée**. Que faire ?
+
+- A. Installer le CloudWatch Agent unifié sur les EC2. Stocker la config dans **SSM Parameter Store**. Scaler l'ASG sur la métrique custom de mémoire agrégée.
+- B. Utiliser Comprehend pour tracker la RAM en temps réel + SageMaker pour déclencher le scaling.
+- C. Activer le **detailed monitoring** sur les EC2. Scaler l'ASG sur la mémoire agrégée.
+- D. Utiliser Rekognition pour identifier la cause + Well-Architected Tool pour déclencher le scaling.
+
+<details>
+<summary><strong>Voir la réponse</strong></summary>
+
+**Réponse : A — CloudWatch Agent + SSM Parameter Store**
+
+La RAM n'est **pas** une métrique CloudWatch par défaut — AWS ne peut pas la mesurer depuis l'hyperviseur. Sans agent, aucune métrique mémoire n'arrive à CloudWatch, donc l'ASG ne peut pas scaler dessus. La solution complète :
+1. Installer le **CloudWatch Agent unifié** sur chaque EC2
+2. Stocker la config de l'agent dans **SSM Parameter Store** pour la déployer uniformément à toutes les instances de l'ASG
+3. Créer une scaling policy sur la métrique custom de mémoire agrégée
+
+Pourquoi les autres sont faux :
+- **C (detailed monitoring)** : augmente la fréquence (5 min → 1 min) des métriques **existantes** uniquement. N'ajoute pas la mémoire.
+- **B (Comprehend / SageMaker)** : Comprehend = NLP sur du texte. SageMaker = build de modèles ML. Aucun rapport avec le monitoring d'instances.
+- **D (Rekognition / Well-Architected)** : Rekognition = analyse d'images. Well-Architected Tool = revue d'architecture, ne déclenche aucun scaling.
+
+**Piège exam** : "ASG ne scale pas malgré une RAM saturée" → CloudWatch Agent (toujours). Detailed monitoring **n'ajoute pas** de nouvelles métriques. Comprehend / Rekognition / SageMaker dans une question d'infra sont des distracteurs grossiers.
+
+📖 [Module 07 — CloudWatch](/courses/cloud-aws/aws_module_07_cloudwatch.html) · [Module 09 — Auto Scaling](/courses/cloud-aws/aws_module_09_load_balancing.html)
+</details>
+
+---
+
+## Question 69 — Hub réseau multi-régions multi-VPC + on-prem
+
+**Contexte** : Centaines de VPC, multiples connexions VPN vers les datacenters, 5 régions AWS. Il faut **un seul gateway** qui interconnecte tout (VPC + VPN + on-prem) avec support du peering inter-région.
+
+- A. Un **Transit Gateway par région** + peering entre les TGW.
+- B. Direct Connect Gateway + LAG + Virtual Private Gateway dans chaque VPC + **public VIF** pour chaque DX vers le DXG.
+- C. Inter-region VPC peering en réseau full-mesh sur le backbone AWS.
+- D. AWS VPN CloudHub pour les VPC + Direct Connect Gateway pour le on-prem + **private VIF** vers le DXG.
+
+<details>
+<summary><strong>Voir la réponse</strong></summary>
+
+**Réponse : A — Un TGW par région + TGW peering inter-région**
+
+Transit Gateway est conçu exactement pour ce cas : un hub central qui interconnecte VPC, VPN et Direct Connect dans une région. Pour le multi-régions, on déploie **un TGW par région** et on les relie via du **TGW peering inter-région** (le trafic reste sur le backbone AWS).
+
+Pourquoi les autres sont faux :
+- **B (public VIF)** : on ne peut **pas** connecter un Direct Connect à un Direct Connect Gateway via une **public VIF**. Pour accéder à un VPC via un DXG, il faut une **private VIF** (ou une transit VIF). Le LAG est juste de l'agrégation de bande passante, sans rapport avec le problème.
+- **C (inter-region VPC peering)** : techniquement possible mais le nombre de peerings explose à grande échelle (peering non-transitif). Ne couvre pas les connexions on-prem.
+- **D (VPN CloudHub)** : VPN CloudHub interconnecte **des bureaux distants en VPN** entre eux via un Virtual Private Gateway, **pas des VPC**. Mauvais service pour le scénario.
+
+**Piège exam** : "centaines de VPC" + "multi-régions" + "on-prem" + "single gateway" → **TGW par région + peering inter-région**. Public VIF ne se connecte **pas** à un Direct Connect Gateway pour accéder à un VPC. VPN CloudHub = pour des sites distants, pas pour des VPC à grande échelle.
+
+📖 [Module 27 — VPC avancé](/courses/cloud-aws/aws_module_27_vpc_advanced.html)
+</details>
+
+---
+
+## Question 70 — Docker serverless avec ephemeral storage
+
+**Contexte** : Une app packagée comme **image Docker dans ECR** doit être déployée sur un **fully managed serverless compute service** avec **5 GB d'ephemeral storage** pour du traitement temporaire.
+
+- A. Lambda avec **container image support**, storage configuré à **5 GB**.
+- B. ECS sur **Fargate**.
+- C. Lambda avec container image, attacher un volume **EFS**.
+- D. ECS sur **EC2 worker nodes** + EBS de 5 GB.
+
+<details>
+<summary><strong>Voir la réponse</strong></summary>
+
+**Réponse : A — Lambda avec container image + 5 GB ephemeral**
+
+Lambda supporte les **container images depuis ECR** (jusqu'à 10 GB d'image) et le **stockage `/tmp` configurable de 512 MB à 10 GB**. C'est la seule option entièrement "fully managed serverless" parmi les choix : pas de cluster, pas de task definition, pas de réseau à configurer.
+
+Pourquoi les autres sont faux :
+- **B (Fargate)** : serverless au niveau compute mais nécessite cluster ECS, task definitions, services. Pas considéré "fully managed serverless" au sens strict de la question (Lambda l'est).
+- **C (Lambda + EFS)** : EFS est un stockage **persistant partagé** — sur-dimensionné pour de l'**ephemeral**. Le `/tmp` configurable suffit.
+- **D (ECS sur EC2)** : EC2 = pas serverless (gestion d'instances).
+
+**Piège exam** : "fully managed serverless" + "Docker image / ECR" + "ephemeral storage" → **Lambda container image avec `/tmp` configurable**. EFS = persistant, pas éphémère. Fargate ≠ "fully managed" au sens strict.
+
+📖 [Module 29 — Serverless avancé](/courses/cloud-aws/aws_module_29_lambda_advanced.html)
+</details>
+
+---
+
+## Question 71 — Migrer des APIs REST vers AWS (cost-effective + scalable)
+
+**Contexte** : Une boîte de jeux VR/AR a des APIs REST hébergées on-prem derrière un CDN. Elle migre vers AWS pour scaler et minimiser les coûts.
+
+- A. **Lambda + API Gateway**.
+- B. ECS + ECR + Fargate (microservices).
+- C. APIs hébergées en S3 static + CloudFront.
+- D. Spot Fleet EC2 + **EFA** + ALB.
+
+<details>
+<summary><strong>Voir la réponse</strong></summary>
+
+**Réponse : A — Lambda + API Gateway**
+
+Pour des APIs REST avec trafic variable, Lambda + API Gateway est la combinaison la plus cost-effective : facturation **à la requête + à la milliseconde**, scaling automatique, pas de serveur à gérer. Une instance EC2 qui tourne 24/7 est gaspillée pendant les périodes creuses.
+
+Pourquoi les autres sont faux :
+- **C (S3 static)** : S3 ne fait **que servir du statique** — aucune capacité d'exécuter du code REST. CloudFront ne change rien à ça.
+- **B (ECS Fargate)** : viable mais **plus cher** et **plus complexe** que Lambda pour des APIs irrégulières (les tasks Fargate facturent même quand peu de trafic).
+- **D (Spot Fleet + EFA)** : **EFA = adaptateur réseau pour HPC**, aucun rapport avec des APIs REST. Et un Spot Fleet sans Auto Scaling n'est pas scalable.
+
+**Piège exam** : "API REST" + "scalable" + "cost-effective" + "trafic variable / irrégulier" → **Lambda + API Gateway** quasi systématiquement. EFA = HPC, pas REST. S3 = static, pas dynamique.
+
+📖 [Module 18 — Serverless](/courses/cloud-aws/aws_module_18_serverless.html)
+</details>
+
+---
+
+> **Dernière mise à jour** : Avril 2026 — 71 questions alignées sur le programme SAA-C03.

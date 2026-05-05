@@ -187,6 +187,9 @@
     "ECS": {
       "mode": "spell"
     },
+    "EFA": {
+      "mode": "spell"
+    },
     "EFS": {
       "mode": "spell"
     },
@@ -331,6 +334,9 @@
       "as": "li-fo"
     },
     "LSI": {
+      "mode": "spell"
+    },
+    "MB": {
       "mode": "spell"
     },
     "MFA": {
@@ -784,6 +790,7 @@
     "CloudEndure": "CloudEndure",
     "CloudFormation": "Cloud-Forméïchone",
     "CloudFront": "Cloud-Fronte",
+    "CloudHub": "CloudHub",
     "CloudTrail": "Cloud-Tréïle",
     "CloudWatch": "Cloud-Wotch",
     "CodeBuild": "Code-Bilde",

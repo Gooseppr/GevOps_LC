@@ -313,13 +313,15 @@ Par defaut, tous les consumers d'un shard se partagent les 2 Mo/s de sortie. Ave
 - KDS ne **livre** pas directement dans S3/Redshift (c'est Data Firehose)
 - KDS n'est **pas serverless au sens strict** : tu provisionnes des shards (sauf en mode On-Demand)
 
+⚠️ **Piège de nom** : ne pas confondre Kinesis avec **Amazon AppStream** (hors scope SAA-C03). Malgré son nom qui contient "stream", AppStream n'a rien à voir avec le streaming de données — c'est un service qui diffuse des **applications desktop** aux utilisateurs (streaming d'apps, pas de data). Si une question sur du streaming temps réel propose AppStream comme option, c'est un distracteur.
+
 ---
 
 ## Amazon Data Firehose (ex-Kinesis Data Firehose) — livraison near-real-time
 
 ### Ce que c'est
 
-Data Firehose est un service de **livraison** de donnees en quasi temps reel (latence de 60 secondes minimum). Il recoit des donnees et les livre automatiquement vers S3, Redshift, OpenSearch ou des endpoints HTTP.
+Data Firehose est un service de **livraison** de donnees en quasi temps reel (latence de 60 secondes minimum). Il recoit des donnees et les livre automatiquement vers les destinations preconfigurees : **S3, Redshift, OpenSearch, Splunk** et endpoints HTTP custom. Pas de code consumer a ecrire — Firehose gere le batching, la compression, le chiffrement et la transformation optionnelle (via Lambda) avant la livraison.
 
 ### Difference cle avec Kinesis Data Streams
 
@@ -330,7 +332,7 @@ Data Firehose est un service de **livraison** de donnees en quasi temps reel (la
 | Consumers custom | Oui (Lambda, KCL, API) | Non — destinations preconfigurées |
 | Transformation | Non | Oui (via Lambda integre) |
 | Replay | Oui (retention) | Non |
-| Destinations | Tu codes le consumer | S3, Redshift, OpenSearch, HTTP |
+| Destinations | Tu codes le consumer | S3, Redshift, OpenSearch, Splunk, HTTP |
 
 💡 **Astuce SAA**
 → Si l'enonce dit "livrer des donnees dans S3 sans gerer d'infrastructure" → Data Firehose. Si l'enonce dit "traitement temps reel custom avec replay" → Kinesis Data Streams.

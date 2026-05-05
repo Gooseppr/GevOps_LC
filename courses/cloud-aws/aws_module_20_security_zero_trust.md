@@ -178,6 +178,27 @@ description: Identifie immédiatement les Security Groups autorisant du trafic d
 
 ---
 
+## Accès admin aux instances privées : le bastion host
+
+Un VPC bien conçu place les serveurs applicatifs et les bases de données dans des **subnets privés** — pas d'IP publique, pas de route directe vers Internet pour le trafic entrant. Mais tu as quand même besoin d'un accès SSH ou RDP pour administrer ces machines. La solution classique : un **bastion host** (parfois appelé "jump host").
+
+Un bastion host est une instance EC2 dédiée à l'administration, placée dans un **subnet public** avec une **Elastic IP**. Les administrateurs se connectent au bastion depuis Internet (SSH 22 pour Linux, RDP 3389 pour Windows), puis depuis le bastion ils rebondissent vers les instances des subnets privés. Toute l'infrastructure interne reste invisible depuis Internet.
+
+Les règles de sécurité typiques :
+- Le **Security Group du bastion** autorise SSH/RDP **uniquement depuis les IPs publiques de l'entreprise** (jamais depuis `0.0.0.0/0`)
+- Le **Security Group des instances privées** autorise SSH/RDP **uniquement depuis le SG du bastion** (référence par SG ID, pas par IP)
+- Le bastion doit être en subnet **public** — sinon tu ne peux pas t'y connecter depuis Internet
+
+Pièges fréquents à l'examen :
+- Bastion en **subnet privé** = inaccessible depuis Internet → faux
+- Bastion **dans le réseau corporate** au lieu du VPC = pas une architecture AWS bastion → faux
+- SSH pour un bastion **Windows** = faux (Windows utilise RDP, port 3389). SSH = Linux (port 22).
+- Bastion qui autorise le trafic depuis **`0.0.0.0/0`** = défaut de sécurité → toujours restreindre aux IPs corporate
+
+**Alternative moderne** : **AWS Systems Manager Session Manager** permet de se connecter aux instances **sans bastion, sans port ouvert, sans clé SSH**. Le SSM Agent (préinstallé sur Amazon Linux 2 et Windows Server) établit une connexion sortante vers le service SSM ; tu te connectes via la console AWS ou la CLI. C'est la solution recommandée par AWS aujourd'hui — mais le bastion reste un sujet d'examen pour les architectures classiques.
+
+---
+
 ## VPC Endpoints : éliminer l'exposition Internet
 
 Voici quelque chose de contre-intuitif : par défaut, quand une EC2 ou une Lambda dans un VPC privé appelle l'API S3 ou DynamoDB, le trafic **sort par Internet** — via la NAT Gateway — même si les deux ressources appartiennent au même compte AWS. C'est à la fois un risque de sécurité et un coût inutile.

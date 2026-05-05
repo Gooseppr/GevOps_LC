@@ -131,6 +131,12 @@ Quand tu conçois une architecture serverless, les limites Lambda ne sont pas un
 | **Container image** | 10 Go | Suffisant pour du ML avec des modèles volumineux |
 | **Lambda Layers** | 5 layers max, 250 Mo total dézippé | Externalise les dépendances lourdes dans des layers |
 
+**Lambda avec container image** : depuis 2020, Lambda accepte des images Docker stockées dans **ECR** (Amazon Elastic Container Registry) — pas seulement du code zippé. C'est la solution quand ton package dépasse 250 Mo dézippé ou quand tu veux réutiliser une image Docker existante sans réécrire l'application. Lambda reste **fully serverless** dans ce mode : tu ne gères ni cluster, ni nodes, ni scaling. Tu paies uniquement à l'invocation.
+
+**Lambda vs Fargate pour des conteneurs serverless** : les deux exécutent des conteneurs sans serveur sous-jacent à gérer, mais l'examen fait souvent une distinction nette. **Lambda** = "fully managed serverless" pur — pas de cluster, pas de task definition, pas de service ECS, pas de réseau à configurer. **Fargate** est serverless au niveau compute (pas d'EC2 à gérer) mais nécessite un cluster ECS/EKS, des task definitions et de la configuration réseau. Quand une question demande "fully managed serverless compute service" pour un conteneur Docker simple → **Lambda avec container image** est généralement la bonne réponse, surtout avec des contraintes courtes (< 15 min, < 10 Go RAM, < 10 Go ephemeral).
+
+**Ephemeral storage `/tmp` vs EFS** : le `/tmp` de Lambda est **éphémère** (effacé entre les invocations à froid) et **local à l'instance** d'exécution — parfait pour du traitement temporaire de données. L'EFS attaché à Lambda est **persistant** et **partagé** entre toutes les invocations. Si la question dit "ephemeral / temporary data processing", la réponse est `/tmp` configurable (jusqu'à 10 Go) — pas EFS. Attacher un EFS pour de l'éphémère est un sur-engineering inutile.
+
 ### Limites de concurrence
 
 | Limite | Valeur | Ajustable ? |

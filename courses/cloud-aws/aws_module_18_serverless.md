@@ -173,6 +173,18 @@ La migration a pris deux jours. Le code métier (appel au service push) n'a quas
 
 Le serverless ne supprime pas la complexité — il la déplace. Tu n'as plus à gérer des serveurs, mais tu dois maîtriser le cycle de vie des fonctions, les cold starts et la gestion des erreurs. Lambda + API Gateway couvre la majorité des patterns d'API REST. Comparé à EC2, Lambda brille pour les workloads courts, irréguliers et event-driven — mais ne convient pas aux traitements longs ou aux applications qui nécessitent un état persistant en mémoire.
 
+### Distracteurs fréquents pour les APIs REST
+
+Quand une question demande la solution **la plus cost-effective et scalable** pour héberger une API REST, plusieurs options reviennent comme distracteurs.
+
+**S3 + CloudFront** : faux pour une API. S3 ne fait **que** servir des fichiers statiques — pas de compute, pas de logique applicative, pas de traitement de requêtes dynamiques. CloudFront accélère la livraison mais ne change rien au fait que S3 ne peut pas exécuter de code REST.
+
+**ECS + ECR + Fargate** : techniquement viable mais **plus cher** et **plus complexe** que Lambda + API Gateway pour des APIs irrégulières. Fargate facture à la durée d'exécution du conteneur (qui tourne en continu si on garde au moins une task active), tandis que Lambda facture **à la milliseconde par requête**. Pour des charges intermittentes ou imprévisibles, Lambda gagne presque toujours sur le coût.
+
+**EC2 Spot Fleet + EFA + ALB** : faux à plusieurs niveaux. Sans **Auto Scaling Group**, un Spot Fleet n'est pas scalable automatiquement. **EFA (Elastic Fabric Adapter)** n'a rien à voir avec des APIs REST — c'est un adaptateur réseau pour HPC (calcul scientifique, ML distribué). Un EC2 qui tourne 24/7 coûte plus que des invocations Lambda à la requête, même en Spot.
+
+🧠 **Règle rapide** : "API REST" + "scalable" + "cost-effective" + "irrégulier / variable" → **Lambda + API Gateway**. C'est presque toujours la bonne réponse, sauf si la question impose un état long, un timeout > 15 min ou un workload constant à très haut débit (où ECS Fargate ou EC2 deviennent plus économiques au-delà d'un certain seuil).
+
 Le module Serverless avancé (plus loin dans le parcours) approfondit les limites Lambda, la concurrence, Step Functions, et l'architecture event-driven avec SQS/SNS/EventBridge.
 
 ---

@@ -246,6 +246,12 @@ AWS publie automatiquement des métriques toutes les 5 minutes pour la plupart d
 
 🧠 **Pourquoi la RAM est absente par défaut** : AWS ne peut pas mesurer la mémoire consommée de l'extérieur d'une instance — c'est une donnée interne à l'OS. Pour surveiller la mémoire, il faut installer l'**agent CloudWatch** sur l'instance, qui lit les statistiques système et les pousse comme métriques custom dans le namespace `CWAgent`.
 
+**Scaler un ASG sur la mémoire** : un ASG ne sait pas scaler sur des métriques qu'il ne reçoit pas. Si tu veux que ton ASG ajoute des instances quand la RAM dépasse 80%, tu dois d'abord publier la métrique mémoire via le CloudWatch Agent, puis configurer une scaling policy sur cette métrique custom. Sans agent → pas de métrique mémoire → l'ASG ne scale pas même quand les serveurs saturent (c'est un cas classique d'examen : "l'ASG ne lance pas de nouvelles instances malgré une mémoire saturée").
+
+Pour déployer la config de l'agent à toutes les instances d'un ASG, le pattern recommandé est de la stocker dans **AWS Systems Manager Parameter Store**. Chaque instance lance l'agent au boot avec la commande `amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:<NomDuParametre>`. Cela évite de modifier chaque AMI ou de copier la config manuellement — toutes les instances de l'ASG récupèrent la même config depuis Parameter Store, et la mise à jour se fait en un seul endroit.
+
+⚠️ **Detailed monitoring vs CloudWatch Agent** — c'est une confusion classique. "Detailed monitoring" augmente la fréquence des métriques **existantes** (5 min → 1 min). Il **n'ajoute pas** de nouvelles métriques. Pour la mémoire ou l'espace disque, detailed monitoring ne sert à rien — il faut l'agent CloudWatch.
+
 ### Les trois états d'une alarme
 
 Une alarme CloudWatch est toujours dans l'un de ces états :

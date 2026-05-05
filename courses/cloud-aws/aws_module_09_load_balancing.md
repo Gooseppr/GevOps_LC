@@ -72,7 +72,7 @@ Le service AWS de load balancing (ELB) propose plusieurs types de Load Balancers
 
 Pour la grande majorité des applications web modernes, **ALB est le bon choix**. Parce qu'il opère au niveau applicatif, il comprend le contenu des requêtes HTTP — ce qui ouvre des possibilités de routage avancé : envoyer `/api/*` vers un groupe d'instances dédié au backend, `/static/*` vers un autre optimisé pour le contenu statique.
 
-Le NLB s'impose dans deux cas précis : tu as besoin de latences sub-milliseconde, ou tu travailles avec des protocoles non-HTTP (TCP brut, UDP, flux temps réel).
+Le NLB s'impose dans deux cas précis : tu as besoin de latences sub-milliseconde, ou tu travailles avec des protocoles non-HTTP (TCP brut, UDP, flux temps réel). Cas d'usage classique en examen : un **multiplayer game server** utilisant UDP. ALB **ne supporte pas UDP** (uniquement HTTP/HTTPS/WebSocket) — dès qu'une question parle de jeu en ligne, VoIP, IoT temps réel ou tout protocole non-HTTP, la réponse est NLB. Pour le routage par flow hash UDP : NLB utilise (protocole, IP source, port source, IP destination, port destination) pour router systématiquement un même flow vers le même target.
 
 > **SAA-C03** — "network appliances / firewall" → **GLB** (Layer 3). "traffic always to same instance / trafic toujours vers la même instance" + stateless → désactiver les **sticky sessions**. Cross-zone load balancing : activé par défaut sur ALB, **désactivé** par défaut sur NLB.
 

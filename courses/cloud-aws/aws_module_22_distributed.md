@@ -96,6 +96,14 @@ Exemple : 1 500 messages en queue, 10 instances, traitement moyen 0,1 s/message,
 
 Ce pattern est la réponse dès qu'une question mentionne "requests being lost / requêtes perdues" + "Auto Scaling" + "load spikes / pics de charge". L'idée clé : SQS absorbe le pic, l'ASG rattrape.
 
+### Gérer la priorité avec plusieurs queues
+
+SQS ne supporte **pas** la priorité par message. On ne peut pas marquer un message comme "haut priorité" dans une queue Standard ou FIFO — tous les messages sont traités selon les règles de la queue (best-effort pour Standard, ordre strict pour FIFO).
+
+Pour gérer plusieurs niveaux de priorité, le pattern est de créer **une queue par niveau de priorité** et de configurer les consumers pour vider la queue prioritaire en premier, puis passer à la queue moins prioritaire seulement quand la première est vide. Exemple : une plateforme avec un compte gratuit et un compte premium crée deux queues séparées (`requests-premium` et `requests-free`). Les workers pollent d'abord `requests-premium` ; si elle est vide, ils pollent `requests-free`.
+
+Cette approche, appelée parfois "priority queues" en architecture distribuée, est la seule réponse correcte dès qu'une question parle de "priority", "premium vs free", "tiered processing" avec SQS. Toute option qui propose de mettre une "priorité" sur les messages d'une seule queue est fausse — la fonctionnalité n'existe pas.
+
 ### Créer une queue standard
 
 ```bash

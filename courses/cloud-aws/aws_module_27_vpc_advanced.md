@@ -196,7 +196,20 @@ Les **route tables du TGW** permettent un contrôle fin : tu peux décider que l
 
 Transit Gateway supporte aussi le **multicast** — un cas d'usage rare mais qui revient parfois en examen pour des scénarios de diffusion vidéo ou de mise à jour de caches distribués.
 
-🧠 **Point examen** : dès que l'énoncé mentionne "simplifier la connectivité entre de nombreux VPC", "hub central", "réduire la complexité réseau" ou "architecture hub-and-spoke" → Transit Gateway.
+🧠 **Point examen** : dès que l'énoncé mentionne "simplifier la connectivité entre de nombreux VPC", "hub central", "réduire la complexité réseau" ou "architecture hub-and-spoke" → Transit Gateway. Si en plus l'énoncé parle de **plusieurs régions** + **on-prem** + **VPC** dans un seul gateway → **un Transit Gateway par région connecté via TGW peering**.
+
+### Distracteurs fréquents à reconnaître
+
+**AWS VPN CloudHub** : c'est un pattern qui permet à plusieurs sites distants connectés en VPN à un même Virtual Private Gateway de communiquer entre eux à travers AWS — c'est conçu pour interconnecter **des bureaux distants entre eux**, pas pour gérer des centaines de VPC. Si une question parle de VPC + multi-régions + on-prem dans un même hub, VPN CloudHub n'est jamais la bonne réponse. Ce n'est pas non plus capable de connecter des VPC entre eux à grande échelle.
+
+**Public vs Private Virtual Interface (VIF)** dans Direct Connect : il existe trois types de VIF.
+- **Private VIF** = accès aux ressources d'un VPC privé (via Virtual Private Gateway ou Direct Connect Gateway)
+- **Public VIF** = accès aux services AWS publics (S3, DynamoDB) via Direct Connect, avec leurs IPs publiques mais sur la connexion dédiée
+- **Transit VIF** = pour connecter Direct Connect à un Transit Gateway
+
+Pour accéder à un VPC via un Direct Connect Gateway, tu dois utiliser une **Private VIF** ou une **Transit VIF**. Une option d'examen qui propose de créer une "public virtual interface for each AWS Direct Connect connection to the Direct Connect Gateway" est **incorrecte** — la Public VIF ne se connecte pas à un Direct Connect Gateway pour accéder à un VPC.
+
+**Inter-region VPC peering** : techniquement possible et passe par le backbone AWS, mais avec des centaines de VPC sur 5 régions, le nombre de peerings à gérer explose (le peering n'étant pas transitif). De plus, ça ne couvre pas les connexions on-prem. Ce n'est pas la bonne réponse dès que l'échelle dépasse quelques VPC ou qu'il faut intégrer des sites externes.
 
 ---
 
