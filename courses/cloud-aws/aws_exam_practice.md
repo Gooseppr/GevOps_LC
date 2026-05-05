@@ -24,7 +24,7 @@ next_module_title: "Concepts Cloud & Modèles AWS"
 
 ---
 
-## Question 1 — Athena vs Redshift vs RDS
+## Question 1 — Analyse SQL ponctuelle sur données exportées
 
 **Contexte** : Une entreprise change d'outil d'analytics tiers. L'export complet est un fichier CSV stocké dans un bucket S3. Le manager te demande de valider les données.
 
@@ -35,7 +35,7 @@ next_module_title: "Concepts Cloud & Modèles AWS"
 - C. Utiliser Amazon Athena pour analyser le fichier directement dans S3.
 - D. Charger le CSV depuis S3 vers DynamoDB, puis exécuter des requêtes.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Amazon Athena**
@@ -55,7 +55,7 @@ Les options A, B et D impliquent toutes de provisionner et gérer une base de do
 
 ---
 
-## Question 2 — FSx for NetApp ONTAP vs FSx for Windows vs EFS
+## Question 2 — Stockage partagé pour application Windows critique
 
 **Contexte** : Une société financière migre son application de trading depuis Windows Server on-prem vers AWS. La solution doit être hautement disponible sur plusieurs AZ et offrir un accès **block storage** à faible latence.
 
@@ -66,7 +66,7 @@ Les options A, B et D impliquent toutes de provisionner et gérer une base de do
 - C. EC2 Windows multi-AZ + Amazon FSx for Windows File Server.
 - D. EC2 Windows multi-AZ + Amazon FSx for NetApp ONTAP (Multi-AZ, protocole iSCSI).
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — FSx for NetApp ONTAP**
@@ -85,7 +85,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 3 — EFS vs EBS vs S3
+## Question 3 — Système de fichiers partagé Linux multi-AZ
 
 **Contexte** : Un système de stockage doit être accessible simultanément par 1 000 serveurs Linux dans plusieurs AZ. Les serveurs utilisent NFSv4, les données changent rapidement, et le service doit être hautement disponible avec peu de gestion.
 
@@ -96,7 +96,7 @@ Pourquoi les autres sont faux :
 - C. Amazon S3
 - D. Amazon EBS
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Amazon EFS**
@@ -115,7 +115,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 4 — Sticky Sessions ALB
+## Question 4 — Répartition anormale du trafic applicatif
 
 **Contexte** : Une application stateless tourne sur 7 instances EC2 derrière un ALB dans plusieurs AZ. Le trafic est systématiquement routé vers une seule instance, causant des bottlenecks.
 
@@ -126,7 +126,7 @@ Pourquoi les autres sont faux :
 - C. Désactiver les sticky sessions sur l'ALB.
 - D. Terminer l'instance favorisée et redéployer les 6 autres uniformément.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Désactiver les sticky sessions**
@@ -145,7 +145,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 5 — Custom Metrics CloudWatch
+## Question 5 — Métriques système non collectées par défaut
 
 **Contexte** : Une architecture multi-AZ avec EC2 + ASG doit monitorer une métrique spécifique qui n'est **pas disponible par défaut** dans CloudWatch.
 
@@ -156,7 +156,7 @@ Pourquoi les autres sont faux :
 - C. CPU Utilization
 - D. Disk Read activity
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Memory Utilization**
@@ -176,7 +176,7 @@ CloudWatch fournit par défaut des métriques sur le CPU, le réseau et les I/O 
 
 ---
 
-## Question 6 — Athena + Parquet + Lake Formation
+## Question 6 — Performance et contrôle d'accès sur un data lake
 
 **Contexte** : Des centaines de documents JSON sont chargés chaque heure dans un bucket S3 enregistré dans AWS Lake Formation. L'équipe Data Analytics utilise Athena mais les requêtes sont lentes.
 
@@ -187,7 +187,7 @@ CloudWatch fournit par défaut des métriques sur le CPU, le réseau et les I/O 
 - C. Convertir en CSV + contrôle d'accès nommé dans Lake Formation.
 - D. Minifier le JSON + tag-based access control (LF-TBAC).
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Apache Parquet + lakeformation:GetDataAccess**
@@ -208,7 +208,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 7 — DynamoDB Streams + Lambda + SNS
+## Question 7 — Traitement événementiel sans impacter la base
 
 **Contexte** : Un modèle de détection de fraude est déployé dans Lambda. Il doit traiter les transactions de la table DynamoDB de production. L'équipe sécurité doit être notifiée immédiatement quand une transaction est frauduleuse.
 
@@ -219,7 +219,7 @@ Pourquoi les autres sont faux :
 - C. Utiliser DynamoDB Transactions + Lambda comme target + SNS.
 - D. Activer DynamoDB Streams + Lambda comme trigger + SNS.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — DynamoDB Streams + Lambda trigger + SNS**
@@ -238,7 +238,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 8 — Site-to-Site VPN — Customer Gateway
+## Question 8 — Connexion réseau hybride sécurisée
 
 **Contexte** : Une entreprise doit connecter sa base SAP HANA on-prem à son VPC AWS via un VPN site-to-site.
 
@@ -249,7 +249,7 @@ Pourquoi les autres sont faux :
 - C. Une instance NAT dédiée dans un subnet public.
 - D. La route table principale du VPC pour router le trafic via une instance NAT.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — IP publique statique du Customer Gateway**
@@ -272,7 +272,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 9 — AWS Control Tower
+## Question 9 — Gouvernance multi-comptes à grande échelle
 
 **Contexte** : Une entreprise veut automatiser la création de multiples comptes AWS dans une Organization. Chaque OU doit pouvoir lancer des comptes avec des configurations pré-approuvées (baselines réseau et sécurité).
 
@@ -283,7 +283,7 @@ Pourquoi les autres sont faux :
 - C. AWS RAM pour lancer les comptes et standardiser les configurations.
 - D. AWS Config aggregator + conformance packs.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — AWS Control Tower**
@@ -305,7 +305,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 10 — S3 Storage Lens
+## Question 10 — Analyse globale de l'utilisation du stockage objet
 
 **Contexte** : Une entreprise gère des milliers d'objets dans des buckets S3 répartis sur plusieurs régions. Elle doit identifier tous les buckets qui n'ont **pas** le versioning activé.
 
@@ -316,7 +316,7 @@ Pourquoi les autres sont faux :
 - C. Amazon S3 Multi-Region Access Point.
 - D. IAM Access Analyzer.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — S3 Storage Lens**
@@ -335,7 +335,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 11 — SSE-S3 vs SSE-KMS + Bucket Policy
+## Question 11 — Chiffrement et contrôle fin des accès aux objets
 
 **Contexte** : Un bucket S3 contient des fichiers confidentiels. L'audit révèle que certains fichiers ont été uploadés sans chiffrement AES-256. La clé doit être rotée automatiquement chaque année, avec un minimum de gestion.
 
@@ -346,7 +346,7 @@ Pourquoi les autres sont faux :
 - C. Customer-managed KMS key + rotation manuelle chaque année.
 - D. Bucket policy avec header `AES256` + SSE-S3 avec rotation automatique intégrée.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — Bucket policy + SSE-S3**
@@ -365,7 +365,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 12 — CloudFront + Outposts
+## Question 12 — Distribution de contenu vers infrastructure locale
 
 **Contexte** : Des serveurs AWS Outposts dans le monde entier téléchargent des mises à jour logicielles (multiples fichiers) depuis un bucket S3 en us-west-2. Les délais de distribution sont importants.
 
@@ -376,7 +376,7 @@ Pourquoi les autres sont faux :
 - C. Distribution CloudFront avec origin primaire + secondaire + CachingDisabled policy + signed URLs.
 - D. S3 Transfer Acceleration.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — CloudFront + S3 origin + signed URLs**
@@ -395,7 +395,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 13 — Auto Scaling multi-AZ
+## Question 13 — Élasticité et haute disponibilité applicative
 
 **Contexte** : 8 instances T3 EC2 derrière un ALB avec un trafic constant. L'application doit tourner en permanence.
 
@@ -406,7 +406,7 @@ Pourquoi les autres sont faux :
 - C. 2 instances dans 4 régions derrière un ELB.
 - D. 4 instances dans une région + 4 dans une autre région derrière un ELB.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — 4 + 4 dans deux AZ de la même région**
@@ -458,7 +458,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 14 — NACL : ordre d'évaluation des règles
+## Question 14 — Filtrage réseau stateless et priorité des règles
 
 **Contexte** : Un subnet privé a les règles NACL inbound suivantes. La règle #100 autorise tout le trafic. La règle #101 refuse le trafic TCP port 4000 depuis l'IP 110.238.109.37. Un ordinateur avec cette IP envoie une requête.
 
@@ -469,7 +469,7 @@ Pourquoi les autres sont faux :
 - C. D'abord refusée puis autorisée après un moment.
 - D. D'abord autorisée puis refusée après un moment.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — La requête est autorisée**
@@ -490,7 +490,7 @@ Ici, la règle **#100 (Allow All)** est évaluée **avant** la règle #101 (Deny
 
 ---
 
-## Question 15 — Cross-zone load balancing
+## Question 15 — Équilibrage de charge entre zones
 
 **Contexte** : Une application hautement disponible avec un ASG multi-AZ et des NAT Gateways. Un load balancer doit distribuer les requêtes **uniformément** sur toutes les instances de toutes les AZ.
 
@@ -501,7 +501,7 @@ Ici, la règle **#100 (Allow All)** est évaluée **avant** la règle #101 (Deny
 - C. AWS Direct Connect SiteLink
 - D. Cross-zone load balancing
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — Cross-zone load balancing**
@@ -526,7 +526,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 16 — CloudFront : versioned objects vs invalidation
+## Question 16 — Mise à jour de contenu en cache distribué
 
 **Contexte** : Un système d'imagerie médicale héberge ses images dans S3 derrière CloudFront. Quand un nouveau lot est uploadé, il faut conserver les anciennes images (pas d'écrasement).
 
@@ -537,7 +537,7 @@ Pourquoi les autres sont faux :
 - C. Ajouter un cache behavior séparé avec TTL minimum de 0.
 - D. Utiliser des versioned objects (noms de fichiers versionnés).
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — Versioned objects**
@@ -561,7 +561,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 17 — FSx Multi-AZ + Backup Vault Lock compliance
+## Question 17 — Stockage de fichiers résilient et sauvegardes immuables
 
 **Contexte** : FSx for Windows File Server en us-east-2, montage SMB sur EC2. RTO de 10 minutes. Backup cross-region vers us-west-1. Données immuables pendant 5 ans (compliance).
 
@@ -573,7 +573,7 @@ Pourquoi les autres sont faux :
 - D. AWS Backup Vault Lock en **compliance** mode, rétention 5 ans.
 - E. FSx Multi-AZ + Lambda pour backup daily vers us-west-1.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : B + D**
@@ -593,7 +593,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 18 — S3 Intelligent-Tiering
+## Question 18 — Optimisation automatique des coûts de stockage objet
 
 **Contexte** : Données de transactions clients avec accès élevé pendant les soldes et fluctuant le reste de l'année. La solution doit être économique, durable et hautement disponible.
 
@@ -604,7 +604,7 @@ Pourquoi les autres sont faux :
 - C. S3 Express One Zone
 - D. S3 Glacier Instant Retrieval
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — S3 Intelligent-Tiering**
@@ -627,7 +627,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 19 — Elastic Beanstalk vs ECS
+## Question 19 — Déploiement d'application web avec gestion réduite
 
 **Contexte** : Une app financière en Docker (stack MEAN). On veut la porter sur AWS avec gestion automatique du load balancing, auto-scaling, monitoring et placement des conteneurs.
 
@@ -638,7 +638,7 @@ Pourquoi les autres sont faux :
 - C. AWS Elastic Beanstalk
 - D. Amazon ECS
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — AWS Elastic Beanstalk**
@@ -657,7 +657,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 20 — Lake Formation blueprint + data filter
+## Question 20 — Ingestion et filtrage d'un data lake
 
 **Contexte** : Une entreprise a un data lake S3 (Lake Formation) avec des historiques d'achats et une base Aurora MySQL avec des données opérationnelles. L'objectif : visualiser les deux dans QuickSight avec un contrôle d'accès au niveau des colonnes pour l'équipe marketing.
 
@@ -668,7 +668,7 @@ Pourquoi les autres sont faux :
 - C. AWS Glue Studio pour transférer Aurora → S3 + IAM policy pour column-level access.
 - D. Glue Elastic Views pour créer une vue matérialisée + S3 bucket policy pour column-level access.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Lake Formation blueprint + data filter + Athena**
@@ -687,7 +687,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 21 — S3 : rendre des objets publics
+## Question 21 — Publication contrôlée de contenu objet
 
 **Contexte** : Un bucket S3 doit servir des assets statiques pour un site web public. Comment s'assurer que tous les objets sont lisibles publiquement ?
 
@@ -699,7 +699,7 @@ Pourquoi les autres sont faux :
 - D. Ne rien faire — les objets S3 sont publics par défaut.
 - E. Créer un IAM role pour rendre les objets publics.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : A + B**
@@ -720,7 +720,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 22 — Fault tolerance multi-AZ
+## Question 22 — Tolérance aux pannes sur plusieurs zones
 
 **Contexte** : Une application nécessite strictement 6 instances EC2 en permanence. La région a 3 AZ. Quels déploiements garantissent 100 % de fault tolerance si une AZ tombe ?
 
@@ -732,7 +732,7 @@ Pourquoi les autres sont faux :
 - D. 4 + 2 + 2 (AZ-a, AZ-b, AZ-c)
 - E. 3 + 3 + 3 (AZ-a, AZ-b, AZ-c)
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : B + E**
@@ -756,7 +756,7 @@ Seuls B (6+6+0) et E (3+3+3) garantissent >= 6 dans **tous** les scénarios de p
 
 ---
 
-## Question 23 — IAM Role + MFA pour EC2
+## Question 23 — Accès sécurisé depuis une instance de calcul
 
 **Contexte** : Des instances EC2 doivent accéder à S3 et Redshift. Des admins système doivent aussi accéder pour déployer et tester.
 
@@ -768,7 +768,7 @@ Seuls B (6+6+0) et E (3+3+3) garantissent >= 6 dans **tous** les scénarios de p
 - D. Assigner un IAM User par instance EC2.
 - E. Activer le Multi-Factor Authentication (MFA).
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : A + E**
@@ -788,7 +788,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 24 — Lambda@Edge + Kinesis
+## Question 24 — Personnalisation à la périphérie et collecte d'événements
 
 **Contexte** : Tracker l'activité utilisateur globalement (clickstream) en temps réel. Les données doivent être traitées au plus proche des users avec une latence faible.
 
@@ -799,7 +799,7 @@ Pourquoi les autres sont faux :
 - C. CloudFront + Lambda@Edge + Kinesis → S3.
 - D. CloudFront + Route 53 Latency-based + Kinesis → S3.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Lambda@Edge + Kinesis**
@@ -818,7 +818,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 25 — Kinesis Data Streams : ordre et durabilité
+## Question 25 — Flux d'événements ordonnés et rejouables
 
 **Contexte** : Un service de messaging reçoit des milliers de messages/jour pour entraîner une IA. Les messages seront traités par Amazon EMR. Aucun message ne doit être perdu, pas de duplicates, et traitement dans l'ordre d'arrivée.
 
@@ -829,7 +829,7 @@ Pourquoi les autres sont faux :
 - C. Amazon Data Firehose.
 - D. Amazon SNS Topic.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Kinesis Data Streams**
@@ -848,7 +848,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 26 — RDS Enhanced Monitoring vs CloudWatch
+## Question 26 — Observabilité détaillée d'une base managée
 
 **Contexte** : Une plateforme crypto utilise ECS + RDS Multi-AZ. Il faut surveiller comment chaque processus/thread sur l'instance DB utilise le CPU, y compris le % de bande passante CPU et la mémoire totale par processus.
 
@@ -859,7 +859,7 @@ Pourquoi les autres sont faux :
 - C. Utiliser CloudWatch pour monitorer le CPU Utilization de la DB.
 - D. Vérifier les métriques CPU% et MEM% disponibles dans la console RDS.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Enhanced Monitoring**
@@ -878,7 +878,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 27 — RDS Multi-AZ : avantages réels
+## Question 27 — Haute disponibilité d'une base relationnelle
 
 **Contexte** : Une app de transfert d'argent doit avoir une base de données hautement disponible dans plusieurs régions.
 
@@ -890,7 +890,7 @@ Pourquoi les autres sont faux :
 - D. Disponibilité accrue lors des upgrades système (patching OS, scaling).
 - E. Durabilité accrue en cas de panne de composant ou d'AZ.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : D + E**
@@ -908,7 +908,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 28 — ECS : Reserved + Spot instances
+## Question 28 — Optimisation des coûts pour conteneurs
 
 **Contexte** : Application batch Docker qui traite des données mission-critical ET des jobs non-essentiels. On cherche la solution la plus économique.
 
@@ -919,7 +919,7 @@ Pourquoi les autres sont faux :
 - C. ECS + Reserved pour les deux types de workloads.
 - D. ECS + On-Demand pour les deux types de workloads.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Reserved + Spot**
@@ -939,7 +939,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 29 — S3 Lifecycle Policies vers Glacier
+## Question 29 — Archivage automatique de données peu consultées
 
 **Contexte** : Des vidéos haute qualité ne sont fréquemment accédées que pendant les 3 premiers mois. Il faut transférer automatiquement les données vers Glacier ensuite.
 
@@ -950,7 +950,7 @@ Pourquoi les autres sont faux :
 - C. Amazon SQS.
 - D. Lifecycle Policies.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — Lifecycle Policies**
@@ -971,7 +971,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 30 — Glacier Vault Lock pour rétention d'audit
+## Question 30 — Rétention réglementaire immuable
 
 **Contexte** : Des logs d'audit doivent être conservés 5 ans avant suppression. Solution sécurisée et durable.
 
@@ -982,7 +982,7 @@ Pourquoi les autres sont faux :
 - C. EBS + snapshots mensuels.
 - D. S3 + MFA Delete.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Glacier Vault + Vault Lock**
@@ -1001,7 +1001,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 31 — EBS : caractéristiques clés
+## Question 31 — Stockage bloc attaché à une instance
 
 **Contexte** : Migration vers EBS. Le CTO s'inquiète de la compliance, des downtime et des performances IOPS.
 
@@ -1013,7 +1013,7 @@ Pourquoi les autres sont faux :
 - D. Un volume EBS persiste indépendamment du cycle de vie de l'instance.
 - E. Un volume EBS est automatiquement répliqué dans une autre région.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : B + D**
@@ -1033,7 +1033,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 32 — S3 Lifecycle vers Glacier (0 jours)
+## Question 32 — Transition immédiate vers stockage d'archive
 
 **Contexte** : 10 To de données financières rarement accédées, récupérées lors d'audits. Le temps de récupération ne doit pas dépasser 24h. Solution sécurisée, durable et économique.
 
@@ -1044,7 +1044,7 @@ Pourquoi les autres sont faux :
 - C. S3 + Lifecycle vers Glacier après 0 jours.
 - D. Amazon FSx for Windows File Server via SMB.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — S3 + Lifecycle vers Glacier après 0 jours**
@@ -1063,7 +1063,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 33 — Reserved Instance Marketplace
+## Question 33 — Revente d'engagements de capacité inutilisés
 
 **Contexte** : Des instances Reserved hébergent une application décommissionnée. Il faut arrêter de payer le plus vite possible.
 
@@ -1075,7 +1075,7 @@ Pourquoi les autres sont faux :
 - D. Vendre les RI sur le AWS Reserved Instance Marketplace.
 - E. Terminer les instances pour éviter la facturation on-demand à l'expiration.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : D + E**
@@ -1095,7 +1095,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 34 — CloudFront Geo Restriction
+## Question 34 — Restriction d'accès par localisation
 
 **Contexte** : Un service de streaming musical doit empêcher l'accès à certains contenus selon le pays de l'auditeur (accords de licence). CloudFront avec OAC est utilisé. Il faut aussi des messages d'erreur personnalisés.
 
@@ -1106,7 +1106,7 @@ Pourquoi les autres sont faux :
 - C. Custom error response + signed URLs et signed cookies.
 - D. Custom error response + CloudFront Function URL.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Custom error response + Geo Restriction (Allow list)**
@@ -1125,7 +1125,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 35 — VPC IPv6-only subnet
+## Question 35 — Adressage réseau sans IPv4
 
 **Contexte** : Un VPC dual-stack (IPv4 + IPv6) arrive à épuisement des adresses IPv4. Impossible de lancer de nouvelles instances EC2. Il faut résoudre le problème tout en permettant la scalabilité future.
 
@@ -1136,7 +1136,7 @@ Pourquoi les autres sont faux :
 - C. Supprimer tous les CIDRs IPv4 du VPC pour ne garder que IPv6.
 - D. Désactiver le support IPv4 dans le VPC.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Subnet IPv6-only**
@@ -1154,7 +1154,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 36 — Cost Explorer API
+## Question 36 — Analyse programmatique des coûts
 
 **Contexte** : Une entreprise construit un outil d'automatisation pour générer des rapports sur les coûts AWS. Il faut accéder et prévoir les coûts de manière programmatique, avec un minimum d'overhead opérationnel.
 
@@ -1165,7 +1165,7 @@ Pourquoi les autres sont faux :
 - C. AWS Budgets via SNS.
 - D. Télécharger les CSV Cost Explorer + prévoir avec AWS Budgets.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Cost Explorer API avec pagination**
@@ -1183,7 +1183,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 37 — IAM Policy : least privilege DynamoDB
+## Question 37 — Autorisations minimales sur une base NoSQL
 
 **Contexte** : Une Lambda doit uniquement faire PutItem et DeleteItem sur la table DynamoDB `tutorialsdojo` en us-east-1. Pas d'accès aux autres tables.
 
@@ -1194,7 +1194,7 @@ Pourquoi les autres sont faux :
 - C. Allow PutItem+DeleteItem sur `table/*`.
 - D. Allow PutItem+DeleteItem sur `table/tutorialsdojo` uniquement.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — Allow uniquement PutItem+DeleteItem sur la table spécifique**
@@ -1213,7 +1213,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 38 — Lambda + KMS : execution role vs resource policy
+## Question 38 — Déchiffrement depuis une fonction serverless
 
 **Contexte** : Une Lambda traite des documents chiffrés depuis FSx for NetApp ONTAP avec une clé KMS customer-managed. Elle doit pouvoir déchiffrer les fichiers.
 
@@ -1224,7 +1224,7 @@ Pourquoi les autres sont faux :
 - C. `kms:decrypt` sur l'execution role Lambda + KMS key policy → execution role.
 - D. `kms:decrypt` sur l'execution role Lambda + KMS key policy → function ARN.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — kms:decrypt sur l'execution role + KMS key policy vers l'execution role**
@@ -1244,7 +1244,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 39 — ASG : default termination policy
+## Question 39 — Remplacement automatique d'instances
 
 **Contexte** : Un ASG multi-AZ avec un ALB subit un scale-in (trafic faible). Quelle instance est terminée en premier (politique par défaut) ?
 
@@ -1253,7 +1253,7 @@ Pourquoi les autres sont faux :
 - C. Instance avec le moins de sessions utilisateur.
 - D. Instance qui tourne depuis le plus longtemps.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Instance avec le plus ancien launch template**
@@ -1276,7 +1276,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 40 — DataSync vs Storage Gateway
+## Question 40 — Migration de données depuis un stockage existant
 
 **Contexte** : Des données historiques on-prem doivent être migrées vers AWS pour libérer de l'espace. Solution économique et facile à gérer.
 
@@ -1285,7 +1285,7 @@ Pourquoi les autres sont faux :
 - C. Storage Gateway → S3 Glacier Deep Archive.
 - D. DataSync → S3 Standard + lifecycle vers Deep Archive après 30j.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — DataSync directement vers Glacier Deep Archive**
@@ -1303,7 +1303,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 41 — Organizations + IAM Identity Center + SCP
+## Question 41 — Gestion centralisée des identités et restrictions
 
 **Contexte** : Une multinationale avec plusieurs comptes AWS veut une architecture consolidée multi-comptes avec un annuaire d'entreprise centralisé pour l'authentification.
 
@@ -1315,7 +1315,7 @@ Pourquoi les autres sont faux :
 - D. AWS IAM Identity Center + annuaire d'entreprise + SCP.
 - E. Amazon Cognito Identity Pool + IAM Identity Center.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : B + D**
@@ -1335,7 +1335,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 42 — CloudFormation : bénéfices
+## Question 42 — Infrastructure reproductible et pilotée par code
 
 **Contexte** : Un ingénieur écrit des scripts YAML CloudFormation au lieu de provisionner les ressources immédiatement. Le manager veut comprendre l'intérêt.
 
@@ -1347,7 +1347,7 @@ Pourquoi les autres sont faux :
 - D. CloudFormation est gratuit, y compris les ressources créées.
 - E. Modéliser toute l'infrastructure dans un fichier texte.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : B + E**
@@ -1366,7 +1366,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 43 — SQS FIFO : exactly-once processing
+## Question 43 — File de messages avec ordre et déduplication
 
 **Contexte** : Un système de traitement de commandes utilise une queue SQS Standard. Des commandes sont traitées en double, causant des problèmes.
 
@@ -1377,7 +1377,7 @@ Pourquoi les autres sont faux :
 - C. Changer la taille des messages.
 - D. Modifier la retention period.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — SQS FIFO**
@@ -1396,7 +1396,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 44 — Storage Gateway File Gateway
+## Question 44 — Accès fichier local avec stockage cloud
 
 **Contexte** : Stocker des backups de BDD on-prem dans le cloud AWS. Le service doit permettre de stocker et récupérer des objets via des protocoles de fichiers standard (NFS/SMB).
 
@@ -1407,7 +1407,7 @@ Pourquoi les autres sont faux :
 - C. Storage Gateway File Gateway → Amazon S3.
 - D. AWS Snowball Edge → S3 Glacier.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — File Gateway vers S3**
@@ -1426,7 +1426,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 45 — Gateway VPC Endpoint vs Interface Endpoint (S3)
+## Question 45 — Accès privé à un service depuis un VPC
 
 **Contexte** : Une instance EC2 dans un subnet privé accède à S3 pour des données financières sensibles. L'équipe sécurité s'inquiète que la connexion passe par Internet. Solution la plus économique.
 
@@ -1437,7 +1437,7 @@ Pourquoi les autres sont faux :
 - C. Custom VPC Endpoint Service.
 - D. Connexion VPN.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Gateway VPC Endpoint**
@@ -1456,7 +1456,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 46 — EC2 stop/start : Instance Store + EIP
+## Question 46 — Effets d'un arrêt et redémarrage d'instance
 
 **Contexte** : Une instance EC2 EBS-backed avec des volumes Instance Store attachés et une EIP est stoppée puis redémarrée pour économiser.
 
@@ -1468,7 +1468,7 @@ Pourquoi les autres sont faux :
 - D. L'hôte physique sous-jacent peut changer.
 - E. Aucun changement.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : B + D**
@@ -1488,7 +1488,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 47 — EC2 non accessible depuis Internet
+## Question 47 — Diagnostic d'accès Internet à une instance
 
 **Contexte** : Un nouveau subnet dans un VPC avec Internet Gateway. L'instance EC2 lancée dedans n'est pas accessible depuis Internet.
 
@@ -1500,7 +1500,7 @@ Pourquoi les autres sont faux :
 - D. La route table n'est pas configurée vers le Customer Gateway.
 - E. L'instance n'a pas d'Elastic Fabric Adapter (EFA).
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponses : A + C**
@@ -1522,7 +1522,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 48 — Direct Connect vs VPN
+## Question 48 — Connectivité privée à faible latence
 
 **Contexte** : Connexion dédiée entre un VPC et le réseau on-prem. Haut débit et expérience réseau plus cohérente qu'une connexion Internet.
 
@@ -1533,7 +1533,7 @@ Pourquoi les autres sont faux :
 - C. AWS Direct Connect.
 - D. Transit Gateway avec ECMP.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — AWS Direct Connect**
@@ -1552,7 +1552,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 49 — STS : credentials temporaires cross-account
+## Question 49 — Accès temporaire entre comptes
 
 **Contexte** : Un développeur a accès au compte dev mais a besoin d'un accès temporaire en écriture (EC2 + S3) au compte prod.
 
@@ -1563,7 +1563,7 @@ Pourquoi les autres sont faux :
 - C. Amazon Cognito (JWT).
 - D. AWS IAM Identity Center.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — AWS STS**
@@ -1581,7 +1581,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 50 — EC2 Hibernation
+## Question 50 — Reprise rapide d'une instance avec état mémoire
 
 **Contexte** : Une instance Windows EC2 avec FSx est stoppée hors heures de bureau. L'application prend plusieurs minutes à redevenir opérationnelle au redémarrage. Comment accélérer sans augmenter les coûts ?
 
@@ -1590,7 +1590,7 @@ Pourquoi les autres sont faux :
 - C. Migrer vers une instance avec hibernation activée.
 - D. Migrer vers une instance Linux.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Migrer vers une instance avec hibernation**
@@ -1611,7 +1611,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 51 — S3 Versioning + MFA Delete
+## Question 51 — Protection contre suppression accidentelle d'objets
 
 **Contexte** : Un ingénieur a accidentellement supprimé un fichier dans S3, causant une interruption de service. Comment empêcher que ça se reproduise ?
 
@@ -1620,7 +1620,7 @@ Pourquoi les autres sont faux :
 - C. Créer une bucket policy qui interdit l'opération delete.
 - D. Activer S3 Versioning et MFA Delete.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — S3 Versioning + MFA Delete**
@@ -1640,7 +1640,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 52 — EFS : Provisioned Throughput + Max I/O
+## Question 52 — Performance d'un système de fichiers partagé
 
 **Contexte** : Un système HPC avec des centaines de tâches ECS accédant en permanence à un stockage partagé. Opérations lecture/écriture haute fréquence. Données ~10 Mo par tâche, stockage total < 10 To.
 
@@ -1651,7 +1651,7 @@ Pourquoi les autres sont faux :
 - C. DynamoDB + DAX comme mount point ECS.
 - D. EFS Provisioned Throughput, Max I/O comme mount point ECS.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — EFS Provisioned Throughput + Max I/O**
@@ -1671,7 +1671,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 53 — FSx for Windows + Active Directory
+## Question 53 — Partage de fichiers Windows intégré au domaine
 
 **Contexte** : Migration d'un SharePoint on-prem vers AWS. Stockage fichiers partagé Windows, intégré avec Active Directory pour le contrôle d'accès.
 
@@ -1682,7 +1682,7 @@ Pourquoi les autres sont faux :
 - C. EC2 Windows + S3 monté comme volume.
 - D. Storage Gateway NFS file share.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — FSx for Windows + AD**
@@ -1701,7 +1701,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 54 — S3 + EMR pour traiter des logs
+## Question 54 — Traitement massif de fichiers de logs
 
 **Contexte** : Des serveurs Linux sur EC2 génèrent des logs applicatifs. L'équipe audit veut les collecter et les traiter pour un rapport.
 
@@ -1712,7 +1712,7 @@ Pourquoi les autres sont faux :
 - C. Un seul EC2 On-Demand pour stocker et traiter.
 - D. Amazon S3 pour le stockage + Amazon EMR pour le traitement.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — S3 + EMR**
@@ -1730,7 +1730,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 55 — Amazon Pinpoint + Kinesis
+## Question 55 — Campagne personnalisée et événements mobiles
 
 **Contexte** : Campagne SMS one-time vers tous les abonnés d'une app mobile. Les réponses SMS doivent être conservées 1 an et analysées en near-real-time. Minimum d'overhead opérationnel.
 
@@ -1741,7 +1741,7 @@ Pourquoi les autres sont faux :
 - C. Amazon Pinpoint journey + Kinesis Data Stream (rétention 365 jours).
 - D. Amazon Connect + Lambda + S3 Glacier Flexible.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Pinpoint + Kinesis (365 jours)**
@@ -1760,7 +1760,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 56 — Instance Scheduler on AWS
+## Question 56 — Arrêt planifié de ressources non utilisées
 
 **Contexte** : Une application interne ne tourne que pendant les heures de bureau en semaine. Il faut optimiser les coûts EC2 + RDS avec un minimum d'overhead opérationnel.
 
@@ -1771,7 +1771,7 @@ Pourquoi les autres sont faux :
 - C. CloudWatch alarm sur CPU idle → Lambda pour stop EC2 + RDS.
 - D. Acheter un Compute Savings Plan.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Instance Scheduler on AWS**
@@ -1789,7 +1789,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 57 — Fault tolerance : 3+3+3 (cost-effective)
+## Question 57 — Capacité résiliente au meilleur coût
 
 **Contexte** : 6 instances minimum à tout moment. 3 AZ disponibles. Fault tolerance si 1 AZ tombe. Solution la plus **économique**.
 
@@ -1798,7 +1798,7 @@ Pourquoi les autres sont faux :
 - C. 2+2+2
 - D. 3+3+3
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — 3+3+3 (9 instances)**
@@ -1821,7 +1821,7 @@ Si une AZ tombe : 3+3 = 6 instances restantes = exigence satisfaite.
 
 ---
 
-## Question 58 — Launch Template : nouvel AMI
+## Question 58 — Mise à jour d'image pour un groupe d'instances
 
 **Contexte** : Un ASG utilise un launch template. Un nouvel AMI doit être utilisé pour les instances.
 
@@ -1832,7 +1832,7 @@ Si une AZ tombe : 3+3 = 6 instances restantes = exigence satisfaite.
 - C. Ne rien faire, utiliser le même launch template.
 - D. Créer un nouveau target group.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Nouveau launch template**
@@ -1850,7 +1850,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 59 — Amazon Macie pour détecter les PII
+## Question 59 — Détection de données sensibles
 
 **Contexte** : Un cabinet d'audit veut vérifier qu'un bucket S3 (data lake via Lake Formation) ne contient pas de données sensibles (PII, numéros de carte, passeport).
 
@@ -1861,7 +1861,7 @@ Pourquoi les autres sont faux :
 - C. AWS Glue DataBrew pour identifier et nettoyer les données sensibles.
 - D. Amazon Macie avec managed identifiers.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — Amazon Macie**
@@ -1880,7 +1880,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 60 — CloudWatch Agent : SwapUtilization
+## Question 60 — Collecte de métriques système avancées
 
 **Contexte** : Des instances EC2 dans un ASG échouent par manque de swap. Il faut monitorer l'espace swap disponible de chaque instance.
 
@@ -1891,7 +1891,7 @@ Pourquoi les autres sont faux :
 - C. Installer le CloudWatch Agent et surveiller SwapUtilization.
 - D. Créer un dashboard CloudWatch et surveiller SwapUsed.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Installer le CloudWatch Agent**
@@ -1910,7 +1910,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 61 — S3 Multipart Upload
+## Question 61 — Transfert fiable de très gros objets
 
 **Contexte** : Une app d'animation uploade des vidéos de 5 Go vers S3. Les uploads sont lents et impactent les performances.
 
@@ -1921,7 +1921,7 @@ Pourquoi les autres sont faux :
 - C. CloudFront avec HTTP POST.
 - D. EBS Provisioned IOPS en LVM stripe.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — S3 Multipart Upload**
@@ -1944,7 +1944,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 62 — Aurora Serverless
+## Question 62 — Base relationnelle avec charge irrégulière
 
 **Contexte** : Workloads transactionnels intermittents, sporadiques et imprévisibles pour un site e-commerce. Il faut une BDD relationnelle qui auto-scale et redescend quand l'activité baisse.
 
@@ -1955,7 +1955,7 @@ Pourquoi les autres sont faux :
 - C. Redshift avec Concurrency Scaling.
 - D. Aurora Provisioned avec burstable instance types.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Aurora Serverless**
@@ -1974,7 +1974,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 63 — Route 53 : Alias A record pour zone apex
+## Question 63 — Résolution DNS au niveau racine du domaine
 
 **Contexte** : Un site web derrière un ALB utilise Route 53 pour le DNS. Comment configurer le record DNS du zone apex (ex: `example.com`) pour pointer vers le load balancer ?
 
@@ -1983,7 +1983,7 @@ Pourquoi les autres sont faux :
 - C. Alias CNAME vers le DNS name du LB.
 - D. A record **aliased** vers le DNS name du LB.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : D — A record aliased vers le DNS name du LB**
@@ -2001,7 +2001,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 64 — Amazon Data Firehose
+## Question 64 — Livraison managée de flux de données
 
 **Contexte** : Un magasin connecté utilise des capteurs pour collecter les articles pris par les clients. Il faut capturer, transformer et charger ces données streaming vers S3, OpenSearch et Splunk.
 
@@ -2012,7 +2012,7 @@ Pourquoi les autres sont faux :
 - C. Amazon Redshift.
 - D. Amazon SQS.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Amazon Data Firehose**
@@ -2031,7 +2031,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 65 — Cluster Placement Group (HPC)
+## Question 65 — Faible latence entre instances de calcul
 
 **Contexte** : Un cluster HPC réparti sur plusieurs AZ traite des simulations de vent. L'application ralentit à cause de problèmes de latence réseau entre les nœuds.
 
@@ -2042,7 +2042,7 @@ Pourquoi les autres sont faux :
 - C. Cluster placement group dans une seule AZ, même région.
 - D. EC2 Dedicated Instances avec elastic inference accelerator.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Cluster placement group dans une seule AZ**
@@ -2069,7 +2069,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 66 — SQS et priorité (premium vs free)
+## Question 66 — Gestion de priorités dans des files de messages
 
 **Contexte** : Un site de traitement vidéo a deux types de comptes : free et premium. Tous les jobs passent par une seule queue SQS, traitée par un ASG d'EC2. Il faut garantir que les utilisateurs premium soient traités avant les free.
 
@@ -2080,7 +2080,7 @@ Pourquoi les autres sont faux :
 - C. Utiliser Kinesis pour traiter les photos en temps réel.
 - D. Stocker et traiter les photos directement dans S3.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : B — Deux queues distinctes, polling prioritaire**
@@ -2102,7 +2102,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 67 — Bastion host pour accès admin
+## Question 67 — Accès administratif à des instances privées
 
 **Contexte** : Une web app multi-tier dans un VPC sans connexion au réseau corporate. Les admins se connectent via Internet pour gérer les EC2 (publics et privés). Un bastion host avec RDP a été ajouté. Comment limiter l'accès admin de manière sécurisée ?
 
@@ -2111,7 +2111,7 @@ Pourquoi les autres sont faux :
 - C. Bastion Windows avec EIP dans un **subnet public**, RDP restreint aux IPs corporate.
 - D. Bastion Windows avec EIP dans un subnet public, **SSH** autorisé depuis n'importe où.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : C — Bastion en subnet public, RDP restreint aux IPs corporate**
@@ -2135,7 +2135,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 68 — ASG ne scale pas sur la mémoire
+## Question 68 — Déclenchement d'élasticité sur métrique mémoire
 
 **Contexte** : Un ASG d'EC2 Linux + FSx for OpenZFS, monitoring CloudWatch basique. L'app est lente et l'ASG ne lance pas de nouvelles instances **alors que la RAM est saturée**. Que faire ?
 
@@ -2144,7 +2144,7 @@ Pourquoi les autres sont faux :
 - C. Activer le **detailed monitoring** sur les EC2. Scaler l'ASG sur la mémoire agrégée.
 - D. Utiliser Rekognition pour identifier la cause + Well-Architected Tool pour déclencher le scaling.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — CloudWatch Agent + SSM Parameter Store**
@@ -2166,7 +2166,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 69 — Hub réseau multi-régions multi-VPC + on-prem
+## Question 69 — Architecture réseau hub-and-spoke hybride
 
 **Contexte** : Centaines de VPC, multiples connexions VPN vers les datacenters, 5 régions AWS. Il faut **un seul gateway** qui interconnecte tout (VPC + VPN + on-prem) avec support du peering inter-région.
 
@@ -2175,7 +2175,7 @@ Pourquoi les autres sont faux :
 - C. Inter-region VPC peering en réseau full-mesh sur le backbone AWS.
 - D. AWS VPN CloudHub pour les VPC + Direct Connect Gateway pour le on-prem + **private VIF** vers le DXG.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Un TGW par région + TGW peering inter-région**
@@ -2194,7 +2194,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 70 — Docker serverless avec ephemeral storage
+## Question 70 — Exécution serverless de conteneurs avec stockage temporaire
 
 **Contexte** : Une app packagée comme **image Docker dans ECR** doit être déployée sur un **fully managed serverless compute service** avec **5 GB d'ephemeral storage** pour du traitement temporaire.
 
@@ -2203,7 +2203,7 @@ Pourquoi les autres sont faux :
 - C. Lambda avec container image, attacher un volume **EFS**.
 - D. ECS sur **EC2 worker nodes** + EBS de 5 GB.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Lambda avec container image + 5 GB ephemeral**
@@ -2222,7 +2222,7 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Question 71 — Migrer des APIs REST vers AWS (cost-effective + scalable)
+## Question 71 — Migration d'API REST scalable et économique
 
 **Contexte** : Une boîte de jeux VR/AR a des APIs REST hébergées on-prem derrière un CDN. Elle migre vers AWS pour scaler et minimiser les coûts.
 
@@ -2231,7 +2231,7 @@ Pourquoi les autres sont faux :
 - C. APIs hébergées en S3 static + CloudFront.
 - D. Spot Fleet EC2 + **EFA** + ALB.
 
-<details>
+<details markdown="1">
 <summary><strong>Voir la réponse</strong></summary>
 
 **Réponse : A — Lambda + API Gateway**
