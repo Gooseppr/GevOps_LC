@@ -18,6 +18,7 @@ prev_module: "/courses/microsoft_power_platform/50_P3_10_rls_securite_partage.ht
 prev_module_title: "RLS, sécurité et partage dans Power BI"
 next_module: "/courses/microsoft_power_platform/54_P3_14_gouvernance_power_bi.html"
 next_module_title: "Gouvernance Power BI"
+render_with_liquid: false
 ---
 
 # Power BI Embedded et REST API

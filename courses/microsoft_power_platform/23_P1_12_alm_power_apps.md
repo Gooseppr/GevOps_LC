@@ -18,6 +18,7 @@ prev_module: "/courses/microsoft_power_platform/20_P1_09_responsive_accessibilit
 prev_module_title: "Responsive design et accessibilité dans Power Apps"
 next_module: "/courses/microsoft_power_platform/21_P1_10_composants_bibliotheques.html"
 next_module_title: "Composants et bibliothèques de composants"
+render_with_liquid: false
 ---
 
 # ALM spécifique Power Apps

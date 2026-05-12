@@ -18,6 +18,7 @@ prev_module: "/courses/microsoft_power_platform/64_P4_10_performance_seo_exploit
 prev_module_title: "Performance, SEO et exploitation — Diagnostiquer et optimiser vos solutions Power Pages"
 next_module: "/courses/microsoft_power_platform/65_P5_01_concepts_copilot_studio.html"
 next_module_title: "Concepts Copilot Studio"
+render_with_liquid: false
 ---
 
 # Portals Web API

@@ -7,7 +7,8 @@ pipeline/*
 !pipeline/email_daily_review.py
 !pipeline/review_config.json
 !pipeline/review_state.json
-courses/**/PLAN.md
+courses/**/plan*.md
+courses/**/PLAN*.md
 courses/**/00_plan.md
 !courses/plan
 !courses/plan/*

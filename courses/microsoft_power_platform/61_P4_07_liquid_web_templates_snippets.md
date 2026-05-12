@@ -18,6 +18,7 @@ prev_module: "/courses/microsoft_power_platform/59_P4_05_authentification_identi
 prev_module_title: "Authentification et identité externe dans Power Pages"
 next_module: "/courses/microsoft_power_platform/64_P4_10_performance_seo_exploitation.html"
 next_module_title: "Performance, SEO et exploitation — Diagnostiquer et optimiser vos solutions Power Pages"
+render_with_liquid: false
 ---
 
 # Liquid templates : web templates et content snippets

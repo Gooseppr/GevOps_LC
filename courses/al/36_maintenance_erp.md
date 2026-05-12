@@ -18,6 +18,7 @@ prev_module: "/courses/al/11_transactions_erreurs.html"
 prev_module_title: "Gestion des erreurs et transactions en AL"
 next_module: "/courses/al/41_wms_supply_chain_bc.html"
 next_module_title: "Warehouse, WMS et Supply Chain dans Business Central"
+render_with_liquid: false
 ---
 
 # Maintenance corrective et évolutive des extensions AL

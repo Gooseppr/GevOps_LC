@@ -18,6 +18,7 @@ prev_module: "/courses/microsoft_power_platform/57_P4_03_formulaires_listes_data
 prev_module_title: "Formulaires et listes Dataverse dans Power Pages"
 next_module: "/courses/microsoft_power_platform/56_P4_02_premier_site_power_pages.html"
 next_module_title: "Premier site Power Pages"
+render_with_liquid: false
 ---
 
 # Liquid templates : syntaxe et objets
