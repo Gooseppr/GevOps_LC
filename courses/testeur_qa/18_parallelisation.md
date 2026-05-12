@@ -20,6 +20,7 @@ next_module: "/courses/testeur_qa/20_tests_production.html"
 next_module_title: "Tests en production (safe)"
 ---
 
+{% raw %}
 # Tests distribués & parallélisation
 
 ## Objectifs pédagogiques
@@ -672,3 +673,4 @@ format: knowledge
 tags: github-actions,ci,matrix,fail-fast,parallélisation
 title: Désactiver fail-fast dans une matrix de tests
 content: Par défaut, GitHub Actions annule tous les jobs d'une matrix dès qu'un job échoue. Pour une suite de tests, c'est contre-productif : si les tests UI échouent, les jobs de tests unitaires sont annulés et on perd de l'information. Ajouter `fail-fast: false` dans la stratégie matrix pour laisser tous les groupes aller à leur
+{% endraw %}

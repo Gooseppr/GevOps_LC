@@ -7,6 +7,7 @@ ordre: 2
 tags: projet, docker, docker swarm, stack, ansible
 ---
 
+{% raw %}
 # 🚀 Automatisation du déploiement NocoDB + Postgres via Docker Swarm + Ansible
 
 Ce guide explique **pas à pas** comment j'ai fait pour :
@@ -699,3 +700,4 @@ content: Chaque service doit être attaché à un réseau overlay commun (driver
 ---
 [← Module précédent](M41_projet-J1-swarm.md)
 ---
+{% endraw %}

@@ -8,6 +8,7 @@ ordre: 1
 tags: cd, test, sonarqube, java, devops
 ---
 
+{% raw %}
 # 🧩 Cours : Tests de qualité et de sécurité du code – SonarQube & SonarCloud
 
 ## 🎯 Objectifs pédagogiques
@@ -409,3 +410,4 @@ title: SonarQube vs SonarCloud — différences clés
 context: choisir entre l'hébergement local de SonarQube et la version SaaS SonarCloud
 content: SonarQube = installation locale ou Docker (on-premise), gestion manuelle des mises à jour, accès via http://localhost:9000, adapté aux environnements d'entreprise isolés. SonarCloud = version SaaS hébergée par SonarSource, gratuit pour les projets open source, intégration directe GitHub/GitLab sans configuration serveur, accès via https://sonarcloud.io.
 -->
+{% endraw %}

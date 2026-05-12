@@ -20,6 +20,7 @@ next_module: "/courses/testeur_qa/17_framework_test.html"
 next_module_title: "Architecture de framework de test"
 ---
 
+{% raw %}
 # Outils QA de base
 
 ## Objectifs pédagogiques
@@ -366,3 +367,4 @@ title: Exporter un fichier HAR pour documenter les requêtes réseau
 content: Dans DevTools → Network, clic droit dans la liste des requêtes → "Save all as HAR with content". Le fichier .har contient toutes les requêtes, leurs headers, payloads et réponses. À joindre au ticket Jira pour les bugs impliquant des appels API — le dev peut l'importer directement dans ses propres DevTools.
 description: Un fichier HAR joint à un ticket évite au dev de demander "tu peux me donner la requête exacte ?" — il a tout sans échange supplémentaire.
 -->
+{% endraw %}

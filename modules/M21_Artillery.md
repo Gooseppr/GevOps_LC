@@ -8,7 +8,7 @@ ordre: 2
 tags: cd, test, artillery, python, devops
 ---
 
-
+{% raw %}
 # 5️⃣ Artillery — Tests de montée en charge (complément à Locust)
 
 > Objectif : découvrir Artillery (outil Node.js) pour le load testing, comprendre quand l’utiliser vs Locust, savoir écrire un fichier unique de test (config + scenarios), l’exécuter en CLI et l’intégrer à GitLab CI.
@@ -416,3 +416,4 @@ content: Artillery (Node.js) : YAML déclaratif, seuils natifs (ensure), rapport
 ---
 [← Module précédent](M21_Tests_Charge_Locust.md)
 ---
+{% endraw %}

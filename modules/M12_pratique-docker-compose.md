@@ -8,6 +8,7 @@ ordre: 2
 tags: docker compose, yaml
 ---
 
+{% raw %}
 ## 1. Docker / Docker Compose : kit de survie
 
 ### Lancer / arrêter une stack
@@ -674,3 +675,4 @@ content: Volume nommé (db_data:/var/lib) : Docker gère l'emplacement sur l'hô
 ---
 [← Module précédent](M12_docker-compose.md)
 ---
+{% endraw %}

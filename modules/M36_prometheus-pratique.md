@@ -7,6 +7,7 @@ ordre: 2
 tags: prometheus, alertmanager, monitoring, linux, docker, nginx
 ---
 
+{% raw %}
 # 📡 Prometheus — Pratiques complètes (1 → 4)
 
 On va transformer tout ce que tu as fait en **fiche pratique claire et rejouable** :  
@@ -862,3 +863,4 @@ description: Un target en état DOWN indique que l'exporter n'est pas accessible
 ---
 [← Module précédent](M36_prometheus.md)
 ---
+{% endraw %}

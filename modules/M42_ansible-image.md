@@ -7,6 +7,7 @@ ordre: 2
 tags: projet, docker, docker swarm, stack, gitlab
 ---
 
+{% raw %}
 # 🐳 Intégration d’une Image Privée GitLab dans Docker Swarm via Ansible
 
 ## Version finale — Conforme au *swarm-pro.yml* et au système Vault réel
@@ -327,3 +328,4 @@ content: Sur GitLab Container Registry, le tag "latest" n'est pas créé automat
 ---
 [← Module précédent](M42_ansible-pro.md)
 ---
+{% endraw %}

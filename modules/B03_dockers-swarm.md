@@ -6,6 +6,7 @@ type: bonus
 tags: docker, docker swarm, orchestration
 ---
 
+{% raw %}
 # 🐳 **Module : Docker Swarm – Orchestration distribuée**
 
 *Orchestration simple, native Docker, idéale pour multi-VM en équipe*
@@ -947,3 +948,4 @@ context: stocker un mot de passe de manière sécurisée dans un cluster Swarm
 command: echo "mypassword" | docker secret create db_pass -
 description: Crée un secret chiffré dans le Swarm. Le secret est accessible dans le conteneur via /run/secrets/db_pass et n'apparaît jamais en clair dans les logs ou l'environnement.
 -->
+{% endraw %}

@@ -5,7 +5,7 @@ type: pipeline
 tags: linux, ssh, docker, devops, network, security, mariadb, postgresql, nginx
 ---
 
-
+{% raw %}
 # 🧩 Pipeline — Audit standard d’un serveur
 
 ```bash
@@ -214,3 +214,4 @@ context: Conserver une trace de l'état d'un serveur après un audit pour réfé
 command: ./audit_standard.sh | tee audit_$(hostname)_$(date +%F_%H-%M).log
 description: tee affiche la sortie en temps réel ET l'écrit dans le fichier. Le nom du fichier intègre le hostname et la date/heure au format YYYY-MM-DD_HH-MM pour retrouver facilement l'audit. Ajouter chmod +x avant la première exécution. Le fichier peut être copié via scp pour archivage ou comparaison entre serveurs.
 -->
+{% endraw %}

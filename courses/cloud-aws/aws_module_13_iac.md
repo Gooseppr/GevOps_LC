@@ -16,6 +16,7 @@ next_module: "/courses/cloud-aws/aws_module_14_cicd.html"
 next_module_title: "CI/CD AWS — CodePipeline, CodeBuild, CodeDeploy"
 ---
 
+{% raw %}
 # Infrastructure as Code — Terraform & CloudFormation
 
 ## Objectifs pédagogiques
@@ -474,3 +475,4 @@ title: Modulariser Terraform pour éviter la duplication
 content: Un module Terraform regroupe un ensemble cohérent de ressources (ex. module VPC : subnets + IGW + route tables + NAT). Appelé avec des variables, il instancie dev, staging et prod en quelques lignes sans dupliquer le HCL. Signal à surveiller : dès que tu copies-colles un bloc de ressources pour un deuxième environnement, c'est le moment de créer un module — pas après.
 description: La duplication en IaC est pire que dans le code applicatif : un correctif de sécurité oublié dans une copie laisse un environnement vulnérable sans que personne ne le remarque.
 -->
+{% endraw %}

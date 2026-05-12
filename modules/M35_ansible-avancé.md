@@ -7,6 +7,7 @@ ordre: 2
 tags: ansible, devops, automatisation, roles, jinja2, vault
 ---
 
+{% raw %}
 # 🧠 Ansible avancé — rôles, logique et bonnes pratiques
 
 ---
@@ -1274,3 +1275,4 @@ description: Analyse tout le projet (playbooks, rôles, tasks). Détecte mauvais
 ---
 [← Module précédent](M35_ansible.md)
 ---
+{% endraw %}

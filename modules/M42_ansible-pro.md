@@ -7,6 +7,7 @@ ordre: 1
 tags: projet, docker, docker swarm, stack, ansible
 ---
 
+{% raw %}
 # 🚀 Passage à Ansible “pro” pour le déploiement NocoDB + Postgres
 
 Objectif de la journée :
@@ -499,3 +500,4 @@ content: Structurer l'inventaire avec [swarm_managers], [swarm_workers] et [swar
 ---
 [← Module précédent](M42_projet-board-J02.md) | [Module suivant →](M42_ansible-image.md)
 ---
+{% endraw %}

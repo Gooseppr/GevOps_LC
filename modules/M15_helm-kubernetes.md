@@ -8,7 +8,7 @@ ordre: 1
 tags: kubernetes, bash, linux, helm
 ---
 
-
+{% raw %}
 # 🎓 Helm — Partie 1 : Déploiement simplifié sur Kubernetes
 
 ---
@@ -1148,3 +1148,4 @@ title: Helm rollback ne restaure pas les données stateful
 context: utiliser le rollback Helm sur un service avec base de données
 content: helm rollback remet l’ancienne configuration (image, replicas), mais ne restaure pas les données dans les PersistentVolumes. Toujours sauvegarder la DB avant un upgrade qui touche le schéma.
 -->
+{% endraw %}

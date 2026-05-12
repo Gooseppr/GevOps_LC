@@ -20,6 +20,7 @@ next_module: "/courses/testeur_qa/22_data_quality.html"
 next_module_title: "Data quality & validation : diagnostiquer et corriger les problèmes de qualité"
 ---
 
+{% raw %}
 # CI/CD & Tests — Intégrer la qualité dans le pipeline
 
 ## Objectifs pédagogiques
@@ -506,3 +507,4 @@ format: knowledge
 tags: ci/cd,github-actions,deploiement,conditions,securite
 title: Restreindre le déploiement aux merges sur main uniquement
 content: Utiliser la condition `if: github.ref == 'refs/heads/main' && github.event_name == 'push'` sur le job de déploiement. Les PRs font tourner tous les tests sans déclencher de dé
+{% endraw %}

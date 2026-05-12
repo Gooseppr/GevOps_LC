@@ -8,6 +8,7 @@ ordre: 1
 tags: prometheus, monitoring, grafana, alerting, tsdb
 ---
 
+{% raw %}
 # 🧠 Prometheus – Collecter, analyser et alerter sur tes métriques
 
 ---
@@ -946,3 +947,4 @@ content: Dans prometheus.yml, ajoutez remote_write url = "http://influxdb:8086/a
 ---
 [Module suivant →](M36_prometheus-pratique.md)
 ---
+{% endraw %}

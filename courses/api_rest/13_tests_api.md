@@ -20,6 +20,7 @@ next_module: "/courses/api_rest/21_cicd_deploiement_api.html"
 next_module_title: "CI/CD & déploiement API"
 ---
 
+{% raw %}
 # Tests API
 
 ## Objectifs pédagogiques
@@ -551,3 +552,4 @@ title: Les codes d'erreur sont aussi des comportements contractuels
 content: Un 400, 401, 403 ou 404 est un comportement promis aux consommateurs, au même titre qu'un 200. Tester uniquement le happy path laisse sans filet tous les cas limites. Un 500 là où on attendait un 400 (validation manquante côté serveur) est un bug de contrat. Les tests d'erreur sont souvent plus révélateurs de la robustesse réelle d'une API que les tests nominaux.
 description: Couvrir les codes d'erreur attendus dans les tests est aussi important que de tester le cas nominal — c'est là que les bugs se cachent en prod
 -->
+{% endraw %}

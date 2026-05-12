@@ -20,6 +20,7 @@ next_module: "/courses/api_rest/15_versioning_api.html"
 next_module_title: "Gestion des versions d'API"
 ---
 
+{% raw %}
 # Documentation API
 
 ## Objectifs pédagogiques
@@ -813,3 +814,4 @@ newman run postman/collection.json \
 ## Résumé
 
 La documentation API n'est pas une formalité — c'est un composant de votre système, au même titre que le code. Un fichier OpenAPI bien rédigé permet de générer automatiquement des interfaces interactives, des mocks, des tests et des SDK. Les outils (Swagger UI, Redoc, Postman, Prism, Spectral) forment un écosystème cohérent qui automatise la plupart des t
+{% endraw %}

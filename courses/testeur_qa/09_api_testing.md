@@ -20,6 +20,7 @@ next_module: "/courses/testeur_qa/12_ci_cd_tests.html"
 next_module_title: "CI/CD & Tests — Intégrer la qualité dans le pipeline"
 ---
 
+{% raw %}
 # API Testing avancé
 
 ## Objectifs pédagogiques
@@ -556,3 +557,4 @@ format: knowledge
 tags: http,status-codes,securite,authentification,autorisation
 title: Différence entre 401 Unauthorized et 403 Forbidden
 content: "401 = le serveur ne sait pas qui vous êtes (token absent, invalide ou expiré). La solution : s'authentifier. 403 = le serveur sait qui vous êtes, mais vous n'avez pas le droit d'accéder à cette ressource. La solution : obtenir les permissions nécessaires. Un backend qui retourne 401 alors qu'il devrait
+{% endraw %}

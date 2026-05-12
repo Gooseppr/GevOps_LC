@@ -7,6 +7,7 @@ ordre: 0
 tags: projet
 ---
 
+{% raw %}
 # 🔁 Rendre notre déploiement Ansible idempotent (retour d’expérience)
 
 ## Contexte
@@ -317,3 +318,4 @@ content: Observer l'état réel avant d'agir, préférer les modules aux shell, 
 ---
 [Module suivant →](M52_projet-board-J12.md)
 ---
+{% endraw %}

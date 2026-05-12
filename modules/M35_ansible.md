@@ -8,6 +8,7 @@ ordre: 1
 tags: ansible, automatisation, devops, terraform, infrastructure
 ---
 
+{% raw %}
 # 🧠 ANSIBLE — Automatisation déclarative & complément naturel de Terraform
 
 ---
@@ -940,3 +941,4 @@ content: Un handler n'est exécuté que si une tâche l'a notifié (état `chang
 ---
 [Module suivant →](M35_ansible-avancé.md)
 ---
+{% endraw %}

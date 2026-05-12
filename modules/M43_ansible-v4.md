@@ -7,6 +7,7 @@ ordre: 1
 tags: projet, docker, docker swarm, stack, ansible
 ---
 
+{% raw %}
 # ✅ Synthèse de la journée – Stabilisation totale du cluster Docker Swarm & déploiement NocoDB
 
 Aujourd’hui, l’équipe a réalisé un énorme bond en avant : elle est passée d’une version instable (v3), où Swarm ne fonctionnait qu’aléatoirement, à une **version v4 robuste, cohérente et totalement automatisée**, capable de déployer un cluster complet avec NocoDB et Postgres de manière fiable.
@@ -353,3 +354,4 @@ content: Chaque VM dans l'inventaire porte node_labels="role=app" ou "role=db". 
 ---
 [← Module précédent](M43_projet-board-J03.md)
 ---
+{% endraw %}

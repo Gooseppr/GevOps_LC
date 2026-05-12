@@ -7,6 +7,7 @@ ordre: 0
 tags: projet
 ---
 
+{% raw %}
 # Évolution de mon Ansible Swarm — de v4 à v5
 
 Aujourd’hui j’ai transformé mon vieux gros playbook “one-shot” en un **vrai projet Ansible structuré**, avec des rôles, des playbooks ciblés et une gestion propre de Docker Swarm et de NocoDB.
@@ -651,3 +652,4 @@ content: Utiliser retries:12 delay:5 avec until cherchant "mystack_nocodb [1-9]/
 ---
 [Module suivant →](M44_projet-board-J04.md)
 ---
+{% endraw %}
