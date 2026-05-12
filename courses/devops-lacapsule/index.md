@@ -258,7 +258,7 @@ description: Formation DevOps complète — La Capsule
 </ul>
 <h2 class="section-title">Bonus</h2>
 <ul class="module-list">
-  <li><a href="{{ '/modules/B00_activité-4' | relative_url }}" title="Activité-type 4 : Mettre à disposition une API en ligne">Activité-type 4 : Mettre à disposition une API en ligne</a></li>
+  <li><a href="{{ '/modules/B00_activité-4' | relative_url }}" title=""Activité-type 4 : Mettre à disposition une API en ligne"">"Activité-type 4 : Mettre à disposition une API en ligne"</a></li>
   <li><a href="{{ '/modules/B02_kubernetes-cmd' | relative_url }}" title="Kubectl cmd">Kubectl cmd</a></li>
   <li><a href="{{ '/modules/B03_dockers-swarm' | relative_url }}" title="Kubectl cmd">Kubectl cmd</a></li>
   <li><a href="{{ '/modules/B01_bash-bdd-rel' | relative_url }}" title="Le scripting Bash pour base de données relationnelles">Le scripting Bash pour base de données relationnelles</a></li>
