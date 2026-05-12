@@ -1,5 +1,5 @@
 """
-ZZ_daily_review.py
+email_daily_review.py
 ------------------
 Sélectionne un mix quotidien de snippets par utilisateur et envoie un email HTML via Yahoo SMTP.
 
@@ -11,12 +11,12 @@ Logique de sélection :
   - Le daily_mix de chaque user définit combien de snippets par type
 
 Prérequis :
-  1. Avoir lancé Z0_extract_snippets.py pour générer _data/snippets.json
-  2. Avoir lancé Z0_setup_password.py pour enregistrer le mot de passe Yahoo
+  1. Avoir lancé data_extract_snippets.py pour générer _data/snippets.json
+  2. Avoir lancé config_smtp.py pour enregistrer le mot de passe Yahoo
      (stocké dans Windows Credential Manager — jamais en clair sur disque)
 
 Lancement :
-  python pipeline/ZZ_daily_review.py
+  python pipeline/email_daily_review.py
 """
 
 import json
@@ -639,9 +639,9 @@ def _load_password(secrets):
 
     print("❌ Clé SMTP Brevo introuvable.")
     if KEYRING_AVAILABLE:
-        print("   → Lance : python pipeline/Z0_setup_password.py")
+        print("   → Lance : python pipeline/config_smtp.py")
     else:
-        print("   → pip install keyring  puis  python pipeline/Z0_setup_password.py")
+        print("   → pip install keyring  puis  python pipeline/config_smtp.py")
         print("   → Ou remplis pipeline/secrets.json avec 'brevo_smtp_key'")
     return None
 
@@ -670,7 +670,7 @@ def main():
         if not os.path.exists(path):
             print(f"❌ Fichier manquant : {path}")
             if "snippets" in label:
-                print("   → Lance Z0_extract_snippets.py avant ce script.")
+                print("   → Lance data_extract_snippets.py avant ce script.")
             return
 
     snippets = load_json(SNIPPETS_PATH)

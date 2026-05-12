@@ -1,6 +1,6 @@
 """
-Z0_extract_snippets.py
-----------------------
+data_extract_snippets.py
+------------------------
 Scanne tous les fichiers .md dans courses/ et modules/
 et extrait les blocs <!-- snippet ... --> vers _data/snippets.json
 

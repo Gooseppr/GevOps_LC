@@ -12,6 +12,11 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
 
+markdown: kramdown
+kramdown:
+  input: GFM
+  parse_block_html: true
+
 defaults:
   - scope:
       path: "modules"

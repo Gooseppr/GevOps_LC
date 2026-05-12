@@ -426,38 +426,6 @@ Pourquoi les autres sont faux :
 
 ---
 
-## Résumé des pièges clés
-
-| Mot-clé dans la question | Piège fréquent | Bonne réponse |
-|--------------------------|----------------|---------------|
-| "Analyser des données dans S3 avec SQL" | Provisionner une BDD (RDS, Redshift) | **Athena** (serverless, direct sur S3) |
-| "Block storage" + "Windows" + "Multi-AZ" | FSx for Windows (file seulement) | **FSx for NetApp ONTAP** (file + block via iSCSI) |
-| "1 000 instances Linux" + "NFS" + "données changeantes" | S3 (pas POSIX, pas de file locking) | **EFS** (NFS managé, multi-AZ) |
-| "Trafic toujours vers la même instance" | Changer les health checks | **Désactiver les sticky sessions** |
-| "Métrique non disponible dans CloudWatch" | CPU ou Network (déjà par défaut) | **Memory** ou **Disk space** (custom) |
-| "Athena lent sur JSON" | Compresser en GZIP | **Convertir en Parquet** (colonnaire) |
-| "Réagir aux changements DynamoDB" | DynamoDB Transactions | **DynamoDB Streams** + Lambda trigger |
-| "VPN site-to-site" côté on-prem | NAT instance ou EIP sur VPG | **IP publique statique du Customer Gateway** |
-| "Créer des comptes AWS automatiquement" | AWS RAM ou Config | **AWS Control Tower** |
-| "État configuration S3 à grande échelle" | CloudTrail ou IAM Access Analyzer | **S3 Storage Lens** |
-| "Chiffrement AES-256" + "least overhead" | SSE-KMS + rotation manuelle | **SSE-S3** (rotation auto intégrée) |
-| "Distribuer des fichiers globalement" | Transfer Acceleration (uploads) | **CloudFront** (cache + downloads) |
-| "ELB + multi-région" | Mettre un ELB entre 2 régions | **ELB = 1 région**, multi-région = Route 53 |
-| "NACL" + "règles numérotées" | Penser que toutes les règles s'appliquent | **First-match** : la règle au plus petit numéro gagne |
-| "Distribuer le trafic uniformément entre AZ" | Path-based routing ou health checks | **Cross-zone load balancing** |
-| "Nouvelles images S3 + CloudFront" + "garder les anciennes" | Invalidation (coûteux) | **Versioned objects** (moins cher, plus fiable) |
-| "FSx Windows" + "RTO 10 min" + "backup cross-region" + "rétention 5 ans" | Single-AZ ou governance mode | **Multi-AZ + Vault Lock compliance mode** |
-| "Accès fluctuant" + "coût optimisé" + "haute dispo" | S3 Standard-IA ou Glacier | **S3 Intelligent-Tiering** (auto-optimisé) |
-| "Docker" + "auto load balancing/scaling/monitoring" | ECS (config manuelle) | **Elastic Beanstalk** (tout automatique) |
-| "Lake Formation" + "column-level access" + "QuickSight" | Glue Studio + IAM policy | **LF blueprint + data filter + Athena** |
-| "S3 objets publics" | CORS ou IAM role | **Bucket policy public-read** ou **permissions à l'upload** |
-| "6 instances minimum" + "fault tolerance 1 AZ down" | 2+2+2 (reste 4 si 1 AZ down) | **3+3+3** ou **6+6+0** (reste >= 6) |
-| "EC2 accès autres services AWS" | Access keys sur l'instance | **IAM Role** + **MFA** |
-| "Streaming temps réel" + "proche des users" + "clickstream" | Route 53 (pas de compute) | **Lambda@Edge + Kinesis** |
-| "Messages ordonnés" + "pas de duplicates" + "pas de perte" | SQS Standard (best-effort order) | **Kinesis Data Streams** (ordre garanti par shard) |
-
----
-
 ## Question 14 — Filtrage réseau stateless et priorité des règles
 
 **Contexte** : Un subnet privé a les règles NACL inbound suivantes. La règle #100 autorise tout le trafic. La règle #101 refuse le trafic TCP port 4000 depuis l'IP 110.238.109.37. Un ordinateur avec cette IP envoie une requête.
@@ -2247,6 +2215,43 @@ Pourquoi les autres sont faux :
 
 📖 [Module 18 — Serverless](/courses/cloud-aws/aws_module_18_serverless.html)
 </details>
+
+---
+
+## Résumé des pièges clés
+
+| Mot-clé dans la question | Piège fréquent | Bonne réponse |
+|--------------------------|----------------|---------------|
+| "Analyser des données dans S3 avec SQL" | Provisionner une BDD (RDS, Redshift) | **Athena** (serverless, direct sur S3) |
+| "Block storage" + "Windows" + "Multi-AZ" | FSx for Windows (file seulement) | **FSx for NetApp ONTAP** (file + block via iSCSI) |
+| "1 000 instances Linux" + "NFS" + "données changeantes" | S3 (pas POSIX, pas de file locking) | **EFS** (NFS managé, multi-AZ) |
+| "Trafic toujours vers la même instance" | Changer les health checks | **Désactiver les sticky sessions** |
+| "Métrique non disponible dans CloudWatch" | CPU ou Network (déjà par défaut) | **Memory** ou **Disk space** (custom) |
+| "Athena lent sur JSON" | Compresser en GZIP | **Convertir en Parquet** (colonnaire) |
+| "Réagir aux changements DynamoDB" | DynamoDB Transactions | **DynamoDB Streams** + Lambda trigger |
+| "VPN site-to-site" côté on-prem | NAT instance ou EIP sur VPG | **IP publique statique du Customer Gateway** |
+| "Créer des comptes AWS automatiquement" | AWS RAM ou Config | **AWS Control Tower** |
+| "État configuration S3 à grande échelle" | CloudTrail ou IAM Access Analyzer | **S3 Storage Lens** |
+| "Chiffrement AES-256" + "least overhead" | SSE-KMS + rotation manuelle | **SSE-S3** (rotation auto intégrée) |
+| "Distribuer des fichiers globalement" | Transfer Acceleration (uploads) | **CloudFront** (cache + downloads) |
+| "ELB + multi-région" | Mettre un ELB entre 2 régions | **ELB = 1 région**, multi-région = Route 53 |
+| "NACL" + "règles numérotées" | Penser que toutes les règles s'appliquent | **First-match** : la règle au plus petit numéro gagne |
+| "Distribuer le trafic uniformément entre AZ" | Path-based routing ou health checks | **Cross-zone load balancing** |
+| "Nouvelles images S3 + CloudFront" + "garder les anciennes" | Invalidation (coûteux) | **Versioned objects** (moins cher, plus fiable) |
+| "FSx Windows" + "RTO 10 min" + "backup cross-region" + "rétention 5 ans" | Single-AZ ou governance mode | **Multi-AZ + Vault Lock compliance mode** |
+| "Accès fluctuant" + "coût optimisé" + "haute dispo" | S3 Standard-IA ou Glacier | **S3 Intelligent-Tiering** (auto-optimisé) |
+| "Docker" + "auto load balancing/scaling/monitoring" | ECS (config manuelle) | **Elastic Beanstalk** (tout automatique) |
+| "Lake Formation" + "column-level access" + "QuickSight" | Glue Studio + IAM policy | **LF blueprint + data filter + Athena** |
+| "S3 objets publics" | CORS ou IAM role | **Bucket policy public-read** ou **permissions à l'upload** |
+| "6 instances minimum" + "fault tolerance 1 AZ down" | 2+2+2 (reste 4 si 1 AZ down) | **3+3+3** ou **6+6+0** (reste >= 6) |
+| "EC2 accès autres services AWS" | Access keys sur l'instance | **IAM Role** + **MFA** |
+| "Streaming temps réel" + "proche des users" + "clickstream" | Route 53 (pas de compute) | **Lambda@Edge + Kinesis** |
+| "Messages ordonnés" + "pas de duplicates" + "pas de perte" | SQS Standard (best-effort order) | **Kinesis Data Streams** (ordre garanti par shard) |
+| "Bastion host" + "Windows" | SSH ou subnet privé | **Subnet public + RDP + IPs corporate** |
+| "SQS priorité premium vs free" | Marquer une priorité sur le message | **Plusieurs queues + polling prioritaire** |
+| "ASG ne scale pas malgré RAM saturée" | Detailed monitoring | **CloudWatch Agent** (RAM = custom metric) |
+| "API REST scalable cost-effective" | EC2 Spot, S3 static, EFA | **Lambda + API Gateway** |
+| "Docker serverless + ephemeral storage" | Fargate ou EFS | **Lambda container image + `/tmp`** |
 
 ---
 

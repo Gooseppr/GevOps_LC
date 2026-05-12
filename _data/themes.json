@@ -73,6 +73,27 @@
       ]
     },
     {
+      "id": "microsoft",
+      "title": "Microsoft",
+      "icon": "🪟",
+      "courses": [
+        {
+          "id": "al",
+          "title": "AL — Business Central",
+          "icon": "🏢",
+          "status": "En construction",
+          "path": "/courses/al/"
+        },
+        {
+          "id": "microsoft_power_platform",
+          "title": "Power Platform",
+          "icon": "⚡",
+          "status": "En construction",
+          "path": "/courses/microsoft_power_platform/"
+        }
+      ]
+    },
+    {
       "id": "test",
       "title": "Test",
       "icon": "⚙️",

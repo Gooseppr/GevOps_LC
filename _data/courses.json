@@ -1,5 +1,1378 @@
 [
   {
+    "id": "al",
+    "title": "AL — Business Central",
+    "description": "Développement d'extensions AL pour Microsoft Dynamics 365 Business Central — du langage aux intégrations ERP réelles.",
+    "icon": "🏢",
+    "status": "En construction",
+    "domain": "Microsoft",
+    "domain_icon": "🪟",
+    "domain_order": "30",
+    "audio": false,
+    "path": "/courses/al/",
+    "index_path": "/GevOps_LC/courses/al/index.html",
+    "themes": [
+      {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "00_Plan",
+            "path": "/GevOps_LC/courses/al/00_plan.html",
+            "file": "00_plan.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "Plan",
+            "path": "/GevOps_LC/courses/al/plan.html",
+            "file": "plan.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "fondations-erp-al",
+        "title": "Fondations ERP / AL",
+        "modules": [
+          {
+            "title": "Comprendre l'écosystème ERP Microsoft Business Central",
+            "path": "/GevOps_LC/courses/al/01_ecosysteme_bc.html",
+            "file": "01_ecosysteme_bc.md",
+            "chapter_title": "Fondations ERP / AL",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "business central",
+              "erp",
+              "microsoft",
+              "dynamics",
+              "saas",
+              "onprem",
+              "al",
+              "appsource",
+              "navision"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Fondamentaux du langage AL",
+            "path": "/GevOps_LC/courses/al/05_fondamentaux_langage_al.html",
+            "file": "05_fondamentaux_langage_al.md",
+            "chapter_title": "Fondations ERP / AL",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "al",
+              "business-central",
+              "syntaxe",
+              "objets",
+              "variables",
+              "procedures",
+              "triggers"
+            ],
+            "difficulty": "beginner",
+            "duration": "120",
+            "mermaid": false
+          },
+          {
+            "title": "Installation environnement développeur AL",
+            "path": "/GevOps_LC/courses/al/03_installation_environnement_al.html",
+            "file": "03_installation_environnement_al.md",
+            "chapter_title": "Fondations ERP / AL",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "al",
+              "business central",
+              "vscode",
+              "docker",
+              "extension",
+              "environnement",
+              "développement"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Tooling communautaire & écosystème développeur AL",
+            "path": "/GevOps_LC/courses/al/04_tooling_communautaire_al.html",
+            "file": "04_tooling_communautaire_al.md",
+            "chapter_title": "Fondations ERP / AL",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "al",
+              "business-central",
+              "vscode",
+              "extensions",
+              "communauté",
+              "alpackages",
+              "algodevtools",
+              "bcdevtools"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Tables AL et modèle de données ERP",
+            "path": "/GevOps_LC/courses/al/06_tables_modele_donnees.html",
+            "file": "06_tables_modele_donnees.md",
+            "chapter_title": "Fondations ERP / AL",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "al",
+              "business central",
+              "table",
+              "extension",
+              "champ",
+              "clé primaire",
+              "modèle de données",
+              "erp"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "architecture-fonctionnelle-business-central",
+        "title": "Architecture fonctionnelle Business Central",
+        "modules": [
+          {
+            "title": "Architecture fonctionnelle Business Central",
+            "path": "/GevOps_LC/courses/al/02_architecture_fonctionnelle_bc.html",
+            "file": "02_architecture_fonctionnelle_bc.md",
+            "chapter_title": "Architecture fonctionnelle Business Central",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "business central",
+              "architecture",
+              "erp",
+              "modules",
+              "données",
+              "flux",
+              "tables",
+              "pages",
+              "codeunit"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "extensibilite-et-architecture-des-extensions",
+        "title": "Extensibilité et architecture des extensions",
+        "modules": [
+          {
+            "title": "Events et Subscribers en AL",
+            "path": "/GevOps_LC/courses/al/14_events_subscribers.html",
+            "file": "14_events_subscribers.md",
+            "chapter_title": "Extensibilité et architecture des extensions",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "al",
+              "business central",
+              "events",
+              "subscribers",
+              "publishers",
+              "extensions",
+              "extensibilité"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "migration-nav-vers-business-central",
+        "title": "Migration NAV vers Business Central",
+        "modules": [
+          {
+            "title": "Migration NAV vers Business Central",
+            "path": "/GevOps_LC/courses/al/34_migration_nav_bc.html",
+            "file": "34_migration_nav_bc.md",
+            "chapter_title": "Migration NAV vers Business Central",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "navision",
+              "dynamics nav",
+              "business central",
+              "migration",
+              "cal",
+              "al",
+              "extension",
+              "upgrade",
+              "comparatif"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-saas-business-central-moderne",
+        "title": "Architecture SaaS Business Central moderne",
+        "modules": [
+          {
+            "title": "Architecture SaaS Business Central moderne",
+            "path": "/GevOps_LC/courses/al/45_architecture_saas_bc.html",
+            "file": "45_architecture_saas_bc.md",
+            "chapter_title": "Architecture SaaS Business Central moderne",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "business central",
+              "saas",
+              "architecture",
+              "multi-tenant",
+              "azure",
+              "extensions",
+              "al",
+              "dynamics 365"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "pages-business-central",
+        "title": "Pages Business Central",
+        "modules": [
+          {
+            "title": "Pages Business Central",
+            "path": "/GevOps_LC/courses/al/07_pages_business_central.html",
+            "file": "07_pages_business_central.md",
+            "chapter_title": "Pages Business Central",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "al",
+              "business central",
+              "pages",
+              "ui",
+              "extension",
+              "card",
+              "list",
+              "pagecustomization"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "logique-metier-et-comportement-applicatif",
+        "title": "Logique métier et comportement applicatif",
+        "modules": [
+          {
+            "title": "Triggers et logique métier AL",
+            "path": "/GevOps_LC/courses/al/08_triggers_logique_metier.html",
+            "file": "08_triggers_logique_metier.md",
+            "chapter_title": "Logique métier et comportement applicatif",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "al",
+              "business central",
+              "triggers",
+              "logique métier",
+              "events",
+              "codeunit"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "architecture-extensions-business-central",
+        "title": "Architecture extensions Business Central",
+        "modules": [
+          {
+            "title": "Architecture des extensions Business Central",
+            "path": "/GevOps_LC/courses/al/13_architecture_extensions.html",
+            "file": "13_architecture_extensions.md",
+            "chapter_title": "Architecture extensions Business Central",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "extensions",
+              "architecture",
+              "app-platform",
+              "dependency",
+              "runtime"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-et-business-central-cote-developpeur-al",
+        "title": "Power BI et Business Central (côté développeur AL)",
+        "modules": [
+          {
+            "title": "Power BI et Business Central — côté développeur AL",
+            "path": "/GevOps_LC/courses/al/46_power_bi_bc_developpeur_al.html",
+            "file": "46_power_bi_bc_developpeur_al.md",
+            "chapter_title": "Power BI et Business Central (côté développeur AL)",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "al",
+              "power bi",
+              "business central",
+              "api",
+              "odata",
+              "reporting",
+              "extension",
+              "dataset",
+              "telemetry",
+              "job-queue",
+              "buffer"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "infrastructure-et-deploiement-business-central",
+        "title": "Infrastructure et déploiement Business Central",
+        "modules": [
+          {
+            "title": "Multi-environnements et lifecycle ERP",
+            "path": "/GevOps_LC/courses/al/35_multi_environnements.html",
+            "file": "35_multi_environnements.md",
+            "chapter_title": "Infrastructure et déploiement Business Central",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "business central",
+              "al",
+              "environnements",
+              "lifecycle",
+              "devops",
+              "cicd",
+              "pipeline",
+              "saas",
+              "onprem"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "integration-et-echanges-de-donnees",
+        "title": "Intégration et échanges de données",
+        "modules": [
+          {
+            "title": "Data Exchange Framework & formats métier",
+            "path": "/GevOps_LC/courses/al/18_data_exchange_framework.html",
+            "file": "18_data_exchange_framework.md",
+            "chapter_title": "Intégration et échanges de données",
+            "chapter": 4,
+            "section": 2,
+            "tags": [
+              "al",
+              "business-central",
+              "data-exchange",
+              "xml",
+              "json",
+              "formats-metier",
+              "edi",
+              "integration"
+            ],
+            "difficulty": "intermediate",
+            "duration": "130",
+            "mermaid": false
+          },
+          {
+            "title": "Staging Tables & Integration Patterns",
+            "path": "/GevOps_LC/courses/al/17_staging_tables_integration_patterns.html",
+            "file": "17_staging_tables_integration_patterns.md",
+            "chapter_title": "Intégration et échanges de données",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "staging-tables",
+              "integration",
+              "codeunit",
+              "temporary-tables",
+              "buffer",
+              "import-export"
+            ],
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-du-moteur-transactionnel",
+        "title": "Architecture du moteur transactionnel",
+        "modules": [
+          {
+            "title": "Posting Pipeline Business Central",
+            "path": "/GevOps_LC/courses/al/15_posting_pipeline.html",
+            "file": "15_posting_pipeline.md",
+            "chapter_title": "Architecture du moteur transactionnel",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "posting",
+              "pipeline",
+              "architecture",
+              "codeunit",
+              "transactions"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "objets-al-et-structures-de-donnees",
+        "title": "Objets AL et structures de données",
+        "modules": [
+          {
+            "title": "XMLports AL",
+            "path": "/GevOps_LC/courses/al/10_xmlports_al.html",
+            "file": "10_xmlports_al.md",
+            "chapter_title": "Objets AL et structures de données",
+            "chapter": 6,
+            "section": 1,
+            "tags": [
+              "al",
+              "xmlport",
+              "business central",
+              "import",
+              "export",
+              "xml",
+              "csv",
+              "intégration"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "git-et-organisation-projet-al",
+        "title": "Git et organisation projet AL",
+        "modules": [
+          {
+            "title": "Git et organisation projet AL",
+            "path": "/GevOps_LC/courses/al/12_git_projets_al.html",
+            "file": "12_git_projets_al.md",
+            "chapter_title": "Git et organisation projet AL",
+            "chapter": 6,
+            "section": 1,
+            "tags": [
+              "git",
+              "al",
+              "business-central",
+              "vscode",
+              "organisation",
+              "extensions",
+              "workspace",
+              "alc",
+              "devops"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "acceder-aux-donnees-et-produire-des-etats",
+        "title": "Accéder aux données et produire des états",
+        "modules": [
+          {
+            "title": "Queries, Reports et datasets AL",
+            "path": "/GevOps_LC/courses/al/09_queries_reports.html",
+            "file": "09_queries_reports.md",
+            "chapter_title": "Accéder aux données et produire des états",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "query",
+              "report",
+              "dataset",
+              "business-central",
+              "reporting",
+              "rdl"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "apis-business-central-et-integration",
+        "title": "APIs Business Central et intégration",
+        "modules": [
+          {
+            "title": "APIs Business Central et intégration",
+            "path": "/GevOps_LC/courses/al/19_api_integrations_bc.html",
+            "file": "19_api_integrations_bc.md",
+            "chapter_title": "APIs Business Central et intégration",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "business-central",
+              "api",
+              "odata",
+              "rest",
+              "integration",
+              "al",
+              "dynamics365",
+              "web-services"
+            ],
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "connecter-business-central-au-monde-exterieur",
+        "title": "Connecter Business Central au monde extérieur",
+        "modules": [
+          {
+            "title": "Intégrations ERP réelles",
+            "path": "/GevOps_LC/courses/al/22_integrations_erp_reelles.html",
+            "file": "22_integrations_erp_reelles.md",
+            "chapter_title": "Connecter Business Central au monde extérieur",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "integration",
+              "api",
+              "webservices",
+              "erp",
+              "odata",
+              "rest",
+              "codeunit",
+              "http"
+            ],
+            "difficulty": "intermediate",
+            "duration": "130",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "automatisation-et-traitements-differes",
+        "title": "Automatisation et traitements différés",
+        "modules": [
+          {
+            "title": "Job Queue & traitements asynchrones",
+            "path": "/GevOps_LC/courses/al/23_job_queue_async.html",
+            "file": "23_job_queue_async.md",
+            "chapter_title": "Automatisation et traitements différés",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "job-queue",
+              "codeunit",
+              "asynchrone",
+              "background",
+              "traitement-differe"
+            ],
+            "difficulty": "intermediate",
+            "duration": "130",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "diagnostic-et-optimisation",
+        "title": "Diagnostic et optimisation",
+        "modules": [
+          {
+            "title": "Performance AL et SQL Backend",
+            "path": "/GevOps_LC/courses/al/24_performance_sql_al.html",
+            "file": "24_performance_sql_al.md",
+            "chapter_title": "Diagnostic et optimisation",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "performance",
+              "sql",
+              "diagnostic",
+              "optimisation",
+              "setfilter",
+              "calcfields",
+              "flowfield"
+            ],
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "securite-applicative-et-controle-d-acces",
+        "title": "Sécurité applicative et contrôle d'accès",
+        "modules": [
+          {
+            "title": "Sécurité Business Central",
+            "path": "/GevOps_LC/courses/al/25_securite_business_central.html",
+            "file": "25_securite_business_central.md",
+            "chapter_title": "Sécurité applicative et contrôle d'accès",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "business-central",
+              "al",
+              "securite",
+              "permissions",
+              "rbac",
+              "saas",
+              "erp",
+              "filtres-securite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "qualite-et-fiabilite-du-code-al",
+        "title": "Qualité et fiabilité du code AL",
+        "modules": [
+          {
+            "title": "Tests automatisés AL",
+            "path": "/GevOps_LC/courses/al/27_tests_automatises_al.html",
+            "file": "27_tests_automatises_al.md",
+            "chapter_title": "Qualité et fiabilité du code AL",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "tests",
+              "automatisation",
+              "codeunit",
+              "testability",
+              "qualité"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "mise-en-production-et-experience-utilisateur",
+        "title": "Mise en production et expérience utilisateur",
+        "modules": [
+          {
+            "title": "Onboarding utilisateur AL",
+            "path": "/GevOps_LC/courses/al/28_onboarding_utilisateur_al.html",
+            "file": "28_onboarding_utilisateur_al.md",
+            "chapter_title": "Mise en production et expérience utilisateur",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "onboarding",
+              "rolecenters",
+              "profiles",
+              "setup",
+              "configuration"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "debugging-et-troubleshooting-erp",
+        "title": "Debugging et troubleshooting ERP",
+        "modules": [
+          {
+            "title": "Debugging et troubleshooting ERP",
+            "path": "/GevOps_LC/courses/al/29_debugging_troubleshooting.html",
+            "file": "29_debugging_troubleshooting.md",
+            "chapter_title": "Debugging et troubleshooting ERP",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "debugging",
+              "troubleshooting",
+              "erreurs",
+              "diagnostic",
+              "erp"
+            ],
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "telemetrie-et-observabilite-business-central",
+        "title": "Télémétrie et observabilité Business Central",
+        "modules": [
+          {
+            "title": "Télémétrie et observabilité Business Central",
+            "path": "/GevOps_LC/courses/al/30_telemetry_observabilite.html",
+            "file": "30_telemetry_observabilite.md",
+            "chapter_title": "Télémétrie et observabilité Business Central",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "business-central",
+              "telemetry",
+              "application-insights",
+              "observabilite",
+              "al",
+              "diagnostic",
+              "azure-monitor",
+              "kql"
+            ],
+            "difficulty": "intermediate",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "devops-erp-et-al-go",
+        "title": "DevOps ERP et AL-Go",
+        "modules": [
+          {
+            "title": "DevOps ERP et AL-Go",
+            "path": "/GevOps_LC/courses/al/31_devops_al_go.html",
+            "file": "31_devops_al_go.md",
+            "chapter_title": "DevOps ERP et AL-Go",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al-go",
+              "devops",
+              "business-central",
+              "github-actions",
+              "ci-cd",
+              "erp",
+              "bccontainerhelper",
+              "pipelines"
+            ],
+            "difficulty": "intermediate",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-erp-avancee-business-central",
+        "title": "Architecture ERP avancée Business Central",
+        "modules": [
+          {
+            "title": "Architecture ERP avancée Business Central",
+            "path": "/GevOps_LC/courses/al/32_architecture_erp_avancee.html",
+            "file": "32_architecture_erp_avancee.md",
+            "chapter_title": "Architecture ERP avancée Business Central",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "business central",
+              "architecture",
+              "erp",
+              "multi-tenant",
+              "service tier",
+              "nst",
+              "saas",
+              "extension model",
+              "al"
+            ],
+            "difficulty": "advanced",
+            "duration": "240",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "upgrade-technique-saas-data-migration-avancee",
+        "title": "Upgrade technique SaaS & Data Migration avancée",
+        "modules": [
+          {
+            "title": "Upgrade technique SaaS & Data Migration avancée",
+            "path": "/GevOps_LC/courses/al/33_upgrade_technique_saas.html",
+            "file": "33_upgrade_technique_saas.md",
+            "chapter_title": "Upgrade technique SaaS & Data Migration avancée",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "business central",
+              "saas",
+              "upgrade",
+              "data migration",
+              "al",
+              "extension",
+              "cloud",
+              "tenant",
+              "schema migration",
+              "install codeunit"
+            ],
+            "difficulty": "advanced",
+            "duration": "210",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "conflits-extensions-et-compatibilite",
+        "title": "Conflits extensions et compatibilité",
+        "modules": [
+          {
+            "title": "Conflits entre extensions et compatibilité AL",
+            "path": "/GevOps_LC/courses/al/37_conflits_extensions.html",
+            "file": "37_conflits_extensions.md",
+            "chapter_title": "Conflits extensions et compatibilité",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "extensions",
+              "conflits",
+              "compatibilité",
+              "diagnostic",
+              "troubleshooting",
+              "events",
+              "tableextension",
+              "pageextension"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "publication-et-certification-appsource",
+        "title": "Publication et certification AppSource",
+        "modules": [
+          {
+            "title": "AppSource Certification & validation technique",
+            "path": "/GevOps_LC/courses/al/38_appsource_certification.html",
+            "file": "38_appsource_certification.md",
+            "chapter_title": "Publication et certification AppSource",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "appsource",
+              "certification",
+              "validation",
+              "al",
+              "business-central",
+              "isv",
+              "technical-validation",
+              "per-tenant-extension"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "qualite-et-robustesse-du-code-al",
+        "title": "Qualité et robustesse du code AL",
+        "modules": [
+          {
+            "title": "Anti-patterns AL",
+            "path": "/GevOps_LC/courses/al/43_antipatterns_al.html",
+            "file": "43_antipatterns_al.md",
+            "chapter_title": "Qualité et robustesse du code AL",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "anti-patterns",
+              "performance",
+              "qualité",
+              "diagnostic",
+              "erp"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "support-applicatif-erp-avance",
+        "title": "Support applicatif ERP avancé",
+        "modules": [
+          {
+            "title": "Support applicatif ERP avancé",
+            "path": "/GevOps_LC/courses/al/44_support_applicatif_erp.html",
+            "file": "44_support_applicatif_erp.md",
+            "chapter_title": "Support applicatif ERP avancé",
+            "chapter": 8,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "diagnostic",
+              "erp",
+              "troubleshooting",
+              "telemetry",
+              "debugging",
+              "support"
+            ],
+            "difficulty": "advanced",
+            "duration": "210",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "pipeline-de-comptabilisation-business-central",
+        "title": "Pipeline de comptabilisation Business Central",
+        "modules": [
+          {
+            "title": "Posting Extensibility avancée",
+            "path": "/GevOps_LC/courses/al/16_posting_extensibility_avancee.html",
+            "file": "16_posting_extensibility_avancee.md",
+            "chapter_title": "Pipeline de comptabilisation Business Central",
+            "chapter": 8,
+            "section": 2,
+            "tags": [
+              "al",
+              "business-central",
+              "posting",
+              "extensibility",
+              "codeunit",
+              "events",
+              "architecture"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "integrations-et-apis",
+        "title": "Intégrations et APIs",
+        "modules": [
+          {
+            "title": "HTTP, JSON et consommation d'APIs externes depuis AL",
+            "path": "/GevOps_LC/courses/al/20_http_json_apis_externes_al.html",
+            "file": "20_http_json_apis_externes_al.md",
+            "chapter_title": "Intégrations et APIs",
+            "chapter": 8,
+            "section": 2,
+            "tags": [
+              "al",
+              "business-central",
+              "http",
+              "json",
+              "api",
+              "integration",
+              "rest",
+              "httpclient",
+              "jsonobject"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "apis-integrations-et-echanges-de-donnees",
+        "title": "APIs, intégrations et échanges de données",
+        "modules": [
+          {
+            "title": "OData actions et Read Scale-Out en AL",
+            "path": "/GevOps_LC/courses/al/21_odata_actions_read_scaleout.html",
+            "file": "21_odata_actions_read_scaleout.md",
+            "chapter_title": "APIs, intégrations et échanges de données",
+            "chapter": 8,
+            "section": 2,
+            "tags": [
+              "al",
+              "odata",
+              "business-central",
+              "read-scale-out",
+              "api",
+              "codeunit",
+              "action",
+              "performance"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "securite-et-permissions-business-central",
+        "title": "Sécurité et permissions Business Central",
+        "modules": [
+          {
+            "title": "Entitlements et Inherent Permissions en AL",
+            "path": "/GevOps_LC/courses/al/26_entitlements_inherent_permissions.html",
+            "file": "26_entitlements_inherent_permissions.md",
+            "chapter_title": "Sécurité et permissions Business Central",
+            "chapter": 8,
+            "section": 2,
+            "tags": [
+              "al",
+              "business-central",
+              "entitlements",
+              "permissions",
+              "inherent-permissions",
+              "saas",
+              "security"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gestion-erreurs-et-transactions",
+        "title": "Gestion erreurs et transactions",
+        "modules": [
+          {
+            "title": "Gestion des erreurs et transactions en AL",
+            "path": "/GevOps_LC/courses/al/11_transactions_erreurs.html",
+            "file": "11_transactions_erreurs.md",
+            "chapter_title": "Gestion erreurs et transactions",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "al",
+              "business central",
+              "erreurs",
+              "transactions",
+              "error handling",
+              "commit",
+              "rollback"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "maintenance-corrective-et-evolutive",
+        "title": "Maintenance corrective et évolutive",
+        "modules": [
+          {
+            "title": "Maintenance corrective et évolutive des extensions AL",
+            "path": "/GevOps_LC/courses/al/36_maintenance_erp.html",
+            "file": "36_maintenance_erp.md",
+            "chapter_title": "Maintenance corrective et évolutive",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "maintenance",
+              "extension",
+              "upgrade",
+              "hotfix",
+              "versioning",
+              "migration"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "warehouse-wms-supply-chain-dans-bc",
+        "title": "Warehouse / WMS / Supply Chain dans BC",
+        "modules": [
+          {
+            "title": "Warehouse, WMS et Supply Chain dans Business Central",
+            "path": "/GevOps_LC/courses/al/41_wms_supply_chain_bc.html",
+            "file": "41_wms_supply_chain_bc.md",
+            "chapter_title": "Warehouse / WMS / Supply Chain dans BC",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "warehouse",
+              "wms",
+              "supply-chain",
+              "inventory",
+              "bin",
+              "picking",
+              "shipping",
+              "receiving",
+              "item-tracking",
+              "transfer-orders"
+            ],
+            "difficulty": "advanced",
+            "duration": "210",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-erp-avancee",
+        "title": "Architecture ERP avancée",
+        "modules": [
+          {
+            "title": "Expertise AL / Lead technique ERP",
+            "path": "/GevOps_LC/courses/al/48_expertise_lead_technique.html",
+            "file": "48_expertise_lead_technique.md",
+            "chapter_title": "Architecture ERP avancée",
+            "chapter": 9,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "architecture",
+              "lead-technique",
+              "erp",
+              "extensions",
+              "design-patterns",
+              "performance",
+              "gouvernance"
+            ],
+            "difficulty": "advanced",
+            "duration": "240",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "architecture-integration-entreprise",
+        "title": "Architecture intégration entreprise",
+        "modules": [
+          {
+            "title": "Architecture intégration entreprise",
+            "path": "/GevOps_LC/courses/al/39_architecture_integration_erp.html",
+            "file": "39_architecture_integration_erp.md",
+            "chapter_title": "Architecture intégration entreprise",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "integration",
+              "api",
+              "azure-service-bus",
+              "webhooks",
+              "odata",
+              "architecture"
+            ],
+            "difficulty": "advanced",
+            "duration": "210",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "finance-technique-pour-developpeur-al",
+        "title": "Finance technique pour développeur AL",
+        "modules": [
+          {
+            "title": "Finance technique pour développeur AL",
+            "path": "/GevOps_LC/courses/al/40_finance_technique_al.html",
+            "file": "40_finance_technique_al.md",
+            "chapter_title": "Finance technique pour développeur AL",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "finance",
+              "comptabilité",
+              "grand-livre",
+              "dimensions",
+              "codeunit",
+              "posting",
+              "développement"
+            ],
+            "difficulty": "advanced",
+            "duration": "240",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "manufacturing-et-production-erp",
+        "title": "Manufacturing et production ERP",
+        "modules": [
+          {
+            "title": "Manufacturing et production ERP en AL",
+            "path": "/GevOps_LC/courses/al/42_manufacturing_bc.html",
+            "file": "42_manufacturing_bc.md",
+            "chapter_title": "Manufacturing et production ERP",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "al",
+              "manufacturing",
+              "production",
+              "erp",
+              "business-central",
+              "bom",
+              "routing",
+              "work-center",
+              "production-order"
+            ],
+            "difficulty": "advanced",
+            "duration": "240",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "copilot-et-ia-dans-business-central",
+        "title": "Copilot et IA dans Business Central",
+        "modules": [
+          {
+            "title": "Copilot et IA dans Business Central",
+            "path": "/GevOps_LC/courses/al/47_copilot_ia_business_central.html",
+            "file": "47_copilot_ia_business_central.md",
+            "chapter_title": "Copilot et IA dans Business Central",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "al",
+              "business-central",
+              "copilot",
+              "ia",
+              "azure-openai",
+              "copilotkit",
+              "extensions",
+              "saas"
+            ],
+            "difficulty": "advanced",
+            "duration": "210",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "certification-mb-820",
+        "title": "Certification MB-820",
+        "modules": [
+          {
+            "title": "Certification MB-820 — Préparation à l'examen développeur BC",
+            "path": "/GevOps_LC/courses/al/49_certification_mb820.html",
+            "file": "49_certification_mb820.md",
+            "chapter_title": "Certification MB-820",
+            "chapter": 12,
+            "section": 1,
+            "tags": [
+              "mb-820",
+              "certification",
+              "business-central",
+              "al",
+              "examen",
+              "microsoft"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "analyse-fonctionnelle-pour-developpeur-al",
+        "title": "Analyse fonctionnelle pour développeur AL",
+        "modules": [
+          {
+            "title": "Analyse fonctionnelle pour développeur AL",
+            "path": "/GevOps_LC/courses/al/50_analyse_fonctionnelle_al.html",
+            "file": "50_analyse_fonctionnelle_al.md",
+            "chapter_title": "Analyse fonctionnelle pour développeur AL",
+            "chapter": 99,
+            "section": 1,
+            "tags": [
+              "analyse fonctionnelle",
+              "business central",
+              "al",
+              "specification",
+              "processus metier",
+              "expression de besoin",
+              "flux",
+              "documentation",
+              "event subscriber",
+              "credit check"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "api_rest",
     "title": "API REST",
     "description": "Concevoir, consommer et opérer des API REST en production — de l'intégration à la sécurité avancée.",
@@ -2520,6 +3893,2103 @@
             ],
             "difficulty": "intermediate",
             "duration": "105",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "microsoft_power_platform",
+    "title": "Power Platform",
+    "description": "Plateforme low-code Microsoft — Power Apps, Power Automate, Power BI, Dataverse, Copilot Studio.",
+    "icon": "⚡",
+    "status": "En construction",
+    "domain": "Microsoft",
+    "domain_icon": "🪟",
+    "domain_order": "30",
+    "audio": false,
+    "path": "/courses/microsoft_power_platform/",
+    "index_path": "/GevOps_LC/courses/microsoft_power_platform/index.html",
+    "themes": [
+      {
+        "id": "general",
+        "title": "Général",
+        "modules": [
+          {
+            "title": "00_Plan",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/00_plan.html",
+            "file": "00_plan.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "Plan",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/plan.html",
+            "file": "plan.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          },
+          {
+            "title": "Plan_Bis",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/plan_bis.html",
+            "file": "plan_bis.md",
+            "chapter_title": "Général",
+            "chapter": 0,
+            "section": 0,
+            "tags": [],
+            "difficulty": "",
+            "duration": "",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "fondations-communes",
+        "title": "Fondations communes",
+        "modules": [
+          {
+            "title": "Vue d'ensemble de l'écosystème Power Platform",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/01_P0_01_ecosysteme_power_platform.html",
+            "file": "01_P0_01_ecosysteme_power_platform.md",
+            "chapter_title": "Fondations communes",
+            "chapter": 0,
+            "section": 1,
+            "tags": [
+              "power platform",
+              "power apps",
+              "power automate",
+              "power bi",
+              "power pages",
+              "copilot studio",
+              "dataverse",
+              "connecteurs",
+              "microsoft 365"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Environnements Power Platform",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/03_P0_03_environnements_power_platform.html",
+            "file": "03_P0_03_environnements_power_platform.md",
+            "chapter_title": "Fondations communes",
+            "chapter": 0,
+            "section": 3,
+            "tags": [
+              "power platform",
+              "environnements",
+              "dataverse",
+              "gouvernance",
+              "alm",
+              "admin center"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "PAC CLI et outillage développeur",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/09_P0_09_pac_cli_outillage_developpeur.html",
+            "file": "09_P0_09_pac_cli_outillage_developpeur.md",
+            "chapter_title": "Fondations communes",
+            "chapter": 0,
+            "section": 5,
+            "tags": [
+              "pac cli",
+              "power platform",
+              "devops",
+              "dataverse",
+              "solutions",
+              "authentification",
+              "visual studio code",
+              "powerfx"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité, identité et conformité",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/11_P0_11_securite_identite_conformite.html",
+            "file": "11_P0_11_securite_identite_conformite.md",
+            "chapter_title": "Fondations communes",
+            "chapter": 0,
+            "section": 6,
+            "tags": [
+              "power platform",
+              "sécurité",
+              "identité",
+              "dataverse",
+              "dlp",
+              "rbac",
+              "conformité",
+              "azure ad",
+              "conditional access"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Licences, plans et limites réelles",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/02_P0_02_licences_plans_limites.html",
+            "file": "02_P0_02_licences_plans_limites.md",
+            "chapter_title": "Fondations communes",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "power platform",
+              "licences",
+              "plans",
+              "limites",
+              "gouvernance",
+              "dataverse",
+              "connecteurs",
+              "api limits"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-apps",
+        "title": "Power Apps",
+        "modules": [
+          {
+            "title": "Types d'applications Power Apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/12_P1_01_types_applications_power_apps.html",
+            "file": "12_P1_01_types_applications_power_apps.md",
+            "chapter_title": "Power Apps",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "power apps",
+              "canvas app",
+              "model-driven app",
+              "dataverse",
+              "power platform",
+              "low-code"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          },
+          {
+            "title": "Première Canvas App",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/13_P1_02_premiere_canvas_app.html",
+            "file": "13_P1_02_premiere_canvas_app.md",
+            "chapter_title": "Power Apps",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "power apps",
+              "canvas app",
+              "dataverse",
+              "débutant",
+              "low-code",
+              "galerie",
+              "formulaire"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          },
+          {
+            "title": "Premières Model-Driven Apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/16_P1_05_premieres_model_driven_apps.html",
+            "file": "16_P1_05_premieres_model_driven_apps.md",
+            "chapter_title": "Power Apps",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "power apps",
+              "model-driven",
+              "dataverse",
+              "formulaires",
+              "vues",
+              "navigation",
+              "low-code"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Architecture Power Apps production",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/27_P1_16_architecture_power_apps_production.html",
+            "file": "27_P1_16_architecture_power_apps_production.md",
+            "chapter_title": "Power Apps",
+            "chapter": 1,
+            "section": 6,
+            "tags": [
+              "power apps",
+              "architecture",
+              "canvas app",
+              "model-driven",
+              "dataverse",
+              "performance",
+              "scalabilité",
+              "gouvernance",
+              "alm"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Tests, qualité et App Checker",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/22_P1_11_tests_qualite_app_checker.html",
+            "file": "22_P1_11_tests_qualite_app_checker.md",
+            "chapter_title": "Power Apps",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "power apps",
+              "app checker",
+              "qualité",
+              "performance",
+              "accessibilité",
+              "erreurs",
+              "formules",
+              "diagnostic"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-apps-canvas",
+        "title": "Power Apps Canvas",
+        "modules": [
+          {
+            "title": "Power Fx fondamental",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/14_P1_03_power_fx_fondamental.html",
+            "file": "14_P1_03_power_fx_fondamental.md",
+            "chapter_title": "Power Apps Canvas",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "power fx",
+              "canvas app",
+              "formules",
+              "expressions",
+              "power apps"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          },
+          {
+            "title": "Collections, variables et état applicatif",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/19_P1_08_collections_variables_etat.html",
+            "file": "19_P1_08_collections_variables_etat.md",
+            "chapter_title": "Power Apps Canvas",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "power apps",
+              "canvas apps",
+              "collections",
+              "variables",
+              "power fx",
+              "état applicatif"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-apps-canvas-apps",
+        "title": "Power Apps — Canvas Apps",
+        "modules": [
+          {
+            "title": "Canvas Apps connectées à Dataverse, SharePoint, SQL et API",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/18_P1_07_connexion_donnees_apps.html",
+            "file": "18_P1_07_connexion_donnees_apps.md",
+            "chapter_title": "Power Apps — Canvas Apps",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "canvas apps",
+              "dataverse",
+              "sharepoint",
+              "sql",
+              "api",
+              "connecteurs",
+              "power apps",
+              "intermediate"
+            ],
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          },
+          {
+            "title": "Responsive design et accessibilité dans Power Apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/20_P1_09_responsive_accessibilite.html",
+            "file": "20_P1_09_responsive_accessibilite.md",
+            "chapter_title": "Power Apps — Canvas Apps",
+            "chapter": 1,
+            "section": 6,
+            "tags": [
+              "power apps",
+              "responsive design",
+              "accessibilité",
+              "canvas app",
+              "mise en page",
+              "wcag"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "canvas-apps",
+        "title": "Canvas Apps",
+        "modules": [
+          {
+            "title": "Délégation et limites dans Canvas Apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/15_P1_04_delegation_limites_canvas.html",
+            "file": "15_P1_04_delegation_limites_canvas.md",
+            "chapter_title": "Canvas Apps",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "power apps",
+              "canvas",
+              "delegation",
+              "dataverse",
+              "sharepoint",
+              "power fx",
+              "limites"
+            ],
+            "difficulty": "beginner",
+            "duration": "55",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "securite-et-gouvernance-power-platform",
+        "title": "Sécurité et gouvernance Power Platform",
+        "modules": [
+          {
+            "title": "Sécurité Power Apps — Niveau débutant",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/17_P1_06_securite_power_apps_debutant.html",
+            "file": "17_P1_06_securite_power_apps_debutant.md",
+            "chapter_title": "Sécurité et gouvernance Power Platform",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "power apps",
+              "sécurité",
+              "dataverse",
+              "security roles",
+              "partage d'application",
+              "dlp",
+              "environnements",
+              "accès aux données"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-apps-canvas-developpement-avance",
+        "title": "Power Apps Canvas — Développement avancé",
+        "modules": [
+          {
+            "title": "Composants et bibliothèques de composants",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/21_P1_10_composants_bibliotheques.html",
+            "file": "21_P1_10_composants_bibliotheques.md",
+            "chapter_title": "Power Apps Canvas — Développement avancé",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "power apps",
+              "composants",
+              "bibliothèques",
+              "canvas",
+              "réutilisabilité",
+              "power fx"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-apps-developpement-et-industrialisation",
+        "title": "Power Apps — Développement et industrialisation",
+        "modules": [
+          {
+            "title": "ALM spécifique Power Apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/23_P1_12_alm_power_apps.html",
+            "file": "23_P1_12_alm_power_apps.md",
+            "chapter_title": "Power Apps — Développement et industrialisation",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "power apps",
+              "alm",
+              "solutions",
+              "environnements",
+              "déploiement",
+              "pipelines",
+              "pac cli"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "developpement-avance-power-apps",
+        "title": "Développement avancé Power Apps",
+        "modules": [
+          {
+            "title": "PCF Controls — Créer des composants personnalisés pour Power Apps et Model-Driven",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/24_P1_13_pcf_controls.html",
+            "file": "24_P1_13_pcf_controls.md",
+            "chapter_title": "Développement avancé Power Apps",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "pcf",
+              "power apps component framework",
+              "typescript",
+              "react",
+              "model-driven",
+              "canvas",
+              "dataverse"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-apps-canvas-diagnostic-et-optimisation",
+        "title": "Power Apps Canvas — Diagnostic et optimisation",
+        "modules": [
+          {
+            "title": "Performance avancée Canvas Apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/25_P1_14_performance_canvas_avancee.html",
+            "file": "25_P1_14_performance_canvas_avancee.md",
+            "chapter_title": "Power Apps Canvas — Diagnostic et optimisation",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "power apps",
+              "canvas",
+              "performance",
+              "diagnostic",
+              "power fx",
+              "delegation",
+              "concurrent",
+              "named formulas"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "securite-avancee-et-anti-patterns",
+        "title": "Sécurité avancée et anti-patterns",
+        "modules": [
+          {
+            "title": "Sécurité avancée et anti-patterns Power Platform",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/26_P1_15_securite_avancee_antipatterns.html",
+            "file": "26_P1_15_securite_avancee_antipatterns.md",
+            "chapter_title": "Sécurité avancée et anti-patterns",
+            "chapter": 1,
+            "section": 9,
+            "tags": [
+              "power platform",
+              "dataverse",
+              "security roles",
+              "dlp",
+              "anti-patterns",
+              "canvas apps",
+              "sécurité",
+              "gouvernance"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "dataverse",
+        "title": "Dataverse",
+        "modules": [
+          {
+            "title": "Dataverse : modèle de données",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/04_P0_04_dataverse_modele_donnees.html",
+            "file": "04_P0_04_dataverse_modele_donnees.md",
+            "chapter_title": "Dataverse",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "dataverse",
+              "modele de donnees",
+              "tables",
+              "colonnes",
+              "relations",
+              "metadata",
+              "power platform"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "connecteurs-connexions-et-gateway",
+        "title": "Connecteurs, connexions et gateway",
+        "modules": [
+          {
+            "title": "Connecteurs, connexions et gateway",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/06_P0_06_connecteurs_connexions_gateway.html",
+            "file": "06_P0_06_connecteurs_connexions_gateway.md",
+            "chapter_title": "Connecteurs, connexions et gateway",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "power platform",
+              "connecteurs",
+              "connexions",
+              "on-premises gateway",
+              "custom connectors",
+              "power automate",
+              "power apps"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-automate",
+        "title": "Power Automate",
+        "modules": [
+          {
+            "title": "Types de flows Power Automate",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/28_P2_01_types_de_flows.html",
+            "file": "28_P2_01_types_de_flows.md",
+            "chapter_title": "Power Automate",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "power automate",
+              "cloud flow",
+              "desktop flow",
+              "flow types",
+              "automatisation",
+              "triggers"
+            ],
+            "difficulty": "beginner",
+            "duration": "35",
+            "mermaid": true
+          },
+          {
+            "title": "Expressions Power Automate",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/30_P2_03_expressions_power_automate.html",
+            "file": "30_P2_03_expressions_power_automate.md",
+            "chapter_title": "Power Automate",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "power automate",
+              "expressions",
+              "formules",
+              "workflow",
+              "low-code"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": false
+          },
+          {
+            "title": "Premier Cloud Flow",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/29_P2_02_premier_cloud_flow.html",
+            "file": "29_P2_02_premier_cloud_flow.md",
+            "chapter_title": "Power Automate",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "power automate",
+              "cloud flow",
+              "trigger",
+              "action",
+              "connecteur",
+              "automatisation"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": false
+          },
+          {
+            "title": "Conditions, boucles et variables — Pièges et comportements inattendus",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/31_P2_04_conditions_boucles_variables.html",
+            "file": "31_P2_04_conditions_boucles_variables.md",
+            "chapter_title": "Power Automate",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "power automate",
+              "conditions",
+              "boucles",
+              "variables",
+              "diagnostic",
+              "erreurs frequentes"
+            ],
+            "difficulty": "beginner",
+            "duration": "55",
+            "mermaid": false
+          },
+          {
+            "title": "Architecture Power Automate production",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/40_P2_13_architecture_power_automate_production.html",
+            "file": "40_P2_13_architecture_power_automate_production.md",
+            "chapter_title": "Power Automate",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "power automate",
+              "architecture",
+              "production",
+              "gouvernance",
+              "alm",
+              "environnements",
+              "connecteurs",
+              "dlp",
+              "performance",
+              "cloud flows"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "dataverse-donnees",
+        "title": "Dataverse & Données",
+        "modules": [
+          {
+            "title": "Sécurité Dataverse : security roles et column-level security",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/05_P0_05_dataverse_securite_roles.html",
+            "file": "05_P0_05_dataverse_securite_roles.md",
+            "chapter_title": "Dataverse & Données",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "dataverse",
+              "security roles",
+              "column-level security",
+              "rbac",
+              "power platform",
+              "moindre privilège"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-automate-automatisation-et-gouvernance",
+        "title": "Power Automate — Automatisation et gouvernance",
+        "modules": [
+          {
+            "title": "Dataverse et flows de solution",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/33_P2_06_dataverse_flows_solution.html",
+            "file": "33_P2_06_dataverse_flows_solution.md",
+            "chapter_title": "Power Automate — Automatisation et gouvernance",
+            "chapter": 2,
+            "section": 3,
+            "tags": [
+              "dataverse",
+              "power automate",
+              "solution-aware",
+              "alm",
+              "environnement",
+              "trigger",
+              "cloud flow"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-automate-automatisation-et-logique-metier",
+        "title": "Power Automate — Automatisation et logique métier",
+        "modules": [
+          {
+            "title": "Sécurité et propriété des flows",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/32_P2_05_securite_propriete_flows.html",
+            "file": "32_P2_05_securite_propriete_flows.md",
+            "chapter_title": "Power Automate — Automatisation et logique métier",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "power automate",
+              "sécurité",
+              "propriété",
+              "connexions",
+              "dlp",
+              "partage",
+              "gouvernance"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "connectivite-avancee-et-integrations-externes",
+        "title": "Connectivité avancée et intégrations externes",
+        "modules": [
+          {
+            "title": "HTTP, API REST et custom connector",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/34_P2_07_http_api_custom_connector.html",
+            "file": "34_P2_07_http_api_custom_connector.md",
+            "chapter_title": "Connectivité avancée et intégrations externes",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "power automate",
+              "http",
+              "api rest",
+              "custom connector",
+              "json",
+              "oauth",
+              "openapi",
+              "power platform"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-automate-automatisation-et-integration",
+        "title": "Power Automate — Automatisation et intégration",
+        "modules": [
+          {
+            "title": "Gestion d'erreur, retry et scopes dans Power Automate",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/35_P2_08_gestion_erreur_retry_scopes.html",
+            "file": "35_P2_08_gestion_erreur_retry_scopes.md",
+            "chapter_title": "Power Automate — Automatisation et intégration",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "power automate",
+              "gestion d'erreur",
+              "retry",
+              "scope",
+              "run after",
+              "exception handling"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-automate-automatisation-et-orchestration",
+        "title": "Power Automate — Automatisation et Orchestration",
+        "modules": [
+          {
+            "title": "Desktop Flows et RPA",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/37_P2_10_desktop_flows_rpa.html",
+            "file": "37_P2_10_desktop_flows_rpa.md",
+            "chapter_title": "Power Automate — Automatisation et Orchestration",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "power automate",
+              "desktop flows",
+              "rpa",
+              "power automate desktop",
+              "automatisation",
+              "ui automation"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-automate-orchestration-et-automatisation",
+        "title": "Power Automate — Orchestration et automatisation",
+        "modules": [
+          {
+            "title": "Approbations et workflows humains",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/36_P2_09_approbations_workflows_humains.html",
+            "file": "36_P2_09_approbations_workflows_humains.md",
+            "chapter_title": "Power Automate — Orchestration et automatisation",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "power automate",
+              "approbations",
+              "workflow humain",
+              "approval",
+              "dataverse",
+              "teams",
+              "adaptive cards"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-automate-flows-cloud-et-automatisation",
+        "title": "Power Automate — Flows Cloud et Automatisation",
+        "modules": [
+          {
+            "title": "Monitoring et observabilité des flows Power Automate",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/38_P2_11_monitoring_observabilite_flows.html",
+            "file": "38_P2_11_monitoring_observabilite_flows.md",
+            "chapter_title": "Power Automate — Flows Cloud et Automatisation",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "power automate",
+              "monitoring",
+              "observabilité",
+              "diagnostic",
+              "flow history",
+              "azure monitor",
+              "alertes",
+              "troubleshooting",
+              "cloud flows"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-automate-avance-orchestration",
+        "title": "Power Automate avancé & orchestration",
+        "modules": [
+          {
+            "title": "Process Mining & Process Advisor : analyser vos processus métier avec les données réelles",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/39_P2_12_process_mining_process_advisor.html",
+            "file": "39_P2_12_process_mining_process_advisor.md",
+            "chapter_title": "Power Automate avancé & orchestration",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "process mining",
+              "process advisor",
+              "power automate",
+              "dataverse",
+              "conformance checking",
+              "event log",
+              "variant analysis",
+              "power platform"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi",
+        "title": "Power BI",
+        "modules": [
+          {
+            "title": "Architecture Power BI",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/41_P3_01_architecture_power_bi.html",
+            "file": "41_P3_01_architecture_power_bi.md",
+            "chapter_title": "Power BI",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "power bi",
+              "architecture",
+              "dataset",
+              "dataflow",
+              "gateway",
+              "capacité",
+              "fabric"
+            ],
+            "difficulty": "beginner",
+            "duration": "55",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-visualisation",
+        "title": "Power BI & Visualisation",
+        "modules": [
+          {
+            "title": "Power Query fondamental",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/42_P3_02_power_query_fondamental.html",
+            "file": "42_P3_02_power_query_fondamental.md",
+            "chapter_title": "Power BI & Visualisation",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "power query",
+              "etl",
+              "transformation",
+              "m language",
+              "power bi",
+              "dataflows",
+              "nettoyage de données"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-modelisation-et-analyse",
+        "title": "Power BI — Modélisation et analyse",
+        "modules": [
+          {
+            "title": "Modélisation en étoile",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/43_P3_03_modelisation_etoile.html",
+            "file": "43_P3_03_modelisation_etoile.md",
+            "chapter_title": "Power BI — Modélisation et analyse",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "power bi",
+              "modélisation",
+              "étoile",
+              "schema",
+              "fait",
+              "dimension",
+              "dax",
+              "datamodel"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-donnees-et-calculs",
+        "title": "Power BI — Données et calculs",
+        "modules": [
+          {
+            "title": "DAX fondamental",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/44_P3_04_dax_fondamental.html",
+            "file": "44_P3_04_dax_fondamental.md",
+            "chapter_title": "Power BI — Données et calculs",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "dax",
+              "power bi",
+              "mesures",
+              "colonnes calculées",
+              "contexte de filtre",
+              "agrégation"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-bi-modelisation-et-analyse-avancee",
+        "title": "Power BI — Modélisation et analyse avancée",
+        "modules": [
+          {
+            "title": "DAX intermédiaire et Time Intelligence",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/46_P3_06_dax_intermediaire_time_intelligence.html",
+            "file": "46_P3_06_dax_intermediaire_time_intelligence.md",
+            "chapter_title": "Power BI — Modélisation et analyse avancée",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "dax",
+              "power bi",
+              "time intelligence",
+              "mesures",
+              "calcul",
+              "modélisation"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-bi-modelisation-avancee-et-connectivite",
+        "title": "Power BI — Modélisation avancée et connectivité",
+        "modules": [
+          {
+            "title": "DirectQuery et Composite Models dans Power BI",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/47_P3_07_directquery_composite_models.html",
+            "file": "47_P3_07_directquery_composite_models.md",
+            "chapter_title": "Power BI — Modélisation avancée et connectivité",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "power bi",
+              "directquery",
+              "composite models",
+              "import mode",
+              "mixed mode",
+              "storage mode",
+              "aggregations"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-connectivite-et-actualisation-des-donnees",
+        "title": "Power BI — Connectivité et actualisation des données",
+        "modules": [
+          {
+            "title": "Refresh, gateways et dataflows",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/49_P3_09_refresh_gateways_dataflows.html",
+            "file": "49_P3_09_refresh_gateways_dataflows.md",
+            "chapter_title": "Power BI — Connectivité et actualisation des données",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "power bi",
+              "gateway",
+              "dataflow",
+              "refresh",
+              "power query",
+              "dataverse",
+              "scheduled refresh",
+              "incremental refresh"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-avance",
+        "title": "Power BI avancé",
+        "modules": [
+          {
+            "title": "Performance Power BI : diagnostiquer et résoudre les lenteurs",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/51_P3_11_performance_power_bi.html",
+            "file": "51_P3_11_performance_power_bi.md",
+            "chapter_title": "Power BI avancé",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "power bi",
+              "performance",
+              "dax",
+              "query folding",
+              "aggregations",
+              "directquery",
+              "vertipaq",
+              "profiling"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Power BI Embedded et REST API",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/52_P3_12_power_bi_embedded_rest_api.html",
+            "file": "52_P3_12_power_bi_embedded_rest_api.md",
+            "chapter_title": "Power BI avancé",
+            "chapter": 3,
+            "section": 7,
+            "tags": [
+              "power bi",
+              "embedded",
+              "rest api",
+              "javascript sdk",
+              "service principal",
+              "token",
+              "intégration"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-rapports-et-analyses",
+        "title": "Power BI — Rapports et analyses",
+        "modules": [
+          {
+            "title": "Visualisations et storytelling dans Power BI",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/45_P3_05_visualisations_storytelling.html",
+            "file": "45_P3_05_visualisations_storytelling.md",
+            "chapter_title": "Power BI — Rapports et analyses",
+            "chapter": 3,
+            "section": 3,
+            "tags": [
+              "power bi",
+              "visualisations",
+              "storytelling",
+              "rapports",
+              "graphiques",
+              "mise en page",
+              "débutant"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-publication-collaboration-et-distribution",
+        "title": "Power BI — Publication, collaboration et distribution",
+        "modules": [
+          {
+            "title": "Power BI Service, workspaces et apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/48_P3_08_power_bi_service_workspaces_apps.html",
+            "file": "48_P3_08_power_bi_service_workspaces_apps.md",
+            "chapter_title": "Power BI — Publication, collaboration et distribution",
+            "chapter": 3,
+            "section": 4,
+            "tags": [
+              "power bi",
+              "workspace",
+              "app",
+              "publication",
+              "collaboration",
+              "sécurité",
+              "rls",
+              "partage"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-securite-et-gouvernance-des-donnees",
+        "title": "Power BI — Sécurité et gouvernance des données",
+        "modules": [
+          {
+            "title": "RLS, sécurité et partage dans Power BI",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/50_P3_10_rls_securite_partage.html",
+            "file": "50_P3_10_rls_securite_partage.md",
+            "chapter_title": "Power BI — Sécurité et gouvernance des données",
+            "chapter": 3,
+            "section": 4,
+            "tags": [
+              "power bi",
+              "rls",
+              "row-level security",
+              "partage",
+              "workspace",
+              "sécurité",
+              "dataverse",
+              "roles"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-architecture-analytique-et-gouvernance",
+        "title": "Power BI — Architecture analytique et gouvernance",
+        "modules": [
+          {
+            "title": "Gouvernance Power BI",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/54_P3_14_gouvernance_power_bi.html",
+            "file": "54_P3_14_gouvernance_power_bi.md",
+            "chapter_title": "Power BI — Architecture analytique et gouvernance",
+            "chapter": 3,
+            "section": 8,
+            "tags": [
+              "power bi",
+              "gouvernance",
+              "sécurité",
+              "rbac",
+              "sensitivity labels",
+              "capacités",
+              "dataverse",
+              "tenant settings",
+              "rls",
+              "workspace"
+            ],
+            "difficulty": "advanced",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-bi-analytique",
+        "title": "Power BI & Analytique",
+        "modules": [
+          {
+            "title": "Fabric, Dataflows Gen2 et architecture analytique moderne",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/53_P3_13_fabric_dataflows_gen2.html",
+            "file": "53_P3_13_fabric_dataflows_gen2.md",
+            "chapter_title": "Power BI & Analytique",
+            "chapter": 3,
+            "section": 9,
+            "tags": [
+              "microsoft fabric",
+              "dataflows gen2",
+              "lakehouse",
+              "medallion architecture",
+              "power bi",
+              "data engineering",
+              "onelake"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gouvernance-et-securite",
+        "title": "Gouvernance et sécurité",
+        "modules": [
+          {
+            "title": "DLP Policies et gouvernance des connecteurs",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/07_P0_07_dlp_policies_gouvernance.html",
+            "file": "07_P0_07_dlp_policies_gouvernance.md",
+            "chapter_title": "Gouvernance et sécurité",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "power platform",
+              "dlp",
+              "connecteurs",
+              "gouvernance",
+              "data loss prevention",
+              "power automate",
+              "power apps"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-pages",
+        "title": "Power Pages",
+        "modules": [
+          {
+            "title": "Rôle de Power Pages",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/55_P4_01_role_power_pages.html",
+            "file": "55_P4_01_role_power_pages.md",
+            "chapter_title": "Power Pages",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "power pages",
+              "portail web",
+              "dataverse",
+              "external users",
+              "low-code"
+            ],
+            "difficulty": "beginner",
+            "duration": "45",
+            "mermaid": true
+          },
+          {
+            "title": "Premier site Power Pages",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/56_P4_02_premier_site_power_pages.html",
+            "file": "56_P4_02_premier_site_power_pages.md",
+            "chapter_title": "Power Pages",
+            "chapter": 4,
+            "section": 2,
+            "tags": [
+              "power pages",
+              "portail",
+              "dataverse",
+              "site web",
+              "low-code"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité Power Pages : web roles et table permissions",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/58_P4_04_web_roles_table_permissions.html",
+            "file": "58_P4_04_web_roles_table_permissions.md",
+            "chapter_title": "Power Pages",
+            "chapter": 4,
+            "section": 2,
+            "tags": [
+              "power pages",
+              "web roles",
+              "table permissions",
+              "dataverse",
+              "sécurité",
+              "portail",
+              "accès anonyme",
+              "column permissions"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Liquid templates : web templates et content snippets",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/61_P4_07_liquid_web_templates_snippets.html",
+            "file": "61_P4_07_liquid_web_templates_snippets.md",
+            "chapter_title": "Power Pages",
+            "chapter": 4,
+            "section": 5,
+            "tags": [
+              "power pages",
+              "liquid",
+              "web templates",
+              "content snippets",
+              "portals"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "automatisation-et-agents-conversationnels",
+        "title": "Automatisation et Agents Conversationnels",
+        "modules": [
+          {
+            "title": "Intégration Power Automate et Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/63_P4_09_integration_automate_copilot.html",
+            "file": "63_P4_09_integration_automate_copilot.md",
+            "chapter_title": "Automatisation et Agents Conversationnels",
+            "chapter": 4,
+            "section": 1,
+            "tags": [
+              "power automate",
+              "copilot studio",
+              "architecture",
+              "integration",
+              "actions",
+              "topics",
+              "connectors",
+              "dataverse",
+              "advanced"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-pages-portails-web-connectes-a-dataverse",
+        "title": "Power Pages — Portails web connectés à Dataverse",
+        "modules": [
+          {
+            "title": "Formulaires et listes Dataverse dans Power Pages",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/57_P4_03_formulaires_listes_dataverse.html",
+            "file": "57_P4_03_formulaires_listes_dataverse.md",
+            "chapter_title": "Power Pages — Portails web connectés à Dataverse",
+            "chapter": 4,
+            "section": 2,
+            "tags": [
+              "power pages",
+              "dataverse",
+              "formulaires",
+              "listes",
+              "portail web",
+              "low-code"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-pages-portails-et-experiences-web",
+        "title": "Power Pages — Portails et expériences web",
+        "modules": [
+          {
+            "title": "Liquid templates : syntaxe et objets",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/60_P4_06_liquid_syntaxe_objets.html",
+            "file": "60_P4_06_liquid_syntaxe_objets.md",
+            "chapter_title": "Power Pages — Portails et expériences web",
+            "chapter": 4,
+            "section": 2,
+            "tags": [
+              "liquid",
+              "power pages",
+              "templates",
+              "syntaxe",
+              "objets",
+              "portail"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": false
+          }
+        ]
+      },
+      {
+        "id": "power-pages-portails-publics-et-acces-externe",
+        "title": "Power Pages : portails publics et accès externe",
+        "modules": [
+          {
+            "title": "Authentification et identité externe dans Power Pages",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/59_P4_05_authentification_identite_externe.html",
+            "file": "59_P4_05_authentification_identite_externe.md",
+            "chapter_title": "Power Pages : portails publics et accès externe",
+            "chapter": 4,
+            "section": 3,
+            "tags": [
+              "power pages",
+              "authentification",
+              "azure ad b2c",
+              "oauth2",
+              "openid connect",
+              "identité externe",
+              "sécurité"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "power-pages-portals",
+        "title": "Power Pages & Portals",
+        "modules": [
+          {
+            "title": "Portals Web API",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/62_P4_08_portals_web_api.html",
+            "file": "62_P4_08_portals_web_api.md",
+            "chapter_title": "Power Pages & Portals",
+            "chapter": 4,
+            "section": 5,
+            "tags": [
+              "power pages",
+              "portals",
+              "web api",
+              "dataverse",
+              "javascript",
+              "rest api",
+              "sécurité",
+              "table permissions"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "performance-seo-et-exploitation",
+        "title": "Performance, SEO et exploitation",
+        "modules": [
+          {
+            "title": "Performance, SEO et exploitation — Diagnostiquer et optimiser vos solutions Power Pages",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/64_P4_10_performance_seo_exploitation.html",
+            "file": "64_P4_10_performance_seo_exploitation.md",
+            "chapter_title": "Performance, SEO et exploitation",
+            "chapter": 4,
+            "section": 5,
+            "tags": [
+              "power pages",
+              "performance",
+              "seo",
+              "diagnostics",
+              "optimisation",
+              "lighthouse",
+              "cache",
+              "cdn",
+              "webvitals"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "copilot-studio",
+        "title": "Copilot Studio",
+        "modules": [
+          {
+            "title": "Concepts Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/65_P5_01_concepts_copilot_studio.html",
+            "file": "65_P5_01_concepts_copilot_studio.md",
+            "chapter_title": "Copilot Studio",
+            "chapter": 5,
+            "section": 1,
+            "tags": [
+              "copilot studio",
+              "agent conversationnel",
+              "llm",
+              "power platform",
+              "ia générative",
+              "microsoft"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Premier agent Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/66_P5_02_premier_agent.html",
+            "file": "66_P5_02_premier_agent.md",
+            "chapter_title": "Copilot Studio",
+            "chapter": 5,
+            "section": 2,
+            "tags": [
+              "copilot studio",
+              "agent",
+              "topic",
+              "trigger",
+              "power platform",
+              "débutant"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Gouvernance Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/73_P5_09_gouvernance_copilot_studio.html",
+            "file": "73_P5_09_gouvernance_copilot_studio.md",
+            "chapter_title": "Copilot Studio",
+            "chapter": 5,
+            "section": 4,
+            "tags": [
+              "copilot studio",
+              "gouvernance",
+              "dlp",
+              "rbac",
+              "dataverse",
+              "power platform",
+              "sécurité",
+              "agent"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "copilot-studio-agents-intelligents",
+        "title": "Copilot Studio — Agents intelligents",
+        "modules": [
+          {
+            "title": "Variables, branches et entités dans Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/67_P5_03_variables_branches_entities.html",
+            "file": "67_P5_03_variables_branches_entities.md",
+            "chapter_title": "Copilot Studio — Agents intelligents",
+            "chapter": 5,
+            "section": 3,
+            "tags": [
+              "copilot studio",
+              "variables",
+              "branches",
+              "entités",
+              "agents",
+              "conditions",
+              "power platform"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "copilot-studio-agents-conversationnels",
+        "title": "Copilot Studio — Agents conversationnels",
+        "modules": [
+          {
+            "title": "Actions Power Automate depuis un agent Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/68_P5_04_actions_power_automate.html",
+            "file": "68_P5_04_actions_power_automate.md",
+            "chapter_title": "Copilot Studio — Agents conversationnels",
+            "chapter": 5,
+            "section": 3,
+            "tags": [
+              "copilot studio",
+              "power automate",
+              "agent",
+              "actions",
+              "cloud flow",
+              "http",
+              "connecteurs"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "copilot-studio-agents-ia",
+        "title": "Copilot Studio & Agents IA",
+        "modules": [
+          {
+            "title": "Sources de connaissances et réponses génératives dans Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/69_P5_05_sources_connaissances_reponses_generatives.html",
+            "file": "69_P5_05_sources_connaissances_reponses_generatives.md",
+            "chapter_title": "Copilot Studio & Agents IA",
+            "chapter": 5,
+            "section": 3,
+            "tags": [
+              "copilot studio",
+              "sources de connaissances",
+              "generative answers",
+              "rag",
+              "sharepoint",
+              "dataverse",
+              "power platform"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "copilot-studio-et-agents-ia",
+        "title": "Copilot Studio et agents IA",
+        "modules": [
+          {
+            "title": "Authentification et sécurité des agents Copilot Studio",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/70_P5_06_authentification_securite_agents.html",
+            "file": "70_P5_06_authentification_securite_agents.md",
+            "chapter_title": "Copilot Studio et agents IA",
+            "chapter": 5,
+            "section": 4,
+            "tags": [
+              "copilot studio",
+              "authentification",
+              "sécurité",
+              "entra id",
+              "oauth",
+              "power platform",
+              "agents"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "agents-intelligents-et-ia-generative",
+        "title": "Agents intelligents et IA générative",
+        "modules": [
+          {
+            "title": "RAG et orchestration générative",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/71_P5_07_rag_orchestration_generative.html",
+            "file": "71_P5_07_rag_orchestration_generative.md",
+            "chapter_title": "Agents intelligents et IA générative",
+            "chapter": 5,
+            "section": 4,
+            "tags": [
+              "rag",
+              "copilot studio",
+              "orchestration",
+              "llm",
+              "vector search",
+              "generative ai",
+              "power platform",
+              "knowledge base"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "copilot-studio-deploiement-et-operations",
+        "title": "Copilot Studio — Déploiement et opérations",
+        "modules": [
+          {
+            "title": "Canaux, publication et monitoring",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/72_P5_08_canaux_publication_monitoring.html",
+            "file": "72_P5_08_canaux_publication_monitoring.md",
+            "chapter_title": "Copilot Studio — Déploiement et opérations",
+            "chapter": 5,
+            "section": 4,
+            "tags": [
+              "copilot studio",
+              "canaux",
+              "publication",
+              "monitoring",
+              "télémétrie",
+              "teams",
+              "webchat",
+              "application insights"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "alm-et-cycle-de-vie-des-solutions",
+        "title": "ALM et cycle de vie des solutions",
+        "modules": [
+          {
+            "title": "Solutions managed et unmanaged",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/08_P0_08_solutions_managed_unmanaged.html",
+            "file": "08_P0_08_solutions_managed_unmanaged.md",
+            "chapter_title": "ALM et cycle de vie des solutions",
+            "chapter": 6,
+            "section": 1,
+            "tags": [
+              "power platform",
+              "solutions",
+              "managed",
+              "unmanaged",
+              "alm",
+              "dataverse",
+              "déploiement",
+              "environnements"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "scenarios-d-architecture-integree",
+        "title": "Scénarios d'architecture intégrée",
+        "modules": [
+          {
+            "title": "Scénario A — Canvas App avec flows déclenchés depuis Power Apps",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/74_P6_01_canvas_flow_dataverse.html",
+            "file": "74_P6_01_canvas_flow_dataverse.md",
+            "chapter_title": "Scénarios d'architecture intégrée",
+            "chapter": 6,
+            "section": 1,
+            "tags": [
+              "power apps",
+              "power automate",
+              "canvas app",
+              "flows",
+              "dataverse",
+              "architecture",
+              "intégration"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Scénario B — Portail Power Pages alimenté par Dataverse + notifications Automate",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/75_P6_02_power_pages_dataverse_notifications.html",
+            "file": "75_P6_02_power_pages_dataverse_notifications.md",
+            "chapter_title": "Scénarios d'architecture intégrée",
+            "chapter": 6,
+            "section": 2,
+            "tags": [
+              "power pages",
+              "dataverse",
+              "power automate",
+              "portail",
+              "notifications",
+              "architecture",
+              "intermediate"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "industrialisation-et-gouvernance",
+        "title": "Industrialisation et gouvernance",
+        "modules": [
+          {
+            "title": "ALM, pipelines et stratégie Dev/Test/Prod",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/10_P0_10_alm_pipelines_dev_test_prod.html",
+            "file": "10_P0_10_alm_pipelines_dev_test_prod.md",
+            "chapter_title": "Industrialisation et gouvernance",
+            "chapter": 6,
+            "section": 2,
+            "tags": [
+              "alm",
+              "power platform",
+              "pipelines",
+              "devops",
+              "dataverse",
+              "solutions",
+              "déploiement",
+              "environnements"
+            ],
+            "difficulty": "intermediate",
+            "duration": "110",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "pilier-6-scenarios-d-architecture-integree",
+        "title": "Pilier 6 — Scénarios d'architecture intégrée",
+        "modules": [
+          {
+            "title": "Scénario C — Dashboard Power BI embarqué dans une Canvas App",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/76_P6_03_power_bi_embarque_canvas.html",
+            "file": "76_P6_03_power_bi_embarque_canvas.md",
+            "chapter_title": "Pilier 6 — Scénarios d'architecture intégrée",
+            "chapter": 6,
+            "section": 3,
+            "tags": [
+              "power bi",
+              "canvas app",
+              "power apps",
+              "embedded analytics",
+              "dataverse",
+              "architecture"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "scenarios-d-architecture-power-platform",
+        "title": "Scénarios d'architecture Power Platform",
+        "modules": [
+          {
+            "title": "Scénario D — Agent Copilot Studio dans Teams avec actions Automate",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/77_P6_04_copilot_teams_automate.html",
+            "file": "77_P6_04_copilot_teams_automate.md",
+            "chapter_title": "Scénarios d'architecture Power Platform",
+            "chapter": 6,
+            "section": 4,
+            "tags": [
+              "copilot studio",
+              "power automate",
+              "teams",
+              "agent conversationnel",
+              "architecture",
+              "low-code",
+              "action",
+              "topic"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "alm-devops-power-platform",
+        "title": "ALM & DevOps Power Platform",
+        "modules": [
+          {
+            "title": "Scénario E — Pipeline CI/CD PAC CLI pour solution multi-composants",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/78_P6_05_cicd_pac_cli_solution.html",
+            "file": "78_P6_05_cicd_pac_cli_solution.md",
+            "chapter_title": "ALM & DevOps Power Platform",
+            "chapter": 6,
+            "section": 5,
+            "tags": [
+              "pac cli",
+              "alm",
+              "ci/cd",
+              "pipeline",
+              "dataverse",
+              "power platform",
+              "devops",
+              "azure devops",
+              "solution"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "gouvernance-architecture-coe",
+        "title": "Gouvernance & Architecture CoE",
+        "modules": [
+          {
+            "title": "Scénario F — Architecture CoE : inventaire, DLP et gouvernance",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/79_P6_06_architecture_coe_gouvernance.html",
+            "file": "79_P6_06_architecture_coe_gouvernance.md",
+            "chapter_title": "Gouvernance & Architecture CoE",
+            "chapter": 6,
+            "section": 6,
+            "tags": [
+              "power platform",
+              "coe",
+              "dlp",
+              "gouvernance",
+              "inventaire",
+              "dataverse",
+              "admin center",
+              "compliance"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "scenarios-d-architecture-avances",
+        "title": "Scénarios d'architecture avancés",
+        "modules": [
+          {
+            "title": "Scénario G — Application métier complète Dataverse-first",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/80_P6_07_application_metier_dataverse_first.html",
+            "file": "80_P6_07_application_metier_dataverse_first.md",
+            "chapter_title": "Scénarios d'architecture avancés",
+            "chapter": 6,
+            "section": 7,
+            "tags": [
+              "dataverse",
+              "power apps",
+              "model-driven app",
+              "canvas app",
+              "architecture",
+              "power automate",
+              "sécurité",
+              "relations",
+              "forms"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Scénario H — Intégration API externe via custom connector",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/81_P6_08_integration_api_custom_connector.html",
+            "file": "81_P6_08_integration_api_custom_connector.md",
+            "chapter_title": "Scénarios d'architecture avancés",
+            "chapter": 6,
+            "section": 8,
+            "tags": [
+              "power platform",
+              "custom connector",
+              "api",
+              "openapi",
+              "oauth2",
+              "power automate",
+              "power apps",
+              "connecteur personnalisé"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Scénario J — Agent IA sur portail client",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/83_P6_10_agent_ia_portail_client.html",
+            "file": "83_P6_10_agent_ia_portail_client.md",
+            "chapter_title": "Scénarios d'architecture avancés",
+            "chapter": 6,
+            "section": 10,
+            "tags": [
+              "copilot studio",
+              "power pages",
+              "dataverse",
+              "agent ia",
+              "architecture",
+              "portail client",
+              "escalade humaine",
+              "authentification"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "scenarios-d-architecture",
+        "title": "Scénarios d'architecture",
+        "modules": [
+          {
+            "title": "Scénario I — RPA legacy + supervision Power BI",
+            "path": "/GevOps_LC/courses/microsoft_power_platform/82_P6_09_rpa_legacy_supervision_power_bi.html",
+            "file": "82_P6_09_rpa_legacy_supervision_power_bi.md",
+            "chapter_title": "Scénarios d'architecture",
+            "chapter": 6,
+            "section": 9,
+            "tags": [
+              "power automate",
+              "rpa",
+              "desktop flows",
+              "power bi",
+              "dataverse",
+              "supervision",
+              "legacy",
+              "architecture"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
             "mermaid": true
           }
         ]
