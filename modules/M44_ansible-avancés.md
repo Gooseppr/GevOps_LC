@@ -649,7 +649,9 @@ context: Vérifier qu'un service Swarm est bien démarré avant de continuer le 
 content: Utiliser retries:12 delay:5 avec until cherchant "mystack_nocodb [1-9]/[1-9]" dans docker service ls. Bien plus fiable qu'un simple wait_for car cela teste l'état réel du service Swarm.
 -->
 
+
+{% endraw %}
+
 ---
 [Module suivant →](M44_projet-board-J04.md)
 ---
-{% endraw %}

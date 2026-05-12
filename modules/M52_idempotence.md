@@ -315,7 +315,9 @@ context: Refactoriser un playbook Ansible fonctionnel mais non idempotent
 content: Observer l'état réel avant d'agir, préférer les modules aux shell, conditionner les actions coûteuses. Utiliser changed_when et failed_when pour qualifier précisément les résultats.
 -->
 
+
+{% endraw %}
+
 ---
 [Module suivant →](M52_projet-board-J12.md)
 ---
-{% endraw %}

@@ -944,7 +944,9 @@ context: conserver les métriques Prometheus sur plus de 15 jours dans une base 
 content: Dans prometheus.yml, ajoutez remote_write url = "http://influxdb:8086/api/v1/prom/write" et remote_read url = ".../prom/read" avec read_recent = true. Utilisez write_relabel_configs pour filtrer les séries à exporter et éviter les métriques à haute cardinalité.
 -->
 
+
+{% endraw %}
+
 ---
 [Module suivant →](M36_prometheus-pratique.md)
 ---
-{% endraw %}

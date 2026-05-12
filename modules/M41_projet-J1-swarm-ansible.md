@@ -697,7 +697,9 @@ context: Résoudre les erreurs ENOTFOUND ou "undefined network" lors du déploie
 content: Chaque service doit être attaché à un réseau overlay commun (driver:overlay) pour que le DNS Swarm fonctionne. Sans cela, les services ne se résolvent pas et Postgres crashe en boucle.
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M41_projet-J1-swarm.md)
 ---
-{% endraw %}

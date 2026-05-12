@@ -860,7 +860,9 @@ content: Dans le bloc scrape_configs de prometheus.yml, déclarez un job par exp
 description: Un target en état DOWN indique que l'exporter n'est pas accessible (port fermé, processus arrêté). Vérifier d'abord avec `curl localhost:9100/metrics` avant de chercher dans Prometheus.
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M36_prometheus.md)
 ---
-{% endraw %}

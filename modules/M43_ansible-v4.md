@@ -351,7 +351,9 @@ context: Garantir un placement cohérent des services via les labels définis da
 content: Chaque VM dans l'inventaire porte node_labels="role=app" ou "role=db". Les contraintes compose.yml utilisent ces mêmes valeurs. Un désalignement entre inventaire et labels provoque des services mal placés.
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M43_projet-board-J03.md)
 ---
-{% endraw %}

@@ -497,7 +497,9 @@ context: Ajouter des nœuds applicatifs supplémentaires sans modifier le playbo
 content: Structurer l'inventaire avec [swarm_managers], [swarm_workers] et [swarm_all:children], chaque hôte portant un swarm_role. Ajouter un worker dans [swarm_workers] suffit : labels et contraintes s'appliquent automatiquement.
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M42_projet-board-J02.md) | [Module suivant →](M42_ansible-image.md)
 ---
-{% endraw %}

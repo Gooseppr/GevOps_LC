@@ -938,7 +938,9 @@ title: Handlers Ansible : déclenchement conditionnel par notify
 content: Un handler n'est exécuté que si une tâche l'a notifié (état `changed`). Il s'exécute une seule fois en fin de play, même si plusieurs tâches le déclenchent. Évite les redémarrages inutiles de services.
 -->
 
+
+{% endraw %}
+
 ---
 [Module suivant →](M35_ansible-avancé.md)
 ---
-{% endraw %}

@@ -1272,7 +1272,9 @@ command: ansible-lint .
 description: Analyse tout le projet (playbooks, rôles, tasks). Détecte mauvaises pratiques, YAML invalide et modules obsolètes. Installer avec pip install ansible-lint.
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M35_ansible.md)
 ---
-{% endraw %}

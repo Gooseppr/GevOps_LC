@@ -413,7 +413,9 @@ context: sélectionner l'outil de test de charge adapté à son contexte techniq
 content: Artillery (Node.js) : YAML déclaratif, seuils natifs (ensure), rapport HTML intégré, idéal dans un stack JS. Locust (Python) : scénarios en code Python, interface web intégrée, plus flexible pour les scénarios complexes, idéal dans un stack Python. Les deux s'intègrent bien dans GitLab CI.
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M21_Tests_Charge_Locust.md)
 ---
-{% endraw %}

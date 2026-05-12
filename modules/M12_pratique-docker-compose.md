@@ -672,7 +672,9 @@ context: choisir entre bind mount et volume nommé selon l'environnement
 content: Volume nommé (db_data:/var/lib) : Docker gère l'emplacement sur l'hôte, données persistantes entre redéploiements — idéal pour les bases de données en production.
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M12_docker-compose.md)
 ---
-{% endraw %}

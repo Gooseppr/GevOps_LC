@@ -325,7 +325,9 @@ context: Éviter l'erreur "No such image" lors du pull d'une image depuis un reg
 content: Sur GitLab Container Registry, le tag "latest" n'est pas créé automatiquement. Toujours utiliser un tag versionné explicite (:0.1.0) dans compose.yml pour éviter l'erreur "No such image".
 -->
 
+
+{% endraw %}
+
 ---
 [← Module précédent](M42_ansible-pro.md)
 ---
-{% endraw %}
