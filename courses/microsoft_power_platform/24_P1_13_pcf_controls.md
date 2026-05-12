@@ -18,9 +18,9 @@ prev_module: "/courses/microsoft_power_platform/21_P1_10_composants_bibliotheque
 prev_module_title: "Composants et bibliothèques de composants"
 next_module: "/courses/microsoft_power_platform/25_P1_14_performance_canvas_avancee.html"
 next_module_title: "Performance avancée Canvas Apps"
-render_with_liquid: false
 ---
 
+{% raw %}
 # PCF Controls — Créer des composants personnalisés pour Power Apps et Model-Driven
 
 ## Objectifs pédagogiques
@@ -723,3 +723,4 @@ Un composant `canvas` (zone de dessin) qui capture une signature, la convertit e
 
 **Symptôme** : Memory leak — performances dégradées après navigation entre enregistrements.  
 **Cause** : `destroy()` n'appelle pas `ReactDOM.unmount
+{% endraw %}

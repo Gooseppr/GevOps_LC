@@ -18,9 +18,9 @@ prev_module: "/courses/microsoft_power_platform/57_P4_03_formulaires_listes_data
 prev_module_title: "Formulaires et listes Dataverse dans Power Pages"
 next_module: "/courses/microsoft_power_platform/56_P4_02_premier_site_power_pages.html"
 next_module_title: "Premier site Power Pages"
-render_with_liquid: false
 ---
 
+{% raw %}
 # Liquid templates : syntaxe et objets
 
 ## Objectifs pédagogiques
@@ -569,3 +569,4 @@ command: {% assign <PAGE> = sitemarkers["<NOM_MARQUEUR>"] %} <a href="{{ <PAGE>.
 example: {% assign accueil = sitemarkers["Accueil"] %} <a href="{{ accueil.url }}">Retour à l'accueil</a>
 description: Évite de coder des URLs en dur dans les templates — si l'URL de la page change, le lien reste valide sans modifier le template.
 -->
+{% endraw %}

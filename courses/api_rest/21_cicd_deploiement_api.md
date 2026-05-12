@@ -20,6 +20,7 @@ next_module: "/courses/api_rest/14_observabilite_api.html"
 next_module_title: "Observabilité API"
 ---
 
+{% raw %}
 # CI/CD & déploiement API
 
 ## Objectifs pédagogiques
@@ -633,3 +634,4 @@ importance: high
 format: knowledge
 tags: health-check, kubernetes, readiness, api, disponibilité
 title
+{% endraw %}

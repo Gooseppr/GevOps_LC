@@ -18,9 +18,9 @@ prev_module: "/courses/microsoft_power_platform/20_P1_09_responsive_accessibilit
 prev_module_title: "Responsive design et accessibilité dans Power Apps"
 next_module: "/courses/microsoft_power_platform/21_P1_10_composants_bibliotheques.html"
 next_module_title: "Composants et bibliothèques de composants"
-render_with_liquid: false
 ---
 
+{% raw %}
 # ALM spécifique Power Apps
 
 ## Objectifs pédagogiques
@@ -496,3 +496,4 @@ tags: pac,cli,authentification,service-principal,ci-cd
 title: Authentification PAC CLI via Service Principal (CI/CD)
 command: pac auth create --applicationId <APP_ID> --clientSecret <SECRET> --tenant <TENANT_ID> --url https://<ORG>.crm.dynamics.com
 example: pac auth create --applicationId 9f3a1b2c-
+{% endraw %}

@@ -18,6 +18,7 @@ prev_module: "/courses/api_rest/24_antipatterns_api.html"
 prev_module_title: "Anti-patterns API"
 ---
 
+{% raw %}
 # Monitoring & Alerting pour les API REST
 
 ## Objectifs pédagogiques
@@ -603,3 +604,4 @@ Vos seuils d'alerte valides à 100 req/s ne le sont plus à 1000 req/s. Planifie
 Opérer une API sans observabilité, c'est conduire de nuit sans phares — on avance jusqu'à ce que quelqu'un appelle. Les trois piliers (métriques, logs, traces) ne sont pas redondants : ils répondent à des questions différentes lors d'un incident.
 
 L'instrumentation commence par les quatre signaux dorés (latence, trafic, erreurs, saturation) et se formalise en SLIs/SLOs qui transforment des mesures brutes en engagements de service quantifiés. L'error budget qui en découle devient un mécanisme
+{% endraw %}

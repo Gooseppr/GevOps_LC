@@ -20,6 +20,7 @@ next_module: "/courses/api_rest/19_resilience_api.html"
 next_module_title: "Résilience & fiabilité des API en production"
 ---
 
+{% raw %}
 # Observabilité API
 
 ## Objectifs pédagogiques
@@ -495,3 +496,4 @@ title: Méthode de diagnostic en entonnoir : métrique → trace → log
 content: 1) Métrique alerte sur la surface impactée (quel endpoint, quelle erreur) 2) Trace d'une requête en erreur montre quel span est lent ou en échec 3) Log de ce span révèle la cause exacte (timeout, exception, valeur inattendue). Partir large → affiner. Inverser l'ordre fait perdre du temps.
 description: Les trois piliers ne sont pas interchangeables — chacun est l'outil de la bonne étape du diagnostic, dans cet ordre précis
 -->
+{% endraw %}

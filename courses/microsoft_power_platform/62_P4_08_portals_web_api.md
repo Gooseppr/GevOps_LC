@@ -18,9 +18,9 @@ prev_module: "/courses/microsoft_power_platform/64_P4_10_performance_seo_exploit
 prev_module_title: "Performance, SEO et exploitation — Diagnostiquer et optimiser vos solutions Power Pages"
 next_module: "/courses/microsoft_power_platform/65_P5_01_concepts_copilot_studio.html"
 next_module_title: "Concepts Copilot Studio"
-render_with_liquid: false
 ---
 
+{% raw %}
 # Portals Web API
 
 ## Objectifs pédagogiques
@@ -505,3 +505,4 @@ title: PATCH ne modifie que les champs envoyés
 content: Un appel PATCH sur `/_api/incidents(guid)` ne touche que les champs présents dans le body JSON — les autres colonnes sont inchangées. Comportement inverse d'un PUT (qui remplacerait l'enregistrement entier). En pratique : envoyer uniquement `{ "description": "nouvelle valeur" }` modifie uniquement description. Retourne 204 No Content en cas de succès.
 description: PATCH = mise à jour partielle. Inutile de renvoyer tout l'objet — seuls les champs du body sont mis à jour.
 -->
+{% endraw %}

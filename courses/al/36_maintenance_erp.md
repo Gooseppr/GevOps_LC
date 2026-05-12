@@ -18,9 +18,9 @@ prev_module: "/courses/al/11_transactions_erreurs.html"
 prev_module_title: "Gestion des erreurs et transactions en AL"
 next_module: "/courses/al/41_wms_supply_chain_bc.html"
 next_module_title: "Warehouse, WMS et Supply Chain dans Business Central"
-render_with_liquid: false
 ---
 
+{% raw %}
 # Maintenance corrective et évolutive des extensions AL
 
 ## Objectifs pédagogiques
@@ -524,3 +524,4 @@ La règle de base : tenir le tableau des tenants/versions à jour en temps réel
 ## Bonnes pratiques
 
 **1. Ne jamais corriger directement en prod,
+{% endraw %}

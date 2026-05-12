@@ -20,6 +20,7 @@ next_module: "/courses/technicien_support_applicatif/17_observabilite.html"
 next_module_title: "Observabilité : logs, métriques et traces"
 ---
 
+{% raw %}
 # Industrialisation & support avancé
 
 ## Objectifs pédagogiques
@@ -867,3 +868,4 @@ title: Script Python d'analyse de logs avec codes de sortie
 content: Un analyseur de logs Python utile retourne un code de sortie basé sur la criticité détectée (0=normal, 1=dégradé, 2=critique), pas juste 0 ou 1. Ajoute une détection de "storm d'erreurs" (ex : 10 erreurs en 5 minutes) en plus des seuils absolus. Utilise `sys.exit(code)` en fin de `main()` pour que cron, Nagios et CI/CD puissent déclencher des actions différentes selon la sévérité.
 description: Un script Python de monitoring doit retourner 0/1/2 selon la sévérité — pas juste succès/échec — pour permettre un routing automatique des alertes.
 -->
+{% endraw %}
