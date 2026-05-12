@@ -2,7 +2,7 @@
 layout: page
 title: "Scénario H — Intégration API externe via custom connector"
 
-course: microsoft-power-platform
+course: microsoft_power_platform
 chapter_title: "Scénarios d'architecture avancés"
 
 chapter: 6
@@ -13,9 +13,6 @@ difficulty: intermediate
 duration: 90
 mermaid: true
 
-icon: "🔌"
-domain: Architecture
-domain_icon: "🏗️"
 status: "published"
 prev_module: "/courses/microsoft_power_platform/80_P6_07_application_metier_dataverse_first.html"
 prev_module_title: "Scénario G — Application métier complète Dataverse-first"

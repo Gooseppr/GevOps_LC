@@ -5507,13 +5507,22 @@
               "mermaid": false
             },
             {
-              "title": "Plan",
+              "title": "Architecture Power BI",
               "path": "/GevOps_LC/courses/microsoft_power_platform/plan.html",
               "file": "plan.md",
               "chapter_title": "Général",
               "chapter": 0,
               "section": 0,
-              "tags": [],
+              "tags": [
+                "power-bi",
+                "architecture",
+                "semantic-model",
+                "power-query",
+                "dax",
+                "import",
+                "directquery",
+                "gateway"
+              ],
               "difficulty": "",
               "duration": "",
               "mermaid": false
