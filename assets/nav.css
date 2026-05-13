@@ -1355,23 +1355,32 @@ body:has(.tts-player:not(.tts-hidden)) {
    SYNTAX HIGHLIGHTING — Container styling
    ===================================================== */
 
+/* L'encart : visible pour les 2 structures (Rouge wrapper OU pre nu/Prism) */
 .highlight,
 div.highlighter-rouge,
-figure.highlight {
+figure.highlight,
+pre[class*="language-"] {
   background: #fafbfc;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
   margin: 1.25rem 0;
-  overflow: hidden;
 }
 
+/* Si <pre> est DANS un wrapper, on lui retire son propre fond/bordure */
+.highlight pre,
+.highlighter-rouge pre,
+figure.highlight pre {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* Styling typographique commun à TOUTES les variantes de pre code */
 .highlight pre,
 .highlighter-rouge pre,
 figure.highlight pre,
 pre[class*="language-"] {
-  background: transparent;
-  border: 0;
-  margin: 0;
   padding: 1rem 1.15rem;
   overflow-x: auto;
   font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code",
@@ -1411,7 +1420,7 @@ code[class*="language-"] {
 .token.comment,
 .token.prolog,
 .token.doctype,
-.token.cdata          { color: #008000; font-style: italic; }
+.token.cdata          { color: #6a737d; font-style: italic; }
 
 .token.punctuation    { color: #1f2328; }
 
@@ -1460,7 +1469,7 @@ code[class*="language-"] {
    before Prism runs (avoids flash of unstyled code). */
 .highlight .c, .highlight .ch, .highlight .cd, .highlight .cm,
 .highlight .cp, .highlight .cpf, .highlight .c1, .highlight .cs
-                  { color: #008000; font-style: italic; }
+                  { color: #6a737d; font-style: italic; }
 .highlight .k, .highlight .kc, .highlight .kd, .highlight .kn,
 .highlight .kp, .highlight .kr                  { color: #0000ff; }
 .highlight .kt, .highlight .nb, .highlight .nc,
