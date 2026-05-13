@@ -19,6 +19,32 @@
   }
 
   // ── Theme group toggles (home page) — toujours actif ─────────────────────
+  // Le panel doit s'insérer après la FIN de la row visuelle du bouton cliqué,
+  // pas juste après le bouton dans le DOM — sinon les cartes restantes de la
+  // row se font éjecter sous le panel.
+  function positionPanelAfterRow(btn, panel) {
+    var grid = btn.closest(".themes-grid");
+    if (!grid) return;
+    var items = grid.querySelectorAll(".theme-card, .theme-group-btn");
+    var btnTop = btn.getBoundingClientRect().top;
+    var tolerance = 4;
+    var lastOnRow = btn;
+    for (var i = 0; i < items.length; i++) {
+      var t = items[i].getBoundingClientRect().top;
+      if (Math.abs(t - btnTop) <= tolerance) lastOnRow = items[i];
+    }
+    if (panel !== lastOnRow.nextElementSibling) {
+      lastOnRow.insertAdjacentElement("afterend", panel);
+    }
+  }
+
+  function repositionOpenPanels() {
+    document.querySelectorAll(".theme-group-btn.is-open").forEach(function (btn) {
+      var panel = document.getElementById("tg-" + btn.dataset.group);
+      if (panel && !panel.hidden) positionPanelAfterRow(btn, panel);
+    });
+  }
+
   document.addEventListener("click", function (e) {
     var btn = e.target.closest(".theme-group-btn");
     if (!btn) return;
@@ -26,8 +52,19 @@
     var panel = document.getElementById(panelId);
     if (!panel) return;
     var willOpen = panel.hidden;
-    panel.hidden = !willOpen;
+    if (willOpen) {
+      positionPanelAfterRow(btn, panel);
+      panel.hidden = false;
+    } else {
+      panel.hidden = true;
+    }
     btn.classList.toggle("is-open", willOpen);
+  });
+
+  var __themeResizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(__themeResizeTimer);
+    __themeResizeTimer = setTimeout(repositionOpenPanels, 120);
   });
 
   // Pas de contexte cours → pas de sidebar
