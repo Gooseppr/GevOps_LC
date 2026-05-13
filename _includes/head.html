@@ -13,7 +13,7 @@
   <!-- Minima base styles -->
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   <!-- Site custom styles (nav + design system) -->
-  <link rel="stylesheet" href="{{ '/assets/nav.css' | relative_url }}?v=5">
+  <link rel="stylesheet" href="{{ '/assets/nav.css' | relative_url }}?v=7">
 
   <!-- Mermaid (diagrams) -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -36,6 +36,21 @@
         flowchart: { useMaxWidth: true },
         sequence: { useMaxWidth: true }
       });
+    });
+  </script>
+
+  <!-- Prism syntax highlighting (client-side) — supporte AL, DAX, KQL, etc. -->
+  <script>window.Prism = window.Prism || {}; window.Prism.manual = true;</script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!window.Prism) return;
+      if (Prism.plugins && Prism.plugins.autoloader) {
+        Prism.plugins.autoloader.languages_path =
+          'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
+      }
+      Prism.highlightAll();
     });
   </script>
 

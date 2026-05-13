@@ -13,9 +13,11 @@ plugins:
   - jekyll-feed
 
 markdown: kramdown
+highlighter: rouge
 kramdown:
   input: GFM
   parse_block_html: true
+  syntax_highlighter: rouge
 
 defaults:
   - scope:
