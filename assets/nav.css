@@ -894,7 +894,7 @@ details.cat-block summary {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 200px));
   gap: 0.85rem;
-  align-items: start;
+  /* align-items: stretch (défaut) → cartes d'une même row à hauteur égale */
 }
 
 @media (max-width: 640px) {
@@ -918,8 +918,8 @@ details.cat-block summary {
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
   text-align: center;
-  min-height: 130px;
-  justify-content: center;
+  min-height: 150px;
+  justify-content: space-between;
 }
 
 @media (max-width: 640px) {

@@ -33,8 +33,17 @@
       var t = items[i].getBoundingClientRect().top;
       if (Math.abs(t - btnTop) <= tolerance) lastOnRow = items[i];
     }
-    if (panel !== lastOnRow.nextElementSibling) {
-      lastOnRow.insertAdjacentElement("afterend", panel);
+    // Si d'autres panels visibles sont déjà accrochés à la fin de cette row,
+    // on insère APRÈS eux (empilage chronologique d'ouverture).
+    var anchor = lastOnRow;
+    while (anchor.nextElementSibling
+           && anchor.nextElementSibling.classList.contains("theme-group-panel")
+           && !anchor.nextElementSibling.hidden
+           && anchor.nextElementSibling !== panel) {
+      anchor = anchor.nextElementSibling;
+    }
+    if (panel !== anchor.nextElementSibling) {
+      anchor.insertAdjacentElement("afterend", panel);
     }
   }
 
