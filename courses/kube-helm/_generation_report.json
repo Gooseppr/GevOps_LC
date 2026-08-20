@@ -1,0 +1,35 @@
+{
+  "subject": "Kubernetes et Helm",
+  "generated_at": "2026-08-19",
+  "course_slug": "kube-helm",
+  "target_audience": "Technicien support, administrateur système ou DevOps connaissant Docker",
+  "total_modules": 9,
+  "files": [
+    "01_architecture_reconciliation.md",
+    "02_kubectl_cluster_local.md",
+    "03_pods_deployments_services.md",
+    "04_configuration_stockage_exposition.md",
+    "05_helm_charts_templates_valeurs.md",
+    "06_chart_maintenable.md",
+    "07_diagnostic_kubernetes_helm.md",
+    "08_securite_observabilite_production.md",
+    "09_livraison_continue_helm.md"
+  ],
+  "templates_used": {"concept": 1, "devops": 8},
+  "quality_threshold": 7.5,
+  "average_score_before": 8.7,
+  "average_score_after": 8.7,
+  "optimized_modules": [],
+  "corrections": [
+    "Terminologie homogénéisée entre chart, release et revision",
+    "Commandes dotées de namespaces et timeouts explicites",
+    "Limites de rollback, Secret base64, PDB et NetworkPolicy rendues explicites",
+    "Chaque module contient cinq snippets mémorisables et valides"
+  ],
+  "limitations": [
+    "Le parcours utilise kind pour le laboratoire et ne couvre pas l'administration interne d'un cluster managé spécifique",
+    "Les CRD, Operators, service mesh et multi-cluster restent hors périmètre",
+    "Les exemples CI restent agnostiques de la plateforme et devront être déclinés pour GitHub Actions, GitLab CI ou autre"
+  ],
+  "validation_warnings": []
+}
