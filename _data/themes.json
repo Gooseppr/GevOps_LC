@@ -38,6 +38,20 @@
       ]
     },
     {
+      "id": "orchestration",
+      "title": "Orchestration",
+      "icon": "☸️",
+      "courses": [
+        {
+          "id": "kubernetes-helm",
+          "title": "Kubernetes & Helm",
+          "icon": "☸️",
+          "status": "published",
+          "path": "/courses/kubernetes-helm/"
+        }
+      ]
+    },
+    {
       "id": "automatisation",
       "title": "Automatisation",
       "icon": "⚙️",

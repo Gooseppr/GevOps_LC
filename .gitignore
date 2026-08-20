@@ -16,3 +16,6 @@ __pycache__/
 *.pyc
 .env
 docker/
+
+# Fiches portfolio locales
+_fiche-portfolio.md

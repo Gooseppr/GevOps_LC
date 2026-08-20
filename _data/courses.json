@@ -3900,6 +3900,199 @@
     ]
   },
   {
+    "id": "kubernetes-helm",
+    "title": "Kubernetes & Helm",
+    "description": "Déployer, diagnostiquer et faire évoluer des applications Kubernetes packagées avec Helm, jusqu'aux garde-fous de production.",
+    "icon": "☸️",
+    "status": "published",
+    "domain": "Orchestration",
+    "domain_icon": "☸️",
+    "domain_order": "11",
+    "audio": false,
+    "path": "/courses/kubernetes-helm/",
+    "index_path": "/GevOps_LC/courses/kubernetes-helm/index.html",
+    "themes": [
+      {
+        "id": "fondations",
+        "title": "Fondations",
+        "modules": [
+          {
+            "title": "Architecture Kubernetes et boucle de réconciliation",
+            "path": "/GevOps_LC/courses/kubernetes-helm/01_architecture_reconciliation.html",
+            "file": "01_architecture_reconciliation.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "kubernetes",
+              "architecture",
+              "control-plane",
+              "reconciliation"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Prise en main de kubectl et environnement local",
+            "path": "/GevOps_LC/courses/kubernetes-helm/02_kubectl_cluster_local.html",
+            "file": "02_kubectl_cluster_local.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "kubernetes",
+              "kubectl",
+              "kind",
+              "troubleshooting"
+            ],
+            "difficulty": "beginner",
+            "duration": "100",
+            "mermaid": false
+          },
+          {
+            "title": "Pods, Deployments et Services",
+            "path": "/GevOps_LC/courses/kubernetes-helm/03_pods_deployments_services.html",
+            "file": "03_pods_deployments_services.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "kubernetes",
+              "pods",
+              "deployments",
+              "services",
+              "probes"
+            ],
+            "difficulty": "beginner",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "projets-reels",
+        "title": "Projets réels",
+        "modules": [
+          {
+            "title": "Configuration, secrets, stockage et exposition",
+            "path": "/GevOps_LC/courses/kubernetes-helm/04_configuration_stockage_exposition.html",
+            "file": "04_configuration_stockage_exposition.md",
+            "chapter_title": "Projets réels",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "kubernetes",
+              "configmap",
+              "secrets",
+              "storage",
+              "ingress"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Helm : charts, templates et valeurs",
+            "path": "/GevOps_LC/courses/kubernetes-helm/05_helm_charts_templates_valeurs.html",
+            "file": "05_helm_charts_templates_valeurs.md",
+            "chapter_title": "Projets réels",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "helm",
+              "kubernetes",
+              "charts",
+              "templates",
+              "values"
+            ],
+            "difficulty": "intermediate",
+            "duration": "130",
+            "mermaid": true
+          },
+          {
+            "title": "Construire un chart maintenable",
+            "path": "/GevOps_LC/courses/kubernetes-helm/06_chart_maintenable.html",
+            "file": "06_chart_maintenable.md",
+            "chapter_title": "Projets réels",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "helm",
+              "chart",
+              "architecture",
+              "testing",
+              "environments"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": false
+          },
+          {
+            "title": "Diagnostic Kubernetes et Helm",
+            "path": "/GevOps_LC/courses/kubernetes-helm/07_diagnostic_kubernetes_helm.html",
+            "file": "07_diagnostic_kubernetes_helm.md",
+            "chapter_title": "Projets réels",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "kubernetes",
+              "helm",
+              "troubleshooting",
+              "logs",
+              "events"
+            ],
+            "difficulty": "intermediate",
+            "duration": "150",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "production-et-scale",
+        "title": "Production et scale",
+        "modules": [
+          {
+            "title": "Sécurité, observabilité et politiques de production",
+            "path": "/GevOps_LC/courses/kubernetes-helm/08_securite_observabilite_production.html",
+            "file": "08_securite_observabilite_production.md",
+            "chapter_title": "Production et scale",
+            "chapter": 3,
+            "section": 8,
+            "tags": [
+              "kubernetes",
+              "security",
+              "observability",
+              "rbac",
+              "policies"
+            ],
+            "difficulty": "advanced",
+            "duration": "150",
+            "mermaid": false
+          },
+          {
+            "title": "Livraison continue et exploitation des releases Helm",
+            "path": "/GevOps_LC/courses/kubernetes-helm/09_livraison_continue_helm.html",
+            "file": "09_livraison_continue_helm.md",
+            "chapter_title": "Production et scale",
+            "chapter": 3,
+            "section": 9,
+            "tags": [
+              "helm",
+              "cicd",
+              "gitops",
+              "deployment",
+              "rollback"
+            ],
+            "difficulty": "advanced",
+            "duration": "150",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "microsoft_power_platform",
     "title": "Power Platform",
     "description": "Plateforme low-code Microsoft — Power Apps, Power Automate, Power BI, Dataverse, Copilot Studio.",
