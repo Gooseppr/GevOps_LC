@@ -53270,5 +53270,830 @@
     "command": "sudo systemctl start mariadb postgresql redis-server nginx && sudo docker compose up -d 2>/dev/null || sudo docker-compose up -d 2>/dev/null",
     "description": "Démarre les bases et services web avant les conteneurs pour respecter les dépendances. Fallback `docker-compose` pour les anciennes versions.",
     "source_file": "modules/P02_arret-controle.md"
+  },
+  {
+    "id": "kubernetes_reconciliation_loop",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "reconciliation",
+      "controller"
+    ],
+    "title": "La boucle de réconciliation",
+    "content": "Un contrôleur compare l'état désiré stocké via l'API à l'état observé, puis agit jusqu'à réduire l'écart ; l'opération se répète continuellement.",
+    "description": "Ce mécanisme explique l'auto-réparation et la recréation des Pods gérés.",
+    "context": "",
+    "source_file": "courses/kube-helm/01_architecture_reconciliation.md"
+  },
+  {
+    "id": "kubernetes_api_server_role",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "api",
+      "control-plane"
+    ],
+    "title": "Rôle de l'API Server",
+    "content": "L'API Server authentifie, autorise, valide puis persiste les objets ; kubectl et les contrôleurs passent par cette interface.",
+    "description": "Il constitue le point d'entrée du control plane, pas le scheduler.",
+    "context": "",
+    "source_file": "courses/kube-helm/01_architecture_reconciliation.md"
+  },
+  {
+    "id": "kubernetes_scheduler_pending",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "scheduler",
+      "pod"
+    ],
+    "title": "Scheduler et Pod Pending",
+    "content": "Le scheduler choisit un nœud compatible selon ressources et contraintes ; sans placement possible, le Pod reste Pending et les événements donnent la raison.",
+    "description": "Pending indique souvent un problème de placement, pas de démarrage applicatif.",
+    "context": "",
+    "source_file": "courses/kube-helm/01_architecture_reconciliation.md"
+  },
+  {
+    "id": "kubernetes_labels_selectors",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "labels",
+      "service"
+    ],
+    "title": "Labels et sélecteurs",
+    "content": "Les labels décrivent les objets ; un sélecteur choisit dynamiquement ceux qui correspondent, par exemple les Pods ciblés par un Service.",
+    "description": "Une incohérence de labels peut laisser un Service sans endpoint.",
+    "context": "",
+    "source_file": "courses/kube-helm/01_architecture_reconciliation.md"
+  },
+  {
+    "id": "kubernetes_pod_not_vm",
+    "type": "warning",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "pod",
+      "immutable"
+    ],
+    "title": "Un Pod n'est pas une VM",
+    "content": "Modifier manuellement un conteneur crée un état non reproductible qui disparaît au remplacement du Pod ; corriger l'image ou le manifeste versionné.",
+    "description": "Les workloads Kubernetes doivent rester remplaçables et déclaratifs.",
+    "context": "",
+    "source_file": "courses/kube-helm/01_architecture_reconciliation.md"
+  },
+  {
+    "id": "kubernetes_check_context",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "kubectl",
+      "context"
+    ],
+    "title": "Vérifier le contexte actif",
+    "command": "kubectl config current-context",
+    "description": "Confirme le cluster ciblé avant toute lecture ou modification.",
+    "context": "",
+    "source_file": "courses/kube-helm/02_kubectl_cluster_local.md"
+  },
+  {
+    "id": "kubernetes_describe_pod",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "kubectl",
+      "events"
+    ],
+    "title": "Décrire un Pod",
+    "command": "kubectl describe pod <POD> -n <NAMESPACE>",
+    "example": "kubectl describe pod web-abc123 -n demo",
+    "description": "Affiche conditions, conteneurs et événements attachés au Pod.",
+    "context": "",
+    "source_file": "courses/kube-helm/02_kubectl_cluster_local.md"
+  },
+  {
+    "id": "kubernetes_previous_logs",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "logs",
+      "restart"
+    ],
+    "title": "Lire les logs avant redémarrage",
+    "command": "kubectl logs <POD> -n <NAMESPACE> --previous",
+    "example": "kubectl logs web-abc123 -n demo --previous",
+    "description": "Lit les logs de l'instance précédente du conteneur après un crash.",
+    "context": "",
+    "source_file": "courses/kube-helm/02_kubectl_cluster_local.md"
+  },
+  {
+    "id": "kubernetes_server_dry_run",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "validation",
+      "manifest"
+    ],
+    "title": "Valider un manifeste côté serveur",
+    "command": "kubectl apply --dry-run=server -f <FICHIER>",
+    "example": "kubectl apply --dry-run=server -f deployment.yaml",
+    "description": "Demande au cluster de valider la ressource sans la persister.",
+    "context": "",
+    "source_file": "courses/kube-helm/02_kubectl_cluster_local.md"
+  },
+  {
+    "id": "kubernetes_capture_before_delete",
+    "type": "warning",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "diagnostic",
+      "evidence"
+    ],
+    "title": "Observer avant de supprimer",
+    "content": "Supprimer immédiatement un Pod efface une partie du contexte de panne ; capturer describe, événements, logs courants et précédents avant le remplacement.",
+    "description": "Le redémarrage peut rétablir le service tout en détruisant la preuve utile.",
+    "context": "",
+    "source_file": "courses/kube-helm/02_kubectl_cluster_local.md"
+  },
+  {
+    "id": "kubernetes_service_endpoints",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "service",
+      "endpoints"
+    ],
+    "title": "Service et EndpointSlice",
+    "content": "Un Service sélectionne des Pods par labels ; seuls les Pods prêts deviennent normalement des endpoints vers lesquels le trafic peut être dirigé.",
+    "description": "Un Service sans endpoint indique souvent un sélecteur ou une readiness incorrecte.",
+    "context": "",
+    "source_file": "courses/kube-helm/03_pods_deployments_services.md"
+  },
+  {
+    "id": "kubernetes_rollout_status",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "deployment",
+      "rollout"
+    ],
+    "title": "Attendre un rollout",
+    "command": "kubectl rollout status deployment/<NOM> -n <NAMESPACE> --timeout=120s",
+    "example": "kubectl rollout status deployment/web -n demo --timeout=120s",
+    "description": "Échoue si le Deployment ne devient pas disponible dans le délai.",
+    "context": "",
+    "source_file": "courses/kube-helm/03_pods_deployments_services.md"
+  },
+  {
+    "id": "kubernetes_readiness_vs_liveness",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "probe",
+      "availability"
+    ],
+    "title": "Readiness ou liveness",
+    "content": "Readiness retire temporairement un Pod du trafic ; liveness redémarre son conteneur. Elles ne répondent donc pas au même symptôme.",
+    "description": "Utiliser liveness pour une dépendance distante peut amplifier une panne.",
+    "context": "",
+    "source_file": "courses/kube-helm/03_pods_deployments_services.md"
+  },
+  {
+    "id": "kubernetes_memory_limit_oom",
+    "type": "warning",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "memory",
+      "oomkilled"
+    ],
+    "title": "Limite mémoire et OOMKilled",
+    "content": "Dépasser la limite mémoire provoque l'arrêt du conteneur avec OOMKilled ; mesurer l'usage puis ajuster request, limit ou application.",
+    "description": "Une hausse aveugle de la limite peut seulement déplacer la saturation vers le nœud.",
+    "context": "",
+    "source_file": "courses/kube-helm/03_pods_deployments_services.md"
+  },
+  {
+    "id": "kubernetes_list_service_endpoints",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "beginner",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "service",
+      "diagnostic"
+    ],
+    "title": "Vérifier les endpoints d'un Service",
+    "command": "kubectl get endpointslices -l kubernetes.io/service-name=<SERVICE> -n <NAMESPACE>",
+    "example": "kubectl get endpointslices -l kubernetes.io/service-name=web -n demo",
+    "description": "Vérifie si le Service dispose réellement de backends prêts.",
+    "context": "",
+    "source_file": "courses/kube-helm/03_pods_deployments_services.md"
+  },
+  {
+    "id": "kubernetes_secret_base64",
+    "type": "warning",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "secret",
+      "security"
+    ],
+    "title": "Base64 ne chiffre pas un Secret",
+    "content": "Un Secret encodé en base64 reste décodable ; sans RBAC strict et chiffrement au repos, sa confidentialité n'est pas assurée.",
+    "description": "Ne jamais traiter un manifeste Secret base64 comme un coffre-fort.",
+    "context": "",
+    "source_file": "courses/kube-helm/04_configuration_stockage_exposition.md"
+  },
+  {
+    "id": "kubernetes_pvc_role",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "pvc",
+      "storage"
+    ],
+    "title": "Le PVC exprime une demande",
+    "content": "Le PVC décrit capacité et mode d'accès ; une StorageClass peut provisionner le volume compatible qui sera ensuite monté dans le Pod.",
+    "description": "PVC et volume ne sont pas synonymes : l'un demande, l'autre fournit.",
+    "context": "",
+    "source_file": "courses/kube-helm/04_configuration_stockage_exposition.md"
+  },
+  {
+    "id": "kubernetes_describe_pvc",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "pvc",
+      "diagnostic"
+    ],
+    "title": "Diagnostiquer un PVC",
+    "command": "kubectl describe pvc <PVC> -n <NAMESPACE>",
+    "example": "kubectl describe pvc data -n demo",
+    "description": "Affiche statut, StorageClass, volume associé et événements de provisioning.",
+    "context": "",
+    "source_file": "courses/kube-helm/04_configuration_stockage_exposition.md"
+  },
+  {
+    "id": "kubernetes_ingress_controller_required",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "ingress",
+      "http"
+    ],
+    "title": "Ingress nécessite un contrôleur",
+    "content": "L'objet Ingress déclare des règles ; seul un contrôleur installé les traduit en proxy ou load balancer effectif.",
+    "description": "Créer l'objet sans contrôleur ne publie généralement aucun trafic.",
+    "context": "",
+    "source_file": "courses/kube-helm/04_configuration_stockage_exposition.md"
+  },
+  {
+    "id": "kubernetes_env_config_reload",
+    "type": "warning",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "configmap",
+      "rollout"
+    ],
+    "title": "Une variable injectée ne se recharge pas",
+    "content": "Modifier un ConfigMap ne change pas les variables d'environnement d'un conteneur existant ; déclencher un rollout ou concevoir un rechargement explicite.",
+    "description": "Le manifest à jour ne signifie pas que le processus utilise déjà la nouvelle valeur.",
+    "context": "",
+    "source_file": "courses/kube-helm/04_configuration_stockage_exposition.md"
+  },
+  {
+    "id": "helm_chart_release_revision",
+    "type": "concept",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "chart",
+      "release"
+    ],
+    "title": "Chart, release et revision",
+    "content": "Le chart est le paquet source ; la release est son installation nommée dans un namespace ; chaque upgrade crée une revision de cette release.",
+    "description": "Séparer ces notions évite de confondre version du paquet et historique déployé.",
+    "context": "",
+    "source_file": "courses/kube-helm/05_helm_charts_templates_valeurs.md"
+  },
+  {
+    "id": "helm_render_chart",
+    "type": "command",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "template",
+      "validation"
+    ],
+    "title": "Rendre un chart localement",
+    "command": "helm template <RELEASE> <CHART> -n <NAMESPACE> -f <VALUES>",
+    "example": "helm template demo ./web -n demo -f values-staging.yaml",
+    "description": "Affiche les manifests finaux sans modifier le cluster.",
+    "context": "",
+    "source_file": "courses/kube-helm/05_helm_charts_templates_valeurs.md"
+  },
+  {
+    "id": "helm_upgrade_install",
+    "type": "command",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "upgrade",
+      "release"
+    ],
+    "title": "Installer ou mettre à niveau",
+    "command": "helm upgrade --install <RELEASE> <CHART> -n <NAMESPACE> -f <VALUES> --wait",
+    "example": "helm upgrade --install demo ./web -n demo -f values-staging.yaml --wait",
+    "description": "Crée la release si elle manque, sinon applique une nouvelle revision.",
+    "context": "",
+    "source_file": "courses/kube-helm/05_helm_charts_templates_valeurs.md"
+  },
+  {
+    "id": "helm_lint_not_cluster_test",
+    "type": "warning",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "lint",
+      "kubernetes"
+    ],
+    "title": "Lint ne valide pas le déploiement",
+    "content": "Un chart peut passer helm lint puis rendre une ressource refusée ou une application défaillante ; ajouter rendu, validation API et test sur cluster.",
+    "description": "Lint contrôle le chart, pas tout le comportement du cluster et du workload.",
+    "context": "",
+    "source_file": "courses/kube-helm/05_helm_charts_templates_valeurs.md"
+  },
+  {
+    "id": "helm_get_manifest",
+    "type": "command",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "manifest",
+      "diagnostic"
+    ],
+    "title": "Lire le manifest d'une release",
+    "command": "helm get manifest <RELEASE> -n <NAMESPACE>",
+    "example": "helm get manifest demo -n demo",
+    "description": "Affiche ce que Helm a enregistré pour la release déployée.",
+    "context": "",
+    "source_file": "courses/kube-helm/05_helm_charts_templates_valeurs.md"
+  },
+  {
+    "id": "helm_values_as_api",
+    "type": "concept",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "values",
+      "api"
+    ],
+    "title": "Values comme interface publique",
+    "content": "Les clés values consommées par les équipes forment une API ; renommer ou changer leur type peut casser les pipelines même si le template reste valide.",
+    "description": "Versionner et documenter les changements incompatibles du chart.",
+    "context": "",
+    "source_file": "courses/kube-helm/06_chart_maintenable.md"
+  },
+  {
+    "id": "helm_values_schema",
+    "type": "tip",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "schema",
+      "validation"
+    ],
+    "title": "Valider les types de values",
+    "content": "Ajouter values.schema.json pour imposer types, champs requis et plages ; tester au moins les fichiers dev et prod dans la CI.",
+    "description": "Le schéma bloque les mauvaises valeurs avant leur arrivée dans les manifests.",
+    "context": "",
+    "source_file": "courses/kube-helm/06_chart_maintenable.md"
+  },
+  {
+    "id": "helm_lint_strict",
+    "type": "command",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "lint",
+      "ci"
+    ],
+    "title": "Linter strictement un chart",
+    "command": "helm lint <CHART> --strict",
+    "example": "helm lint ./web --strict",
+    "description": "Traite les avertissements du lint comme des erreurs dans la validation du chart.",
+    "context": "",
+    "source_file": "courses/kube-helm/06_chart_maintenable.md"
+  },
+  {
+    "id": "helm_avoid_environment_forks",
+    "type": "warning",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "environments",
+      "maintenance"
+    ],
+    "title": "Ne pas forker le chart par environnement",
+    "content": "Copier le chart pour dev et prod fait diverger correctifs et conventions ; garder un chart commun et des fichiers de valeurs ne contenant que les écarts.",
+    "description": "La configuration varie, la structure applicative reste partagée.",
+    "context": "",
+    "source_file": "courses/kube-helm/06_chart_maintenable.md"
+  },
+  {
+    "id": "helm_hooks_lifecycle",
+    "type": "warning",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "hooks",
+      "jobs"
+    ],
+    "title": "Les hooks ont leur propre cycle de vie",
+    "content": "Un hook mal conçu peut bloquer l'upgrade ou laisser une ressource ; définir politique de suppression, timeout et procédure de reprise, ou préférer un Job explicite.",
+    "description": "Les hooks ne doivent pas cacher une orchestration critique non observable.",
+    "context": "",
+    "source_file": "courses/kube-helm/06_chart_maintenable.md"
+  },
+  {
+    "id": "kubernetes_diagnostic_scope_first",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "diagnostic",
+      "incident"
+    ],
+    "title": "Délimiter avant de modifier",
+    "content": "Mesurer utilisateurs, Pods, namespaces et heure de début réduit l'espace de recherche et évite qu'une action globale aggrave un incident local.",
+    "description": "Le scope transforme un symptôme vague en hypothèses testables.",
+    "context": "",
+    "source_file": "courses/kube-helm/07_diagnostic_kubernetes_helm.md"
+  },
+  {
+    "id": "kubernetes_crashloop_previous_logs",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "crashloop",
+      "logs"
+    ],
+    "title": "Logs d'un conteneur crashé",
+    "command": "kubectl logs <POD> -n <NAMESPACE> --all-containers --previous",
+    "example": "kubectl logs web-abc123 -n demo --all-containers --previous",
+    "description": "Récupère la sortie de l'instance terminée avant son redémarrage.",
+    "context": "",
+    "source_file": "courses/kube-helm/07_diagnostic_kubernetes_helm.md"
+  },
+  {
+    "id": "helm_release_values_all",
+    "type": "command",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "values",
+      "diagnostic"
+    ],
+    "title": "Lire toutes les valeurs effectives",
+    "command": "helm get values <RELEASE> -n <NAMESPACE> --all",
+    "example": "helm get values demo -n demo --all",
+    "description": "Affiche valeurs fournies et valeurs calculées pour la release.",
+    "context": "",
+    "source_file": "courses/kube-helm/07_diagnostic_kubernetes_helm.md"
+  },
+  {
+    "id": "helm_rollback_data_warning",
+    "type": "warning",
+    "tech": "helm",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "rollback",
+      "data"
+    ],
+    "title": "Rollback ne restaure pas les données",
+    "content": "Revenir à une revision Helm ne rembobine pas une migration de base ni tous les effets de hooks ; vérifier la compatibilité avant rollback.",
+    "description": "La réversibilité applicative dépasse les manifests Kubernetes.",
+    "context": "",
+    "source_file": "courses/kube-helm/07_diagnostic_kubernetes_helm.md"
+  },
+  {
+    "id": "kubernetes_service_no_endpoint",
+    "type": "error",
+    "tech": "kubernetes",
+    "level": "intermediate",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "service",
+      "readiness"
+    ],
+    "title": "Service sans endpoint",
+    "content": "Symptôme : Service présent mais aucun backend. Causes : sélecteur incohérent ou Pods non Ready. Correction : comparer labels, sélecteur et conditions de readiness.",
+    "description": "Vérifier EndpointSlice distingue exposition et disponibilité des backends.",
+    "context": "",
+    "source_file": "courses/kube-helm/07_diagnostic_kubernetes_helm.md"
+  },
+  {
+    "id": "kubernetes_can_i_serviceaccount",
+    "type": "command",
+    "tech": "kubernetes",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "rbac",
+      "serviceaccount"
+    ],
+    "title": "Tester un droit de ServiceAccount",
+    "command": "kubectl auth can-i <VERBE> <RESSOURCE> --as=system:serviceaccount:<NAMESPACE>:<COMPTE> -n <NAMESPACE>",
+    "example": "kubectl auth can-i get secrets --as=system:serviceaccount:demo:web -n demo",
+    "description": "Vérifie l'autorisation effective d'une identité sans supposer ses rôles.",
+    "context": "",
+    "source_file": "courses/kube-helm/08_securite_observabilite_production.md"
+  },
+  {
+    "id": "kubernetes_networkpolicy_plugin",
+    "type": "warning",
+    "tech": "kubernetes",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "networkpolicy",
+      "cni"
+    ],
+    "title": "NetworkPolicy dépend du réseau",
+    "content": "Déclarer une NetworkPolicy sans plugin CNI compatible peut ne filtrer aucun trafic ; vérifier l'implémentation puis tester les flux autorisés et bloqués.",
+    "description": "L'objet API seul ne garantit pas l'application de la politique réseau.",
+    "context": "",
+    "source_file": "courses/kube-helm/08_securite_observabilite_production.md"
+  },
+  {
+    "id": "kubernetes_pdb_scope",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "pdb",
+      "availability"
+    ],
+    "title": "Ce que protège un PDB",
+    "content": "Un PodDisruptionBudget limite les disruptions volontaires simultanées ; il ne crée pas de réplica et ne couvre pas une panne brutale de nœud.",
+    "description": "Sa protection dépend d'un workload déjà répliqué et sain.",
+    "context": "",
+    "source_file": "courses/kube-helm/08_securite_observabilite_production.md"
+  },
+  {
+    "id": "observability_three_signals",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "observability",
+      "logs",
+      "metrics",
+      "traces"
+    ],
+    "title": "Logs, métriques et traces",
+    "content": "Logs décrivent des événements, métriques quantifient une évolution, traces suivent une requête distribuée ; les trois signaux répondent à des questions différentes.",
+    "description": "Les corréler accélère le passage du symptôme à la dépendance fautive.",
+    "context": "",
+    "source_file": "courses/kube-helm/08_securite_observabilite_production.md"
+  },
+  {
+    "id": "kubernetes_alert_on_symptoms",
+    "type": "tip",
+    "tech": "kubernetes",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "kubernetes",
+      "alerting",
+      "sli"
+    ],
+    "title": "Alerter sur les symptômes",
+    "content": "Déclencher l'astreinte sur erreurs, latence ou disponibilité soutenues ; conserver CPU et mémoire comme signaux de capacité avec une sévérité moindre.",
+    "description": "Une ressource élevée sans impact utilisateur ne justifie pas toujours un réveil.",
+    "context": "",
+    "source_file": "courses/kube-helm/08_securite_observabilite_production.md"
+  },
+  {
+    "id": "helm_atomic_upgrade",
+    "type": "command",
+    "tech": "helm",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "atomic",
+      "deployment"
+    ],
+    "title": "Upgrade atomique avec attente",
+    "command": "helm upgrade --install <RELEASE> <CHART> -n <NAMESPACE> -f <VALUES> --atomic --wait --timeout <DUREE>",
+    "example": "helm upgrade --install web ./chart -n web -f env/prod.yaml --atomic --wait --timeout 10m",
+    "description": "Tente un retour à l'état précédent si l'upgrade échoue dans le délai.",
+    "context": "",
+    "source_file": "courses/kube-helm/09_livraison_continue_helm.md"
+  },
+  {
+    "id": "cicd_promote_digest",
+    "type": "concept",
+    "tech": "helm",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "cicd",
+      "image",
+      "digest"
+    ],
+    "title": "Promouvoir le même artefact",
+    "content": "Construire une fois puis promouvoir l'image par digest garantit que staging et prod exécutent les mêmes octets, contrairement à un tag mutable.",
+    "description": "La configuration varie entre environnements, pas le binaire validé.",
+    "context": "",
+    "source_file": "courses/kube-helm/09_livraison_continue_helm.md"
+  },
+  {
+    "id": "gitops_reconciliation",
+    "type": "concept",
+    "tech": "kubernetes",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "gitops",
+      "kubernetes",
+      "drift"
+    ],
+    "title": "Réconciliation GitOps",
+    "content": "Un contrôleur dans le cluster compare en continu l'état déclaré dans Git à l'état vivant et applique les écarts autorisés.",
+    "description": "Ce modèle détecte la dérive sans donner directement les credentials cluster à la CI.",
+    "context": "",
+    "source_file": "courses/kube-helm/09_livraison_continue_helm.md"
+  },
+  {
+    "id": "helm_atomic_data_limit",
+    "type": "warning",
+    "tech": "helm",
+    "level": "advanced",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "helm",
+      "atomic",
+      "database"
+    ],
+    "title": "Atomic ne rembobine pas la base",
+    "content": "--atomic peut restaurer les ressources Helm après échec, mais pas annuler automatiquement une migration de données ; concevoir des migrations compatibles et réversibles.",
+    "description": "Le succès du rollback dépend du contrat entre version applicative et schéma.",
+    "context": "",
+    "source_file": "courses/kube-helm/09_livraison_continue_helm.md"
+  },
+  {
+    "id": "cicd_archive_deployment_evidence",
+    "type": "tip",
+    "tech": "helm",
+    "level": "advanced",
+    "importance": "medium",
+    "format": "knowledge",
+    "tags": [
+      "cicd",
+      "helm",
+      "audit"
+    ],
+    "title": "Archiver les preuves du déploiement",
+    "content": "Conserver à chaque pipeline le manifest rendu, chart, digest d'image, valeurs non sensibles, revision Helm et résultat du rollout.",
+    "description": "Ces artefacts rendent un incident reproductible et une promotion auditable.",
+    "context": "",
+    "source_file": "courses/kube-helm/09_livraison_continue_helm.md"
   }
 ]

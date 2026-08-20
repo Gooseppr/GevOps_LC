@@ -1,0 +1,59 @@
+{
+  "01_architecture_reconciliation.md": {
+    "score_global": 8.5,
+    "needs_optimization": false,
+    "course_type": "explicatif",
+    "learning_depth": "fait comprendre",
+    "dimensions": {"clarte": 9, "structure": 9, "exhaustivite": 8, "pertinence": 9, "raisonnement": 9, "actionable": 8, "style_pedagogique": 8, "snippets": 9},
+    "issues": [], "suggestions": ["Ajouter ultérieurement un exercice guidé sur l'observation d'une réconciliation"],
+    "priority_improvements": [], "strengths": ["Mécanisme causal clair", "Bonne lecture par états", "Snippets précis"], "snippet_issues": []
+  },
+  "02_kubectl_cluster_local.md": {
+    "score_global": 8.5, "needs_optimization": false, "course_type": "explicatif", "learning_depth": "fait comprendre",
+    "dimensions": {"clarte": 9, "structure": 8, "exhaustivite": 8, "pertinence": 9, "raisonnement": 8, "actionable": 10, "style_pedagogique": 8, "snippets": 9},
+    "issues": [], "suggestions": ["Compléter plus tard par un mini-lab évalué"], "priority_improvements": [],
+    "strengths": ["Séquence de diagnostic directement utilisable", "Garde-fou sur les contextes"], "snippet_issues": []
+  },
+  "03_pods_deployments_services.md": {
+    "score_global": 8.5, "needs_optimization": false, "course_type": "explicatif", "learning_depth": "fait réfléchir",
+    "dimensions": {"clarte": 9, "structure": 9, "exhaustivite": 8, "pertinence": 9, "raisonnement": 9, "actionable": 9, "style_pedagogique": 8, "snippets": 9},
+    "issues": [], "suggestions": ["Ajouter ultérieurement un exercice de rollout cassé"], "priority_improvements": [],
+    "strengths": ["Différenciation probes convaincante", "Manifest cohérent avec le raisonnement"], "snippet_issues": []
+  },
+  "04_configuration_stockage_exposition.md": {
+    "score_global": 8.5, "needs_optimization": false, "course_type": "décisionnel", "learning_depth": "fait réfléchir",
+    "dimensions": {"clarte": 8, "structure": 9, "exhaustivite": 8, "pertinence": 9, "raisonnement": 9, "actionable": 8, "style_pedagogique": 9, "snippets": 9},
+    "issues": [], "suggestions": ["Un futur lab pourrait comparer PVC local et stockage managé"], "priority_improvements": [],
+    "strengths": ["Arbitrage base managée honnête", "Séparation claire des mécanismes"], "snippet_issues": []
+  },
+  "05_helm_charts_templates_valeurs.md": {
+    "score_global": 9.0, "needs_optimization": false, "course_type": "explicatif", "learning_depth": "fait comprendre",
+    "dimensions": {"clarte": 9, "structure": 9, "exhaustivite": 9, "pertinence": 9, "raisonnement": 9, "actionable": 10, "style_pedagogique": 8, "snippets": 9},
+    "issues": [], "suggestions": ["Ajouter plus tard un atelier de template volontairement invalide"], "priority_improvements": [],
+    "strengths": ["Modèle chart-release-revision très clair", "Commandes exactes et progressives"], "snippet_issues": []
+  },
+  "06_chart_maintenable.md": {
+    "score_global": 8.5, "needs_optimization": false, "course_type": "décisionnel", "learning_depth": "fait réfléchir",
+    "dimensions": {"clarte": 9, "structure": 8, "exhaustivite": 8, "pertinence": 9, "raisonnement": 9, "actionable": 9, "style_pedagogique": 8, "snippets": 9},
+    "issues": [], "suggestions": ["Fournir ultérieurement un exemple complet de values.schema.json"], "priority_improvements": [],
+    "strengths": ["Values traitées comme contrat", "Arbitrage pertinent sur dépendances et hooks"], "snippet_issues": []
+  },
+  "07_diagnostic_kubernetes_helm.md": {
+    "score_global": 9.0, "needs_optimization": false, "course_type": "décisionnel", "learning_depth": "fait réfléchir",
+    "dimensions": {"clarte": 9, "structure": 9, "exhaustivite": 9, "pertinence": 10, "raisonnement": 10, "actionable": 9, "style_pedagogique": 8, "snippets": 9},
+    "issues": [], "suggestions": ["Transformer le cas 503 en lab chronométré dans une future version"], "priority_improvements": [],
+    "strengths": ["Méthode L2 structurée", "Décision rollback/correction explicitée"], "snippet_issues": []
+  },
+  "08_securite_observabilite_production.md": {
+    "score_global": 8.5, "needs_optimization": false, "course_type": "décisionnel", "learning_depth": "fait réfléchir",
+    "dimensions": {"clarte": 8, "structure": 9, "exhaustivite": 8, "pertinence": 9, "raisonnement": 9, "actionable": 8, "style_pedagogique": 9, "snippets": 9},
+    "issues": [], "suggestions": ["Approfondir Pod Security Standards dans un module spécialisé"], "priority_improvements": [],
+    "strengths": ["Alerting orienté symptômes", "Limites PDB et NetworkPolicy bien exposées"], "snippet_issues": []
+  },
+  "09_livraison_continue_helm.md": {
+    "score_global": 9.0, "needs_optimization": false, "course_type": "décisionnel", "learning_depth": "fait réfléchir",
+    "dimensions": {"clarte": 9, "structure": 9, "exhaustivite": 9, "pertinence": 9, "raisonnement": 10, "actionable": 9, "style_pedagogique": 9, "snippets": 9},
+    "issues": [], "suggestions": ["Décliner la séquence dans un exemple GitHub Actions ou GitLab CI selon la plateforme cible"], "priority_improvements": [],
+    "strengths": ["Promotion immuable bien expliquée", "Comparaison push/GitOps nuancée", "Limite données du rollback explicitée"], "snippet_issues": []
+  }
+}
