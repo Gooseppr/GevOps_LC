@@ -145,7 +145,9 @@ GRAFANA_ADMIN_PASSWORD=<MOT_DE_PASSE_SOLIDE>
 
 Quelques choix méritent une explication, parce que ce sont eux qui font échouer ce montage quand on les omet.
 
-> 🧠 **Concept clé — Node Exporter dans un conteneur observe… le conteneur, sauf si on lui ouvre l'hôte.** Par défaut, un conteneur a son propre système de fichiers et sa propre pile réseau. Les métriques de disque seraient celles de l'overlay Docker, et les interfaces réseau seraient celles du conteneur. Trois réglages corrigent cela :
+> 🧠 **Concept clé — Node Exporter dans un conteneur observe… le conteneur, sauf si on lui ouvre l'hôte**
+>
+> Par défaut, un conteneur a son propre système de fichiers et sa propre pile réseau. Les métriques de disque seraient celles de l'overlay Docker, et les interfaces réseau seraient celles du conteneur. Trois réglages corrigent cela :
 >
 > - `pid: host` donne accès aux processus de l'hôte.
 > - `network_mode: host` expose les vraies interfaces réseau.
@@ -156,7 +158,9 @@ Comme l'exporter tourne dans le réseau de l'hôte, Prometheus l'atteint via `ho
 
 Le bloc `labels: instance: 'srv-lab-01'` remplace le label `instance` par défaut, qui vaudrait `host.docker.internal:9100`. Un nom parlant rend la variable et les titres de panels lisibles. Dans l'équipe, chacun saura de quelle machine on parle.
 
-> ⚠️ **Erreur fréquente — Node Exporter exposé sur toutes les interfaces.** Avec `network_mode: host`, le port 9100 écoute sur toutes les interfaces de la machine, et ses métriques révèlent beaucoup de choses (versions, points de montage, noms d'hôtes). Filtrez-le avec le pare-feu pour ne laisser passer que Prometheus. Les ports de Grafana et Prometheus sont déjà liés à `127.0.0.1` dans ce Compose. Pour y accéder à distance, passez par un tunnel SSH ou un reverse proxy.
+> ⚠️ **Erreur fréquente — Node Exporter exposé sur toutes les interfaces**
+>
+> Avec `network_mode: host`, le port 9100 écoute sur toutes les interfaces de la machine, et ses métriques révèlent beaucoup de choses (versions, points de montage, noms d'hôtes). Filtrez-le avec le pare-feu pour ne laisser passer que Prometheus. Les ports de Grafana et Prometheus sont déjà liés à `127.0.0.1` dans ce Compose. Pour y accéder à distance, passez par un tunnel SSH ou un reverse proxy.
 {: .callout .callout-attention}
 
 ### Démarrage
@@ -197,7 +201,9 @@ up{job="node"}
 
 Une valeur `1` pour `srv-lab-01` confirme que toute la chaîne fonctionne. À partir de là, un panel vide ne peut plus venir de la plomberie : il vient de la requête ou du filtre.
 
-> 💡 **Astuce** — Dans Explore, tapez simplement `node_` et laissez l'autocomplétion vous montrer ce que l'exporter expose. Quelques minutes de lecture des noms de métriques vous apprendront plus que n'importe quelle liste.
+> 💡 **Astuce**
+>
+> Dans Explore, tapez simplement `node_` et laissez l'autocomplétion vous montrer ce que l'exporter expose. Quelques minutes de lecture des noms de métriques vous apprendront plus que n'importe quelle liste.
 {: .callout .callout-astuce}
 
 ## Construire le dashboard, une question à la fois
@@ -224,7 +230,9 @@ time() - node_boot_time_seconds{instance=~"$instance"}
 
 Un uptime qui retombe à quelques minutes révèle un redémarrage, parfois inattendu.
 
-> ⚠️ **Erreur fréquente — Confondre « DOWN » et « machine en panne ».** `up = 0` signifie seulement que Prometheus n'a pas réussi à lire l'exporter. La machine peut très bien tourner, avec un exporter arrêté ou un pare-feu qui bloque. Le panel dit « je ne vois plus la machine », pas « la machine est morte ».
+> ⚠️ **Erreur fréquente — Confondre « DOWN » et « machine en panne »**
+>
+> `up = 0` signifie seulement que Prometheus n'a pas réussi à lire l'exporter. La machine peut très bien tourner, avec un exporter arrêté ou un pare-feu qui bloque. Le panel dit « je ne vois plus la machine », pas « la machine est morte ».
 {: .callout .callout-attention}
 
 ### « A-t-on du CPU ? »
@@ -237,7 +245,9 @@ Panel **Time series**, unité *Percent (0-100)*, minimum 0, maximum 100 :
 
 Comment lire cette requête ? Tout part d'un compteur.
 
-> 📖 **Définition.** Un compteur est une métrique qui ne fait qu'augmenter depuis le démarrage. `node_cpu_seconds_total` cumule ainsi le temps passé par chaque cœur dans chaque mode. Sa valeur brute ne signifie rien.
+> 📖 **Définition**
+>
+> Un compteur est une métrique qui ne fait qu'augmenter depuis le démarrage. `node_cpu_seconds_total` cumule ainsi le temps passé par chaque cœur dans chaque mode. Sa valeur brute ne signifie rien.
 {: .callout .callout-definition}
 
 La requête se lit ensuite en trois temps :
@@ -300,7 +310,9 @@ node_load1{instance=~"$instance"} / on(instance) count by (instance) (node_cpu_s
 
 Un load average brut ne veut rien dire sans le nombre de cœurs : 4 est normal sur 8 cœurs et catastrophique sur 1. Divisé par le nombre de cœurs, une valeur durablement supérieure à 1 signale que des processus font la queue pour le processeur.
 
-> 🛒 **Analogie : les caisses d'un supermarché.** Le load average compte les clients en caisse ou dans la file. Huit clients pour huit caisses, tout va bien. Huit clients pour une seule caisse, la file s'allonge. Limite : sous Linux, le load compte aussi les processus bloqués en attente du disque, qui ne réclament pas le processeur.
+> 🛒 **Analogie : les caisses d'un supermarché**
+>
+> Le load average compte les clients en caisse ou dans la file. Huit clients pour huit caisses, tout va bien. Huit clients pour une seule caisse, la file s'allonge. Limite : sous Linux, le load compte aussi les processus bloqués en attente du disque, qui ne réclament pas le processeur.
 {: .callout .callout-analogie}
 
 ## Rendre le dashboard réutilisable avec une variable
@@ -318,7 +330,9 @@ Pour l'instant, le dashboard ne montre qu'une machine. Une variable le rend util
 
 `node_uname_info` est une métrique qui existe une seule fois par machine, ce qui en fait une bonne source pour lister les serveurs sans doublons.
 
-> ⚠️ **Erreur fréquente — `instance="$instance"` au lieu de `instance=~"$instance"`.** Dès qu'on sélectionne plusieurs machines ou « All », Grafana remplace la variable par une alternative du type `(srv-a|srv-b)`. Avec l'opérateur `=`, Prometheus cherche une instance littéralement nommée ainsi et ne renvoie rien. Avec `=~`, c'est une expression régulière et tout fonctionne. Pour toute variable multi-valeur, utilisez toujours `=~`.
+> ⚠️ **Erreur fréquente — `instance="$instance"` au lieu de `instance=~"$instance"`**
+>
+> Dès qu'on sélectionne plusieurs machines ou « All », Grafana remplace la variable par une alternative du type `(srv-a|srv-b)`. Avec l'opérateur `=`, Prometheus cherche une instance littéralement nommée ainsi et ne renvoie rien. Avec `=~`, c'est une expression régulière et tout fonctionne. Pour toute variable multi-valeur, utilisez toujours `=~`.
 {: .callout .callout-attention}
 
 Ajoutez `{{instance}}` dans la légende des panels, pour distinguer les courbes quand plusieurs machines sont affichées.
@@ -373,7 +387,9 @@ Pour le scénario 1, la lecture correcte ressemble à ceci : le CPU grimpe, le m
 
 Pour le scénario 2, le pattern est différent : la mémoire monte d'un coup puis reste haute, le CPU n'augmente que d'environ un cœur, et le load brut approche 1.
 
-> 💡 **À retenir.** Chaque ressource a sa signature, et c'est ce que vous cherchez à reconnaître. Le jour où un vrai incident survient, vous reconnaîtrez les formes déjà vues.
+> 💡 **À retenir**
+>
+> Chaque ressource a sa signature, et c'est ce que vous cherchez à reconnaître. Le jour où un vrai incident survient, vous reconnaîtrez les formes déjà vues.
 {: .callout .callout-important}
 
 ## Documenter : le dashboard doit s'expliquer tout seul

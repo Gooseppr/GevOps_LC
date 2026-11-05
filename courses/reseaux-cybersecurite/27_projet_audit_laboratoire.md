@@ -95,10 +95,12 @@ La dernière ligne est souvent oubliée. Pendant l'audit, vous détenez l'inform
 
 ## Phase 0 : cadrage écrit du périmètre et des règles d'engagement
 
-> 📖 **Définition.** Les RoE (Rules of Engagement, règles d'engagement) sont le document qui sépare un audit d'une intrusion. Vous les rédigez avant le premier paquet, et le commanditaire les signe.
-{: .callout .callout-definition}
-
 Voici un squelette utilisable tel quel :
+
+> 📖 **Définition**
+>
+> Les RoE (Rules of Engagement, règles d'engagement) sont le document qui sépare un audit d'une intrusion. Vous les rédigez avant le premier paquet, et le commanditaire les signe.
+{: .callout .callout-definition}
 
 ```yaml
 # cadrage-audit-lab.yml
@@ -125,7 +127,9 @@ donnees: "preuves chiffrees, suppression a J+<N> apres remise du rapport"
 signature: "<COMMANDITAIRE> / <AUDITEUR> - <DATE>"
 ```
 
-> ⚠️ **Toutes les vérifications restent limitées à un environnement autorisé.** « C'est un labo » n'est pas une autorisation. Le propriétaire réel de chaque machine et de chaque lien réseau doit avoir signé. En France, l'accès frauduleux à un système de traitement automatisé de données relève de l'article 323-1 du Code pénal, que la cible soit un labo ou non.
+> ⚠️ **Toutes les vérifications restent limitées à un environnement autorisé**
+>
+> « C'est un labo » n'est pas une autorisation. Le propriétaire réel de chaque machine et de chaque lien réseau doit avoir signé. En France, l'accès frauduleux à un système de traitement automatisé de données relève de l'article 323-1 du Code pénal, que la cible soit un labo ou non.
 {: .callout .callout-attention}
 
 Deux lignes du cadrage évitent les pires dérapages :
@@ -133,7 +137,9 @@ Deux lignes du cadrage évitent les pires dérapages :
 - **`preuve_minimale_exploitation`** : elle décide à l'avance jusqu'où vous pouvez aller pour confirmer une faille. Sans elle, vous vous arrêtez à la version et à la configuration observées. L'exploitation proprement dite relève du module de pentest en laboratoire, pas de cet audit.
 - **`arret_immediat_si`** : elle transforme l'incident du scénario d'ouverture en simple pause.
 
-> 💡 Avant de valider le périmètre, vérifiez ce que votre poste d'audit atteint réellement : `ip route` pour les routes, `traceroute <HOTE_HORS_LABO>` pour voir si vous sortez du labo. La frontière du labo se prouve avec les routes, pas avec le schéma.
+> 💡 **À retenir**
+>
+> Avant de valider le périmètre, vérifiez ce que votre poste d'audit atteint réellement : `ip route` pour les routes, `traceroute <HOTE_HORS_LABO>` pour voir si vous sortez du labo. La frontière du labo se prouve avec les routes, pas avec le schéma.
 {: .callout .callout-important}
 
 ## Phase 1 : inventaire des actifs et cartographie des flux
@@ -169,7 +175,9 @@ Le résultat tient dans une matrice de flux. Les lignes sans justification sont 
 
 La dernière ligne est la plus parlante. Un serveur exposé en DMZ qui interroge l'annuaire interne est la brèche qu'une DMZ est censée empêcher. Une compromission de WEB01 donne alors à l'attaquant un chemin direct vers l'AD.
 
-> 🏢 **Analogie : la DMZ comme hall d'accueil.** On reçoit les visiteurs dans le hall, pas dans les bureaux. Si l'agent d'accueil peut ouvrir la salle des archives, quiconque prend sa place y entre aussi. Limite de l'image : un hall n'est séparé du reste que par ses portes, et une DMZ ne l'est que par les règles du pare-feu qui l'entourent.
+> 🏢 **Analogie : la DMZ comme hall d'accueil**
+>
+> On reçoit les visiteurs dans le hall, pas dans les bureaux. Si l'agent d'accueil peut ouvrir la salle des archives, quiconque prend sa place y entre aussi. Limite de l'image : un hall n'est séparé du reste que par ses portes, et une DMZ ne l'est que par les règles du pare-feu qui l'entourent.
 {: .callout .callout-analogie}
 
 ## Phase 2 : revue de configuration
@@ -232,7 +240,9 @@ Lancez deux scans, car ils répondent à deux questions :
 
 Avec Greenbone/OpenVAS, le principe est de créer une cible avec les hôtes du périmètre, une tâche avec un profil non destructif et un débit limité, puis d'ajouter les identifiants pour le scan authentifié. Les noms de menus changent selon la version.
 
-> 🔒 Prenez un snapshot des VM avant chaque scan et lancez-le pendant la fenêtre prévue au cadrage. C'est la réponse directe à l'incident d'ouverture.
+> 🔒 **Sécurité**
+>
+> Prenez un snapshot des VM avant chaque scan et lancez-le pendant la fenêtre prévue au cadrage. C'est la réponse directe à l'incident d'ouverture.
 {: .callout .callout-securite}
 
 ### Tri : un résultat de scanner est une hypothèse
@@ -254,15 +264,19 @@ curl -sI "http://<HOTE>/" | grep -i '^server:'
 
 Si les RoE autorisent une preuve active, utilisez un test éprouvé et non destructif, par exemple le modèle Nuclei dédié (`nuclei -u http://<HOTE> -id CVE-2021-41773`). Sans cette autorisation écrite, arrêtez-vous à la version et à la configuration. 🧠 Une preuve se construit au niveau le plus bas qui suffit à convaincre.
 
-> 💡 **À retenir.** Un faux positif se justifie comme un constat : notez la commande et sa sortie. Sans cette preuve, votre « faux positif » ne tient plus le jour où quelqu'un le conteste.
+> 💡 **À retenir**
+>
+> Un faux positif se justifie comme un constat : notez la commande et sa sortie. Sans cette preuve, votre « faux positif » ne tient plus le jour où quelqu'un le conteste.
 {: .callout .callout-important}
 
 ## Phase 4 : priorisation et analyse de risques simplifiée
 
-> 📖 **Définition.** Le score CVSS (Common Vulnerability Scoring System), noté de 0 à 10, mesure la gravité technique d'une faille dans l'absolu, pas ce qu'elle coûte chez vous.
-{: .callout .callout-definition}
-
 Une priorité se déduit plutôt de quatre éléments :
+
+> 📖 **Définition**
+>
+> Le score CVSS (Common Vulnerability Scoring System), noté de 0 à 10, mesure la gravité technique d'une faille dans l'absolu, pas ce qu'elle coûte chez vous.
+{: .callout .callout-definition}
 
 - **L'exposition** : qui peut atteindre le service (Internet, LAN entier, un seul poste) ?
 - **L'impact métier** : que perd-on si la machine tombe ou si la donnée fuit ?
@@ -392,7 +406,9 @@ Le rapport tient en six parties, sans remplissage :
 - Vérification : mêmes commande et sortie après correction.
 ```
 
-> 💡 Capturez chaque preuve en une ligne, horodatée et empreintée :
+> 💡 **À retenir**
+>
+> Capturez chaque preuve en une ligne, horodatée et empreintée :
 {: .callout .callout-important}
 
 ```bash

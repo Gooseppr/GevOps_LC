@@ -46,7 +46,9 @@ Les chiffres et noms de métriques de ce module sont illustratifs. Les noms exac
 
 Pour une API, trois questions suffisent pour savoir si le service est en bonne santé. Combien de requêtes arrivent ? Combien échouent ? Combien de temps prennent les autres ? C'est la méthode RED (Rate, Errors, Duration).
 
-> 🧠 **Concept clé** — Ces trois signaux se lisent ensemble. Un débit qui s'effondre avec zéro erreur peut signaler une panne en amont (plus personne n'arrive jusqu'à vous). Des erreurs qui montent à débit constant pointent vers l'application. Une latence qui monte à débit constant pointe vers une ressource saturée.
+> 🧠 **Concept clé**
+>
+> Ces trois signaux se lisent ensemble. Un débit qui s'effondre avec zéro erreur peut signaler une panne en amont (plus personne n'arrive jusqu'à vous). Des erreurs qui montent à débit constant pointent vers l'application. Une latence qui monte à débit constant pointe vers une ressource saturée.
 {: .callout .callout-important}
 
 | Signal | Question | Requête PromQL de départ |
@@ -75,12 +77,16 @@ Affichez-le avec l'unité `Percent (0.0-1.0)`. Quand le trafic est nul, la divis
 
 ## La latence : pourquoi la moyenne vous ment
 
-> ⚠️ **Erreur fréquente** — Afficher `rate(..._sum) / rate(..._count)` et conclure que « la latence est bonne ».
-{: .callout .callout-attention}
-
 Imaginez 100 requêtes : 98 répondent en 50 ms, 2 prennent 5 secondes. La moyenne vaut (98 × 0,05 + 2 × 5) / 100, soit environ 150 ms, un chiffre qui ne choque personne. Pourtant, deux utilisateurs sur cent ont attendu cinq secondes, et ce sont probablement ceux qui passaient une commande.
 
-> 📖 **Définition.** Un percentile répond à une question plus utile que la moyenne : « quel temps 95 % (p95) ou 99 % (p99) des requêtes ne dépassent-elles pas ? ».
+> ⚠️ **Erreur fréquente**
+>
+> Afficher `rate(..._sum) / rate(..._count)` et conclure que « la latence est bonne ».
+{: .callout .callout-attention}
+
+> 📖 **Définition**
+>
+> Un percentile répond à une question plus utile que la moyenne : « quel temps 95 % (p95) ou 99 % (p99) des requêtes ne dépassent-elles pas ? ».
 {: .callout .callout-definition}
 
 Sur l'exemple, le p95 vaut 50 ms (il ne voit pas encore le problème) et le p99 vaut 5 s (il le voit). Les deux n'ont donc pas le même rôle : le p95 décrit l'expérience courante, le p99 la queue de distribution, où se cachent les incidents naissants.
@@ -113,7 +119,9 @@ Regardez les valeurs de `le` : elles doivent encadrer vos seuils réels (par exe
 
 **Regarder la forme, pas seulement un chiffre.** Le panel Heatmap, alimenté par `sum by (le) (increase(http_request_duration_seconds_bucket[$__rate_interval]))` avec le format Heatmap, montre la distribution complète au fil du temps. Une seconde « bande » qui apparaît loin au-dessus de la première, c'est exactement la population de requêtes lentes que la moyenne masquait.
 
-> 💡 **Astuce** — Placez moyenne, p95 et p99 dans le même panel pendant quelques semaines. L'écart entre les courbes devient un indicateur à part entière : quand p99 s'éloigne de p95, une minorité de requêtes se comporte différemment.
+> 💡 **Astuce**
+>
+> Placez moyenne, p95 et p99 dans le même panel pendant quelques semaines. L'écart entre les courbes devient un indicateur à part entière : quand p99 s'éloigne de p95, une minorité de requêtes se comporte différemment.
 {: .callout .callout-astuce}
 
 ## Découper par route, méthode et statut
@@ -122,7 +130,9 @@ Un taux d'erreur global n'est qu'une moyenne de plus : une route qui échoue à 
 
 Ce découpage impose une règle : le label `route` doit contenir le **modèle** de la route (`/orders/:id`), pas le chemin brut (`/orders/84217`). Sinon, chaque identifiant crée une nouvelle série et la cardinalité explose, ce qui coûte cher en mémoire et en temps de requête.
 
-> 📖 **Définition.** La cardinalité d'une métrique est le nombre de séries distinctes qu'elle produit, c'est-à-dire le nombre de combinaisons de valeurs de ses labels.
+> 📖 **Définition**
+>
+> La cardinalité d'une métrique est le nombre de séries distinctes qu'elle produit, c'est-à-dire le nombre de combinaisons de valeurs de ses labels.
 {: .callout .callout-definition}
 
 Vérifiez-le dans Explore :
@@ -150,7 +160,9 @@ Les deux familles ne se lisent pas de la même façon, et les regrouper dans un 
 | 404 | Ressource ou route inexistante | Hausse après déploiement = route renommée ou client non mis à jour |
 | 429 | Limitation de débit | Un client légitime est-il bloqué ? Une boucle de retry s'est-elle déclenchée ? |
 
-> 💡 **À retenir.** Alertez sur les 5xx, surveillez les 4xx. Les 4xx sont majoritairement causés par le client, mais une variation soudaine reste un excellent indicateur de changement. Un 401 massif juste après une mise en production n'est pas « la faute des clients ».
+> 💡 **À retenir**
+>
+> Alertez sur les 5xx, surveillez les 4xx. Les 4xx sont majoritairement causés par le client, mais une variation soudaine reste un excellent indicateur de changement. Un 401 massif juste après une mise en production n'est pas « la faute des clients ».
 {: .callout .callout-important}
 
 Pour un panel de 4xx, découpez par code :
@@ -159,17 +171,23 @@ Pour un panel de 4xx, découpez par code :
 sum by (status) (rate(http_requests_total{service="$service", status=~"4.."}[$__rate_interval]))
 ```
 
-> ⚠️ **Erreur fréquente** — Ne compter que les statuts renvoyés par l'application. Un timeout vu par le reverse proxy (504), une connexion fermée par le client avant la réponse, ou un conteneur redémarré en pleine requête n'apparaissent pas forcément dans les métriques applicatives. Si le taux d'erreur applicatif est à 0 % mais que les utilisateurs échouent, comparez avec les métriques du proxy ou du load balancer.
+> ⚠️ **Erreur fréquente**
+>
+> Ne compter que les statuts renvoyés par l'application. Un timeout vu par le reverse proxy (504), une connexion fermée par le client avant la réponse, ou un conteneur redémarré en pleine requête n'apparaissent pas forcément dans les métriques applicatives. Si le taux d'erreur applicatif est à 0 % mais que les utilisateurs échouent, comparez avec les métriques du proxy ou du load balancer.
 {: .callout .callout-attention}
 
 ## Saturation : ce qui retient les requêtes
 
 Une API qui ralentit sans erreur est presque toujours en train d'attendre quelque chose : une connexion de base de données, un thread de travail, une place dans une file, la réponse d'un service tiers. On parle de saturation, la deuxième lettre de la méthode USE (Utilization, Saturation, Errors), qui s'applique aux ressources comme la méthode RED s'applique aux requêtes.
 
-> 🛒 **Analogie : les caisses d'un magasin.** Un pool de connexions fonctionne comme un nombre fixe de caisses. Quand toutes sont occupées, personne n'est refusé tout de suite : les clients font la queue et l'attente s'allonge. Limite de l'image : côté logiciel, l'attente a un plafond, le timeout, au-delà duquel la requête échoue.
+> 🛒 **Analogie : les caisses d'un magasin**
+>
+> Un pool de connexions fonctionne comme un nombre fixe de caisses. Quand toutes sont occupées, personne n'est refusé tout de suite : les clients font la queue et l'attente s'allonge. Limite de l'image : côté logiciel, l'attente a un plafond, le timeout, au-delà duquel la requête échoue.
 {: .callout .callout-analogie}
 
-> 🧠 **Concept clé** — La saturation se manifeste **avant** les erreurs. Un pool de connexions à 100 % ne produit pas d'erreur tout de suite : les requêtes attendent, la latence monte, puis les timeouts arrivent. Observer l'occupation des ressources vous donne quelques minutes d'avance sur les 5xx.
+> 🧠 **Concept clé**
+>
+> La saturation se manifeste **avant** les erreurs. Un pool de connexions à 100 % ne produit pas d'erreur tout de suite : les requêtes attendent, la latence monte, puis les timeouts arrivent. Observer l'occupation des ressources vous donne quelques minutes d'avance sur les 5xx.
 {: .callout .callout-important}
 
 Trois familles de panels couvrent l'essentiel, à condition que l'application expose les métriques (la plupart des bibliothèques de pool et de files le permettent) :
@@ -232,7 +250,9 @@ sum(rate(http_requests_total{service="orders-api", status=~"5.."}[$__rate_interv
 
 Ajoutez cette requête en deuxième série du panel, à côté de la requête actuelle, et affichez-la en pointillés gris.
 
-> ⚠️ **Erreur fréquente** — Conclure « c'est le déploiement » parce que les deux événements coïncident. Une corrélation temporelle donne une hypothèse, pas une preuve. Vérifiez que le changement explique le mécanisme observé (quelle ressource sature, quelle route est touchée) avant de décider d'un rollback.
+> ⚠️ **Erreur fréquente**
+>
+> Conclure « c'est le déploiement » parce que les deux événements coïncident. Une corrélation temporelle donne une hypothèse, pas une preuve. Vérifiez que le changement explique le mécanisme observé (quelle ressource sature, quelle route est touchée) avant de décider d'un rollback.
 {: .callout .callout-attention}
 
 ## Une démarche de diagnostic reproductible

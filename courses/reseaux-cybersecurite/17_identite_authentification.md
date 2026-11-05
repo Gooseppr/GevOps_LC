@@ -51,7 +51,9 @@ Ce module détaille chaque maillon de cette chaîne.
 
 ## Trois questions, trois mécanismes différents
 
-> 🧠 **Concept clé** : un système d'accès répond à trois questions successives, et chacune a ses propres failles.
+> 🧠 **Concept clé**
+>
+> Un système d'accès répond à trois questions successives, et chacune a ses propres failles.
 {: .callout .callout-important}
 
 | Question | Nom | Mécanisme typique | Où ça casse |
@@ -60,7 +62,9 @@ Ce module détaille chaque maillon de cette chaîne.
 | Peut-il le prouver ? | Authentification | Facteur de connaissance, de possession ou d'inhérence | Vol, devinette, relais, contournement du facteur |
 | Que peut-il faire ? | Autorisation | Rôles, groupes, ACL, politiques, scopes | Droits excédentaires, contrôle absent côté serveur |
 
-> 🔑 **Moyen mnémotechnique** : les trois catégories de facteurs tiennent en une formule classique. « Ce que je sais » correspond à la connaissance (mot de passe, PIN). « Ce que j'ai » correspond à la possession (clé matérielle, téléphone). « Ce que je suis » correspond à l'inhérence (empreinte, visage).
+> 🔑 **Moyen mnémotechnique**
+>
+> Les trois catégories de facteurs tiennent en une formule classique. « Ce que je sais » correspond à la connaissance (mot de passe, PIN). « Ce que j'ai » correspond à la possession (clé matérielle, téléphone). « Ce que je suis » correspond à l'inhérence (empreinte, visage).
 {: .callout .callout-memo}
 
 Deux mots de passe, ou un mot de passe et une question secrète, ne font **pas** du MFA : ce sont deux fois la même catégorie.
@@ -90,10 +94,14 @@ Les acteurs les plus probables sont des opérateurs de ransomware ou des courtie
 
 Deux techniques dominent, et elles n'ont rien de sophistiqué.
 
-> 🔴 **Vecteur d'attaque : credential stuffing.** L'attaquant rejoue des couples login/mot de passe issus de fuites sur d'autres sites. Il compte sur la réutilisation. Des outils d'automatisation comme OpenBullet existent pour ça, et le trafic ressemble à des connexions normales réparties sur des milliers d'adresses IP.
+> 🔴 **Vecteur d'attaque : credential stuffing**
+>
+> L'attaquant rejoue des couples login/mot de passe issus de fuites sur d'autres sites. Il compte sur la réutilisation. Des outils d'automatisation comme OpenBullet existent pour ça, et le trafic ressemble à des connexions normales réparties sur des milliers d'adresses IP.
 {: .callout .callout-danger}
 
-> 🔴 **Vecteur d'attaque : password spraying.** À l'inverse du brute force classique, on teste **un seul** mot de passe plausible (`Printemps2025!`, `<Entreprise>2025`) contre **tous** les comptes. Le verrouillage après 5 échecs par compte ne se déclenche jamais. Des outils comme Kerbrute (`passwordspray`) ou MSOLSpray font ça sur Kerberos ou sur Microsoft 365.
+> 🔴 **Vecteur d'attaque : password spraying**
+>
+> À l'inverse du brute force classique, on teste **un seul** mot de passe plausible (`Printemps2025!`, `<Entreprise>2025`) contre **tous** les comptes. Le verrouillage après 5 échecs par compte ne se déclenche jamais. Des outils comme Kerbrute (`passwordspray`) ou MSOLSpray font ça sur Kerberos ou sur Microsoft 365.
 {: .callout .callout-danger}
 
 La recommandation du NIST (SP 800-63B) va à l'opposé de nombreuses politiques d'entreprise :
@@ -114,7 +122,9 @@ Pourquoi renoncer à la rotation ? Parce que la rotation forcée pousse les util
 | Push avec number matching | Réduit la fatigue, mais pas le relais AiTM | Non |
 | FIDO2 / passkey | Vol de l'appareil, compromission du processus de récupération | **Oui** |
 
-> ⚠️ **Erreur fréquente** : croire que « MFA activé » est une propriété binaire. Un proxy Evilginx placé entre la victime et le vrai site transmet le mot de passe, puis le code TOTP, puis récupère le cookie de session émis après validation. Le MFA a fonctionné, mais l'attaquant possède la session.
+> ⚠️ **Erreur fréquente**
+>
+> Croire que « MFA activé » est une propriété binaire. Un proxy Evilginx placé entre la victime et le vrai site transmet le mot de passe, puis le code TOTP, puis récupère le cookie de session émis après validation. Le MFA a fonctionné, mais l'attaquant possède la session.
 {: .callout .callout-attention}
 
 ### Passkeys : pourquoi elles changent la donne
@@ -123,7 +133,9 @@ Une passkey repose sur WebAuthn (Web Authentication) et FIDO2. À l'inscription,
 
 Sur un faux domaine, l'authentificateur ne trouve aucun credential pour cette origine, et une signature relayée serait invalide pour le vrai site. L'utilisateur ne peut pas se faire piéger, même s'il le veut. C'est ce qui sépare « authentification forte » (au moins deux facteurs différents) de « résistante au phishing ».
 
-> 🔒 **Contrôle de sécurité** : déployer d'abord des clés FIDO2 ou des passkeys pour les administrateurs et les accès à risque, puis étendre. Cela évite de payer le coût de support pour 800 personnes avant d'avoir sécurisé les 15 comptes qui comptent.
+> 🔒 **Contrôle de sécurité**
+>
+> Déployer d'abord des clés FIDO2 ou des passkeys pour les administrateurs et les accès à risque, puis étendre. Cela évite de payer le coût de support pour 800 personnes avant d'avoir sécurisé les 15 comptes qui comptent.
 {: .callout .callout-securite}
 
 Limites à connaître avant de décider :
@@ -132,7 +144,9 @@ Limites à connaître avant de décider :
 - Les passkeys synchronisées déplacent une partie du risque vers le compte du fournisseur de synchronisation.
 - Les applications héritières (protocoles sans navigateur) ne supportent pas WebAuthn et doivent être traitées à part.
 
-> 💡 **Astuce** : bloquer l'authentification héritière (basic auth sur IMAP, SMTP, certains endpoints Exchange). Elle ne supporte pas le MFA et contourne donc toute politique que vous venez de déployer.
+> 💡 **Astuce**
+>
+> Bloquer l'authentification héritière (basic auth sur IMAP, SMTP, certains endpoints Exchange). Elle ne supporte pas le MFA et contourne donc toute politique que vous venez de déployer.
 {: .callout .callout-astuce}
 
 ## Où vivent les identités : comptes locaux, annuaires, fédération
@@ -163,7 +177,9 @@ Kerberos est le protocole d'authentification par défaut dans un domaine AD. Son
 
 Les tickets sont émis par le KDC*, qui tourne sur les contrôleurs de domaine.
 
-> 🎡 **Analogie : le bracelet de parc d'attractions.** Le TGT ressemble au bracelet remis à l'entrée : il prouve que vous avez passé le contrôle. Pour chaque attraction, vous le présentez au guichet et recevez un billet valable pour celle-ci seulement, c'est le ticket de service. Limite de l'image : le guichet (le KDC) ne vérifie pas que vous avez le droit de monter, c'est l'attraction (le service) qui décide.
+> 🎡 **Analogie : le bracelet de parc d'attractions**
+>
+> Le TGT ressemble au bracelet remis à l'entrée : il prouve que vous avez passé le contrôle. Pour chaque attraction, vous le présentez au guichet et recevez un billet valable pour celle-ci seulement, c'est le ticket de service. Limite de l'image : le guichet (le KDC) ne vérifie pas que vous avez le droit de monter, c'est l'attraction (le service) qui décide.
 {: .callout .callout-analogie}
 
 ```mermaid
@@ -209,12 +225,14 @@ C'est ce dernier point qui fonde l'attaque la plus rentable sur AD.
 
 Le SSO (Single Sign-On) évite de se reconnecter à chaque application : l'utilisateur s'authentifie une fois auprès de l'IdP, et les applications reçoivent une preuve. Trois standards se partagent ce terrain, avec des rôles différents.
 
-> ⚠️ **Piège à traiter explicitement : OAuth 2.0 est un cadre d'autorisation, pas à lui seul un protocole d'authentification.**
+> ⚠️ **Piège à traiter explicitement : OAuth 2.0 est un cadre d'autorisation, pas à lui seul un protocole d'authentification**
 {: .callout .callout-attention}
 
 OAuth 2.0 (RFC 6749) règle une seule question : comment une application obtient, avec le consentement de l'utilisateur, un **access token** pour appeler une API avec des droits limités (les *scopes*). Ce jeton dit : « le porteur peut appeler l'API X avec le scope Y ». Il ne dit pas qui est l'utilisateur, ni qu'il vient de s'authentifier, ni pour quelle application la connexion a eu lieu. L'application cliente n'a même pas à pouvoir lire son contenu : il est destiné à l'API.
 
-> 🏨 **Analogie : la carte d'hôtel.** Un access token fonctionne comme une carte magnétique d'hôtel. Elle ouvre certaines portes pendant une durée limitée, mais elle n'indique pas qui la tient. Limite de l'image : rien n'empêche de présenter à une application un jeton remis à une autre, si elle ne vérifie pas à qui il était destiné.
+> 🏨 **Analogie : la carte d'hôtel**
+>
+> Un access token fonctionne comme une carte magnétique d'hôtel. Elle ouvre certaines portes pendant une durée limitée, mais elle n'indique pas qui la tient. Limite de l'image : rien n'empêche de présenter à une application un jeton remis à une autre, si elle ne vérifie pas à qui il était destiné.
 {: .callout .callout-analogie}
 
 L'erreur classique ressemble à ceci. Un site propose « Se connecter avec <IDP> », reçoit un access token côté navigateur et, pour savoir qui se connecte, appelle l'endpoint profil avec ce jeton. Or un jeton obtenu par une autre application, que l'utilisateur a autorisée avec le même IdP, est tout aussi valide pour l'IdP. Un attaquant qui contrôle cette autre application peut rejouer le jeton auprès du site naïf et s'y connecter comme la victime. L'absence d'audience, de lien avec le client et de nonce rend la confusion possible.
@@ -259,10 +277,14 @@ Une application qui valide un `id_token` doit contrôler au minimum :
 
 SAML (Security Assertion Markup Language) est le standard plus ancien de fédération en entreprise. L'IdP envoie au SP (Service Provider) une assertion XML signée, via le navigateur de l'utilisateur. La sécurité entière dépend de la **validation de la signature** par le SP.
 
-> 🔴 **XML Signature Wrapping.** Le parseur valide la signature d'un élément, mais l'application lit les attributs d'un autre élément injecté. Ce genre de faille a produit des contournements d'authentification critiques dans plusieurs implémentations SAML.
+> 🔴 **XML Signature Wrapping**
+>
+> Le parseur valide la signature d'un élément, mais l'application lit les attributs d'un autre élément injecté. Ce genre de faille a produit des contournements d'authentification critiques dans plusieurs implémentations SAML.
 {: .callout .callout-danger}
 
-> 🔴 **Golden SAML.** Un attaquant qui vole la clé privée de signature de l'IdP peut forger des assertions pour n'importe quel utilisateur, **sans mot de passe et sans MFA**. La technique a été décrite publiquement par CyberArk et observée dans la campagne SolarWinds. La défense est de traiter les serveurs d'IdP et leurs clés comme des actifs de niveau 0 : accès restreint, HSM (Hardware Security Module) quand c'est possible, surveillance des exports de certificat.
+> 🔴 **Golden SAML**
+>
+> Un attaquant qui vole la clé privée de signature de l'IdP peut forger des assertions pour n'importe quel utilisateur, **sans mot de passe et sans MFA**. La technique a été décrite publiquement par CyberArk et observée dans la campagne SolarWinds. La défense est de traiter les serveurs d'IdP et leurs clés comme des actifs de niveau 0 : accès restreint, HSM (Hardware Security Module) quand c'est possible, surveillance des exports de certificat.
 {: .callout .callout-danger}
 
 ### Quel protocole pour quel besoin
@@ -291,17 +313,23 @@ Le modèle *Joiner-Mover-Leaver* décrit trois moments, et la majorité des éca
 - **Mover** : changement de poste. Les droits de l'ancien rôle doivent être **retirés**, sinon s'installe le *privilege creep* : le chef de projet qui a été comptable, puis support, cumule trois périmètres.
 - **Leaver** : désactivation à la date de départ, sans attendre le ticket.
 
-> ⚠️ **Erreur fréquente** : désactiver le compte et considérer l'accès coupé. Les sessions web existantes, les refresh tokens OAuth, les clés d'API et les mots de passe d'application peuvent rester valides. Il faut révoquer explicitement les sessions et jetons, et vérifier dans les journaux de l'IdP qu'aucune activité ne subsiste après la date de départ.
+> ⚠️ **Erreur fréquente**
+>
+> Désactiver le compte et considérer l'accès coupé. Les sessions web existantes, les refresh tokens OAuth, les clés d'API et les mots de passe d'application peuvent rester valides. Il faut révoquer explicitement les sessions et jetons, et vérifier dans les journaux de l'IdP qu'aucune activité ne subsiste après la date de départ.
 {: .callout .callout-attention}
 
-> 🔒 **Contrôle de sécurité** : une revue périodique des accès (trimestrielle pour les droits sensibles, annuelle pour le reste) où le **responsable métier** confirme les droits de son équipe, pas l'équipe IT. Pour tenir ce rythme sans épuiser les managers, on concentre la revue sur les groupes privilégiés et les applications critiques.
+> 🔒 **Contrôle de sécurité**
+>
+> Une revue périodique des accès (trimestrielle pour les droits sensibles, annuelle pour le reste) où le **responsable métier** confirme les droits de son équipe, pas l'équipe IT. Pour tenir ce rythme sans épuiser les managers, on concentre la revue sur les groupes privilégiés et les applications critiques.
 {: .callout .callout-securite}
 
 ## PAM : gérer les comptes à privilèges
 
 Un compte administrateur est le contrôle le plus rentable pour un attaquant : un seul vol de credential donne accès à des centaines de systèmes. La gestion des accès à privilèges (PAM, Privileged Access Management) réduit cette exposition.
 
-> 🔴 **Vecteur d'attaque : récolte de credentials sur les postes.** Un administrateur se connecte avec son compte `Domain Admin` sur un poste de travail utilisateur pour dépanner. Le hash ou le ticket reste en mémoire. L'attaquant qui a pris ce poste l'extrait avec Mimikatz, et le domaine est perdu. Le modèle de niveaux d'administration (*tiering*) sépare : comptes pour l'annuaire et les contrôleurs de domaine, comptes pour les serveurs, comptes pour les postes. Un compte d'un niveau ne se connecte jamais à un niveau inférieur.
+> 🔴 **Vecteur d'attaque : récolte de credentials sur les postes**
+>
+> Un administrateur se connecte avec son compte `Domain Admin` sur un poste de travail utilisateur pour dépanner. Le hash ou le ticket reste en mémoire. L'attaquant qui a pris ce poste l'extrait avec Mimikatz, et le domaine est perdu. Le modèle de niveaux d'administration (*tiering*) sépare : comptes pour l'annuaire et les contrôleurs de domaine, comptes pour les serveurs, comptes pour les postes. Un compte d'un niveau ne se connecte jamais à un niveau inférieur.
 {: .callout .callout-danger}
 
 Les briques d'une architecture PAM :
@@ -402,7 +430,7 @@ La leçon pour un livrable : ne pas présenter 40 constats à égalité, mais un
 
 ## Erreurs fréquentes
 
-> ⚠️ **Utiliser l'access token comme preuve de connexion.**
+> ⚠️ **Utiliser l'access token comme preuve de connexion**
 {: .callout .callout-attention}
 
 *Configuration* : l'application web reçoit un access token et appelle `userinfo` pour savoir qui est connecté, sans valider d'`id_token`.
@@ -410,7 +438,7 @@ La leçon pour un livrable : ne pas présenter 40 constats à égalité, mais un
 *Correction* : passer en OIDC, valider `iss`, `aud`, `exp`, `nonce` et la signature de l'`id_token`.
 *Détection* : en revue de code, chercher les endroits où un access token sert à déterminer l'identité ; en audit, rejouer un jeton émis pour un autre client.
 
-> ⚠️ **Compte de service privilégié, mot de passe statique.**
+> ⚠️ **Compte de service privilégié, mot de passe statique**
 {: .callout .callout-attention}
 
 *Configuration* : `svc_backup` dans `Domain Admins`, mot de passe de 10 caractères, jamais renouvelé.
@@ -418,7 +446,7 @@ La leçon pour un livrable : ne pas présenter 40 constats à égalité, mais un
 *Correction* : gMSA, ou mot de passe aléatoire de 25 caractères ou plus, et droits réduits au service concerné.
 *Détection* : requête `Get-ADUser` avec `ServicePrincipalName` croisée avec l'appartenance aux groupes privilégiés.
 
-> ⚠️ **`redirect_uri` en préfixe ou avec joker.**
+> ⚠️ **`redirect_uri` en préfixe ou avec joker**
 {: .callout .callout-attention}
 
 *Configuration* : `https://app.example.com/*` enregistré chez l'IdP.

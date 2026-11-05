@@ -56,7 +56,9 @@ Le menu de gauche (ou le bouton hamburger en haut à gauche si le menu est repli
 
 Vous verrez aussi **Connections** (là où se branchent les sources de données, sujet du prochain module) et, selon la version, d'autres entrées comme Drilldown. Ignorez-les pour l'instant.
 
-> 💡 **À retenir.** **Dashboards pour surveiller ce qu'on connaît, Explore pour enquêter sur ce qu'on ne connaît pas.** Un dashboard répond à une question que quelqu'un a posée avant vous. Explore sert quand la question est nouvelle.
+> 💡 **À retenir**
+>
+> **Dashboards pour surveiller ce qu'on connaît, Explore pour enquêter sur ce qu'on ne connaît pas.** Un dashboard répond à une question que quelqu'un a posée avant vous. Explore sert quand la question est nouvelle.
 {: .callout .callout-important}
 
 L'entrée Administration n'est visible que si votre rôle le permet. Sur un compte en lecture seule, elle disparaît, ce qui n'est pas un bug.
@@ -82,20 +84,26 @@ flowchart TD
 - **Le dashboard** est une page composée de panels, avec ses propres réglages (période, actualisation, fuseau, variables).
 - **Le panel** est une visualisation individuelle : un graphique, une jauge, un tableau, un panneau de logs.
 
-> 🏢 **Analogie : l'immeuble.** L'instance est l'immeuble, chaque organisation un appartement fermé à clé : ce qui s'y trouve reste invisible des voisins. Les dossiers en sont les pièces, chacune avec sa propre serrure (les permissions). Limite : un même utilisateur peut détenir les clés de plusieurs appartements, avec un rôle différent dans chacun.
+> 🏢 **Analogie : l'immeuble**
+>
+> L'instance est l'immeuble, chaque organisation un appartement fermé à clé : ce qui s'y trouve reste invisible des voisins. Les dossiers en sont les pièces, chacune avec sa propre serrure (les permissions). Limite : un même utilisateur peut détenir les clés de plusieurs appartements, avec un rôle différent dans chacun.
 {: .callout .callout-analogie}
 
 Dans une instance fraîchement installée, vous êtes très probablement seul dans l'organisation par défaut (« Main Org. »). C'est suffisant pour ce parcours ; le multi-organisation est surtout utile pour séparer des clients ou des équipes qui ne doivent rien partager.
 
-> 📖 **Définition.** L'UID (Unique Identifier) est l'identifiant unique d'un dashboard, visible dans l'URL : `/d/<UID>/<nom-lisible>`. Le nom peut changer, l'UID reste stable : c'est lui qui compte quand vous partagez un lien ou que vous automatisez quelque chose plus tard.
+> 📖 **Définition**
+>
+> L'UID (Unique Identifier) est l'identifiant unique d'un dashboard, visible dans l'URL : `/d/<UID>/<nom-lisible>`. Le nom peut changer, l'UID reste stable : c'est lui qui compte quand vous partagez un lien ou que vous automatisez quelque chose plus tard.
 {: .callout .callout-definition}
 
 ## Le sélecteur temporel : le réglage qui change tout
 
-> 🧠 **Concept clé** — Un panel ne « contient » pas de données. Il envoie une requête à la source de données pour une fenêtre de temps précise, puis dessine le résultat. Changez la fenêtre, vous changez la requête, donc ce que vous voyez. La barre en haut à droite du dashboard pilote cette fenêtre pour tous les panels à la fois.
-{: .callout .callout-important}
-
 Elle comporte trois contrôles, tous trois source d'erreurs d'interprétation.
+
+> 🧠 **Concept clé**
+>
+> Un panel ne « contient » pas de données. Il envoie une requête à la source de données pour une fenêtre de temps précise, puis dessine le résultat. Changez la fenêtre, vous changez la requête, donc ce que vous voyez. La barre en haut à droite du dashboard pilote cette fenêtre pour tous les panels à la fois.
+{: .callout .callout-important}
 
 ### La période
 
@@ -114,7 +122,9 @@ Attention à une valeur trop basse sur un dashboard chargé : elle met la source
 
 L'administrateur peut d'ailleurs fixer un plancher (paramètre `min_refresh_interval` dans la section `[dashboards]` de la configuration serveur).
 
-> 💡 **Astuce** — Le bouton de rafraîchissement manuel (la flèche circulaire) fonctionne même quand l'auto-refresh est sur Off. En investigation, laissez l'auto-refresh éteint : une page qui bouge pendant que vous analysez est plus gênante qu'utile.
+> 💡 **Astuce**
+>
+> Le bouton de rafraîchissement manuel (la flèche circulaire) fonctionne même quand l'auto-refresh est sur Off. En investigation, laissez l'auto-refresh éteint : une page qui bouge pendant que vous analysez est plus gênante qu'utile.
 {: .callout .callout-astuce}
 
 ### Le fuseau horaire
@@ -129,7 +139,9 @@ Le fuseau se règle au niveau du dashboard (Settings → General, ou « Change t
 
 Quand vos serveurs, vos logs et vos collègues sont répartis sur plusieurs fuseaux, **passer en UTC** est le réflexe le plus fiable : une seule référence, pas de décalage d'heure d'été à calculer.
 
-> ⚠️ **Erreur fréquente** — Conclure « rien d'anormal » en regardant une période qui ne contient pas l'événement, ou qui l'écrase. Trois mécanismes expliquent ce piège :
+> ⚠️ **Erreur fréquente**
+>
+> Conclure « rien d'anormal » en regardant une période qui ne contient pas l'événement, ou qui l'écrase. Trois mécanismes expliquent ce piège :
 {: .callout .callout-attention}
 
 1. **La fenêtre est trop courte ou mal placée.** « Last 6 hours » lundi matin ne montre rien du samedi soir.
@@ -175,7 +187,9 @@ Pas de bouton Edit ? Ce n'est pas un bug d'affichage, c'est une question de droi
 
 À ne pas confondre : le « Grafana Admin » (administrateur de toute l'instance, qui gère organisations et utilisateurs globaux) n'est pas la même chose qu'un « Admin » d'organisation. Le premier voit l'ensemble du serveur, le second seulement son organisation.
 
-> 💡 **Astuce** — Pour partager une vue précise sans donner de droits d'édition, utilisez le bouton Share (ou Export, selon la version) du dashboard. Le lien généré peut inclure la période courante : cochez l'option de verrouillage de la période si elle est proposée. Votre collègue verra ce que vous voyez, pas « les 6 dernières heures » depuis son clic.
+> 💡 **Astuce**
+>
+> Pour partager une vue précise sans donner de droits d'édition, utilisez le bouton Share (ou Export, selon la version) du dashboard. Le lien généré peut inclure la période courante : cochez l'option de verrouillage de la période si elle est proposée. Votre collègue verra ce que vous voyez, pas « les 6 dernières heures » depuis son clic.
 {: .callout .callout-astuce}
 
 ## Importer un dashboard communautaire
@@ -201,7 +215,9 @@ Une fois importé, vérifiez trois choses avant de lui faire confiance :
 - la **période** et le **fuseau** du dashboard sont ceux que vous attendez ;
 - les **variables** en haut de page (instance, job, environnement) pointent vers vos propres valeurs, pas vers celles de l'auteur.
 
-> ⚠️ **Erreur fréquente** — Importer un dashboard et le considérer comme fiable parce qu'il est joli et très téléchargé. Il suppose souvent que vos métriques portent les mêmes noms et les mêmes étiquettes que chez son auteur. Si ce n'est pas le cas, certains panels resteront vides, d'autres afficheront des valeurs trompeuses. **Correction :** ouvrez quelques panels en mode édition, lisez la requête, et confirmez qu'elle correspond bien à ce que le titre annonce. Traitez un dashboard communautaire comme un brouillon à relire, pas comme un produit fini.
+> ⚠️ **Erreur fréquente**
+>
+> Importer un dashboard et le considérer comme fiable parce qu'il est joli et très téléchargé. Il suppose souvent que vos métriques portent les mêmes noms et les mêmes étiquettes que chez son auteur. Si ce n'est pas le cas, certains panels resteront vides, d'autres afficheront des valeurs trompeuses. **Correction :** ouvrez quelques panels en mode édition, lisez la requête, et confirmez qu'elle correspond bien à ce que le titre annonce. Traitez un dashboard communautaire comme un brouillon à relire, pas comme un produit fini.
 {: .callout .callout-attention}
 
 ## Diagnostic : quand l'interface semble mentir
@@ -215,7 +231,9 @@ Une fois importé, vérifiez trois choses avant de lui faire confiance :
 | Pas de bouton Edit | rôle Viewer ou permission de dossier restrictive | demander le rôle Editor, ou la permission sur le dossier concerné |
 | Un dashboard importé affiche « No data » partout | source de données non sélectionnée ou métriques différentes de celles attendues | rouvrir les réglages du panel, choisir la bonne source, adapter la requête |
 
-> 💡 **À retenir.** « No data » ne veut jamais dire « il n'y a pas de problème ». Cela signifie seulement que la requête n'a rien renvoyé. La période est-elle mauvaise, le service est-il tombé, la requête est-elle incorrecte ? C'est à vous de le déterminer. Ce réflexe se renforcera au fil du parcours.
+> 💡 **À retenir**
+>
+> « No data » ne veut jamais dire « il n'y a pas de problème ». Cela signifie seulement que la requête n'a rien renvoyé. La période est-elle mauvaise, le service est-il tombé, la requête est-elle incorrecte ? C'est à vous de le déterminer. Ce réflexe se renforcera au fil du parcours.
 {: .callout .callout-important}
 
 ## Cas réel : l'incident du samedi soir (scénario illustratif)

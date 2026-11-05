@@ -47,7 +47,9 @@ Une requête PromQL ne vaut que par ce qu'on en fait. Un dashboard fige une ques
 
 Que manipule-t-on exactement avant de cliquer ?
 
-> 📖 **Définition.** Un dashboard est un document JSON stocké par Grafana. Il contient des panels, et chaque panel contient une ou plusieurs requêtes vers une source de données.
+> 📖 **Définition**
+>
+> Un dashboard est un document JSON stocké par Grafana. Il contient des panels, et chaque panel contient une ou plusieurs requêtes vers une source de données.
 {: .callout .callout-definition}
 
 ```mermaid
@@ -63,7 +65,9 @@ flowchart TD
 
 Le dossier sert surtout à regrouper les dashboards et à poser des permissions, ce qu'on verra au module d'administration. Les rows sont des sections repliables : elles servent à structurer la lecture, pas à décorer.
 
-> 🧠 **Concept clé** — Le dashboard n'est pas lié à une métrique, il est lié à une **question**. « Ce serveur est-il en bonne santé ? » est un bon dashboard. « Toutes les métriques de node_exporter » est un catalogue.
+> 🧠 **Concept clé**
+>
+> Le dashboard n'est pas lié à une métrique, il est lié à une **question**. « Ce serveur est-il en bonne santé ? » est un bon dashboard. « Toutes les métriques de node_exporter » est un catalogue.
 {: .callout .callout-important}
 
 ## Mise en place : créer le premier dashboard
@@ -132,7 +136,9 @@ Le Bar chart ne montre pas le temps, il compare des catégories (points de monta
 topk(5, 100 * (1 - node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"}))
 ```
 
-> ⚠️ **Erreur fréquente** — Bar chart vide ou illisible. Cause : requête laissée en Range et format Time series, donc Grafana reçoit des courbes et non des catégories. Correction : Instant + Format Table, puis sélection du champ texte pour l'axe X. Selon les versions, le panel peut aussi proposer de lui-même une transformation : lisez le message d'avertissement dans le panel.
+> ⚠️ **Erreur fréquente**
+>
+> Bar chart vide ou illisible. Cause : requête laissée en Range et format Time series, donc Grafana reçoit des courbes et non des catégories. Correction : Instant + Format Table, puis sélection du champ texte pour l'axe X. Selon les versions, le panel peut aussi proposer de lui-même une transformation : lisez le message d'avertissement dans le panel.
 {: .callout .callout-attention}
 
 ## Le query editor et ses options
@@ -145,7 +151,9 @@ Sous la requête, trois options reviennent tout le temps :
 - **Min step** : intervalle minimum entre deux points. Si vous forcez 5 s alors que Prometheus scrape toutes les 30 s, vous demandez des points qui n'existent pas.
 - **Type** : Range pour les courbes, Instant pour les valeurs courantes (tables, bar charts), Both pour les deux.
 
-> 🎞️ **Analogie : le film et la photo.** Une requête Range est un film : une suite de points sur la plage de temps, faite pour une courbe. Une requête Instant est une photo : une seule valeur par série, faite pour un tableau ou un classement. Limite de l'image : la « photo » reprend la dernière valeur disponible dans les minutes précédentes, pas forcément une mesure prise à la seconde exacte.
+> 🎞️ **Analogie : le film et la photo**
+>
+> Une requête Range est un film : une suite de points sur la plage de temps, faite pour une courbe. Une requête Instant est une photo : une seule valeur par série, faite pour un tableau ou un classement. Limite de l'image : la « photo » reprend la dernière valeur disponible dans les minutes précédentes, pas forcément une mesure prise à la seconde exacte.
 {: .callout .callout-analogie}
 
 Un panel peut contenir plusieurs requêtes (A, B, C…). C'est utile pour superposer, par exemple, le trafic entrant et sortant sur le même graphique.
@@ -158,17 +166,23 @@ C'est la partie qui sépare un graphique lisible d'un graphique qui trompe. Tout
 
 Un chiffre sans unité est une énigme. Pour de la mémoire ou des octets, choisissez la variante binaire (base 1024) de *bytes* dans la catégorie Data : Grafana affichera automatiquement `3.2 GiB` plutôt que `3435973836`. Pour une durée, utilisez la catégorie Time (par exemple *duration (s)*, qui convertit une valeur en secondes en jours, heures, etc.).
 
-> ⚠️ **Erreur fréquente** — Une jauge de CPU affiche « 0.73 % » alors que la machine est à 73 %. Cause : l'unité *Percent (0-100)* est appliquée à une valeur comprise entre 0 et 1. Correction : soit multiplier la requête par 100 et garder *Percent (0-100)*, soit garder la requête brute et utiliser *Percent (0.0-1.0)*.
+> ⚠️ **Erreur fréquente**
+>
+> Une jauge de CPU affiche « 0.73 % » alors que la machine est à 73 %. Cause : l'unité *Percent (0-100)* est appliquée à une valeur comprise entre 0 et 1. Correction : soit multiplier la requête par 100 et garder *Percent (0-100)*, soit garder la requête brute et utiliser *Percent (0.0-1.0)*.
 {: .callout .callout-attention}
 
 ### Thresholds et couleurs
 
-> 📖 **Définition.** Les thresholds sont des paliers de valeurs, chacun associé à une couleur. La couleur **Base** couvre tout ce qui est en dessous du premier palier.
-{: .callout .callout-definition}
-
 Un classique pour un disque : Base verte, orange à 80, rouge à 90. Pour que la couleur s'applique réellement, vérifiez que **Color scheme** est sur *From thresholds* (c'est le défaut pour Stat et Gauge). Sur une Time series, activez *Show thresholds* en lignes pour voir la limite sur le graphique.
 
-> 💡 **Astuce** — Les seuils doivent venir d'une décision, pas d'une intuition. 80 % de disque, c'est « on agit avant la fin de semaine » ; 90 %, c'est « on agit aujourd'hui ». Si personne ne réagit à l'orange, supprimez-le : une couleur sans action est du bruit visuel.
+> 📖 **Définition**
+>
+> Les thresholds sont des paliers de valeurs, chacun associé à une couleur. La couleur **Base** couvre tout ce qui est en dessous du premier palier.
+{: .callout .callout-definition}
+
+> 💡 **Astuce**
+>
+> Les seuils doivent venir d'une décision, pas d'une intuition. 80 % de disque, c'est « on agit avant la fin de semaine » ; 90 %, c'est « on agit aujourd'hui ». Si personne ne réagit à l'orange, supprimez-le : une couleur sans action est du bruit visuel.
 {: .callout .callout-astuce}
 
 ### Légendes et axes
@@ -189,7 +203,9 @@ Trois types de liens à connaître :
 - **Data links** : lien contextuel sur un point de donnée (vers un dashboard de détail, avec des valeurs transmises).
 - **Dashboard links** (Settings → Links) : barre de navigation entre dashboards liés.
 
-> 💡 **À retenir.** Le plus important se place en haut à gauche : un lecteur pressé lit le haut, et ne descend que s'il a une raison.
+> 💡 **À retenir**
+>
+> Le plus important se place en haut à gauche : un lecteur pressé lit le haut, et ne descend que s'il a une raison.
 {: .callout .callout-important}
 
 Côté disposition, cela donne une première rangée de Stat pour l'état global (up, CPU, mémoire, disque), puis dessous les courbes de détail, puis éventuellement une row repliée pour les cas rares.
@@ -262,10 +278,12 @@ On ajoute un Table des disques (Instant, Format Table), un Bar chart du top 5 de
 
 ## Un dashboard joli n'est pas un dashboard utile
 
-> ⚠️ **Erreur fréquente** — Empiler des panels spectaculaires. Conséquence : en incident, le dashboard demande plus d'efforts de lecture que de réflexion, et l'équipe retourne à Explore. Correction : appliquer un test simple avant de partager.
-{: .callout .callout-attention}
-
 Posez-vous ces questions devant le dashboard, comme le ferait quelqu'un réveillé à 3 h du matin :
+
+> ⚠️ **Erreur fréquente**
+>
+> Empiler des panels spectaculaires. Conséquence : en incident, le dashboard demande plus d'efforts de lecture que de réflexion, et l'équipe retourne à Explore. Correction : appliquer un test simple avant de partager.
+{: .callout .callout-attention}
 
 - En moins de 30 secondes, sait-on si le serveur va bien ou mal ?
 - Chaque couleur rouge correspond-elle à une action précise ?

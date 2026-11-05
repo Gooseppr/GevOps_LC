@@ -63,7 +63,9 @@ Ici la surface d'attaque n'est pas qu'un port ou un endpoint. Ce sont aussi des 
 | Registre des risques inexistant ou périmé | Les décisions reposent sur la mémoire de quelques personnes | Incohérence entre ce que la direction croit couvert et ce qui l'est |
 | Fournisseur critique non évalué | Dépendance sans visibilité sur son niveau de sécurité | Compromission indirecte, indisponibilité du service |
 
-> 🧠 **Concept clé** : un risque n'existe qu'à l'intersection d'un **actif de valeur**, d'une **source de menace** et d'une **faiblesse exploitable**. Une vulnérabilité seule est un constat technique, pas un risque.
+> 🧠 **Concept clé**
+>
+> Un risque n'existe qu'à l'intersection d'un **actif de valeur**, d'une **source de menace** et d'une **faiblesse exploitable**. Une vulnérabilité seule est un constat technique, pas un risque.
 {: .callout .callout-important}
 
 ## Comment un attaquant fabrique un risque métier
@@ -81,7 +83,9 @@ flowchart LR
     style G fill:#c0392b,color:#fff
 ```
 
-> 🔴 **Vecteur d'attaque** : dans ce schéma, aucune étape ne demande d'exploit sophistiqué. Mimikatz, BloodHound et des outils d'exfiltration comme Rclone sont publics. Les groupes de ransomware visent aussi les sauvegardes : la vulnérabilité CVE-2023-27532 de Veeam Backup & Replication a été utilisée pour récupérer les identifiants stockés avant le chiffrement.
+> 🔴 **Vecteur d'attaque**
+>
+> Dans ce schéma, aucune étape ne demande d'exploit sophistiqué. Mimikatz, BloodHound et des outils d'exfiltration comme Rclone sont publics. Les groupes de ransomware visent aussi les sauvegardes : la vulnérabilité CVE-2023-27532 de Veeam Backup & Replication a été utilisée pour récupérer les identifiants stockés avant le chiffrement.
 {: .callout .callout-danger}
 
 Cette lecture « chaîne d'attaque » est la matière première de l'analyse de risque. Elle explique la différence entre trois énoncés :
@@ -92,7 +96,9 @@ Cette lecture « chaîne d'attaque » est la matière première de l'analyse de 
 | « Compromission de l'ERP » | Événement trop vague | Partiellement, la gravité reste floue |
 | « Un groupe ransomware, entré par un compte prestataire, chiffre l'ERP et les sauvegardes en ligne ; expédition arrêtée plus d'une semaine » | Scénario de risque métier | Oui : source, chemin, actif et impact sont visibles |
 
-> ⚠️ **Erreur fréquente** : remplir le registre avec des constats d'audit recopiés (« mots de passe faibles », « OS obsolète »). Correction : chaque ligne doit nommer une source de menace, un actif de valeur et une conséquence métier chiffrable ou au moins comparable.
+> ⚠️ **Erreur fréquente**
+>
+> Remplir le registre avec des constats d'audit recopiés (« mots de passe faibles », « OS obsolète »). Correction : chaque ligne doit nommer une source de menace, un actif de valeur et une conséquence métier chiffrable ou au moins comparable.
 {: .callout .callout-attention}
 
 ## Identifier, analyser, évaluer
@@ -138,20 +144,28 @@ Une échelle exploitable ancre chaque niveau dans une réalité mesurable, pas d
 | 3 — Grave | Une semaine d'arrêt d'une activité clé ou fuite de données clients |
 | 4 — Critique | Plus d'une semaine, perte supérieure à 500 k€ ou menace sur la survie de l'activité |
 
-> 📖 **Définition.** En approche quantitative, on calcule l'ALE (Annualized Loss Expectancy, perte annuelle attendue) : ALE = SLE (Single Loss Expectancy, coût d'une occurrence) × ARO (Annualized Rate of Occurrence, nombre d'occurrences par an).
+> 📖 **Définition**
+>
+> En approche quantitative, on calcule l'ALE (Annualized Loss Expectancy, perte annuelle attendue) : ALE = SLE (Single Loss Expectancy, coût d'une occurrence) × ARO (Annualized Rate of Occurrence, nombre d'occurrences par an).
 {: .callout .callout-definition}
 
 Avec des chiffres illustratifs : une attaque coûtant 400 000 € par occurrence, avec une occurrence tous les cinq ans (ARO = 0,2), donne un ALE de 80 000 € par an. Une mesure à 30 000 € par an qui ramène l'ARO à 0,05 laisse un ALE de 20 000 €, soit un gain net de 30 000 €.
 
-> 💡 **Astuce** : refaites le calcul avec un ARO deux fois plus élevé et deux fois plus bas. Si la décision change, vos données sont trop fragiles pour trancher sur le seul calcul, et la discussion doit porter sur les hypothèses plutôt que sur le résultat.
+> 💡 **Astuce**
+>
+> Refaites le calcul avec un ARO deux fois plus élevé et deux fois plus bas. Si la décision change, vos données sont trop fragiles pour trancher sur le seul calcul, et la discussion doit porter sur les hypothèses plutôt que sur le résultat.
 {: .callout .callout-astuce}
 
 **Évaluation.** On compare chaque risque aux critères d'acceptation définis avant l'analyse, jamais après.
 
-> 🎯 **Analogie : la cible dessinée après le tir.** Définir le seuil une fois les résultats connus, c'est tirer la flèche puis dessiner la cible autour : on « touche » à chaque fois, mais la règle a été ajustée au résultat voulu.
+> 🎯 **Analogie : la cible dessinée après le tir**
+>
+> Définir le seuil une fois les résultats connus, c'est tirer la flèche puis dessiner la cible autour : on « touche » à chaque fois, mais la règle a été ajustée au résultat voulu.
 {: .callout .callout-analogie}
 
-> ⚠️ **Piège de la matrice** : une matrice 4×4 écrase les écarts. Deux risques classés « orange » peuvent différer d'un facteur 20 en perte attendue. Gardez la matrice comme support de discussion, pas comme arbitre.
+> ⚠️ **Piège de la matrice**
+>
+> Une matrice 4×4 écrase les écarts. Deux risques classés « orange » peuvent différer d'un facteur 20 en perte attendue. Gardez la matrice comme support de discussion, pas comme arbitre.
 {: .callout .callout-attention}
 
 ## EBIOS Risk Manager : une méthode qui part de l'attaquant
@@ -174,7 +188,9 @@ La méthode se déroule en cinq ateliers. L'ANSSI met à jour sa documentation :
 
 Reprenons le scénario : le prestataire de maintenance est une partie prenante de l'écosystème. L'atelier 3 fait émerger le chemin « compromission du prestataire → accès à l'ERP ». L'atelier 4 le décline en techniques d'attaque, ce qu'un scan de vulnérabilités ne produit pas.
 
-> 💡 **Astuce** : pour un premier exercice, lancez-vous sur un seul événement redouté (par exemple « arrêt de la production plus de 3 jours ») et déroulez les cinq ateliers dessus. Un périmètre complet dès le départ produit en général un document que personne ne maintient.
+> 💡 **Astuce**
+>
+> Pour un premier exercice, lancez-vous sur un seul événement redouté (par exemple « arrêt de la production plus de 3 jours ») et déroulez les cinq ateliers dessus. Un périmètre complet dès le départ produit en général un document que personne ne maintient.
 {: .callout .callout-astuce}
 
 ## ISO/IEC 27005 : le cadre de gestion des risques
@@ -216,12 +232,16 @@ Voici un exemple de répartition en RACI (Responsible, Accountable, Consulted, I
 | Mettre en œuvre une mesure | I | C | I | R |
 | Tenir le registre et le suivi | I | **A/R** | C | C |
 
-> 🧠 **Concept clé** : le RSSI conseille et pilote le processus, mais **c'est le propriétaire du risque, celui qui subira la perte métier et dispose du budget, qui accepte**. Un RSSI qui accepte seul les risques est exposé et la direction a perdu le contrôle. Contrainte réelle : dans une PME sans RSSI à temps plein, le rôle est souvent endossé par le DSI. Il faut alors qu'une personne côté direction ou métier signe réellement les acceptations.
+> 🧠 **Concept clé**
+>
+> Le RSSI conseille et pilote le processus, mais **c'est le propriétaire du risque, celui qui subira la perte métier et dispose du budget, qui accepte**. Un RSSI qui accepte seul les risques est exposé et la direction a perdu le contrôle. Contrainte réelle : dans une PME sans RSSI à temps plein, le rôle est souvent endossé par le DSI. Il faut alors qu'une personne côté direction ou métier signe réellement les acceptations.
 {: .callout .callout-important}
 
 ## Traiter le risque : réduire, éviter, transférer, accepter
 
-> 🔑 **Moyen mnémotechnique** : les « 4 T » anglo-saxons. **T**reat (réduire), **T**erminate (éviter), **T**ransfer (transférer), **T**olerate (accepter).
+> 🔑 **Moyen mnémotechnique**
+>
+> Les « 4 T » anglo-saxons. **T**reat (réduire), **T**erminate (éviter), **T**ransfer (transférer), **T**olerate (accepter).
 {: .callout .callout-memo}
 
 | Option | Principe | Exemple (scénario ERP) | Coût / limite |
@@ -231,15 +251,19 @@ Voici un exemple de répartition en RACI (Responsible, Accountable, Consulted, I
 | Transférer | Partager la charge financière | Cyber-assurance, clause contractuelle prestataire | Ne transfère ni la responsabilité réglementaire, ni l'atteinte à l'image |
 | Accepter | Décider de vivre avec le risque résiduel | Garder l'ERP 18 mois avec mesures compensatoires | Valable uniquement si décidé, documenté et daté |
 
-> ⚠️ **Erreur fréquente sur le transfert** : croire que l'assurance couvre tout. Les polices imposent souvent des conditions (MFA, EDR [Endpoint Detection and Response], sauvegardes hors ligne) et comportent des exclusions. Un incident sur un contrôle prétendument en place mais absent peut remettre la prise en charge en cause. Correction : faire relire la police par le juridique et croiser ses exigences avec l'état réel des contrôles.
+> ⚠️ **Erreur fréquente sur le transfert**
+>
+> Croire que l'assurance couvre tout. Les polices imposent souvent des conditions (MFA, EDR [Endpoint Detection and Response], sauvegardes hors ligne) et comportent des exclusions. Un incident sur un contrôle prétendument en place mais absent peut remettre la prise en charge en cause. Correction : faire relire la police par le juridique et croiser ses exigences avec l'état réel des contrôles.
 {: .callout .callout-attention}
 
 ### Accepter n'est pas corriger
 
-> ⚠️ Le point central du module : **un risque peut être accepté après évaluation sans que la vulnérabilité disparaisse.** L'acceptation est une décision de gouvernance valable à un instant donné, pour un niveau d'exposition donné. L'attaquant, lui, ne lit pas le registre : il exploite ce qui est exploitable.
-{: .callout .callout-attention}
-
 Cela entraîne cinq conséquences opérationnelles pour toute acceptation :
+
+> ⚠️ **Attention**
+>
+> Le point central du module : **un risque peut être accepté après évaluation sans que la vulnérabilité disparaisse.** L'acceptation est une décision de gouvernance valable à un instant donné, pour un niveau d'exposition donné. L'attaquant, lui, ne lit pas le registre : il exploite ce qui est exploitable.
+{: .callout .callout-attention}
 
 1. **Un propriétaire nommé** qui signe, avec l'autorité pour le faire.
 2. **Une date d'expiration**, jamais « jusqu'à nouvel ordre ». Fixer 6 à 12 mois est courant.
@@ -326,7 +350,9 @@ nmap -Pn -p 135,445,3389 <IP_ERP>
 
 Si `3389/open` répond depuis le VLAN utilisateurs, la segmentation annoncée dans le registre est fausse.
 
-> 💡 **Astuce** : comparez un export de scan de ports ou de flux réseau avec ce que dit le registre. Les écarts entre les deux sont presque toujours instructifs.
+> 💡 **Astuce**
+>
+> Comparez un export de scan de ports ou de flux réseau avec ce que dit le registre. Les écarts entre les deux sont presque toujours instructifs.
 {: .callout .callout-astuce}
 
 ## Rejouer le scénario avec une gouvernance en place

@@ -51,7 +51,9 @@ Une règle d'alerte ne parle à personne. Quand une instance passe en `Firing`, 
 | Notification policy | Règle de routage : quelle alerte va vers quel contact point, avec quel groupement et quels délais | `severity=critical` → webhook d'astreinte, regroupé par cluster |
 | Silence / mute timing | Suppression temporaire des notifications | Silence d'une heure pendant une migration ; mute timing le samedi de 2 h à 4 h |
 
-> 🧠 **Concept clé** : le routage ne s'appuie que sur les **labels** de l'alerte. Les politiques ne lisent ni le nom de la règle ni son contenu métier. Si la règle n'a pas de label `team`, aucune politique ne peut l'envoyer à une équipe.
+> 🧠 **Concept clé**
+>
+> Le routage ne s'appuie que sur les **labels** de l'alerte. Les politiques ne lisent ni le nom de la règle ni son contenu métier. Si la règle n'a pas de label `team`, aucune politique ne peut l'envoyer à une équipe.
 {: .callout .callout-important}
 
 Les politiques forment un **arbre**. La politique racine reçoit tout et possède un contact point par défaut. Dessous, des politiques enfants filtrent par matchers de labels :
@@ -72,7 +74,9 @@ Trois règles de lecture :
 - **Les politiques sœurs sont évaluées dans l'ordre** : la première qui correspond gagne, et l'alerte s'arrête là.
 - **L'option *Continue matching*** fait exception : l'alerte continue vers les politiques suivantes. C'est comme ça qu'une alerte critique peut prévenir l'astreinte *et* l'équipe.
 
-> ⚠️ **Erreur fréquente** : oublier qu'une alerte sans label attendu retombe silencieusement sur la politique racine. Le contact point par défaut doit donc être un endroit réellement surveillé, pas une adresse poubelle. Et chaque règle devrait porter au minimum `team` et `severity`, avec des valeurs d'un vocabulaire fermé (`critical`, `warning`, `info`), jamais `Critical` dans un coin et `crit` dans un autre.
+> ⚠️ **Erreur fréquente**
+>
+> Oublier qu'une alerte sans label attendu retombe silencieusement sur la politique racine. Le contact point par défaut doit donc être un endroit réellement surveillé, pas une adresse poubelle. Et chaque règle devrait porter au minimum `team` et `severity`, avec des valeurs d'un vocabulaire fermé (`critical`, `warning`, `info`), jamais `Critical` dans un coin et `crit` dans un autre.
 {: .callout .callout-attention}
 
 ## Mise en place
@@ -167,7 +171,9 @@ policies:
 
 Les variables `$SLACK_*` sont interpolées depuis l'environnement de Grafana, ce qui évite de committer des URLs secrètes. Les champs exacts des `settings` varient selon le type d'intégration et la version : exportez un contact point existant depuis l'interface pour voir le schéma attendu chez vous.
 
-> 💡 **Astuce** : le provisioning de politiques remplace **tout l'arbre** de l'organisation. Un fichier incomplet efface donc les politiques créées à la main, et l'arbre provisionné n'est plus modifiable depuis l'interface. Choisissez une source de vérité et tenez-vous-y.
+> 💡 **Astuce**
+>
+> Le provisioning de politiques remplace **tout l'arbre** de l'organisation. Un fichier incomplet efface donc les politiques créées à la main, et l'arbre provisionné n'est plus modifiable depuis l'interface. Choisissez une source de vérité et tenez-vous-y.
 {: .callout .callout-astuce}
 
 Vous pouvez exporter l'arbre actuel à tout moment :
@@ -179,7 +185,9 @@ curl -s -H "Authorization: Bearer <TOKEN>" \
 
 ## Les quatre réglages qui font la différence entre une alerte et du bruit
 
-> 🍽️ **Analogie : le serveur de restaurant.** Un serveur n'apporte pas chaque assiette dès qu'elle sort de la cuisine. Il attend un court instant que le reste de la table soit prêt (`group_wait`). Il ramène ensuite les retardataires par vagues (`group_interval`). Si quelqu'un n'a toujours pas mangé une heure plus tard, il revient lui demander (`repeat_interval`). Le `group_by`, c'est la décision de ce qui forme une « table ». Limite de l'image : Grafana ne sait pas si le message a été lu. Il rappelle tant que le groupe reste en `Firing`.
+> 🍽️ **Analogie : le serveur de restaurant**
+>
+> Un serveur n'apporte pas chaque assiette dès qu'elle sort de la cuisine. Il attend un court instant que le reste de la table soit prêt (`group_wait`). Il ramène ensuite les retardataires par vagues (`group_interval`). Si quelqu'un n'a toujours pas mangé une heure plus tard, il revient lui demander (`repeat_interval`). Le `group_by`, c'est la décision de ce qui forme une « table ». Limite de l'image : Grafana ne sait pas si le message a été lu. Il rappelle tant que le groupe reste en `Firing`.
 {: .callout .callout-analogie}
 
 ### group_by : ce qui forme un groupe
@@ -190,10 +198,14 @@ Les alertes qui partagent les mêmes valeurs pour les labels de `group_by` sont 
 - `group_by: ['...']` : la valeur spéciale `...` désactive le groupement, donc **une notification par alerte**. Utile très rarement.
 - Un label à forte cardinalité (`pod`, `instance`, `request_id`) dans `group_by` recrée mécaniquement le problème : autant de groupes que de valeurs, donc autant de messages.
 
-> 📖 **Définition.** La **cardinalité** d'un label est le nombre de valeurs distinctes qu'il peut prendre. `severity` en a trois ; `pod` peut en avoir des milliers.
+> 📖 **Définition**
+>
+> La **cardinalité** d'un label est le nombre de valeurs distinctes qu'il peut prendre. `severity` en a trois ; `pod` peut en avoir des milliers.
 {: .callout .callout-definition}
 
-> ⚠️ **Erreur fréquente** : mettre `instance` dans `group_by` « pour voir quelle machine est touchée ». L'information se récupère dans le corps du message, via la liste des alertes du groupe. Le groupement sert à réduire le nombre de messages, pas à les enrichir.
+> ⚠️ **Erreur fréquente**
+>
+> Mettre `instance` dans `group_by` « pour voir quelle machine est touchée ». L'information se récupère dans le corps du message, via la liste des alertes du groupe. Le groupement sert à réduire le nombre de messages, pas à les enrichir.
 {: .callout .callout-attention}
 
 ### Les trois délais
@@ -216,7 +228,9 @@ t = 4 h 05 min 30  si rien n'a changé depuis 5 min 30 → rappel (repeat_interv
 
 Quelle valeur choisir pour `group_wait` ? C'est le compromis le plus facile à rater. Trop long, vous retardez une vraie alerte critique de plusieurs minutes. Trop court, vous envoyez une première notification avec une seule alerte, puis une deuxième cinq minutes plus tard avec les trente autres. Pour une politique critique, 10 à 30 s reste raisonnable ; pour du `warning`, vous pouvez monter à 1–2 min sans douleur.
 
-> 💡 **Astuce** : gardez un `repeat_interval` multiple du `group_interval`, et jamais plus court que l'intervalle d'évaluation de la règle. Des rappels toutes les 5 minutes d'un incident déjà pris en charge donnent la même fatigue que l'absence de groupement.
+> 💡 **Astuce**
+>
+> Gardez un `repeat_interval` multiple du `group_interval`, et jamais plus court que l'intervalle d'évaluation de la règle. Des rappels toutes les 5 minutes d'un incident déjà pris en charge donnent la même fatigue que l'absence de groupement.
 {: .callout .callout-astuce}
 
 ## Silences et mute timings
@@ -232,7 +246,9 @@ Les deux suppriment des notifications sans arrêter l'évaluation : la règle co
 
 Un silence se crée depuis **Alerting → Silences → New silence**, ou depuis le bouton **Silence** d'une instance (les matchers sont alors préremplis). Mettez toujours un commentaire qui dit *pourquoi* et pour *qui*, sans quoi dans une semaine personne ne saura s'il peut être supprimé.
 
-> ⚠️ **Erreur fréquente** : un silence trop large, par exemple `alertname=~".+"` pour « avoir la paix pendant l'intervention », cache aussi la vraie panne qui arrive à côté. Ciblez les labels de la maintenance (`cluster=prod-eu`, `service=billing`) et prévoyez une fin à l'heure de la fenêtre, pas « 7 jours au cas où ».
+> ⚠️ **Erreur fréquente**
+>
+> Un silence trop large, par exemple `alertname=~".+"` pour « avoir la paix pendant l'intervention », cache aussi la vraie panne qui arrive à côté. Ciblez les labels de la maintenance (`cluster=prod-eu`, `service=billing`) et prévoyez une fin à l'heure de la fenêtre, pas « 7 jours au cas où ».
 {: .callout .callout-attention}
 
 Sur les mute timings, deux pièges à surveiller :
@@ -246,10 +262,12 @@ Certaines versions proposent aussi des *active time intervals*, l'inverse du mut
 
 ### Le flapping
 
-> 📖 **Définition.** Une alerte « flappe » quand elle alterne `Firing` / `Resolved` en boucle autour de son seuil.
-{: .callout .callout-definition}
-
 Vous connaissez déjà le levier côté règle : la durée de maintien avant déclenchement. Côté routage, vous n'éliminez pas le flapping, vous l'atténuez :
+
+> 📖 **Définition**
+>
+> Une alerte « flappe » quand elle alterne `Firing` / `Resolved` en boucle autour de son seuil.
+{: .callout .callout-definition}
 
 - Un `group_interval` de 5 à 10 min empêche d'envoyer un message à chaque oscillation : les changements sont agrégés par fenêtre.
 - Sur certains contact points, l'option **Disable resolved message** supprime les notifications de résolution. Pour une alerte qui flappe, voir « résolu » puis « en feu » toutes les trois minutes est pire que de ne recevoir que l'ouverture.
@@ -286,7 +304,9 @@ Tester l'alerte ne suffit pas, il faut tester **le chemin complet**, de la règl
 
 Pour le niveau 3, n'injectez pas d'alerte par `POST .../api/v2/alerts` : l'Alertmanager interne de Grafana ne prend pas en charge cette injection, qui ne fonctionne qu'avec un Alertmanager externe. Créez plutôt une règle de test dont la condition est toujours vraie, avec les labels à vérifier, puis mettez-la en pause une fois la livraison constatée. Prévenez l'équipe avant d'envoyer un test `critical` qui atteint vraiment l'astreinte.
 
-> 💡 **Astuce** : pour valider un webhook sans écrire de récepteur, lancez un serveur d'écho local, par exemple `docker run --rm -p 8080:8080 mendhak/http-https-echo`, et pointez le contact point vers `http://host.docker.internal:8080` si Grafana tourne aussi dans Docker (selon l'OS, l'adresse de l'hôte peut différer). Vous voyez le JSON exact que recevra votre outil d'astreinte, y compris ce qui arrive quand dix alertes sont regroupées.
+> 💡 **Astuce**
+>
+> Pour valider un webhook sans écrire de récepteur, lancez un serveur d'écho local, par exemple `docker run --rm -p 8080:8080 mendhak/http-https-echo`, et pointez le contact point vers `http://host.docker.internal:8080` si Grafana tourne aussi dans Docker (selon l'OS, l'adresse de l'hôte peut différer). Vous voyez le JSON exact que recevra votre outil d'astreinte, y compris ce qui arrive quand dix alertes sont regroupées.
 {: .callout .callout-astuce}
 
 ## Construction progressive
@@ -336,7 +356,9 @@ Cette information vit dans les **annotations** de la règle (`summary`, `descrip
 
 On l'appelle ensuite depuis le champ message du contact point avec `{{ template "oncall.message" . }}`. Les variables disponibles (`.Alerts`, `.CommonLabels`, `.DashboardURL`, etc.) dépendent de la version, regardez l'aperçu du template dans l'éditeur.
 
-> 💡 **À retenir** : le test des 3 h du matin. *Une personne qui n'a pas écrit la règle, réveillée à 3 h, sait-elle en moins d'une minute ce qui est cassé, qui est touché et quoi faire en premier ?* Si non, ajoutez l'information manquante. Et si aucune action n'est possible, ce n'est pas une alerte, mais un panneau de dashboard ou un ticket.
+> 💡 **À retenir**
+>
+> Le test des 3 h du matin. *Une personne qui n'a pas écrit la règle, réveillée à 3 h, sait-elle en moins d'une minute ce qui est cassé, qui est touché et quoi faire en premier ?* Si non, ajoutez l'information manquante. Et si aucune action n'est possible, ce n'est pas une alerte, mais un panneau de dashboard ou un ticket.
 {: .callout .callout-important}
 
 ## Erreurs fréquentes

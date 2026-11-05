@@ -45,10 +45,14 @@ L'adresse IP indique où le paquet veut aller. Elle ne dit rien sur la façon de
 - la **couche physique** transforme des bits en phénomène physique (tension, lumière, onde radio) ;
 - la **couche liaison**, qui est Ethernet dans la grande majorité des réseaux filaires, organise ces bits en trames, les adresse à un voisin direct et en contrôle l'intégrité.
 
-> 📮 **Analogie : le facteur et la sonnette.** L'IP est l'adresse postale complète, l'Ethernet est le facteur qui doit savoir quelle porte de l'immeuble pousser. Si la porte est murée (câble), si le facteur ne connaît pas le nom sur la sonnette (adresse MAC), la lettre ne sera pas distribuée, aussi bien rédigée soit son adresse.
+> 📮 **Analogie : le facteur et la sonnette**
+>
+> L'IP est l'adresse postale complète, l'Ethernet est le facteur qui doit savoir quelle porte de l'immeuble pousser. Si la porte est murée (câble), si le facteur ne connaît pas le nom sur la sonnette (adresse MAC), la lettre ne sera pas distribuée, aussi bien rédigée soit son adresse.
 {: .callout .callout-analogie}
 
-> 🧠 **Concept fondamental** : Ethernet ne vise jamais la destination finale, seulement le **prochain équipement sur le même lien local**. Chaque saut recrée une trame neuve avec de nouvelles adresses MAC, alors que l'adresse IP voyage de bout en bout.
+> 🧠 **Concept fondamental**
+>
+> Ethernet ne vise jamais la destination finale, seulement le **prochain équipement sur le même lien local**. Chaque saut recrée une trame neuve avec de nouvelles adresses MAC, alors que l'adresse IP voyage de bout en bout.
 {: .callout .callout-important}
 
 ## Couche physique : supports, signaux et négociation
@@ -80,7 +84,9 @@ Si le signal arrive trop affaibli (atténuation) ou parasité par la paire voisi
 
 Deux équipements en cuivre qui se branchent n'ont pas été configurés ensemble. Comment s'accordent-ils ? Ils **négocient**.
 
-> 📖 **Définition.** L'**auto-négociation** est l'échange par lequel chaque équipement annonce ce qu'il sait faire (100 Mbit/s, 1 Gbit/s, duplex complet ou non), pour que les deux retiennent la meilleure combinaison commune.
+> 📖 **Définition**
+>
+> L'**auto-négociation** est l'échange par lequel chaque équipement annonce ce qu'il sait faire (100 Mbit/s, 1 Gbit/s, duplex complet ou non), pour que les deux retiennent la meilleure combinaison commune.
 {: .callout .callout-definition}
 
 Le **duplex** décrit la façon d'utiliser le lien :
@@ -90,12 +96,16 @@ Le **duplex** décrit la façon d'utiliser le lien :
 
 *\*CSMA/CD : avant d'émettre, une station écoute le câble, et si deux stations parlent en même temps, elles détectent la collision, s'arrêtent et réessaient après un délai aléatoire.*
 
-> 📞 **Analogie : téléphone et talkie-walkie.** Le full duplex ressemble à un appel téléphonique : les deux interlocuteurs peuvent parler en même temps. Le half duplex ressemble à un talkie-walkie : un seul parle à la fois, et si les deux appuient ensemble, les messages se brouillent, comme lors d'une collision.
+> 📞 **Analogie : téléphone et talkie-walkie**
+>
+> Le full duplex ressemble à un appel téléphonique : les deux interlocuteurs peuvent parler en même temps. Le half duplex ressemble à un talkie-walkie : un seul parle à la fois, et si les deux appuient ensemble, les messages se brouillent, comme lors d'une collision.
 {: .callout .callout-analogie}
 
 Avec des switches modernes et des liens full duplex, les collisions n'existent plus en pratique. Le half duplex ne subsiste que dans les mauvaises configurations, et on verra plus bas ce que cela donne.
 
-> ⚠️ **Comportement contre-intuitif** : forcer la vitesse d'un seul côté du lien est souvent pire que de laisser les deux côtés négocier. Le côté resté en automatique ne reçoit aucune annonce, devine la vitesse, et retombe en half duplex par prudence.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Forcer la vitesse d'un seul côté du lien est souvent pire que de laisser les deux côtés négocier. Le côté resté en automatique ne reçoit aucune annonce, devine la vitesse, et retombe en half duplex par prudence.
 {: .callout .callout-attention}
 
 ## Adresses MAC et cartes réseau
@@ -109,7 +119,9 @@ Deux bits du premier octet changent le sens de l'adresse :
 - le bit de poids faible indique si l'adresse est **individuelle (0)** ou **de groupe (1)**. C'est ce qui rend `ff:ff:ff:ff:ff:ff` (broadcast) et `01:00:5e:...` (multicast IPv4) reconnaissables ;
 - le deuxième bit de poids faible indique si l'adresse est **universelle** (attribuée par le constructeur) ou **administrée localement**.
 
-> 💡 **Point clé** : une adresse MAC n'est pas gravée à vie. Un système peut la remplacer par logiciel, et les smartphones récents génèrent par défaut des adresses aléatoires par réseau Wi-Fi (le bit « administrée localement » est alors à 1). Une MAC identifie une interface à un instant donné, pas une personne, et encore moins une preuve d'identité.
+> 💡 **Point clé**
+>
+> Une adresse MAC n'est pas gravée à vie. Un système peut la remplacer par logiciel, et les smartphones récents génèrent par défaut des adresses aléatoires par réseau Wi-Fi (le bit « administrée localement » est alors à 1). Une MAC identifie une interface à un instant donné, pas une personne, et encore moins une preuve d'identité.
 {: .callout .callout-important}
 
 ## Anatomie d'une trame Ethernet
@@ -157,7 +169,9 @@ Au démarrage, la table est vide. Le switch inonde donc tous les ports avec les 
 
 Par rapport à un hub, la différence est considérable. Le hub répétait tout sur tous les ports et tout le monde voyait tout. Le switch ne livre une trame unicast qu'au port concerné. Les performances sont meilleures et il est plus difficile d'écouter ce qui ne vous est pas destiné.
 
-> ⚠️ **Comportement contre-intuitif** : le switch apprend à partir de l'adresse **source**, jamais de la destination. Une machine silencieuse reste donc inconnue du switch tant qu'elle n'a rien émis. Ses trames entrantes sont inondées sur tous les ports (c'est le « unknown unicast flooding »).
+> ⚠️ **Comportement contre-intuitif**
+>
+> Le switch apprend à partir de l'adresse **source**, jamais de la destination. Une machine silencieuse reste donc inconnue du switch tant qu'elle n'a rien émis. Ses trames entrantes sont inondées sur tous les ports (c'est le « unknown unicast flooding »).
 {: .callout .callout-attention}
 
 La table MAC du switch (MAC → port) n'a rien à voir avec le cache ARP d'un poste (IP → MAC). Les deux tables résolvent des questions différentes, et on les confond souvent.
@@ -197,7 +211,9 @@ Si la destination est hors du réseau local, votre poste ne cherche pas la MAC d
 
 Le broadcast est utile, mais coûteux : chaque carte doit lire la trame et la remonter au système pour savoir si elle le concerne. Un réseau qui diffuse trop finit par ralentir tous ses postes. Le multicast limite le travail aux seuls abonnés, mais un switch sans fonction dédiée le traite comme un broadcast.
 
-> ⚠️ **Comportement contre-intuitif** : une trame Ethernet n'a pas de durée de vie (pas de TTL). Si deux switches sont reliés par deux câbles et qu'aucun protocole anti-boucle comme Spanning Tree n'est actif, un broadcast circule indéfiniment et se multiplie : c'est une tempête de broadcast. Le réseau devient inutilisable en quelques secondes.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Une trame Ethernet n'a pas de durée de vie (pas de TTL). Si deux switches sont reliés par deux câbles et qu'aucun protocole anti-boucle comme Spanning Tree n'est actif, un broadcast circule indéfiniment et se multiplie : c'est une tempête de broadcast. Le réseau devient inutilisable en quelques secondes.
 {: .callout .callout-attention}
 
 ## Commandes et outils de diagnostic

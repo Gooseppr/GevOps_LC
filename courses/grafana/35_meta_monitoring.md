@@ -46,7 +46,9 @@ Un système de supervision est un service de production comme les autres. Il con
 
 La différence tient à ses échecs. Quand une API tombe, la supervision le dit. Quand la supervision tombe, **rien ne le dit**. Le silence ressemble alors à un « tout va bien ».
 
-> 🧠 **Concept clé — Le silence n'est pas un signal de santé.** Une plateforme d'observabilité ne peut pas prouver qu'elle fonctionne par l'absence d'alertes. Il faut un signal positif, émis en continu, dont l'*absence* déclenche une réaction depuis un point extérieur.
+> 🧠 **Concept clé — Le silence n'est pas un signal de santé**
+>
+> Une plateforme d'observabilité ne peut pas prouver qu'elle fonctionne par l'absence d'alertes. Il faut un signal positif, émis en continu, dont l'*absence* déclenche une réaction depuis un point extérieur.
 {: .callout .callout-important}
 
 Le meta-monitoring se découpe en trois questions, à ne pas mélanger :
@@ -63,7 +65,9 @@ La troisième question est la plus négligée. Un Grafana qui répond en HTTP 20
 
 Le détecteur d'une panne ne doit pas partager son sort avec ce qu'il détecte. Concrètement, on sépare deux plans : la **plateforme observée**, celle qui sert les équipes, et un **plan de contrôle minimal**.
 
-> 📖 **Définition.** Le *plan de contrôle* est une supervision réduite qui ne fait que surveiller la plateforme observée. Il est volontairement petit, sobre et sans dépendance vis-à-vis d'elle.
+> 📖 **Définition**
+>
+> Le *plan de contrôle* est une supervision réduite qui ne fait que surveiller la plateforme observée. Il est volontairement petit, sobre et sans dépendance vis-à-vis d'elle.
 {: .callout .callout-definition}
 
 ```mermaid
@@ -127,7 +131,9 @@ scrape_configs:
 curl -s http://<GRAFANA_HOST>:3000/api/health
 ```
 
-> 📝 **Note.** Les noms exacts des métriques évoluent d'une version à l'autre. Avant d'écrire une règle, vérifiez le nom et les labels réels avec un `curl` sur `/metrics` de *votre* instance.
+> 📝 **Note**
+>
+> Les noms exacts des métriques évoluent d'une version à l'autre. Avant d'écrire une règle, vérifiez le nom et les labels réels avec un `curl` sur `/metrics` de *votre* instance.
 {: .callout .callout-note}
 
 Les familles les plus utiles sont :
@@ -157,7 +163,9 @@ sum by (datasource) (rate(grafana_datasource_request_total[5m]))
 
 Le second est actif : un test de santé régulier. Les versions récentes exposent `GET /api/datasources/uid/<DS_UID>/health` (l'URL et le comportement dépendent de la version, et certains plugins ne le supportent pas). Un petit script planifié, ou un job du plan de contrôle, l'appelle avec un token de service en lecture seule.
 
-> 💡 **Astuce** — Interrogez aussi directement les backends sur leurs propres endpoints de préparation : `/-/ready` pour Prometheus, `/ready` pour Loki et Tempo. Si l'endpoint direct répond mais que Grafana remonte des erreurs, vous venez de couper le problème en deux : le défaut est dans la connexion, pas dans le backend.
+> 💡 **Astuce**
+>
+> Interrogez aussi directement les backends sur leurs propres endpoints de préparation : `/-/ready` pour Prometheus, `/ready` pour Loki et Tempo. Si l'endpoint direct répond mais que Grafana remonte des erreurs, vous venez de couper le problème en deux : le défaut est dans la connexion, pas dans le backend.
 {: .callout .callout-astuce}
 
 ### Santé de la collecte et fraîcheur des données
@@ -170,7 +178,9 @@ Trois niveaux de vérification, du plus simple au plus fin :
 - `absent_over_time(up{job="<JOB>"}[5m])` détecte une cible ou un job *disparu*, par exemple après une erreur de service discovery ou de relabeling. Sans cette règle, `up` n'existe plus, donc `up == 0` ne se déclenche jamais.
 - Une requête de fraîcheur sur les données elles-mêmes, pour attraper le cas où la cible répond mais renvoie des données figées. Deux formes possibles : `time() - <METRIQUE_DERNIER_SUCCES>` si le pipeline expose l'horodatage de son dernier traitement réussi, ou `changes(<METRIQUE>[<DUREE>]) == 0` sur une valeur censée évoluer. `timestamp()` renvoie l'heure du scrape et ne révèle donc pas des valeurs figées.
 
-> ⚠️ **Erreur fréquente** — Se contenter de `up == 1`. Un exporter peut répondre 200 avec des valeurs figées ou vides. `up` mesure la joignabilité du scrape, pas la qualité de ce qui est servi. Ajoutez au moins une métrique « métier » de contrôle par pipeline et surveillez son âge.
+> ⚠️ **Erreur fréquente**
+>
+> Se contenter de `up == 1`. Un exporter peut répondre 200 avec des valeurs figées ou vides. `up` mesure la joignabilité du scrape, pas la qualité de ce qui est servi. Ajoutez au moins une métrique « métier » de contrôle par pipeline et surveillez son âge.
 {: .callout .callout-attention}
 
 Côté logs et traces, le principe est le même : comparez le débit entrant (octets ou lignes reçus par le distributeur Loki, spans reçus par Tempo) à sa valeur habituelle. Une chute brutale vers zéro un jour de semaine à 10 h n'est pas un calme plat, c'est une panne.
@@ -193,7 +203,9 @@ Pour les notifications, le compteur d'échecs de l'Alertmanager (`alertmanager_n
 
 Mais seulement lorsqu'un envoi est tenté : tant qu'aucune alerte ne part, le compteur reste à zéro. D'où l'intérêt de tester chaque contact point.
 
-> 🧠 **Concept clé — Évaluer n'est pas notifier.** Une règle peut être à l'état Firing, parfaitement visible dans l'interface, tout en échouant à envoyer quoi que ce soit. Deux jeux de métriques, deux alertes distinctes.
+> 🧠 **Concept clé — Évaluer n'est pas notifier**
+>
+> Une règle peut être à l'état Firing, parfaitement visible dans l'interface, tout en échouant à envoyer quoi que ce soit. Deux jeux de métriques, deux alertes distinctes.
 {: .callout .callout-important}
 
 ### Dashboards de capacité et de fiabilité
@@ -220,17 +232,23 @@ Elle alerte quand, au rythme des six dernières heures, l'espace disponible tomb
 
 ## Casser la dépendance circulaire
 
-> ⚠️ **Erreur fréquente — Alerter uniquement par la plateforme qui vient de tomber.** Si Grafana (ou son Alertmanager, ou son Prometheus) est le seul à évaluer et à envoyer l'alerte « Grafana est en panne », cette alerte ne partira jamais au moment où elle serait utile. Correction : au moins un détecteur doit vivre hors du périmètre de panne, et la chaîne doit se terminer sur un service tiers.
-{: .callout .callout-attention}
-
 Deux mécanismes complémentaires, tous les deux nécessaires.
+
+> ⚠️ **Erreur fréquente — Alerter uniquement par la plateforme qui vient de tomber**
+>
+> Si Grafana (ou son Alertmanager, ou son Prometheus) est le seul à évaluer et à envoyer l'alerte « Grafana est en panne », cette alerte ne partira jamais au moment où elle serait utile. Correction : au moins un détecteur doit vivre hors du périmètre de panne, et la chaîne doit se terminer sur un service tiers.
+{: .callout .callout-attention}
 
 ### Le Watchdog (dead man's switch)
 
-> 📖 **Définition.** Un *Watchdog* renverse la logique d'alerte : au lieu d'attendre qu'une alerte apparaisse, on émet en permanence une alerte **toujours** active. Un service externe reçoit ce battement et déclenche l'astreinte s'il ne l'entend plus.
+> 📖 **Définition**
+>
+> Un *Watchdog* renverse la logique d'alerte : au lieu d'attendre qu'une alerte apparaisse, on émet en permanence une alerte **toujours** active. Un service externe reçoit ce battement et déclenche l'astreinte s'il ne l'entend plus.
 {: .callout .callout-definition}
 
-> 💂 **Analogie : le poste de garde.** Imaginez un détecteur de présence au poste de garde : si la personne cesse de signaler qu'elle est là, on envoie quelqu'un, sans attendre qu'elle appelle à l'aide.
+> 💂 **Analogie : le poste de garde**
+>
+> Imaginez un détecteur de présence au poste de garde : si la personne cesse de signaler qu'elle est là, on envoie quelqu'un, sans attendre qu'elle appelle à l'aide.
 {: .callout .callout-analogie}
 
 Dans Prometheus, c'est une règle qui vaut toujours vrai :
@@ -284,7 +302,9 @@ Le Watchdog valide la chaîne d'alerte. Il ne valide pas ce que voient les utili
 
 La sonde teste l'URL publique, avec le DNS, le certificat TLS et le reverse proxy. Elle détecte donc aussi l'expiration d'un certificat ou un record DNS cassé, que `/metrics` en réseau interne ne verrait jamais.
 
-> 💡 **Astuce** — Pointez la sonde sur `/api/health` pour la vivacité, mais ajoutez aussi une sonde sur la page de login ou sur un dashboard simple. Un Grafana dont l'API répond mais dont le frontend sert une erreur de proxy passe sinon sous le radar.
+> 💡 **Astuce**
+>
+> Pointez la sonde sur `/api/health` pour la vivacité, mais ajoutez aussi une sonde sur la page de login ou sur un dashboard simple. Un Grafana dont l'API répond mais dont le frontend sert une erreur de proxy passe sinon sous le radar.
 {: .callout .callout-astuce}
 
 ## Construction progressive

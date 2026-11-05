@@ -42,7 +42,9 @@ Un utilisateur du client B, curieux, a reçu le rôle `Admin` de son organisatio
 
 La défense naïve était « une organisation par client ». Elle sépare les dashboards, pas les données.
 
-> 🏢 **Analogie : des bureaux dans un même immeuble.** Les organisations Grafana sont une séparation **logique** : un même processus, une même base SQL, les mêmes plugins et un seul administrateur serveur. Chaque client a sa porte, mais le gardien a toutes les clés et les couloirs sont communs. Limite de l'image : dans Grafana, ce qui relie les « bureaux » est aussi le chemin vers les données elles-mêmes.
+> 🏢 **Analogie : des bureaux dans un même immeuble**
+>
+> Les organisations Grafana sont une séparation **logique** : un même processus, une même base SQL, les mêmes plugins et un seul administrateur serveur. Chaque client a sa porte, mais le gardien a toutes les clés et les couloirs sont communs. Limite de l'image : dans Grafana, ce qui relie les « bureaux » est aussi le chemin vers les données elles-mêmes.
 {: .callout .callout-analogie}
 
 Le vrai contrôle d'accès aux données doit vivre dans les backends, ou dans la décision de ne pas partager l'instance.
@@ -69,7 +71,9 @@ Trois acteurs couvrent la plupart des scénarios réalistes :
 - **L'identité volée** : token de service account dans un dépôt, cookie de session d'un admin, compte SSO compromis. Pas besoin de CVE, seulement d'un secret qui traîne.
 - **L'attaquant externe** qui atteint Grafana via Internet et exploite une vulnérabilité non corrigée.
 
-> 🔴 **Vecteur d'attaque — CVE-2021-43798.** Dans Grafana 8.0.0-beta1 à 8.3.0, le chemin `/public/plugins/<ID_PLUGIN>/` permettait une traversée de répertoire sans authentification. L'attaque se résume à un `curl --path-as-is` (sans `--path-as-is`, curl normalise les `../` et l'attaque échoue silencieusement) :
+> 🔴 **Vecteur d'attaque — CVE-2021-43798**
+>
+> Dans Grafana 8.0.0-beta1 à 8.3.0, le chemin `/public/plugins/<ID_PLUGIN>/` permettait une traversée de répertoire sans authentification. L'attaque se résume à un `curl --path-as-is` (sans `--path-as-is`, curl normalise les `../` et l'attaque échoue silencieusement) :
 {: .callout .callout-danger}
 
 ```bash
@@ -78,7 +82,9 @@ curl --path-as-is "http://<HOST>:3000/public/plugins/alertlist/../../../../../..
 
 L'attaquant lit `grafana.ini`, récupère `secret_key`, puis télécharge `/var/lib/grafana/grafana.db`. Des outils publics déchiffrent ensuite les mots de passe des data sources stockés dans la base. Un seul bug de lecture de fichier se transforme ainsi en accès à tous les backends. Ce chemin d'attaque explique pourquoi `secret_key` et la base ne doivent jamais voyager ensemble.
 
-> 🔴 **Vecteur d'attaque — proxy de data sources.** Pas de CVE ici, c'est le comportement normal. Avec un token ou une session `Viewer` :
+> 🔴 **Vecteur d'attaque — proxy de data sources**
+>
+> Pas de CVE ici, c'est le comportement normal. Avec un token ou une session `Viewer` :
 {: .callout .callout-danger}
 
 ```bash
@@ -89,7 +95,9 @@ curl -s -X POST "https://<HOST>/api/ds/query" \
 
 Si la data source accepte la requête, le `Viewer` lit la donnée, même s'il n'a jamais vu de panel qui l'utilise. Les UID sont faciles à obtenir : ils apparaissent dans le JSON de n'importe quel dashboard exporté.
 
-> 🧠 **Concept clé.** Dans Grafana OSS, la permission d'interroger une data source est portée par l'organisation, pas par le dashboard. Les permissions de dossier masquent des dashboards ; elles n'empêchent pas une requête directe. Les permissions par data source existent dans les éditions Enterprise et Cloud (vérifier selon la version).
+> 🧠 **Concept clé**
+>
+> Dans Grafana OSS, la permission d'interroger une data source est portée par l'organisation, pas par le dashboard. Les permissions de dossier masquent des dashboards ; elles n'empêchent pas une requête directe. Les permissions par data source existent dans les éditions Enterprise et Cloud (vérifier selon la version).
 {: .callout .callout-important}
 
 ## Moindre privilège et séparation des responsabilités
@@ -126,7 +134,9 @@ datasources:
 
 Dans le scénario d'ouverture, cette seule ligne bloque la modification de l'en-tête de tenant depuis l'UI. Un admin d'org malveillant peut encore tenter d'ajouter une autre data source, d'où le besoin de limiter qui est `Admin` d'org.
 
-> 🔒 **Contrôle de sécurité.** Une règle simple à faire respecter : personne n'est `Admin` d'organisation en dehors de l'équipe plateforme. Les équipes applicatives sont `Editor` sur leurs dossiers via des permissions de dossier. Les `Editor` créent des dashboards sans pouvoir toucher aux data sources, ce qui réduit fortement les chemins vers le changement de tenant.
+> 🔒 **Contrôle de sécurité**
+>
+> Une règle simple à faire respecter : personne n'est `Admin` d'organisation en dehors de l'équipe plateforme. Les équipes applicatives sont `Editor` sur leurs dossiers via des permissions de dossier. Les `Editor` créent des dashboards sans pouvoir toucher aux data sources, ce qui réduit fortement les chemins vers le changement de tenant.
 {: .callout .callout-securite}
 
 ### Ce que change l'édition
@@ -147,7 +157,9 @@ L'interface et les limites évoluent d'une version à l'autre : vérifiez la mat
 
 Les anciennes API keys sont dépréciées au profit des **service accounts**.
 
-> 📖 **Définition.** Un service account est un compte destiné aux scripts et aux outils. Il porte un rôle, des permissions, et des tokens en `glsa_...` rattachés à son compte.
+> 📖 **Définition**
+>
+> Un service account est un compte destiné aux scripts et aux outils. Il porte un rôle, des permissions, et des tokens en `glsa_...` rattachés à son compte.
 {: .callout .callout-definition}
 
 Un token sans date d'expiration est un mot de passe permanent.
@@ -165,7 +177,9 @@ curl -s -X POST "https://<HOST>/api/serviceaccounts/<SA_ID>/tokens" \
   -d '{"name":"ci-provisioning-2025-06","secondsToLive":2592000}'
 ```
 
-> ⚠️ **Erreur fréquente.** Un unique service account `Admin` partagé entre Terraform, un script de sauvegarde et un exporter. Si l'un des trois fuit, l'attaquant obtient `Admin`. Correction : un service account par usage, avec le rôle minimal. Un script de lecture d'alertes est `Viewer`. Terraform qui gère les dashboards est `Editor`, jamais `Admin`, sauf s'il crée aussi des data sources.
+> ⚠️ **Erreur fréquente**
+>
+> Un unique service account `Admin` partagé entre Terraform, un script de sauvegarde et un exporter. Si l'un des trois fuit, l'attaquant obtient `Admin`. Correction : un service account par usage, avec le rôle minimal. Un script de lecture d'alertes est `Viewer`. Terraform qui gère les dashboards est `Editor`, jamais `Admin`, sauf s'il crée aussi des data sources.
 {: .callout .callout-attention}
 
 Au-delà des tokens, trois secrets structurent la sécurité de la plateforme :
@@ -240,7 +254,9 @@ flowchart TD
 
 Les flèches en pointillés représentent des règles réseau explicites (NetworkPolicy, security groups) : l'instance du client A ne doit pas pouvoir joindre les backends du client B, même par erreur de configuration.
 
-> ⚠️ **Piège à traiter explicitement.** Grafana n'est pas une frontière de sécurité suffisante pour isoler des données multi-clients. Les organisations partagent le processus, la base, les plugins, le réseau sortant et les administrateurs serveur. Une faille applicative, un plugin malveillant ou une data source mal configurée suffit à traverser la séparation.
+> ⚠️ **Piège à traiter explicitement**
+>
+> Grafana n'est pas une frontière de sécurité suffisante pour isoler des données multi-clients. Les organisations partagent le processus, la base, les plugins, le réseau sortant et les administrateurs serveur. Une faille applicative, un plugin malveillant ou une data source mal configurée suffit à traverser la séparation.
 {: .callout .callout-attention}
 
 | Situation | Option | Compromis | Limite |
@@ -250,14 +266,18 @@ Les flèches en pointillés représentent des règles réseau explicites (Networ
 | Clients externes, contraintes contractuelles ou réglementaires | Une instance (ou stack) par client, backends séparés | Coût d'infrastructure (mémoire, sauvegardes, patching multiplié) | Nécessite de l'automatisation pour rester gérable |
 | Plateforme mutualisée avec Loki/Mimir | Isolation réelle au niveau backend (authentification proxy qui impose `X-Scope-OrgID`, LBAC si disponible) | Complexité côté proxy | Grafana seul ne vaut pas isolation |
 
-> 💡 **À retenir.** Si une fuite entre deux consommateurs est un incident contractuel ou réglementaire, passez à une instance par consommateur et à des backends distincts. Sinon, les organisations suffisent, à condition que les rôles `Admin` soient restreints et que les data sources soient verrouillées en provisioning.
+> 💡 **À retenir**
+>
+> Si une fuite entre deux consommateurs est un incident contractuel ou réglementaire, passez à une instance par consommateur et à des backends distincts. Sinon, les organisations suffisent, à condition que les rôles `Admin` soient restreints et que les data sources soient verrouillées en provisioning.
 {: .callout .callout-important}
 
 ## Cycle de vie des plugins
 
 Un plugin backend est un exécutable lancé par le processus Grafana, avec les droits de ce processus. Un plugin front tourne dans le navigateur de chaque utilisateur qui ouvre un dashboard.
 
-> 📦 **Analogie : une dépendance en production.** Un plugin non signé a une portée comparable à celle d'une dépendance applicative exécutée en production. Vous ne l'installeriez pas sans en vérifier l'origine et la version.
+> 📦 **Analogie : une dépendance en production**
+>
+> Un plugin non signé a une portée comparable à celle d'une dépendance applicative exécutée en production. Vous ne l'installeriez pas sans en vérifier l'origine et la version.
 {: .callout .callout-analogie}
 
 Pratiques applicables sans outillage lourd :
@@ -363,37 +383,37 @@ Leçon : la compromission ne dépendait d'aucune vulnérabilité Grafana. Elle r
 
 ## Erreurs fréquentes
 
-> ⚠️ **`secret_key` laissé à sa valeur par défaut.**
+> ⚠️ **`secret_key` laissé à sa valeur par défaut**
 {: .callout .callout-attention}
 
 Conséquence : toute fuite de la base ou de `grafana.db` (sauvegarde, snapshot de volume, CVE de lecture de fichier) donne accès aux credentials des data sources.
 Correction : `secret_key` fourni par fichier secret, unique par instance. Détection : recherche de la valeur par défaut dans la configuration déployée, ou revue du `grafana.ini` effectif.
 
-> ⚠️ **Une organisation par client, présentée comme isolation.**
+> ⚠️ **Une organisation par client, présentée comme isolation**
 {: .callout .callout-attention}
 
 Conséquence : un `Admin` d'org modifie l'en-tête de tenant d'une data source Loki et lit les données d'un autre client ; une CVE applicative traverse toutes les orgs.
 Correction : instance et backends dédiés quand l'isolation est contractuelle. Sinon, authentification côté proxy du backend qui force le tenant selon l'identité, et data sources provisionnées en `editable: false`.
 
-> ⚠️ **Plugins non signés autorisés « temporairement ».**
+> ⚠️ **Plugins non signés autorisés « temporairement »**
 {: .callout .callout-attention}
 
 Conséquence : un binaire non vérifié tourne avec les droits de Grafana, souvent avec accès aux secrets montés dans le conteneur.
 Correction : `allow_loading_unsigned_plugins` vide, signature privée pour les plugins internes. Détection : scan de la configuration (`grep allow_loading_unsigned_plugins`) dans la CI.
 
-> ⚠️ **Token sans expiration, partagé entre plusieurs usages.**
+> ⚠️ **Token sans expiration, partagé entre plusieurs usages**
 {: .callout .callout-attention}
 
 Conséquence : une fuite donne un accès permanent, et on ne sait pas quel usage est concerné pour le révoquer.
 Correction : un service account par usage, `secondsToLive` renseigné, rotation automatisée. Détection : le script de l'étape « Audit des tokens » ci-dessus, planifié chaque semaine.
 
-> ⚠️ **`tlsSkipVerify: true` pour « faire marcher » une data source.**
+> ⚠️ **`tlsSkipVerify: true` pour « faire marcher » une data source**
 {: .callout .callout-attention}
 
 Conséquence : l'interception entre Grafana et son backend est possible, et les credentials transitent vers un serveur non authentifié.
 Correction : installer la CA interne dans la data source (`tlsCACert`). Détection : recherche de `tlsSkipVerify: true` dans les fichiers de provisioning par un lint en CI.
 
-> ⚠️ **Logs d'audit stockés sur le même Grafana ou Loki administré par les mêmes personnes.**
+> ⚠️ **Logs d'audit stockés sur le même Grafana ou Loki administré par les mêmes personnes**
 {: .callout .callout-attention}
 
 Conséquence : un admin compromis efface les traces.

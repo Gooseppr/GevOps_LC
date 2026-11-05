@@ -37,7 +37,9 @@ next_module_title: "Premiers diagnostics Grafana"
 
 Vous êtes dans une équipe de six personnes qui exploite une API de commande en ligne : trois services derrière un reverse proxy, déployés sur quelques machines virtuelles. Les dashboards construits aux modules précédents fonctionnent bien. Ce mardi, un panel montre que le temps de réponse a doublé vers 14 h 20. La courbe vous dit **que** quelque chose se passe. Elle ne dit ni quelle requête, ni quel service, ni pourquoi.
 
-> 🚗 **Analogie : le tableau de bord et le capot.** Un panel de métriques est un tableau de bord de voiture : il signale que le moteur chauffe, pas quelle pièce lâche. Pour le savoir, il faut ouvrir le capot. En observabilité, le capot, ce sont les logs (ce que chaque composant a raconté) et les traces (le trajet d'une requête à travers les composants).
+> 🚗 **Analogie : le tableau de bord et le capot**
+>
+> Un panel de métriques est un tableau de bord de voiture : il signale que le moteur chauffe, pas quelle pièce lâche. Pour le savoir, il faut ouvrir le capot. En observabilité, le capot, ce sont les logs (ce que chaque composant a raconté) et les traces (le trajet d'une requête à travers les composants).
 {: .callout .callout-analogie}
 
 La solution naïve consiste à se connecter en SSH sur chaque machine et à lancer `grep` sur des fichiers. Elle s'effondre vite : trois services, plusieurs instances, des conteneurs éphémères dont les fichiers disparaissent au redémarrage. Et surtout, `grep` ne suit pas une requête qui traverse trois services. Grafana Explore avec Loki et Tempo répond à ces deux limites.
@@ -50,10 +52,14 @@ Un **log** est un événement daté : « à 14:20:03, le service `checkout` a re
 
 Une **trace** est l'histoire d'une seule requête, déjà reconstituée. Elle est composée de **spans**, organisés en arbre.
 
-> 📖 **Définition.** Un **span** représente une opération mesurée (un appel HTTP, une requête SQL, un traitement interne), avec son début, sa durée et son parent.
+> 📖 **Définition**
+>
+> Un **span** représente une opération mesurée (un appel HTTP, une requête SQL, un traitement interne), avec son début, sa durée et son parent.
 {: .callout .callout-definition}
 
-> 🧠 **Concept clé** — Une trace distribuée n'est pas un fichier journal. Un fichier journal est une suite chronologique de lignes écrites par un seul processus. Une trace est un graphe de spans émis par plusieurs services, rassemblés après coup grâce à un identifiant commun, le `trace_id`. Elle peut aussi être incomplète : si un service n'est pas instrumenté, ou si la requête a été écartée par l'échantillonnage (sampling), il manque des morceaux, voire toute la trace. Lire une trace comme on lit un log (de haut en bas, ligne par ligne) conduit à des conclusions fausses.
+> 🧠 **Concept clé**
+>
+> Une trace distribuée n'est pas un fichier journal. Un fichier journal est une suite chronologique de lignes écrites par un seul processus. Une trace est un graphe de spans émis par plusieurs services, rassemblés après coup grâce à un identifiant commun, le `trace_id`. Elle peut aussi être incomplète : si un service n'est pas instrumenté, ou si la requête a été écartée par l'échantillonnage (sampling), il manque des morceaux, voire toute la trace. Lire une trace comme on lit un log (de haut en bas, ligne par ligne) conduit à des conclusions fausses.
 {: .callout .callout-important}
 
 Le lien entre les deux est l'identifiant de trace, quand l'application l'écrit dans ses logs. Ce fil permet de passer d'un monde à l'autre, et tout le module y mène.
@@ -101,14 +107,18 @@ Ouvrez **Explore** (menu de gauche), choisissez la data source Loki. Dans l'édi
 
 Loki n'indexe pas le contenu des lignes. Il n'indexe que les **labels** attachés à un flux : `app`, `env`, `host`, `namespace`, etc. Un flux est l'ensemble des lignes partageant exactement la même combinaison de labels.
 
-> 📚 **Analogie : la bibliothèque.** Imaginez une bibliothèque où seuls les rayons sont étiquetés, pas les pages des livres. Choisir le bon rayon est instantané. Chercher un mot dans toute la bibliothèque, c'est lire les pages.
+> 📚 **Analogie : la bibliothèque**
+>
+> Imaginez une bibliothèque où seuls les rayons sont étiquetés, pas les pages des livres. Choisir le bon rayon est instantané. Chercher un mot dans toute la bibliothèque, c'est lire les pages.
 {: .callout .callout-analogie}
 
 D'où la règle de travail de Loki : **d'abord réduire par les labels, ensuite filtrer le texte**.
 
 Conséquence pratique, visible tout de suite : une requête Loki doit commencer par un sélecteur de flux avec au moins un critère non vide. `{}` est refusé.
 
-> ⚠️ **Erreur fréquente** — Vouloir « tout chercher » en tapant seulement un mot, comme on le ferait dans un moteur de recherche. Il faut toujours dire dans quel flux chercher (`{app="checkout"}`), puis ajouter le mot. Sans cela, soit la requête est rejetée, soit elle parcourt un volume énorme et expire.
+> ⚠️ **Erreur fréquente**
+>
+> Vouloir « tout chercher » en tapant seulement un mot, comme on le ferait dans un moteur de recherche. Il faut toujours dire dans quel flux chercher (`{app="checkout"}`), puis ajouter le mot. Sans cela, soit la requête est rejetée, soit elle parcourt un volume énorme et expire.
 {: .callout .callout-attention}
 
 ### Lire le résultat
@@ -118,7 +128,9 @@ Sous la requête, Explore affiche un histogramme du volume de logs dans le temps
 - L'histogramme montre les pics. Un pic de volume coïncide souvent avec un incident, et cliquer-glisser sur l'histogramme restreint la période.
 - Cliquer sur une ligne la déplie : Grafana y affiche les labels du flux et, si le format est reconnu, les champs détectés. On peut cliquer sur un champ pour l'ajouter ou l'exclure du filtre.
 
-> 💡 **Astuce** — Le bouton *Live* (suivi en direct) est précieux quand vous reproduisez un problème : vous déclenchez la requête fautive depuis un terminal et vous voyez la ligne apparaître en quelques secondes.
+> 💡 **Astuce**
+>
+> Le bouton *Live* (suivi en direct) est précieux quand vous reproduisez un problème : vous déclenchez la requête fautive depuis un terminal et vous voyez la ligne apparaître en quelques secondes.
 {: .callout .callout-astuce}
 
 ## LogQL pour débuter : sélectionner, filtrer, extraire
@@ -164,7 +176,9 @@ Pour rendre le résultat lisible pendant l'investigation, reformatez la ligne :
 {app="checkout"} | json | status >= 500 | line_format "{{.method}} {{.path}} {{.status}} {{.duration}} {{.trace_id}}"
 ```
 
-> 💡 **Astuce** — Affichez toujours le `trace_id` dans `line_format` quand il existe. C'est l'information que vous irez chercher à l'étape suivante.
+> 💡 **Astuce**
+>
+> Affichez toujours le `trace_id` dans `line_format` quand il existe. C'est l'information que vous irez chercher à l'étape suivante.
 {: .callout .callout-astuce}
 
 ### Passer des logs à un graphe
@@ -219,15 +233,19 @@ Un span racine de 5 s ne veut donc pas dire que le premier service est lent : si
 
 Cette règle n'est pas absolue. Des enfants exécutés en parallèle se chevauchent, et un enfant asynchrone (message, appel sans attente de réponse) peut se terminer après son parent. Dans ces cas, soustraire les durées ne donne pas le temps propre du parent.
 
-> ⚠️ **Erreur fréquente** — Accuser le premier span long de la liste. Descendez toujours l'arbre jusqu'au span le plus profond qui explique l'essentiel de la durée avant de formuler une hypothèse.
+> ⚠️ **Erreur fréquente**
+>
+> Accuser le premier span long de la liste. Descendez toujours l'arbre jusqu'au span le plus profond qui explique l'essentiel de la durée avant de formuler une hypothèse.
 {: .callout .callout-attention}
 
 ## Corrélation manuelle : relier métriques, logs et traces
 
-> 💡 **À retenir** — Les métriques disent *combien et quand*, les logs *quoi et où*, les traces *par où et en combien de temps à chaque étape*.
-{: .callout .callout-important}
-
 Ces trois signaux répondent donc à des questions différentes. L'investigation consiste à en faire le tour dans cet ordre, en gardant la même fenêtre de temps.
+
+> 💡 **À retenir**
+>
+> Les métriques disent *combien et quand*, les logs *quoi et où*, les traces *par où et en combien de temps à chaque étape*.
+{: .callout .callout-important}
 
 ### Du panel aux logs
 
@@ -246,7 +264,9 @@ Ces réglages se trouvent dans la configuration des data sources et leur libell�
 
 Si les applications et Prometheus sont configurés pour les exemplars, un point sur un graphe de latence peut pointer directement vers une trace représentative. C'est une piste à connaître, pas un prérequis du module : tout le reste fonctionne sans.
 
-> 💡 **Astuce** — Quand les liens automatiques ne remontent rien, regardez les noms. Le même service peut s'appeler `checkout` dans le label Loki `app`, `checkout-svc` dans l'attribut `service.name` des traces, et `checkout_prod` dans une métrique. Un nommage homogène entre les trois signaux est le premier ingrédient d'une corrélation qui marche.
+> 💡 **Astuce**
+>
+> Quand les liens automatiques ne remontent rien, regardez les noms. Le même service peut s'appeler `checkout` dans le label Loki `app`, `checkout-svc` dans l'attribut `service.name` des traces, et `checkout_prod` dans une métrique. Un nommage homogène entre les trois signaux est le premier ingrédient d'une corrélation qui marche.
 {: .callout .callout-astuce}
 
 ## Erreurs fréquentes
@@ -269,7 +289,9 @@ Cause : trace non échantillonnée, rétention dépassée, ou identifiant tronqu
 **Symptôme : la trace s'affiche, mais incomplète (quelques spans, pas de service aval).**
 Cause : un service du trajet n'est pas instrumenté ou ne propage pas le contexte de trace. Correction : ne pas conclure que « l'aval n'a rien fait » ; signaler le trou d'instrumentation à l'équipe concernée.
 
-> ⚠️ **Erreur fréquente** — Mettre un identifiant de requête, un utilisateur ou une adresse IP en **label** Loki. Chaque valeur différente crée un nouveau flux, ce qui dégrade l'index et les performances. Ces valeurs vivent dans le contenu de la ligne et se retrouvent par filtre ou par parsing, pas par label.
+> ⚠️ **Erreur fréquente**
+>
+> Mettre un identifiant de requête, un utilisateur ou une adresse IP en **label** Loki. Chaque valeur différente crée un nouveau flux, ce qui dégrade l'index et les performances. Ces valeurs vivent dans le contenu de la ligne et se retrouvent par filtre ou par parsing, pas par label.
 {: .callout .callout-attention}
 
 ## Cas réel en entreprise (scénario illustratif)

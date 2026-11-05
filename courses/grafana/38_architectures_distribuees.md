@@ -44,7 +44,9 @@ Chaque équipe regarde son service et celui-ci va bien. Le problème se trouve e
 
 Dans un monolithe, un appel lent se voit dans un profil ou dans un log unique. Dans une architecture distribuée, c'est moins simple.
 
-> 🏃 **Analogie : la course de relais.** Une requête utilisateur est un relais : le gateway passe le témoin à checkout, qui le passe à payments, qui le passe à un prestataire externe. Le temps total est la somme des relais, plus les temps de passage de témoin. Chaque coureur peut avoir d'excellentes statistiques pendant que l'équipe perd la course dans les transmissions. Limite de l'image : ici, un coureur attend souvent le retour du suivant, et certains appels partent en parallèle.
+> 🏃 **Analogie : la course de relais**
+>
+> Une requête utilisateur est un relais : le gateway passe le témoin à checkout, qui le passe à payments, qui le passe à un prestataire externe. Le temps total est la somme des relais, plus les temps de passage de témoin. Chaque coureur peut avoir d'excellentes statistiques pendant que l'équipe perd la course dans les transmissions. Limite de l'image : ici, un coureur attend souvent le retour du suivant, et certains appels partent en parallèle.
 {: .callout .callout-analogie}
 
 ```mermaid
@@ -67,7 +69,9 @@ Sur ce schéma, il y a deux familles de liens :
 
 Les symptômes ne se lisent donc pas de la même façon selon le type de lien.
 
-> 🧠 **Concept clé** : une trace est un arbre de spans. Un span représente une unité de travail (un appel HTTP entrant, une requête SQL, un publish Kafka) avec un début, une durée, un statut et des attributs. Tous les spans d'une même requête partagent un trace ID. Cet identifiant circule entre services dans un en-tête, et c'est lui qui permet de recoller les morceaux.
+> 🧠 **Concept clé**
+>
+> Une trace est un arbre de spans. Un span représente une unité de travail (un appel HTTP entrant, une requête SQL, un publish Kafka) avec un début, une durée, un statut et des attributs. Tous les spans d'une même requête partagent un trace ID. Cet identifiant circule entre services dans un en-tête, et c'est lui qui permet de recoller les morceaux.
 {: .callout .callout-important}
 
 ## Ce qui fait tenir la corrélation
@@ -137,10 +141,14 @@ datasources:
 
 Le `$$` est un échappement propre au provisioning : Grafana interpolerait sinon `$` comme une variable d'environnement.
 
-> 💡 **Astuce** : les fenêtres `spanStartTimeShift` et `spanEndTimeShift` élargissent la recherche de logs autour du span. Quelques minutes de marge compensent les décalages d'horloge et le délai d'ingestion de Loki, sinon le lien « Logs for this span » ouvre une requête vide alors que les logs existent.
+> 💡 **Astuce**
+>
+> Les fenêtres `spanStartTimeShift` et `spanEndTimeShift` élargissent la recherche de logs autour du span. Quelques minutes de marge compensent les décalages d'horloge et le délai d'ingestion de Loki, sinon le lien « Logs for this span » ouvre une requête vide alors que les logs existent.
 {: .callout .callout-astuce}
 
-> ⚠️ **Erreur fréquente** : mettre `trace_id` en label Loki pour faciliter la recherche. Chaque requête créerait un flux distinct : cardinalité explosive, ingestion dégradée. Le trace ID se garde dans le contenu de la ligne (log JSON, `| json | trace_id="..."`) ou dans les structured metadata si votre version de Loki les supporte. Les labels restent réservés aux dimensions stables (service, environnement, cluster).
+> ⚠️ **Erreur fréquente**
+>
+> Mettre `trace_id` en label Loki pour faciliter la recherche. Chaque requête créerait un flux distinct : cardinalité explosive, ingestion dégradée. Le trace ID se garde dans le contenu de la ligne (log JSON, `| json | trace_id="..."`) ou dans les structured metadata si votre version de Loki les supporte. Les labels restent réservés aux dimensions stables (service, environnement, cluster).
 {: .callout .callout-attention}
 
 Le trace ID dans les logs n'est pas automatique : il faut que le logger de chaque service l'injecte depuis le contexte courant. Un service qui produit des traces mais pas de logs corrélés laisse un trou dans l'investigation, sans qu'aucune alerte ne le signale.
@@ -153,7 +161,9 @@ OTLP* est le protocole de transport habituel entre applications, collecteurs et 
 
 Ouvrez une trace lente dans Explore et résistez à l'envie de chercher le span le plus long. La durée d'un span parent inclut celle de ses enfants : un span `checkout` de 7,9 s dont l'appel enfant `payments` dure 7,6 s ne dit rien de grave sur checkout. Ce qui compte, c'est le temps propre de chaque span et la forme générale du waterfall.
 
-> 📖 **Définition.** Le **temps propre** d'un span est sa durée moins le temps passé dans ses enfants. Dans l'exemple, checkout n'a que 0,3 s de temps propre.
+> 📖 **Définition**
+>
+> Le **temps propre** d'un span est sa durée moins le temps passé dans ses enfants. Dans l'exemple, checkout n'a que 0,3 s de temps propre.
 {: .callout .callout-definition}
 
 Quelques motifs que la forme révèle :
@@ -239,7 +249,9 @@ Techniquement, le contexte voyage dans les **headers du message** (Kafka headers
 - créer son span comme enfant du span producteur (lecture comme un arbre classique) ;
 - ou créer un nouveau span avec un **span link** vers le contexte producteur, ce qui est la façon naturelle de traiter un consommateur qui lit un lot de 200 messages d'un coup : un seul span de traitement, 200 liens.
 
-> 💡 **À retenir** : le temps d'attente dans la file n'appartient à aucun span. C'est l'écart entre la fin du span `publish` et le début du span `process`, et c'est précisément la mesure qui manque souvent dans les dashboards.
+> 💡 **À retenir**
+>
+> Le temps d'attente dans la file n'appartient à aucun span. C'est l'écart entre la fin du span `publish` et le début du span `process`, et c'est précisément la mesure qui manque souvent dans les dashboards.
 {: .callout .callout-important}
 
 Pour la suivre en métrique, regardez le **lag** du consumer group (par exemple via l'exporter Kafka) et rapprochez-le de la durée de traitement du worker :
@@ -252,7 +264,11 @@ Un autre piège : si un message est rejoué (retry, dead letter queue), il peut 
 
 ## Une trace incomplète ne prouve rien sur l'absence
 
-> ⚠️ **Piège à traiter explicitement.** Vous ouvrez la trace d'une commande défaillante. Il y a gateway, checkout, payments. Pas de span `inventory`. Conclusion tentante : « checkout n'a jamais appelé inventory. » Cette conclusion est fausse tant qu'elle n'est pas recoupée, car plusieurs mécanismes font disparaître des spans sans que le composant ait été épargné :
+Le raisonnement correct est un recoupement. L'absence dans la trace est un indice, jamais une preuve ; une preuve d'absence demande plusieurs sources indépendantes qui concordent.
+
+> ⚠️ **Piège à traiter explicitement**
+>
+> Vous ouvrez la trace d'une commande défaillante. Il y a gateway, checkout, payments. Pas de span `inventory`. Conclusion tentante : « checkout n'a jamais appelé inventory. » Cette conclusion est fausse tant qu'elle n'est pas recoupée, car plusieurs mécanismes font disparaître des spans sans que le composant ait été épargné :
 >
 > - **Échantillonnage** : en head sampling, la décision est prise au début, mais certains services peuvent avoir leur propre politique (ou un sampler non aligné sur le parent). En tail sampling, une partie des spans peut être jetée ou arriver trop tard pour la décision.
 > - **Perte à l'export** : un processus tué (OOM, redémarrage de pod) avant le flush de son buffer perd ses derniers spans. Or ce sont souvent ceux de l'incident.
@@ -261,8 +277,6 @@ Un autre piège : si un message est rejoué (retry, dead letter queue), il peut 
 > - **Composant non instrumenté** : la base du stock on-prem ou le PSP externe n'émettent aucun span, ce qui ne veut pas dire qu'ils ne font rien.
 > - **Spans en retard** : la trace est consultée avant l'arrivée de tous les spans, surtout avec des services lointains ou des batchs d'export longs.
 {: .callout .callout-attention}
-
-Le raisonnement correct est un recoupement. L'absence dans la trace est un indice, jamais une preuve ; une preuve d'absence demande plusieurs sources indépendantes qui concordent.
 
 ```mermaid
 flowchart TD
@@ -304,7 +318,9 @@ histogram_quantile(0.99,
 
 Si un pod sort du lot, vous avez un candidat (nœud dégradé, connexion DNS lente, cache froid). Si tous les pods sont uniformes, la différence vient de la requête (payload, client, chemin applicatif) et non de l'infrastructure.
 
-> 🧠 **Concept clé** : un taux d'erreur global faible est compatible avec une panne totale pour un segment. Si un client représentant 2 % du trafic dépend d'un chemin cassé, votre SLO global reste vert. Segmentez avant de conclure que « tout va bien ».
+> 🧠 **Concept clé**
+>
+> Un taux d'erreur global faible est compatible avec une panne totale pour un segment. Si un client représentant 2 % du trafic dépend d'un chemin cassé, votre SLO global reste vert. Segmentez avant de conclure que « tout va bien ».
 {: .callout .callout-important}
 
 ## Architecture hybride ou multicloud

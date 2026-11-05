@@ -56,7 +56,9 @@ flowchart TD
     E --> F[Diagnostic reproductible]
 ```
 
-> 🧠 **Concept clé** — Une hypothèse utile est **réfutable**. « Il y a un problème de base de données » n'est pas testable. « Le pool de connexions de `inventory` est saturé depuis 14:02 » l'est : une requête suffit à dire oui ou non. Quand vous formulez une hypothèse, demandez-vous quelle courbe ou quel log vous prouverait que vous avez tort.
+> 🧠 **Concept clé**
+>
+> Une hypothèse utile est **réfutable**. « Il y a un problème de base de données » n'est pas testable. « Le pool de connexions de `inventory` est saturé depuis 14:02 » l'est : une requête suffit à dire oui ou non. Quand vous formulez une hypothèse, demandez-vous quelle courbe ou quel log vous prouverait que vous avez tort.
 {: .callout .callout-important}
 
 Chaque étape a un rôle précis :
@@ -82,7 +84,9 @@ Une plage relative comme « Last 1 hour » glisse pendant que vous travaillez : 
 
 Notez aussi le fuseau horaire. Un dashboard en heure du navigateur et des logs lus en UTC produisent des décalages d'une ou deux heures, et des corrélations qui n'existent pas.
 
-> 💡 **Astuce** — Dans les réglages du dashboard, passez *Graph tooltip* en *Shared crosshair* (ou *Shared tooltip*). En survolant un panel, un curseur vertical apparaît au même instant sur tous les autres. Vous voyez immédiatement quelle courbe bouge en premier.
+> 💡 **Astuce**
+>
+> Dans les réglages du dashboard, passez *Graph tooltip* en *Shared crosshair* (ou *Shared tooltip*). En survolant un panel, un curseur vertical apparaît au même instant sur tous les autres. Vous voyez immédiatement quelle courbe bouge en premier.
 {: .callout .callout-astuce}
 
 ### Comparer avec un état normal
@@ -119,7 +123,9 @@ Quelques mécanismes font gagner un temps précieux :
 - **Data links** : un lien configuré dans un panel peut ouvrir Explore ou un autre dashboard en transmettant des variables comme `${__field.labels.service}` ou la plage `${__url_time_range}`. C'est ce qui vous évite de recopier un nom de pod à la main.
 - **Liens entre sources** : depuis un log, un *derived field* sur Loki ouvre la trace correspondante dans Tempo à partir du `trace_id`. Depuis une trace, le lien *trace to logs* ouvre les logs de la même période. Et si les applications émettent des exemplars, un point sur la courbe de latence mène directement à une trace représentative. Tout cela se configure dans les data sources ; l'emplacement des options dépend de la version.
 
-> ⚠️ **Erreur fréquente** — Ces liens ne fonctionnent que si les noms de labels sont cohérents. Si Prometheus étiquette `service="checkout"` et que Loki étiquette `app="checkout"`, le pivot ne trouve rien, et on conclut à tort « pas de logs ». Corrigez le nom du label dans la configuration du lien ou, mieux, harmonisez les labels à la source.
+> ⚠️ **Erreur fréquente**
+>
+> Ces liens ne fonctionnent que si les noms de labels sont cohérents. Si Prometheus étiquette `service="checkout"` et que Loki étiquette `app="checkout"`, le pivot ne trouve rien, et on conclut à tort « pas de logs ». Corrigez le nom du label dans la configuration du lien ou, mieux, harmonisez les labels à la source.
 {: .callout .callout-attention}
 
 ## Corréler métriques, logs et traces
@@ -132,7 +138,9 @@ Les trois signaux répondent à des questions différentes, et c'est leur combin
 | Traces | Où le temps est-il passé pour *une* requête ? | Tempo, via exemplar ou recherche |
 | Logs | Que dit le composant précisément ? | Loki, filtré par service, par trace ou par période |
 
-> 🔑 **Moyen mnémotechnique** : RED se lit **R**ate (débit), **E**rrors (taux d'erreur), **D**uration (durée). Ces trois signaux sont un bon point de départ pour examiner un service.
+> 🔑 **Moyen mnémotechnique**
+>
+> RED se lit **R**ate (débit), **E**rrors (taux d'erreur), **D**uration (durée). Ces trois signaux sont un bon point de départ pour examiner un service.
 {: .callout .callout-memo}
 
 Les deux requêtes ci-dessous couvrent le débit et le taux d'erreur ; pour la durée, reprenez la requête p95 vue plus haut. Toutes sont à adapter à vos noms de métriques et de labels, qui dépendent de l'instrumentation de vos applications.
@@ -167,7 +175,9 @@ La plupart des incidents en production commencent par un changement : déploieme
 
 La meilleure réponse est de **rendre les changements visibles dans Grafana**.
 
-> 📖 **Définition.** Une annotation est un repère daté : un trait vertical accompagné d'un texte, affiché sur tous les panels.
+> 📖 **Définition**
+>
+> Une annotation est un repère daté : un trait vertical accompagné d'un texte, affiché sur tous les panels.
 {: .callout .callout-definition}
 
 Votre pipeline de déploiement peut en créer une avec l'API :
@@ -190,10 +200,14 @@ Si deux versions coexistent dans la fenêtre, c'est un déploiement progressif, 
 
 ## Composant dégradé ou cause racine ?
 
-> 🧠 **Concept clé** — Le composant où le symptôme *apparaît* n'est presque jamais celui où il *naît*. Dans une architecture distribuée, la lenteur se propage : un service lent à l'aval fait attendre tous ceux qui l'appellent, ce qui sature leurs threads, puis leurs files, puis leurs propres appelants.
+> 🧠 **Concept clé**
+>
+> Le composant où le symptôme *apparaît* n'est presque jamais celui où il *naît*. Dans une architecture distribuée, la lenteur se propage : un service lent à l'aval fait attendre tous ceux qui l'appellent, ce qui sature leurs threads, puis leurs files, puis leurs propres appelants.
 {: .callout .callout-important}
 
-> 🛒 **Analogie : la file d'attente au supermarché.** Si la cliente à la caisse 3 met dix minutes à payer, ce n'est pas la caisse 3 qui est cassée : c'est peut-être son terminal de carte. Quand toute la file se plaint, vous regardez la file, pas la cause.
+> 🛒 **Analogie : la file d'attente au supermarché**
+>
+> Toute la file de la caisse 3 se plaint : c'est le symptôme. La cause peut être ailleurs, par exemple un service de paiement qui met une minute à valider chaque carte. Regarder la file montre où ça coince, pas pourquoi.
 {: .callout .callout-analogie}
 
 La méthode pratique est de **descendre la chaîne des dépendances** :

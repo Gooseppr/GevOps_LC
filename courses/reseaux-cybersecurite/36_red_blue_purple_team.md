@@ -68,12 +68,16 @@ Ces trois approches ne sont pas des niveaux successifs. Elles répondent à des 
 | Mesure mal | Couverture : une technique non utilisée n'est pas testée | Sa propre efficacité, faute d'adversaire | Réalisme de l'enchaînement et pression psychologique |
 | Coût | Élevé (profils rares, durée) | Récurrent, intégré aux opérations | Modéré, mais mobilise les deux équipes |
 
-> 🧠 **Concept clé** : la Purple Team n'est pas une troisième équipe. C'est une façon de travailler où l'attaquant rejoue ses actions sous les yeux du défenseur, qui ajuste ses règles dans la foulée. Dans beaucoup d'organisations, ce sont les mêmes personnes qui alternent les rôles selon la semaine.
+> 🧠 **Concept clé**
+>
+> La Purple Team n'est pas une troisième équipe. C'est une façon de travailler où l'attaquant rejoue ses actions sous les yeux du défenseur, qui ajuste ses règles dans la foulée. Dans beaucoup d'organisations, ce sont les mêmes personnes qui alternent les rôles selon la semaine.
 {: .callout .callout-important}
 
 La différence avec le pentest du module 31 porte sur l'objectif. Un pentest cherche des vulnérabilités à périmètre borné. Un Red Team cherche à atteindre un objectif métier en évitant d'être détecté. Un exercice Purple cherche à mesurer la détection, pas à l'éviter.
 
-> 🥊 **Analogie : le match et l'entraînement.** Un Red Team ressemble à un match officiel. Vous ignorez le jeu adverse et découvrez le score à la fin. Un exercice Purple ressemble à une séance d'entraînement filmée : chaque action est rejouée au ralenti et le placement est corrigé aussitôt. Limite de l'image : l'entraînement ne reproduit ni le réalisme de l'enchaînement ni la pression du match.
+> 🥊 **Analogie : le match et l'entraînement**
+>
+> Un Red Team ressemble à un match officiel. Vous ignorez le jeu adverse et découvrez le score à la fin. Un exercice Purple ressemble à une séance d'entraînement filmée : chaque action est rejouée au ralenti et le placement est corrigé aussitôt. Limite de l'image : l'entraînement ne reproduit ni le réalisme de l'enchaînement ni la pression du match.
 {: .callout .callout-analogie}
 
 ## Surface d'attaque : ce que l'exercice met réellement en jeu
@@ -141,7 +145,9 @@ Un exercice sans cadre est une intrusion. Les règles d'engagement (RoE, Rules o
 
 Pour les secteurs régulés, des cadres formalisent cette démarche. TIBER-EU (Threat Intelligence-based Ethical Red Teaming) en est un exemple dans la finance. Il impose notamment que le scénario s'appuie sur du renseignement sur les menaces. Vérifiez la version en vigueur avant de vous y référer dans une mission.
 
-> 💡 **Astuce** : pour un premier exercice, partez en *assumed breach*. Donnez au Red Team un poste compromis et un compte standard. Vous économisez trois semaines d'accès initial et testez directement ce qui compte : ce qui se passe après la compromission.
+> 💡 **Astuce**
+>
+> Pour un premier exercice, partez en *assumed breach*. Donnez au Red Team un poste compromis et un compte standard. Vous économisez trois semaines d'accès initial et testez directement ce qui compte : ce qui se passe après la compromission.
 {: .callout .callout-astuce}
 
 ## Tests de sécurité : rejouer une technique en laboratoire
@@ -174,14 +180,18 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4769} -MaxEvents 500 |
 
 L'index `Properties[5]` correspond au champ `TicketEncryptionType` sur les versions récentes de Windows. Contrôlez-le sur votre version avant d'industrialiser la requête.
 
-> ⚠️ N'exécutez jamais ces tests sur des machines de production sans accord écrit, ni depuis un répertoire exclu de l'antivirus (voir « Erreurs fréquentes »).
+> ⚠️ **Attention**
+>
+> N'exécutez jamais ces tests sur des machines de production sans accord écrit, ni depuis un répertoire exclu de l'antivirus (voir « Erreurs fréquentes »).
 {: .callout .callout-attention}
 
 ## Contrôles de détection : valider la couverture, pas l'existence d'une règle
 
 Dire « on couvre T1003 » ne veut rien dire. Pourquoi ?
 
-> 📖 **Définition.** Une technique ATT&CK décrit un comportement de l'attaquant, par exemple copier la mémoire de LSASS. Ses procédures sont les façons concrètes de le réaliser : `comsvcs.dll`, `procdump`, `Mimikatz`, copie via le gestionnaire de tâches, appel direct à `MiniDumpWriteDump`.
+> 📖 **Définition**
+>
+> Une technique ATT&CK décrit un comportement de l'attaquant, par exemple copier la mémoire de LSASS. Ses procédures sont les façons concrètes de le réaliser : `comsvcs.dll`, `procdump`, `Mimikatz`, copie via le gestionnaire de tâches, appel direct à `MiniDumpWriteDump`.
 {: .callout .callout-definition}
 
 Une règle peut donc voir une procédure et en rater quatre.
@@ -198,7 +208,9 @@ La couverture se mesure à l'aide d'un pipeline à cinq niveaux, appliqué à ch
 
 Le niveau 3 est le plus instructif. C'est là qu'on découvre qu'une alerte « fonctionne » sur le papier et qu'elle est ignorée depuis six mois parce qu'elle fait 200 faux positifs par jour.
 
-> 🔔 **Analogie : l'alarme incendie qui sonne tous les jours.** Au bout d'une semaine, plus personne n'évacue. L'alarme marche, mais elle ne protège plus. Limite de l'image : au SOC, le réglage de la règle compte autant que la discipline des analystes.
+> 🔔 **Analogie : l'alarme incendie qui sonne tous les jours**
+>
+> Au bout d'une semaine, plus personne n'évacue. L'alarme marche, mais elle ne protège plus. Limite de l'image : au SOC, le réglage de la règle compte autant que la discipline des analystes.
 {: .callout .callout-analogie}
 
 Voici une règle Sigma pour la copie mémoire de LSASS, avec le piège classique en commentaire :
@@ -239,7 +251,9 @@ Chaque lacune appelle un type de contrôle différent, et chaque type a un coût
 | Mouvement latéral SMB | Segmentation, LAPS pour des mots de passe d'administrateur local uniques | Corrélation 4624 type 3 + création de service (7045) | Désactivation des comptes, restauration |
 | Chiffrement par rançongiciel | Sauvegardes hors ligne et testées | Alerte sur suppression massive de clichés (`vssadmin delete shadows`) | Plan de restauration documenté |
 
-> 🔒 **Contrôle de sécurité** : le préventif coûte en friction (Credential Guard exige du matériel compatible et casse certaines applications anciennes). Le détectif coûte en temps d'analyste. Le correctif coûte en temps de reprise. Un exercice Purple sert à décider où placer la dépense : on bloque ce qui est peu coûteux à bloquer, on détecte ce qu'on ne peut pas bloquer, et on s'entraîne à corriger ce qu'on ne peut ni l'un ni l'autre.
+> 🔒 **Contrôle de sécurité**
+>
+> Le préventif coûte en friction (Credential Guard exige du matériel compatible et casse certaines applications anciennes). Le détectif coûte en temps d'analyste. Le correctif coûte en temps de reprise. Un exercice Purple sert à décider où placer la dépense : on bloque ce qui est peu coûteux à bloquer, on détecte ce qu'on ne peut pas bloquer, et on s'entraîne à corriger ce qu'on ne peut ni l'un ni l'autre.
 {: .callout .callout-securite}
 
 ## Coordination attaque simulée et réponse défensive
@@ -282,14 +296,18 @@ Peu d'indicateurs servent vraiment :
 - **Taux de régression** : détections de niveau 4 qui retombent plus bas au cycle suivant, souvent après une mise à jour d'agent ou de parsers.
 - **Délai de correction** des constats, en jours, par criticité.
 
-> ⚠️ **Piège fréquent** : afficher « 85 % de couverture ATT&CK » sur un tableau de bord. Le chiffre mélange des techniques jamais testées, des techniques détectées par hasard et des techniques validées. Sans la méthode de calcul, il est inutilisable.
+> ⚠️ **Piège fréquent**
+>
+> Afficher « 85 % de couverture ATT&CK » sur un tableau de bord. Le chiffre mélange des techniques jamais testées, des techniques détectées par hasard et des techniques validées. Sans la méthode de calcul, il est inutilisable.
 {: .callout .callout-attention}
 
 Pour que la validation survive aux changements, automatisez-la. Rejouez les tests Atomic chaque mois sur un groupe de machines représentatif (même politique EDR, mêmes exclusions que la production) et comparez les alertes obtenues au résultat du cycle précédent.
 
 ## Ce qu'un exercice offensif ne mesure pas
 
-> 💡 **À retenir.** Un exercice Red Team qui réussit prouve qu'**au moins un chemin existe**. Un exercice qui échoue prouve qu'**un chemin n'a pas été trouvé dans le temps imparti**. Aucun des deux ne mesure la maturité globale.
+> 💡 **À retenir**
+>
+> Un exercice Red Team qui réussit prouve qu'**au moins un chemin existe**. Un exercice qui échoue prouve qu'**un chemin n'a pas été trouvé dans le temps imparti**. Aucun des deux ne mesure la maturité globale.
 {: .callout .callout-important}
 
 | Résultat | Lectures possibles | Ce qu'on ignore |

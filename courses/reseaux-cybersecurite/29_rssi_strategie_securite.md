@@ -57,7 +57,9 @@ Un attaquant n'attaque pas votre politique de sécurité, il exploite ce qu'elle
 | Indicateurs cosmétiques | Taux de couverture de l'EDR affiché, taux de remédiation réel ignoré | Fausse assurance de la direction |
 | Chaîne d'approvisionnement logicielle | Mises à jour d'éditeurs, composants open source, MSP (Managed Service Provider) | Compromission en cascade, hors de votre contrôle direct |
 
-> 🧠 **Concept clé** : en gouvernance, un risque sans propriétaire nommé, sans date de revue et sans indicateur n'est pas géré. Il est seulement connu.
+> 🧠 **Concept clé**
+>
+> En gouvernance, un risque sans propriétaire nommé, sans date de revue et sans indicateur n'est pas géré. Il est seulement connu.
 {: .callout .callout-important}
 
 ## Qui fait quoi : RSSI, DSI et direction générale
@@ -73,7 +75,9 @@ Le RSSI (l'équivalent français du CISO, Chief Information Security Officer) a 
 
 Cette répartition se formalise souvent avec une matrice RACI.
 
-> 📖 **Définition.** Une matrice RACI attribue quatre rôles pour chaque décision ou activité :
+> 📖 **Définition**
+>
+> Une matrice RACI attribue quatre rôles pour chaque décision ou activité :
 >
 > - *Responsible* : la personne qui réalise ;
 > - *Accountable* : la personne qui répond du résultat et tranche ;
@@ -83,7 +87,9 @@ Cette répartition se formalise souvent avec une matrice RACI.
 > Sa valeur tient à une règle simple : une seule personne *Accountable* par décision.
 {: .callout .callout-definition}
 
-> ⚠️ **Erreur fréquente : la fonction RSSI réduite à l'administration des outils.** Quand le RSSI passe ses semaines à régler le proxy, gérer les règles du pare-feu et trier les alertes de l'antivirus, la fonction devient un poste d'exploitation avec un titre de direction. Trois conséquences se cumulent :
+> ⚠️ **Erreur fréquente : la fonction RSSI réduite à l'administration des outils**
+>
+> Quand le RSSI passe ses semaines à régler le proxy, gérer les règles du pare-feu et trier les alertes de l'antivirus, la fonction devient un poste d'exploitation avec un titre de direction. Trois conséquences se cumulent :
 >
 > - plus personne ne regarde le risque d'ensemble ;
 > - le contrôle est assuré par la personne qui a configuré ce qu'elle contrôle ;
@@ -120,7 +126,9 @@ flowchart LR
     G --> C
 ```
 
-> 💡 **Astuce** : testez votre stratégie avec la question suivante : « si la direction coupe 30 % du budget, quels objectifs de sécurité abandonne-t-on, et quel risque devient explicitement accepté ? » Si vous ne pouvez pas répondre, la stratégie n'est pas encore priorisée.
+> 💡 **Astuce**
+>
+> Testez votre stratégie avec la question suivante : « si la direction coupe 30 % du budget, quels objectifs de sécurité abandonne-t-on, et quel risque devient explicitement accepté ? » Si vous ne pouvez pas répondre, la stratégie n'est pas encore priorisée.
 {: .callout .callout-astuce}
 
 La stratégie doit aussi tenir compte de la contrainte réelle. Une PME avec deux personnes dédiées ne déploie pas le même programme qu'un groupe bancaire. La maturité cible se choisit selon le risque et les moyens, et l'ISO 27001 sert ici de cadre pour un ISMS (Information Security Management System) : on y justifie les mesures retenues par rapport aux risques, au lieu de viser une couverture maximale.
@@ -148,7 +156,9 @@ flowchart TB
 
 Les décisions comptent plus que la forme. Un comité qui « prend acte » sans rien décider n'a aucun effet. Chaque séance doit sortir avec des décisions écrites, un propriétaire et une échéance. Le point le plus négligé reste l'acceptation de risque : elle est signée par le **propriétaire du processus concerné**, avec la durée de validité de l'acceptation.
 
-> 🔒 **Contrôle de sécurité** : le registre des exceptions. Chaque dérogation à la politique y figure avec un identifiant, le périmètre, le risque, le propriétaire, la mesure compensatoire et une **date d'expiration**. Sans échéance, une dérogation devient une règle.
+> 🔒 **Contrôle de sécurité**
+>
+> Le registre des exceptions. Chaque dérogation à la politique y figure avec un identifiant, le périmètre, le risque, le propriétaire, la mesure compensatoire et une **date d'expiration**. Sans échéance, une dérogation devient une règle.
 {: .callout .callout-securite}
 
 ## Politique de sécurité et déclinaison opérationnelle
@@ -160,7 +170,9 @@ La politique de sécurité de 60 pages que personne n'a lue reste le piège clas
 - **Procédures et guides** : comment on applique concrètement chaque standard.
 - **Contrôles techniques** : les paramètres des systèmes qui l'imposent ou la mesurent.
 
-> 💡 **À retenir** : un standard n'a de valeur que s'il est testable. Si l'on ne peut pas écrire la commande ou la requête qui vérifie la règle, la règle est trop vague.
+> 💡 **À retenir**
+>
+> Un standard n'a de valeur que s'il est testable. Si l'on ne peut pas écrire la commande ou la requête qui vérifie la règle, la règle est trop vague.
 {: .callout .callout-important}
 
 Exemple : le standard « MFA obligatoire pour les comptes disposant d'un accès console » se vérifie sur AWS (les commandes équivalentes existent chez les autres fournisseurs) :
@@ -189,7 +201,9 @@ priorité ≈ (réduction de risque × couverture) / (coût + charge d'exploitat
 
 Le terme souvent oublié est la **charge d'exploitation**. Un outil acheté crée un coût récurrent : licences, réglages, et surtout quelqu'un pour traiter ce qu'il remonte.
 
-> 🚨 **Analogie : l'alarme sans gardien.** Un EDR sans équipe pour répondre aux alertes ressemble à une alarme que personne ne vient vérifier quand elle sonne : il ne réduit pas le risque proportionnellement à son prix. Limite de l'image : un EDR peut bloquer seul certaines menaces, mais l'investigation et la réponse restent humaines.
+> 🚨 **Analogie : l'alarme sans gardien**
+>
+> Un EDR sans équipe pour répondre aux alertes ressemble à une alarme que personne ne vient vérifier quand elle sonne : il ne réduit pas le risque proportionnellement à son prix. Limite de l'image : un EDR peut bloquer seul certaines menaces, mais l'investigation et la réponse restent humaines.
 {: .callout .callout-analogie}
 
 Exemple illustratif pour l'industriel du scénario, avec des chiffres fictifs :
@@ -208,10 +222,12 @@ Côté ressources, la question n'est pas seulement « combien de personnes » ma
 
 ## Indicateurs : KRI et KPI
 
-> 📖 **Définition.** Un KRI (Key Risk Indicator) mesure l'exposition au risque : ce qui peut mal tourner. Un KPI (Key Performance Indicator) mesure la performance des actions menées : ce qui avance ou non.
-{: .callout .callout-definition}
-
 Un indicateur n'a de valeur que s'il déclenche une décision quand il franchit un seuil.
+
+> 📖 **Définition**
+>
+> Un KRI (Key Risk Indicator) mesure l'exposition au risque : ce qui peut mal tourner. Un KPI (Key Performance Indicator) mesure la performance des actions menées : ce qui avance ou non.
+{: .callout .callout-definition}
 
 | Indicateur | Type | Source | Seuil d'alerte | Décision déclenchée |
 |---|---|---|---|---|
@@ -234,7 +250,9 @@ sort open_cves.txt | comm -12 - kev.txt
 
 `open_cves.txt` contient un identifiant CVE par ligne, exporté du scanner. L'URL du flux peut évoluer, vérifiez-la dans la documentation de la CISA.
 
-> ⚠️ **Erreur fréquente : les indicateurs cosmétiques.** « 98 % des postes équipés d'un EDR » rassure, mais ne dit pas si les 2 % restants sont les serveurs de production. Mesurez la couverture sur les actifs critiques, pas sur la moyenne. Un tableau de bord de 40 indicateurs est illisible : au comité stratégique, huit à douze suffisent, chacun relié à une décision possible.
+> ⚠️ **Erreur fréquente : les indicateurs cosmétiques**
+>
+> « 98 % des postes équipés d'un EDR » rassure, mais ne dit pas si les 2 % restants sont les serveurs de production. Mesurez la couverture sur les actifs critiques, pas sur la moyenne. Un tableau de bord de 40 indicateurs est illisible : au comité stratégique, huit à douze suffisent, chacun relié à une décision possible.
 {: .callout .callout-attention}
 
 ## Pilotage de la feuille de route
@@ -257,10 +275,12 @@ Pour les obligations réglementaires comme NIS2 ou DORA (Digital Operational Res
 
 ## Gestion des tiers, fournisseurs et risques contractuels
 
-> 🔴 **Vecteur d'attaque** : l'attaquant cible le maillon que vous ne maîtrisez pas. En 2020, la compromission de la chaîne de mise à jour de SolarWinds Orion a touché ses clients en cascade. En 2021, l'attaque sur le logiciel Kaseya VSA, utilisé par des prestataires d'infogérance, a propagé un ransomware vers leurs clients. Fin mai 2023, l'exploitation de CVE-2023-34362 dans MOVEit Transfer a permis des vols de données massifs chez de nombreux utilisateurs du produit. Dans les trois cas, les victimes finales avaient un périmètre interne correct, mais une dépendance qu'elles ne pilotaient pas.
-{: .callout .callout-danger}
-
 On ne peut pas auditer chaque fournisseur à fond. La gestion devient praticable avec un **tiering** :
+
+> 🔴 **Vecteur d'attaque**
+>
+> L'attaquant cible le maillon que vous ne maîtrisez pas. En 2020, la compromission de la chaîne de mise à jour de SolarWinds Orion a touché ses clients en cascade. En 2021, l'attaque sur le logiciel Kaseya VSA, utilisé par des prestataires d'infogérance, a propagé un ransomware vers leurs clients. Fin mai 2023, l'exploitation de CVE-2023-34362 dans MOVEit Transfer a permis des vols de données massifs chez de nombreux utilisateurs du produit. Dans les trois cas, les victimes finales avaient un périmètre interne correct, mais une dépendance qu'elles ne pilotaient pas.
+{: .callout .callout-danger}
 
 | Niveau | Critère | Diligence proportionnée |
 |---|---|---|

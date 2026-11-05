@@ -47,14 +47,18 @@ La duplication ne tient plus. Chaque nouveau cluster multiplie le travail de mai
 
 Sur un seul cluster, `http_requests_total{service="checkout"}` suffit pour identifier une série. Dès qu'il y a plusieurs clusters, la même métrique existe plusieurs fois, avec les mêmes noms de service et les mêmes valeurs possibles de `status`. La seule chose qui les distingue est la réponse à la question « où ? ».
 
-> 📮 **Analogie : l'adresse postale.** « 12 rue de la Paix » ne dit rien tant qu'on n'a pas la ville et le pays. Les labels `environment`, `cluster` et `region` jouent ce rôle pour vos séries temporelles. Sans eux, soit vous confondez des données qui n'ont rien à voir, soit vous êtes incapable de les retrouver.
+> 📮 **Analogie : l'adresse postale**
+>
+> « 12 rue de la Paix » ne dit rien tant qu'on n'a pas la ville et le pays. Les labels `environment`, `cluster` et `region` jouent ce rôle pour vos séries temporelles. Sans eux, soit vous confondez des données qui n'ont rien à voir, soit vous êtes incapable de les retrouver.
 {: .callout .callout-analogie}
 
 Ce module repose donc sur une idée simple : **les dimensions d'infrastructure sont un contrat**, posé à la collecte et respecté par tous les signaux. Les dashboards, les alertes et les permissions s'appuient ensuite dessus. Si le contrat est flou, rien ne marche correctement, quelle que soit la qualité des dashboards.
 
 ## Le contrat de labels
 
-> 🧠 **Concept clé** : quatre labels répondent à quatre questions différentes, et chacun doit signifier la même chose partout (métriques, logs, traces, alertes).
+> 🧠 **Concept clé**
+>
+> Quatre labels répondent à quatre questions différentes, et chacun doit signifier la même chose partout (métriques, logs, traces, alertes).
 {: .callout .callout-important}
 
 | Label | Question à laquelle il répond | Exemples de valeurs | Règle |
@@ -120,7 +124,9 @@ prometheus.remote_write "central" {
 
 Dans une vraie configuration, il faut ajouter l'authentification (clé, jeton ou certificat client) vers la passerelle. J'y reviens plus bas.
 
-> ⚠️ **Erreur fréquente** : croire que `external_labels` modifie les séries stockées dans le Prometheus local. Ces labels sont ajoutés quand les données sortent (remote write, fédération, alertes). Ils n'apparaissent donc pas si vous interrogez directement le Prometheus du cluster. Et si une série porte déjà un label du même nom, celui d'origine est conservé. Un exporter qui expose son propre label `cluster` (certaines bases de données le font) se retrouve alors avec une valeur qui n'est pas celle de votre contrat. Quand vous rencontrez ce cas, renommez le label à la source, avant l'export.
+> ⚠️ **Erreur fréquente**
+>
+> Croire que `external_labels` modifie les séries stockées dans le Prometheus local. Ces labels sont ajoutés quand les données sortent (remote write, fédération, alertes). Ils n'apparaissent donc pas si vous interrogez directement le Prometheus du cluster. Et si une série porte déjà un label du même nom, celui d'origine est conservé. Un exporter qui expose son propre label `cluster` (certaines bases de données le font) se retrouve alors avec une valeur qui n'est pas celle de votre contrat. Quand vous rencontrez ce cas, renommez le label à la source, avant l'export.
 {: .callout .callout-attention}
 
 Pour les logs, `loki.write` accepte aussi un argument `external_labels`. Pour les traces, il n'y a pas de label externe : vous passez par les attributs de ressource, posés dans le collecteur.
@@ -187,10 +193,14 @@ La fédération Prometheus classique (`/federate`) a un rôle plus étroit : rem
 
 Mimir, Loki et Tempo savent séparer les données par tenant.
 
-> 📖 **Définition.** Un tenant est un compartiment de données du backend. Il est identifié par l'en-tête `X-Scope-OrgID` de chaque requête, en écriture comme en lecture. Deux tenants ne voient pas les données l'un de l'autre, et on peut leur appliquer des limites différentes.
+> 📖 **Définition**
+>
+> Un tenant est un compartiment de données du backend. Il est identifié par l'en-tête `X-Scope-OrgID` de chaque requête, en écriture comme en lecture. Deux tenants ne voient pas les données l'un de l'autre, et on peut leur appliquer des limites différentes.
 {: .callout .callout-definition}
 
-> ⚠️ **Erreur fréquente** : prendre cet en-tête pour de l'authentification. Le backend lui fait confiance tel quel. Toute personne capable d'atteindre le backend peut écrire `X-Scope-OrgID: production` et lire la production. L'authentification doit être faite en amont, par la passerelle (mTLS, jeton), qui impose la valeur du tenant selon l'identité de l'appelant. Autre piège de même nature : avec `auth_enabled: false` dans Loki, tout tombe dans un tenant unique (nommé `fake`) et l'isolation disparaît.
+> ⚠️ **Erreur fréquente**
+>
+> Prendre cet en-tête pour de l'authentification. Le backend lui fait confiance tel quel. Toute personne capable d'atteindre le backend peut écrire `X-Scope-OrgID: production` et lire la production. L'authentification doit être faite en amont, par la passerelle (mTLS, jeton), qui impose la valeur du tenant selon l'identité de l'appelant. Autre piège de même nature : avec `auth_enabled: false` dans Loki, tout tombe dans un tenant unique (nommé `fake`) et l'isolation disparaît.
 {: .callout .callout-attention}
 
 Le choix de ce que représente un tenant se pose vite. Un tenant par environnement (`production`, `staging`) est le découpage le plus lisible et il suffit à beaucoup d'équipes. Un tenant par équipe ou par produit devient utile quand des équipes doivent être étanches entre elles, et il se combine bien avec les environnements (`checkout-prod`, `checkout-stg`). Évitez en revanche un tenant par cluster : vous perdriez l'intérêt d'une requête qui couvre plusieurs clusters.
@@ -249,7 +259,9 @@ sum by (environment, cluster) (
 
 Le `by (environment, cluster)` n'est pas décoratif. Il fait que le panel affiche une courbe par cluster, au lieu d'un total qui ne dirait rien sur l'origine. Un dashboard multi-cluster doit montrer ses dimensions par défaut, puis laisser l'utilisateur filtrer.
 
-> 💡 **Astuce** : dans le champ *Legend* du panel, utilisez `{{environment}} / {{cluster}}`. Ça évite d'avoir à survoler chaque courbe pour savoir de quoi on parle.
+> 💡 **Astuce**
+>
+> Dans le champ *Legend* du panel, utilisez `{{environment}} / {{cluster}}`. Ça évite d'avoir à survoler chaque courbe pour savoir de quoi on parle.
 {: .callout .callout-astuce}
 
 La variable `ds` sert quand vous avez plusieurs data sources, une par tenant. Les panels référencent alors `${ds}` comme `uid`, et l'utilisateur change d'environnement sans toucher au dashboard. Si un backend central expose tout dans un seul tenant, vous n'en avez pas besoin. Le menu exact pour paramétrer ces variables dépend de la version de Grafana, mais les types (Query, Data source) existent depuis longtemps.
@@ -268,7 +280,9 @@ Une fois les dimensions propres, elles servent de fil conducteur entre les signa
 
 Cette bifurcation n'est possible que parce que `region` est présent partout.
 
-> 💡 **À retenir.** Pour passer d'un signal à l'autre, les mêmes valeurs de labels doivent exister des deux côtés.
+> 💡 **À retenir**
+>
+> Pour passer d'un signal à l'autre, les mêmes valeurs de labels doivent exister des deux côtés.
 {: .callout .callout-important}
 
 Une requête de logs `{service="checkout", cluster="prod-eu-1"}` ne trouve rien si votre Loki étiquette ce service `app` ou `service_name` avec une autre valeur. Le travail de normalisation se fait donc dans le collecteur, une fois pour toutes.
@@ -329,7 +343,9 @@ sum by (environment, cluster, service) (rate(http_requests_total[5m]))
 
 Les deux côtés portent le même ensemble de labels, donc la division associe bien chaque cluster à lui-même. Sur ces données, `prod-us-1` ressort à 8 % et déclenche l'alerte.
 
-> 💡 **Astuce** : préférez `sum without (pod, instance)` à `sum by (...)` quand vous voulez conserver tout sauf quelques labels bruyants. Avec `by`, le jour où quelqu'un ajoute un label utile (`tier`, `team`), il disparaît silencieusement. Avec `without`, il reste.
+> 💡 **Astuce**
+>
+> Préférez `sum without (pod, instance)` à `sum by (...)` quand vous voulez conserver tout sauf quelques labels bruyants. Avec `by`, le jour où quelqu'un ajoute un label utile (`tier`, `team`), il disparaît silencieusement. Avec `without`, il reste.
 {: .callout .callout-astuce}
 
 Le même raisonnement s'applique aux alertes. Dans une règle Grafana Alerting dont la requête renvoie plusieurs séries, chaque combinaison de labels devient une instance d'alerte séparée. Garder `environment` et `cluster` dans la requête permet ensuite à la politique de notification de router sur `environment = production` vers l'astreinte et sur `environment = staging` vers un canal de discussion. Si vous les avez perdus à l'agrégation, vous n'avez plus rien à quoi accrocher le routage, et le message d'alerte ne dit pas où regarder.

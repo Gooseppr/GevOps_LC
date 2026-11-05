@@ -53,7 +53,9 @@ Les indicateurs étaient périmés avant d'arriver, et la défense reposait sur 
 
 ## Trois niveaux de renseignement, trois destinataires
 
-> 🧠 **Concept clé** : la CTI n'est pas un flux de données. C'est une réponse à une question posée par quelqu'un qui doit décider. Sans question, il n'y a que de la collecte.
+> 🧠 **Concept clé**
+>
+> La CTI n'est pas un flux de données. C'est une réponse à une question posée par quelqu'un qui doit décider. Sans question, il n'y a que de la collecte.
 {: .callout .callout-important}
 
 | Niveau | Question posée | Destinataire | Durée de vie | Exemple de livrable |
@@ -66,7 +68,9 @@ On ajoute souvent un niveau « technique » pour les IoC bruts consommés par le
 
 Le travail suit un cycle dont le point d'entrée est la **direction**, c'est-à-dire les PIR.
 
-> 📖 **Définition.** Les PIR (Priority Intelligence Requirements) sont les quelques questions auxquelles l'organisation a besoin de répondre. Sans elles, on collecte tout et on exploite peu.
+> 📖 **Définition**
+>
+> Les PIR (Priority Intelligence Requirements) sont les quelques questions auxquelles l'organisation a besoin de répondre. Sans elles, on collecte tout et on exploite peu.
 {: .callout .callout-definition}
 
 ```mermaid
@@ -80,7 +84,9 @@ flowchart LR
   style A fill:#1f6feb,color:#fff
 ```
 
-> ⚠️ **Erreur fréquente** : mesurer une équipe CTI au nombre d'indicateurs ingérés. La bonne mesure est le nombre de décisions modifiées : un correctif priorisé, une règle de détection créée, une exception levée, un budget MFA débloqué.
+> ⚠️ **Erreur fréquente**
+>
+> Mesurer une équipe CTI au nombre d'indicateurs ingérés. La bonne mesure est le nombre de décisions modifiées : un correctif priorisé, une règle de détection créée, une exception levée, un budget MFA débloqué.
 {: .callout .callout-attention}
 
 ## Acteurs de menace : motivations et modes opératoires
@@ -116,7 +122,9 @@ Avant de lancer une campagne, l'attaquant cartographie sa cible avec des sources
 | Dépôts et paste publics | Clés d'API, chaînes de connexion, `.env` committés | Accès cloud ou base de données |
 | Profils professionnels | LinkedIn, organigrammes, offres d'emploi (stack technique) | Pretexting, appel au help desk, phishing ciblé |
 
-> 🔴 **Vecteur d'attaque** : un attaquant exécute un `shodan search` filtré sur le nom de l'organisation ou sur un certificat, repère un portail non patché, puis vérifie sa version avec un `curl` sur un fichier statique. Il n'a rien envoyé d'agressif, et aucune règle de détection ne s'est déclenchée.
+> 🔴 **Vecteur d'attaque**
+>
+> Un attaquant exécute un `shodan search` filtré sur le nom de l'organisation ou sur un certificat, repère un portail non patché, puis vérifie sa version avec un `curl` sur un fichier statique. Il n'a rien envoyé d'agressif, et aucune règle de détection ne s'est déclenchée.
 {: .callout .callout-danger}
 
 Les deux commandes ci-dessous reproduisent cette reconnaissance sur *votre* périmètre :
@@ -133,10 +141,12 @@ Une recherche OSINT passive ne touche pas la cible : on interroge des tiers qui 
 
 ### Pivoter : de l'artefact à l'infrastructure
 
-> 📖 **Définition.** Un pivot consiste à partir d'un élément connu pour en trouver d'autres qui partagent une caractéristique.
-{: .callout .callout-definition}
-
 Exemple de raisonnement sur des valeurs illustratives :
+
+> 📖 **Définition**
+>
+> Un pivot consiste à partir d'un élément connu pour en trouver d'autres qui partagent une caractéristique.
+{: .callout .callout-definition}
 
 1. Un hash de fichier suspect est analysé sur VirusTotal : le sandbox montre une connexion vers `update-check.example.net`.
 2. Le passive DNS donne l'IP `203.0.113.10` pour ce domaine, vue du 10 au 17 janvier.
@@ -147,10 +157,14 @@ Les outils habituels sont VirusTotal, urlscan.io, les services abuse.ch (URLhaus
 
 Le système **Admiralty (OTAN)** note la fiabilité de la source de A à F et la crédibilité de l'information de 1 à 6. Une information « B2 » (source généralement fiable, information probablement vraie) ne pèse pas comme une « F6 » (fiabilité inconnue, crédibilité non évaluable).
 
-> ⚠️ **Erreur fréquente** : envoyer sur VirusTotal un fichier trouvé sur un poste compromis. Les échantillons soumis sont accessibles à d'autres utilisateurs de la plateforme, ce qui expose les données internes qu'il contient et signale à l'attaquant qu'on l'a détecté. Pour un fichier suspect, interrogez d'abord son hash (`sha256sum`), qui ne divulgue rien.
+> ⚠️ **Erreur fréquente**
+>
+> Envoyer sur VirusTotal un fichier trouvé sur un poste compromis. Les échantillons soumis sont accessibles à d'autres utilisateurs de la plateforme, ce qui expose les données internes qu'il contient et signale à l'attaquant qu'on l'a détecté. Pour un fichier suspect, interrogez d'abord son hash (`sha256sum`), qui ne divulgue rien.
 {: .callout .callout-attention}
 
-> 💡 **Astuce** : visitez une infrastructure suspecte depuis une VM isolée et un sortant dédié, pas depuis le réseau d'entreprise. Une IP d'entreprise qui consulte le C2 laisse une trace chez l'attaquant.
+> 💡 **Astuce**
+>
+> Visitez une infrastructure suspecte depuis une VM isolée et un sortant dédié, pas depuis le réseau d'entreprise. Une IP d'entreprise qui consulte le C2 laisse une trace chez l'attaquant.
 {: .callout .callout-astuce}
 
 ## IoC, TTP et la pyramide de la douleur
@@ -181,14 +195,16 @@ Côté attaquant, voici ce que coûte réellement un changement :
 
 ### Valeur de détection et durée de vie des IoC
 
-> ⚠️ **Piège principal du module** : un indicateur ancien ou isolé n'a pas nécessairement une valeur de détection élevée. Trois raisons concrètes :
+En revanche, un IoC vieux garde deux usages utiles :
+
+> ⚠️ **Piège principal du module**
+>
+> Un indicateur ancien ou isolé n'a pas nécessairement une valeur de détection élevée. Trois raisons concrètes :
 >
 > - **L'âge.** Une IP de C2 vue il y a quatre mois est peut-être revenue chez un hébergeur qui l'a réattribuée à un client légitime. La bloquer produit un faux positif, pas une protection.
 > - **L'infrastructure partagée.** Les IP de CDN, de cloud public ou de plateformes de partage de fichiers hébergent aussi bien du légitime que du malveillant. Un match IoC dessus n'a aucune signification sans contexte.
 > - **L'isolement.** Une seule IP dans un journal de pare-feu peut être un scan de masse, un test d'un chercheur ou un faux positif du flux. Sans autre signal (processus parent, authentification anormale, volume sortant), l'indicateur seul ne prouve rien.
 {: .callout .callout-attention}
-
-En revanche, un IoC vieux garde deux usages utiles :
 
 - **Rétro-chasse** (« retro-hunt ») : quand un nouvel indicateur arrive, on cherche dans les 90 jours de journaux déjà stockés, car la compromission a peut-être commencé avant la publication.
 - **Périmétrage d'incident** : lié à un incident confirmé, un IoC même ancien permet d'identifier d'autres hôtes touchés.
@@ -198,7 +214,9 @@ En revanche, un IoC vieux garde deux usages utiles :
 zgrep -H -F -f <IOC_FILE> /var/log/<LOG_DIR>/*.log*
 ```
 
-> 🔒 **Contrôle de sécurité** : appliquer une durée de vie par type d'IoC et la faire respecter par le SIEM ou la plateforme CTI. Valeurs de départ à ajuster selon vos faux positifs :
+> 🔒 **Contrôle de sécurité**
+>
+> Appliquer une durée de vie par type d'IoC et la faire respecter par le SIEM ou la plateforme CTI. Valeurs de départ à ajuster selon vos faux positifs :
 {: .callout .callout-securite}
 
 | Type | Durée de vie de départ | Usage |
@@ -235,7 +253,9 @@ Cette règle a ses limites : elle repose sur des chaînes de la ligne de command
 
 ## TTP et MITRE ATT&CK : cartographier la menace
 
-> 🧠 **Concept clé** : MITRE ATT&CK (Adversarial Tactics, Techniques, and Common Knowledge) est un catalogue du comportement observé, pas une checklist. Le vocabulaire de base :
+> 🧠 **Concept clé**
+>
+> MITRE ATT&CK (Adversarial Tactics, Techniques, and Common Knowledge) est un catalogue du comportement observé, pas une checklist. Le vocabulaire de base :
 {: .callout .callout-important}
 
 | Terme | Signification | Exemple |
@@ -285,7 +305,9 @@ jq -r --arg g "<GROUP_NAME>" '
   | [.external_references[0].external_id, .name] | @tsv' enterprise-attack.json
 ```
 
-> ⚠️ **Erreur fréquente** : colorer une technique en vert parce qu'une règle y est rattachée. Avoir une règle taguée T1003 ne prouve pas qu'elle détecte la variante `comsvcs.dll`. Configuration dangereuse : couverture déclarée par étiquette. Conséquence : fausse assurance, chaîne d'attaque invisible. Correction : exécuter la technique en laboratoire et noter ce que l'alerte a effectivement produit.
+> ⚠️ **Erreur fréquente**
+>
+> Colorer une technique en vert parce qu'une règle y est rattachée. Avoir une règle taguée T1003 ne prouve pas qu'elle détecte la variante `comsvcs.dll`. Configuration dangereuse : couverture déclarée par étiquette. Conséquence : fausse assurance, chaîne d'attaque invisible. Correction : exécuter la technique en laboratoire et noter ce que l'alerte a effectivement produit.
 {: .callout .callout-attention}
 
 ```powershell
@@ -311,7 +333,9 @@ Les trois acteurs dominants donnent trois priorités concrètes : MFA, isolement
 
 STIX (Structured Threat Information Expression) est le format, TAXII (Trusted Automated eXchange of Intelligence Information) est le protocole de transport. STIX 2.1 décrit des **objets** (indicator, malware, intrusion-set, attack-pattern, campaign, report) reliés par des **relations** (`uses`, `indicates`, `attributed-to`).
 
-> 📮 **Analogie : la lettre et la poste.** STIX est la lettre, rédigée dans une langue commune : un modèle de données JSON qui décrit *quoi* partager. TAXII est le service postal qui l'achemine sur HTTPS : il décrit *comment* la transporter. Limite de l'image : un serveur TAXII ne fait pas que livrer, il range les objets dans des collections que le client vient interroger.
+> 📮 **Analogie : la lettre et la poste**
+>
+> STIX est la lettre, rédigée dans une langue commune : un modèle de données JSON qui décrit *quoi* partager. TAXII est le service postal qui l'achemine sur HTTPS : il décrit *comment* la transporter. Limite de l'image : un serveur TAXII ne fait pas que livrer, il range les objets dans des collections que le client vient interroger.
 {: .callout .callout-analogie}
 
 Exemple d'indicateur, avec les champs qui évitent l'accumulation d'IoC périmés :
@@ -368,7 +392,9 @@ Une **chasse** (« threat hunting ») démarre par une hypothèse testable : « 
 
 Si vous rédigez vous-même un produit CTI, qualifiez le niveau de confiance explicitement (faible, modérée, élevée) et séparez les faits de l'évaluation.
 
-> 🔑 **Moyen mnémotechnique** : pour structurer un produit CTI, suivez l'ordre « **Qui ? Quoi ? Et alors ? Que faire ?** »
+> 🔑 **Moyen mnémotechnique**
+>
+> Pour structurer un produit CTI, suivez l'ordre « **Qui ? Quoi ? Et alors ? Que faire ?** »
 {: .callout .callout-memo}
 
 ## Cas réel en entreprise (scénario illustratif)

@@ -75,10 +75,14 @@ Avant de parler de méthode, il faut accepter un fait : **le consultant et ses l
 | Dérive de périmètre (scope creep) | Hôte tiers, SaaS ou hébergeur hors autorisation | Accès non autorisé à un système tiers : exposition pénale, notamment au titre de l'article 323-1 du Code pénal |
 | Métadonnées des livrables | Auteur, chemins locaux, noms de machines dans les PDF et DOCX | Fuite d'informations sur le prestataire et le client |
 
-> 🔴 **Vecteur d'attaque.** En octobre 2023, Okta a reconnu qu'un accès à son système de support avait permis de consulter des fichiers HAR (HTTP Archive) transmis par des clients pour le dépannage. Ces fichiers pouvaient contenir des cookies et jetons de session valides, rejouables sans mot de passe. La leçon pour une mission est directe : une capture « pour preuve » est un secret tant qu'elle n'a pas été expurgée.
+> 🔴 **Vecteur d'attaque**
+>
+> En octobre 2023, Okta a reconnu qu'un accès à son système de support avait permis de consulter des fichiers HAR (HTTP Archive) transmis par des clients pour le dépannage. Ces fichiers pouvaient contenir des cookies et jetons de session valides, rejouables sans mot de passe. La leçon pour une mission est directe : une capture « pour preuve » est un secret tant qu'elle n'a pas été expurgée.
 {: .callout .callout-danger}
 
-> 🧠 **Concept clé.** Une mission manipule trois catégories d'objets sensibles : des *accès* (comptes, VPN), des *données* (extraits, captures, logs) et des *connaissances* (vulnérabilités non corrigées). La méthodologie sert d'abord à les cadrer, puis à les protéger et à les détruire dans les délais prévus.
+> 🧠 **Concept clé**
+>
+> Une mission manipule trois catégories d'objets sensibles : des *accès* (comptes, VPN), des *données* (extraits, captures, logs) et des *connaissances* (vulnérabilités non corrigées). La méthodologie sert d'abord à les cadrer, puis à les protéger et à les détruire dans les délais prévus.
 {: .callout .callout-important}
 
 ## Cadrer : du besoin au risque, puis aux contrôles
@@ -98,7 +102,9 @@ Le fil logique du cadrage tient en une chaîne :
 
 **actif à protéger → menace plausible → scénario → impact métier → contrôle candidat → preuve que le contrôle fonctionne**
 
-> 💡 **À retenir.** Un contrôle qui ne remonte pas à un scénario est du bruit. Un scénario sans actif identifié est de la peur.
+> 💡 **À retenir**
+>
+> Un contrôle qui ne remonte pas à un scénario est du bruit. Un scénario sans actif identifié est de la peur.
 {: .callout .callout-important}
 
 **Les éléments à figer par écrit avant toute action technique :**
@@ -109,7 +115,9 @@ Le fil logique du cadrage tient en une chaîne :
 - **Critères de succès** : « liste priorisée des 10 risques par scénario d'attaque, plan sur 6 mois, présentation au comité de direction » est vérifiable. « Améliorer la sécurité » ne l'est pas.
 - **Gestion des données** : où sont stockées les preuves, qui y accède, pendant combien de temps, comment elles sont détruites.
 
-> 💡 **Astuce.** Si le client ne peut pas nommer qui décidera à la lecture du rapport, ne démarrez pas. Vous livreriez un document sans destinataire de décision.
+> 💡 **Astuce**
+>
+> Si le client ne peut pas nommer qui décidera à la lecture du rapport, ne démarrez pas. Vous livreriez un document sans destinataire de décision.
 {: .callout .callout-astuce}
 
 ## Choisir la méthode adaptée
@@ -192,7 +200,9 @@ statut: ouvert
 
 Le score CVSS de base décrit la vulnérabilité en général, pas votre client. Dans le scénario d'ouverture, le « Medium » sur la passerelle VPN aurait dû passer en P1 pour trois raisons : exposition Internet, vulnérabilité exploitable sans authentification préalable et rôle de point d'entrée unique.
 
-> 🩺 **Analogie : la maladie et le patient.** Le score CVSS ressemble à la gravité d'une maladie décrite dans un manuel. L'urgence du traitement dépend pourtant du patient : son exposition, son état, ses défenses. Cette image a une limite : une vulnérabilité ne guérit jamais seule, elle reste exploitable tant qu'elle n'est pas corrigée.
+> 🩺 **Analogie : la maladie et le patient**
+>
+> Le score CVSS ressemble à la gravité d'une maladie décrite dans un manuel. L'urgence du traitement dépend pourtant du patient : son exposition, son état, ses défenses. Cette image a une limite : une vulnérabilité ne guérit jamais seule, elle reste exploitable tant qu'elle n'est pas corrigée.
 {: .callout .callout-analogie}
 
 | Facteur | Question | Effet sur la priorité |
@@ -203,7 +213,9 @@ Le score CVSS de base décrit la vulnérabilité en général, pas votre client.
 | Contrôles compensatoires | Segmentation, détection, MFA existants ? | Descend si démontré |
 | Coût de correction | Un correctif d'une heure ou un chantier de six mois ? | Détermine l'ordre, pas la gravité |
 
-> ⚠️ **Erreur fréquente.** Trier par CVSS brut mélange gravité intrinsèque et risque réel. Documentez le raisonnement de priorisation dans le rapport. C'est ce qui rend votre conclusion défendable face à un interlocuteur qui conteste.
+> ⚠️ **Erreur fréquente**
+>
+> Trier par CVSS brut mélange gravité intrinsèque et risque réel. Documentez le raisonnement de priorisation dans le rapport. C'est ce qui rend votre conclusion défendable face à un interlocuteur qui conteste.
 {: .callout .callout-attention}
 
 ## Construire un plan de remédiation réaliste et mesurable
@@ -301,10 +313,14 @@ sha256sum -c 20-preuves/SHA256SUMS
 
 Un test bien mené génère du bruit. Sans coordination, le SOC du client peut déclencher une réponse à incident sur votre propre activité, ou à l'inverse prendre une vraie attaque pour votre test.
 
-> 📖 **Définition.** La *déconfliction* est l'ensemble des moyens convenus à l'avance avec le client pour distinguer l'activité de test d'une attaque réelle.
+> 📖 **Définition**
+>
+> La *déconfliction* est l'ensemble des moyens convenus à l'avance avec le client pour distinguer l'activité de test d'une attaque réelle.
 {: .callout .callout-definition}
 
-> 🔒 **Contrôle de sécurité.** Convenez par écrit d'un mécanisme de déconfliction :
+> 🔒 **Contrôle de sécurité**
+>
+> Convenez par écrit d'un mécanisme de déconfliction :
 >
 > - **IP sources fixes** et communiquées avant chaque session.
 > - **Marqueur applicatif** : un en-tête personnalisé ou un User-Agent contenant l'identifiant de mission, par exemple `curl -H "X-Engagement: <ID_MISSION>"`. Les outils d'automatisation (Burp, nuclei, ffuf) permettent d'ajouter un en-tête de manière systématique.
@@ -318,7 +334,9 @@ Les constats ne sont complets que si l'on détaille aussi ce qui aurait dû aler
 - Ce qui n'a pas été détecté (par exemple l'absence d'alerte sur l'événement 4769 RC4).
 - Les logs manquants ou inexploitables.
 
-> 💡 **Astuce.** Un client apprend davantage d'un tableau « techniques testées, détectées ou non, délai de détection » que d'une longue liste de vulnérabilités. C'est aussi le meilleur pont vers un travail de SOC.
+> 💡 **Astuce**
+>
+> Un client apprend davantage d'un tableau « techniques testées, détectées ou non, délai de détection » que d'une longue liste de vulnérabilités. C'est aussi le meilleur pont vers un travail de SOC.
 {: .callout .callout-astuce}
 
 ## Tests de sécurité : vérifier l'hygiène de votre propre mission
@@ -386,10 +404,12 @@ Une même mission produit au moins deux restitutions. Elles ne se résument pas 
 
 ### Un portfolio qui prouve la conduite de mission
 
-> ⚠️ **Piège à éviter.** Accumuler des outils et des certifications sans savoir conduire une mission complète ne fait pas un consultant. Un recruteur ou un manager technique veut voir un raisonnement, pas une liste de sigles. Trois missions simulées complètes valent mieux que dix certificats isolés.
-{: .callout .callout-attention}
-
 Contraintes à respecter :
+
+> ⚠️ **Piège à éviter**
+>
+> Accumuler des outils et des certifications sans savoir conduire une mission complète ne fait pas un consultant. Un recruteur ou un manager technique veut voir un raisonnement, pas une liste de sigles. Trois missions simulées complètes valent mieux que dix certificats isolés.
+{: .callout .callout-attention}
 
 - **Aucune donnée réelle de client**, même anonymisée à la hâte. Travaillez sur des environnements que vous contrôlez (laboratoire personnel, machines vulnérables volontairement, environnements de formation comme OWASP Juice Shop ou un domaine AD de laboratoire).
 - **Chaque mission est autonome** : lettre de cadrage fictive, RoE, périmètre, 5 à 10 constats complets, plan de remédiation, synthèse de direction, retest.
@@ -426,42 +446,42 @@ La différence avec l'ouverture n'est pas technique : les outils sont les mêmes
 
 ## Erreurs fréquentes
 
-> ⚠️ **Livrer l'export d'un scanner.**
+> ⚠️ **Livrer l'export d'un scanner**
 {: .callout .callout-attention}
 
 *Configuration dangereuse* : PDF de 120 pages trié par CVSS, sans contexte.
 *Conséquence* : rien n'est lu, rien n'est corrigé, et le vrai point d'entrée est noyé.
 *Correction* : 8 à 15 constats rédigés, regroupés par cause, priorisés avec exposition et valeur d'actif. L'export brut va en annexe.
 
-> ⚠️ **Recommandation inexploitable.**
+> ⚠️ **Recommandation inexploitable**
 {: .callout .callout-attention}
 
 *Configuration dangereuse* : « Mettre en place une authentification forte. »
 *Conséquence* : chaque équipe interprète à sa manière, personne ne sait quand c'est terminé.
 *Correction* : « Activer l'authentification multifacteur sur les 12 comptes du groupe `Admins-Tenant` par une politique d'accès conditionnel, vérifiable par l'export des journaux de connexion à J+30 ».
 
-> ⚠️ **Preuve non reproductible ou toxique.**
+> ⚠️ **Preuve non reproductible ou toxique**
 {: .callout .callout-attention}
 
 *Configuration dangereuse* : capture d'écran recadrée, ou HAR brut contenant des jetons de session joint au rapport.
 *Conséquence* : le client conteste le constat, ou pire, le livrable devient un vecteur d'accès.
 *Correction* : commande exacte, sortie brute, horodatage UTC, hash. Expurgation systématique des cookies et en-têtes `Authorization`. Détection avec `gitleaks detect` avant tout commit, et relecture par un pair.
 
-> ⚠️ **Dérive de périmètre.**
+> ⚠️ **Dérive de périmètre**
 {: .callout .callout-attention}
 
 *Configuration dangereuse* : scan large « pour être sûr » qui touche une IP appartenant à un hébergeur ou un prestataire du client.
 *Conséquence* : accès non autorisé à un système tiers, avec exposition juridique et contractuelle.
 *Correction* : liste de cibles issue du périmètre signé, outils lancés avec `-iL scope-autorise.txt` (nmap) et contrôle `comm -13` sur les journaux après chaque session.
 
-> ⚠️ **Plan sans propriétaire.**
+> ⚠️ **Plan sans propriétaire**
 {: .callout .callout-attention}
 
 *Configuration dangereuse* : liste d'actions sans responsable ni critère de clôture.
 *Conséquence* : six mois plus tard, le retest retrouve les mêmes constats.
 *Correction* : une ligne = une action = un responsable = une échéance = une preuve de clôture testable.
 
-> ⚠️ **Portfolio de logos et d'outils.**
+> ⚠️ **Portfolio de logos et d'outils**
 {: .callout .callout-attention}
 
 *Configuration dangereuse* : CV avec 15 certifications et 30 outils, aucune mission documentée.

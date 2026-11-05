@@ -40,7 +40,9 @@ Après six mois, le volume Docker de la production est corrompu. Il faut tout re
 
 Le problème n'est pas Grafana, c'est que sa configuration n'existe qu'à un seul endroit : la base interne de l'instance. Ce module montre comment la sortir de là pour la mettre dans Git, où elle se relit, se compare, se restaure et se déploie.
 
-> 🍳 **Analogie : la recette plutôt que le plat.** Jusqu'ici, l'équipe ne conservait que le plat, c'est-à-dire l'instance configurée. Le provisioning conserve la recette dans Git : si le plat est perdu, on le refait à l'identique. Limite : la recette ne contient que ce que vous y avez déclaré, et ni les données de vos sources (métriques, logs) ni ce qui a été créé à la main sans être exporté.
+> 🍳 **Analogie : la recette plutôt que le plat**
+>
+> Jusqu'ici, l'équipe ne conservait que le plat, c'est-à-dire l'instance configurée. Le provisioning conserve la recette dans Git : si le plat est perdu, on le refait à l'identique. Limite : la recette ne contient que ce que vous y avez déclaré. Elle ne garde ni les données de vos sources (métriques, logs), ni ce qui a été créé à la main sans être exporté.
 {: .callout .callout-analogie}
 
 ## Trois canaux pour piloter Grafana sans cliquer
@@ -67,7 +69,9 @@ Terraform ne contourne pas l'API : il l'appelle pour vous, avec une couche d'ét
 | Demande un accès au système de fichiers | Oui (volume, ConfigMap) | Non | Non |
 | Convient à Grafana Cloud | Pas de fichiers à monter | Oui | Oui |
 
-> 🧠 **Concept clé** : quel que soit le canal, la règle est qu'un objet donné n'a qu'**un seul propriétaire**. Un dashboard géré par fichier ne se modifie pas en parallèle par Terraform, et inversement. Les conflits entre outils sont la première source de comportements déroutants dans ce domaine.
+> 🧠 **Concept clé**
+>
+> Quel que soit le canal, la règle est qu'un objet donné n'a qu'**un seul propriétaire**. Un dashboard géré par fichier ne se modifie pas en parallèle par Terraform, et inversement. Les conflits entre outils sont la première source de comportements déroutants dans ce domaine.
 {: .callout .callout-important}
 
 ## Mise en place : une instance qui se configure au démarrage
@@ -155,7 +159,9 @@ Trois choses méritent d'être soulignées.
 
 **`editable: false`** interdit la modification de la source depuis l'interface. C'est le comportement voulu en production : si quelqu'un doit changer l'URL, il passe par une Pull Request.
 
-> 💡 **Astuce** : pour valider une Data Source après déploiement sans ouvrir l'interface, appelez le point de santé de l'API :
+> 💡 **Astuce**
+>
+> Pour valider une Data Source après déploiement sans ouvrir l'interface, appelez le point de santé de l'API :
 {: .callout .callout-astuce}
 
 ```bash
@@ -217,10 +223,14 @@ Un dashboard exporté fait vite plusieurs milliers de lignes, mais seuls quelque
 - **`version`** est un compteur que Grafana incrémente à chaque sauvegarde dans sa base. Il sert à détecter les modifications concurrentes (nous y reviendrons avec l'API). Dans un fichier provisionné, Git est votre historique ; ne cherchez pas à tenir ce champ à jour à la main.
 - **`schemaVersion`** indique le format du JSON. Grafana migre automatiquement les anciens schémas à l'ouverture. Les versions récentes introduisent aussi de nouveaux formats de dashboard ; le détail varie selon la version installée.
 
-> 🪪 **Analogie : ticket d'attente et numéro de passeport.** L'`id` ressemble à un ticket d'attente : il n'a de sens qu'au guichet qui l'a émis. L'`uid` ressemble à un numéro de passeport : il vous suit d'une instance à l'autre. Limite : contrairement à un passeport, c'est vous qui choisissez l'UID. Rien n'empêche de le changer, mais cela casse tous les liens qui pointaient vers l'ancien.
+> 🪪 **Analogie : ticket d'attente et numéro de passeport**
+>
+> L'`id` ressemble à un ticket d'attente : il n'a de sens qu'au guichet qui l'a émis. L'`uid` ressemble à un numéro de passeport : il vous suit d'une instance à l'autre. Limite : contrairement à un passeport, c'est vous qui choisissez l'UID. Rien n'empêche de le changer, mais cela casse tous les liens qui pointaient vers l'ancien.
 {: .callout .callout-analogie}
 
-> ⚠️ **Erreur fréquente** : copier un export « Export for sharing externally » dans le dépôt. Ce mode remplace les Data Sources par des variables `${DS_PROMETHEUS}` pensées pour l'import manuel. Pour du provisioning, utilisez plutôt l'export JSON standard (« Export as JSON » sans partage externe), dont les références à des UID fixes fonctionnent telles quelles.
+> ⚠️ **Erreur fréquente**
+>
+> Copier un export « Export for sharing externally » dans le dépôt. Ce mode remplace les Data Sources par des variables `${DS_PROMETHEUS}` pensées pour l'import manuel. Pour du provisioning, utilisez plutôt l'export JSON standard (« Export as JSON » sans partage externe), dont les références à des UID fixes fonctionnent telles quelles.
 {: .callout .callout-attention}
 
 ## Le piège central : le fichier a toujours raison
@@ -235,10 +245,14 @@ Deux autres effets de bord du même mécanisme :
 - Avec `disableDeletion: false`, **supprimer le fichier supprime le dashboard** dans Grafana au prochain scan. Ça peut être voulu, mais pas lors d'un déploiement qui oublie un volume.
 - Si deux fichiers déclarent le même UID, Grafana ne garde qu'un des deux et le signale dans les logs. Lequel ? Ne comptez pas là-dessus.
 
-> 💡 **À retenir** : un seul sens de circulation. On édite dans l'interface sur **dev**, on exporte le JSON, on le commit, et staging et prod le reçoivent par fichier. L'interface est un outil de conception, Git est la source de vérité.
+> 💡 **À retenir**
+>
+> Un seul sens de circulation. On édite dans l'interface sur **dev**, on exporte le JSON, on le commit, et staging et prod le reçoivent par fichier. L'interface est un outil de conception, Git est la source de vérité.
 {: .callout .callout-important}
 
-> 💡 **Astuce** : en dev, mettre `allowUiUpdates: true` est une bonne idée si l'équipe adopte la règle « on exporte avant de pousser ». Vous gardez la liberté du clic et vous évitez d'éditer du JSON à la main.
+> 💡 **Astuce**
+>
+> En dev, mettre `allowUiUpdates: true` est une bonne idée si l'équipe adopte la règle « on exporte avant de pousser ». Vous gardez la liberté du clic et vous évitez d'éditer du JSON à la main.
 {: .callout .callout-astuce}
 
 ## L'API HTTP et `curl`
@@ -310,7 +324,9 @@ curl -s -X POST $GRAFANA_URL/api/folders/app/permissions \
       ]}'
 ```
 
-> ⚠️ **Erreur fréquente** : ce `POST` **remplace** la liste complète. Si vous envoyez seulement `{"teamId": 3, "permission": 2}`, toutes les autres entrées disparaissent (seul le rôle Admin d'organisation garde son accès implicite). Faites toujours un `GET` d'abord, ajoutez votre ligne, puis renvoyez la liste entière. Les endpoints exacts de permissions évoluent avec la gestion des accès (RBAC) ; vérifiez la référence de votre version.
+> ⚠️ **Erreur fréquente**
+>
+> Ce `POST` **remplace** la liste complète. Si vous envoyez seulement `{"teamId": 3, "permission": 2}`, toutes les autres entrées disparaissent (seul le rôle Admin d'organisation garde son accès implicite). Faites toujours un `GET` d'abord, ajoutez votre ligne, puis renvoyez la liste entière. Les endpoints exacts de permissions évoluent avec la gestion des accès (RBAC) ; vérifiez la référence de votre version.
 {: .callout .callout-attention}
 
 ### Recharger sans redémarrer
@@ -354,7 +370,9 @@ curl -s -H "Authorization: Bearer $TOKEN" \
 
 Le format `yaml` est directement rechargeable par le provisioning fichier ; d'autres formats (JSON, HCL pour Terraform) sont proposés selon la version.
 
-> ⚠️ **Erreur fréquente** : une règle créée via l'API de provisioning reçoit un marqueur de **provenance**. Résultat, elle devient non modifiable dans l'interface, avec un verrou qui ressemble au cas des dashboards. Si vous voulez continuer à l'éditer à la main (en dev par exemple), ajoutez l'en-tête `X-Disable-Provenance: true` à vos appels d'écriture. En production, laissez le verrou : c'est un garde-fou.
+> ⚠️ **Erreur fréquente**
+>
+> Une règle créée via l'API de provisioning reçoit un marqueur de **provenance**. Résultat, elle devient non modifiable dans l'interface, avec un verrou qui ressemble au cas des dashboards. Si vous voulez continuer à l'éditer à la main (en dev par exemple), ajoutez l'en-tête `X-Disable-Provenance: true` à vos appels d'écriture. En production, laissez le verrou : c'est un garde-fou.
 {: .callout .callout-attention}
 
 Dernier point : l'arbre de notification policies est une ressource **unique** par organisation. Un `PUT` sur `/api/v1/provisioning/policies` le remplace en entier, comme les permissions de dossier plus haut. Le routage lui-même n'est pas détaillé ici ; retenez seulement que sa mise à jour automatisée est un « tout ou rien ».
@@ -445,7 +463,9 @@ url: ${PROM_URL}      # dev : http://prometheus:9090 | prod : https://prom.inter
 
 Terraform est pertinent quand vous voulez piloter Grafana **à distance** (pas de fichiers à monter, cas typique de Grafana Cloud), voir ce qui va changer avant d'appliquer (`terraform plan`), ou détecter qu'une instance a dérivé de ce qui est déclaré.
 
-> 📖 **Définition.** On parle de **dérive** (*drift*) quand l'état réel d'une instance ne correspond plus à ce qui est déclaré dans le code, par exemple après une modification faite à la main dans l'interface.
+> 📖 **Définition**
+>
+> On parle de **dérive** (*drift*) quand l'état réel d'une instance ne correspond plus à ce qui est déclaré dans le code, par exemple après une modification faite à la main dans l'interface.
 {: .callout .callout-definition}
 
 Un premier exemple minimal :

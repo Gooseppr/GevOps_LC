@@ -42,7 +42,9 @@ Ces questions ont une réponse simple dès qu'on comprend ce qu'est un réseau, 
 
 Avant les réseaux, partager un document signifiait le copier sur une clé USB et le porter à la main, et une imprimante était branchée sur un seul ordinateur. Un réseau supprime ce transport physique : les machines s'envoient directement des données.
 
-> 🧠 **Concept fondamental** — Un réseau informatique, c'est trois ingrédients réunis :
+> 🧠 **Concept fondamental**
+>
+> Un réseau informatique, c'est trois ingrédients réunis :
 {: .callout .callout-important}
 
 1. **Des équipements** qui émettent, reçoivent ou relaient des données (on les appelle des *nœuds*).
@@ -51,7 +53,9 @@ Avant les réseaux, partager un document signifiait le copier sur une clé USB e
 
 Retirez l'un des trois et plus rien ne fonctionne. Deux machines reliées par un câble mais sans règles communes ne se comprennent pas, tout comme deux personnes au téléphone qui ne parlent pas la même langue.
 
-> 📮 **Analogie : le réseau postal.** Les nœuds sont les expéditeurs, les centres de tri et les destinataires. Le support, ce sont les camions, les trains et les avions. Les protocoles sont le format des adresses, les codes postaux et les règles d'affranchissement. Cette analogie nous resservira.
+> 📮 **Analogie : le réseau postal**
+>
+> Les nœuds sont les expéditeurs, les centres de tri et les destinataires. Le support, ce sont les camions, les trains et les avions. Les protocoles sont le format des adresses, les codes postaux et les règles d'affranchissement. Cette analogie nous resservira.
 {: .callout .callout-analogie}
 
 À quoi sert un réseau ? Il apporte quatre bénéfices :
@@ -78,10 +82,14 @@ Les réseaux se classent par **portée** (jusqu'où ils s'étendent) et par **pu
 
 La distinction LAN/WAN tient moins à la distance qu'à **qui possède les liens**. Dans un LAN, l'organisation possède ou contrôle les câbles et les équipements. Dans un WAN, elle loue le plus souvent des liaisons à un opérateur, ou utilise Internet pour relier ses sites.
 
-> 💡 **Point clé** — Intranet et extranet décrivent un **type d'accès**, pas une technologie ni une distance. Un intranet peut être hébergé dans le cloud, et un extranet peut passer par Internet via un VPN* chiffré. Ce qui compte, c'est que seules les personnes autorisées y entrent.
+> 💡 **Point clé**
+>
+> Intranet et extranet décrivent un **type d'accès**, pas une technologie ni une distance. Un intranet peut être hébergé dans le cloud, et un extranet peut passer par Internet via un VPN* chiffré. Ce qui compte, c'est que seules les personnes autorisées y entrent.
 {: .callout .callout-important}
 
-> ⚠️ **Comportement contre-intuitif** — *Internet* et *le Web* ne sont pas synonymes. Internet est l'infrastructure : les réseaux et les liaisons qui les relient. Le Web n'est qu'un service parmi d'autres qui circule dessus, comme la messagerie, la visioconférence ou le transfert de fichiers. Lorsqu'un site web est inaccessible, Internet n'est pas forcément en panne.
+> ⚠️ **Comportement contre-intuitif**
+>
+> *Internet* et *le Web* ne sont pas synonymes. Internet est l'infrastructure : les réseaux et les liaisons qui les relient. Le Web n'est qu'un service parmi d'autres qui circule dessus, comme la messagerie, la visioconférence ou le transfert de fichiers. Lorsqu'un site web est inaccessible, Internet n'est pas forcément en panne.
 {: .callout .callout-attention}
 
 *\*VPN (Virtual Private Network) : tunnel chiffré qui permet de traverser un réseau non fiable comme Internet comme si l'on était sur un réseau privé.*
@@ -100,7 +108,9 @@ Voici les acteurs du réseau de l'agence, du plus simple au plus structurant.
 
 La confusion la plus courante concerne le commutateur et le routeur.
 
-> 🏢 **Analogie : l'immeuble et la rue.** Le commutateur est le **standard téléphonique d'un immeuble**, qui met en relation les gens à l'intérieur. Le routeur est la **sortie vers la rue**, qui sait vers quelle ville orienter chaque courrier. L'un fait communiquer les machines d'un même réseau, l'autre fait communiquer des réseaux entre eux.
+> 🏢 **Analogie : l'immeuble et la rue**
+>
+> Le commutateur est le **standard téléphonique d'un immeuble**, qui met en relation les gens à l'intérieur. Le routeur est la **sortie vers la rue**, qui sait vers quelle ville orienter chaque courrier. L'un fait communiquer les machines d'un même réseau, l'autre fait communiquer des réseaux entre eux.
 {: .callout .callout-analogie}
 
 Nous préciserons la mécanique dans les modules sur l'adressage et le routage.
@@ -121,7 +131,9 @@ flowchart TD
 
 Les traits pleins représentent des câbles et les traits pointillés des liaisons Wi-Fi. Ce schéma simplifié montre le réseau interne de l'agence, sans le Wi-Fi invité ni la liaison vers le second bureau.
 
-> 💡 **Point clé** — La « box » fournie par un opérateur n'est pas un équipement unique : c'est un **boîtier multifonction** qui regroupe un routeur, un petit commutateur et un point d'accès Wi-Fi. Dans un réseau d'entreprise, ces fonctions sont séparées parce qu'on veut pouvoir les dimensionner, les sécuriser et les remplacer indépendamment.
+> 💡 **Point clé**
+>
+> La « box » fournie par un opérateur n'est pas un équipement unique : c'est un **boîtier multifonction** qui regroupe un routeur, un petit commutateur et un point d'accès Wi-Fi. Dans un réseau d'entreprise, ces fonctions sont séparées parce qu'on veut pouvoir les dimensionner, les sécuriser et les remplacer indépendamment.
 {: .callout .callout-important}
 
 ## Qui parle à qui : client-serveur ou pair-à-pair
@@ -136,7 +148,9 @@ La force du modèle est la centralisation : un seul endroit à sauvegarder, à m
 
 Pas d'infrastructure à entretenir, c'est simple à mettre en place, mais c'est difficile à administrer dès que le nombre de machines augmente : où sont les données ? Qui a le droit de quoi ? Qui sauvegarde ?
 
-> 💡 **Point clé** — Client et serveur désignent un **rôle dans un échange**, pas un type de machine. Votre portable peut servir un fichier à un collègue (rôle serveur), puis interroger un site web (rôle client) quelques secondes plus tard. Un « serveur » physique peut lui aussi être client d'un autre serveur, par exemple pour récupérer ses mises à jour.
+> 💡 **Point clé**
+>
+> Client et serveur désignent un **rôle dans un échange**, pas un type de machine. Votre portable peut servir un fichier à un collègue (rôle serveur), puis interroger un site web (rôle client) quelques secondes plus tard. Un « serveur » physique peut lui aussi être client d'un autre serveur, par exemple pour récupérer ses mises à jour.
 {: .callout .callout-important}
 
 Dans l'agence, le choix est vite fait : douze personnes, des données métier à protéger, des sauvegardes à garantir. On opte pour un serveur de fichiers central, plutôt qu'un partage entre postes.
@@ -155,7 +169,9 @@ Le choix du support change surtout la **fiabilité** et la **sécurité** du ré
 
 Le point à retenir pour la suite : le Wi-Fi est un **support partagé**. Quand dix appareils sont connectés à une même borne, ils se partagent le temps d'émission. Le débit affiché sur la borne (par exemple 1 200 Mbit/s) est un maximum théorique, rarement atteint en pratique.
 
-> 💡 **À retenir** — Tout ce qui ne bouge pas se branche en filaire, et le Wi-Fi sert à ce qui se déplace. Cela vaut en particulier pour les serveurs et les bornes Wi-Fi elles-mêmes, qui doivent être reliées au commutateur par câble.
+> 💡 **À retenir**
+>
+> Tout ce qui ne bouge pas se branche en filaire, et le Wi-Fi sert à ce qui se déplace. Cela vaut en particulier pour les serveurs et les bornes Wi-Fi elles-mêmes, qui doivent être reliées au commutateur par câble.
 {: .callout .callout-important}
 
 ## Topologies : la forme du réseau
@@ -186,7 +202,9 @@ Ce schéma montre un maillage partiel : si la liaison B–D est coupée, le traf
 
 En pratique, un réseau d'entreprise combine ces topologies. Les postes se branchent en **étoile** sur des commutateurs, et ces commutateurs, ainsi que les routeurs qui relient les sites, sont souvent **maillés** entre eux pour la redondance. Le **bus** a disparu des réseaux filaires modernes, mais on retrouve son esprit dans le Wi-Fi : tout le monde partage le même espace radio, comme tout le monde partageait autrefois le même câble.
 
-> ⚠️ **Comportement contre-intuitif** — Une topologie physique ne dit pas tout de la topologie logique. Dans l'agence, tous les postes sont branchés sur le même commutateur : physiquement, c'est une étoile unique. Pourtant, le Wi-Fi invité et le réseau interne peuvent être totalement séparés, comme deux réseaux distincts. Quand on dessine un schéma réseau, il faut souvent faire **deux dessins** : l'un pour les câbles, l'autre pour ce qui communique avec quoi.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Une topologie physique ne dit pas tout de la topologie logique. Dans l'agence, tous les postes sont branchés sur le même commutateur : physiquement, c'est une étoile unique. Pourtant, le Wi-Fi invité et le réseau interne peuvent être totalement séparés, comme deux réseaux distincts. Quand on dessine un schéma réseau, il faut souvent faire **deux dessins** : l'un pour les câbles, l'autre pour ce qui communique avec quoi.
 {: .callout .callout-attention}
 
 ## Mesurer la qualité d'un réseau
@@ -203,10 +221,14 @@ Dire « le réseau est lent » ne veut rien dire. Cinq notions permettent de dé
 
 Ces notions sont **indépendantes** : un réseau peut avoir une grande bande passante et une mauvaise latence, ou l'inverse. Un lien par satellite géostationnaire offre un bon débit pour télécharger un fichier, mais sa latence tourne autour de plusieurs centaines de millisecondes (de l'ordre de 600 ms en aller-retour), ce qui rend une conversation vocale pénible.
 
-> ⚠️ **Comportement contre-intuitif** — Augmenter la bande passante ne règle pas tous les problèmes. Si la visioconférence saccade à cause de la gigue ou de la perte de paquets, passer de 100 à 1 000 Mbit/s n'y changera rien, sauf si ces défauts viennent d'une liaison saturée (par exemple un envoi montant plein pendant la visio). Un téléchargement tolère une latence élevée, mais une conversation vocale ou vidéo tolère mal les variations et les pertes.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Augmenter la bande passante ne règle pas tous les problèmes. Si la visioconférence saccade à cause de la gigue ou de la perte de paquets, passer de 100 à 1 000 Mbit/s n'y changera rien, sauf si ces défauts viennent d'une liaison saturée (par exemple un envoi montant plein pendant la visio). Un téléchargement tolère une latence élevée, mais une conversation vocale ou vidéo tolère mal les variations et les pertes.
 {: .callout .callout-attention}
 
-> 💡 **À retenir** — La bande passante s'exprime en **bits** par seconde, la taille des fichiers en **octets**. Un octet vaut 8 bits : divisez par 8. Une liaison de 100 Mbit/s transfère donc au mieux environ 12,5 Mo/s, avant d'enlever les pertes dues aux protocoles.
+> 💡 **À retenir**
+>
+> La bande passante s'exprime en **bits** par seconde, la taille des fichiers en **octets**. Un octet vaut 8 bits : divisez par 8. Une liaison de 100 Mbit/s transfère donc au mieux environ 12,5 Mo/s, avant d'enlever les pertes dues aux protocoles.
 {: .callout .callout-important}
 
 Les ordres de grandeur ci-dessous sont indicatifs et dépendent de l'environnement :

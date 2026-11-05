@@ -48,15 +48,21 @@ Un **SLI (Service Level Indicator)** est une mesure : la proportion d'événemen
 
 Un **SLO (Service Level Objective)** est la cible que l'on se fixe sur ce SLI, sur une fenêtre donnée : « 99,9 % des requêtes réussissent, sur 30 jours glissants ».
 
-> 🔑 **Moyen mnémotechnique.** La dernière lettre donne le rôle : SLI, **I** comme *Indicateur* (ce que l'on mesure) ; SLO, **O** comme *Objectif* (ce que l'on vise). Vous croiserez plus loin le SLA, **A** comme *Agreement* (ce que l'on promet par contrat).
+> 🔑 **Moyen mnémotechnique**
+>
+> La dernière lettre donne le rôle : SLI, **I** comme *Indicateur* (ce que l'on mesure) ; SLO, **O** comme *Objectif* (ce que l'on vise). Vous croiserez plus loin le SLA, **A** comme *Agreement* (ce que l'on promet par contrat).
 {: .callout .callout-memo}
 
 L'**error budget** est le complément : 100 % − SLO. C'est la quantité d'échecs que l'on s'autorise. Ce n'est pas une tolérance honteuse, c'est une ressource que l'on dépense en déployant, en migrant, en prenant des risques.
 
-> 🧠 **Concept clé** : un SLI se ramène toujours à une fraction `événements_bons / événements_valides`. Cette forme unique, comprise entre 0 et 1, rend tous les SLI comparables, et permet de calculer budgets et burn rates avec les mêmes formules, quel que soit le service.
+> 🧠 **Concept clé**
+>
+> Un SLI se ramène toujours à une fraction `événements_bons / événements_valides`. Cette forme unique, comprise entre 0 et 1, rend tous les SLI comparables, et permet de calculer budgets et burn rates avec les mêmes formules, quel que soit le service.
 {: .callout .callout-important}
 
-> 💰 **Analogie : le budget mensuel.** Le SLO, c'est le plafond de dépenses que vous vous fixez, l'error budget ce qu'il vous reste à dépenser, et le burn rate la vitesse à laquelle vous le videz. Dépenser 80 % du budget en trois jours revient à le vider environ huit fois trop vite (burn rate ≈ 8) : ce rythme impose d'agir sans attendre. Limite de l'image : ce budget ne s'épargne pas. Sur une fenêtre glissante, les échecs anciens sortent du calcul, et le budget se reconstitue de lui-même.
+> 💰 **Analogie : le budget mensuel**
+>
+> Le SLO, c'est le plafond de dépenses que vous vous fixez, l'error budget ce qu'il vous reste à dépenser, et le burn rate la vitesse à laquelle vous le videz. Dépenser 80 % du budget en trois jours revient à le vider environ huit fois trop vite (burn rate ≈ 8) : ce rythme impose d'agir sans attendre. Limite de l'image : ce budget ne s'épargne pas. Sur une fenêtre glissante, les échecs anciens sortent du calcul, et le budget se reconstitue de lui-même.
 {: .callout .callout-analogie}
 
 ## Choisir des SLI qui reflètent l'expérience utilisateur
@@ -83,7 +89,9 @@ sum(rate(http_request_duration_seconds_count{job="api"}[5m]))
 
 Le SLO devient alors « 95 % des requêtes répondent en moins de 300 ms ».
 
-> ⚠️ **Erreur fréquente** : la valeur de `le` doit correspondre exactement à une borne de bucket de l'histogramme. Avec des buckets à 0.25 et 0.5, `le="0.3"` ne renvoie rien. Si vous voulez un seuil à 300 ms, il faut l'ajouter à l'instrumentation, ce qui est plus simple à faire avant d'écrire le SLO qu'après.
+> ⚠️ **Erreur fréquente**
+>
+> La valeur de `le` doit correspondre exactement à une borne de bucket de l'histogramme. Avec des buckets à 0.25 et 0.5, `le="0.3"` ne renvoie rien. Si vous voulez un seuil à 300 ms, il faut l'ajouter à l'instrumentation, ce qui est plus simple à faire avant d'écrire le SLO qu'après.
 {: .callout .callout-attention}
 
 **Disponibilité.** Deux approches coexistent :
@@ -95,10 +103,12 @@ Les sondes sont indispensables quand le trafic est faible ou nul la nuit : sans 
 
 ### Disponibilité infrastructure ≠ disponibilité fonctionnelle
 
-> ⚠️ **Le piège du plan, et le plus coûteux en pratique.** La métrique `up == 1` signifie que Prometheus a pu scraper la cible. Un pod `Ready` signifie que sa sonde de santé répond. Aucune des deux ne dit que le client peut payer sa commande.
-{: .callout .callout-attention}
-
 Voici des cas où l'infrastructure est à 100 % et le service à 0 % utile :
+
+> ⚠️ **Le piège du plan, et le plus coûteux en pratique**
+>
+> La métrique `up == 1` signifie que Prometheus a pu scraper la cible. Un pod `Ready` signifie que sa sonde de santé répond. Aucune des deux ne dit que le client peut payer sa commande.
+{: .callout .callout-attention}
 
 - l'API répond 200, mais le fournisseur de paiement qu'elle appelle est en panne et elle renvoie un panier vide ;
 - la base est saturée : l'endpoint `/health` répond vite, `/orders` expire à 30 secondes ;
@@ -114,7 +124,9 @@ La règle est donc de mesurer le plus près possible de l'utilisateur, sur un pa
 
 Le plus solide combine souvent l'ingress (trafic réel) et une sonde sur le parcours critique. Les métriques d'infrastructure (CPU, mémoire, état des pods) restent utiles, mais pour le diagnostic, pas pour définir la fiabilité.
 
-> 💡 **Astuce** : choisissez peu de SLI par service, deux ou trois suffisent (succès + latence sur le parcours principal). Un SLI par métrique disponible reproduit le dashboard « tout ce qu'on peut afficher », et c'est justement ce qu'on cherche à éviter.
+> 💡 **Astuce**
+>
+> Choisissez peu de SLI par service, deux ou trois suffisent (succès + latence sur le parcours principal). Un SLI par métrique disponible reproduit le dashboard « tout ce qu'on peut afficher », et c'est justement ce qu'on cherche à éviter.
 {: .callout .callout-astuce}
 
 ## Fixer un SLO réaliste
@@ -162,7 +174,9 @@ Le budget restant se calcule dans Prometheus ainsi :
 
 Le résultat vaut 1 quand rien n'a été dépensé, 0 quand le budget est épuisé, et devient négatif si le SLO est violé. Le `or vector(0)` est nécessaire : tant qu'aucune erreur 5xx n'a été émise, la série filtrée n'existe pas et la requête renverrait un résultat vide au lieu de 1. `0.001` est le budget (1 − 0,999) : si vous changez le SLO, changez cette valeur.
 
-> 💡 **Astuce** : une requête sur 30 jours coûte cher à chaque rafraîchissement du dashboard. Pour la production, enregistrez par recording rule le débit d'erreurs et le débit total (et non un ratio), puis sommez chacun sur la fenêtre avant de diviser : moyenner des ratios avec `avg_over_time` pondérerait par le temps et non par le volume de requêtes. Le module précédent a détaillé ce levier de performance, il s'applique ici tel quel. Vérifiez aussi que la rétention de votre backend couvre bien la fenêtre du SLO : avec 15 jours de rétention, un SLO sur 30 jours affichera des résultats faux, sans erreur visible.
+> 💡 **Astuce**
+>
+> Une requête sur 30 jours coûte cher à chaque rafraîchissement du dashboard. Pour la production, enregistrez par recording rule le débit d'erreurs et le débit total (et non un ratio), puis sommez chacun sur la fenêtre avant de diviser : moyenner des ratios avec `avg_over_time` pondérerait par le temps et non par le volume de requêtes. Le module précédent a détaillé ce levier de performance, il s'applique ici tel quel. Vérifiez aussi que la rétention de votre backend couvre bien la fenêtre du SLO : avec 15 jours de rétention, un SLO sur 30 jours affichera des résultats faux, sans erreur visible.
 {: .callout .callout-astuce}
 
 ### Lire le budget pour décider
@@ -175,7 +189,9 @@ Le budget sert à arbitrer, pas à décorer un dashboard. Une **error budget pol
 
 L'intérêt de cette politique est qu'elle évite la négociation à chaud pendant un incident : la règle existait avant.
 
-> ⚠️ **Erreur fréquente** : considérer qu'un budget intact à 100 % en fin de période est une réussite. Il peut signifier au contraire que l'objectif est trop prudent, ou que l'équipe n'ose plus rien livrer. Un budget jamais consommé est un signal à examiner, au même titre qu'un budget épuisé.
+> ⚠️ **Erreur fréquente**
+>
+> Considérer qu'un budget intact à 100 % en fin de période est une réussite. Il peut signifier au contraire que l'objectif est trop prudent, ou que l'équipe n'ose plus rien livrer. Un budget jamais consommé est un signal à examiner, au même titre qu'un budget épuisé.
 {: .callout .callout-attention}
 
 ## Burn rate et alertes multi-fenêtres
@@ -261,7 +277,9 @@ Utilisez une variable de dashboard pour le service, afin qu'un même modèle ser
 
 Le **SLA (Service Level Agreement)** est un engagement contractuel envers un client, avec des conséquences en cas de manquement : crédits de service, pénalités, voire résiliation. Le SLO est un objectif interne, sans sanction juridique, destiné à piloter le travail de l'équipe.
 
-> 💡 **À retenir.** Le SLO est plus strict que le SLA. Si le contrat promet 99,5 %, l'équipe vise 99,9 % en interne. L'écart sert de coussin : quand le SLO est violé, il reste une marge avant d'enfreindre le contrat. Affichez les deux seuils sur le dashboard.
+> 💡 **À retenir**
+>
+> Le SLO est plus strict que le SLA. Si le contrat promet 99,5 %, l'équipe vise 99,9 % en interne. L'écart sert de coussin : quand le SLO est violé, il reste une marge avant d'enfreindre le contrat. Affichez les deux seuils sur le dashboard.
 {: .callout .callout-important}
 
 Deux nuances méritent d'être connues. Le SLA est souvent mesuré de façon plus restrictive ou plus simple que le SLO (exclusion des maintenances planifiées, mesure mensuelle calendaire, périmètre limité à certains endpoints), donc ne copiez pas sa définition dans votre SLI. Et le texte du contrat relève du juridique et du commercial : l'ingénierie fournit les chiffres et ce qui est techniquement mesurable, mais ne les fixe pas seule.

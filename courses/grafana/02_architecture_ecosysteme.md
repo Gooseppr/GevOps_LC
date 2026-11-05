@@ -44,10 +44,14 @@ Ces trois questions ont la même racine : personne dans l'équipe n'a de représ
 
 Voici l'analogie qui sert pour tout le reste du parcours.
 
-> 🌐 **Analogie : le navigateur Web.** Un navigateur Web n'héberge aucun site : il va chercher des pages chez des serveurs, les met en forme et vous les présente. Si un site est en panne, vous ne dites pas que Firefox est cassé. Grafana tient exactement ce rôle vis-à-vis de vos métriques, logs et traces : il interroge des systèmes qui détiennent les données et en fait quelque chose de lisible. Limite de l'image : Grafana évalue aussi lui-même des règles d'alerte, côté serveur.
+> 🌐 **Analogie : le navigateur Web**
+>
+> Un navigateur Web n'héberge aucun site : il va chercher des pages chez des serveurs, les met en forme et vous les présente. Si un site est en panne, vous ne dites pas que Firefox est cassé. Grafana tient exactement ce rôle vis-à-vis de vos métriques, logs et traces : il interroge des systèmes qui détiennent les données et en fait quelque chose de lisible. Limite de l'image : Grafana évalue aussi lui-même des règles d'alerte, côté serveur.
 {: .callout .callout-analogie}
 
-> 🧠 **Concept clé** : Grafana ne stocke pas la télémétrie. Il stocke seulement sa propre configuration (dashboards, utilisateurs, définitions de Data Sources, règles d'alerte). Les points de métriques, les lignes de logs et les traces vivent dans les backends.
+> 🧠 **Concept clé**
+>
+> Grafana ne stocke pas la télémétrie. Il stocke seulement sa propre configuration (dashboards, utilisateurs, définitions de Data Sources, règles d'alerte). Les points de métriques, les lignes de logs et les traces vivent dans les backends.
 {: .callout .callout-important}
 
 Regardons les pièces de Grafana lui-même.
@@ -97,14 +101,18 @@ Grafana a besoin d'interlocuteurs qui détiennent réellement les données. Dans
 
 **Tempo** stocke des traces, généralement sur du stockage objet. Il ne les indexe pas finement : on le retrouve le plus souvent par identifiant de trace, ou via le langage TraceQL pour des recherches structurées. Les traces sont donc souvent atteintes depuis un autre signal, par exemple un log qui contient un identifiant de trace.
 
-> 💡 **À retenir** : Prometheus, Loki et Tempo sont indépendants de Grafana. Ils peuvent être déployés sans lui, interrogés par d'autres outils, et tomber sans que Grafana ne tombe.
+> 💡 **À retenir**
+>
+> Prometheus, Loki et Tempo sont indépendants de Grafana. Ils peuvent être déployés sans lui, interrogés par d'autres outils, et tomber sans que Grafana ne tombe.
 {: .callout .callout-important}
 
 À l'inverse, Grafana peut parler à bien d'autres sources (PostgreSQL, Elasticsearch, CloudWatch, InfluxDB…) sans changer de nature.
 
 Notez aussi que Grafana Labs propose Mimir, un stockage de métriques compatible Prometheus conçu pour grossir à grande échelle. On le croise dans les architectures plus grandes. Pour Grafana, c'est une Data Source de type Prometheus comme une autre.
 
-> 🔑 **Moyen mnémotechnique** : Grafana Labs désigne souvent sa pile par l'acronyme LGTM, pour Loki (logs), Grafana (visualisation), Tempo (traces) et Mimir (métriques).
+> 🔑 **Moyen mnémotechnique**
+>
+> Grafana Labs désigne souvent sa pile par l'acronyme LGTM, pour Loki (logs), Grafana (visualisation), Tempo (traces) et Mimir (métriques).
 {: .callout .callout-memo}
 
 ## Qui amène les données jusque-là
@@ -144,7 +152,9 @@ Le schéma est volontairement simplifié. Prometheus peut aussi aller chercher l
 
 Grafana n'a pas de code figé pour chaque système. Chaque type de source est géré par un **plugin Data Source**, qui sait faire trois choses : se connecter (URL, authentification), traduire la requête du panel dans le langage du backend, et convertir la réponse en un format interne commun. Les plugins Prometheus, Loki, Tempo, PostgreSQL ou CloudWatch sont fournis avec Grafana. D'autres s'installent à part.
 
-> 📖 **Définition.** Les *data frames* sont le format interne commun de Grafana : des colonnes et des lignes typées. Grâce à eux, un même panel affiche indifféremment des données venant de Prometheus ou de PostgreSQL, sans savoir d'où elles viennent.
+> 📖 **Définition**
+>
+> Les *data frames* sont le format interne commun de Grafana : des colonnes et des lignes typées. Grâce à eux, un même panel affiche indifféremment des données venant de Prometheus ou de PostgreSQL, sans savoir d'où elles viennent.
 {: .callout .callout-definition}
 
 Il existe d'autres familles de plugins, qu'il vaut mieux savoir nommer : les **plugins de panel** ajoutent des visualisations, les **plugins d'application** regroupent pages, dashboards et sources en un ensemble thématique. Par défaut, Grafana refuse de charger un plugin non signé, ce qui est une protection utile : un plugin s'exécute dans votre serveur avec ses droits.
@@ -227,10 +237,14 @@ Le modèle en couches donne une méthode de diagnostic simple : on remonte du ba
 | Panels qui répondent lentement ou expirent | Backend surchargé par le nombre ou le coût des requêtes | Réduire le rafraîchissement, la plage de temps ou le nombre de panels, regarder la charge du backend |
 | Données absentes depuis un moment précis | Pas de collecte pendant la période (exporter, Alloy, scrape) | Vérifier l'étage collecte, pas Grafana |
 
-> 💡 **Astuce** : dans un panel, le menu *Inspect* (selon la version, accessible aussi par la touche `i` au survol) permet de voir la requête réellement envoyée, la réponse brute et le temps d'exécution. C'est le moyen le plus rapide de savoir si le problème vient de la requête, du backend ou de l'affichage.
+> 💡 **Astuce**
+>
+> Dans un panel, le menu *Inspect* (selon la version, accessible aussi par la touche `i` au survol) permet de voir la requête réellement envoyée, la réponse brute et le temps d'exécution. C'est le moyen le plus rapide de savoir si le problème vient de la requête, du backend ou de l'affichage.
 {: .callout .callout-astuce}
 
-> ⚠️ **Erreur fréquente** : conclure que « Grafana est en panne » parce que les graphiques sont vides. Un `No data` signifie qu'une requête n'a rien renvoyé, ce qui peut être normal ou provenir d'un autre composant. Le test à faire en premier est de séparer l'état de Grafana (santé) de l'état de la donnée (requête directe).
+> ⚠️ **Erreur fréquente**
+>
+> Conclure que « Grafana est en panne » parce que les graphiques sont vides. Un `No data` signifie qu'une requête n'a rien renvoyé, ce qui peut être normal ou provenir d'un autre composant. Le test à faire en premier est de séparer l'état de Grafana (santé) de l'état de la donnée (requête directe).
 {: .callout .callout-attention}
 
 ## Scénario : un dashboard qui fait tomber Prometheus

@@ -51,14 +51,18 @@ Voici la suite, étape par étape :
 
 Le délai entre le clic et le chiffrement est d'environ 31 heures. Aucun composant n'était mal configuré pris isolément. Faut-il ajouter un outil ? C'est la défense naïve. Le vrai défaut est ailleurs : tous les contrôles étaient en périphérie ou sur l'hôte.
 
-> 💡 **À retenir** : aucun contrôle ne limitait le rayon d'explosion, c'est-à-dire tout ce que l'attaquant peut atteindre une fois un poste compromis. C'est le problème que l'architecture doit résoudre.
+> 💡 **À retenir**
+>
+> Aucun contrôle ne limitait le rayon d'explosion, c'est-à-dire tout ce que l'attaquant peut atteindre une fois un poste compromis. C'est le problème que l'architecture doit résoudre.
 {: .callout .callout-important}
 
 ---
 
 ## Surface d'attaque : relations de confiance plutôt que ports
 
-> 📖 **Définition.** Pour un attaquant déjà à l'intérieur, la surface d'attaque est le graphe des relations de confiance : qui peut parler à qui, avec quel compte, et avec quel secret. Les ports ouverts n'en sont qu'une partie.
+> 📖 **Définition**
+>
+> Pour un attaquant déjà à l'intérieur, la surface d'attaque est le graphe des relations de confiance : qui peut parler à qui, avec quel compte, et avec quel secret. Les ports ouverts n'en sont qu'une partie.
 {: .callout .callout-definition}
 
 | Vecteur | Exposition | Impact potentiel |
@@ -99,7 +103,9 @@ flowchart LR
 
 Chaque flèche est une occasion d'arrêter l'attaquant. Elle n'existe que si le contrôle correspondant a été conçu avant l'incident, pas déployé après.
 
-> 🧠 **Concept clé : la profondeur se mesure en indépendance.** Empiler un pare-feu, un WAF et un proxy ne fait pas de la défense en profondeur si un cookie de session volé les contourne tous les trois. Deux couches sont réellement distinctes quand elles ne tombent pas pour la même raison. Un EDR et un pare-feu interne ont des modes de défaillance différents : l'un voit le comportement d'un hôte, l'autre filtre une relation réseau. Un EDR et un second antivirus reposent sur la même télémétrie hôte.
+> 🧠 **Concept clé : la profondeur se mesure en indépendance**
+>
+> Empiler un pare-feu, un WAF et un proxy ne fait pas de la défense en profondeur si un cookie de session volé les contourne tous les trois. Deux couches sont réellement distinctes quand elles ne tombent pas pour la même raison. Un EDR et un pare-feu interne ont des modes de défaillance différents : l'un voit le comportement d'un hôte, l'autre filtre une relation réseau. Un EDR et un second antivirus reposent sur la même télémétrie hôte.
 {: .callout .callout-important}
 
 ### Les couches à concevoir
@@ -210,7 +216,9 @@ spec:
   policyTypes: [Ingress, Egress]
 ```
 
-> ⚠️ **Erreur fréquente** : appliquer cette politique sur un cluster dont le CNI (Container Network Interface) n'applique pas les NetworkPolicy (Flannel seul, par exemple). Le manifeste est accepté, aucune erreur n'apparaît, et rien n'est filtré. Vérifiez avec un test réel (voir ci-dessous). Avec Calico ou Cilium, pensez aussi à autoriser explicitement le DNS en egress vers kube-dns, sinon les pods perdent la résolution de noms.
+> ⚠️ **Erreur fréquente**
+>
+> Appliquer cette politique sur un cluster dont le CNI (Container Network Interface) n'applique pas les NetworkPolicy (Flannel seul, par exemple). Le manifeste est accepté, aucune erreur n'apparaît, et rien n'est filtré. Vérifiez avec un test réel (voir ci-dessous). Avec Calico ou Cilium, pensez aussi à autoriser explicitement le DNS en egress vers kube-dns, sinon les pods perdent la résolution de noms.
 {: .callout .callout-attention}
 
 ### Vérifier que la segmentation tient
@@ -229,7 +237,9 @@ curl -m 5 -sS -o /dev/null -w "%{http_code}\n" https://<EXTERNAL_URL>
 
 Un serveur de base de données qui obtient un `200` vers Internet est un canal C2 en attente. Dans Kubernetes : `kubectl exec -n <NAMESPACE> <POD> -- nc -zv -w 3 <SERVICE> <PORT>`.
 
-> 💡 **Astuce** : déployez toujours en deux temps. D'abord un mode observation (journalisation sans blocage) pendant deux à quatre semaines, pour couvrir un cycle complet de traitements mensuels. Ensuite le blocage, zone par zone, avec un retour arrière préparé.
+> 💡 **Astuce**
+>
+> Déployez toujours en deux temps. D'abord un mode observation (journalisation sans blocage) pendant deux à quatre semaines, pour couvrir un cycle complet de traitements mensuels. Ensuite le blocage, zone par zone, avec un retour arrière préparé.
 {: .callout .callout-astuce}
 
 ---
@@ -240,14 +250,18 @@ Un serveur de base de données qui obtient un `200` vers Internet est un canal C
 
 Un VPN transforme « être authentifié une fois » en « être sur le réseau ». Un attaquant qui vole une session par AiTM (Adversary-in-the-Middle, avec Evilginx par exemple) contourne le second facteur et hérite d'un accès réseau large. Le même principe vaut à l'intérieur : être dans la zone applicative ne prouve rien.
 
-> 🏢 **Analogie : le badge d'immeuble.** Un VPN ressemble à un badge qui ouvre la porte d'entrée : une fois à l'intérieur, on circule partout. Zero Trust vérifie le badge à chaque porte, en tenant compte de la personne, de son appareil et du contexte. Limite de l'image : un badge volé passe aussi chaque porte si les signaux de contexte ne trahissent pas le vol.
+> 🏢 **Analogie : le badge d'immeuble**
+>
+> Un VPN ressemble à un badge qui ouvre la porte d'entrée : une fois à l'intérieur, on circule partout. Zero Trust vérifie le badge à chaque porte, en tenant compte de la personne, de son appareil et du contexte. Limite de l'image : un badge volé passe aussi chaque porte si les signaux de contexte ne trahissent pas le vol.
 {: .callout .callout-analogie}
 
 Zero Trust, tel que décrit dans NIST SP 800-207, repose sur une idée : chaque requête vers une ressource est évaluée sur l'identité, l'état de l'appareil et le contexte, et non sur l'emplacement réseau. Techniquement, un PDP* (Policy Decision Point) décide, et un PEP (Policy Enforcement Point) applique, par exemple un proxy d'accès, un bastion ou un sidecar de service mesh.
 
 \* Le PDP et le PEP sont séparés pour que la logique de décision soit centralisée et auditée pendant que l'application de la décision reste au plus près de la ressource.
 
-> 🧠 **Zero Trust n'est pas un produit.** C'est une trajectoire. Les fournisseurs vendent des briques ; l'architecture reste à votre charge. Commencez par ce qui a le plus d'effet.
+> 🧠 **Zero Trust n'est pas un produit**
+>
+> C'est une trajectoire. Les fournisseurs vendent des briques ; l'architecture reste à votre charge. Commencez par ce qui a le plus d'effet.
 {: .callout .callout-important}
 
 ### Trois chantiers dans l'ordre d'efficacité
@@ -346,7 +360,9 @@ C'est le livrable le plus utile. Chaque ligne justifie une règle de pare-feu :
 |---|---|---|---|---|---|
 | `<APP_SUBNET>` | `<DB_HOST>` | 5432/TCP | Compte `svc_pay`, TLS | Lecture et écriture des transactions | Équipe paiement |
 
-> 💡 **À retenir** : une règle sans propriétaire ni justification est une règle qu'on ne pourra jamais supprimer.
+> 💡 **À retenir**
+>
+> Une règle sans propriétaire ni justification est une règle qu'on ne pourra jamais supprimer.
 {: .callout .callout-important}
 
 ---
@@ -357,7 +373,9 @@ C'est le livrable le plus utile. Chaque ligne justifie une règle de pare-feu :
 
 Avant de chiffrer, les opérateurs de rançongiciels détruisent la capacité de restauration : `vssadmin delete shadows /all /quiet`, suppression des dépôts de sauvegarde, vol des identifiants stockés dans la console. La CVE-2023-27532 (Veeam Backup & Replication, exposition d'identifiants) a été exploitée dans ce but. Une architecture de reprise doit donc être conçue pour survivre à un attaquant disposant de droits d'administrateur sur la production.
 
-> 🧠 **Concept clé : la haute disponibilité n'est pas une reprise.** La réplication synchrone copie fidèlement les écritures, y compris le chiffrement malveillant et une suppression accidentelle. La HA répond à la panne ; la reprise répond à la corruption et à l'attaque. Il faut les deux, avec des mécanismes différents.
+> 🧠 **Concept clé : la haute disponibilité n'est pas une reprise**
+>
+> La réplication synchrone copie fidèlement les écritures, y compris le chiffrement malveillant et une suppression accidentelle. La HA répond à la panne ; la reprise répond à la corruption et à l'attaque. Il faut les deux, avec des mécanismes différents.
 {: .callout .callout-important}
 
 ### Fixer les objectifs avant de choisir la technologie
@@ -382,7 +400,9 @@ Classez donc les applications en trois ou quatre niveaux : aucune organisation n
 
 Listez ce dont dépend tout le reste : annuaire, DNS, PKI, IdP, PDP, serveur de journaux, bastion. Si l'un tombe ou est compromis, que devient le système ? Un annuaire unique est un SPOF de disponibilité et le trésor de l'attaquant ; il demande donc des réplicas, des sauvegardes testées et une procédure de reconstruction écrite.
 
-> 💡 **Astuce** : mesurez un RTO réel avec un exercice de restauration chronométré d'une application de niveau 1, depuis la sauvegarde immuable, par une personne qui n'a pas conçu la procédure. Le chiffre obtenu est souvent trois à dix fois supérieur au RTO supposé.
+> 💡 **Astuce**
+>
+> Mesurez un RTO réel avec un exercice de restauration chronométré d'une application de niveau 1, depuis la sauvegarde immuable, par une personne qui n'a pas conçu la procédure. Le chiffre obtenu est souvent trois à dix fois supérieur au RTO supposé.
 {: .callout .callout-astuce}
 
 ---
@@ -446,14 +466,16 @@ La revue se place **avant** la construction, au moment où changer un schéma co
 
 ## Quand la complexité affaiblit l'architecture
 
-> ⚠️ **Une architecture plus complexe n'est pas nécessairement plus sécurisée.** Chaque contrôle ajouté apporte une surface d'attaque, une dépendance, un mode de défaillance et une compétence à maintenir. Trois symptômes reviennent :
+Un test de lisibilité aide à trancher : un ingénieur d'astreinte à 3 h du matin peut-il, en cinq minutes, expliquer pourquoi le flux A vers B est autorisé et comment le couper ? Sinon, la complexité a dépassé la capacité d'exploitation.
+
+> ⚠️ **Une architecture plus complexe n'est pas nécessairement plus sécurisée**
+>
+> Chaque contrôle ajouté apporte une surface d'attaque, une dépendance, un mode de défaillance et une compétence à maintenir. Trois symptômes reviennent :
 >
 > - **Les règles que personne ne comprend.** Après quelques années, un pare-feu inter-zones contient 12 000 règles, dont des centaines d'exceptions sans propriétaire. Nul n'ose les supprimer. L'attaquant n'a pas besoin de trouver une faille : il suffit qu'une règle trop large subsiste.
 > - **Le contrôle qui devient la cible.** Les passerelles VPN, les ADC et les pare-feu exposés ont régulièrement été exploités (CVE-2019-19781, CVE-2023-46805 et CVE-2024-21887 cités plus haut). Un empilement de produits de bordure multiplie les composants à patcher en urgence.
 > - **Le contournement par les équipes.** Quand le contrôle est trop pénible (bastion lent, flux bloqués sans explication), les administrateurs installent un accès parallèle. La sécurité réelle devient pire que sur une architecture simple.
 {: .callout .callout-attention}
-
-Un test de lisibilité aide à trancher : un ingénieur d'astreinte à 3 h du matin peut-il, en cinq minutes, expliquer pourquoi le flux A vers B est autorisé et comment le couper ? Sinon, la complexité a dépassé la capacité d'exploitation.
 
 Pour garder la complexité sous contrôle :
 

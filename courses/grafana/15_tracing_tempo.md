@@ -47,10 +47,12 @@ Le tracing apporte exactement ce qui manque : un enregistrement par requête, qu
 
 ### 🧠 Trace ID, Span ID, parent-enfant
 
-> 📦 **Analogie : le colis et ses centres de tri.** Le **Trace ID** est le numéro de suivi imprimé sur l'étiquette ; il ne change jamais, du départ à la livraison. Chaque passage dans un centre est un **span** : il a son propre identifiant (**Span ID**), une heure de début, une durée, et il sait quel passage précédent l'a déclenché (**parent span ID**). Limite de l'image : un colis suit un seul chemin, alors qu'une requête peut se ramifier vers plusieurs services en parallèle.
-{: .callout .callout-analogie}
-
 Concrètement, une requête de paiement donne ceci :
+
+> 📦 **Analogie : le colis et ses centres de tri**
+>
+> Le **Trace ID** est le numéro de suivi imprimé sur l'étiquette ; il ne change jamais, du départ à la livraison. Chaque passage dans un centre est un **span** : il a son propre identifiant (**Span ID**), une heure de début, une durée, et il sait quel passage précédent l'a déclenché (**parent span ID**). Limite de l'image : un colis suit un seul chemin, alors qu'une requête peut se ramifier vers plusieurs services en parallèle.
+{: .callout .callout-analogie}
 
 ```
 Trace 4bf92f3577b34da6a3ce929d0e0e4736
@@ -117,7 +119,9 @@ export OTEL_TRACES_SAMPLER_ARG=0.25
 
 Le nom du service est critique : c'est lui qui apparaît dans la cascade, dans le service graph et dans vos requêtes TraceQL. Un service qui s'appelle `unknown_service:java` vous fera perdre du temps.
 
-> 💡 **Astuce** — Dans une architecture mixte, vérifiez que tous les services utilisent le même format de propagation. Un service ancien qui n'émet que des en-têtes `b3` (Zipkin) coupera la chaîne face à des services en `tracecontext`. `OTEL_PROPAGATORS=tracecontext,b3` permet de parler les deux le temps de la migration.
+> 💡 **Astuce**
+>
+> Dans une architecture mixte, vérifiez que tous les services utilisent le même format de propagation. Un service ancien qui n'émet que des en-têtes `b3` (Zipkin) coupera la chaîne face à des services en `tracecontext`. `OTEL_PROPAGATORS=tracecontext,b3` permet de parler les deux le temps de la migration.
 {: .callout .callout-astuce}
 
 ## Brancher Tempo à Grafana
@@ -206,7 +210,9 @@ Les préfixes précisent où chercher : `resource.` pour les attributs de ressou
 
 Pour exprimer une relation entre services, on enchaîne deux filtres avec un opérateur structurel.
 
-> 🔑 **Moyen mnémotechnique** — `>` (un chevron) veut dire « enfant direct » : un seul niveau. `>>` (deux chevrons) veut dire « descendant de » : à n'importe quelle profondeur. Un chevron, un niveau ; deux chevrons, autant de niveaux que nécessaire.
+> 🔑 **Moyen mnémotechnique**
+>
+> `>` (un chevron) veut dire « enfant direct » : un seul niveau. `>>` (deux chevrons) veut dire « descendant de » : à n'importe quelle profondeur. Un chevron, un niveau ; deux chevrons, autant de niveaux que nécessaire.
 {: .callout .callout-memo}
 
 Par exemple :
@@ -225,7 +231,9 @@ On peut aussi agréger sur les spans d'une même trace avec un pipe :
 
 Voilà le détecteur de N+1 : toute trace contenant plus de quinze appels de base de données.
 
-> ⚠️ **Erreur fréquente** — Filtrer sur `duration > 2s` sans restreindre le service retourne aussi des spans racine légitimement longs (un traitement batch, un websocket). Ajoutez toujours `resource.service.name` ou `name` pour cibler ce qui vous intéresse. Et pensez à resserrer la fenêtre de temps dans Grafana : TraceQL parcourt le stockage sur la plage choisie, et sur une grande plage c'est lent.
+> ⚠️ **Erreur fréquente**
+>
+> Filtrer sur `duration > 2s` sans restreindre le service retourne aussi des spans racine légitimement longs (un traitement batch, un websocket). Ajoutez toujours `resource.service.name` ou `name` pour cibler ce qui vous intéresse. Et pensez à resserrer la fenêtre de temps dans Grafana : TraceQL parcourt le stockage sur la plage choisie, et sur une grande plage c'est lent.
 {: .callout .callout-attention}
 
 Si vous voulez scripter ou tester sans passer par l'interface, l'API HTTP de Tempo fait la même chose :
@@ -244,7 +252,9 @@ TraceQL travaille trace par trace. Pour voir la forme globale (quels services s'
 
 L'intérêt diagnostique est direct : le service graph vous dit *quelle arête* s'est dégradée, puis vous basculez sur TraceQL pour obtenir des exemples précis. Les span metrics vous donnent aussi des courbes de latence par opération dans des panels classiques, avec un lien vers des traces d'exemple.
 
-> 🧠 **Concept clé** — Les métriques répondent à « combien et depuis quand », les traces à « où dans le chemin ». Le bon réflexe est de partir de la métrique (l'alerte, le panel qui dérive), puis de descendre vers une trace représentative de la période concernée.
+> 🧠 **Concept clé**
+>
+> Les métriques répondent à « combien et depuis quand », les traces à « où dans le chemin ». Le bon réflexe est de partir de la métrique (l'alerte, le panel qui dérive), puis de descendre vers une trace représentative de la période concernée.
 {: .callout .callout-important}
 
 ## Relier logs et traces
@@ -268,7 +278,9 @@ jsonData:
 
 Le `$$` est l'échappement du provisioning Grafana ; dans l'interface, vous écrivez `${__value.raw}`. Si vos logs sont en JSON, adaptez la regex au nom du champ (`"trace_id":"(\w+)"`).
 
-> 💡 **Astuce** — Pour tester la chaîne, prenez un Trace ID dans Tempo et cherchez-le avec `{service_name="paiement"} |= "<TRACE_ID>"` dans Explore Loki. Zéro résultat signifie que l'application n'écrit pas l'identifiant, et c'est à corriger côté code avant de toucher à Grafana.
+> 💡 **Astuce**
+>
+> Pour tester la chaîne, prenez un Trace ID dans Tempo et cherchez-le avec `{service_name="paiement"} |= "<TRACE_ID>"` dans Explore Loki. Zéro résultat signifie que l'application n'écrit pas l'identifiant, et c'est à corriger côté code avant de toucher à Grafana.
 {: .callout .callout-astuce}
 
 ## Diagnostic : pourquoi ma trace est absente ou incomplète
@@ -281,7 +293,9 @@ C'est le cœur diagnostique de ce module. Quand une trace manque, les causes se 
 
 **Cause** : l'échantillonnage. Avec `parentbased_traceidratio` à `0.1`, seule une requête sur dix est enregistrée, et c'est décidé au tout début (*head sampling*), avant de savoir si la requête serait lente ou en erreur. Les requêtes problématiques sont donc perdues dans les mêmes proportions que les saines.
 
-> 💡 **À retenir** — Le Trace ID est généré et écrit dans les logs même quand la trace n'est pas échantillonnée. Sa présence dans un log ne prouve donc pas que la trace existe dans Tempo.
+> 💡 **À retenir**
+>
+> Le Trace ID est généré et écrit dans les logs même quand la trace n'est pas échantillonnée. Sa présence dans un log ne prouve donc pas que la trace existe dans Tempo.
 {: .callout .callout-important}
 
 **Correction** : deux leviers. Pour les environnements à volume modeste, montez le ratio (ou passez à `always_on` en préproduction). Pour la production, utilisez le *tail sampling* dans le Collector (processeur `tail_sampling`), qui attend la fin de la trace avant de décider, et conserve par exemple toutes les traces en erreur, toutes celles de plus de 1 s, plus un pourcentage du reste.

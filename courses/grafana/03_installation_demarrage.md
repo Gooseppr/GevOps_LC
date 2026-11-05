@@ -68,7 +68,9 @@ Que doit-on faire survivre ? Avant de choisir où poser les volumes, regardez le
 | `/etc/grafana/provisioning` | définitions de sources/dashboards chargées au démarrage | Oui, abordé au module 25 |
 | `/var/log/grafana` | fichiers de logs (dans l'image, Grafana écrit sur la sortie standard) | Non, utilisez `docker logs` |
 
-> 🧠 **Concept clé** : par défaut, Grafana stocke tout son état dans une base SQLite, un seul fichier `grafana.db` dans `/var/lib/grafana`. Un conteneur est jetable, ce fichier ne l'est pas. Si le dossier vit dans la couche inscriptible du conteneur, la recréation du conteneur l'efface. Le volume ne sert donc pas à « sauvegarder » : il sépare ce qui est jetable (le programme) de ce qui est précieux (l'état).
+> 🧠 **Concept clé**
+>
+> Par défaut, Grafana stocke tout son état dans une base SQLite, un seul fichier `grafana.db` dans `/var/lib/grafana`. Un conteneur est jetable, ce fichier ne l'est pas. Si le dossier vit dans la couche inscriptible du conteneur, la recréation du conteneur l'efface. Le volume ne sert donc pas à « sauvegarder » : il sépare ce qui est jetable (le programme) de ce qui est précieux (l'état).
 {: .callout .callout-important}
 
 ### Version 1 : le `docker run` qui marche... jusqu'au premier incident
@@ -120,7 +122,9 @@ Chaque ligne règle un problème de la v1 :
 - **`restart: unless-stopped`** relance Grafana après un redémarrage du serveur.
 - **La syntaxe `${VAR:?message}`** fait échouer `docker compose up` avec un message clair si le mot de passe n'est pas défini, au lieu de démarrer avec une valeur vide ou par défaut.
 
-> 📖 **Définition.** Un volume nommé est un espace de stockage créé et géré par Docker, désigné par un nom (ici `grafana-data`) et indépendant du conteneur. Contrairement à un dossier de l'hôte monté directement (bind mount), il reçoit les bons droits d'office.
+> 📖 **Définition**
+>
+> Un volume nommé est un espace de stockage créé et géré par Docker, désigné par un nom (ici `grafana-data`) et indépendant du conteneur. Contrairement à un dossier de l'hôte monté directement (bind mount), il reçoit les bons droits d'office.
 {: .callout .callout-definition}
 
 Démarrage et contrôle :
@@ -130,7 +134,9 @@ docker compose up -d
 docker compose ps
 ```
 
-> ⚠️ **Erreur fréquente** : croire que `GF_SECURITY_ADMIN_PASSWORD` change le mot de passe à chaque démarrage. Il n'est lu qu'à l'initialisation de la base, quand `grafana.db` n'existe pas encore. Si vous modifiez la variable après le premier lancement, rien ne change et `docker compose up` ne dit rien. Pour un compte existant, passez par l'interface ou par :
+> ⚠️ **Erreur fréquente**
+>
+> Croire que `GF_SECURITY_ADMIN_PASSWORD` change le mot de passe à chaque démarrage. Il n'est lu qu'à l'initialisation de la base, quand `grafana.db` n'existe pas encore. Si vous modifiez la variable après le premier lancement, rien ne change et `docker compose up` ne dit rien. Pour un compte existant, passez par l'interface ou par :
 {: .callout .callout-attention}
 
 ```bash
@@ -171,7 +177,9 @@ Trois points de vigilance :
 - Le préfixe `127.0.0.1:` sur le port publié évite d'exposer Grafana sur le réseau tant que vous n'avez pas posé de reverse proxy avec HTTPS (sujet des modules sécurité).
 - Le `healthcheck` utilise `wget`, présent dans les variantes Alpine ; selon l'image ou la version, un autre outil peut être nécessaire. Si le contrôle échoue alors que Grafana répond bien depuis l'hôte, vérifiez d'abord que la commande existe dans l'image.
 
-> 💡 **Astuce** : `docker compose config` affiche le fichier après interpolation des variables. C'est le moyen le plus rapide de vérifier que `.env` est bien pris en compte, sans démarrer quoi que ce soit.
+> 💡 **Astuce**
+>
+> `docker compose config` affiche le fichier après interpolation des variables. C'est le moyen le plus rapide de vérifier que `.env` est bien pris en compte, sans démarrer quoi que ce soit.
 {: .callout .callout-astuce}
 
 ## Les deux autres voies, en bref
@@ -215,7 +223,9 @@ Ouvrez `http://localhost:3000` (ou l'adresse de votre serveur). La page de conne
 
 Avec une installation « nue » (`docker run` ou paquet sans réglage), le couple par défaut est `admin` / `admin`, et Grafana propose de changer le mot de passe à la première connexion. Dans certaines versions, cette étape peut être ignorée avec un bouton « Skip ». Ne la sautez jamais : ces identifiants sont connus de tout le monde, et un Grafana exposé avec `admin/admin` se fait repérer très vite.
 
-> ⚠️ **Erreur fréquente** : conserver `admin/admin` « parce que c'est un lab interne ». Les labs finissent par recevoir de vrais accès (sources de données avec des identifiants, dashboards de production), et personne ne repasse changer le mot de passe. Prenez l'habitude de le faire dès le jour 1, avec un compte nommé autrement que `admin`.
+> ⚠️ **Erreur fréquente**
+>
+> Conserver `admin/admin` « parce que c'est un lab interne ». Les labs finissent par recevoir de vrais accès (sources de données avec des identifiants, dashboards de production), et personne ne repasse changer le mot de passe. Prenez l'habitude de le faire dès le jour 1, avec un compte nommé autrement que `admin`.
 {: .callout .callout-attention}
 
 Une fois connecté, vous arrivez sur la page d'accueil, vide pour l'instant. L'exploration de l'interface fait l'objet du module suivant.
@@ -224,7 +234,9 @@ Une fois connecté, vous arrivez sur la page d'accueil, vide pour l'instant. L'e
 
 Grafana lit sa configuration depuis plusieurs endroits, et c'est la superposition qui déroute les débutants. Les valeurs par défaut sont embarquées dans le programme. Votre `grafana.ini` ne contient que ce que vous voulez changer. Les variables d'environnement `GF_*` passent par-dessus tout.
 
-> 🗂️ **Analogie : des calques superposés.** Imaginez trois calques transparents : les valeurs par défaut au fond, `grafana.ini` au milieu, les variables `GF_*` au-dessus. Là où un calque est vide, on voit la valeur du dessous. Là où il porte une valeur, il masque celle des calques inférieurs, clé par clé.
+> 🗂️ **Analogie : des calques superposés**
+>
+> Imaginez trois calques transparents : les valeurs par défaut au fond, `grafana.ini` au milieu, les variables `GF_*` au-dessus. Là où un calque est vide, on voit la valeur du dessous. Là où il porte une valeur, il masque celle des calques inférieurs, clé par clé.
 {: .callout .callout-analogie}
 
 ```mermaid
@@ -259,7 +271,9 @@ La règle de nommage des variables est mécanique : `GF_` + nom de la section + 
 | `[users]` `allow_sign_up` | `GF_USERS_ALLOW_SIGN_UP` |
 | `[log]` `level` | `GF_LOG_LEVEL` |
 
-> 🧠 **Concept clé** : en cas de conflit, la variable d'environnement gagne sur le fichier. Quand une valeur « ne change pas » alors que vous avez édité `grafana.ini`, cherchez d'abord une variable `GF_*` qui la masque.
+> 🧠 **Concept clé**
+>
+> En cas de conflit, la variable d'environnement gagne sur le fichier. Quand une valeur « ne change pas » alors que vous avez édité `grafana.ini`, cherchez d'abord une variable `GF_*` qui la masque.
 {: .callout .callout-important}
 
 Quelques règles pour éviter les mauvaises surprises :
@@ -269,7 +283,9 @@ Quelques règles pour éviter les mauvaises surprises :
 - Une valeur contenant `#` ou `;` (un mot de passe, par exemple) doit être entourée de triples guillemets `"""`, sinon la fin est lue comme un commentaire. Pour les secrets, préférez le suffixe `__FILE` (`GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_admin`), qui lit la valeur depuis un fichier.
 - Un nom de variable mal orthographié n'est pas signalé : il est simplement sans effet.
 
-> 💡 **Astuce** : pour voir la configuration réellement appliquée, connectez-vous en administrateur et ouvrez la page des réglages du serveur (dans les versions récentes : *Administration → General → Settings*, le chemin peut varier). Vous y verrez la valeur finale de chaque clé, ce qui tranche toute discussion entre fichier et environnement.
+> 💡 **Astuce**
+>
+> Pour voir la configuration réellement appliquée, connectez-vous en administrateur et ouvrez la page des réglages du serveur (dans les versions récentes : *Administration → General → Settings*, le chemin peut varier). Vous y verrez la valeur finale de chaque clé, ce qui tranche toute discussion entre fichier et environnement.
 {: .callout .callout-astuce}
 
 ## Vérifier la santé et lire les logs
@@ -284,7 +300,9 @@ curl -s http://localhost:3000/api/health
 
 Une instance saine répond en JSON avec, en substance, `"database": "ok"` et la version du logiciel (les champs exacts peuvent varier selon la version).
 
-> 💡 **À retenir** : `/api/health` confirme seulement deux choses : le serveur HTTP répond et la base est joignable. Il ne dit rien sur la qualité des dashboards ni sur la disponibilité des sources de données. Ces contrôles viendront avec le meta-monitoring.
+> 💡 **À retenir**
+>
+> `/api/health` confirme seulement deux choses : le serveur HTTP répond et la base est joignable. Il ne dit rien sur la qualité des dashboards ni sur la disponibilité des sources de données. Ces contrôles viendront avec le meta-monitoring.
 {: .callout .callout-important}
 
 C'est l'endpoint à brancher sur un load balancer, un healthcheck Docker ou une sonde de supervision externe. Pour un script, ajoutez `-f` pour que `curl` retourne un code d'erreur si le statut HTTP n'est pas 2xx.
@@ -304,7 +322,9 @@ Les lignes suivent le format `logger=... level=info msg="..."`. Pour un premier 
 
 Si ce troisième message n'apparaît jamais, Grafana ne sert rien, et l'erreur se trouve juste au-dessus dans les logs. Cherchez `level=error` ou `level=fatal`.
 
-> 💡 **Astuce** : pour obtenir plus de détails en cas de souci, passez temporairement `GF_LOG_LEVEL=debug`, puis revenez à `info`. Le niveau `debug` est très bavard et inutile en fonctionnement normal.
+> 💡 **Astuce**
+>
+> Pour obtenir plus de détails en cas de souci, passez temporairement `GF_LOG_LEVEL=debug`, puis revenez à `info`. Le niveau `debug` est très bavard et inutile en fonctionnement normal.
 {: .callout .callout-astuce}
 
 ## Diagnostic : erreurs fréquentes au premier démarrage

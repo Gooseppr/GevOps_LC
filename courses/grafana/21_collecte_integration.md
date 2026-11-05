@@ -40,10 +40,12 @@ Le problème n'est pas Grafana, c'est tout ce qui se passe en amont. Grafana est
 
 ## Ce que fait vraiment la chaîne de collecte
 
-> 🧠 **Concept clé** — Grafana n'ingère rien. Il interroge des backends (Prometheus, Loki, Tempo) qui ont eux-mêmes reçu leurs données d'un collecteur, lequel les a obtenues auprès de quelque chose d'instrumenté. Si un maillon casse, le panel reste vide, mais la cause est rarement dans le panel.
-{: .callout .callout-important}
-
 Quatre étages, donc :
+
+> 🧠 **Concept clé**
+>
+> Grafana n'ingère rien. Il interroge des backends (Prometheus, Loki, Tempo) qui ont eux-mêmes reçu leurs données d'un collecteur, lequel les a obtenues auprès de quelque chose d'instrumenté. Si un maillon casse, le panel reste vide, mais la cause est rarement dans le panel.
+{: .callout .callout-important}
 
 1. **Instrumentation** : le code ou l'agent qui produit la donnée (un SDK dans l'application, Node Exporter sur l'hôte, un fichier de log).
 2. **Collecte** : le composant qui va chercher ou reçoit la donnée (Prometheus qui scrape, Alloy, un collecteur OpenTelemetry).
@@ -70,7 +72,9 @@ Qui appelle qui ? Cette question, celle de la direction des flux, change la faç
 - **Pull** pour les métriques : par défaut, c'est Prometheus qui appelle périodiquement chaque cible, typiquement toutes les 15 à 60 secondes.
 - **Push** pour les logs et les traces : l'agent envoie vers Loki ou Tempo.
 
-> 💡 **À retenir.** La différence a des conséquences directes en diagnostic. Avec le pull, une cible morte se voit tout de suite, parce que le scrape échoue. Avec le push, un émetteur qui se tait ne produit... rien, et le silence ressemble à un système en bonne santé.
+> 💡 **À retenir**
+>
+> La différence a des conséquences directes en diagnostic. Avec le pull, une cible morte se voit tout de suite, parce que le scrape échoue. Avec le push, un émetteur qui se tait ne produit... rien, et le silence ressemble à un système en bonne santé.
 {: .callout .callout-important}
 
 ## Les briques et leur rôle
@@ -129,7 +133,9 @@ scrape_configs:
         replacement: <BLACKBOX_HOST>:9115
 ```
 
-> 💡 **Astuce** — Quand les probes ne marchent pas, testez d'abord l'URL `/probe?...&debug=true` dans un navigateur. Blackbox y affiche les logs détaillés de la sonde, ce qui évite de deviner si le problème vient de la résolution DNS, du certificat ou du code HTTP attendu.
+> 💡 **Astuce**
+>
+> Quand les probes ne marchent pas, testez d'abord l'URL `/probe?...&debug=true` dans un navigateur. Blackbox y affiche les logs détaillés de la sonde, ce qui évite de deviner si le problème vient de la résolution DNS, du certificat ou du code HTTP attendu.
 {: .callout .callout-astuce}
 
 ### Les métriques applicatives : ce que seul le code sait
@@ -150,7 +156,9 @@ http_request_duration_seconds_bucket{route="/orders",le="+Inf"} 10449
 
 Chaque ligne est un nom, des labels entre accolades et une valeur. Les lignes `# HELP` et `# TYPE` documentent la métrique. Retenez cette lecture à l'œil : quand un panel est vide, c'est ici qu'on regarde en premier si la métrique existe et sous quel nom exact.
 
-> ⚠️ **Erreur fréquente** — Mettre un identifiant à forte variabilité en label (`user_id`, `order_id`, URL complète avec paramètres). Chaque valeur distincte crée une série temporelle séparée, et la mémoire de Prometheus explose. Correction : garder pour les labels des valeurs bornées (méthode, route normalisée, code de statut), et mettre les identifiants dans les logs ou les traces.
+> ⚠️ **Erreur fréquente**
+>
+> Mettre un identifiant à forte variabilité en label (`user_id`, `order_id`, URL complète avec paramètres). Chaque valeur distincte crée une série temporelle séparée, et la mémoire de Prometheus explose. Correction : garder pour les labels des valeurs bornées (méthode, route normalisée, code de statut), et mettre les identifiants dans les logs ou les traces.
 {: .callout .callout-attention}
 
 ## Grafana Alloy : un agent plutôt que cinq
@@ -159,7 +167,9 @@ Avec huit machines, installer Node Exporter, Promtail ou un équivalent pour les
 
 Sa logique repose sur des **composants** que l'on chaîne entre eux. Chaque composant a une entrée et une sortie, et on connecte les sorties aux entrées avec `forward_to`.
 
-> 🔧 **Analogie : un jeu de tuyaux.** Une source, éventuellement des filtres au milieu, puis un puits ; `forward_to` joue le rôle du raccord. Limite de l'image : `forward_to` accepte une liste, donc une sortie peut alimenter plusieurs destinations à la fois.
+> 🔧 **Analogie : un jeu de tuyaux**
+>
+> Une source, éventuellement des filtres au milieu, puis un puits ; `forward_to` joue le rôle du raccord. Limite de l'image : `forward_to` accepte une liste, donc une sortie peut alimenter plusieurs destinations à la fois.
 {: .callout .callout-analogie}
 
 ```alloy
@@ -209,7 +219,9 @@ Les noms de composants et la syntaxe évoluent entre les versions d'Alloy, et le
 
 OpenTelemetry (OTel) est un standard ouvert pour produire et transporter métriques, logs et traces. Son transport principal est OTLP, accessible en gRPC sur le port 4317 et en HTTP sur le 4318 par convention. L'intérêt pour vous ? L'application n'a plus besoin de savoir où se trouve Tempo : elle envoie à l'agent local, qui s'occupe du reste.
 
-> 📖 **Définition.** OTLP (OpenTelemetry Protocol) est le protocole de transport standard d'OpenTelemetry : il définit comment sont encodées et envoyées les trois sortes de télémétrie entre émetteur et récepteur.
+> 📖 **Définition**
+>
+> OTLP (OpenTelemetry Protocol) est le protocole de transport standard d'OpenTelemetry : il définit comment sont encodées et envoyées les trois sortes de télémétrie entre émetteur et récepteur.
 {: .callout .callout-definition}
 
 Côté application, la configuration tient souvent en trois variables d'environnement :
@@ -247,7 +259,9 @@ otelcol.exporter.otlp "tempo" {
 
 Pour les logs, deux voies coexistent. La plus simple consiste à lire des fichiers avec `loki.source.file`, comme plus haut. La seconde fait passer les logs par OTLP, ce qui permet de les corréler avec les traces via le même `trace_id`. Commencez par la première ; passez à la seconde quand vous avez besoin de sauter d'un log à sa trace dans Grafana.
 
-> ⚠️ **Erreur fréquente** — Laisser `insecure = true` ou un récepteur OTLP ouvert sur `0.0.0.0` en production. N'importe quel hôte du réseau peut alors injecter de la fausse télémétrie. Correction : lier le récepteur à `127.0.0.1` quand l'agent est local, ou activer TLS et une authentification quand il reçoit depuis d'autres machines.
+> ⚠️ **Erreur fréquente**
+>
+> Laisser `insecure = true` ou un récepteur OTLP ouvert sur `0.0.0.0` en production. N'importe quel hôte du réseau peut alors injecter de la fausse télémétrie. Correction : lier le récepteur à `127.0.0.1` quand l'agent est local, ou activer TLS et une authentification quand il reçoit depuis d'autres machines.
 {: .callout .callout-attention}
 
 ## Les labels : le contrat entre les maillons
@@ -264,7 +278,9 @@ Prometheus ajoute automatiquement `job` et `instance`. Pour le reste, il faut d�
 
 Côté OpenTelemetry, l'équivalent s'appelle les attributs de ressource : `service.name` et `deployment.environment` (selon la version des conventions sémantiques, ce dernier peut s'appeler `deployment.environment.name`). Alloy, Loki et Tempo savent les convertir en labels, mais leur nom final dépend de la version et de la configuration : vérifiez dans Explore comment ils apparaissent réellement.
 
-> 💡 **Astuce** — Pour auditer rapidement, ouvrez Explore, source Prometheus, et tapez `count by (env, service) (up)`. Si vous voyez des `env` en double (`prod`, `production`, `Prod`), vous savez déjà où se situent les incohérences.
+> 💡 **Astuce**
+>
+> Pour auditer rapidement, ouvrez Explore, source Prometheus, et tapez `count by (env, service) (up)`. Si vous voyez des `env` en double (`prod`, `production`, `Prod`), vous savez déjà où se situent les incohérences.
 {: .callout .callout-astuce}
 
 ## Construire la chaîne par étapes
@@ -365,7 +381,9 @@ Les cas les plus fréquents, en symptôme → cause → correction :
 | Traces absentes alors que l'appli tourne | Variable `OTEL_EXPORTER_OTLP_ENDPOINT` absente, mauvais protocole (gRPC sur 4318 au lieu de HTTP) | Vérifier le port, `ss -tlnp \| grep 431` côté agent, logs du SDK |
 | Une métrique disparaît d'un coup | Renommage dans l'application après un déploiement | Chercher le nouveau nom avec le navigateur de métriques d'Explore |
 
-> ⚠️ **Erreur fréquente** — Se fier à l'absence d'alerte comme preuve que tout va bien. Si une cible disparaît de la configuration, plus aucun `up` n'est produit, donc `up == 0` ne se déclenche jamais. Correction : ajouter, en complément, une alerte qui compare `count(up{job="<JOB>"})` au nombre de cibles attendues. `absent(up{job="<JOB>"})` ne couvre que la disparition de toutes les cibles du job.
+> ⚠️ **Erreur fréquente**
+>
+> Se fier à l'absence d'alerte comme preuve que tout va bien. Si une cible disparaît de la configuration, plus aucun `up` n'est produit, donc `up == 0` ne se déclenche jamais. Correction : ajouter, en complément, une alerte qui compare `count(up{job="<JOB>"})` au nombre de cibles attendues. `absent(up{job="<JOB>"})` ne couvre que la disparition de toutes les cibles du job.
 {: .callout .callout-attention}
 
 Un petit rituel de vérification, dans l'ordre :

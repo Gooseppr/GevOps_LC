@@ -58,7 +58,9 @@ Ce qui est exposé dans une gestion de vulnérabilités ne se limite pas aux por
 | Mauvaise configuration (Redis sans mot de passe, partage ouvert) | Aucun correctif à appliquer | Accès direct, sans exploit |
 | Logiciel en fin de vie | Aucun correctif ne sera publié | Vulnérabilités permanentes, mitigation obligatoire |
 
-> 🧠 **Concept clé** : on ne corrige pas ce qu'on ne connaît pas. Un scanner ne trouve que ce qu'on lui montre et ce qu'il sait identifier. L'inventaire passe donc avant le scan.
+> 🧠 **Concept clé**
+>
+> On ne corrige pas ce qu'on ne connaît pas. Un scanner ne trouve que ce qu'on lui montre et ce qu'il sait identifier. L'inventaire passe donc avant le scan.
 {: .callout .callout-important}
 
 ## ⭐ Faille, vulnérabilité, mauvaise configuration
@@ -69,7 +71,9 @@ Les trois termes sont souvent mélangés dans les rapports, alors qu'ils appelle
 - **Vulnérabilité** : une faille dans un produit et une version précis, exploitable dans certaines conditions. Elle reçoit un identifiant CVE. Le correctif vient de l'éditeur.
 - **Mauvaise configuration** : le logiciel fonctionne comme prévu, c'est le déploiement qui est dangereux. Elle n'a en général pas de CVE et aucun correctif éditeur n'existe. C'est à vous de la corriger.
 
-> 🔴 **Vecteur d'attaque** : Redis exposé sans authentification est le cas classique. L'attaquant se connecte avec `redis-cli -h <HOST>`, change le répertoire de sauvegarde avec `CONFIG SET dir /root/.ssh` et le nom du fichier avec `CONFIG SET dbfilename authorized_keys`, écrit sa clé publique dans une valeur, force une sauvegarde, puis se connecte en SSH. Il n'y a ni CVE ni correctif à appliquer. Un scan de versions ne verra rien, alors qu'un audit de configuration (CIS Benchmarks) trouvera le problème.
+> 🔴 **Vecteur d'attaque**
+>
+> Redis exposé sans authentification est le cas classique. L'attaquant se connecte avec `redis-cli -h <HOST>`, change le répertoire de sauvegarde avec `CONFIG SET dir /root/.ssh` et le nom du fichier avec `CONFIG SET dbfilename authorized_keys`, écrit sa clé publique dans une valeur, force une sauvegarde, puis se connecte en SSH. Il n'y a ni CVE ni correctif à appliquer. Un scan de versions ne verra rien, alors qu'un audit de configuration (CIS Benchmarks) trouvera le problème.
 {: .callout .callout-danger}
 
 Ces trois catégories ne se traitent pas dans la même file :
@@ -81,10 +85,12 @@ Ces trois catégories ne se traitent pas dans la même file :
 
 ## CVE, CVSS et scores de sévérité
 
-> 📖 **Définition.** Une CVE (Common Vulnerabilities and Exposures) est un identifiant public du type `CVE-2021-44228` : l'année d'attribution suivie d'un numéro. Elle dit « cette vulnérabilité existe », rien de plus. Le score, les versions touchées et le correctif viennent d'autres sources.
-{: .callout .callout-definition}
-
 Le score le plus répandu est le CVSS (Common Vulnerability Scoring System)*, de 0,0 à 10,0 :
+
+> 📖 **Définition**
+>
+> Une CVE (Common Vulnerabilities and Exposures) est un identifiant public du type `CVE-2021-44228` : l'année d'attribution suivie d'un numéro. Elle dit « cette vulnérabilité existe », rien de plus. Le score, les versions touchées et le correctif viennent d'autres sources.
+{: .callout .callout-definition}
 
 | Plage | Sévérité |
 |---|---|
@@ -107,16 +113,22 @@ CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
 
 À lire en priorité : `AV`, `PR` et `UI`. Un `AV:L` avec `PR:L` suppose que l'attaquant soit déjà sur la machine avec un compte, ce qui est un scénario très différent d'un `AV:N/PR:N`.
 
-> ⚠️ **Le piège central du module** : un score CVSS critique n'implique pas la même urgence pour chaque organisation. Le score de base mesure la gravité intrinsèque dans le pire cas raisonnable. Il ne sait rien de votre pare-feu, de votre segmentation, de la valeur de la machine ni de l'existence d'un exploit. Le standard prévoit des métriques temporelles et environnementales pour cela, mais la plupart des scanners n'affichent que le score de base. L'inverse existe aussi : un score « High » peut justifier une action immédiate (voir le cas WannaCry plus bas).
+> ⚠️ **Le piège central du module**
+>
+> Un score CVSS critique n'implique pas la même urgence pour chaque organisation. Le score de base mesure la gravité intrinsèque dans le pire cas raisonnable. Il ne sait rien de votre pare-feu, de votre segmentation, de la valeur de la machine ni de l'existence d'un exploit. Le standard prévoit des métriques temporelles et environnementales pour cela, mais la plupart des scanners n'affichent que le score de base. L'inverse existe aussi : un score « High » peut justifier une action immédiate (voir le cas WannaCry plus bas).
 {: .callout .callout-attention}
 
-> 💡 **Astuce** : deux sources externes corrigent en partie cette limite.
+> 💡 **Astuce**
+>
+> Deux sources externes corrigent en partie cette limite.
 {: .callout .callout-astuce}
 
 - **KEV (Known Exploited Vulnerabilities)**, catalogue de la CISA : liste les CVE dont l'exploitation réelle est avérée.
 - **EPSS (Exploit Prediction Scoring System)**, publié par FIRST : estime la probabilité d'exploitation d'une CVE dans les 30 jours.
 
-> 💡 **À retenir** : une CVE présente dans KEV passe devant toutes les autres, quel que soit son score.
+> 💡 **À retenir**
+>
+> Une CVE présente dans KEV passe devant toutes les autres, quel que soit son score.
 {: .callout .callout-important}
 
 \* *CVSS est un standard de FIRST qui note la sévérité intrinsèque d'une vulnérabilité à partir de métriques d'attaque et d'impact, indépendamment de votre contexte ; les versions 3.1 et 4.0 coexistent dans les bases publiques.*
@@ -158,10 +170,14 @@ rpm -qa --qf '%{NAME} %{VERSION}-%{RELEASE}\n' | sort
 
 Pour les dépendances applicatives, le gestionnaire de paquets système ne voit rien. Trivy génère l'inventaire d'un projet ou d'une image sous forme de SBOM (Software Bill of Materials), par exemple `trivy fs --format cyclonedx --output sbom.json .`. Ce SBOM conserve la liste pour répondre en quelques minutes à « où utilisons-nous cette bibliothèque ? ».
 
-> 🧾 **Analogie : la liste des ingrédients.** Un SBOM joue le rôle de la composition imprimée sur un emballage alimentaire : quand un ingrédient fait l'objet d'un rappel, on lit l'étiquette au lieu d'ouvrir chaque boîte. Limite : l'étiquette ne recense que ce que l'outil a su détecter au moment où il l'a générée.
+> 🧾 **Analogie : la liste des ingrédients**
+>
+> Un SBOM joue le rôle de la composition imprimée sur un emballage alimentaire : quand un ingrédient fait l'objet d'un rappel, on lit l'étiquette au lieu d'ouvrir chaque boîte. Limite : l'étiquette ne recense que ce que l'outil a su détecter au moment où il l'a générée.
 {: .callout .callout-analogie}
 
-> 🔴 **Cas Log4Shell** : au moment de la divulgation de `CVE-2021-44228`, beaucoup d'équipes ont découvert que log4j-core était embarqué dans des JAR « shadés » (recompilés dans un autre JAR), invisibles pour un `find` sur le nom de fichier. Il fallait chercher la classe elle-même :
+> 🔴 **Cas Log4Shell**
+>
+> Au moment de la divulgation de `CVE-2021-44228`, beaucoup d'équipes ont découvert que log4j-core était embarqué dans des JAR « shadés » (recompilés dans un autre JAR), invisibles pour un `find` sur le nom de fichier. Il fallait chercher la classe elle-même :
 {: .callout .callout-danger}
 
 ```bash
@@ -169,7 +185,9 @@ find / -type f -name 'log4j-core*.jar' 2>/dev/null
 unzip -l <APPLICATION.jar> | grep JndiLookup
 ```
 
-> ⚠️ **Erreur fréquente** : un inventaire manuel dans un tableur, mis à jour une fois par an. Au premier avis urgent, personne ne sait dire si le produit est présent. Correction : un inventaire alimenté automatiquement (agents, découverte réseau, SBOM générés en intégration continue), avec un propriétaire par actif.
+> ⚠️ **Erreur fréquente**
+>
+> Un inventaire manuel dans un tableur, mis à jour une fois par an. Au premier avis urgent, personne ne sait dire si le produit est présent. Correction : un inventaire alimenté automatiquement (agents, découverte réseau, SBOM générés en intégration continue), avec un propriétaire par actif.
 {: .callout .callout-attention}
 
 ## Scans de vulnérabilités sur un périmètre autorisé
@@ -186,7 +204,9 @@ Pour une première passe, nmap avec le script `vulners` donne un aperçu rapide,
 nmap -sV --script vulners -p 22,80,443 <TARGET>
 ```
 
-> 💡 **Astuce** : planifiez le scan interne chaque semaine et comparez les résultats d'un passage à l'autre. Ce qui compte, c'est l'écart (nouvelles vulnérabilités, réapparitions), pas le total absolu.
+> 💡 **Astuce**
+>
+> Planifiez le scan interne chaque semaine et comparez les résultats d'un passage à l'autre. Ce qui compte, c'est l'écart (nouvelles vulnérabilités, réapparitions), pas le total absolu.
 {: .callout .callout-astuce}
 
 ## Faux positifs et validation des résultats
@@ -207,7 +227,9 @@ rpm -q --changelog <PACKAGE> | grep <CVE-ID>
 
 Ensuite, vérifier que la condition d'exploitation est réellement remplie (service écouté, option activée, chemin de code accessible). Enfin, consigner la décision (« faux positif, backport, vérifié le JJ/MM ») dans l'outil de suivi avec une date de réexamen, sinon le même constat reviendra au prochain scan.
 
-> ⚠️ **Ne pas tomber dans l'excès inverse** : un scan non authentifié manque tout ce qui n'est pas visible depuis le réseau (bibliothèques locales, services en écoute sur localhost). L'absence de résultat ne prouve pas l'absence de vulnérabilité.
+> ⚠️ **Ne pas tomber dans l'excès inverse**
+>
+> Un scan non authentifié manque tout ce qui n'est pas visible depuis le réseau (bibliothèques locales, services en écoute sur localhost). L'absence de résultat ne prouve pas l'absence de vulnérabilité.
 {: .callout .callout-attention}
 
 ## Prioriser : exposition, exploitabilité, impact métier
@@ -256,10 +278,14 @@ Trois issues légitimes, aucune n'est un échec si elle est documentée :
 - **Mitigation** : quand le correctif n'existe pas encore, casserait l'application, ou nécessite un arrêt impossible avant la prochaine fenêtre. Exemples : règle de filtrage réseau, désactivation de la fonction concernée, règle de détection ciblée. Une mitigation est provisoire et doit avoir un propriétaire et une échéance.
 - **Acceptation du risque** : décision écrite d'une personne qui a l'autorité métier pour la prendre (pas l'équipe technique seule), avec les contrôles compensatoires, une date d'expiration et une revue planifiée.
 
-> ⚠️ **Une mitigation peut être incomplète** : pour Log4Shell, l'option `-Dlog4j2.formatMsgNoLookups=true` a été largement diffusée comme contournement. Elle s'est ensuite révélée insuffisante dans certaines configurations (voir `CVE-2021-45046`). Si vous appliquez une mitigation, relisez l'avis de l'éditeur à chaque mise à jour, et ne considérez le sujet clos que lorsque la version corrigée est déployée.
+> ⚠️ **Une mitigation peut être incomplète**
+>
+> Pour Log4Shell, l'option `-Dlog4j2.formatMsgNoLookups=true` a été largement diffusée comme contournement. Elle s'est ensuite révélée insuffisante dans certaines configurations (voir `CVE-2021-45046`). Si vous appliquez une mitigation, relisez l'avis de l'éditeur à chaque mise à jour, et ne considérez le sujet clos que lorsque la version corrigée est déployée.
 {: .callout .callout-attention}
 
-> 🔒 **Contrôle de sécurité** : pour un actif en fin de vie sans correctif possible, on isole (segment dédié, règles strictes), on supervise et on planifie le remplacement. Garder la machine « telle quelle, au cas où » équivaut à accepter le risque sans l'avoir décidé.
+> 🔒 **Contrôle de sécurité**
+>
+> Pour un actif en fin de vie sans correctif possible, on isole (segment dédié, règles strictes), on supervise et on planifie le remplacement. Garder la machine « telle quelle, au cas où » équivaut à accepter le risque sans l'avoir décidé.
 {: .callout .callout-securite}
 
 ## Configuration sécurisée de la chaîne de correctifs
@@ -306,7 +332,9 @@ Entre l'avis et le correctif, vous êtes exposé. Il faut donc chercher les tent
 - **Processus enfants anormaux** lancés par le service vulnérable (un serveur Java qui lance `/bin/sh`).
 - **Indicateurs de pilotage du programme** : âge des vulnérabilités KEV encore ouvertes, délai moyen de correction par criticité, pourcentage d'actifs scannés avec authentification.
 
-> ⚠️ **Erreur fréquente** : correctif installé, service jamais redémarré. Le processus continue d'utiliser l'ancienne bibliothèque en mémoire. Vérification :
+> ⚠️ **Erreur fréquente**
+>
+> Correctif installé, service jamais redémarré. Le processus continue d'utiliser l'ancienne bibliothèque en mémoire. Vérification :
 {: .callout .callout-attention}
 
 ```bash

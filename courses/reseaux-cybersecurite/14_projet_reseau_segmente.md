@@ -48,7 +48,9 @@ Le projet synthétise tout le niveau 1 : adressage, VLAN, routage, services de b
 
 Avant de toucher une machine, traduisez le besoin en décisions. La demande de la direction se découpe naturellement en quatre populations qui n'ont pas les mêmes droits : le personnel, le serveur, les visiteurs et les administrateurs. Quatre populations, quatre segments.
 
-> 🏢 **Analogie : le VLAN comme étage d'immeuble.** Tout le monde sur le palier se croise librement, mais pour changer d'étage il faut passer par un point de contrôle, ici le routeur-pare-feu. Limite : ce qui se passe sur le palier échappe à ce point de contrôle.
+> 🏢 **Analogie : le VLAN comme étage d'immeuble**
+>
+> Tout le monde sur le palier se croise librement, mais pour changer d'étage il faut passer par un point de contrôle, ici le routeur-pare-feu. Limite : ce qui se passe sur le palier échappe à ce point de contrôle.
 {: .callout .callout-analogie}
 
 Voici le plan retenu :
@@ -94,7 +96,9 @@ Le projet demande peu de matériel, mais chaque équipement joue un rôle préci
 
 En général, une machine avec 8 Go de RAM suffit si les clients restent minimalistes.
 
-> ⚠️ **Comportement contre-intuitif.** Tout hyperviseur n'est pas capable de transporter des trames VLAN étiquetées entre deux VM. Selon le produit et le type de réseau virtuel choisi, les étiquettes peuvent être supprimées ou le trafic rejeté, et le trunk semble alors « configuré mais muet ». Un simulateur où le switch est un nœud à part entière (GNS3, EVE-NG) évite ce piège. Sinon, consultez la documentation de votre hyperviseur : le réglage dépend du produit et de sa version.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Tout hyperviseur n'est pas capable de transporter des trames VLAN étiquetées entre deux VM. Selon le produit et le type de réseau virtuel choisi, les étiquettes peuvent être supprimées ou le trafic rejeté, et le trunk semble alors « configuré mais muet ». Un simulateur où le switch est un nœud à part entière (GNS3, EVE-NG) évite ce piège. Sinon, consultez la documentation de votre hyperviseur : le réglage dépend du produit et de sa version.
 {: .callout .callout-attention}
 
 ## Construction progressive
@@ -188,14 +192,18 @@ sudo bridge vlan add dev eth2 vid 10 pvid untagged
 
 La dernière ligne reproduit un port d'accès VLAN 10. Répétez les deux lignes de `eth2` pour chaque port, avec le bon VLAN.
 
-> ⚠️ **Comportement contre-intuitif.** Sur un trunk de type IOS, `switchport trunk allowed vlan 40` **remplace** la liste entière au lieu d'ajouter le VLAN 40. Les quatre VLAN du projet disparaissent d'un coup et tout le site se retrouve coupé. Pour ajouter, il faut écrire `switchport trunk allowed vlan add 40`, puis vérifier avec `show interfaces trunk`.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Sur un trunk de type IOS, `switchport trunk allowed vlan 40` **remplace** la liste entière au lieu d'ajouter le VLAN 40. Les quatre VLAN du projet disparaissent d'un coup et tout le site se retrouve coupé. Pour ajouter, il faut écrire `switchport trunk allowed vlan add 40`, puis vérifier avec `show interfaces trunk`.
 {: .callout .callout-attention}
 
 ### Étape 2 : le routeur, sous-interfaces et routage inter-VLAN
 
 Ici, FW1 reçoit un seul câble (le trunk) et y présente quatre interfaces logiques, une par VLAN.
 
-> 📖 **Définition.** Le « router-on-a-stick » est un routeur au bout d'un seul fil : il fait entrer et sortir les paquets de tous les VLAN par la même porte physique.
+> 📖 **Définition**
+>
+> Le « router-on-a-stick » est un routeur au bout d'un seul fil : il fait entrer et sortir les paquets de tous les VLAN par la même porte physique.
 {: .callout .callout-definition}
 
 Grâce à la convention de nommage, une seule boucle suffit :
@@ -324,7 +332,9 @@ Le `limit rate 5/minute` évite de noyer les journaux sous un flux répétitif. 
 
 Avant de recharger, validez la syntaxe avec `sudo nft -c -f /etc/nftables.conf`, puis chargez avec `sudo nft -f /etc/nftables.conf`. En laboratoire, la console de l'hyperviseur vous sauve si vous vous coupez de FW1 ; sur du matériel distant, on prévoit toujours un retour arrière automatique avant d'appliquer.
 
-> ⚠️ **Comportement contre-intuitif.** Le pare-feu ne voit que le trafic qui le **traverse**. Deux machines dans le même VLAN communiquent par le switch, sans jamais passer par FW1 : aucune règle ne s'applique entre elles. C'est aussi pourquoi le PC d'administration et le switch (tous deux en VLAN 99) se parlent librement. Si deux machines doivent être filtrées l'une par rapport à l'autre, elles doivent être dans deux VLAN différents.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Le pare-feu ne voit que le trafic qui le **traverse**. Deux machines dans le même VLAN communiquent par le switch, sans jamais passer par FW1 : aucune règle ne s'applique entre elles. C'est aussi pourquoi le PC d'administration et le switch (tous deux en VLAN 99) se parlent librement. Si deux machines doivent être filtrées l'une par rapport à l'autre, elles doivent être dans deux VLAN différents.
 {: .callout .callout-attention}
 
 Autre point de vigilance : vous venez de décider qu'un `ping` entre VLAN échoue, par conception, sauf depuis le VLAN d'administration. Ce n'est pas un défaut mais un choix : le VLAN 99 sert de poste d'observation pour les diagnostics. Vous y reviendrez dans la partie sur les pannes.
@@ -355,7 +365,9 @@ logging source-interface Vlan99
 
 Testez le circuit avant de lui faire confiance : depuis PC-ADMIN, seul segment autorisé en UDP 514 vers SRV, `logger -d -n 10.20.20.10 -P 514 "test depuis PC-ADMIN"` doit faire apparaître une ligne dans `/var/log/central/` sur SRV. Un pipeline de journaux jamais testé est une assurance qui ne couvre rien.
 
-> 💡 **Point clé.** Les journaux ne servent à corréler que si les horloges concordent. Avec 30 secondes de dérive entre le switch et FW1, le refus d'un paquet et l'événement du switch semblent n'avoir aucun lien. Synchronisez les trois équipements sur la même source de temps avant d'aller plus loin. Attention : la politique de l'étape 4 ne laisse passer aucun flux NTP (UDP 123). Ajoutez la règle nécessaire vers la source choisie, sans quoi le switch et SRV ne pourront pas se synchroniser.
+> 💡 **Point clé**
+>
+> Les journaux ne servent à corréler que si les horloges concordent. Avec 30 secondes de dérive entre le switch et FW1, le refus d'un paquet et l'événement du switch semblent n'avoir aucun lien. Synchronisez les trois équipements sur la même source de temps avant d'aller plus loin. Attention : la politique de l'étape 4 ne laisse passer aucun flux NTP (UDP 123). Ajoutez la règle nécessaire vers la source choisie, sans quoi le switch et SRV ne pourront pas se synchroniser.
 {: .callout .callout-important}
 
 Pour la supervision de base, ce projet ne déploie pas un outil complet. Un petit script exécuté chaque minute par cron sur SRV suffit à illustrer le principe : tester ce qui compte et écrire dans le journal quand ça échoue.
@@ -372,7 +384,9 @@ chk sh -c 'dig +short +time=1 +tries=1 @10.20.20.1 srv.corp.test | grep -q 10.20
 
 Les quatre tests couvrent la passerelle des utilisateurs, le switch, l'intranet et le DNS.
 
-> 💡 **À retenir.** Une panne se détecte plus vite quand on teste le service rendu (« le nom se résout-il ? ») que le composant (« le processus tourne-t-il ? »).
+> 💡 **À retenir**
+>
+> Une panne se détecte plus vite quand on teste le service rendu (« le nom se résout-il ? ») que le composant (« le processus tourne-t-il ? »).
 {: .callout .callout-important}
 
 Dès que le réseau grossit, des outils comme Zabbix, Nagios ou LibreNMS prendront le relais avec des graphiques et des alertes ; le principe reste identique.
@@ -392,7 +406,9 @@ Une configuration ne vaut que par ses tests. Voici la recette minimale, que vous
 | `ssh <UTILISATEUR>@10.20.20.10` | PC-ADMIN | connexion établie |
 | `tail /var/log/central/*.log` | SRV | lignes de FW1 et du switch |
 
-> 💡 **Point clé.** Les échecs voulus figurent dans le tableau au même titre que les réussites. Une politique de filtrage se valide autant par ce qu'elle bloque que par ce qu'elle laisse passer. Quand tous les tests passent, prenez un instantané de chaque VM et créez le tag Git de la configuration de référence : vous allez maintenant casser des choses.
+> 💡 **Point clé**
+>
+> Les échecs voulus figurent dans le tableau au même titre que les réussites. Une politique de filtrage se valide autant par ce qu'elle bloque que par ce qu'elle laisse passer. Quand tous les tests passent, prenez un instantané de chaque VM et créez le tag Git de la configuration de référence : vous allez maintenant casser des choses.
 {: .callout .callout-important}
 
 ## Casser pour comprendre : pannes et diagnostic par couches
@@ -449,7 +465,9 @@ $ ip neigh
 
 Une entrée `FAILED` signifie « j'ai demandé qui possède cette adresse, personne n'a répondu ». Côté test de port, `nc -zv -w2 10.20.20.10 80` distingue trois issues : `succeeded` (handshake complet), `refused` (l'hôte est joint, rien n'écoute ou le refus est explicite) et le silence jusqu'au délai (paquets perdus ou filtrés).
 
-> ⚠️ **Comportement contre-intuitif.** Dans ce réseau, `ping` d'un VLAN à l'autre échoue par conception. Conclure « le serveur est en panne » parce que le ping de PC-USER vers SRV ne répond pas, c'est partir sur une fausse piste. Testez le port réellement autorisé avec `nc`, ou pingez depuis PC-ADMIN, où l'ICMP est permis.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Dans ce réseau, `ping` d'un VLAN à l'autre échoue par conception. Conclure « le serveur est en panne » parce que le ping de PC-USER vers SRV ne répond pas, c'est partir sur une fausse piste. Testez le port réellement autorisé avec `nc`, ou pingez depuis PC-ADMIN, où l'ICMP est permis.
 {: .callout .callout-attention}
 
 ## Cas pratique : « l'intranet ne répond plus »
@@ -479,7 +497,9 @@ No.  Time      Source        Destination   Info
 
 Le client envoie son SYN et n'obtient jamais de SYN-ACK, alors il recommence en doublant son délai d'attente : 1, 2 puis 4 secondes. Cette cadence est la signature d'un paquet qui ne reçoit aucune réponse. Maintenant, ouvrez `servers.pcap` : **il est vide**. Rien n'est jamais sorti de FW1 vers le serveur. Ce silence est une preuve à part entière : le paquet entre dans FW1 et n'en ressort pas, donc FW1 le supprime.
 
-> 💡 **Point clé.** Capturer des deux côtés d'un équipement vous dit où le paquet disparaît, sans deviner. Une seule capture vous dit seulement qu'il a disparu quelque part.
+> 💡 **Point clé**
+>
+> Capturer des deux côtés d'un équipement vous dit où le paquet disparaît, sans deviner. Une seule capture vous dit seulement qu'il a disparu quelque part.
 {: .callout .callout-important}
 
 **4. Le journal confirme.** Sur SRV, `grep FW-FWD-DROP /var/log/central/fw1.log | tail -1` renvoie une ligne de ce type (abrégée) :
@@ -494,7 +514,9 @@ Les trois sources convergent : le client se plaint d'un délai dépassé, la cap
 
 **6. Correction et preuve.** Rétablissez la règle, rechargez nftables, relancez le test. La nouvelle capture montre cette fois un handshake complet : `[SYN]`, `[SYN, ACK]`, `[ACK]`, puis `GET / HTTP/1.1` et `HTTP/1.1 200 OK`. Cette capture « avant/après » rejoint la fiche de diagnostic comme pièce justificative.
 
-> ⚠️ **Comportement contre-intuitif.** Ici, FW1 supprime les paquets sans répondre (`drop`), d'où les retransmissions et le délai. Avec un `reject`, le client aurait reçu un RST immédiat et aurait vu « connection refused » en une fraction de seconde. Le silence indique un filtrage ou une route cassée, le refus indique que l'hôte est joint. Pour les segments internes, où la facilité de diagnostic compte autant que la discrétion, certaines équipes choisissent `reject` ; vers Internet, on privilégie `drop`. C'est un compromis à connaître et à justifier dans votre document.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Ici, FW1 supprime les paquets sans répondre (`drop`), d'où les retransmissions et le délai. Avec un `reject`, le client aurait reçu un RST immédiat et aurait vu « connection refused » en une fraction de seconde. Le silence indique un filtrage ou une route cassée, le refus indique que l'hôte est joint. Pour les segments internes, où la facilité de diagnostic compte autant que la discrétion, certaines équipes choisissent `reject` ; vers Internet, on privilégie `drop`. C'est un compromis à connaître et à justifier dans votre document.
 {: .callout .callout-attention}
 
 Un dernier usage de Wireshark vaut le détour : capturez sur `eth1`, le trunk, avec `sudo tcpdump -i eth1 -e -nn -w /tmp/trunk.pcap`, et ouvrez le fichier avec le filtre `vlan.id == 10`. Vous verrez les étiquettes 802.1Q que vous avez configurées, ce qui rend le VLAN visible là où il n'était qu'un concept.
@@ -524,7 +546,9 @@ reseau-segmente/
 
 Chaque changement de configuration fait l'objet d'un commit court et explicite (`git commit -m "fw: autoriser tcp 80 users vers srv"`), idéalement d'une seule modification à la fois. Le tag `v1-baseline` marque l'état validé par la recette : c'est votre point de retour en cas de fausse manipulation.
 
-> ⚠️ **Comportement contre-intuitif.** Une configuration exportée d'un équipement contient souvent des secrets : mots de passe (même hachés), clés, communautés de supervision. Un secret commité reste dans l'historique Git même après suppression du fichier. Remplacez-les par des valeurs fictives avant le commit et listez les fichiers sensibles dans `.gitignore`.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Une configuration exportée d'un équipement contient souvent des secrets : mots de passe (même hachés), clés, communautés de supervision. Un secret commité reste dans l'historique Git même après suppression du fichier. Remplacez-les par des valeurs fictives avant le commit et listez les fichiers sensibles dans `.gitignore`.
 {: .callout .callout-attention}
 
 La fiche de diagnostic, enfin, suit toujours le même squelette : c'est ce qui la rend lisible par quelqu'un qui n'était pas là.

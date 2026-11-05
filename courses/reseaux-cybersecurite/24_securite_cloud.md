@@ -52,7 +52,9 @@ Ce schéma (SSRF, métadonnées d'instance, rôle trop large, stockage objet) es
 
 ## Responsabilité partagée : le contrat réel
 
-> 🧠 **Concept clé** — Le fournisseur sécurise **le cloud** (datacenters, hyperviseur, plan de contrôle). Vous sécurisez **ce que vous y mettez et comment vous le configurez**. La frontière se déplace selon le modèle de service, mais elle ne disparaît jamais.
+> 🧠 **Concept clé**
+>
+> Le fournisseur sécurise **le cloud** (datacenters, hyperviseur, plan de contrôle). Vous sécurisez **ce que vous y mettez et comment vous le configurez**. La frontière se déplace selon le modèle de service, mais elle ne disparaît jamais.
 {: .callout .callout-important}
 
 | Couche | IaaS (Infrastructure as a Service) | PaaS (Platform as a Service) | SaaS (Software as a Service) |
@@ -65,7 +67,9 @@ Ce schéma (SSRF, métadonnées d'instance, rôle trop large, stockage objet) es
 | Données, chiffrement, partage | **Vous** | **Vous** | **Vous** |
 | Application | **Vous** | **Vous** | Fournisseur |
 
-> ⚠️ **Erreur fréquente** — « C'est du RDS managé, le fournisseur s'en occupe. » Il patche le moteur de base, mais ne décide pas à votre place que l'instance ne doit pas être joignable depuis Internet, que `rds_superuser` ne doit pas être donné à l'application, ou que les snapshots ne doivent pas être partagés publiquement. Même en SaaS, un lien de partage « tous les utilisateurs » ou un compte administrateur sans MFA relève de votre périmètre.
+> ⚠️ **Erreur fréquente**
+>
+> « C'est du RDS managé, le fournisseur s'en occupe. » Il patche le moteur de base, mais ne décide pas à votre place que l'instance ne doit pas être joignable depuis Internet, que `rds_superuser` ne doit pas être donné à l'application, ou que les snapshots ne doivent pas être partagés publiquement. Même en SaaS, un lien de partage « tous les utilisateurs » ou un compte administrateur sans MFA relève de votre périmètre.
 {: .callout .callout-attention}
 
 Une règle de lecture utile : **plus vous montez vers le SaaS, moins vous avez de réseau à configurer et plus l'identité et la donnée concentrent le risque.**
@@ -86,7 +90,9 @@ Une règle de lecture utile : **plus vous montez vers le SaaS, moins vous avez d
 
 \*IMDS : service HTTP local, joignable à l'adresse `169.254.169.254` depuis l'instance, qui fournit ses métadonnées et les identifiants temporaires du rôle associé.
 
-> 🔴 **Vecteur d'attaque** — Les attaquants n'ont pas besoin de chercher longtemps. Des moteurs comme Shodan, Censys ou des scans massifs sur les plages publiques des fournisseurs indexent en continu les ports ouverts. Une base Elasticsearch ou MongoDB sans authentification, exposée sur une IP cloud, est typiquement découverte en quelques heures, pas en quelques semaines.
+> 🔴 **Vecteur d'attaque**
+>
+> Les attaquants n'ont pas besoin de chercher longtemps. Des moteurs comme Shodan, Censys ou des scans massifs sur les plages publiques des fournisseurs indexent en continu les ports ouverts. Une base Elasticsearch ou MongoDB sans authentification, exposée sur une IP cloud, est typiquement découverte en quelques heures, pas en quelques semaines.
 {: .callout .callout-danger}
 
 ---
@@ -95,10 +101,12 @@ Une règle de lecture utile : **plus vous montez vers le SaaS, moins vous avez d
 
 ### VPC, sous-réseaux et routage
 
-> 📖 **Définition.** Un VPC (Virtual Private Cloud) chez AWS, ou VNet (Virtual Network) chez Azure, est un réseau privé logiquement isolé dans lequel vous définissez plages CIDR, sous-réseaux et tables de routage.
-{: .callout .callout-definition}
-
 Qu'est-ce qui rend un sous-réseau « public » ? Pas son nom, mais **une route par défaut vers une Internet Gateway** et des instances disposant d'une IP publique. Un sous-réseau « privé » n'a pas cette route.
+
+> 📖 **Définition**
+>
+> Un VPC (Virtual Private Cloud) chez AWS, ou VNet (Virtual Network) chez Azure, est un réseau privé logiquement isolé dans lequel vous définissez plages CIDR, sous-réseaux et tables de routage.
+{: .callout .callout-definition}
 
 On construit en pratique trois couches :
 
@@ -124,7 +132,9 @@ flowchart LR
 
 Une IP publique attachée à une VM n'est pas « du réseau » mais une décision d'exposition. Dans une architecture saine, seuls les load balancers et les passerelles en ont. Le NAT cloud ne sert qu'à la **sortie** : il n'accepte aucune connexion entrante initiée de l'extérieur, ce qui en fait un contrôle utile contre l'exposition accidentelle, mais pas contre l'exfiltration.
 
-> 💡 **Astuce** — Une VM sans IP publique mais dans un sous-réseau avec route vers l'Internet Gateway n'est pas joignable de l'extérieur. Dès que quelqu'un lui associe une IP élastique, elle l'est. Pour bloquer le cas à la source, interdisez par politique (SCP* ou Azure Policy) l'attribution d'IP publique hors des comptes ou sous-réseaux dédiés.
+> 💡 **Astuce**
+>
+> Une VM sans IP publique mais dans un sous-réseau avec route vers l'Internet Gateway n'est pas joignable de l'extérieur. Dès que quelqu'un lui associe une IP élastique, elle l'est. Pour bloquer le cas à la source, interdisez par politique (SCP* ou Azure Policy) l'attribution d'IP publique hors des comptes ou sous-réseaux dédiés.
 {: .callout .callout-astuce}
 
 \*SCP (Service Control Policy) : politique AWS Organizations qui plafonne les actions autorisées dans un compte, quels que soient les droits IAM locaux.
@@ -149,7 +159,9 @@ Trois mécanismes se superposent et se confondent souvent :
 | NACL — Network Access Control List (AWS) | Sous-réseau | Stateless | Autorisations et refus, évaluées dans l'ordre |
 | Firewall managé (AWS Network Firewall, Azure Firewall…) | Flux entre réseaux et sortie | Variable | Filtrage L7, FQDN, IDS/IPS selon l'offre |
 
-> 📖 **Définition.** Un filtre **stateful** mémorise les connexions : la réponse à une requête autorisée repasse automatiquement. Un filtre **stateless** évalue chaque paquet isolément : le trafic de retour doit être autorisé explicitement.
+> 📖 **Définition**
+>
+> Un filtre **stateful** mémorise les connexions : la réponse à une requête autorisée repasse automatiquement. Un filtre **stateless** évalue chaque paquet isolément : le trafic de retour doit être autorisé explicitement.
 {: .callout .callout-definition}
 
 Les Security Groups font 95 % du travail. Leur force : une règle peut référencer **un autre Security Group** comme source, ce qui évite de manipuler des plages IP qui changent.
@@ -217,7 +229,9 @@ resource "aws_security_group_rule" "app_egress_https" {
 
 Le filtrage sortant est celui qu'on oublie, alors qu'il conditionne l'exfiltration, les connexions de reverse shell et les canaux de commande et contrôle. Le restreindre à 443 est un compromis modeste. L'étape suivante, filtrer par FQDN avec un firewall managé, coûte cher et demande de maintenir une liste blanche : à réserver aux charges sensibles.
 
-> 🔒 **Contrôle de sécurité** — Les NACL sont utiles comme garde-fou grossier (blocage de plages hostiles connues, interdiction de SSH depuis Internet au niveau du sous-réseau) mais deviennent vite illisibles à cause de leur nature stateless : il faut ouvrir les ports éphémères en retour. Ne les utilisez pas pour du filtrage applicatif fin.
+> 🔒 **Contrôle de sécurité**
+>
+> Les NACL sont utiles comme garde-fou grossier (blocage de plages hostiles connues, interdiction de SSH depuis Internet au niveau du sous-réseau) mais deviennent vite illisibles à cause de leur nature stateless : il faut ouvrir les ports éphémères en retour. Ne les utilisez pas pour du filtrage applicatif fin.
 {: .callout .callout-securite}
 
 ---
@@ -237,7 +251,9 @@ flowchart LR
 
 Les credentials obtenus sont valides tant que la session n'a pas expiré, et rien ne les lie à l'instance d'origine.
 
-> 🪪 **Analogie : le badge posé sur le bureau.** Les credentials du rôle ressemblent à un badge d'accès laissé sur le bureau de la VM : quiconque le ramasse ouvre les mêmes portes, depuis n'importe où. Limite de l'image : ce badge expire, mais tant que la SSRF existe, l'attaquant peut revenir en prendre un neuf.
+> 🪪 **Analogie : le badge posé sur le bureau**
+>
+> Les credentials du rôle ressemblent à un badge d'accès laissé sur le bureau de la VM : quiconque le ramasse ouvre les mêmes portes, depuis n'importe où. Limite de l'image : ce badge expire, mais tant que la SSRF existe, l'attaquant peut revenir en prendre un neuf.
 {: .callout .callout-analogie}
 
 Tout dépend alors de la version de l'IMDS :
@@ -305,7 +321,9 @@ gcloud compute ssh <VM_NAME> --tunnel-through-iap
 
 Pour les services managés, la base ne devrait avoir aucune IP publique. Si un développeur a besoin d'y accéder, il passe par un tunnel (port-forward via Session Manager ou bastion), pas par une règle ouverte. Les endpoints privés (PrivateLink, Private Endpoint) évitent que le trafic vers le service managé traverse Internet.
 
-> ⚠️ **Erreur fréquente** — Le stockage objet, les files de messages et les clés de chiffrement ont leurs propres policies de ressource, indépendantes des Security Groups. Un VPC parfaitement segmenté n'empêche pas un bucket d'être public : ce sont deux plans de contrôle distincts.
+> ⚠️ **Erreur fréquente**
+>
+> Le stockage objet, les files de messages et les clés de chiffrement ont leurs propres policies de ressource, indépendantes des Security Groups. Un VPC parfaitement segmenté n'empêche pas un bucket d'être public : ce sont deux plans de contrôle distincts.
 {: .callout .callout-attention}
 
 ---
@@ -329,7 +347,9 @@ aws ec2 create-flow-logs \
   --log-destination arn:aws:s3:::<LOG_BUCKET>
 ```
 
-> 🔒 **Contrôle de sécurité** — Envoyez les journaux vers un **compte séparé**, avec un bucket en écriture seule pour les comptes sources et la suppression restreinte. Un attaquant qui obtient des droits administrateur dans le compte de production commence souvent par chercher à arrêter la journalisation.
+> 🔒 **Contrôle de sécurité**
+>
+> Envoyez les journaux vers un **compte séparé**, avec un bucket en écriture seule pour les comptes sources et la suppression restreinte. Un attaquant qui obtient des droits administrateur dans le compte de production commence souvent par chercher à arrêter la journalisation.
 {: .callout .callout-securite}
 
 ### Ce qu'il faut surveiller
@@ -373,7 +393,9 @@ prowler aws
 
 **ScoutSuite** et **Prowler** produisent un état des lieux selon les CIS Benchmarks du fournisseur. Ils sont adaptés à un audit ponctuel ou à une exécution planifiée en CI. Pour une surveillance continue, les services natifs (AWS Security Hub, Microsoft Defender for Cloud) ou une solution CSPM (Cloud Security Posture Management) automatisent cette vérification, en échange d'un coût et d'un bruit de fond à trier.
 
-> 💡 **Astuce** — Après chaque changement de réseau, relancez `nmap` **depuis un poste externe à votre infrastructure**. Un scan depuis une VM du même VPC passe les Security Groups internes et ne prouve rien sur l'exposition réelle.
+> 💡 **Astuce**
+>
+> Après chaque changement de réseau, relancez `nmap` **depuis un poste externe à votre infrastructure**. Un scan depuis une VM du même VPC passe les Security Groups internes et ne prouve rien sur l'exposition réelle.
 {: .callout .callout-astuce}
 
 ---
@@ -388,7 +410,9 @@ prowler aws
 | Accès au stockage objet | Via Internet / endpoint privé de type gateway | Endpoint gateway : gratuit chez AWS, et ajoute une condition réseau dans les policies | Ne protège pas contre un rôle légitime abusé |
 | Posture continue | Scans ponctuels / CSPM | CSPM : couverture continue mais coût et alertes à trier | Détecte les mauvaises configurations, pas les attaques en cours |
 
-> 💡 **À retenir.** Commencez par ce qui élimine une classe entière de risque pour un coût faible : pas d'IP publique sur les VM, IMDSv2, Block Public Access au niveau compte, MFA sur les humains.
+> 💡 **À retenir**
+>
+> Commencez par ce qui élimine une classe entière de risque pour un coût faible : pas d'IP publique sur les VM, IMDSv2, Block Public Access au niveau compte, MFA sur les humains.
 {: .callout .callout-important}
 
 Les contrôles chers (firewall FQDN, segmentation fine par workload) viennent ensuite, en fonction de la sensibilité des données.

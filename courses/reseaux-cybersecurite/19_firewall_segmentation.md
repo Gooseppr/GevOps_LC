@@ -73,7 +73,9 @@ Un attaquant n'attaque pas « le pare-feu ». Il cherche ce que vos règles lais
 | IPv6 non filtré | Tout le réseau | Les règles IPv4 sont strictes, l'IPv6 est ouvert |
 | Règles obsolètes jamais nettoyées | Prestataires et projets terminés | Accès fantômes vers des systèmes encore actifs |
 
-> 🧠 **Concept clé** : un pare-feu applique la première règle qui correspond. Une règle trop large placée haut dans la liste masque (shadow) toutes celles qui suivent. L'ordre compte autant que le contenu.
+> 🧠 **Concept clé**
+>
+> Un pare-feu applique la première règle qui correspond. Une règle trop large placée haut dans la liste masque (shadow) toutes celles qui suivent. L'ordre compte autant que le contenu.
 {: .callout .callout-important}
 
 ---
@@ -84,7 +86,9 @@ Un attaquant n'attaque pas « le pare-feu ». Il cherche ce que vos règles lais
 
 Un filtre **stateless** (ACL sur un switch L3, routeur) juge chaque paquet isolément : IP source/destination, protocole, port, éventuellement flags TCP. Pour laisser passer les réponses, on écrit souvent `permit tcp any any established`. Ce mot-clé ne vérifie aucune connexion. Il laisse passer tout paquet portant ACK ou RST.
 
-> 🔴 **Vecteur d'attaque** : le scan ACK de nmap exploite ça.
+> 🔴 **Vecteur d'attaque**
+>
+> Le scan ACK de nmap exploite ça.
 {: .callout .callout-danger}
 
 ```bash
@@ -95,22 +99,28 @@ Un port « unfiltered » (RST reçu) prouve que le paquet ACK a traversé le fil
 
 Un filtre **stateful** mémorise chaque flux dans une table (`conntrack`*). Une réponse n'est acceptée que si elle correspond à une connexion initiée dans le bon sens.
 
-> 🛂 **Analogie : le contrôle à la frontière.** Un filtre stateless ressemble à un douanier qui laisse entrer quiconque affirme « je rentre de voyage », sans rien vérifier. Un filtre stateful tient un registre des sorties et ne laisse rentrer que ceux qu'il a vus partir. Limite : sous Linux, ce registre n'est pas toujours appliqué strictement, comme le montre la suite.
+> 🛂 **Analogie : le contrôle à la frontière**
+>
+> Un filtre stateless ressemble à un douanier qui laisse entrer quiconque affirme « je rentre de voyage », sans rien vérifier. Un filtre stateful tient un registre des sorties et ne laisse rentrer que ceux qu'il a vus partir. Limite : sous Linux, ce registre n'est pas toujours appliqué strictement, comme le montre la suite.
 {: .callout .callout-analogie}
 
 Que devient alors un ACK isolé ? Il ne correspond à aucune connexion connue. Pourtant, sous Linux, il n'est classé `INVALID` et jeté que si `net.netfilter.nf_conntrack_tcp_loose` vaut 0, ou si une règle exige le flag SYN pour toute nouvelle connexion. Avec la valeur par défaut (1), il est classé `NEW` et accepté par une règle d'ouverture qui ne vérifie pas l'état, comme `tcp dport { 80, 443 } accept` ci-dessous.
 
 \* `conntrack` : sous-système du noyau Linux qui garde l'état de chaque flux (NEW, ESTABLISHED, RELATED) dans une table de taille bornée.
 
-> ⚠️ **Coût réel** : cette table a une limite (`net.netfilter.nf_conntrack_max`). Un flood de SYN ou de connexions UDP la sature. Le noyau logue alors `nf_conntrack: table full, dropping packet` et le pare-feu devient lui-même le point de déni de service. Surveillez le ratio `nf_conntrack_count / nf_conntrack_max` et dimensionnez selon la RAM (chaque entrée coûte environ 300 octets).
+> ⚠️ **Coût réel**
+>
+> Cette table a une limite (`net.netfilter.nf_conntrack_max`). Un flood de SYN ou de connexions UDP la sature. Le noyau logue alors `nf_conntrack: table full, dropping packet` et le pare-feu devient lui-même le point de déni de service. Surveillez le ratio `nf_conntrack_count / nf_conntrack_max` et dimensionnez selon la RAM (chaque entrée coûte environ 300 octets).
 {: .callout .callout-attention}
 
 ### Une politique par défaut qui refuse
 
-> 💡 **À retenir.** Deux règles guident tout le reste : la politique par défaut est `drop`, et on n'ouvre que ce qu'on sait justifier.
-{: .callout .callout-important}
-
 Voici le pare-feu d'un serveur web en DMZ (nftables, famille `inet` pour couvrir IPv4 et IPv6 d'un coup) :
+
+> 💡 **À retenir**
+>
+> Deux règles guident tout le reste : la politique par défaut est `drop`, et on n'ouvre que ce qu'on sait justifier.
+{: .callout .callout-important}
 
 ```nft
 table inet filter {
@@ -145,10 +155,14 @@ table inet filter {
 
 La chaîne `output` en `policy drop` est ce qui aurait arrêté le reverse shell de notre scénario.
 
-> 🔒 **Contrôle de sécurité** : le filtrage sortant est le contrôle le plus rentable et le plus souvent absent. Il casse la phase « appel vers l'extérieur » de la plupart des attaques. Son coût est opérationnel : chaque mise à jour, chaque appel d'API tierce doit être déclaré. Un serveur de production qui doit joindre vingt domaines SaaS rend l'allowlist pénible. C'est un arbitrage à assumer par zone : strict en DMZ, plus souple pour les postes (avec proxy et journalisation).
+> 🔒 **Contrôle de sécurité**
+>
+> Le filtrage sortant est le contrôle le plus rentable et le plus souvent absent. Il casse la phase « appel vers l'extérieur » de la plupart des attaques. Son coût est opérationnel : chaque mise à jour, chaque appel d'API tierce doit être déclaré. Un serveur de production qui doit joindre vingt domaines SaaS rend l'allowlist pénible. C'est un arbitrage à assumer par zone : strict en DMZ, plus souple pour les postes (avec proxy et journalisation).
 {: .callout .callout-securite}
 
-> 💡 **Astuce** : avant d'appliquer, vérifiez la syntaxe, puis prévoyez un retour arrière pour ne pas vous couper l'accès SSH.
+> 💡 **Astuce**
+>
+> Avant d'appliquer, vérifiez la syntaxe, puis prévoyez un retour arrière pour ne pas vous couper l'accès SSH.
 {: .callout .callout-astuce}
 
 ```bash
@@ -210,13 +224,17 @@ Les règles de conception qui comptent :
 - **L'administration passe par un bastion**, pas par des règles `admin_net → tout`.
 - **Un flux autorisé par sens.** La DMZ n'initie pas vers le LAN, et le LAN n'initie pas vers la DMZ sans raison.
 
-> 🔴 **Vecteur d'attaque : VLAN hopping.** Deux techniques classiques (outil : `yersinia`) :
+> 🔴 **Vecteur d'attaque : VLAN hopping**
+>
+> Deux techniques classiques (outil : `yersinia`) :
 >
 > - *Switch spoofing* : l'attaquant envoie des trames DTP (Dynamic Trunking Protocol) et négocie un trunk, ce qui lui donne accès à tous les VLAN.
 > - *Double tagging* : une trame avec deux tags 802.1Q. Le premier switch retire le tag du VLAN natif et la trame arrive dans le VLAN cible. L'attaque est unidirectionnelle mais suffit pour envoyer un exploit.
 {: .callout .callout-danger}
 
-> 🔒 **Contrôle de sécurité** (Cisco IOS, adapter selon l'équipementier) :
+> 🔒 **Sécurité**
+>
+> **Contrôle de sécurité** (Cisco IOS, adapter selon l'équipementier) :
 {: .callout .callout-securite}
 
 ```
@@ -282,7 +300,9 @@ Les chemins et directives dépendent de la distribution et de la version du modu
 
 Un IDS (Intrusion Detection System) observe une copie du trafic (port miroir, TAP) et alerte. Un IPS (Intrusion Prevention System) est placé en ligne et peut jeter les paquets. Suricata et Snort sont les références open source.
 
-> 🎥 **Analogie : la caméra et le portique.** L'IDS est une caméra : il voit passer et signale, sans rien arrêter. L'IPS est un portique : il peut bloquer, mais un mauvais réglage bloque aussi les passants légitimes.
+> 🎥 **Analogie : la caméra et le portique**
+>
+> L'IDS est une caméra : il voit passer et signale, sans rien arrêter. L'IPS est un portique : il peut bloquer, mais un mauvais réglage bloque aussi les passants légitimes.
 {: .callout .callout-analogie}
 
 Une règle simple qui détecte une rafale de connexions SSH depuis une même source :
@@ -343,7 +363,7 @@ Reprenons le scénario d'ouverture et regardons ce que `allow DMZ → LAN any an
 
 Une autre forme du même piège : une règle étroite et correcte placée **sous** une règle large. Elle n'est jamais atteinte et personne ne s'en aperçoit.
 
-> 🔒 **Comment la repérer** :
+> 🔒 **Comment la repérer**
 {: .callout .callout-securite}
 
 ```bash

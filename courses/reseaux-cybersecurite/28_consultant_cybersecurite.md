@@ -48,14 +48,18 @@ Quatre mois plus tard, un attaquant exécute un Kerberoasting contre ce compte, 
 
 Avoir fait l'audit ne suffisait-il pas ? Non, parce que le client n'achète pas une liste de défauts. Il achète une décision éclairée : quoi corriger en premier, pourquoi, avec quels moyens, et qu'est-ce que cela change pour l'activité.
 
-> 💡 **À retenir** : un scanner produit des constats. Un consultant produit une priorisation compréhensible, validée avec le client et exécutable.
+> 💡 **À retenir**
+>
+> Un scanner produit des constats. Un consultant produit une priorisation compréhensible, validée avec le client et exécutable.
 {: .callout .callout-important}
 
 ---
 
 ## Trois métiers sous un même titre
 
-> 🧠 **Concept clé** : « consultant en cybersécurité » recouvre trois familles de missions qui ne mobilisent ni les mêmes preuves ni les mêmes interlocuteurs.
+> 🧠 **Concept clé**
+>
+> « consultant en cybersécurité » recouvre trois familles de missions qui ne mobilisent ni les mêmes preuves ni les mêmes interlocuteurs.
 {: .callout .callout-important}
 
 | Famille | Question typique du client | Matière première | Livrable type | Piège spécifique |
@@ -66,7 +70,9 @@ Avoir fait l'audit ne suffisait-il pas ? Non, parce que le client n'achète pas 
 
 Dans la pratique, les missions mélangent ces familles. Une analyse d'écarts ISO 27001 demande des vérifications techniques par échantillonnage. Un audit Active Directory finit toujours par buter sur une question d'organisation : qui a le droit de désactiver un compte de service ?
 
-> 💡 **Astuce** : pour savoir dans quelle famille se situe une demande, demandez « quelle décision allez-vous prendre avec ce livrable ? ». Si la réponse est « prouver notre conformité à un tiers », c'est du GRC. Si c'est « savoir si on peut nous compromettre », c'est du technique. Si c'est « savoir qui fait quoi pendant un incident », c'est de l'organisationnel.
+> 💡 **Astuce**
+>
+> Pour savoir dans quelle famille se situe une demande, demandez « quelle décision allez-vous prendre avec ce livrable ? ». Si la réponse est « prouver notre conformité à un tiers », c'est du GRC. Si c'est « savoir si on peut nous compromettre », c'est du technique. Si c'est « savoir qui fait quoi pendant un incident », c'est de l'organisationnel.
 {: .callout .callout-astuce}
 
 ---
@@ -75,7 +81,9 @@ Dans la pratique, les missions mélangent ces familles. Une analyse d'écarts IS
 
 Un cabinet de conseil détient des cartographies d'infrastructure, des listes de vulnérabilités non corrigées et parfois des accès privilégiés chez plusieurs clients. C'est une cible rentable. Les campagnes publiques contre des prestataires de services managés (par exemple celles attribuées à APT10, dite « Cloud Hopper ») reposent sur ce raisonnement.
 
-> 🗝️ **Analogie : le trousseau du serrurier.** Plutôt que de forcer chaque porte, l'attaquant vole le trousseau de celui qui détient les doubles : il compromet un prestataire pour atteindre ses clients. Limite de l'image : le butin n'est pas seulement une clé, ce sont aussi des sessions déjà ouvertes et des informations (cartographies, vulnérabilités non corrigées).
+> 🗝️ **Analogie : le trousseau du serrurier**
+>
+> Plutôt que de forcer chaque porte, l'attaquant vole le trousseau de celui qui détient les doubles : il compromet un prestataire pour atteindre ses clients. Limite de l'image : le butin n'est pas seulement une clé, ce sont aussi des sessions déjà ouvertes et des informations (cartographies, vulnérabilités non corrigées).
 {: .callout .callout-analogie}
 
 | Vecteur | Exposition | Impact potentiel |
@@ -87,7 +95,9 @@ Un cabinet de conseil détient des cartographies d'infrastructure, des listes de
 | Entretiens | Un attaquant qui se fait passer pour un consultant ou un auditeur pour obtenir les mêmes informations (pretexting) | Divulgation d'informations sensibles à un tiers non mandaté |
 | Sous-traitance | Freelance ajouté en cours de mission sans avenant ni NDA (Non-Disclosure Agreement) | Perte de maîtrise de la chaîne de confidentialité |
 
-> 🔴 **Vecteur d'attaque** : un attaquant qui cible un cabinet n'a pas besoin de casser le client. Il lui suffit de compromettre un poste de consultant et de récupérer les sessions déjà authentifiées, via un infostealer ou un jeton de session volé, ou de lire le dernier rapport envoyé par mail. La mission est aussi un maillon de la chaîne d'approvisionnement du client.
+> 🔴 **Vecteur d'attaque**
+>
+> Un attaquant qui cible un cabinet n'a pas besoin de casser le client. Il lui suffit de compromettre un poste de consultant et de récupérer les sessions déjà authentifiées, via un infostealer ou un jeton de session volé, ou de lire le dernier rapport envoyé par mail. La mission est aussi un maillon de la chaîne d'approvisionnement du client.
 {: .callout .callout-danger}
 
 ---
@@ -138,7 +148,9 @@ mission:
     referent_technique: <NOM_REFERENT>
 ```
 
-> ⚠️ **Erreur fréquente** : un périmètre accepté oralement (« on regardera aussi le Wi-Fi si vous avez le temps »). Conséquence : dépassement de budget, ou pire, test sur un système dont le client n'avait pas autorisé l'accès. Correction : tout ce qui n'est pas écrit dans « inclus » est hors mission ; tout ajout passe par un avenant d'une ligne, même par mail.
+> ⚠️ **Erreur fréquente**
+>
+> Un périmètre accepté oralement (« on regardera aussi le Wi-Fi si vous avez le temps »). Conséquence : dépassement de budget, ou pire, test sur un système dont le client n'avait pas autorisé l'accès. Correction : tout ce qui n'est pas écrit dans « inclus » est hors mission ; tout ajout passe par un avenant d'une ligne, même par mail.
 {: .callout .callout-attention}
 
 Le cadre juridique et l'autorisation d'intervention ont été traités dans les modules d'audit ; ici, retenez que le cadrage est la première ligne de défense du consultant contre la dérive de périmètre.
@@ -171,7 +183,9 @@ Avant le premier entretien, lisez ce qui existe : organigramme, politique de sé
 
 Ces réponses fixent le vocabulaire de vos recommandations. Une usine mesure son risque en heures d'arrêt de ligne, un cabinet d'avocats en confidentialité des dossiers, un e-commerçant en jours de chiffre d'affaires. Un risque exprimé dans le mauvais langage n'est pas entendu.
 
-> 💡 **Astuce** : demandez très tôt « combien de temps pouvez-vous tenir sans votre outil principal (ERP, MES, messagerie) ? ». La réponse (souvent « on ne sait pas, peut-être trois jours ») est la meilleure base pour chiffrer plus tard un scénario de rançongiciel, et elle prouve au client que vous raisonnez en conséquences.
+> 💡 **Astuce**
+>
+> Demandez très tôt « combien de temps pouvez-vous tenir sans votre outil principal (ERP, MES, messagerie) ? ». La réponse (souvent « on ne sait pas, peut-être trois jours ») est la meilleure base pour chiffrer plus tard un scénario de rançongiciel, et elle prouve au client que vous raisonnez en conséquences.
 {: .callout .callout-astuce}
 
 ---
@@ -180,7 +194,9 @@ Ces réponses fixent le vocabulaire de vos recommandations. Une usine mesure son
 
 ### Trois niveaux de preuve
 
-> 🧠 **Concept clé** : un écart n'est défendable que si vous savez dire sur quoi il repose. Qualifiez chaque affirmation :
+> 🧠 **Concept clé**
+>
+> Un écart n'est défendable que si vous savez dire sur quoi il repose. Qualifiez chaque affirmation :
 {: .callout .callout-important}
 
 | Niveau | Définition | Exemple | Utilisation dans le rapport |
@@ -240,14 +256,18 @@ Un entretien d'audit est de la reconnaissance : vous collectez de l'information 
 - Séparez dans vos notes ce qui est dit (déclaré) de ce que vous avez vu (vérifié).
 - Anonymisez les sources dans le rapport : « un administrateur indique que... », pas le nom. Une personne qui dit la vérité ne doit pas en payer le prix.
 
-> ⚠️ **Erreur fréquente** : réaliser les entretiens sans vérification technique, puis écrire « le client dispose d'une revue trimestrielle des accès » dans le rapport. Conséquence : vous attestez d'un contrôle que vous n'avez pas vu fonctionner. Correction : écrire « déclaré en entretien, non vérifié » ou demander la dernière preuve de revue (export daté, ticket, compte rendu).
+> ⚠️ **Erreur fréquente**
+>
+> Réaliser les entretiens sans vérification technique, puis écrire « le client dispose d'une revue trimestrielle des accès » dans le rapport. Conséquence : vous attestez d'un contrôle que vous n'avez pas vu fonctionner. Correction : écrire « déclaré en entretien, non vérifié » ou demander la dernière preuve de revue (export daté, ticket, compte rendu).
 {: .callout .callout-attention}
 
 ---
 
 ## Traduire un risque technique en conséquence métier
 
-> 🧠 **Concept clé** : c'est le cœur du métier. Un risque technique n'existe pas pour la direction tant qu'on ne l'a pas relié à une activité, un coût ou une obligation.
+> 🧠 **Concept clé**
+>
+> C'est le cœur du métier. Un risque technique n'existe pas pour la direction tant qu'on ne l'a pas relié à une activité, un coût ou une obligation.
 {: .callout .callout-important}
 
 ### Comment l'attaque fonctionne réellement
@@ -262,7 +282,9 @@ impacket-GetUserSPNs <DOMAINE>/<UTILISATEUR> -dc-ip <IP_DC> -request -outputfile
 hashcat -m 13100 hashes.txt <WORDLIST>
 ```
 
-> 📖 **Définition.** Le Kerberoasting détourne une opération Kerberos légitime : tout compte authentifié peut demander un ticket pour n'importe quel service. L'essentiel du travail, le craquage, se fait ensuite hors ligne, sans générer de tentative d'authentification échouée visible dans les journaux.
+> 📖 **Définition**
+>
+> Le Kerberoasting détourne une opération Kerberos légitime : tout compte authentifié peut demander un ticket pour n'importe quel service. L'essentiel du travail, le craquage, se fait ensuite hors ligne, sans générer de tentative d'authentification échouée visible dans les journaux.
 {: .callout .callout-definition}
 
 Si le mot de passe date de 2014 et provient d'un schéma prévisible (nom de société + année), il tombe en minutes ou en heures, selon la puissance de calcul disponible.
@@ -288,7 +310,9 @@ Exemple pour la direction :
 
 Les chiffres d'impact doivent venir du client, ou être présentés comme des hypothèses à valider. Un consultant qui annonce « 2 M€ de pertes » sans source perd sa crédibilité à la première question.
 
-> ⚠️ **Piège** : le score CVSS mesure la gravité technique d'une vulnérabilité, pas le risque pour ce client. Le constat C-12 n'a pas de CVSS, mais il est plus critique que 200 CVE de faible exposition. À l'inverse, une CVE à 9,8 sur une machine isolée sans donnée n'est pas prioritaire. Pour prioriser, croisez :
+> ⚠️ **Piège**
+>
+> Le score CVSS mesure la gravité technique d'une vulnérabilité, pas le risque pour ce client. Le constat C-12 n'a pas de CVSS, mais il est plus critique que 200 CVE de faible exposition. À l'inverse, une CVE à 9,8 sur une machine isolée sans donnée n'est pas prioritaire. Pour prioriser, croisez :
 >
 > - l'**exposition** (Internet, réseau interne, segment isolé) ;
 > - l'**exploitation active** (présence dans le catalogue KEV (Known Exploited Vulnerabilities) de la CISA) ;
@@ -333,10 +357,14 @@ Le dernier champ (`si_non_applique`) force une décision explicite : corriger ou
 - **3 à 6 mois** : chantiers structurants (segmentation, gestion des correctifs, processus d'arrivée et départ).
 - **6 à 18 mois** : transformations (refonte d'architecture d'administration, programme de sensibilisation, plan de continuité).
 
-> ⚠️ **Piège de réalisme** : un client avec une équipe informatique de quatre personnes ne mènera pas douze chantiers en parallèle. Limitez le plan à ce qui est faisable et indiquez clairement ce que vous mettez volontairement de côté. Les systèmes qu'on ne peut pas corriger (machine industrielle sous OS obsolète) reçoivent des mesures compensatoires (isolement réseau, accès restreint, surveillance), pas un « mettre à jour » théorique.
+> ⚠️ **Piège de réalisme**
+>
+> Un client avec une équipe informatique de quatre personnes ne mènera pas douze chantiers en parallèle. Limitez le plan à ce qui est faisable et indiquez clairement ce que vous mettez volontairement de côté. Les systèmes qu'on ne peut pas corriger (machine industrielle sous OS obsolète) reçoivent des mesures compensatoires (isolement réseau, accès restreint, surveillance), pas un « mettre à jour » théorique.
 {: .callout .callout-attention}
 
-> ⚠️ **Conflit d'intérêts** : ne recommandez pas un produit que vous revendez sans le dire et sans comparer des alternatives. Un doute sur votre neutralité décrédibilise tout le rapport.
+> ⚠️ **Conflit d'intérêts**
+>
+> Ne recommandez pas un produit que vous revendez sans le dire et sans comparer des alternatives. Un doute sur votre neutralité décrédibilise tout le rapport.
 {: .callout .callout-attention}
 
 ---
@@ -361,7 +389,9 @@ Le dernier champ (`si_non_applique`) force une décision explicite : corriger ou
 
 Si la direction termine la lecture sans savoir quoi décider, la synthèse a échoué.
 
-> 💡 **Astuce** : testez chaque phrase de la synthèse avec le « et alors ? ». « Le domaine n'applique pas le moindre privilège » : et alors ? « Un seul compte compromis suffit à stopper la production ». Gardez la seconde.
+> 💡 **Astuce**
+>
+> Testez chaque phrase de la synthèse avec le « et alors ? ». « Le domaine n'applique pas le moindre privilège » : et alors ? « Un seul compte compromis suffit à stopper la production ». Gardez la seconde.
 {: .callout .callout-astuce}
 
 ### Restitution orale
@@ -400,7 +430,9 @@ sha256sum <FICHIER>.age
 exiftool -a -G1 <FICHIER>
 ```
 
-> ⚠️ Sur un PDF, supprimer des métadonnées avec `exiftool -all=` est réversible : l'ancienne information reste souvent récupérable dans le fichier. Vérifiez avec `exiftool` et, si besoin, régénérez le PDF depuis le document source en ayant nettoyé les propriétés (auteur, société, chemins, commentaires, historique des révisions).
+> ⚠️ **Attention**
+>
+> Sur un PDF, supprimer des métadonnées avec `exiftool -all=` est réversible : l'ancienne information reste souvent récupérable dans le fichier. Vérifiez avec `exiftool` et, si besoin, régénérez le PDF depuis le document source en ayant nettoyé les propriétés (auteur, société, chemins, commentaires, historique des révisions).
 {: .callout .callout-attention}
 
 ### Garder les secrets hors des notes
@@ -414,7 +446,9 @@ grep -rEin "(password|passwd|pwd|secret|token)\s*[:=]" <DOSSIER_MISSION>
 
 La syntaxe de `gitleaks` varie selon les versions ; consultez `gitleaks --help` pour votre installation.
 
-> 🔒 **Contrôle de sécurité** : les preuves contenant des secrets du client (hashes, tokens, mots de passe) sont masquées dans le rapport (premiers et derniers caractères) et conservées uniquement dans le conteneur chiffré.
+> 🔒 **Contrôle de sécurité**
+>
+> Les preuves contenant des secrets du client (hashes, tokens, mots de passe) sont masquées dans le rapport (premiers et derniers caractères) et conservées uniquement dans le conteneur chiffré.
 {: .callout .callout-securite}
 
 ---

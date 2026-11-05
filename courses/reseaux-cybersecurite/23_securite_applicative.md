@@ -76,7 +76,9 @@ flowchart LR
 | Secrets (clés d'API, mots de passe de base) | Dépôt Git, images Docker, variables d'environnement, logs CI | Accès direct aux données, sans passer par l'application |
 | Port de la base de données | 5432, 3306, 6379, 27017, 9200 mal filtrés | Lecture ou chiffrement de toutes les données |
 
-> 🧠 **Concept clé : la session.** HTTP est sans état, et l'application doit donc rattacher chaque requête à un utilisateur. Deux modèles dominent :
+> 🧠 **Concept clé : la session**
+>
+> HTTP est sans état, et l'application doit donc rattacher chaque requête à un utilisateur. Deux modèles dominent :
 >
 > - **Session côté serveur** : un identifiant opaque dans un cookie, l'état étant stocké côté serveur.
 > - **Jeton signé** comme un JWT (JSON Web Token), où l'état voyage dans le jeton et le serveur ne vérifie que la signature.
@@ -92,7 +94,9 @@ Set-Cookie: sid=<RANDOM_128_BITS>; Path=/; Secure; HttpOnly; SameSite=Lax
 - `HttpOnly` : un script injecté ne peut pas lire le cookie.
 - `SameSite` : le navigateur n'envoie pas le cookie sur la plupart des requêtes déclenchées depuis un autre site.
 
-> 🔒 Côté API, le modèle `Authorization: Bearer <TOKEN>` n'est pas envoyé automatiquement par le navigateur, ce qui change l'analyse CSRF (voir plus bas). En contrepartie, le jeton stocké en `localStorage` est lisible par n'importe quel XSS.
+> 🔒 **Sécurité**
+>
+> Côté API, le modèle `Authorization: Bearer <TOKEN>` n'est pas envoyé automatiquement par le navigateur, ce qui change l'analyse CSRF (voir plus bas). En contrepartie, le jeton stocké en `localStorage` est lisible par n'importe quel XSS.
 {: .callout .callout-securite}
 
 ### Qui attaque, et quoi
@@ -125,14 +129,18 @@ L'OWASP (Open Worldwide Application Security Project) publie un classement des r
 
 La famille A01 (contrôle d'accès) est en tête depuis l'édition 2021 : l'erreur la plus répandue n'est pas une subtilité de cryptographie, mais l'absence d'un `if` côté serveur.
 
-> 💡 Pour un audit, transformez cette table en questions : « Quelles données un utilisateur A peut-il atteindre qui appartiennent à B ? » « Quelle entrée utilisateur arrive dans une requête, un shell, un gabarit, une URL ? » C'est plus actionnable que « vérifier l'OWASP ».
+> 💡 **À retenir**
+>
+> Pour un audit, transformez cette table en questions : « Quelles données un utilisateur A peut-il atteindre qui appartiennent à B ? » « Quelle entrée utilisateur arrive dans une requête, un shell, un gabarit, une URL ? » C'est plus actionnable que « vérifier l'OWASP ».
 {: .callout .callout-important}
 
 ## Mécanismes d'attaque
 
 ### Injection SQL
 
-> 🔴 **Vecteur d'attaque.** Une requête construite par concaténation mélange code et données :
+> 🔴 **Vecteur d'attaque**
+>
+> Une requête construite par concaténation mélange code et données :
 {: .callout .callout-danger}
 
 ```python
@@ -161,7 +169,9 @@ Le `--` commente la vérification du mot de passe. Quelques payloads classiques 
 sqlmap -u "https://<HOST>/items?id=1" --cookie="sid=<SESSION>" --batch --level=2
 ```
 
-> 🔒 **Contrôle.** Les requêtes paramétrées séparent le texte de la requête de ses valeurs, et le moteur ne ré-interprète jamais les valeurs comme du SQL :
+> 🔒 **Contrôle**
+>
+> Les requêtes paramétrées séparent le texte de la requête de ses valeurs, et le moteur ne ré-interprète jamais les valeurs comme du SQL :
 {: .callout .callout-securite}
 
 ```python
@@ -180,7 +190,9 @@ Le compte applicatif à privilèges minimaux (voir section base de données) lim
 
 ### XSS (Cross-Site Scripting)
 
-> 🔴 **Vecteur d'attaque.** L'application affiche dans une page une donnée contrôlée par l'attaquant sans l'encoder pour son contexte. Dans un champ de commentaire :
+> 🔴 **Vecteur d'attaque**
+>
+> L'application affiche dans une page une donnée contrôlée par l'attaquant sans l'encoder pour son contexte. Dans un champ de commentaire :
 {: .callout .callout-danger}
 
 ```html
@@ -189,7 +201,9 @@ Le compte applicatif à privilèges minimaux (voir section base de données) lim
 
 Si ce commentaire est stocké (XSS stocké), il s'exécute dans le navigateur de chaque visiteur, y compris celui d'un administrateur. Ce script agit avec les droits de la victime : il lit la page, soumet des formulaires, appelle l'API.
 
-> ⚠️ `HttpOnly` empêche de lire le cookie, mais n'empêche pas le script d'agir *depuis* la session. Un XSS reste une prise de contrôle du compte, sans voler le cookie.
+> ⚠️ **Attention**
+>
+> `HttpOnly` empêche de lire le cookie, mais n'empêche pas le script d'agir *depuis* la session. Un XSS reste une prise de contrôle du compte, sans voler le cookie.
 {: .callout .callout-attention}
 
 > 🔒 **Contrôles.**
@@ -208,7 +222,7 @@ Le coût est réel : les scripts inline existants cassent, il faut les externali
 
 C'est la famille qu'aucun outil automatique ne détecte bien, car le scanner ne sait pas ce que « autorisé » veut dire pour votre métier.
 
-> 🔴 **Trois variantes à tester à la main** :
+> 🔴 **Trois variantes à tester à la main**
 >
 > - **IDOR (accès à un objet d'un autre utilisateur)** : changer `8812` en `8813`. Remplacer l'identifiant numérique par un UUID ne règle rien si l'autorisation n'est pas vérifiée : c'est seulement plus dur à deviner.
 > - **Contrôle au niveau de la fonction** : un utilisateur standard appelle `POST /api/admin/users` et obtient un 200 parce que seul le menu était masqué dans l'interface.
@@ -236,7 +250,9 @@ Le résultat attendu est 403 ou 404. Un 200 est un constat critique. L'extension
 
 **CSRF (Cross-Site Request Forgery).** L'attaquant n'a pas besoin de votre cookie : il fait envoyer à votre navigateur une requête vers un site où vous êtes connecté, et le navigateur joint le cookie tout seul.
 
-> 🎫 **Analogie : le badge qui s'active tout seul.** Votre cookie de session fonctionne comme un badge d'accès qui ouvre la porte dès que vous passez devant. Si quelqu'un vous pousse vers cette porte, il fait entrer une demande avec vos droits, sans jamais toucher au badge. Limite de l'image : l'attaquant déclenche une action, mais il ne voit pas la réponse du site.
+> 🎫 **Analogie : le badge qui s'active tout seul**
+>
+> Votre cookie de session fonctionne comme un badge d'accès qui ouvre la porte dès que vous passez devant. Si quelqu'un vous pousse vers cette porte, il fait entrer une demande avec vos droits, sans jamais toucher au badge. Limite de l'image : l'attaquant déclenche une action, mais il ne voit pas la réponse du site.
 {: .callout .callout-analogie}
 
 Une page piégée suffit :
@@ -256,7 +272,9 @@ Défenses, par ordre de coût croissant :
 
 Une API qui n'accepte que `Authorization: Bearer` n'est pas exposée au CSRF classique, puisque le navigateur n'envoie pas cet en-tête de lui-même.
 
-> 📖 **Définition.** Dans un SSRF (Server-Side Request Forgery), l'attaquant choisit la cible d'une requête que le serveur émet lui-même. Il contourne ainsi les pare-feux qui font confiance au serveur.
+> 📖 **Définition**
+>
+> Dans un SSRF (Server-Side Request Forgery), l'attaquant choisit la cible d'une requête que le serveur émet lui-même. Il contourne ainsi les pare-feux qui font confiance au serveur.
 {: .callout .callout-definition}
 
 Toute fonction qui fait récupérer une URL par le serveur est un candidat : import d'image par lien, aperçu de lien, webhook, conversion HTML vers PDF. L'attaquant fournit une adresse interne :
@@ -288,14 +306,18 @@ La validation transforme « tout ce que le client peut envoyer » en « ce que l
 - `file=../../etc/passwd` : traversée de chemin.
 - `{"id": [1,2]}` à la place de `{"id": 1}` : confusion de types.
 
-> 💡 **À retenir.** Validez côté serveur, par liste blanche, avec un schéma explicite (JSON Schema, pydantic, zod). La validation côté client est de l'ergonomie, pas de la sécurité.
+> 💡 **À retenir**
+>
+> Validez côté serveur, par liste blanche, avec un schéma explicite (JSON Schema, pydantic, zod). La validation côté client est de l'ergonomie, pas de la sécurité.
 {: .callout .callout-important}
 
 ## ⚠️ HTTPS ne protège pas contre les failles de logique métier
 
 Que garantit HTTPS, exactement ? Trois propriétés entre le navigateur et le serveur : confidentialité, intégrité du transport et authenticité du serveur. Il ne dit rien sur ce que l'utilisateur authentifié envoie *dans* le tunnel.
 
-> 🚚 **Analogie : le fourgon blindé.** HTTPS est un fourgon blindé : personne ne peut lire ni modifier le colis en route, et vous savez à quelle adresse il est livré. Mais le fourgon transporte fidèlement ce que l'expéditeur y a mis, y compris une commande à 0,01 €.
+> 🚚 **Analogie : le fourgon blindé**
+>
+> HTTPS est un fourgon blindé : personne ne peut lire ni modifier le colis en route, et vous savez à quelle adresse il est livré. Mais le fourgon transporte fidèlement ce que l'expéditeur y a mis, y compris une commande à 0,01 €.
 {: .callout .callout-analogie}
 
 Burp Suite se place comme proxy local avec son propre certificat que l'auditeur installe volontairement. Il voit chaque requête en clair, la modifie et la rejoue. Le serveur reçoit une requête TLS parfaitement valide, qu'il ne peut pas distinguer d'une requête du vrai navigateur.
@@ -321,15 +343,17 @@ Le coût : ces règles ne sont jamais fournies par un framework, il faut les con
 
 ## Gestion des secrets
 
-> 🔴 **Vecteur d'attaque.** Les secrets fuient par des chemins banals :
+Les robots scannent les dépôts publics en continu. Un secret exposé peut être exploité en quelques minutes, bien avant la découverte par l'équipe.
+
+> 🔴 **Vecteur d'attaque**
+>
+> Les secrets fuient par des chemins banals :
 >
 > - Un `.env` ou un `config.py` commité « une seule fois ». Le secret reste dans l'historique Git même après suppression.
 > - Une couche d'image Docker construite avec `COPY .env`, récupérable par quiconque tire l'image.
 > - Des logs CI qui impriment les variables.
 > - Un bundle JavaScript front qui embarque une clé d'API privée.
 {: .callout .callout-danger}
-
-Les robots scannent les dépôts publics en continu. Un secret exposé peut être exploité en quelques minutes, bien avant la découverte par l'équipe.
 
 > 🔒 **Contrôles.**
 >
@@ -428,7 +452,9 @@ docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t https://<ST
 
 Les options et les images évoluent entre versions : consultez l'aide de l'outil installé.
 
-> 💡 Écrivez aussi des **tests unitaires d'autorisation** : « l'utilisateur A reçoit 403 sur la facture de B ». C'est le seul test automatisé qui couvre réellement le contrôle d'accès, et il protège contre les régressions à chaque modification de code.
+> 💡 **À retenir**
+>
+> Écrivez aussi des **tests unitaires d'autorisation** : « l'utilisateur A reçoit 403 sur la facture de B ». C'est le seul test automatisé qui couvre réellement le contrôle d'accès, et il protège contre les régressions à chaque modification de code.
 {: .callout .callout-important}
 
 Après ce module, vous devez savoir tester au minimum : un IDOR avec deux comptes, les attributs d'un cookie de session, un champ de saisie avec un caractère `'`, la présence de secrets dans un dépôt, et l'exposition réseau des ports de base de données.

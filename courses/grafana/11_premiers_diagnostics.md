@@ -62,7 +62,9 @@ flowchart LR
     B --> E[Panel affiché]
 ```
 
-> 📦 **Analogie : le colis et ses relais.** Une requête voyage comme un colis qui passe par plusieurs relais : s'il n'arrive pas, il faut savoir à quel relais il s'est arrêté. Limite : la réponse refait le chemin en sens inverse, et la panne peut survenir à l'aller comme au retour.
+> 📦 **Analogie : le colis et ses relais**
+>
+> Une requête voyage comme un colis qui passe par plusieurs relais : s'il n'arrive pas, il faut savoir à quel relais il s'est arrêté. Limite : la réponse refait le chemin en sens inverse, et la panne peut survenir à l'aller comme au retour.
 {: .callout .callout-analogie}
 
 Cette chaîne donne quatre zones de panne possibles :
@@ -72,7 +74,9 @@ Cette chaîne donne quatre zones de panne possibles :
 - **La connexion vers la Data Source** : réseau, DNS, authentification, TLS (Transport Layer Security).
 - **Le backend** : le service ne répond plus, ne contient pas les données, ou met trop de temps à calculer.
 
-> 🧠 **Concept clé** : l'URL d'une Data Source est utilisée par le **serveur** Grafana, pas par votre navigateur (en mode d'accès `Server`, le mode courant). Tester l'URL depuis votre poste ne prouve donc rien : le test valable se fait depuis la machine ou le conteneur qui héberge Grafana.
+> 🧠 **Concept clé**
+>
+> L'URL d'une Data Source est utilisée par le **serveur** Grafana, pas par votre navigateur (en mode d'accès `Server`, le mode courant). Tester l'URL depuis votre poste ne prouve donc rien : le test valable se fait depuis la machine ou le conteneur qui héberge Grafana.
 {: .callout .callout-important}
 
 Voici la méthode que nous allons dérouler, en détail, dans les sections suivantes :
@@ -116,7 +120,9 @@ Beaucoup de dashboards vides sont dus à une variable :
 
 Le panel est correctement construit, mais il filtre sur du vide. Avant de toucher à quoi que ce soit, regardez en haut du dashboard : changez la valeur de la variable et observez si les données reviennent.
 
-> 💡 **Astuce** : dans l'éditeur de panel, passez la souris sur la requête ou utilisez Query Inspector (plus bas) pour voir la requête **après** substitution des variables. Ce que vous lisez dans l'éditeur contient `$instance`, mais ce que Prometheus reçoit contient la valeur réelle, et c'est celle-là qu'il faut juger.
+> 💡 **Astuce**
+>
+> Dans l'éditeur de panel, passez la souris sur la requête ou utilisez Query Inspector (plus bas) pour voir la requête **après** substitution des variables. Ce que vous lisez dans l'éditeur contient `$instance`, mais ce que Prometheus reçoit contient la valeur réelle, et c'est celle-là qu'il faut juger.
 {: .callout .callout-astuce}
 
 ### Panel de type « sans message »
@@ -133,7 +139,9 @@ Ces messages ne sont pas interchangeables. Chacun raconte une histoire différen
 | `Error` (parse, 4xx, 5xx) | La requête n'a pas abouti : syntaxe invalide, accès refusé ou backend en erreur | Texte exact de l'erreur dans Query Inspector |
 | `Timeout` | La requête a démarré, mais la réponse n'est pas arrivée à temps | Requête trop lourde ou backend saturé |
 
-> 🧠 **Concept clé** : `No data` signifie que la chaîne de communication fonctionne. Prometheus, Loki ou Tempo ont répondu, simplement par un résultat vide. C'est un indice précieux : il écarte d'un coup toute une série de pannes réseau ou d'authentification.
+> 🧠 **Concept clé**
+>
+> `No data` signifie que la chaîne de communication fonctionne. Prometheus, Loki ou Tempo ont répondu, simplement par un résultat vide. C'est un indice précieux : il écarte d'un coup toute une série de pannes réseau ou d'authentification.
 {: .callout .callout-important}
 
 ### `No data` : ce n'est pas toujours une panne
@@ -145,7 +153,9 @@ Il y a quelques causes classiques, plus subtiles qu'une simple absence de donné
 - Une fonction comme `rate()` utilise une fenêtre trop petite par rapport à l'intervalle de collecte : si Prometheus collecte toutes les 15 secondes, `rate(x[15s])` ne contient qu'un point par fenêtre et ne peut rien calculer.
 - Une métrique de type compteur n'existe qu'après le premier événement. Un `http_errors_total` n'apparaît pas tant qu'aucune erreur n'a été comptée, selon la façon dont l'application est instrumentée.
 
-> ⚠️ **Erreur fréquente** : utiliser une fenêtre `rate()` trop courte.
+> ⚠️ **Erreur fréquente**
+>
+> Utiliser une fenêtre `rate()` trop courte.
 {: .callout .callout-attention}
 
 - **Piège** : `rate(http_requests_total[15s])` avec un scrape toutes les 15 secondes.
@@ -168,7 +178,9 @@ Un timeout (parfois visible sous la forme `context deadline exceeded`) indique q
 
 Avant d'augmenter les délais, demandez-vous pourquoi la requête est lente. Les causes de lenteur sont traitées plus bas.
 
-> 💡 **À retenir.** Allonger un timeout ne répare rien : cela retarde seulement l'échec.
+> 💡 **À retenir**
+>
+> Allonger un timeout ne répare rien : cela retarde seulement l'échec.
 {: .callout .callout-important}
 
 ## Quand c'est la Data Source qui est en cause
@@ -187,7 +199,9 @@ docker exec <CONTENEUR_GRAFANA> wget -qO- http://<HOTE>:<PORT>/-/healthy
 
 Avec Prometheus, `/-/healthy` retourne un court message si le service est en vie. Selon l'image utilisée, `wget` ou `curl` peut ne pas être présent ; adaptez alors le test ou lancez-le depuis une autre machine du même réseau.
 
-> ⚠️ **Erreur fréquente** : mettre `localhost` dans l'URL de la Data Source.
+> ⚠️ **Erreur fréquente**
+>
+> Mettre `localhost` dans l'URL de la Data Source.
 {: .callout .callout-attention}
 
 - **Piège** : sur votre poste, `http://localhost:9090` fonctionne dans le navigateur.
@@ -223,7 +237,9 @@ Le sélecteur en haut à droite définit la fenêtre de temps pour tous les pane
 - **Période absolue** (de 08:00 à 10:00) : elle reste figée. Le refresh recharge les données, mais sur la même fenêtre, donc rien de nouveau n'apparaît. C'est un classique après avoir zoomé sur un incident.
 - **Période trop courte** : `Last 1 minute` avec un point collecté toutes les 30 secondes, le résultat est instable, voire vide.
 
-> ⚠️ **Erreur fréquente** : croire que le refresh est cassé.
+> ⚠️ **Erreur fréquente**
+>
+> Croire que le refresh est cassé.
 {: .callout .callout-attention}
 
 - **Piège** : le dashboard est resté sur une période absolue après un zoom sur un incident.
@@ -236,7 +252,9 @@ Prometheus, Loki et Tempo stockent des horodatages indépendants de tout fuseau 
 
 Le décalage apparaît quand vos sources de vérité ne parlent pas la même heure : un log applicatif en heure locale, un dashboard en UTC, un collègue dont le navigateur est réglé autrement. Vous cherchez un événement à 14 h 05 et vous ne le voyez pas, alors qu'il est affiché à 12 h 05.
 
-> 💡 **Astuce** : en incident, mettez le dashboard en UTC et demandez aux autres de faire de même. Une seule référence de temps évite beaucoup de confusion dans les échanges avec les équipes.
+> 💡 **Astuce**
+>
+> En incident, mettez le dashboard en UTC et demandez aux autres de faire de même. Une seule référence de temps évite beaucoup de confusion dans les échanges avec les équipes.
 {: .callout .callout-astuce}
 
 ### Le refresh
@@ -252,7 +270,9 @@ Un panel lent n'est pas encore une panne, mais c'est souvent son prélude. Il fa
 
 **Trop de séries.** Chaque combinaison de labels crée une série distincte. Une requête sans agrégation sur une métrique avec un label `pod` ou `user_id` peut retourner des milliers de lignes que Grafana doit transférer, convertir puis dessiner.
 
-> 📖 **Définition.** La **cardinalité** désigne le nombre de combinaisons uniques de labels d'une métrique ; plus elle est élevée, plus la requête et le stockage sont coûteux.
+> 📖 **Définition**
+>
+> La **cardinalité** désigne le nombre de combinaisons uniques de labels d'une métrique ; plus elle est élevée, plus la requête et le stockage sont coûteux.
 {: .callout .callout-definition}
 
 **Une fenêtre de temps trop large.** Demander trente jours de données à haute résolution pour afficher quelques points est coûteux. Grafana limite le nombre de points avec `Max data points` et `Min interval` (options de la requête), mais le backend doit tout de même lire les données.
@@ -273,7 +293,9 @@ sum by (status) (rate(http_requests_total[5m]))
 
 On passe ainsi de milliers de séries à une poignée (une par code de statut). Le panel est plus lisible, et surtout beaucoup plus rapide.
 
-> 💡 **Astuce** : testez d'abord la requête dans Explore avec une période courte (15 minutes). Si elle est lente même là, le problème est dans la requête. Si elle devient lente seulement sur 7 jours, c'est la volumétrie.
+> 💡 **Astuce**
+>
+> Testez d'abord la requête dans Explore avec une période courte (15 minutes). Si elle est lente même là, le problème est dans la requête. Si elle devient lente seulement sur 7 jours, c'est la volumétrie.
 {: .callout .callout-astuce}
 
 ## Query Inspector : voir ce que Grafana envoie vraiment
@@ -290,7 +312,9 @@ On l'ouvre depuis le menu du panel → **Inspect → Query**, ou en survolant le
 
 Un exemple de lecture : vous ouvrez Query, vous cliquez sur Refresh, et vous obtenez un statut 400 avec un message de parse. Vous venez d'apprendre en dix secondes que la requête est fausse, et que ce n'est ni le réseau ni le backend. À l'inverse, un statut 200 avec un tableau de résultats vide confirme que la chaîne fonctionne et que la question posée n'a pas de réponse.
 
-> ⚠️ **Erreur fréquente** : ne regarder que la requête saisie dans l'éditeur.
+> ⚠️ **Erreur fréquente**
+>
+> Ne regarder que la requête saisie dans l'éditeur.
 {: .callout .callout-attention}
 
 - **Piège** : l'éditeur affiche `$instance` et `$__rate_interval`.
@@ -333,7 +357,9 @@ docker logs --since 10m <CONTENEUR_BACKEND> 2>&1 | tail -n 50
 
 On y trouve les causes qu'un 502 ne dit pas : manque de mémoire, requête annulée, limite de volume dépassée, stockage corrompu ou plein. Pour Prometheus, la page `/targets` complète cette lecture en montrant quelles cibles ne sont plus collectées et pourquoi.
 
-> 💡 **Astuce** : alignez les horodatages. Notez l'heure exacte de l'erreur dans Grafana (en UTC), puis cherchez la même minute dans les logs du backend. Les deux récits se recoupent presque toujours.
+> 💡 **Astuce**
+>
+> Alignez les horodatages. Notez l'heure exacte de l'erreur dans Grafana (en UTC), puis cherchez la même minute dans les logs du backend. Les deux récits se recoupent presque toujours.
 {: .callout .callout-astuce}
 
 ## Commandes essentielles de diagnostic

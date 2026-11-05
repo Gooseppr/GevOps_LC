@@ -46,7 +46,9 @@ Une métrique est une mesure numérique d'un comportement du système : le nombr
 
 C'est pour cela qu'on stocke les métriques sous forme de **séries temporelles** : une suite de valeurs numériques horodatées, enregistrées à intervalles réguliers. Pensez à un électrocardiogramme : un battement isolé ne raconte rien, c'est le tracé qui permet de diagnostiquer. Les systèmes comme Prometheus utilisent pour cela une base spécialisée, une TSDB (Time Series Database), optimisée pour écrire en continu et lire de grandes plages de temps.
 
-> 📖 **Définition.** Une TSDB est une base de données conçue pour stocker et interroger efficacement des valeurs indexées par le temps.
+> 📖 **Définition**
+>
+> Une TSDB est une base de données conçue pour stocker et interroger efficacement des valeurs indexées par le temps.
 {: .callout .callout-definition}
 
 Et Grafana dans tout ça ? Il ne stocke rien. Il interroge la source de données (vue au module précédent) et dessine ce qu'on lui renvoie. Si la donnée est mal comprise à la source, aucun joli panel ne la rattrapera.
@@ -75,7 +77,9 @@ flowchart LR
     C --> F[Échantillon 3<br/>timestamp + valeur]
 ```
 
-> 🧠 **Concept clé** : une série = un nom + un jeu de labels précis. Changer *un seul* label, même d'une seule valeur, crée une nouvelle série distincte avec son propre historique.
+> 🧠 **Concept clé**
+>
+> Une série = un nom + un jeu de labels précis. Changer *un seul* label, même d'une seule valeur, crée une nouvelle série distincte avec son propre historique.
 {: .callout .callout-important}
 
 ## Les quatre types de métriques
@@ -91,14 +95,18 @@ Le type n'est pas un détail de présentation : il dicte la façon de lire la va
 
 ### Counter : on ne regarde jamais sa valeur brute
 
-> 🚗 **Analogie : le compteur kilométrique.** Un Counter, c'est le compteur kilométrique d'une voiture. Savoir qu'il affiche 182 340 km ne dit pas si vous roulez vite. Ce qui vous intéresse, c'est la différence entre deux relevés : 600 km en 6 heures, soit 100 km/h.
-{: .callout .callout-analogie}
-
 Même raisonnement pour un Counter applicatif. Si `http_requests_total` vaut 1000 à une minute donnée et 1600 une minute plus tard, l'application a traité 600 requêtes en 60 secondes, soit **10 requêtes par seconde**. C'est cette vitesse qu'on veut afficher, pas le total.
+
+> 🚗 **Analogie : le compteur kilométrique**
+>
+> Un Counter, c'est le compteur kilométrique d'une voiture. Savoir qu'il affiche 182 340 km ne dit pas si vous roulez vite. Ce qui vous intéresse, c'est la différence entre deux relevés : 600 km en 6 heures, soit 100 km/h.
+{: .callout .callout-analogie}
 
 Autre particularité : si le processus redémarre, le compteur repart de zéro. Les outils de calcul de taux savent détecter cette chute et compenser, ce qui est une raison de plus de ne pas manipuler la valeur brute à la main.
 
-> ⚠️ **Erreur fréquente** : interpréter un Counter comme un Gauge. Afficher la valeur brute d'un Counter produit une courbe en escalier qui monte toujours, et qui retombe brutalement à zéro à chaque redémarrage, ce qu'on prend à tort pour une panne ou une chute de trafic. Une alerte du type « valeur > 10 000 » sur un Counter finira forcément par se déclencher, quoi qu'il se passe. *Correction* : un Counter se lit toujours à travers sa variation dans le temps (un taux, ou une augmentation sur une fenêtre).
+> ⚠️ **Erreur fréquente**
+>
+> Interpréter un Counter comme un Gauge. Afficher la valeur brute d'un Counter produit une courbe en escalier qui monte toujours, et qui retombe brutalement à zéro à chaque redémarrage, ce qu'on prend à tort pour une panne ou une chute de trafic. Une alerte du type « valeur > 10 000 » sur un Counter finira forcément par se déclencher, quoi qu'il se passe. *Correction* : un Counter se lit toujours à travers sa variation dans le temps (un taux, ou une augmentation sur une fenêtre).
 {: .callout .callout-attention}
 
 ### Gauge : la photo à l'instant T
@@ -129,7 +137,9 @@ Un histogramme ressemble à ceci :
 
 Lecture : 95 % des requêtes (950 sur 1000) durent 0,5 s ou moins. Le percentile est *estimé* par interpolation à l'intérieur du bucket, donc sa précision dépend du choix des bornes. Si le seuil qui vous intéresse est 300 ms et qu'aucun bucket n'est placé près de cette valeur, vous aurez une estimation grossière.
 
-> 💡 **Astuce** : en pratique, on préfère souvent l'Histogram au Summary. Les quantiles d'un Summary sont calculés *par instance* et ne peuvent pas être combinés entre eux. Avec un Histogram, on additionne les buckets de toutes les instances *puis* on calcule le percentile global. Les versions récentes de Prometheus proposent aussi des histogrammes dits « natifs » qui évitent de choisir les bornes à la main ; leur disponibilité dépend de la version et de la configuration.
+> 💡 **Astuce**
+>
+> En pratique, on préfère souvent l'Histogram au Summary. Les quantiles d'un Summary sont calculés *par instance* et ne peuvent pas être combinés entre eux. Avec un Histogram, on additionne les buckets de toutes les instances *puis* on calcule le percentile global. Les versions récentes de Prometheus proposent aussi des histogrammes dits « natifs » qui évitent de choisir les bornes à la main ; leur disponibilité dépend de la version et de la configuration.
 {: .callout .callout-astuce}
 
 ## Le temps : fréquence de collecte, intervalle et résolution
@@ -146,7 +156,9 @@ Conséquence concrète : si vous regardez 30 jours dans un panel de 800 pixels, 
 
 Quand une courbe vous semble trop calme, changez l'échelle de temps avant de conclure.
 
-> ⚠️ **Erreur fréquente** : croire qu'une absence de pic sur le graphique prouve l'absence de problème. Avec une collecte toutes les 60 s, un pic de CPU de 10 secondes peut tomber entièrement entre deux relevés. Si un phénomène est plus court que l'intervalle, il faut soit raccourcir l'intervalle, soit exposer une métrique qui l'agrège (un Counter ou un Histogram, qui n'oublient rien entre deux collectes).
+> ⚠️ **Erreur fréquente**
+>
+> Croire qu'une absence de pic sur le graphique prouve l'absence de problème. Avec une collecte toutes les 60 s, un pic de CPU de 10 secondes peut tomber entièrement entre deux relevés. Si un phénomène est plus court que l'intervalle, il faut soit raccourcir l'intervalle, soit exposer une métrique qui l'agrège (un Counter ou un Histogram, qui n'oublient rien entre deux collectes).
 {: .callout .callout-attention}
 
 ## De la donnée brute à l'information : taux, variation, percentiles, agrégation
@@ -155,7 +167,9 @@ Les valeurs brutes servent rarement telles quelles. On les transforme presque to
 
 **Le taux (rate)** : une vitesse de variation par seconde. C'est l'opération de base pour un Counter. Sur notre exemple, passer de 1000 à 1600 en 60 s donne 10 req/s. On calcule le taux sur une *fenêtre* de temps, qui doit contenir plusieurs échantillons : avec une collecte toutes les 15 s, une fenêtre de 15 s ne contient qu'un point et ne permet aucun calcul.
 
-> 💡 **À retenir.** En règle générale, la fenêtre de calcul d'un taux fait au moins quatre fois l'intervalle de collecte.
+> 💡 **À retenir**
+>
+> En règle générale, la fenêtre de calcul d'un taux fait au moins quatre fois l'intervalle de collecte.
 {: .callout .callout-important}
 
 **La variation** : combien la valeur a changé sur une période, sans la ramener à la seconde. « 3 600 erreurs sur la dernière heure » parle plus à un humain que « 1 erreur/s ». Même source, autre lecture : on choisit selon l'usage (suivre une tendance ou compter un volume).
@@ -164,14 +178,18 @@ Les valeurs brutes servent rarement telles quelles. On les transforme presque to
 
 **L'agrégation** : regrouper plusieurs séries en une seule. Vous avez 10 instances de votre API ? Additionner leurs taux donne le trafic total. Calculer la moyenne de leur mémoire donne la tendance générale. Vous pouvez aussi agréger *en conservant* certains labels : la somme du trafic « par code de statut », par exemple.
 
-> ⚠️ **Erreur fréquente** : faire la moyenne de percentiles. Si l'instance A a un p95 de 100 ms et l'instance B un p95 de 900 ms, le « p95 moyen » de 500 ms ne correspond à rien de réel. Il dépend du volume traité par chaque instance et de la forme de leurs distributions. *Correction* : agréger d'abord les buckets de l'histogramme de toutes les instances, puis calculer le percentile sur le résultat. C'est la raison pour laquelle l'Histogram est préféré au Summary pour toute métrique distribuée sur plusieurs instances.
+> ⚠️ **Erreur fréquente**
+>
+> Faire la moyenne de percentiles. Si l'instance A a un p95 de 100 ms et l'instance B un p95 de 900 ms, le « p95 moyen » de 500 ms ne correspond à rien de réel. Il dépend du volume traité par chaque instance et de la forme de leurs distributions. *Correction* : agréger d'abord les buckets de l'histogramme de toutes les instances, puis calculer le percentile sur le résultat. C'est la raison pour laquelle l'Histogram est préféré au Summary pour toute métrique distribuée sur plusieurs instances.
 {: .callout .callout-attention}
 
 ## Dimensions, cardinalité et granularité
 
 Les labels sont la richesse des métriques : ils permettent de filtrer, de regrouper, de comparer. Ils ont aussi un coût, et c'est une des causes les plus courantes de plateformes de supervision qui s'essoufflent.
 
-> 📖 **Définition.** La **cardinalité** est le nombre de séries distinctes qu'une métrique produit. Elle se calcule en multipliant le nombre de valeurs possibles de chaque label.
+> 📖 **Définition**
+>
+> La **cardinalité** est le nombre de séries distinctes qu'une métrique produit. Elle se calcule en multipliant le nombre de valeurs possibles de chaque label.
 {: .callout .callout-definition}
 
 Prenons un scénario :
@@ -183,7 +201,9 @@ Chaque série occupe de la mémoire et du disque, même si elle ne reçoit qu'un
 
 La **granularité** est le niveau de détail auquel vous observez : par service, par instance, par endpoint, par code de statut. Une granularité fine aide à localiser un problème, mais augmente la cardinalité et complique la lecture. Une granularité grossière est lisible, mais masque les défaillances ciblées : un taux d'erreur global de 0,5 % peut cacher un endpoint à 40 % d'erreurs.
 
-> 💡 **Astuce** : pour décider si un label mérite d'exister, posez-vous la question « Est-ce que je vais regrouper ou filtrer par ça pour diagnostiquer un incident ? » Si la réponse est non, ou si le nombre de valeurs est imprévisible, ce n'est pas un label.
+> 💡 **Astuce**
+>
+> Pour décider si un label mérite d'exister, posez-vous la question « Est-ce que je vais regrouper ou filtrer par ça pour diagnostiquer un incident ? » Si la réponse est non, ou si le nombre de valeurs est imprévisible, ce n'est pas un label.
 {: .callout .callout-astuce}
 
 ## Quand les données manquent : absence, zéro et obsolescence
@@ -198,7 +218,9 @@ Un panel vide ou une courbe qui s'arrête ne veut pas dire la même chose selon 
 
 En l'absence de marqueur (par exemple après un redémarrage de Prometheus ou avec des timestamps explicites), une valeur n'est plus utilisée si le dernier échantillon date de plus de 5 minutes (valeur par défaut). C'est ce qui évite de voir pour toujours la dernière valeur d'un serveur disparu.
 
-> ⚠️ **Erreur fréquente** : confondre « pas d'erreurs » et « plus de métriques ». Si un service plante, son compteur d'erreurs ne passe pas à zéro : il disparaît. Une alerte « erreurs > 0 » restera muette pendant que tout est cassé. Surveillez donc aussi l'*absence* de données, et prévoyez dans vos alertes un comportement explicite pour les états *No Data* et *Error* (on y reviendra dans les modules sur l'alerting).
+> ⚠️ **Erreur fréquente**
+>
+> Confondre « pas d'erreurs » et « plus de métriques ». Si un service plante, son compteur d'erreurs ne passe pas à zéro : il disparaît. Une alerte « erreurs > 0 » restera muette pendant que tout est cassé. Surveillez donc aussi l'*absence* de données, et prévoyez dans vos alertes un comportement explicite pour les états *No Data* et *Error* (on y reviendra dans les modules sur l'alerting).
 {: .callout .callout-attention}
 
 Côté affichage, le panel Time series propose une option pour relier ou non les trous (souvent appelée *Connect null values*, le libellé peut varier). Relier les points rend la courbe plus propre, mais peut cacher une interruption de collecte. Pendant un diagnostic, laissez les trous visibles.

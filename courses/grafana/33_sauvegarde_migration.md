@@ -78,7 +78,9 @@ Le tableau ci-dessous est celui à garder en tête quand on vous dit « on a des
 | Plugins installés | Disque (`/var/lib/grafana/plugins`) | Non |
 | `secret_key` | `grafana.ini` ou secret manager | Non |
 
-> ⚠️ **Erreur fréquente** : considérer un export JSON comme une sauvegarde. Un export de dashboards est une copie de contenu, utile et à conserver, mais il ne contient ni les utilisateurs, ni l'alerting, ni les identifiants des sources de données. La sauvegarde complète, c'est la base + les fichiers + la clé de chiffrement, prises de façon cohérente.
+> ⚠️ **Erreur fréquente**
+>
+> Considérer un export JSON comme une sauvegarde. Un export de dashboards est une copie de contenu, utile et à conserver, mais il ne contient ni les utilisateurs, ni l'alerting, ni les identifiants des sources de données. La sauvegarde complète, c'est la base + les fichiers + la clé de chiffrement, prises de façon cohérente.
 {: .callout .callout-attention}
 
 Un dernier point de périmètre : restaurer Grafana ne ramène **pas** les métriques de Prometheus ni les logs de Loki. Leur sauvegarde dépend de chaque backend et relève de parcours distincts. Ici, on protège le plan de contrôle et de visualisation.
@@ -139,10 +141,14 @@ grafana cli plugins ls > /backup/plugins-$(date +%F).txt
 
 Grafana chiffre en base les mots de passe, tokens et autres champs sensibles des Data Sources et des contact points. La clé racine de ce chiffrement dérive de `secret_key` (ou d'un KMS, Key Management Service, si vous l'avez branché).
 
-> 🔐 **Analogie : le coffre sans sa combinaison.** Restaurer la base avec une autre clé revient à récupérer un coffre intact dont on a perdu la combinaison : les Data Sources existent, mais ne peuvent plus s'authentifier. La comparaison a une limite : seuls les champs chiffrés restent fermés, et les dashboards comme le reste de la base restent lisibles.
+> 🔐 **Analogie : le coffre sans sa combinaison**
+>
+> Restaurer la base avec une autre clé revient à récupérer un coffre intact dont on a perdu la combinaison : les Data Sources existent, mais ne peuvent plus s'authentifier. La comparaison a une limite : seuls les champs chiffrés restent fermés, et les dashboards comme le reste de la base restent lisibles.
 {: .callout .callout-analogie}
 
-> 🧠 **Concept clé** : une sauvegarde de base sans la `secret_key` correspondante est incomplète. Conservez la clé **séparément** de la base (secret manager, coffre), jamais dans le même fichier de sauvegarde, sinon le chiffrement ne protège plus rien. Puis testez : restaurez et vérifiez qu'une Data Source authentifiée répond.
+> 🧠 **Concept clé**
+>
+> Une sauvegarde de base sans la `secret_key` correspondante est incomplète. Conservez la clé **séparément** de la base (secret manager, coffre), jamais dans le même fichier de sauvegarde, sinon le chiffrement ne protège plus rien. Puis testez : restaurez et vérifiez qu'une Data Source authentifiée répond.
 {: .callout .callout-important}
 
 ## Exporter et restaurer des dashboards
@@ -173,7 +179,9 @@ curl -sf -H "Authorization: Bearer $GRAFANA_TOKEN" \
 
 La réponse de `/api/dashboards/uid/<UID>` contient deux blocs : `dashboard` (le modèle) et `meta` (dossier, permissions, dates). Gardez les deux : `meta.folderUid` vous dit où replacer le dashboard à la restauration.
 
-> 💡 **Astuce** : l'interface propose aussi un export JSON avec une option « Export for sharing externally ». Cette option remplace les références de Data Sources par des variables `${DS_...}` demandées à l'import. C'est parfait pour partager un dashboard avec une autre équipe, mais c'est le **mauvais** format pour une sauvegarde : vous perdez les UIDs réels. L'intitulé exact de l'option varie selon la version de l'interface.
+> 💡 **Astuce**
+>
+> L'interface propose aussi un export JSON avec une option « Export for sharing externally ». Cette option remplace les références de Data Sources par des variables `${DS_...}` demandées à l'import. C'est parfait pour partager un dashboard avec une autre équipe, mais c'est le **mauvais** format pour une sauvegarde : vous perdez les UIDs réels. L'intitulé exact de l'option varie selon la version de l'interface.
 {: .callout .callout-astuce}
 
 ### Réimport
@@ -194,7 +202,9 @@ Le dossier cible doit exister avant l'import. Il faut donc restaurer ou provisio
 
 Revenons à notre scénario d'ouverture : pourquoi les dashboards affichaient-ils « Datasource not found » ? Parce qu'un panel ne référence pas sa source par son nom, mais par un **UID** (identifiant unique en chaîne de caractères). Dans le JSON, on trouve par exemple `"datasource": {"type": "prometheus", "uid": "P1809F7CD0C75ACF3"}`. Si vous recréez la Data Source à la main, Grafana génère un nouvel UID aléatoire, et tous les dashboards pointent dans le vide.
 
-> 🧠 **Concept clé** : l'UID est le contrat entre un dashboard et sa Data Source. Ce qui doit rester stable entre environnements, ce n'est pas le nom affiché mais l'UID. En fixant `uid: prometheus-main` dans le provisioning de chaque environnement (dev, recette, prod), le même JSON de dashboard fonctionne partout, sans réécriture.
+> 🧠 **Concept clé**
+>
+> L'UID est le contrat entre un dashboard et sa Data Source. Ce qui doit rester stable entre environnements, ce n'est pas le nom affiché mais l'UID. En fixant `uid: prometheus-main` dans le provisioning de chaque environnement (dev, recette, prod), le même JSON de dashboard fonctionne partout, sans réécriture.
 {: .callout .callout-important}
 
 ```yaml
@@ -211,7 +221,9 @@ datasources:
 
 Le même raisonnement s'applique aux UIDs de dashboards (stables, donc les liens entre dashboards et les URLs partagées survivent) et aux UIDs de dossiers (utilisés par l'import et par les permissions).
 
-> ⚠️ **Erreur fréquente** : déployer des Data Sources sans UID fixe, puis constater en migration que les UIDs diffèrent entre dev et prod. Si c'est déjà fait, deux issues : fixer rétroactivement l'UID dans le provisioning (l'ancien UID doit alors être repris tel quel), ou réécrire en masse les références dans les JSON avec `jq` avant import. La première est plus propre, la seconde dépanne.
+> ⚠️ **Erreur fréquente**
+>
+> Déployer des Data Sources sans UID fixe, puis constater en migration que les UIDs diffèrent entre dev et prod. Si c'est déjà fait, deux issues : fixer rétroactivement l'UID dans le provisioning (l'ancien UID doit alors être repris tel quel), ou réécrire en masse les références dans les JSON avec `jq` avant import. La première est plus propre, la seconde dépanne.
 {: .callout .callout-attention}
 
 ## Migrer : deux situations à ne pas mélanger
@@ -244,10 +256,12 @@ La quatrième étape est la plus rentable : elle teste simultanément la mise à
 
 ## Procédure de rollback
 
-> 💡 **À retenir.** Comme le schéma de base ne revient pas en arrière, le rollback de Grafana n'est pas « réinstaller l'ancienne version ». C'est **restaurer l'état d'avant** avec l'ancienne version.
-{: .callout .callout-important}
-
 La séquence est donc écrite avant la mise à jour, pas pendant l'incident.
+
+> 💡 **À retenir**
+>
+> Comme le schéma de base ne revient pas en arrière, le rollback de Grafana n'est pas « réinstaller l'ancienne version ». C'est **restaurer l'état d'avant** avec l'ancienne version.
+{: .callout .callout-important}
 
 Avant la mise à jour : arrêter les écritures si possible (ou accepter la fenêtre de perte), prendre le dump de la base, copier `grafana.ini` et le provisioning, noter la version exacte en cours.
 
@@ -263,10 +277,12 @@ Un coût est à regarder en face : tout ce qui a été écrit entre la mise à j
 
 ## RPO, RTO et tests de restauration
 
-> 📖 **Définition.** Le **RPO** (Recovery Point Objective) est la quantité maximale de données qu'on accepte de perdre, exprimée en temps. Le **RTO** (Recovery Time Objective) est le délai maximal pour remettre le service en état.
-{: .callout .callout-definition}
-
 Ces deux chiffres ne sont pas des vœux : ils sont mesurés ou ils n'existent pas.
+
+> 📖 **Définition**
+>
+> Le **RPO** (Recovery Point Objective) est la quantité maximale de données qu'on accepte de perdre, exprimée en temps. Le **RTO** (Recovery Time Objective) est le délai maximal pour remettre le service en état.
+{: .callout .callout-definition}
 
 Un exemple de raisonnement. Les dashboards sont dans Git et provisionnés : leur RPO est quasiment nul. En revanche, les règles d'alerte sont modifiées en interface presque tous les jours. Avec un dump nocturne, vous pouvez perdre jusqu'à 24 heures de modifications, ce qui est probablement trop pour des alertes d'astreinte. Deux choix : déplacer les règles dans le provisioning (RPO ≈ 0), ou rapprocher les dumps (toutes les 4 heures, par exemple). Le bon choix dépend du coût de l'un face au risque de l'autre.
 

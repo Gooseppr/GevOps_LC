@@ -71,7 +71,9 @@ La fiche de cadrage tient sur deux pages et contient :
 | Livrables | Rapport, synthèse exécutive, support de restitution, registre de risques |
 | Critère d'acceptation | Chaque constat est reproductible par la DSI à partir du rapport seul |
 
-> ⚠️ **Piège : le périmètre qui glisse.** En cours de mission, la direction demande « et vous pouvez aussi regarder la messagerie ? ». Si vous dites oui sans avenant, vous perdez le contrôle du budget et de la qualité. La réponse correcte est : « C'est pertinent, voici l'effort supplémentaire et ce qu'on retire ou décale. »
+> ⚠️ **Piège : le périmètre qui glisse**
+>
+> En cours de mission, la direction demande « et vous pouvez aussi regarder la messagerie ? ». Si vous dites oui sans avenant, vous perdez le contrôle du budget et de la qualité. La réponse correcte est : « C'est pertinent, voici l'effort supplémentaire et ce qu'on retire ou décale. »
 {: .callout .callout-attention}
 
 Le déroulé standard d'une mission de dix jours (durées illustratives) :
@@ -118,10 +120,12 @@ Puis constituez le tableau de la surface d'attaque, avec l'impact exprimé en co
 
 ### Du constat au risque métier
 
-> 📖 **Définition.** Un scénario de risque s'écrit en une phrase avec une cause, un événement et une conséquence mesurable.
-{: .callout .callout-definition}
-
 « Mot de passe faible » n'est pas un risque. « Un compte de service au mot de passe craquable permet à un utilisateur compromis de devenir administrateur du domaine et de chiffrer l'ERP et les sauvegardes, ce qui arrête l'entrepôt plusieurs jours » en est un.
+
+> 📖 **Définition**
+>
+> Un scénario de risque s'écrit en une phrase avec une cause, un événement et une conséquence mesurable.
+{: .callout .callout-definition}
 
 Registre de risques de Transvia (échelles 1 à 5, valeurs illustratives, que vous justifiez en entretien avec les métiers) :
 
@@ -132,7 +136,9 @@ Registre de risques de Transvia (échelles 1 à 5, valeurs illustratives, que vo
 | R3 | Indisponibilité de l'ERP (défaillance matérielle) sans restauration éprouvée | 3 | 4 | 12 |
 | R4 | Fuite de données clients via secrets stockés dans les partages | 3 | 3 | 9 |
 
-> 💡 **Astuce** : demandez au directeur de l'entrepôt combien coûte une journée d'arrêt. Cette seule réponse (par exemple « environ 40 000 € de commandes retardées et de pénalités ») justifie plus de budget sécurité que dix slides techniques.
+> 💡 **Astuce**
+>
+> Demandez au directeur de l'entrepôt combien coûte une journée d'arrêt. Cette seule réponse (par exemple « environ 40 000 € de commandes retardées et de pénalités ») justifie plus de budget sécurité que dix slides techniques.
 {: .callout .callout-astuce}
 
 ---
@@ -143,7 +149,9 @@ Les contrôles servent à prouver ou à infirmer les scénarios du registre, pas
 
 ### Réseau : signature SMB et exposition héritée
 
-> 🔴 **Vecteur d'attaque.** Quand la signature SMB n'est pas exigée, un attaquant en position réseau utilise la coercition d'authentification ou l'empoisonnement LLMNR/NBT-NS (outil : Responder), puis relaie les authentifications NTLM avec `ntlmrelayx` d'Impacket vers un serveur qui accepte sans signature. Il obtient une session sans jamais casser un mot de passe.
+> 🔴 **Vecteur d'attaque**
+>
+> Quand la signature SMB n'est pas exigée, un attaquant en position réseau utilise la coercition d'authentification ou l'empoisonnement LLMNR/NBT-NS (outil : Responder), puis relaie les authentifications NTLM avec `ntlmrelayx` d'Impacket vers un serveur qui accepte sans signature. Il obtient une session sans jamais casser un mot de passe.
 {: .callout .callout-danger}
 
 ```bash
@@ -154,10 +162,12 @@ Le message « Message signing enabled but not required » est le constat à rele
 
 ### Active Directory : où se cache l'élévation de privilèges
 
-> 🧠 **Concept clé : le Kerberoasting.** N'importe quel utilisateur du domaine peut demander un ticket de service (TGS) pour tout compte possédant un SPN. Ce ticket est chiffré avec une clé dérivée du mot de passe du compte de service. L'attaquant le récupère (`GetUserSPNs.py`, Rubeus), l'emporte hors ligne et le casse avec hashcat (mode 13100 pour RC4). Aucune alerte n'est déclenchée côté réseau, et un mot de passe de 10 caractères tombe en heures ou en jours selon le matériel.
-{: .callout .callout-important}
-
 Côté défenseur, on énumère les mêmes cibles avec un compte standard :
+
+> 🧠 **Concept clé : le Kerberoasting**
+>
+> N'importe quel utilisateur du domaine peut demander un ticket de service (TGS) pour tout compte possédant un SPN. Ce ticket est chiffré avec une clé dérivée du mot de passe du compte de service. L'attaquant le récupère (`GetUserSPNs.py`, Rubeus), l'emporte hors ligne et le casse avec hashcat (mode 13100 pour RC4). Aucune alerte n'est déclenchée côté réseau, et un mot de passe de 10 caractères tombe en heures ou en jours selon le matériel.
+{: .callout .callout-important}
 
 ```powershell
 Get-ADUser -Filter 'ServicePrincipalName -like "*"' -Properties ServicePrincipalName,PasswordLastSet,MemberOf |
@@ -211,7 +221,9 @@ Chaque constat porte une preuve horodatée que la DSI peut rejouer. Conservez le
 sha256sum evidence/* > evidence/SHA256SUMS
 ```
 
-> ⚠️ **Erreur fréquente** : la capture d'écran sans commande, sans horodatage et sans identité de l'hôte testé. Six mois plus tard, personne ne peut la reproduire ni la contester.
+> ⚠️ **Erreur fréquente**
+>
+> La capture d'écran sans commande, sans horodatage et sans identité de l'hôte testé. Six mois plus tard, personne ne peut la reproduire ni la contester.
 {: .callout .callout-attention}
 
 ---
@@ -264,7 +276,9 @@ level: medium
 
 La règle seule génère du bruit, parce que d'anciens services légitimes utilisent RC4. Dans le SIEM, on ajoute donc une agrégation : un même compte demandant des tickets pour plus de cinq services différents en quelques minutes passe en priorité haute.
 
-> 💡 **À retenir.** Sans journaux collectés, aucune règle ne détecte rien. Dans une PME où les contrôleurs de domaine n'envoient pas leurs journaux à un collecteur, cette règle est inutile. Le premier constat de détection est alors « on ne voit rien », et la première action est la centralisation des journaux des contrôleurs de domaine.
+> 💡 **À retenir**
+>
+> Sans journaux collectés, aucune règle ne détecte rien. Dans une PME où les contrôleurs de domaine n'envoient pas leurs journaux à un collecteur, cette règle est inutile. Le premier constat de détection est alors « on ne voit rien », et la première action est la centralisation des journaux des contrôleurs de domaine.
 {: .callout .callout-important}
 
 Ce que vous mesurez pendant l'exercice :
@@ -274,7 +288,9 @@ Ce que vous mesurez pendant l'exercice :
 - **Délai de décision de containment** : qui a le droit d'isoler un serveur de production, et en combien de temps le sait-on ?
 - **Qualité de la communication** : la direction apprend-elle l'incident par la DSI ou par un client ?
 
-> 💡 **Astuce** : l'étape 5 est la plus rentable à tester. `vssadmin delete shadows` est utilisée par de nombreux ransomwares avant le chiffrement. Si votre exercice ne génère aucune alerte à ce stade, vous disposez d'un exemple parlant pour la restitution.
+> 💡 **Astuce**
+>
+> L'étape 5 est la plus rentable à tester. `vssadmin delete shadows` est utilisée par de nombreux ransomwares avant le chiffrement. Si votre exercice ne génère aucune alerte à ce stade, vous disposez d'un exemple parlant pour la restitution.
 {: .callout .callout-astuce}
 
 ---
@@ -283,7 +299,9 @@ Ce que vous mesurez pendant l'exercice :
 
 Un job de sauvegarde « terminé avec succès » ne prouve rien. Les opérateurs de ransomware ciblent explicitement les systèmes de sauvegarde : des vulnérabilités comme CVE-2023-27532 dans Veeam Backup & Replication ont été exploitées pour récupérer des identifiants, et un serveur de sauvegarde joint au domaine tombe avec lui dès que l'administrateur du domaine est compromis.
 
-> 🏠 **Analogie : le double des clés rangé dans la maison.** Une sauvegarde jointe au domaine ressemble à un double des clés gardé à l'intérieur : le cambrioleur qui entre le récupère aussi. Limite de l'image : ce n'est pas l'emplacement qui crée le lien, mais le partage d'identité. Un serveur sorti du domaine reste donc exposé s'il garde les mêmes comptes administrateurs.
+> 🏠 **Analogie : le double des clés rangé dans la maison**
+>
+> Une sauvegarde jointe au domaine ressemble à un double des clés gardé à l'intérieur : le cambrioleur qui entre le récupère aussi. Limite de l'image : ce n'est pas l'emplacement qui crée le lien, mais le partage d'identité. Un serveur sorti du domaine reste donc exposé s'il garde les mêmes comptes administrateurs.
 {: .callout .callout-analogie}
 
 Votre vérification se fait en trois temps. D'abord l'isolation : le dépôt de sauvegarde est-il accessible en écriture avec un compte du domaine ? Ensuite l'intégrité :
@@ -326,7 +344,9 @@ Plan Transvia (efforts en jours-homme et coûts illustratifs, avec une hypothès
 
 Total : 63 J/H, soit environ 44 000 € hors licences. Précisez toujours les hypothèses sous un chiffre, sinon il ne vaut rien : « sous réserve que l'éditeur de l'ERP valide le changement de compte en moins de 5 jours ».
 
-> 🔒 **Contrôle de sécurité** : sur le dépôt de sauvegarde, le mode « ajout uniquement » casse la chaîne d'attaque du ransomware. Exemple avec rest-server pour restic :
+> 🔒 **Contrôle de sécurité**
+>
+> Sur le dépôt de sauvegarde, le mode « ajout uniquement » casse la chaîne d'attaque du ransomware. Exemple avec rest-server pour restic :
 {: .callout .callout-securite}
 
 ```bash

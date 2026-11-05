@@ -67,7 +67,9 @@ flowchart LR
     LOGS[Loki] --> G
 ```
 
-> 🧠 **Concept clé** : cAdvisor sait ce que **consomme** un conteneur, kube-state-metrics sait ce qui a été **demandé et décidé** (requests, limits, replicas, raisons d'arrêt). Presque tous les diagnostics utiles demandent de croiser les deux. Une consommation de 900 Mo ne dit rien sans la limite à 1 Go ou à 512 Mo.
+> 🧠 **Concept clé**
+>
+> CAdvisor sait ce que **consomme** un conteneur, kube-state-metrics sait ce qui a été **demandé et décidé** (requests, limits, replicas, raisons d'arrêt). Presque tous les diagnostics utiles demandent de croiser les deux. Une consommation de 900 Mo ne dit rien sans la limite à 1 Go ou à 512 Mo.
 {: .callout .callout-important}
 
 Le kubelet expose plusieurs endpoints. Celui qui nous intéresse est `/metrics/cadvisor`. Ses séries portent les labels `namespace`, `pod` et `container`, ce qui permet de filtrer comme dans les objets Kubernetes. Les menus et noms de jobs peuvent varier selon la façon dont vous déployez la pile, donc vérifiez toujours dans Explore ce qui existe réellement chez vous.
@@ -107,7 +109,9 @@ En Docker pur, il n'y a ni namespace ni pod. cAdvisor étiquette les conteneurs 
 sum by (name) (rate(container_cpu_usage_seconds_total{name!=""}[5m]))
 ```
 
-> ⚠️ **Erreur fréquente** : exposer le port 8080 de cAdvisor sur une interface publique. Il révèle la liste de tous vos conteneurs, leurs images et leurs ressources. Limitez-le au réseau de monitoring ou à `127.0.0.1` derrière un reverse proxy.
+> ⚠️ **Erreur fréquente**
+>
+> Exposer le port 8080 de cAdvisor sur une interface publique. Il révèle la liste de tous vos conteneurs, leurs images et leurs ressources. Limitez-le au réseau de monitoring ou à `127.0.0.1` derrière un reverse proxy.
 {: .callout .callout-attention}
 
 ## Mise en place sur Kubernetes
@@ -143,7 +147,9 @@ up{job=~"kubelet|kube-state-metrics|node-exporter"}
 
 Si une cible vaut `0` ou n'apparaît pas, inutile d'aller plus loin : les panels afficheront « No Data » et vous chercherez au mauvais endroit.
 
-> 💡 **Astuce** : dans l'onglet Explore, le *Metrics browser* permet de lister les métriques qui existent réellement dans votre Prometheus. Les noms ont évolué entre les versions de kube-state-metrics, et c'est plus rapide que de chercher dans la documentation.
+> 💡 **Astuce**
+>
+> Dans l'onglet Explore, le *Metrics browser* permet de lister les métriques qui existent réellement dans votre Prometheus. Les noms ont évolué entre les versions de kube-state-metrics, et c'est plus rapide que de chercher dans la documentation.
 {: .callout .callout-astuce}
 
 ## Lire un cluster : nodes, pods, deployments
@@ -166,7 +172,9 @@ sum(kube_node_status_allocatable{resource="cpu"})
 
 Le second ratio mesure la **réservation**, pas l'usage. Un cluster peut être réservé à 90 % tout en ne consommant que 20 % du CPU : le scheduler refusera de placer de nouveaux pods alors que les machines sont presque au repos. Ce n'est pas un bug, c'est ce que les `requests` sont censées garantir, mais ça surprend les équipes.
 
-> 🍽️ **Analogie : le restaurant complet.** Un restaurant dont toutes les tables sont réservées refuse de nouveaux clients, même si la salle est à moitié vide. Les `requests` jouent le rôle de ces réservations. Limite de l'image : contrairement à une table vide, le CPU réservé mais inutilisé peut être utilisé par les autres pods du nœud.
+> 🍽️ **Analogie : le restaurant complet**
+>
+> Un restaurant dont toutes les tables sont réservées refuse de nouveaux clients, même si la salle est à moitié vide. Les `requests` jouent le rôle de ces réservations. Limite de l'image : contrairement à une table vide, le CPU réservé mais inutilisé peut être utilisé par les autres pods du nœud.
 {: .callout .callout-analogie}
 
 ### Les pods et conteneurs
@@ -179,7 +187,9 @@ sum by (namespace, pod) (
 )
 ```
 
-> ⚠️ **Erreur fréquente** : oublier `container!=""`. cAdvisor publie aussi une série agrégée au niveau du pod (container vide) et, selon la version, des séries pour le conteneur « pause » (`container="POD"`). Sans filtre, vos totaux sont doublés, voire triplés, et vos dashboards affichent des valeurs fausses sans erreur visible.
+> ⚠️ **Erreur fréquente**
+>
+> Oublier `container!=""`. cAdvisor publie aussi une série agrégée au niveau du pod (container vide) et, selon la version, des séries pour le conteneur « pause » (`container="POD"`). Sans filtre, vos totaux sont doublés, voire triplés, et vos dashboards affichent des valeurs fausses sans erreur visible.
 {: .callout .callout-attention}
 
 ### Les Deployments et workloads
@@ -200,7 +210,9 @@ C'est le cœur opérationnel du module : trois signaux qui racontent la majorit�
 
 Quand vous posez une `limit` CPU, le noyau l'applique via le CFS (Completely Fair Scheduler)\* sous forme de quota : sur chaque période de 100 ms, le conteneur reçoit un temps de calcul maximum. Une fois épuisé, ses threads sont **gelés jusqu'à la période suivante**. Votre application ne plante pas, elle attend. Les requêtes s'allongent, des timeouts apparaissent, et rien n'est visible dans les logs.
 
-> ⏱️ **Analogie : un forfait remis à zéro toutes les 100 ms.** Une limit de 200m équivaut à 20 ms de calcul par tranche de 100 ms. Une fois le forfait consommé, le conteneur attend la tranche suivante, même si le nœud est libre. Attention : le forfait est partagé entre tous les threads, donc 4 threads actifs l'épuisent en 5 ms.
+> ⏱️ **Analogie : un forfait remis à zéro toutes les 100 ms**
+>
+> Une limit de 200m équivaut à 20 ms de calcul par tranche de 100 ms. Une fois le forfait consommé, le conteneur attend la tranche suivante, même si le nœud est libre. Attention : le forfait est partagé entre tous les threads, donc 4 threads actifs l'épuisent en 5 ms.
 {: .callout .callout-analogie}
 
 ```promql
@@ -217,7 +229,9 @@ Le résultat est la proportion de périodes où le conteneur a été bridé. Une
 
 Pour la mémoire, la métrique à suivre n'est pas `container_memory_usage_bytes` (qui inclut du cache fichier récupérable), mais `container_memory_working_set_bytes`. L'OOM (Out Of Memory) killer intervient quand le conteneur dépasse sa limite mémoire.
 
-> 📖 **Définition.** Le *working set* est la mémoire d'un conteneur, sans le cache inactif que le noyau peut récupérer. C'est la métrique qui se rapproche le plus de ce que le noyau regarde avant de tuer un processus.
+> 📖 **Définition**
+>
+> Le *working set* est la mémoire d'un conteneur, sans le cache inactif que le noyau peut récupérer. C'est la métrique qui se rapproche le plus de ce que le noyau regarde avant de tuer un processus.
 {: .callout .callout-definition}
 
 ```promql
@@ -240,7 +254,9 @@ On combine les deux séries parce que `last_terminated_reason` reste à `1` tant
 
 `kube_pod_container_status_restarts_total` est un compteur : sa valeur brute (« 14 restarts ») ne dit pas quand ni à quelle vitesse. Un pod à 14 restarts accumulés en trois semaines est stable. Un pod à 4 restarts en 10 minutes est en pleine boucle.
 
-> 💡 **Astuce** : affichez toujours `increase(kube_pod_container_status_restarts_total[1h])` plutôt que la valeur brute. Et ajoutez en tableau le `CrashLoopBackOff` : `kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"} == 1`.
+> 💡 **Astuce**
+>
+> Affichez toujours `increase(kube_pod_container_status_restarts_total[1h])` plutôt que la valeur brute. Et ajoutez en tableau le `CrashLoopBackOff` : `kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"} == 1`.
 {: .callout .callout-astuce}
 
 ## ⚠️ Consommation CPU ≠ saturation CPU
@@ -253,7 +269,9 @@ Prenez une application multithread qui travaille en rafales, par exemple avec un
 
 L'inverse existe aussi, à l'échelle du nœud : un pod **sans limit** n'est jamais bridé, mais si le nœud est surchargé, il attend son tour pour obtenir du CPU. Aucun throttling dans les métriques, et pourtant il est ralenti.
 
-> 💡 **À retenir.** La **consommation** répond à « combien de CPU le conteneur a-t-il obtenu ? ». La **saturation** répond à « combien de temps a-t-il attendu pour en obtenir ? ». Ce sont deux questions différentes, et le dashboard doit montrer les deux.
+> 💡 **À retenir**
+>
+> La **consommation** répond à « combien de CPU le conteneur a-t-il obtenu ? ». La **saturation** répond à « combien de temps a-t-il attendu pour en obtenir ? ». Ce sont deux questions différentes, et le dashboard doit montrer les deux.
 {: .callout .callout-important}
 
 | Ce que vous voulez savoir | Signal à regarder |
@@ -273,7 +291,9 @@ rate(node_pressure_cpu_waiting_seconds_total[5m])
 
 \* PSI : une fonction du noyau Linux qui mesure la part du temps pendant laquelle des tâches attendent une ressource ; sa disponibilité dépend de la version du noyau et de sa configuration.
 
-> 🧠 **Concept clé** : un panel « CPU usage » seul ne permet jamais de conclure à l'absence de problème CPU. Placez toujours le ratio de throttling juste à côté.
+> 🧠 **Concept clé**
+>
+> Un panel « CPU usage » seul ne permet jamais de conclure à l'absence de problème CPU. Placez toujours le ratio de throttling juste à côté.
 {: .callout .callout-important}
 
 ## Construction progressive des dashboards

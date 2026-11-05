@@ -76,7 +76,9 @@ flowchart LR
     class I1 alerte
 ```
 
-> 💡 **À retenir.** Une série renvoyée par la requête donne une instance d'alerte, avec son propre état.
+> 💡 **À retenir**
+>
+> Une série renvoyée par la requête donne une instance d'alerte, avec son propre état.
 {: .callout .callout-important}
 
 Le seuil compare un nombre, pas une courbe. Le type de requête décide donc de ce qu'il vous faut :
@@ -99,7 +101,9 @@ Choisissez Instant quand la requête calcule déjà ce que vous voulez tester. G
 | Réglage de No Data et Error | Oui, par règle | Non |
 | Recovery threshold | Oui | Non |
 
-> 💡 **À retenir.** Prenez Grafana-managed par défaut. Gardez Data source-managed pour les règles qui vivent déjà avec le backend, ou pour un très gros volume à évaluer au plus près des données. Les deux familles peuvent cohabiter.
+> 💡 **À retenir**
+>
+> Prenez Grafana-managed par défaut. Gardez Data source-managed pour les règles qui vivent déjà avec le backend, ou pour un très gros volume à évaluer au plus près des données. Les deux familles peuvent cohabiter.
 {: .callout .callout-important}
 
 ## 3. Le lab
@@ -217,7 +221,9 @@ C'est un choix à assumer. Pour détecter plus vite, raccourcissez la fenêtre d
 
 Tous deux sont des paires clé/valeur, mais leur rôle diffère.
 
-> 📦 **Analogie : l'adresse et la lettre d'un colis.** Les labels sont l'adresse : ils servent à trier et à acheminer, donc ils ne doivent pas changer en route. Les annotations sont la lettre à l'intérieur : elles informent le destinataire et peuvent varier. Limite : les labels forment aussi l'identité de l'instance d'alerte.
+> 📦 **Analogie : l'adresse et la lettre d'un colis**
+>
+> Les labels sont l'adresse : ils servent à trier et à acheminer, donc ils ne doivent pas changer en route. Les annotations sont la lettre à l'intérieur : elles informent le destinataire et peuvent varier. Limite : les labels forment aussi l'identité de l'instance d'alerte.
 {: .callout .callout-analogie}
 
 | | Labels | Annotations |
@@ -236,7 +242,9 @@ Runbook URL  https://wiki.example.com/runbooks/cpu-eleve
 
 Le bloc `with ... else` n'est pas un détail. En No Data, il n'y a aucune valeur à afficher : un simple `printf "%.1f" $values.A.Value` produit alors `[no value] est à %!f(<nil>) % de CPU.`, précisément au moment où la personne d'astreinte a besoin d'un message clair.
 
-> ⚠️ **Piège :** ne mettez jamais `{{ $values.A.Value }}` dans un label. Le jeu de labels change à chaque évaluation, donc Grafana voit une nouvelle instance à chaque fois : vous recevez une rafale de notifications.
+> ⚠️ **Piège**
+>
+> Ne mettez jamais `{{ $values.A.Value }}` dans un label. Le jeu de labels change à chaque évaluation, donc Grafana voit une nouvelle instance à chaque fois : vous recevez une rafale de notifications.
 {: .callout .callout-attention}
 
 ## 7. Instances et groupes d'évaluation
@@ -278,10 +286,12 @@ Avec le réglage par défaut, Grafana crée une alerte séparée, `DatasourceNoD
 
 ## 9. Quand une panne rend la règle silencieuse
 
-> 🧠 **À retenir :** No Data ne prouve pas que le système va bien. Une règle teste une valeur : sans valeur, elle ne peut rien affirmer.
-{: .callout .callout-important}
-
 Selon la panne, la règle CPU réagit différemment, et le remède aussi :
+
+> 🧠 **À retenir**
+>
+> No Data ne prouve pas que le système va bien. Une règle teste une valeur : sans valeur, elle ne peut rien affirmer.
+{: .callout .callout-important}
 
 | Panne | Ce que fait la règle CPU | Règle complémentaire |
 |---|---|---|
@@ -294,10 +304,12 @@ Le premier cas est le plus trompeur : **la machine est morte et l'alerte se ferm
 
 ### La fausse alerte CPU
 
-> ⚠️ **Piège :** quand l'exporteur s'arrête, notre règle voit le CPU grimper alors que la machine ne fait rien. Pendant que la fenêtre de 5 minutes se vide, `rate(...idle...)` baisse vers zéro, donc `100 * (1 - ...)` monte vers 100. Avec une pending period trop courte, vous recevez une alerte CPU pour ce qui est en réalité une panne de collecte.
-{: .callout .callout-attention}
-
 Une condition sur `up` retire ce faux signal, car la requête ne renvoie plus rien dès que la cible ne répond plus :
+
+> ⚠️ **Piège**
+>
+> Quand l'exporteur s'arrête, notre règle voit le CPU grimper alors que la machine ne fait rien. Pendant que la fenêtre de 5 minutes se vide, `rate(...idle...)` baisse vers zéro, donc `100 * (1 - ...)` monte vers 100. Avec une pending period trop courte, vous recevez une alerte CPU pour ce qui est en réalité une panne de collecte.
+{: .callout .callout-attention}
 
 ```promql
 100 * (1 - avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])))
@@ -314,7 +326,9 @@ Voici ce que donnent les deux écritures dans le lab, une fois l'exporteur arrê
 
 ### Construire la règle de disponibilité
 
-> 📖 **Définition.** `up` vaut 1 si le dernier scrape a réussi et 0 sinon, tant que la cible reste configurée.
+> 📖 **Définition**
+>
+> `up` vaut 1 si le dernier scrape a réussi et 0 sinon, tant que la cible reste configurée.
 {: .callout .callout-definition}
 
 1. **Nom :** `Cible injoignable`. **Requête A**, Instant : `up{job="node"}`.

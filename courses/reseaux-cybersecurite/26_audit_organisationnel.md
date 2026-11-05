@@ -46,7 +46,9 @@ La défense naïve était « avoir la certification et les procédures ». L'aud
 
 ## Trois audits, trois questions
 
-> 🧠 **Concept clé** : on ne choisit pas un type d'audit par habitude, mais parce qu'il répond à une question précise.
+> 🧠 **Concept clé**
+>
+> On ne choisit pas un type d'audit par habitude, mais parce qu'il répond à une question précise.
 {: .callout .callout-important}
 
 | Type | Question posée | Critère de référence | Livrable typique |
@@ -72,15 +74,19 @@ En audit organisationnel, la surface d'attaque est l'ensemble des zones où ce q
 | Tiers | « Clauses de sécurité dans les contrats » | Prestataire avec accès VPN permanent et sans MFA (Multi-Factor Authentication) | Rebond via la chaîne d'approvisionnement |
 | Preuves | « Les sauvegardes sont testées » | Aucune restauration réelle depuis 18 mois | Récupération impossible après chiffrement |
 
-> 🔴 **Vecteur d'attaque** : un opérateur de rançongiciel commence par la cartographie externe (Shodan, Censys, `nmap`), puis cherche les comptes mal gérés avec BloodHound sur l'Active Directory. Il exploite rarement une faille inconnue : il vise les équipements d'accès distant exposés (par exemple CVE-2024-3400 sur GlobalProtect de Palo Alto, ou CVE-2023-46805 et CVE-2024-21887 sur Ivanti Connect Secure) et les comptes jamais revus. L'audit organisationnel doit reproduire ce raisonnement avec les moyens de l'auditeur : documents, exports et entretiens.
+> 🔴 **Vecteur d'attaque**
+>
+> Un opérateur de rançongiciel commence par la cartographie externe (Shodan, Censys, `nmap`), puis cherche les comptes mal gérés avec BloodHound sur l'Active Directory. Il exploite rarement une faille inconnue : il vise les équipements d'accès distant exposés (par exemple CVE-2024-3400 sur GlobalProtect de Palo Alto, ou CVE-2023-46805 et CVE-2024-21887 sur Ivanti Connect Secure) et les comptes jamais revus. L'audit organisationnel doit reproduire ce raisonnement avec les moyens de l'auditeur : documents, exports et entretiens.
 {: .callout .callout-danger}
 
 ## ISMS, ISO/IEC 27001 et 27002 : ce que l'auditeur utilise comme critère
 
-> 📖 **Définition.** Un **ISMS** (Information Security Management System, appelé SMSI en France)\* est l'ensemble des politiques, processus et responsabilités qui pilotent la sécurité de façon continue. C'est un système de management, pas un outil.
-{: .callout .callout-definition}
-
 \* *Il suit un cycle d'amélioration continue : on décide, on met en œuvre, on mesure, on corrige, et l'ISMS est donc jugé sur sa capacité à se corriger, pas sur l'état d'un jour.*
+
+> 📖 **Définition**
+>
+> Un **ISMS** (Information Security Management System, appelé SMSI en France)\* est l'ensemble des politiques, processus et responsabilités qui pilotent la sécurité de façon continue. C'est un système de management, pas un outil.
+{: .callout .callout-definition}
 
 **ISO/IEC 27001** définit les exigences de l'ISMS. Les clauses 4 à 10 sont obligatoires pour être certifié : contexte, leadership, planification (dont l'appréciation des risques), support, fonctionnement, évaluation des performances et amélioration. L'**Annexe A** liste des contrôles de référence. Dans la version 2022, ils sont 93, répartis en quatre thèmes : organisationnels (37), personnes (8), physiques (14) et technologiques (34).
 
@@ -94,7 +100,9 @@ Trois éléments décident de la valeur d'un audit ISO 27001 :
 
 Les contrôles les plus souvent testés en pratique : A.5.9 (inventaire des actifs), A.5.15 et A.5.18 (contrôle d'accès, droits d'accès), A.8.2 (accès privilégiés), A.8.5 (authentification sécurisée), A.8.8 (gestion des vulnérabilités techniques), A.8.13 (sauvegarde), A.8.15 (journalisation), A.5.19 (sécurité dans les relations avec les fournisseurs).
 
-> 💡 **Astuce** : demandez la SoA et le périmètre dès le premier échange. Un écart entre le périmètre du certificat et le périmètre réel de l'entreprise explique souvent d'avance les constats les plus graves.
+> 💡 **Astuce**
+>
+> Demandez la SoA et le périmètre dès le premier échange. Un écart entre le périmètre du certificat et le périmètre réel de l'entreprise explique souvent d'avance les constats les plus graves.
 {: .callout .callout-astuce}
 
 ## RGPD, NIS2 et DORA : qui est concerné, et comment l'audit s'en sert
@@ -139,7 +147,9 @@ Un document peut être bien écrit et inutile. Trois contrôles révèlent ce d�
 - **Mesurabilité.** « Les mots de passe doivent être robustes » ne se vérifie pas, alors que « 14 caractères minimum, MFA obligatoire sur les accès administrateur » se vérifie par une commande.
 - **Traces.** Une procédure sans enregistrements n'a pas de preuve d'application. « Revue trimestrielle des accès » exige quatre comptes rendus datés sur l'année.
 
-> ⚠️ **Erreur fréquente** : valider une PSSI parce qu'elle « couvre tous les chapitres » de la norme. Elle peut être complète et ne contenir aucune exigence vérifiable. Cherchez les verbes sans critère (« veiller à », « s'assurer que ») et demandez comment l'équipe le prouve.
+> ⚠️ **Erreur fréquente**
+>
+> Valider une PSSI parce qu'elle « couvre tous les chapitres » de la norme. Elle peut être complète et ne contenir aucune exigence vérifiable. Cherchez les verbes sans critère (« veiller à », « s'assurer que ») et demandez comment l'équipe le prouve.
 {: .callout .callout-attention}
 
 ## Conduire la mission : preuves, entretiens, analyse documentaire
@@ -169,7 +179,9 @@ flowchart TD
 | Document, procédure | Faible à moyenne | PSSI, procédure de sauvegarde |
 | Déclaration orale | Faible | « Oui, on fait ça tous les mois » |
 
-> 💡 **À retenir.** Une déclaration orale seule ne fonde jamais un constat de conformité. Il faut la corroborer (trianguler) avec une preuve système ou un enregistrement.
+> 💡 **À retenir**
+>
+> Une déclaration orale seule ne fonde jamais un constat de conformité. Il faut la corroborer (trianguler) avec une preuve système ou un enregistrement.
 {: .callout .callout-important}
 
 **Entretiens.** 💡 Posez des questions de démonstration plutôt que des questions fermées. « Faites-vous une revue des comptes ? » obtient toujours « oui ». « Montrez-moi la dernière revue et les comptes qui ont été supprimés » donne une réponse vérifiable. Interrogez au moins deux niveaux (le RSSI et un administrateur) et comparez les réponses : les écarts entre eux sont souvent plus instructifs que les documents.
@@ -211,7 +223,9 @@ sha256sum <FICHIER_PREUVE> >> preuves.sha256
 sha256sum -c preuves.sha256
 ```
 
-> 🔒 **Contrôle de sécurité** : les preuves sont archivées dans un dossier chiffré avec accès restreint à l'équipe d'audit. Un export AD contient des identifiants, des dates de dernière connexion et parfois des attributs sensibles, c'est-à-dire exactement ce que cherche un attaquant. À la fin de la mission, ils sont restitués ou détruits selon le contrat.
+> 🔒 **Contrôle de sécurité**
+>
+> Les preuves sont archivées dans un dossier chiffré avec accès restreint à l'équipe d'audit. Un export AD contient des identifiants, des dates de dernière connexion et parfois des attributs sensibles, c'est-à-dire exactement ce que cherche un attaquant. À la fin de la mission, ils sont restitués ou détruits selon le contrat.
 {: .callout .callout-securite}
 
 L'interface de chaque outil et la sortie de ces commandes varient selon la version et le contexte. Testez-les sur un environnement de laboratoire avant de les utiliser chez un client.
@@ -233,7 +247,9 @@ Ces signaux ne prouvent rien seuls, mais ils justifient d'approfondir.
 
 Un écart exploitable répond à quatre questions : quel est le **critère**, quel est le **constat**, quelle est la **cause**, quelle est la **conséquence**. Sans la cause, la recommandation traite le symptôme. Sans la conséquence, personne ne sait quoi prioriser.
 
-> 🔑 **Moyen mnémotechnique.** Retenez les « 4 C », dans l'ordre : **C**ritère, **C**onstat, **C**ause, **C**onséquence.
+> 🔑 **Moyen mnémotechnique**
+>
+> Retenez les « 4 C », dans l'ordre : **C**ritère, **C**onstat, **C**ause, **C**onséquence.
 {: .callout .callout-memo}
 
 Voici un exemple de fiche d'écart, sous forme déclarative et facile à reprendre dans un tableur ou un outil de suivi :
@@ -266,17 +282,21 @@ Quand une action n'est pas réalisable, l'organisation peut **accepter le risque
 
 ## Conformité ne signifie pas sécurité
 
-> ⚠️ **Piège à traiter explicitement.** Être conforme à un référentiel prouve que des contrôles sont définis, appliqués sur un périmètre donné et revus. Cela ne prouve pas l'absence de vulnérabilités.
-{: .callout .callout-attention}
-
 Quatre raisons expliquent cet écart :
+
+> ⚠️ **Piège à traiter explicitement**
+>
+> Être conforme à un référentiel prouve que des contrôles sont définis, appliqués sur un périmètre donné et revus. Cela ne prouve pas l'absence de vulnérabilités.
+{: .callout .callout-attention}
 
 - **Le périmètre limite la portée.** Ce qui est hors certificat n'est pas vérifié, comme l'équipement de l'entrepôt dans le scénario d'ouverture.
 - **L'échantillonnage laisse des zones non vues.** Un audit contrôle un sous-ensemble ; une faille peut se trouver sur les systèmes qui n'ont pas été tirés.
 - **Le référentiel décrit des exigences générales.** ISO/IEC 27001 demande de gérer les vulnérabilités techniques (A.8.8) sans dire quel délai est acceptable pour un VPN exposé sur Internet. L'organisation fixe elle-même ce niveau.
 - **L'audit est une photographie.** Un état conforme en mars ne dit rien d'une faille publiée en avril.
 
-> 🚗 **Analogie : le contrôle technique.** Un véhicule qui passe le contrôle technique satisfait une liste de points à une date donnée. Cela ne garantit ni qu'il roulera sans panne le mois suivant, ni que la remorque, non présentée, est en état. Limite : le contrôle technique examine tout le véhicule présenté, alors qu'un audit ne vérifie qu'un échantillon des systèmes du périmètre.
+> 🚗 **Analogie : le contrôle technique**
+>
+> Un véhicule qui passe le contrôle technique satisfait une liste de points à une date donnée. Cela ne garantit ni qu'il roulera sans panne le mois suivant, ni que la remorque, non présentée, est en état. Limite : le contrôle technique examine tout le véhicule présenté, alors qu'un audit ne vérifie qu'un échantillon des systèmes du périmètre.
 {: .callout .callout-analogie}
 
 Concrètement, une conclusion défendable ressemble à ceci : « Sur le périmètre X, pour la période Y, les contrôles Z sont conformes d'après l'échantillon vérifié. Le rapport ne se prononce pas sur la sécurité du reste du SI. » Si le client a besoin de savoir si une attaque réussirait, il lui faut en complément un audit technique et un test d'intrusion, thèmes des modules 22 et 31.

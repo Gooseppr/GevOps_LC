@@ -1505,9 +1505,14 @@ blockquote.callout {
 }
 blockquote.callout > :first-child { margin-top: 0; }
 blockquote.callout > :last-child  { margin-bottom: 0; }
+blockquote.callout > p:first-child {
+  margin-bottom: .35rem;
+  font-weight: 700;
+  font-size: 1.02em;
+}
 blockquote.callout ul { margin: .5rem 0 0 1.1rem; }
 blockquote.callout code { background: rgba(255, 255, 255, .7); }
-.callout-definition { --callout-accent: #2563eb; --callout-border: #bfdbfe; --callout-bg: #eff6ff; }
+.callout-definition { --callout-accent: #64748b; --callout-border: #e2e8f0; --callout-bg: #f8fafc; }
 .callout-important  { --callout-accent: #7c3aed; --callout-border: #ddd6fe; --callout-bg: #f5f3ff; }
 .callout-attention  { --callout-accent: #d97706; --callout-border: #fde68a; --callout-bg: #fffbeb; }
 .callout-danger     { --callout-accent: #dc2626; --callout-border: #fecaca; --callout-bg: #fef2f2; }
@@ -1515,4 +1520,4 @@ blockquote.callout code { background: rgba(255, 255, 255, .7); }
 .callout-securite   { --callout-accent: #0f766e; --callout-border: #99f6e4; --callout-bg: #f0fdfa; }
 .callout-analogie   { --callout-accent: #db2777; --callout-border: #fbcfe8; --callout-bg: #fdf2f8; }
 .callout-memo       { --callout-accent: #ca8a04; --callout-border: #fef08a; --callout-bg: #fefce8; }
-.callout-note       { --callout-accent: #64748b; --callout-border: #e2e8f0; --callout-bg: #f8fafc; }
+.callout-note       { --callout-accent: #2563eb; --callout-border: #bfdbfe; --callout-bg: #eff6ff; }

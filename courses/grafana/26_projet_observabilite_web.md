@@ -78,7 +78,9 @@ flowchart LR
 
 Trois choix de conception pèsent plus lourd que le reste, et on les fait dès le départ.
 
-> 🧠 **Concept clé** — Les trois signaux ne servent à rien s'ils ne partagent pas de vocabulaire. Ici, le nom du service est `shop-api` partout : nom du service Docker (donc label Loki `service`), attribut `service.name` des traces, et job Prometheus. Le jour où vous passez d'une métrique à un log, vous changez d'outil, pas de nom.
+> 🧠 **Concept clé**
+>
+> Les trois signaux ne servent à rien s'ils ne partagent pas de vocabulaire. Ici, le nom du service est `shop-api` partout : nom du service Docker (donc label Loki `service`), attribut `service.name` des traces, et job Prometheus. Le jour où vous passez d'une métrique à un log, vous changez d'outil, pas de nom.
 {: .callout .callout-important}
 
 Deuxième choix : le label `route` des métriques contient le *gabarit* de la route (`/orders/<int:oid>`), jamais l'URL brute (`/orders/48213`). Une URL brute crée une série temporelle par identifiant, et votre cardinalité explose avant même la première alerte.
@@ -195,14 +197,18 @@ Quelques détails de ce code méritent qu'on s'y arrête, parce qu'ils condition
 
 `/health` fait un vrai `SELECT 1`. Un health check qui répond « ok » sans toucher la base vous dira que le processus tourne, pas que le service rend service. À vous de choisir la profondeur ; ici, on veut que la panne de la base fasse tomber la sonde.
 
-> 🏪 **Analogie : la vitrine allumée.** Un health check superficiel vérifie que la vitrine est éclairée. Un `SELECT 1` vérifie qu'une vente peut aboutir. Limite : même ce test ne garantit pas que chaque route fonctionne, seulement que l'API joint la base.
+> 🏪 **Analogie : la vitrine allumée**
+>
+> Un health check superficiel vérifie que la vitrine est éclairée. Un `SELECT 1` vérifie qu'une vente peut aboutir. Limite : même ce test ne garantit pas que chaque route fonctionne, seulement que l'API joint la base.
 {: .callout .callout-analogie}
 
 `/metrics` et `/health` sont exclus de l'enregistrement. Sinon, les sondes toutes les 15 secondes dilueraient vos percentiles de latence avec des requêtes sans intérêt.
 
 L'endpoint `/debug/fault` est notre interrupteur de panne. Il n'a évidemment rien à faire dans une vraie application exposée.
 
-> ⚠️ **Erreur fréquente** — Lancer cette application avec plusieurs workers Gunicorn. Chaque worker a ses propres compteurs en mémoire, et Prometheus verra des valeurs qui sautent d'un scrape à l'autre selon le worker qui répond. Dans le Dockerfile, on garde un seul worker avec des threads : `gunicorn -b 0.0.0.0:8000 --workers 1 --threads 4 main:app`. Le mode multiprocess de `prometheus_client` existe, mais c'est un autre sujet.
+> ⚠️ **Erreur fréquente**
+>
+> Lancer cette application avec plusieurs workers Gunicorn. Chaque worker a ses propres compteurs en mémoire, et Prometheus verra des valeurs qui sautent d'un scrape à l'autre selon le worker qui répond. Dans le Dockerfile, on garde un seul worker avec des threads : `gunicorn -b 0.0.0.0:8000 --workers 1 --threads 4 main:app`. Le mode multiprocess de `prometheus_client` existe, mais c'est un autre sujet.
 {: .callout .callout-attention}
 
 Pour le reste de la v1, un `compose.yaml` minimal avec des versions épinglées dans `.env` (prenez les versions stables du moment, l'important est de les figer) :
@@ -360,7 +366,9 @@ loki.write "local" {
 
 Un seul label est posé sur les logs : `service`, tiré du nom du service Compose. C'est volontairement pauvre. Chaque label supplémentaire multiplie le nombre de flux que Loki doit gérer ; tout le reste (niveau, route, trace_id) se filtre dans la requête grâce au JSON.
 
-> ⚠️ **Erreur fréquente** — Monter `/var/run/docker.sock` dans un conteneur, c'est lui donner un levier très puissant sur l'hôte, même en lecture seule. Acceptable dans un lab local, à ne pas copier tel quel ailleurs.
+> ⚠️ **Erreur fréquente**
+>
+> Monter `/var/run/docker.sock` dans un conteneur, c'est lui donner un levier très puissant sur l'hôte, même en lecture seule. Acceptable dans un lab local, à ne pas copier tel quel ailleurs.
 {: .callout .callout-attention}
 
 Il reste à relier les signaux. C'est dans la provisioning des datasources que ça se joue :
@@ -399,7 +407,9 @@ datasources:
 
 Deux choses à comprendre ici. Le champ dérivé dit à Grafana : « dans une ligne de log, si vous voyez `"trace_id": "..."`, transformez la valeur en lien vers Tempo ». Et le sens inverse, depuis une trace, lance une requête Loki qui cherche l'identifiant dans les lignes du service. Les noms exacts des options et le rendu de l'interface peuvent varier selon la version de Grafana : en cas de doute, configurez la corrélation une fois dans l'UI, puis exportez-la.
 
-> 💡 **Astuce** — Le `$$` n'est pas une faute de frappe. Les fichiers de provisioning interpolent les variables d'environnement ; un `$` unique serait avalé avant que Grafana ne voie `${__value.raw}`. Doubler le signe le laisse passer littéralement.
+> 💡 **Astuce**
+>
+> Le `$$` n'est pas une faute de frappe. Les fichiers de provisioning interpolent les variables d'environnement ; un `$` unique serait avalé avant que Grafana ne voie `${__value.raw}`. Doubler le signe le laisse passer littéralement.
 {: .callout .callout-astuce}
 
 **Vérification de la v2.** Dans Explore, source Loki : `{service="shop-api"} | json`. Vous devez voir des lignes avec un `trace_id` cliquable. Un clic doit ouvrir la trace dans Tempo, avec un span serveur et, dessous, un span `SELECT` côté base. Depuis la trace, le bouton vers les logs doit ramener la ligne de la requête. Si l'une de ces trois étapes échoue, ne passez pas à la suite : l'incident de la section suivante repose entièrement sur ce chemin.
@@ -452,7 +462,9 @@ Un dashboard qui répond à « qu'est-ce que je peux afficher ? » finit en mur 
 
 **Dashboard « Shop — Application »** répond à : *l'API rend-elle le service attendu, et si non, où ça casse ?*
 
-> 📖 **Définition.** La méthode RED surveille un service par trois signaux, ici appliqués par route : Rate (débit des requêtes), Errors (taux d'erreurs) et Duration (latence).
+> 📖 **Définition**
+>
+> La méthode RED surveille un service par trois signaux, ici appliqués par route : Rate (débit des requêtes), Errors (taux d'erreurs) et Duration (latence).
 {: .callout .callout-definition}
 
 | Panel | Requête |
@@ -479,7 +491,9 @@ Les noms de labels cAdvisor (`name` ici) dépendent de l'environnement et de la 
 
 Pourquoi deux dashboards plutôt qu'un ? Parce que le diagnostic suit cet ordre : on regarde d'abord le service (est-ce cassé, et où ?), puis seulement les ressources (est-ce expliqué par la machine ?). Sur un incident de latence, le second dashboard sert à *éliminer* des hypothèses, et on verra que c'est précieux.
 
-> ⚠️ **Erreur fréquente** — Exporter un dashboard depuis l'UI avec l'option « Export for sharing externally » activée. Grafana remplace alors l'UID de la datasource par un placeholder du genre `${DS_PROMETHEUS}`, que le provisioning ne sait pas résoudre : tous les panels affichent « datasource not found ». Pour un dashboard provisionné, exportez le JSON **sans** cette option.
+> ⚠️ **Erreur fréquente**
+>
+> Exporter un dashboard depuis l'UI avec l'option « Export for sharing externally » activée. Grafana remplace alors l'UID de la datasource par un placeholder du genre `${DS_PROMETHEUS}`, que le provisioning ne sait pas résoudre : tous les panels affichent « datasource not found ». Pour un dashboard provisionné, exportez le JSON **sans** cette option.
 {: .callout .callout-attention}
 
 ## Alertes : détecter, et savoir quoi faire quand les données manquent
@@ -497,7 +511,9 @@ La dernière colonne est celle qu'on oublie, et qui fait toute la différence. R
 - Pour la disponibilité, si `probe_success` disparaît, c'est que blackbox ou Prometheus est cassé, ou que la cible n'est plus configurée. On ne peut plus affirmer que le service va bien : on alerte.
 - Pour les erreurs et la latence, une absence de données signifie souvent « aucune requête dans la fenêtre » (le ratio ou le percentile n'est alors pas calculable). Pour le ratio d'erreurs, elle signifie aussi « aucune 5xx encore émise » : la série du numérateur n'existe pas tant qu'aucune erreur n'a été comptée, d'où l'intérêt d'un `or vector(0)` sur le numérateur. Alerter à chaque période creuse noierait l'équipe, et la disponibilité couvre déjà le cas d'une API réellement morte.
 
-> 💡 **À retenir** — Cette asymétrie est un choix, pas une règle universelle. L'important, c'est qu'il soit fait *explicitement*, et non laissé au défaut de l'outil.
+> 💡 **À retenir**
+>
+> Cette asymétrie est un choix, pas une règle universelle. L'important, c'est qu'il soit fait *explicitement*, et non laissé au défaut de l'outil.
 {: .callout .callout-important}
 
 Voici la règle de latence en provisioning. Dans la pratique, créez-la d'abord dans l'UI puis exportez-la pour obtenir la forme exacte de votre version ; ce YAML vous montre la structure à reconnaître.

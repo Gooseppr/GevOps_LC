@@ -36,7 +36,9 @@ next_module_title: "Provisioning, API et versionnement"
 
 En décembre 2021, Grafana publie des correctifs pour **CVE-2021-43798**. Le défaut touche les versions 8.0.0-beta1 à 8.3.0 et affecte une route qui sert les fichiers statiques des plugins : un chemin avec des `../` permet de sortir du répertoire du plugin. Aucun compte n'est nécessaire. Des scanners comme `nuclei` ont aussitôt embarqué un template de détection, et des instances exposées sur Internet ont été balayées en masse.
 
-> 🔴 **Vecteur d'attaque** : l'attaquant ne se contente pas de `/etc/passwd`. Il cible deux fichiers.
+> 🔴 **Vecteur d'attaque**
+>
+> L'attaquant ne se contente pas de `/etc/passwd`. Il cible deux fichiers.
 {: .callout .callout-danger}
 
 ```bash
@@ -78,7 +80,9 @@ Ce module construit la défense dans l'ordre inverse de l'attaque : réduire ce 
 
 ## Organisations, utilisateurs, équipes et dossiers ⭐
 
-> 🧠 **Concept clé** : ces quatre niveaux ne protègent pas contre la même chose. La majorité des incidents d'accès Grafana viennent de la confusion entre « masquer dans l'interface » et « isoler dans le backend ».
+> 🧠 **Concept clé**
+>
+> Ces quatre niveaux ne protègent pas contre la même chose. La majorité des incidents d'accès Grafana viennent de la confusion entre « masquer dans l'interface » et « isoler dans le backend ».
 {: .callout .callout-important}
 
 ```mermaid
@@ -106,10 +110,12 @@ Les rôles de base d'une organisation sont `Admin`, `Editor`, `Viewer` et `None`
 
 ### RBAC et capacités selon l'édition
 
-> 📖 **Définition.** RBAC (Role-Based Access Control) est le mécanisme de Grafana qui décompose les droits en permissions fines (`dashboards:write`, `datasources:query`, `alert.rules:read`…) regroupées en rôles.
-{: .callout .callout-definition}
-
 Ce qui est disponible dépend de l'édition. Vérifiez dans la documentation de votre version, car cette répartition évolue.
+
+> 📖 **Définition**
+>
+> RBAC (Role-Based Access Control) est le mécanisme de Grafana qui décompose les droits en permissions fines (`dashboards:write`, `datasources:query`, `alert.rules:read`…) regroupées en rôles.
+{: .callout .callout-definition}
 
 | Capacité | OSS | Enterprise / Cloud |
 |---|---|---|
@@ -128,10 +134,14 @@ Le coût d'Enterprise est réel, mais le coût inverse l'est aussi : sans permis
 
 Un Viewer limité au dossier `Team-A` ne peut pas ouvrir les dashboards de `Team-B`. Mais en OSS, il garde le droit d'interroger les Data Sources de l'organisation. L'UI n'est qu'un client de l'API : masquer Explore n'est donc pas une protection.
 
-> 🚪 **Analogie : effacer une porte du plan.** Masquer un dashboard ou Explore revient à retirer une porte du plan de l'immeuble sans la verrouiller : qui sait où elle se trouve entre quand même. Seul un verrou côté backend ou une organisation séparée ferme réellement l'accès.
+> 🚪 **Analogie : effacer une porte du plan**
+>
+> Masquer un dashboard ou Explore revient à retirer une porte du plan de l'immeuble sans la verrouiller : qui sait où elle se trouve entre quand même. Seul un verrou côté backend ou une organisation séparée ferme réellement l'accès.
 {: .callout .callout-analogie}
 
-> 🔴 **Vecteur d'attaque** : un compte Viewer appelle directement `/api/ds/query`. L'`uid` de la Data Source apparaît dans le JSON de n'importe quel dashboard lisible.
+> 🔴 **Vecteur d'attaque**
+>
+> Un compte Viewer appelle directement `/api/ds/query`. L'`uid` de la Data Source apparaît dans le JSON de n'importe quel dashboard lisible.
 {: .callout .callout-danger}
 
 ```bash
@@ -142,7 +152,9 @@ curl -s -u <VIEWER>:<PASSWORD> -H 'Content-Type: application/json' \
 
 Si la réponse contient des séries du namespace `team-b-prod`, la frontière n'existe qu'au niveau de l'interface.
 
-> 🔒 **Contrôle de sécurité** : le bon choix dépend du niveau d'isolation exigé.
+> 🔒 **Contrôle de sécurité**
+>
+> Le bon choix dépend du niveau d'isolation exigé.
 {: .callout .callout-securite}
 
 | Besoin | Mise en œuvre | Compromis |
@@ -169,7 +181,9 @@ datasources:
       httpHeaderValue1: team-a
 ```
 
-> ⚠️ **Erreur fréquente** : `X-Scope-OrgID` est une convention d'adressage, pas une authentification. Si Loki est joignable directement depuis le réseau des utilisateurs, n'importe qui peut choisir un autre tenant. Il faut une passerelle qui authentifie et fixe l'en-tête, ou une isolation réseau stricte, ce qui fait entrer le pare-feu dans le périmètre de sécurité des données.
+> ⚠️ **Erreur fréquente**
+>
+> `X-Scope-OrgID` est une convention d'adressage, pas une authentification. Si Loki est joignable directement depuis le réseau des utilisateurs, n'importe qui peut choisir un autre tenant. Il faut une passerelle qui authentifie et fixe l'en-tête, ou une isolation réseau stricte, ce qui fait entrer le pare-feu dans le périmètre de sécurité des données.
 {: .callout .callout-attention}
 
 ## Authentification : local, OAuth et SSO
@@ -182,7 +196,9 @@ datasources:
 - SAML (Security Assertion Markup Language) est réservé à Enterprise/Cloud.
 - LDAP (Lightweight Directory Access Protocol) reste disponible en OSS.
 
-> 💡 **À retenir** : le SSO n'est rentable que si le mapping de rôles est correctement fait. Un SSO sans mapping donne à tout le monde le rôle par défaut.
+> 💡 **À retenir**
+>
+> Le SSO n'est rentable que si le mapping de rôles est correctement fait. Un SSO sans mapping donne à tout le monde le rôle par défaut.
 {: .callout .callout-important}
 
 Configuration avec refus par défaut :
@@ -216,7 +232,9 @@ Points à comprendre :
 
 Compte de secours : gardez un compte local administrateur au mot de passe fort et stocké hors ligne. Après activation du SSO, vous pouvez masquer le formulaire avec `[auth] disable_login_form = true`. Pour reprendre la main en cas d'IdP indisponible, il faut un accès shell : `grafana cli admin reset-admin-password <PASSWORD>`.
 
-> ⚠️ **Auth proxy** (`[auth.proxy]`) : Grafana fait confiance à un en-tête (ex. `X-WEBAUTH-USER`) posé par le proxy. Si Grafana est joignable sans passer par le proxy, un simple `curl -H 'X-WEBAUTH-USER: admin'` suffit. N'activez ce mode que si Grafana n'écoute que sur le réseau du proxy et définissez `whitelist` avec ses adresses.
+> ⚠️ **Attention**
+>
+> **Auth proxy** (`[auth.proxy]`) : Grafana fait confiance à un en-tête (ex. `X-WEBAUTH-USER`) posé par le proxy. Si Grafana est joignable sans passer par le proxy, un simple `curl -H 'X-WEBAUTH-USER: admin'` suffit. N'activez ce mode que si Grafana n'écoute que sur le réseau du proxy et définissez `whitelist` avec ses adresses.
 {: .callout .callout-attention}
 
 ## Configuration sécurisée
@@ -294,7 +312,9 @@ Ce que ça coûte et ce que ça impose :
 - `$__file{...}` lit le secret depuis un fichier monté (Docker secrets, Kubernetes Secret). En variables d'environnement, le suffixe `__FILE` fait la même chose : `GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_admin_password`.
 - Les paramètres dépendent de la version : vérifiez `defaults.ini` de la version déployée.
 
-> 💡 **Astuce** : changez le mot de passe admin dès le premier démarrage, avant de publier quoi que ce soit. Après coup, `grafana cli admin reset-admin-password` marche aussi, mais ne répare pas le fait que la fenêtre d'exposition ait existé.
+> 💡 **Astuce**
+>
+> Changez le mot de passe admin dès le premier démarrage, avant de publier quoi que ce soit. Après coup, `grafana cli admin reset-admin-password` marche aussi, mais ne répare pas le fait que la fenêtre d'exposition ait existé.
 {: .callout .callout-astuce}
 
 ## Secrets et credentials de Data Sources
@@ -328,7 +348,9 @@ Règles de gestion :
 - Chaque Data Source utilise un compte backend en **lecture seule** avec le périmètre minimal. Pour une base SQL, un rôle `SELECT` sur les schémas utiles, pas le compte applicatif.
 - Jamais d'identifiants dans l'URL (`https://user:pass@host`), ni de token dans une query string : l'URL apparaît dans les logs du proxy et dans le JSON de Data Source lisible par les éditeurs.
 
-> ⚠️ **Erreur fréquente** : un token API collé dans un panel Text ou un champ « custom header » de l'UI plutôt que dans `secureJsonData`. Il devient lisible dans l'export JSON du dashboard et indexé par tout outil de sauvegarde. Correction : en-têtes sensibles via `httpHeaderName1` + `secureJsonData.httpHeaderValue1`.
+> ⚠️ **Erreur fréquente**
+>
+> Un token API collé dans un panel Text ou un champ « custom header » de l'UI plutôt que dans `secureJsonData`. Il devient lisible dans l'export JSON du dashboard et indexé par tout outil de sauvegarde. Correction : en-têtes sensibles via `httpHeaderName1` + `secureJsonData.httpHeaderValue1`.
 {: .callout .callout-attention}
 
 Après un incident, la rotation se fait côté **backend** : changez le mot de passe de chaque compte stocké dans Grafana, puis mettez à jour la Data Source. Régénérer `secret_key` ne protège pas des secrets déjà déchiffrés par l'attaquant.
@@ -494,7 +516,9 @@ Actions, dans l'ordre :
 4. **Nettoyer** : masquer les emails dans les logs à la source (pipeline de collecte), et invalider les sessions loguées.
 5. **Vérifier** : un compte de test par équipe rejoue la requête directe contre les autres tenants et doit obtenir un résultat vide ou un refus.
 
-> 💡 **À retenir** : la discussion « qui voit quel dashboard » a masqué la vraie question, « qui peut lire quelle donnée ».
+> 💡 **À retenir**
+>
+> La discussion « qui voit quel dashboard » a masqué la vraie question, « qui peut lire quelle donnée ».
 {: .callout .callout-important}
 
 Le coût final a été le multiplicateur de Data Sources et d'organisations, bien inférieur à celui d'un incident de données clients.

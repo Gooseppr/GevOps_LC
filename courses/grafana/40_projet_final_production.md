@@ -100,7 +100,9 @@ flowchart LR
     PV --> G
 ```
 
-> 🧠 **Concept clé** : dans ce projet, **Git est la source de vérité**. L'interface de Grafana sert à explorer et à prototyper, pas à stocker. Une modification qui n'est pas passée par le dépôt est une dette, parce qu'elle disparaîtra à la prochaine reconstruction ou, pire, entrera en conflit avec elle.
+> 🧠 **Concept clé**
+>
+> Dans ce projet, **Git est la source de vérité**. L'interface de Grafana sert à explorer et à prototyper, pas à stocker. Une modification qui n'est pas passée par le dépôt est une dette, parce qu'elle disparaîtra à la prochaine reconstruction ou, pire, entrera en conflit avec elle.
 {: .callout .callout-important}
 
 ## Construction progressive
@@ -185,7 +187,9 @@ providers:
       foldersFromFilesStructure: true
 ```
 
-> ⚠️ **Erreur fréquente** : un collègue ouvre un dashboard provisionné, le modifie, clique sur « Save » et obtient « Cannot save provisioned dashboard ». Ce n'est pas un bug, c'est le verrou qui fait son travail. La correction n'est pas de passer `allowUiUpdates` à `true`, mais d'exporter le JSON depuis l'interface, de le déposer dans le dépôt et de passer par la revue. Expliquez-le dans la documentation d'exploitation, sinon la règle sera perçue comme une panne.
+> ⚠️ **Erreur fréquente**
+>
+> Un collègue ouvre un dashboard provisionné, le modifie, clique sur « Save » et obtient « Cannot save provisioned dashboard ». Ce n'est pas un bug, c'est le verrou qui fait son travail. La correction n'est pas de passer `allowUiUpdates` à `true`, mais d'exporter le JSON depuis l'interface, de le déposer dans le dépôt et de passer par la revue. Expliquez-le dans la documentation d'exploitation, sinon la règle sera perçue comme une panne.
 {: .callout .callout-attention}
 
 Côté Terraform, un compte de service dédié, avec un rôle limité et un jeton à durée de vie courte, remplace le compte admin. Voici le cœur du routage :
@@ -253,7 +257,9 @@ La v3 ne rajoute pas de fonctionnalités de supervision. Elle retire les points 
     basicAuthPassword: ${PROM_PASSWORD}
 ```
 
-> 💡 **Astuce** : Grafana ne cloisonne pas les données à lui seul. Si la Data Source Loki se connecte avec un seul tenant partagé, tous les utilisateurs autorisés à l'interroger voient les logs de toutes les équipes. Pour une vraie séparation, il faut un tenant par périmètre côté Loki et une Data Source par tenant, avec les permissions de Data Source alignées.
+> 💡 **Astuce**
+>
+> Grafana ne cloisonne pas les données à lui seul. Si la Data Source Loki se connecte avec un seul tenant partagé, tous les utilisateurs autorisés à l'interroger voient les logs de toutes les équipes. Pour une vraie séparation, il faut un tenant par périmètre côté Loki et une Data Source par tenant, avec les permissions de Data Source alignées.
 {: .callout .callout-astuce}
 
 ## Sécurisation et sauvegardes
@@ -281,7 +287,9 @@ Pour les sauvegardes, il faut distinguer ce qui se reconstruit de ce qui se perd
 pg_dump -Fc -h <HOST> -U grafana -d grafana -f grafana-$(date +%F).dump
 ```
 
-> ⚠️ **Erreur fréquente** : considérer qu'une sauvegarde qui s'exécute est une sauvegarde qui fonctionne. Une archive jamais restaurée n'est qu'une hypothèse. Le rapport de validation doit contenir une **restauration réelle** dans un environnement vierge, avec la durée mesurée et un contrôle du résultat (utilisateurs présents, silences présents, dashboards identiques à Git).
+> ⚠️ **Erreur fréquente**
+>
+> Considérer qu'une sauvegarde qui s'exécute est une sauvegarde qui fonctionne. Une archive jamais restaurée n'est qu'une hypothèse. Le rapport de validation doit contenir une **restauration réelle** dans un environnement vierge, avec la durée mesurée et un contrôle du résultat (utilisateurs présents, silences présents, dashboards identiques à Git).
 {: .callout .callout-attention}
 
 ## Dashboards : trois niveaux, un chemin
@@ -309,7 +317,9 @@ Une alerte qui ne mène à aucune action est du bruit. La conception part donc d
 ) / 0.005 > 14.4
 ```
 
-> 📖 **Définition.** Le taux de consommation (*burn rate*) est le ratio d'erreurs observé divisé par le ratio d'erreurs toléré par l'objectif, soit 0,005 pour 99,5 %. C'est exactement ce que calcule la requête ci-dessus.
+> 📖 **Définition**
+>
+> Le taux de consommation (*burn rate*) est le ratio d'erreurs observé divisé par le ratio d'erreurs toléré par l'objectif, soit 0,005 pour 99,5 %. C'est exactement ce que calcule la requête ci-dessus.
 {: .callout .callout-definition}
 
 Un taux de consommation de 14,4 épuise environ 2 % du budget mensuel en une heure. C'est le seuil classique pour une alerte qui réveille quelqu'un, généralement combinée avec une fenêtre plus longue pour éviter les faux positifs. Les noms de métriques sont ceux de l'application de démonstration, adaptez-les à vos propres instruments.
@@ -318,14 +328,18 @@ Un taux de consommation de 14,4 épuise environ 2 % du budget mensuel en une heu
 
 Pour chaque règle, décidez explicitement ce que signifie l'absence de données (service arrêté, collecte coupée, ou état normal) et configurez les deux états en conséquence.
 
-> 💡 **À retenir.** Une règle de disponibilité qui passe silencieusement en « normal » quand Prometheus est injoignable est pire que l'absence de règle, car elle donne une fausse sécurité.
+> 💡 **À retenir**
+>
+> Une règle de disponibilité qui passe silencieusement en « normal » quand Prometheus est injoignable est pire que l'absence de règle, car elle donne une fausse sécurité.
 {: .callout .callout-important}
 
 **Le heartbeat.** Une alerte « Watchdog » toujours active est renvoyée à intervalle court vers un service externe à la plateforme. Ce service déclenche une alerte si les battements s'arrêtent. L'envoi passe par une politique de notification dédiée dont `group_interval` et `repeat_interval` sont courts : la politique racine, à 4h, ne convient pas.
 
 C'est le seul moyen de savoir que **Grafana lui-même** ne notifie plus : un système de supervision ne peut pas s'alerter de sa propre mort.
 
-> 🚆 **Analogie : le dispositif de l'homme mort.** Dans un train, le conducteur doit actionner régulièrement une commande. S'il cesse, le train freine automatiquement. Ici aussi, c'est l'absence de signal qui déclenche la réaction, pas un message d'erreur. Limite de l'image : le service externe se contente de prévenir, il n'arrête ni ne répare rien.
+> 🚆 **Analogie : le dispositif de l'homme mort**
+>
+> Dans un train, le conducteur doit actionner régulièrement une commande. S'il cesse, le train freine automatiquement. Ici aussi, c'est l'absence de signal qui déclenche la réaction, pas un message d'erreur. Limite de l'image : le service externe se contente de prévenir, il n'arrête ni ne répare rien.
 {: .callout .callout-analogie}
 
 **Le routage.** Il s'appuie sur les labels portés par les règles : `severity` et `service` au minimum. Les alertes critiques vont vers l'astreinte, les autres vers le canal d'équipe, avec regroupement par service pour éviter vingt messages pour une seule panne.
@@ -359,7 +373,9 @@ C'est le cœur de la validation. Chaque scénario a la même structure : on inje
 | Coupure réseau | `docker network disconnect <RESEAU> <CONTENEUR_ALLOY>` | Trous dans les courbes, métrique `up` absente | Alerte sur l'absence de données, pas sur un zéro apparent |
 | Data Source en échec | `docker compose pause prometheus`, ou mauvais mot de passe injecté | Panneaux en erreur, règles en état `Error` | Alerte sur l'état d'erreur (`DatasourceError`) ; arrêt du heartbeat seulement si la règle Watchdog interroge Prometheus |
 
-> ⚠️ **Erreur fréquente** : valider uniquement que « quelque chose s'affiche en rouge ». Le critère n'est pas visuel. Il porte sur quatre mesures : le délai entre l'injection et la première notification, la justesse du routage, la capacité d'une personne extérieure à diagnostiquer à partir du seul dashboard, et le temps de retour à la normale après réparation.
+> ⚠️ **Erreur fréquente**
+>
+> Valider uniquement que « quelque chose s'affiche en rouge ». Le critère n'est pas visuel. Il porte sur quatre mesures : le délai entre l'injection et la première notification, la justesse du routage, la capacité d'une personne extérieure à diagnostiquer à partir du seul dashboard, et le temps de retour à la normale après réparation.
 {: .callout .callout-attention}
 
 Quelques subtilités à surveiller particulièrement :

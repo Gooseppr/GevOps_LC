@@ -56,7 +56,9 @@ flowchart LR
 
 Le backend évalue la requête (c'est là que se joue le coût de PromQL ou LogQL). Le trajet retour transporte un volume de données. Enfin le navigateur dessine des séries et des points. Un panel qui retourne 400 000 lignes peut avoir une évaluation rapide côté Prometheus et pourtant geler l'onglet pendant plusieurs secondes.
 
-> 🧠 **Concept clé** — Le coût d'une requête dépend de deux choses multipliées : le nombre de séries touchées et le nombre d'échantillons lus par série. La cardinalité agit sur le premier facteur, la plage de temps et le `step` sur le second.
+> 🧠 **Concept clé**
+>
+> Le coût d'une requête dépend de deux choses multipliées : le nombre de séries touchées et le nombre d'échantillons lus par série. La cardinalité agit sur le premier facteur, la plage de temps et le `step` sur le second.
 {: .callout .callout-important}
 
 ## Query Inspector : le point de départ de tout diagnostic
@@ -81,7 +83,9 @@ Trois lectures rapides suffisent souvent.
 
 **Plusieurs requêtes dans le même panel.** Le temps affiché est celui de l'ensemble. Désactivez les requêtes une par une (l'icône œil dans l'éditeur) jusqu'à repérer la coupable. C'est rudimentaire, mais ça marche à chaque fois.
 
-> 💡 **Astuce** — Copiez la requête affichée dans l'onglet **Query** (celle avec les variables résolues) et rejouez-la dans Explore. Vous éliminez l'effet du dashboard : si elle est rapide seule, le problème vient du nombre de panels ou de la variable, pas de la requête.
+> 💡 **Astuce**
+>
+> Copiez la requête affichée dans l'onglet **Query** (celle avec les variables résolues) et rejouez-la dans Explore. Vous éliminez l'effet du dashboard : si elle est rapide seule, le problème vient du nombre de panels ou de la variable, pas de la requête.
 {: .callout .callout-astuce}
 
 Pour comparer ce que Grafana mesure avec ce que Prometheus voit, activez le journal des requêtes côté serveur :
@@ -128,7 +132,9 @@ Les réglages se trouvent dans l'éditeur du panel → **Query options** :
 - **Resolution** (Prometheus) : un ratio 1/2 ou 1/3 divise le nombre de points demandés.
 - **Type : Instant** (dans les options de la requête Prometheus, sous l'éditeur de requête) : pour un panel Stat, Gauge ou Table, qui n'affiche qu'une valeur, une requête instantanée évite de calculer toute une série temporelle pour n'en garder que le dernier point.
 
-> ⚠️ **Erreur fréquente** — Écrire `rate(http_requests_total[$__interval])`. Si le step tombe sous deux fois l'intervalle de collecte, la fenêtre ne contient pas assez d'échantillons et le panel affiche des trous. Utilisez `$__rate_interval`, que Grafana calcule en tenant compte de l'intervalle de scrape configuré dans la data source (au moins quatre fois cet intervalle, ou le step plus l'intervalle de scrape si c'est plus grand).
+> ⚠️ **Erreur fréquente**
+>
+> Écrire `rate(http_requests_total[$__interval])`. Si le step tombe sous deux fois l'intervalle de collecte, la fenêtre ne contient pas assez d'échantillons et le panel affiche des trous. Utilisez `$__rate_interval`, que Grafana calcule en tenant compte de l'intervalle de scrape configuré dans la data source (au moins quatre fois cet intervalle, ou le step plus l'intervalle de scrape si c'est plus grand).
 {: .callout .callout-attention}
 
 Et si la plage est longue avec un step trop fin, Prometheus refuse la requête avec `exceeded maximum resolution of 11,000 points per timeseries`. Ce n'est pas un bug : c'est une protection. On y répond en augmentant le step ou en réduisant la plage, pas en cherchant à contourner la limite.
@@ -179,10 +185,12 @@ Autres règles :
 
 ## Cardinalité : pourquoi une requête simple peut coûter une fortune
 
-> 📖 **Définition.** La cardinalité d'une métrique est son nombre de séries distinctes. Elle vaut au plus le produit du nombre de valeurs de chacun de ses labels, car seules les combinaisons réellement émises créent des séries.
-{: .callout .callout-definition}
-
 Elle se mesure vite, et elle explose vite.
+
+> 📖 **Définition**
+>
+> La cardinalité d'une métrique est son nombre de séries distinctes. Elle vaut au plus le produit du nombre de valeurs de chacun de ses labels, car seules les combinaisons réellement émises créent des séries.
+{: .callout .callout-definition}
 
 Prenons `http_requests_total` avec les labels suivants :
 
@@ -217,7 +225,9 @@ Pour vérifier un label précis, comptez ses valeurs distinctes :
 count(count by (route) (http_requests_total))
 ```
 
-> ⚠️ **Erreur fréquente** — Lancer `topk(10, count by (__name__) ({__name__=~".+"}))` en production pour chercher la métrique la plus lourde. Cette requête touche toutes les séries de la base : elle peut elle-même provoquer l'incident. Passez par la page TSDB Status.
+> ⚠️ **Erreur fréquente**
+>
+> Lancer `topk(10, count by (__name__) ({__name__=~".+"}))` en production pour chercher la métrique la plus lourde. Cette requête touche toutes les séries de la base : elle peut elle-même provoquer l'incident. Passez par la page TSDB Status.
 {: .callout .callout-attention}
 
 Côté Loki, le principe est le même avec les labels de flux : chaque combinaison de valeurs crée un flux distinct. `logcli series '{app="api"}' --analyze-labels` aide à repérer ceux qui ont trop de valeurs (la disponibilité de l'option dépend de la version de `logcli`). Les identifiants de requête ou d'utilisateur n'ont pas leur place dans les labels. Selon la version de Loki, les *structured metadata* peuvent les accueillir sans multiplier les flux.
@@ -240,7 +250,9 @@ Attention, `labeldrop` peut fusionner deux séries qui ne différaient que par c
 
 Quand une requête est coûteuse et consultée à répétition (par un dashboard, plusieurs utilisateurs, des alertes), il vaut mieux que Prometheus la calcule à intervalle régulier et stocke le résultat comme une nouvelle série. Les panels lisent alors cette série, légère, au lieu de réévaluer l'expression.
 
-> 🍳 **Analogie : la mise en place en cuisine.** Un restaurant prépare ses sauces avant le service au lieu de les refaire à chaque commande. La recording rule fait de même : le calcul est fait à l'avance, et la lecture devient immédiate. La limite de l'image : une préparation faite d'avance ne s'adapte plus à chaque demande, comme le précise le compromis décrit plus bas.
+> 🍳 **Analogie : la mise en place en cuisine**
+>
+> Un restaurant prépare ses sauces avant le service au lieu de les refaire à chaque commande. La recording rule fait de même : le calcul est fait à l'avance, et la lecture devient immédiate. La limite de l'image : une préparation faite d'avance ne s'adapte plus à chaque demande, comme le précise le compromis décrit plus bas.
 {: .callout .callout-analogie}
 
 ```yaml
@@ -273,7 +285,9 @@ Quel est le prix à payer ?
 
 L'objectif est la **préagrégation** : on supprime les labels dont personne n'a besoin à l'affichage.
 
-> 💡 **Astuce** — Réservez les recording rules aux expressions lentes (plus d'une seconde) et fréquentes. Pour une requête rapide consultée rarement, la règle ajoute de la maintenance sans bénéfice.
+> 💡 **Astuce**
+>
+> Réservez les recording rules aux expressions lentes (plus d'une seconde) et fréquentes. Pour une requête rapide consultée rarement, la règle ajoute de la maintenance sans bénéfice.
 {: .callout .callout-astuce}
 
 ## Analyser un dashboard lent
@@ -299,12 +313,16 @@ Quelques décisions concrètes :
 
 ## Rafraîchir plus vite : la fausse bonne idée
 
-> ⚠️ **Piège** — Passer un dashboard à 5 secondes de rafraîchissement donne l'impression de voir en direct. Si la collecte se fait toutes les 15 secondes, deux rafraîchissements sur trois affichent exactement les mêmes données. Vous avez triplé la charge sans gagner une seule information.
-{: .callout .callout-attention}
-
 Prenez un chiffre illustratif : 25 personnes ont le dashboard ouvert, il contient 40 requêtes, et il se rafraîchit toutes les 10 secondes. Cela fait 25 × 40 / 10 = 100 requêtes par seconde sur les data sources, en continu, y compris pour les onglets oubliés derrière une autre fenêtre. Passez à 5 secondes et vous doublez ce flux.
 
-> 💡 **À retenir** — L'intervalle de rafraîchissement ne devrait pas descendre sous l'intervalle de collecte. Il doit aussi être cohérent avec la décision qu'il permet de prendre.
+> ⚠️ **Piège**
+>
+> Passer un dashboard à 5 secondes de rafraîchissement donne l'impression de voir en direct. Si la collecte se fait toutes les 15 secondes, deux rafraîchissements sur trois affichent exactement les mêmes données. Vous avez triplé la charge sans gagner une seule information.
+{: .callout .callout-attention}
+
+> 💡 **À retenir**
+>
+> L'intervalle de rafraîchissement ne devrait pas descendre sous l'intervalle de collecte. Il doit aussi être cohérent avec la décision qu'il permet de prendre.
 {: .callout .callout-important}
 
 Pendant une investigation, 30 secondes suffisent largement. Un écran mural n'a pas besoin de mieux qu'une minute.

@@ -44,12 +44,16 @@ Prometheus est pourtant bien là, et l'URL fonctionne depuis la VM. Le problème
 
 Grafana ne stocke pas vos métriques, vos logs ni vos traces. Il les demande aux systèmes qui les détiennent.
 
-> 📖 **Définition.** Une **Data Source** est la fiche de connexion d'un système à interroger : un nom, un type (`prometheus`, `loki`, `tempo`, `postgres`…), une adresse et éventuellement des identifiants.
+> 📖 **Définition**
+>
+> Une **Data Source** est la fiche de connexion d'un système à interroger : un nom, un type (`prometheus`, `loki`, `tempo`, `postgres`…), une adresse et éventuellement des identifiants.
 {: .callout .callout-definition}
 
 Quand vous ouvrez un panel ou Explore, Grafana envoie la requête à cette adresse et affiche la réponse.
 
-> 🧠 **Concept clé** : avec le mode d'accès par défaut, appelé **Server** (ou `proxy` dans les fichiers), les requêtes ne partent pas de votre navigateur. Elles partent du **processus Grafana**. L'URL d'une source doit donc être joignable *depuis la machine ou le conteneur où tourne Grafana*, pas depuis votre poste.
+> 🧠 **Concept clé**
+>
+> Avec le mode d'accès par défaut, appelé **Server** (ou `proxy` dans les fichiers), les requêtes ne partent pas de votre navigateur. Elles partent du **processus Grafana**. L'URL d'une source doit donc être joignable *depuis la machine ou le conteneur où tourne Grafana*, pas depuis votre poste.
 {: .callout .callout-important}
 
 ```mermaid
@@ -123,7 +127,9 @@ curl -s http://localhost:9090/-/ready
 
 Ce `curl` est exécuté sur l'hôte, via le port publié. Il valide Prometheus, pas encore la liaison Grafana → Prometheus.
 
-> 💡 **Astuce** : pour un vrai déploiement, remplacez `latest` par une version précise (`grafana/grafana:<VERSION>`). Une mise à jour silencieuse peut changer l'interface d'un jour à l'autre.
+> 💡 **Astuce**
+>
+> Pour un vrai déploiement, remplacez `latest` par une version précise (`grafana/grafana:<VERSION>`). Une mise à jour silencieuse peut changer l'interface d'un jour à l'autre.
 {: .callout .callout-astuce}
 
 ## Ajouter Prometheus dans l'interface
@@ -135,7 +141,9 @@ Dans Grafana, le chemin habituel est **Connections → Data sources → Add data
 
 Pourquoi `prometheus` et pas `localhost` ? Ce nom n'est pas magique : c'est le nom du service dans le fichier Compose. Docker Compose place tous les services sur un même réseau et fournit un DNS (Domain Name System) interne qui résout ces noms.
 
-> 💡 **À retenir.** Dans ce lab, depuis le conteneur Grafana, on désigne un autre conteneur par son nom de service, jamais par `localhost`.
+> 💡 **À retenir**
+>
+> Dans ce lab, depuis le conteneur Grafana, on désigne un autre conteneur par son nom de service, jamais par `localhost`.
 {: .callout .callout-important}
 
 Pour Léa, dont Prometheus tourne sur l'hôte en service système, la solution est `host.docker.internal`, détaillée dans la section de diagnostic.
@@ -158,7 +166,9 @@ Faut-il tout modifier ? Non, mais quelques réglages méritent d'être compris.
 
 Ici, TLS (Transport Layer Security) désigne le chiffrement du lien HTTPS entre Grafana et la source. Si votre source utilise un certificat signé par une autorité interne, ajoutez cette autorité dans **CA Cert** plutôt que de cocher « Skip TLS Verify ». Ce dernier réglage fait disparaître l'erreur, mais aussi la garantie de parler au bon serveur.
 
-> ⚠️ **Erreur fréquente** : mettre un mot de passe ou un jeton dans un fichier versionné, ou le saisir dans un champ visible par tous les éditeurs. Grafana stocke les secrets de manière chiffrée via ses champs dédiés (`secureJsonData` en provisioning). Dans un fichier de configuration, référencez une variable d'environnement plutôt qu'une valeur en clair.
+> ⚠️ **Erreur fréquente**
+>
+> Mettre un mot de passe ou un jeton dans un fichier versionné, ou le saisir dans un champ visible par tous les éditeurs. Grafana stocke les secrets de manière chiffrée via ses champs dédiés (`secureJsonData` en provisioning). Dans un fichier de configuration, référencez une variable d'environnement plutôt qu'une valeur en clair.
 {: .callout .callout-attention}
 
 ## Tester vraiment : au-delà du bouton
@@ -205,7 +215,9 @@ Dans un environnement existant, après connexion, Explore permet de rechercher u
 
 Grafana embarque nativement plusieurs sources relationnelles : **PostgreSQL**, **MySQL** et **Microsoft SQL Server**, entre autres. Elles servent à croiser métriques et données métier, par exemple le nombre de commandes par heure. Les réglages sont ceux d'une connexion de base classique : hôte et port (`postgres:5432`), nom de base, utilisateur, mode TLS.
 
-> ⚠️ **Erreur fréquente** : brancher Grafana sur une base avec un compte applicatif aux droits d'écriture. Grafana exécute les requêtes SQL qu'on lui donne, et un éditeur de dashboard peut donc, en théorie, écrire n'importe quoi. Créez un compte dédié en **lecture seule**, limité aux tables utiles.
+> ⚠️ **Erreur fréquente**
+>
+> Brancher Grafana sur une base avec un compte applicatif aux droits d'écriture. Grafana exécute les requêtes SQL qu'on lui donne, et un éditeur de dashboard peut donc, en théorie, écrire n'importe quoi. Créez un compte dédié en **lecture seule**, limité aux tables utiles.
 {: .callout .callout-attention}
 
 Pour d'autres systèmes (Elasticsearch, CloudWatch, Zabbix, MongoDB…), regardez dans le catalogue : **Connections → Add new connection**, puis recherche par nom. Certains plugins sont installables depuis l'interface, d'autres en ligne de commande, avec un redémarrage de Grafana :
@@ -288,7 +300,9 @@ La variable `PROM_PASSWORD` est fournie à l'exécution (variable d'environnemen
 
 Quand une connexion échoue, lisez le message d'erreur avec attention : il indique presque toujours à quelle couche s'arrêter. Les formulations exactes varient avec la version de Grafana.
 
-> ⚠️ **Le piège central : `localhost` dans un conteneur.** `localhost` désigne toujours *la machine qui exécute le processus*. Pour Grafana dans un conteneur, c'est le conteneur Grafana, pas la VM ni les autres conteneurs. Une URL `http://localhost:9090` ne peut donc réussir que si Prometheus tourne dans ce même conteneur.
+> ⚠️ **Le piège central : `localhost` dans un conteneur**
+>
+> `localhost` désigne toujours *la machine qui exécute le processus*. Pour Grafana dans un conteneur, c'est le conteneur Grafana, pas la VM ni les autres conteneurs. Une URL `http://localhost:9090` ne peut donc réussir que si Prometheus tourne dans ce même conteneur.
 {: .callout .callout-attention}
 
 Voici les correctifs selon l'emplacement de la cible :
@@ -309,7 +323,9 @@ Voici les correctifs selon l'emplacement de la cible :
 
 Attention aussi à l'écoute côté hôte : si Prometheus n'écoute que sur `127.0.0.1`, le conteneur ne pourra pas l'atteindre via l'adresse de l'hôte. Il faut alors que le service écoute sur une interface accessible.
 
-> 📞 **Analogie : un appel téléphonique.** `no such host`, c'est un numéro introuvable dans l'annuaire. `connection refused`, c'est un « pas d'abonné à ce numéro » immédiat. Le timeout, c'est une sonnerie dans le vide. Limite de l'image : un pare-feu configuré pour rejeter activement produit lui aussi un refus immédiat.
+> 📞 **Analogie : un appel téléphonique**
+>
+> `no such host`, c'est un numéro introuvable dans l'annuaire. `connection refused`, c'est un « pas d'abonné à ce numéro » immédiat. Le timeout, c'est une sonnerie dans le vide. Limite de l'image : un pare-feu configuré pour rejeter activement produit lui aussi un refus immédiat.
 {: .callout .callout-analogie}
 
 ### Symptôme : `connection refused`
@@ -352,7 +368,9 @@ Message typique : `context deadline exceeded` ou `i/o timeout`.
 
 Un `401` ou `403` signale que la connexion fonctionne mais que les identifiants sont refusés ou insuffisants. Un `x509: certificate signed by unknown authority` indique une autorité de certification inconnue de Grafana : ajoutez-la dans **CA Cert**. Un `404` sur le test peut venir d'un préfixe d'URL oublié derrière un reverse proxy, par exemple `https://monitoring.example/prometheus`.
 
-> 💡 **Astuce** : suivez toujours la même séquence, du plus bas au plus haut. Le nom se résout-il ? Le port répond-il ? L'authentification passe-t-elle ? La requête retourne-t-elle des données ? On s'arrête dès qu'un maillon casse, sans toucher aux couches supérieures.
+> 💡 **Astuce**
+>
+> Suivez toujours la même séquence, du plus bas au plus haut. Le nom se résout-il ? Le port répond-il ? L'authentification passe-t-elle ? La requête retourne-t-elle des données ? On s'arrête dès qu'un maillon casse, sans toucher aux couches supérieures.
 {: .callout .callout-astuce}
 
 ## Cas réel : scénario d'une migration vers Compose

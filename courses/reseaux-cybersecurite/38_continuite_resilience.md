@@ -57,7 +57,9 @@ PCA (Business Continuity Plan) et PRA (Disaster Recovery Plan) sont souvent conf
 - **PCA** : comment le métier continue-t-il à fonctionner, même mal, pendant que le SI est indisponible ? Il s'agit de procédures manuelles, de sites de repli et de priorités métier.
 - **PRA** : comment remet-on le SI en état de marche ? C'est un plan technique, avec des runbooks, un ordre de reprise et des responsables.
 
-> 🚗 **Analogie : la roue de secours et le garage.** Le PCA est la roue de secours : elle permet de continuer à rouler, moins vite, mais pas indéfiniment. Le PRA est la réparation au garage, qui remet la voiture en état. Un PRA excellent sans PCA laisse les entrepôts à l'arrêt pendant que les équipes IT restaurent. Un PCA sans PRA ne tient que quelques jours.
+> 🚗 **Analogie : la roue de secours et le garage**
+>
+> Le PCA est la roue de secours : elle permet de continuer à rouler, moins vite, mais pas indéfiniment. Le PRA est la réparation au garage, qui remet la voiture en état. Un PRA excellent sans PCA laisse les entrepôts à l'arrêt pendant que les équipes IT restaurent. Un PCA sans PRA ne tient que quelques jours.
 {: .callout .callout-analogie}
 
 Le BIA est l'exercice qui alimente les deux. Il part des activités métier et non des serveurs, et pour chacune il pose trois questions :
@@ -66,7 +68,9 @@ Le BIA est l'exercice qui alimente les deux. Il part des activités métier et n
 2. Quelle quantité de données le métier accepte-t-il de perdre ou de ressaisir ? C'est le RPO.
 3. Sur quels systèmes, personnes et fournisseurs l'activité repose-t-elle ?
 
-> 🧠 **Concept clé** : le RTO est un engagement de la DSI, la MTD est une limite du métier. On exige RTO < MTD avec de la marge, car la MTD inclut le temps de décision, de qualification de l'incident et de validation après restauration, pas seulement la restauration.
+> 🧠 **Concept clé**
+>
+> Le RTO est un engagement de la DSI, la MTD est une limite du métier. On exige RTO < MTD avec de la marge, car la MTD inclut le temps de décision, de qualification de l'incident et de validation après restauration, pas seulement la restauration.
 {: .callout .callout-important}
 
 Extrait de BIA (valeurs illustratives) :
@@ -100,7 +104,9 @@ Le RTO de 4 h du WMS est donc inatteignable avec une restauration complète. Tro
 
 Le débit réellement mesuré est souvent inférieur de moitié au débit théorique du lien. En cause : les petits fichiers, la déduplication, le chiffrement ou le dépôt partagé avec d'autres jobs.
 
-> 💡 **Astuce** : consignez chaque service dans un catalogue lisible par machine, versionné hors du SI de production. Il sert de base au BIA, aux exercices et à l'ordre de reprise.
+> 💡 **Astuce**
+>
+> Consignez chaque service dans un catalogue lisible par machine, versionné hors du SI de production. Il sert de base au BIA, aux exercices et à l'ordre de reprise.
 {: .callout .callout-astuce}
 
 ```yaml
@@ -151,7 +157,9 @@ Les actifs à protéger sont, dans l'ordre : l'identité (sans elle, rien ne red
 
 L'opération se déroule rarement en une seule étape. Entre l'accès initial et le chiffrement, il peut s'écouler plusieurs jours.
 
-> 📖 **Définition.** Le *dwell time* est la durée pendant laquelle l'attaquant est présent dans le SI sans être détecté, depuis l'accès initial jusqu'à sa détection, souvent au moment du chiffrement.
+> 📖 **Définition**
+>
+> Le *dwell time* est la durée pendant laquelle l'attaquant est présent dans le SI sans être détecté, depuis l'accès initial jusqu'à sa détection, souvent au moment du chiffrement.
 {: .callout .callout-definition}
 
 Pendant ce temps, l'attaquant procède notamment ainsi :
@@ -170,7 +178,9 @@ bcdedit /set {default} bootstatuspolicy ignoreallfailures
 
 5. Déployer le chiffrement à un moment où personne ne regarde (vendredi soir, veille de jour férié), via GPO, PsExec ou directement sur l'hyperviseur.
 
-> 🔴 **Vecteur d'attaque** : ce n'est pas le chiffrement qui compromet la reprise, c'est l'étape 3. Un opérateur qui a supprimé les sauvegardes avant de chiffrer rend le rapport de job « 100 % réussi » sans valeur.
+> 🔴 **Vecteur d'attaque**
+>
+> Ce n'est pas le chiffrement qui compromet la reprise, c'est l'étape 3. Un opérateur qui a supprimé les sauvegardes avant de chiffrer rend le rapport de job « 100 % réussi » sans valeur.
 {: .callout .callout-danger}
 
 Un autre point change les décisions de restauration : la date de compromission précède souvent la date de chiffrement de plusieurs jours, voire de plusieurs semaines. Restaurer le point de la veille peut réinstaller le malware et ses comptes de persistance. La rétention doit donc dépasser le dwell time observé dans votre secteur, et chaque point candidat doit être analysé (antivirus, YARA) dans un environnement isolé avant remise en production.
@@ -181,7 +191,9 @@ Un autre point change les décisions de restauration : la date de compromission 
 
 La règle 3-2-1-1-0 en donne le squelette.
 
-> 🔑 **Moyen mnémotechnique** : chaque chiffre est une exigence, à lire dans l'ordre. **3** copies, sur **2** supports différents, dont **1** hors site, dont **1** hors ligne ou immuable, et **0** erreur après vérification de restauration.
+> 🔑 **Moyen mnémotechnique**
+>
+> Chaque chiffre est une exigence, à lire dans l'ordre. **3** copies, sur **2** supports différents, dont **1** hors site, dont **1** hors ligne ou immuable, et **0** erreur après vérification de restauration.
 {: .callout .callout-memo}
 
 Le dernier « 0 » est celui qu'on oublie, et c'est le sujet de la section sur les tests.
@@ -216,7 +228,9 @@ aws s3api put-object-lock-configuration --bucket <BUCKET> \
   '{"ObjectLockEnabled":"Enabled","Rule":{"DefaultRetention":{"Mode":"COMPLIANCE","Days":35}}}'
 ```
 
-> ⚠️ **Erreur fréquente** : choisir le mode `GOVERNANCE` « pour pouvoir corriger une erreur ». Tout compte disposant de `s3:BypassGovernanceRetention` peut supprimer les objets. Un attaquant avec des clés d'administration cloud aura ce droit. Seul `COMPLIANCE` résiste, y compris au compte racine, avec la contrepartie qu'on ne peut plus purger même par erreur.
+> ⚠️ **Erreur fréquente**
+>
+> Choisir le mode `GOVERNANCE` « pour pouvoir corriger une erreur ». Tout compte disposant de `s3:BypassGovernanceRetention` peut supprimer les objets. Un attaquant avec des clés d'administration cloud aura ce droit. Seul `COMPLIANCE` résiste, y compris au compte racine, avec la contrepartie qu'on ne peut plus purger même par erreur.
 {: .callout .callout-attention}
 
 Pour un dépôt auto-hébergé, `restic` avec `rest-server --append-only --path <REPERTOIRE>` empêche un client compromis de supprimer ou d'écraser les snapshots existants. La purge se fait alors depuis une machine d'administration distincte, avec d'autres identifiants.
@@ -236,7 +250,9 @@ Pour un dépôt auto-hébergé, `restic` avec `rest-server --append-only --path 
 | Environnement de reprise isolé | VLAN ou tenant dédié, capacité réservée | Coût de calcul inutilisé 99 % du temps |
 | Runbooks | Version imprimée et copie sur un support indépendant du SI | Mise à jour à chaque changement d'architecture |
 
-> 🔒 **Contrôle de sécurité** : retirer la console de sauvegarde du domaine coupe la voie la plus courante (compromission AD → destruction des sauvegardes), et ne coûte qu'un peu de confort d'administration.
+> 🔒 **Contrôle de sécurité**
+>
+> Retirer la console de sauvegarde du domaine coupe la voie la plus courante (compromission AD → destruction des sauvegardes), et ne coûte qu'un peu de confort d'administration.
 {: .callout .callout-securite}
 
 ## Appliquer le moindre privilège au plan de reprise
@@ -252,10 +268,12 @@ La limite : plus on sépare les rôles, plus la restauration d'urgence demande d
 
 ## Les tests de récupération : le point qui fait la différence
 
-> ⚠️ **Piège central du module** : une sauvegarde qui existe mais n'a jamais été restaurée n'est pas une garantie de reprise. Le statut « réussi » signifie que le job a écrit des données, pas que ces données sont complètes, déchiffrables, cohérentes pour l'application et restaurables dans le temps imparti.
-{: .callout .callout-attention}
-
 Les échecs observés en restauration appartiennent à quelques familles :
+
+> ⚠️ **Piège central du module**
+>
+> Une sauvegarde qui existe mais n'a jamais été restaurée n'est pas une garantie de reprise. Le statut « réussi » signifie que le job a écrit des données, pas que ces données sont complètes, déchiffrables, cohérentes pour l'application et restaurables dans le temps imparti.
+{: .callout .callout-attention}
 
 - sauvegarde crash-consistent d'une base (impossible à relancer sans réparation) ;
 - clé de chiffrement perdue ;
@@ -339,7 +357,9 @@ Cette règle détecte un comportement très répandu. Elle est contournable (app
 - une explosion de la taille des sauvegardes incrémentielles et un effondrement du taux de déduplication. Des fichiers chiffrés ne se dédupliquent plus et changent entièrement d'un jour à l'autre, ce qui est un indicateur de chiffrement en cours ;
 - l'échec simultané des jobs sur plusieurs machines.
 
-> 💡 **Astuce** : mesurez l'incrément quotidien normal de chaque job pendant un mois et alertez au-delà de 3 fois la médiane. C'est peu coûteux et souvent plus fiable qu'une signature.
+> 💡 **Astuce**
+>
+> Mesurez l'incrément quotidien normal de chaque job pendant un mois et alertez au-delà de 3 fois la médiane. C'est peu coûteux et souvent plus fiable qu'une signature.
 {: .callout .callout-astuce}
 
 ## Scénarios d'indisponibilité : réseau, système, fournisseur
@@ -425,7 +445,9 @@ Un exercice qui ne trouve aucun défaut est un exercice trop facile. L'objectif 
 
 Les ordres de grandeur sont indicatifs et dépendent des produits et des architectures.
 
-> 🧠 **Concept clé** : la réplication protège contre la panne de site, la sauvegarde immuable protège contre la corruption et la suppression. Ce sont deux contrôles différents. Remplacer l'un par l'autre revient à acheter un coffre-fort pour se protéger d'une inondation.
+> 🧠 **Concept clé**
+>
+> La réplication protège contre la panne de site, la sauvegarde immuable protège contre la corruption et la suppression. Ce sont deux contrôles différents. Remplacer l'un par l'autre revient à acheter un coffre-fort pour se protéger d'une inondation.
 {: .callout .callout-important}
 
 Quelques critères pour trancher :

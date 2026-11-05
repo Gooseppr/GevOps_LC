@@ -42,10 +42,14 @@ Ce module répond à ces deux questions : comment faire pour qu'une panne ne se 
 
 ## Le problème : un maillon unique suffit à tout arrêter
 
-> 🧠 **Concept fondamental.** Un point de défaillance unique (SPOF, Single Point of Failure) est un élément dont la panne arrête à elle seule un service entier. Ce peut être un switch, un routeur, un câble, une alimentation, un serveur, ou même une personne qui est la seule à connaître un mot de passe.
+> 🧠 **Concept fondamental**
+>
+> Un point de défaillance unique (SPOF, Single Point of Failure) est un élément dont la panne arrête à elle seule un service entier. Ce peut être un switch, un routeur, un câble, une alimentation, un serveur, ou même une personne qui est la seule à connaître un mot de passe.
 {: .callout .callout-important}
 
-> 🌉 **Analogie : les ponts d'une ville.** Si votre ville n'a qu'un seul pont sur le fleuve, sa fermeture isole un quartier. Avec deux ponts, la fermeture de l'un ne bloque personne. En revanche, si les deux ponts sont accessibles par la même avenue, vous n'avez pas gagné grand-chose.
+> 🌉 **Analogie : les ponts d'une ville**
+>
+> Si votre ville n'a qu'un seul pont sur le fleuve, sa fermeture isole un quartier. Avec deux ponts, la fermeture de l'un ne bloque personne. En revanche, si les deux ponts sont accessibles par la même avenue, vous n'avez pas gagné grand-chose.
 {: .callout .callout-analogie}
 
 Les chiffres aident à ressentir l'effet. La disponibilité se mesure en pourcentage de temps de service sur une année :
@@ -63,7 +67,9 @@ Comment se combinent deux équipements ?
 
 Ce dernier point est la clé. Une redondance n'est utile que si les deux chemins ne partagent pas la même cause de panne : même prise électrique, même goulotte, même fournisseur d'accès, même mise à jour appliquée en même temps.
 
-> 💡 **Point clé.** La haute disponibilité ne supprime pas les pannes, elle les rend invisibles pour les utilisateurs. La durée d'interruption vue par les utilisateurs passe alors de « trois heures » à « quelques secondes », car la bascule est automatique. La réparation de l'élément en panne (MTTR, Mean Time To Repair) reste à faire, mais sans urgence.
+> 💡 **Point clé**
+>
+> La haute disponibilité ne supprime pas les pannes, elle les rend invisibles pour les utilisateurs. La durée d'interruption vue par les utilisateurs passe alors de « trois heures » à « quelques secondes », car la bascule est automatique. La réparation de l'élément en panne (MTTR, Mean Time To Repair) reste à faire, mais sans urgence.
 {: .callout .callout-important}
 
 Voici l'architecture que nous allons construire pas à pas. Les couches réseau et service y sont dédoublées ; le schéma est simplifié (la supervision, par exemple, n'y figure qu'une fois) :
@@ -90,7 +96,9 @@ flowchart TB
 
 Quand une liaison entre deux switches sature ou qu'un câble est un SPOF, on peut en poser plusieurs et les faire passer pour un seul lien logique. LACP (Link Aggregation Control Protocol, norme IEEE 802.1AX) négocie cette agrégation entre les deux extrémités. Chaque côté vérifie que l'autre est bien configuré pareil, avant d'activer les ports. Si un câble tombe, le trafic se répartit sur les liens restants, souvent en moins d'une seconde.
 
-> ⚠️ **Comportement contre-intuitif.** Quatre liens de 1 Gbit/s ne donnent pas un lien de 4 Gbit/s pour une même conversation. Le switch choisit le lien de chaque flux en calculant un hachage sur les adresses MAC, les adresses IP ou les ports. Une même connexion TCP reste donc sur un seul câble, et ne dépasse jamais 1 Gbit/s. L'agrégation améliore le débit **cumulé** de nombreux flux, pas la vitesse d'un transfert unique.
+> ⚠️ **Comportement contre-intuitif**
+>
+> Quatre liens de 1 Gbit/s ne donnent pas un lien de 4 Gbit/s pour une même conversation. Le switch choisit le lien de chaque flux en calculant un hachage sur les adresses MAC, les adresses IP ou les ports. Une même connexion TCP reste donc sur un seul câble, et ne dépasse jamais 1 Gbit/s. L'agrégation améliore le débit **cumulé** de nombreux flux, pas la vitesse d'un transfert unique.
 {: .callout .callout-attention}
 
 Autre limite : agréger deux câbles vers le **même** switch protège contre la panne d'un câble, pas contre celle du switch. Pour survivre à la perte d'un équipement, les liens doivent partir vers deux switches distincts. Cela demande que ces switches sachent se comporter comme un seul à l'autre bout (empilage, ou fonction de type MLAG selon les constructeurs, le nom varie).
@@ -176,7 +184,9 @@ vrrp_instance VI_1 {
 
 Sur le second nœud : `state BACKUP` et `priority 100`, tout le reste identique.
 
-> ⚠️ **Piège classique : le routeur est vivant mais inutile.** Si le master garde sa liaison vers les clients mais perd celle vers Internet, il continue d'envoyer ses annonces et reste master. Tout le trafic part donc vers un routeur qui ne sait plus sortir. La parade s'appelle le *tracking* : on lie la priorité à l'état d'un lien amont ou d'une route. Si Internet disparaît, la priorité baisse et le backup prend la main, à condition que la préemption soit active sur celui-ci (à activer explicitement en HSRP).
+> ⚠️ **Piège classique : le routeur est vivant mais inutile**
+>
+> Si le master garde sa liaison vers les clients mais perd celle vers Internet, il continue d'envoyer ses annonces et reste master. Tout le trafic part donc vers un routeur qui ne sait plus sortir. La parade s'appelle le *tracking* : on lie la priorité à l'état d'un lien amont ou d'une route. Si Internet disparaît, la priorité baisse et le backup prend la main, à condition que la préemption soit active sur celui-ci (à activer explicitement en HSRP).
 {: .callout .callout-attention}
 
 Dernier piège : si les annonces entre les deux routeurs sont bloquées (VLAN non autorisé sur un trunk, pare-feu au milieu), chacun croit être seul. On se retrouve avec deux masters, des conflits d'adresse et des flapping de MAC. C'est la situation à reconnaître en cas de comportement erratique.
@@ -199,7 +209,9 @@ Un **load balancer L7** comprend le protocole applicatif, le plus souvent HTTP. 
 
 Il peut aussi terminer la connexion HTTPS à la place des serveurs. En contrepartie, il consomme plus de ressources et ne traite que les protocoles qu'il comprend.
 
-> ☎️ **Analogie : le standardiste et le réceptionniste.** Le L4 est un standardiste qui renvoie les appels d'après le numéro appelé. Le L7 est un réceptionniste qui écoute la demande et oriente vers le bon service.
+> ☎️ **Analogie : le standardiste et le réceptionniste**
+>
+> Le L4 est un standardiste qui renvoie les appels d'après le numéro appelé. Le L7 est un réceptionniste qui écoute la demande et oriente vers le bon service.
 {: .callout .callout-analogie}
 
 ### Algorithmes
@@ -244,7 +256,9 @@ backend web_pool
     server web2 10.10.20.12:8080 check inter 3s fall 3 rise 2
 ```
 
-> 💡 **Point clé.** Le load balancer est lui-même un SPOF. On le double, et c'est ici qu'on retrouve VRRP : deux instances HAProxy avec keepalived se partagent une IP virtuelle. La haute disponibilité se construit ainsi, par couches empilées.
+> 💡 **Point clé**
+>
+> Le load balancer est lui-même un SPOF. On le double, et c'est ici qu'on retrouve VRRP : deux instances HAProxy avec keepalived se partagent une IP virtuelle. La haute disponibilité se construit ainsi, par couches empilées.
 {: .callout .callout-important}
 
 Autre sujet à anticiper : la persistance de session. Si l'application garde l'état de l'utilisateur en mémoire du serveur, il faut le renvoyer au même serveur (cookie ou source hash). Sinon, mieux vaut stocker les sessions dans un composant partagé, pour que n'importe quel serveur puisse reprendre.
@@ -268,7 +282,9 @@ Les erreurs d'interface sont sous-estimées. Un lien peut être « up » et pour
 
 SNMP (Simple Network Management Protocol) permet à un serveur de supervision d'interroger un équipement. Celui-ci expose ses compteurs sous forme d'objets identifiés par un OID (Object Identifier), décrits dans une MIB (Management Information Base). Le superviseur interroge en UDP 161 ; l'équipement peut aussi envoyer spontanément une alerte, un *trap*, en UDP 162.
 
-> 📖 **Définition.** Une MIB est le dictionnaire qui associe chaque OID à un nom lisible et à une signification, par exemple `ifInErrors` pour les erreurs entrantes d'une interface.
+> 📖 **Définition**
+>
+> Une MIB est le dictionnaire qui associe chaque OID à un nom lisible et à une signification, par exemple `ifInErrors` pour les erreurs entrantes d'une interface.
 {: .callout .callout-definition}
 
 Pour tester à la main :
@@ -293,7 +309,9 @@ Chaque équipement génère des messages : lien tombé, bascule VRRP, changement
 
 Chaque message porte un niveau de gravité de 0 (urgence) à 7 (debug).
 
-> 🔑 **Moyen mnémotechnique** : les huit niveaux, de 0 à 7, sont emergency, alert, critical, error, warning, notice, informational et debug. Une phrase anglaise classique aide à les retenir dans l'ordre : « **E**very **A**wesome **C**isco **E**ngineer **W**ill **N**eed **I**ce cream **D**aily ».
+> 🔑 **Moyen mnémotechnique**
+>
+> Les huit niveaux, de 0 à 7, sont emergency, alert, critical, error, warning, notice, informational et debug. Une phrase anglaise classique aide à les retenir dans l'ordre : « **E**very **A**wesome **C**isco **E**ngineer **W**ill **N**eed **I**ce cream **D**aily ».
 {: .callout .callout-memo}
 
 On choisit un seuil d'envoi : en général, `warning` (4) et au-dessus. Exemple côté équipement Cisco-like :

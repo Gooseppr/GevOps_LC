@@ -40,10 +40,12 @@ Vous avez devant vous une dizaine de causes possibles : câble débranché, pass
 
 ## Diagnostiquer, c'est éliminer
 
-> 🩺 **Analogie : le médecin.** Un médecin ne prescrit pas un scanner à chaque patient. Il part des symptômes, fait des examens simples et élimine les hypothèses jusqu'à isoler la cause.
-{: .callout .callout-analogie}
-
 Le diagnostic réseau fonctionne pareil. Chaque outil de ce module répond à une question précise :
+
+> 🩺 **Analogie : le médecin**
+>
+> Un médecin ne prescrit pas un scanner à chaque patient. Il part des symptômes, fait des examens simples et élimine les hypothèses jusqu'à isoler la cause.
+{: .callout .callout-analogie}
 
 | Question | Outil principal |
 |---|---|
@@ -57,7 +59,9 @@ Le diagnostic réseau fonctionne pareil. Chaque outil de ce module répond à un
 
 Le module précédent expliquait comment un paquet est routé et traduit. Ici, on regarde ce qui se passe quand ça ne marche pas, et comment le prouver.
 
-> 💡 Les commandes Linux sont présentées en premier, avec leurs équivalents Windows quand ils existent. Les options et les messages exacts varient selon la distribution et la version des outils. Si une sortie diffère légèrement de celles montrées ici, le principe reste le même.
+> 💡 **À retenir**
+>
+> Les commandes Linux sont présentées en premier, avec leurs équivalents Windows quand ils existent. Les options et les messages exacts varient selon la distribution et la version des outils. Si une sortie diffère légèrement de celles montrées ici, le principe reste le même.
 {: .callout .callout-important}
 
 ## ping : la première question, pas le verdict
@@ -95,17 +99,23 @@ Les messages d'erreur disent aussi où chercher :
 - Le même message venant de **l'adresse d'un routeur** : ce routeur n'a pas de route vers la destination.
 - Une absence totale de réponse (timeout) : c'est la situation la plus ambiguë.
 
-> ⚠️ **Un ping qui échoue ne prouve pas que le serveur est hors ligne.** Beaucoup d'équipements filtrent ICMP : pare-feu d'entreprise, règles par défaut de Windows Server, groupes de sécurité cloud qui n'autorisent pas ICMP tant qu'on ne l'a pas demandé. Le serveur peut très bien servir des milliers de requêtes web pendant que `ping` affiche 100 % de perte. Le raisonnement inverse est tout aussi dangereux : un ping qui réussit prouve seulement que le chemin ICMP fonctionne, pas que votre application est joignable. Ping vous dit « quelqu'un répond à ce niveau », jamais « le service est en bonne santé ».
+> ⚠️ **Un ping qui échoue ne prouve pas que le serveur est hors ligne**
+>
+> Beaucoup d'équipements filtrent ICMP : pare-feu d'entreprise, règles par défaut de Windows Server, groupes de sécurité cloud qui n'autorisent pas ICMP tant qu'on ne l'a pas demandé. Le serveur peut très bien servir des milliers de requêtes web pendant que `ping` affiche 100 % de perte. Le raisonnement inverse est tout aussi dangereux : un ping qui réussit prouve seulement que le chemin ICMP fonctionne, pas que votre application est joignable. Ping vous dit « quelqu'un répond à ce niveau », jamais « le service est en bonne santé ».
 {: .callout .callout-attention}
 
-> 🧠 Retenez cette hiérarchie : une réponse prouve quelque chose, une absence de réponse ne prouve rien tant qu'un second test n'a pas confirmé. Ce second test sera souvent `nc` ou `curl`, vus plus bas.
+> 🧠 **À retenir**
+>
+> Retenez cette hiérarchie : une réponse prouve quelque chose, une absence de réponse ne prouve rien tant qu'un second test n'a pas confirmé. Ce second test sera souvent `nc` ou `curl`, vus plus bas.
 {: .callout .callout-important}
 
 ## traceroute et mtr : suivre le colis
 
 Si `ping` vous dit si ça arrive, `traceroute` vous dit par où ça passe. Il envoie des paquets avec un TTL de 1, puis 2, puis 3. Chaque routeur qui reçoit un paquet dont le TTL tombe à zéro le détruit et renvoie un message d'erreur, ce qui révèle son adresse.
 
-> 📦 **Analogie : le suivi de colis.** C'est comme suivre un colis en demandant à chaque étape de se signaler. Limite de l'image : certains relais refusent de se signaler sans que le colis soit perdu, d'où les étoiles ci-dessous.
+> 📦 **Analogie : le suivi de colis**
+>
+> C'est comme suivre un colis en demandant à chaque étape de se signaler. Limite de l'image : certains relais refusent de se signaler sans que le colis soit perdu, d'où les étoiles ci-dessous.
 {: .callout .callout-analogie}
 
 ```bash
@@ -145,7 +155,9 @@ HOST: poste01            Loss%   Snt   Last   Avg  Best  Wrst StDev
   5. 10.30.0.20           0.0%    50    2.6   2.6   2.5   3.0   0.1
 ```
 
-> ⚠️ Ici le saut 3 affiche 40 % de perte, mais les sauts 4 et 5 sont à 0 %. Ce n'est donc pas un lien défectueux : ce routeur traite le trafic sans problème, il ne répond simplement qu'à une partie des sondes ICMP qui lui sont destinées. Règle de lecture : **une perte n'est réelle que si elle se retrouve sur le dernier saut**. Si la perte démarre au saut 3 et persiste jusqu'à la destination, là vous avez un vrai problème.
+> ⚠️ **Attention**
+>
+> Ici le saut 3 affiche 40 % de perte, mais les sauts 4 et 5 sont à 0 %. Ce n'est donc pas un lien défectueux : ce routeur traite le trafic sans problème, il ne répond simplement qu'à une partie des sondes ICMP qui lui sont destinées. Règle de lecture : **une perte n'est réelle que si elle se retrouve sur le dernier saut**. Si la perte démarre au saut 3 et persiste jusqu'à la destination, là vous avez un vrai problème.
 {: .callout .callout-attention}
 
 ## Inspecter sa propre machine : ip et ses équivalents
@@ -171,7 +183,9 @@ eth0    UP        10.10.0.57/24 fe80::a00:27ff:fe4e:66a1/64
 
 Cette forme condensée (`-br`, pour *brief*) tient en deux lignes là où `ip addr` en déroule vingt. Vous vérifiez trois choses : l'interface est `UP`, elle a une adresse IPv4, et le masque correspond à votre réseau.
 
-> 🧠 Une adresse en `169.254.x.x` (Windows parle d'adresse APIPA, Linux parle de lien local) signifie que la machine n'a **pas obtenu d'adresse DHCP** et s'est attribué une adresse de secours. Le problème est alors en amont : câble, Wi-Fi, VLAN ou serveur DHCP, pas dans l'application.
+> 🧠 **À retenir**
+>
+> Une adresse en `169.254.x.x` (Windows parle d'adresse APIPA, Linux parle de lien local) signifie que la machine n'a **pas obtenu d'adresse DHCP** et s'est attribué une adresse de secours. Le problème est alors en amont : câble, Wi-Fi, VLAN ou serveur DHCP, pas dans l'application.
 {: .callout .callout-important}
 
 Ensuite, la commande la plus sous-estimée de la boîte à outils :
@@ -187,7 +201,9 @@ ip route get 10.20.0.15
 
 Plutôt que de lire toute la table de routage en la simulant dans votre tête, vous demandez directement au noyau : « Par où passeriez-vous pour cette destination ? » La réponse donne la passerelle (`via`), l'interface (`dev`) et l'adresse source choisie (`src`). Si la ligne annonce une mauvaise interface ou une mauvaise passerelle, vous tenez votre cause.
 
-> 📖 **Définition.** Le cache des voisins de niveau 2 regroupe les correspondances adresse IP → adresse MAC apprises récemment.
+> 📖 **Définition**
+>
+> Le cache des voisins de niveau 2 regroupe les correspondances adresse IP → adresse MAC apprises récemment.
 {: .callout .callout-definition}
 
 `ip neigh` affiche ce cache :
@@ -236,7 +252,9 @@ Interroger deux résolveurs différents sur le même nom est une manœuvre class
 
 Sous Windows, `nslookup` joue le même rôle, avec une syntaxe plus simple : `nslookup facturation.entreprise.local 10.20.0.10`. PowerShell offre aussi `Resolve-DnsName`. `nslookup` existe également sous Linux, mais il est moins détaillé que `dig`.
 
-> ⚠️ `dig` et `nslookup` interrogent directement un serveur DNS. Ils **contournent** le mécanisme de résolution de votre système. Or celui-ci consulte aussi le fichier `hosts`, son propre cache et parfois d'autres sources. Il arrive donc que `dig` renvoie la bonne adresse alors que `ping` ou le navigateur utilisent une autre adresse, issue d'une vieille entrée dans `/etc/hosts`. Pour voir ce que voit réellement le système sous Linux, utilisez `getent hosts <NOM>`. Si `dig` et `getent` divergent, vous avez trouvé un écart local.
+> ⚠️ **Attention**
+>
+> `dig` et `nslookup` interrogent directement un serveur DNS. Ils **contournent** le mécanisme de résolution de votre système. Or celui-ci consulte aussi le fichier `hosts`, son propre cache et parfois d'autres sources. Il arrive donc que `dig` renvoie la bonne adresse alors que `ping` ou le navigateur utilisent une autre adresse, issue d'une vieille entrée dans `/etc/hosts`. Pour voir ce que voit réellement le système sous Linux, utilisez `getent hosts <NOM>`. Si `dig` et `getent` divergent, vous avez trouvé un écart local.
 {: .callout .callout-attention}
 
 ## Ports et connexions : ss, netstat et nc
@@ -260,7 +278,9 @@ udp   UNCONN  0      0      127.0.0.53:53       0.0.0.0:*         users:(("syste
 
 La colonne qui décide de tout est **Local Address**.
 
-> 💡 **À retenir.** `0.0.0.0` (ou `[::]` en IPv6) signifie « j'écoute sur toutes les interfaces ». `127.0.0.1` signifie « j'écoute uniquement pour les connexions venant de cette machine ».
+> 💡 **À retenir**
+>
+> `0.0.0.0` (ou `[::]` en IPv6) signifie « j'écoute sur toutes les interfaces ». `127.0.0.1` signifie « j'écoute uniquement pour les connexions venant de cette machine ».
 {: .callout .callout-important}
 
 Dans l'exemple, `nginx` écoute sur `127.0.0.1:443` : le service est bien en marche, mais **personne d'autre que le serveur lui-même ne peut le joindre**. On retrouvera ce piège dans le cas pratique.
@@ -283,7 +303,9 @@ Le résultat donne trois cas, à distinguer soigneusement parce qu'ils racontent
 | `Connection refused` | Un refus actif est revenu (reset TCP ou ICMP) | Le plus souvent, la machine est **joignable** mais rien n'écoute sur ce port (ou pas sur cette interface). Un pare-feu en mode REJECT produit toutefois le même message |
 | Timeout (aucune réponse) | Les paquets sont partis sans retour | Un pare-feu les jette, la route est cassée, ou la machine est éteinte |
 
-> 💡 Le refus est une *bonne nouvelle* pour le diagnostic : quelqu'un a répondu, la cible elle-même ou un pare-feu en REJECT sur le chemin, ce qui réduit déjà les hypothèses. Le timeout est plus pénible parce qu'il ne dit pas qui est en cause.
+> 💡 **À retenir**
+>
+> Le refus est une *bonne nouvelle* pour le diagnostic : quelqu'un a répondu, la cible elle-même ou un pare-feu en REJECT sur le chemin, ce qui réduit déjà les hypothèses. Le timeout est plus pénible parce qu'il ne dit pas qui est en cause.
 {: .callout .callout-important}
 
 Sous Windows, `nc` n'est pas installé par défaut, mais PowerShell propose mieux : `Test-NetConnection -ComputerName 10.20.0.15 -Port 443`, qui affiche `TcpTestSucceeded : True` ou `False`.
@@ -320,7 +342,9 @@ Deux options supplémentaires à connaître :
 - `--resolve <NOM>:443:<IP>` force le nom vers une adresse précise sans toucher au DNS. C'est pratique pour tester un serveur précis derrière un répartiteur de charge.
 - `--connect-timeout 5` évite d'attendre indéfiniment. Sous Windows, utilisez `curl.exe` pour ne pas tomber sur l'alias PowerShell de `Invoke-WebRequest`.
 
-> ⚠️ `-k` désactive la vérification du certificat. Il aide à vérifier rapidement si le problème vient du certificat, mais l'utiliser en routine masque un vrai défaut de sécurité.
+> ⚠️ **Attention**
+>
+> `-k` désactive la vérification du certificat. Il aide à vérifier rapidement si le problème vient du certificat, mais l'utiliser en routine masque un vrai défaut de sécurité.
 {: .callout .callout-attention}
 
 ## tcpdump : regarder passer les paquets
@@ -348,7 +372,9 @@ Quelques filtres et options à garder en tête :
 - `-c 20` pour s'arrêter après 20 paquets
 - `-w capture.pcap` pour enregistrer dans un fichier qu'on pourra ouvrir plus tard dans Wireshark
 
-> 🔒 Capturer du trafic expose des données sensibles : mots de passe en clair sur des protocoles non chiffrés, adresses, identifiants de session. Faites-le uniquement sur des équipements que vous avez le droit d'administrer, gardez les fichiers `.pcap` en lieu sûr et supprimez-les quand l'enquête est terminée.
+> 🔒 **Sécurité**
+>
+> Capturer du trafic expose des données sensibles : mots de passe en clair sur des protocoles non chiffrés, adresses, identifiants de session. Faites-le uniquement sur des équipements que vous avez le droit d'administrer, gardez les fichiers `.pcap` en lieu sûr et supprimez-les quand l'enquête est terminée.
 {: .callout .callout-securite}
 
 ## La méthode : diagnostiquer par couches

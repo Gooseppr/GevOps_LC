@@ -56,7 +56,9 @@ Vous n'avez rien à installer. PromQL s'écrit dans Grafana, dans Explore ou plu
 
 ## Les trois types de valeurs : la base de tout
 
-> 🧠 **Concept clé** : chaque expression PromQL a un type, et ce type décide de ce que vous pouvez en faire. La majorité des messages d'erreur du débutant viennent d'une confusion à cet endroit.
+> 🧠 **Concept clé**
+>
+> Chaque expression PromQL a un type, et ce type décide de ce que vous pouvez en faire. La majorité des messages d'erreur du débutant viennent d'une confusion à cet endroit.
 {: .callout .callout-important}
 
 - **Instant vector** : un ensemble de séries, avec une seule valeur par série, celle à un instant donné. C'est ce que renvoie `up` ou `http_requests_total{job="api"}`. Imaginez un tableau de bord de voiture : chaque cadran indique la valeur maintenant.
@@ -75,7 +77,9 @@ flowchart LR
 
 Les fonctions comme `rate()` ont besoin d'un range vector en entrée et rendent un instant vector. C'est pour cela que `rate(http_requests_total)` échoue : il manque la fenêtre.
 
-> 💡 **Astuce** : dans Explore, le sélecteur de type de requête (Instant, Range ou Both) reflète cette distinction. Le mode *Range* trace une courbe en évaluant l'expression à intervalles réguliers. Le mode *Instant*, souvent affiché en vue Table, donne la valeur actuelle de chaque série avec tous ses labels, ce qui est pratique pour inspecter ce que vous manipulez. Les libellés exacts peuvent varier selon la version de Grafana.
+> 💡 **Astuce**
+>
+> Dans Explore, le sélecteur de type de requête (Instant, Range ou Both) reflète cette distinction. Le mode *Range* trace une courbe en évaluant l'expression à intervalles réguliers. Le mode *Instant*, souvent affiché en vue Table, donne la valeur actuelle de chaque série avec tous ses labels, ce qui est pratique pour inspecter ce que vous manipulez. Les libellés exacts peuvent varier selon la version de Grafana.
 {: .callout .callout-astuce}
 
 ## Sélectionner des séries : sélecteurs et filtres de labels
@@ -101,7 +105,9 @@ Les virgules jouent le rôle d'un « ET » : la série doit vérifier tous les f
 | `=~` | correspond à l'expression régulière | `status=~"5.."` |
 | `!~` | ne correspond pas à l'expression régulière | `handler!~"/health.*"` |
 
-> ⚠️ **Erreur fréquente** : les expressions régulières PromQL sont **ancrées**. `status=~"5"` ne matche pas `500`, il matche uniquement la valeur `5`. Pour toutes les erreurs serveur, il faut `status=~"5.."`. À l'inverse, il n'y a pas besoin d'écrire `^5..$`, les ancres sont implicites.
+> ⚠️ **Erreur fréquente**
+>
+> Les expressions régulières PromQL sont **ancrées**. `status=~"5"` ne matche pas `500`, il matche uniquement la valeur `5`. Pour toutes les erreurs serveur, il faut `status=~"5.."`. À l'inverse, il n'y a pas besoin d'écrire `^5..$`, les ancres sont implicites.
 {: .callout .callout-attention}
 
 Le nom de la métrique est lui-même un label spécial, `__name__`. `http_requests_total{job="api"}` est équivalent à `{__name__="http_requests_total", job="api"}`. Cela servira pour explorer les métriques disponibles.
@@ -120,7 +126,9 @@ Ligne par ligne :
 - `[5m]` transforme ce sélecteur en range vector couvrant les 5 dernières minutes.
 - `rate(...)` calcule, pour chaque série, l'augmentation moyenne **par seconde** sur cette fenêtre. Il gère aussi les remises à zéro du counter, par exemple lors d'un redémarrage.
 
-> 🚗 **Analogie : le compteur kilométrique.** Un counter ressemble au compteur kilométrique d'une voiture : il ne fait qu'augmenter. `rate()` en déduit une vitesse moyenne, comme si vous divisiez les kilomètres parcourus pendant les 5 dernières minutes par leur durée. Limite de l'image : un counter peut repartir de zéro au redémarrage, et `rate()` sait compenser cette remise à zéro.
+> 🚗 **Analogie : le compteur kilométrique**
+>
+> Un counter ressemble au compteur kilométrique d'une voiture : il ne fait qu'augmenter. `rate()` en déduit une vitesse moyenne, comme si vous divisiez les kilomètres parcourus pendant les 5 dernières minutes par leur durée. Limite de l'image : un counter peut repartir de zéro au redémarrage, et `rate()` sait compenser cette remise à zéro.
 {: .callout .callout-analogie}
 
 Le résultat est un instant vector avec une série par combinaison de labels (instance, method, status, etc.). Le nom de la métrique disparaît du résultat, car ce n'est plus un total mais un débit.
@@ -165,10 +173,14 @@ sum without (instance) (rate(http_requests_total{job="api"}[5m]))
 
 La première requête renvoie une série par code de statut : 200, 404, 500, etc. La seconde supprime seulement `instance`, donc on additionne les réplicas mais on garde `method`, `status`, `handler` et tout ce qui existe. Choisissez `by()` quand vous savez précisément ce que vous voulez voir. Choisissez `without()` quand vous voulez simplement « fusionner les réplicas » sans énumérer tous les autres labels.
 
-> 🔑 **Moyen mnémotechnique** : lisez les clauses en français. *by* signifie « par » : `sum by (status)` se lit « la somme par statut », et seul `status` reste. *without* signifie « sans » : `sum without (instance)` se lit « la somme sans instance », et seul `instance` disparaît.
+> 🔑 **Moyen mnémotechnique**
+>
+> Lisez les clauses en français. *by* signifie « par » : `sum by (status)` se lit « la somme par statut », et seul `status` reste. *without* signifie « sans » : `sum without (instance)` se lit « la somme sans instance », et seul `instance` disparaît.
 {: .callout .callout-memo}
 
-> ⚠️ **Erreur fréquente** : agréger trop tôt, ou trop fort. Une agrégation est comme un entonnoir : on ne peut pas retrouver ensuite ce qu'on a mélangé.
+> ⚠️ **Erreur fréquente**
+>
+> Agréger trop tôt, ou trop fort. Une agrégation est comme un entonnoir : on ne peut pas retrouver ensuite ce qu'on a mélangé.
 {: .callout .callout-attention}
 
 - `sum(rate(...))` sans `by` vous donne un seul chiffre. Si le problème ne touche qu'une route ou qu'un statut, il disparaît dans la masse.
@@ -181,7 +193,9 @@ En pratique, commencez par la requête la plus détaillée, observez quels label
 
 Un histogramme Prometheus ne stocke pas les durées individuelles. Il compte les requêtes par seuil de durée, et `histogram_quantile()` reconstruit une estimation du percentile à partir de ces compteurs cumulés.
 
-> 📖 **Définition.** Un *bucket* est un compteur cumulé exposé dans la série `_bucket`. Son label `le` (« less than or equal ») donne le seuil : le bucket `le="0.5"` compte toutes les requêtes ayant duré 0,5 s ou moins. Chaque bucket inclut donc les précédents.
+> 📖 **Définition**
+>
+> Un *bucket* est un compteur cumulé exposé dans la série `_bucket`. Son label `le` (« less than or equal ») donne le seuil : le bucket `le="0.5"` compte toutes les requêtes ayant duré 0,5 s ou moins. Chaque bucket inclut donc les précédents.
 {: .callout .callout-definition}
 
 ```promql
@@ -200,10 +214,14 @@ Le résultat indique : « 95 % des requêtes ont duré moins de X secondes », o
 - **Le label `le` doit survivre à l'agrégation.** Si vous l'écrasez avec `sum()` ou `sum by (instance)`, la fonction ne peut plus reconstituer la distribution et renvoie un résultat vide. Pour garder une autre dimension, écrivez `sum by (le, handler)`.
 - **Il faut du trafic dans la fenêtre.** Avec peu de requêtes, l'estimation devient très instable. Sans aucune requête, tous les buckets valent 0 et le résultat est `NaN`.
 
-> 💡 **Astuce** : le résultat est une **estimation**. PromQL suppose que les valeurs sont réparties uniformément à l'intérieur du bucket où tombe le percentile. Si vos buckets sont `0.5`, `1` et `5` secondes, un p95 renvoyé à `0.93` ne veut pas dire que 0,93 s est exact. Il veut dire que le p95 se situe entre 0,5 et 1 s. La précision dépend du découpage choisi par les développeurs.
+> 💡 **Astuce**
+>
+> Le résultat est une **estimation**. PromQL suppose que les valeurs sont réparties uniformément à l'intérieur du bucket où tombe le percentile. Si vos buckets sont `0.5`, `1` et `5` secondes, un p95 renvoyé à `0.93` ne veut pas dire que 0,93 s est exact. Il veut dire que le p95 se situe entre 0,5 et 1 s. La précision dépend du découpage choisi par les développeurs.
 {: .callout .callout-astuce}
 
-> ⚠️ **Erreur fréquente** : calculer un p95 par instance, puis en faire la moyenne. La moyenne de percentiles n'est pas le percentile global. Agrégez les **buckets**, puis calculez le quantile une seule fois.
+> ⚠️ **Erreur fréquente**
+>
+> Calculer un p95 par instance, puis en faire la moyenne. La moyenne de percentiles n'est pas le percentile global. Agrégez les **buckets**, puis calculez le quantile une seule fois.
 {: .callout .callout-attention}
 
 Les histogrammes dits « natifs » existent aussi dans les versions récentes de Prometheus, avec une syntaxe différente. Ils dépassent ce module. Ici, on reste sur les histogrammes classiques à buckets.
@@ -326,7 +344,9 @@ Quelques symptômes courants, avec leur correction :
 | Courbe qui monte sans fin | `rate()` oublié sur un counter | Appliquer `rate()` avant toute lecture |
 | Résultat chiffré mais incohérent | Gauge traitée avec `rate()` | Les gauges se lisent directement ; `rate()` est réservé aux counters |
 
-> ⚠️ **Erreur fréquente** : une requête qui renvoie un résultat n'est pas forcément correcte. Testez votre interprétation avec une vérification simple : le total par statut doit refléter la somme globale, et un ordre de grandeur doit être plausible par rapport à ce que vous savez du trafic.
+> ⚠️ **Erreur fréquente**
+>
+> Une requête qui renvoie un résultat n'est pas forcément correcte. Testez votre interprétation avec une vérification simple : le total par statut doit refléter la somme globale, et un ordre de grandeur doit être plausible par rapport à ce que vous savez du trafic.
 {: .callout .callout-attention}
 
 ## Bonnes pratiques

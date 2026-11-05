@@ -45,7 +45,9 @@ Ce scénario est illustratif, mais le schéma est documenté :
 
 Dans ces cas, la défense naïve (« on chiffre ») n'a pas échoué à cause des mathématiques. Elle a échoué parce que la primitive était mal choisie, mal utilisée ou mal protégée.
 
-> 💡 **À retenir.** La cryptographie casse presque toujours autour de l'algorithme, rarement dedans : c'est le fil rouge du module.
+> 💡 **À retenir**
+>
+> La cryptographie casse presque toujours autour de l'algorithme, rarement dedans : c'est le fil rouge du module.
 {: .callout .callout-important}
 
 ## Surface d'attaque
@@ -80,10 +82,12 @@ Le dernier point n'est pas théorique pour les données à longue durée de vie 
 
 ### Symétrique : une clé, rapide, mais il faut la partager
 
-> 🧠 **Concept clé** : en chiffrement symétrique, la même clé chiffre et déchiffre. Les algorithmes modernes (AES-256, ChaCha20) traitent des gigaoctets par seconde, souvent avec des instructions matérielles dédiées (AES-NI). Le problème est ailleurs : comment deux parties qui ne se sont jamais rencontrées s'accordent-elles sur une clé sans la transmettre en clair ?
-{: .callout .callout-important}
-
 Qu'est-ce qui fait la différence ? Moins le choix de l'algorithme que le **mode d'opération**.
+
+> 🧠 **Concept clé**
+>
+> En chiffrement symétrique, la même clé chiffre et déchiffre. Les algorithmes modernes (AES-256, ChaCha20) traitent des gigaoctets par seconde, souvent avec des instructions matérielles dédiées (AES-NI). Le problème est ailleurs : comment deux parties qui ne se sont jamais rencontrées s'accordent-elles sur une clé sans la transmettre en clair ?
+{: .callout .callout-important}
 
 🔴 **Vecteur d'attaque : ECB (Electronic Codebook).** Ce mode chiffre chaque bloc de 16 octets indépendamment. Deux blocs identiques donnent deux blocs chiffrés identiques. L'image du « pingouin ECB » (un logo chiffré dont la silhouette reste visible) illustre le défaut. Adobe a été touché par ce défaut en 2013 : deux utilisateurs avec le même mot de passe avaient le même chiffré, ce qui a permis de recouper les indices.
 
@@ -99,33 +103,43 @@ Dans la pratique, n'appelez pas ces primitives directement : utilisez libsodium,
 
 ### Asymétrique : deux clés, lent, mais résout la distribution
 
-> 🧠 **Concept clé** : une paire de clés. Ce que la clé publique chiffre, seule la clé privée le déchiffre. Pour une signature, c'est l'inverse : la clé privée signe, la clé publique vérifie. Les algorithmes courants sont RSA (Rivest-Shamir-Adleman, 2048 bits minimum, 3072 pour le long terme), ECDSA sur la courbe P-256, Ed25519 pour les signatures et X25519 pour les échanges de clés. Ils sont des centaines de fois plus lents que l'AES : on ne chiffre pas un fichier de 4 Go avec RSA.
+> 🧠 **Concept clé**
+>
+> Une paire de clés. Ce que la clé publique chiffre, seule la clé privée le déchiffre. Pour une signature, c'est l'inverse : la clé privée signe, la clé publique vérifie. Les algorithmes courants sont RSA (Rivest-Shamir-Adleman, 2048 bits minimum, 3072 pour le long terme), ECDSA sur la courbe P-256, Ed25519 pour les signatures et X25519 pour les échanges de clés. Ils sont des centaines de fois plus lents que l'AES : on ne chiffre pas un fichier de 4 Go avec RSA.
 {: .callout .callout-important}
 
 ### Le schéma hybride
 
 La pratique consiste à combiner les deux : l'asymétrique sert à **s'accorder sur une clé**, le symétrique à **chiffrer les données**. TLS, SSH, WireGuard, PGP et les VPN fonctionnent tous ainsi.
 
-> 🔐 **Analogie : le cadenas ouvert.** La clé publique ressemble à un cadenas ouvert que vous distribuez à tous : n'importe qui peut fermer une boîte avec, mais seul le détenteur de la clé privée peut l'ouvrir. Dans le schéma hybride, on enferme dans cette boîte une petite clé symétrique, qui chiffre ensuite tout le reste. Limite : l'image vaut pour le chiffrement, pas pour la signature ni pour ECDHE, où aucune clé n'est transportée et où le secret est calculé des deux côtés.
+> 🔐 **Analogie : le cadenas ouvert**
+>
+> La clé publique ressemble à un cadenas ouvert que vous distribuez à tous : n'importe qui peut fermer une boîte avec, mais seul le détenteur de la clé privée peut l'ouvrir. Dans le schéma hybride, on enferme dans cette boîte une petite clé symétrique, qui chiffre ensuite tout le reste. Limite : l'image vaut pour le chiffrement, pas pour la signature ni pour ECDHE, où aucune clé n'est transportée et où le secret est calculé des deux côtés.
 {: .callout .callout-analogie}
 
 Pour l'accord de clé, la variante éphémère ECDHE (Elliptic Curve Diffie-Hellman Ephemeral)* génère une paire de clés jetable à chaque session. Même si un attaquant vole plus tard la clé privée du serveur, il ne peut pas déchiffrer le trafic qu'il avait enregistré : c'est la **forward secrecy**. Avec l'ancien échange RSA statique (TLS 1.2 et suites `TLS_RSA_*`), le vol de la clé privée, par exemple via Heartbleed (CVE-2014-0160), ouvrait tout l'historique enregistré.
 
 \* ECDHE : échange de Diffie-Hellman sur courbe elliptique avec clés éphémères. Chaque partie envoie une valeur publique, les deux calculent le même secret, et un observateur qui voit les deux valeurs ne peut pas le reconstituer.
 
-> 💡 **Astuce** : pour voir la différence de vitesse, `openssl speed -evp aes-256-gcm` puis `openssl speed rsa2048` donnent les débits sur votre machine en quelques secondes.
+> 💡 **Astuce**
+>
+> Pour voir la différence de vitesse, `openssl speed -evp aes-256-gcm` puis `openssl speed rsa2048` donnent les débits sur votre machine en quelques secondes.
 {: .callout .callout-astuce}
 
 ## Hacher n'est pas chiffrer : intégrité, MAC et signatures ⚠️
 
 Revenons à la base d'Adobe et de LinkedIn. Le piège central du module : **un haché n'est pas un chiffrement réversible**. Il n'existe pas de clé de déchiffrement, et il n'y a rien à « déchiffrer ».
 
-> 🧠 **Concept clé** : une fonction de hachage (SHA-256, SHA-3) transforme n'importe quelle entrée en empreinte de taille fixe, à sens unique. Impossible de remonter de l'empreinte à l'entrée par le calcul. Mais l'attaquant ne remonte pas : il **devine**. Il hache des candidats (`password`, `Azerty123!`, tout rockyou.txt) et compare. Pour `password`, `echo -n password | sha256sum` donne `5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8`, que n'importe quelle table précalculée reconnaît instantanément.
+> 🧠 **Concept clé**
+>
+> Une fonction de hachage (SHA-256, SHA-3) transforme n'importe quelle entrée en empreinte de taille fixe, à sens unique. Impossible de remonter de l'empreinte à l'entrée par le calcul. Mais l'attaquant ne remonte pas : il **devine**. Il hache des candidats (`password`, `Azerty123!`, tout rockyou.txt) et compare. Pour `password`, `echo -n password | sha256sum` donne `5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8`, que n'importe quelle table précalculée reconnaît instantanément.
 {: .callout .callout-important}
 
 Le défaut est donc la vitesse. SHA-256 est conçu pour être rapide, et un GPU grand public en calcule plusieurs milliards par seconde (ordre de grandeur). Un mot de passe de 8 caractères tombe en heures, voire en minutes.
 
-> 🔴 **Vecteur d'attaque** : hashcat contre un dump de hachés.
+> 🔴 **Vecteur d'attaque**
+>
+> Hashcat contre un dump de hachés.
 {: .callout .callout-danger}
 
 ```bash
@@ -134,7 +148,9 @@ hashcat -m 1400 -a 0 hashes.txt rockyou.txt
 hashcat -m 1400 -a 3 hashes.txt '?l?l?l?l?l?l?l?l'   # force brute 8 minuscules
 ```
 
-> 🔒 **Contrôle de sécurité** : pour les mots de passe, utiliser une fonction **volontairement lente et consommatrice de mémoire**, avec un sel unique par utilisateur : argon2id (OWASP recommande au minimum 19 MiB de mémoire, 2 itérations, 1 de parallélisme), à défaut bcrypt ou scrypt. Le sel élimine les tables précalculées et empêche de repérer deux utilisateurs au même mot de passe. Le coût est réel : chaque authentification consomme CPU et mémoire. Calibrez sur votre matériel (de l'ordre de 100 à 500 ms par authentification) et prévoyez une limitation du débit de tentatives, sinon la fonction lente devient un vecteur de déni de service.
+> 🔒 **Contrôle de sécurité**
+>
+> Pour les mots de passe, utiliser une fonction **volontairement lente et consommatrice de mémoire**, avec un sel unique par utilisateur : argon2id (OWASP recommande au minimum 19 MiB de mémoire, 2 itérations, 1 de parallélisme), à défaut bcrypt ou scrypt. Le sel élimine les tables précalculées et empêche de repérer deux utilisateurs au même mot de passe. Le coût est réel : chaque authentification consomme CPU et mémoire. Calibrez sur votre matériel (de l'ordre de 100 à 500 ms par authentification) et prévoyez une limitation du débit de tentatives, sinon la fonction lente devient un vecteur de déni de service.
 {: .callout .callout-securite}
 
 ### Intégrité : un haché seul n'authentifie rien
@@ -187,14 +203,18 @@ flowchart TD
 
 Pour compromettre les données, l'attaquant doit obtenir l'accès au KMS et non seulement au disque. Il peut aussi tourner la KEK sans rechiffrer toutes les données, en réenveloppant seulement les DEK.
 
-> ⚠️ **Erreur fréquente** : stocker la clé dans une variable d'environnement ou un fichier de config **de la même image ou du même dépôt** que le code. Détection : `gitleaks detect --source .` ou `trufflehog git file://.` sur le dépôt, historique compris, car supprimer le fichier dans un commit ultérieur ne le retire pas de l'historique.
+> ⚠️ **Erreur fréquente**
+>
+> Stocker la clé dans une variable d'environnement ou un fichier de config **de la même image ou du même dépôt** que le code. Détection : `gitleaks detect --source .` ou `trufflehog git file://.` sur le dépôt, historique compris, car supprimer le fichier dans un commit ultérieur ne le retire pas de l'historique.
 {: .callout .callout-attention}
 
 ## Certificats, autorités de certification et PKI
 
 Le chiffrement asymétrique résout un problème et en crée un autre : comment savoir que la clé publique reçue appartient bien à `banque.example` et pas à un attaquant ? La réponse est le certificat X.509 : un document qui lie une identité à une clé publique, signé par un tiers de confiance, l'autorité de certification (CA — Certificate Authority).
 
-> 🪪 **Analogie : le passeport.** Un certificat joue le rôle d'un passeport : il associe un nom à un élément vérifiable, la clé publique, comme le passeport associe un nom à une photo. Vous l'acceptez parce que vous faites confiance à l'émetteur, ici la CA. Limite : contrairement à un passeport, un certificat se copie librement. Il ne prouve rien tant que le serveur ne démontre pas qu'il détient la clé privée correspondante.
+> 🪪 **Analogie : le passeport**
+>
+> Un certificat joue le rôle d'un passeport : il associe un nom à un élément vérifiable, la clé publique, comme le passeport associe un nom à une photo. Vous l'acceptez parce que vous faites confiance à l'émetteur, ici la CA. Limite : contrairement à un passeport, un certificat se copie librement. Il ne prouve rien tant que le serveur ne démontre pas qu'il détient la clé privée correspondante.
 {: .callout .callout-analogie}
 
 Un certificat contient notamment :
@@ -205,7 +225,9 @@ Un certificat contient notamment :
 - la période de validité ;
 - des contraintes d'usage (`basicConstraints`, `keyUsage`, `extendedKeyUsage`).
 
-> 📖 **Définition.** La PKI (Public Key Infrastructure) désigne l'ensemble des CA, politiques, processus d'émission et de révocation qui font fonctionner ce système.
+> 📖 **Définition**
+>
+> La PKI (Public Key Infrastructure) désigne l'ensemble des CA, politiques, processus d'émission et de révocation qui font fonctionner ce système.
 {: .callout .callout-definition}
 
 ```mermaid
@@ -290,7 +312,9 @@ Plutôt que de recopier cette liste, utilisez le générateur de configuration d
 | HSTS avec `includeSubDomains` | Bloque le stripping | Tous les sous-domaines doivent être servis en HTTPS ; le préchargement (`preload`) est difficile à annuler |
 | Certificat ECDSA plutôt que RSA | Clés plus petites, handshake plus rapide | Quelques clients très anciens ne le supportent pas |
 
-> ⚠️ **Erreur fréquente** : mettre `verify=False` ou `curl -k` « pour que ça marche » avec un certificat interne. La session reste chiffrée, mais avec n'importe qui. Correction : ajouter la CA interne au magasin de confiance du client (`REQUESTS_CA_BUNDLE`, `update-ca-certificates`) plutôt que de désactiver la vérification.
+> ⚠️ **Erreur fréquente**
+>
+> Mettre `verify=False` ou `curl -k` « pour que ça marche » avec un certificat interne. La session reste chiffrée, mais avec n'importe qui. Correction : ajouter la CA interne au magasin de confiance du client (`REQUESTS_CA_BUNDLE`, `update-ca-certificates`) plutôt que de désactiver la vérification.
 {: .callout .callout-attention}
 
 ## VPN : IPsec, WireGuard et OpenVPN
@@ -338,7 +362,9 @@ Les deux expressions décrivent les moments où la donnée peut être volée, pa
 | **Au repos, base ou stockage** | TDE (Transparent Data Encryption), chiffrement côté serveur des buckets objets | Vol du fichier de base ou du snapshot | Une requête SQL légitime (le moteur déchiffre automatiquement) |
 | **Au repos, applicatif** | Chiffrement de champs avant écriture, avec clé hors base | Dump de base, administrateur de base curieux | Application compromise disposant de la clé |
 
-> ⚠️ **Erreur fréquente** : conclure « la base est chiffrée, donc l'injection SQL est sans gravité ». Avec TDE, le moteur déchiffre pour toute requête autorisée, y compris celles de l'attaquant. Seul le chiffrement applicatif avec une clé que la base ne détient pas change réellement la situation, au prix d'une perte de capacité de recherche et de tri sur ces champs.
+> ⚠️ **Erreur fréquente**
+>
+> Conclure « la base est chiffrée, donc l'injection SQL est sans gravité ». Avec TDE, le moteur déchiffre pour toute requête autorisée, y compris celles de l'attaquant. Seul le chiffrement applicatif avec une clé que la base ne détient pas change réellement la situation, au prix d'une perte de capacité de recherche et de tri sur ces champs.
 {: .callout .callout-attention}
 
 Le trafic interne est le grand oublié. Un réseau interne n'est pas un canal de confiance : des déplacements latéraux et des attaques ARP spoofing y sont courants. Le mTLS entre services authentifie les deux extrémités, mais impose de distribuer et renouveler des certificats à grande échelle, ce qui justifie en pratique une PKI interne automatisée ou un maillage de services.
@@ -358,7 +384,9 @@ Après ce module, voici ce que vous devez savoir vérifier sur un système réel
 | Le VPN IPsec expose-t-il le mode agressif ? | `ike-scan -M --aggressive <HOST>` | Aucune réponse en mode agressif |
 | Le disque est-il chiffré ? | `lsblk -f` et `cryptsetup luksDump <DEVICE>` (Linux), `manage-bde -status` (Windows) | Type `crypto_LUKS` ou BitLocker « Protection On » |
 
-> 💡 **Astuce** : pour valider ce que fait réellement votre client HTTP face à un mauvais certificat, lancez `mitmproxy` en laboratoire, sans installer sa CA sur le client. Un client correct refuse la connexion ; un client avec `verify=False` laisse passer le trafic en clair dans mitmproxy.
+> 💡 **Astuce**
+>
+> Pour valider ce que fait réellement votre client HTTP face à un mauvais certificat, lancez `mitmproxy` en laboratoire, sans installer sa CA sur le client. Un client correct refuse la connexion ; un client avec `verify=False` laisse passer le trafic en clair dans mitmproxy.
 {: .callout .callout-astuce}
 
 ## Cas réel en entreprise : le certificat expiré du vendredi soir

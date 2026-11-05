@@ -52,7 +52,9 @@ Avant de dessiner quoi que ce soit, il faut dire ce qu'on appelle « disponible 
 
 Deux notions de gestion du risque reviennent dans toutes les discussions d'architecture.
 
-> 📖 **Définition.** Le **RTO** (Recovery Time Objective) est la durée d'indisponibilité acceptable. Le **RPO** (Recovery Point Objective) est la quantité de données qu'on tolère de perdre. Pour ne pas les confondre : T comme Temps, P comme Point de reprise des données.
+> 📖 **Définition**
+>
+> Le **RTO** (Recovery Time Objective) est la durée d'indisponibilité acceptable. Le **RPO** (Recovery Point Objective) est la quantité de données qu'on tolère de perdre. Pour ne pas les confondre : T comme Temps, P comme Point de reprise des données.
 {: .callout .callout-definition}
 
 Pour Grafana, le RPO porte sur la base (dashboards modifiés dans l'UI, silences, état des alertes). Le RTO se joue surtout sur la détection de la panne et le basculement du trafic.
@@ -91,12 +93,16 @@ flowchart TD
 
 ### Des instances jetables autour d'une base
 
-> 🧠 **Concept clé** : en HA, une instance Grafana ne détient plus rien d'irremplaçable. Tout ce qui compte (dashboards, comptes, Data Sources chiffrées, règles, contact points, sessions) vit dans la base. On peut détruire une instance et en recréer une identique sans rien perdre. C'est la même logique qu'un serveur web sans état derrière un load balancer.
-{: .callout .callout-important}
-
 Conséquence directe : **SQLite est exclue**. C'est un fichier local à une instance. Grafana prend en charge MySQL et PostgreSQL pour ce scénario.
 
-> ⚠️ **Erreur fréquente** : démarrer une deuxième instance sans changer `[database]`. Elle crée sa propre base SQLite, tout a l'air de fonctionner, et on découvre plus tard qu'un dashboard modifié « disparaît » une fois sur deux, selon l'instance qui répond. Correction : vérifier `[database] type` sur chaque instance avant tout test.
+> 🧠 **Concept clé**
+>
+> En HA, une instance Grafana ne détient plus rien d'irremplaçable. Tout ce qui compte (dashboards, comptes, Data Sources chiffrées, règles, contact points, sessions) vit dans la base. On peut détruire une instance et en recréer une identique sans rien perdre. C'est la même logique qu'un serveur web sans état derrière un load balancer.
+{: .callout .callout-important}
+
+> ⚠️ **Erreur fréquente**
+>
+> Démarrer une deuxième instance sans changer `[database]`. Elle crée sa propre base SQLite, tout a l'air de fonctionner, et on découvre plus tard qu'un dashboard modifié « disparaît » une fois sur deux, selon l'instance qui répond. Correction : vérifier `[database] type` sur chaque instance avant tout test.
 {: .callout .callout-attention}
 
 ### Sessions : pas de sticky sessions
@@ -108,7 +114,9 @@ Deux conditions pour que ça tienne :
 - `[server] root_url` identique sur toutes les instances, et égale à l'URL publique du load balancer. Sinon les redirections OAuth/SSO partent vers la mauvaise adresse.
 - `[security] secret_key` identique partout. Cette clé chiffre les secrets des Data Sources stockés en base ; une instance avec une clé différente ne peut pas les déchiffrer.
 
-> ⚠️ **Erreur fréquente** : générer une `secret_key` différente par instance (ou laisser la valeur par défaut sur l'une d'elles). Symptôme : une Data Source fonctionne ou échoue selon l'instance qui sert la requête, avec des erreurs de déchiffrement dans les logs. Correction : une seule clé, injectée depuis votre gestionnaire de secrets.
+> ⚠️ **Erreur fréquente**
+>
+> Générer une `secret_key` différente par instance (ou laisser la valeur par défaut sur l'une d'elles). Symptôme : une Data Source fonctionne ou échoue selon l'instance qui sert la requête, avec des erreurs de déchiffrement dans les logs. Correction : une seule clé, injectée depuis votre gestionnaire de secrets.
 {: .callout .callout-attention}
 
 Le `remote_cache` mérite une mention. Par défaut il utilise la base ; sous forte charge, on peut le déplacer vers Redis ou Memcached pour soulager PostgreSQL. C'est une optimisation, pas un prérequis.
@@ -117,7 +125,9 @@ Les fonctions temps réel de Grafana Live (WebSocket) demandent une attention pa
 
 ### La base : le vrai point unique de défaillance
 
-> 💡 **À retenir.** Cette base est le SPOF (Single Point of Failure) de votre cluster. Trois instances Grafana derrière un PostgreSQL seul offrent une disponibilité inférieure à celle de ce PostgreSQL.
+> 💡 **À retenir**
+>
+> Cette base est le SPOF (Single Point of Failure) de votre cluster. Trois instances Grafana derrière un PostgreSQL seul offrent une disponibilité inférieure à celle de ce PostgreSQL.
 {: .callout .callout-important}
 
 | Option | Principe | À retenir |
@@ -128,7 +138,9 @@ Les fonctions temps réel de Grafana Live (WebSocket) demandent une attention pa
 
 Grafana attend **un seul point d'accès en écriture** : un nom DNS, un VIP ou un pooler qui suit le primaire. Il ne sait pas répartir les lectures sur des réplicas. Pendant un basculement de base, les requêtes en cours échouent, puis le pool de connexions se rétablit une fois le nouveau primaire joignable. Sur une échelle de durée, comptez de quelques secondes à plus d'une minute selon la solution, et mesurez-la chez vous.
 
-> 💡 **Astuce** : calculez votre budget de connexions. Chaque instance ouvre jusqu'à `max_open_conn` connexions ; avec 3 instances et une limite de 50, la base doit en accepter 150, plus la marge pour la maintenance. Fixez des valeurs explicites (`max_open_conn`, `max_idle_conn`, `conn_max_lifetime`) plutôt que de laisser le défaut.
+> 💡 **Astuce**
+>
+> Calculez votre budget de connexions. Chaque instance ouvre jusqu'à `max_open_conn` connexions ; avec 3 instances et une limite de 50, la base doit en accepter 150, plus la marge pour la maintenance. Fixez des valeurs explicites (`max_open_conn`, `max_idle_conn`, `conn_max_lifetime`) plutôt que de laisser le défaut.
 {: .callout .callout-astuce}
 
 ### Migrations et mises à jour
@@ -233,7 +245,9 @@ docker compose exec grafana1 wget -qO- http://localhost:3000/metrics | grep -i c
 
 Le premier appel doit retourner un JSON avec `"database": "ok"`. Le second doit indiquer 2 membres, sinon le gossip ne fonctionne pas.
 
-> 💡 **Astuce** : nginx open source ne fait que des contrôles passifs (il marque une instance en échec après des erreurs réelles). Le premier utilisateur touché paie la panne. Pour des contrôles actifs sur `/api/health`, utilisez HAProxy, le load balancer de votre cloud ou un Ingress configuré en conséquence.
+> 💡 **Astuce**
+>
+> Nginx open source ne fait que des contrôles passifs (il marque une instance en échec après des erreurs réelles). Le premier utilisateur touché paie la panne. Pour des contrôles actifs sur `/api/health`, utilisez HAProxy, le load balancer de votre cloud ou un Ingress configuré en conséquence.
 {: .callout .callout-astuce}
 
 ### v3 : production
@@ -279,10 +293,12 @@ C'est la partie la moins intuitive, et celle où les erreurs coûtent le plus ch
 
 ### Chaque instance évalue chaque règle
 
-> 🧠 **Concept clé** : en HA, **toutes les instances évaluent toutes les règles**. Il n'y a pas d'élection d'un « évaluateur » : avec 3 instances, chaque règle est calculée 3 fois par intervalle. C'est voulu : tant qu'une instance vit, l'évaluation continue, sans phase de bascule. La déduplication intervient plus tard, au moment d'envoyer les notifications.
-{: .callout .callout-important}
-
 Ça a deux conséquences concrètes. La charge sur vos Data Sources est multipliée par le nombre d'instances, ce qui est un argument pour ne pas dépasser 2 ou 3. Et les résultats peuvent différer légèrement entre instances si elles interrogent la source à quelques secondes d'écart. Des évolutions récentes cherchent à réduire cette duplication ; consultez la documentation de votre version avant de vous appuyer sur ce détail.
+
+> 🧠 **Concept clé**
+>
+> En HA, **toutes les instances évaluent toutes les règles**. Il n'y a pas d'élection d'un « évaluateur » : avec 3 instances, chaque règle est calculée 3 fois par intervalle. C'est voulu : tant qu'une instance vit, l'évaluation continue, sans phase de bascule. La déduplication intervient plus tard, au moment d'envoyer les notifications.
+{: .callout .callout-important}
 
 ### Déduplication par gossip
 
@@ -302,12 +318,16 @@ sequenceDiagram
     Note over G2: Attend 15 s, voit l'entrée, n'envoie rien
 ```
 
-> 📞 **Analogie : la permanence téléphonique.** Plusieurs collègues entendent la même sonnerie. Le premier de la liste décroche aussitôt et le note au cahier ; le deuxième attend un instant, lit le cahier et ne rappelle que si rien n'y figure. Limite de l'image : il n'y a pas de cahier central, chaque instance tient sa propre copie du journal, synchronisée par gossip.
+> 📞 **Analogie : la permanence téléphonique**
+>
+> Plusieurs collègues entendent la même sonnerie. Le premier de la liste décroche aussitôt et le note au cahier ; le deuxième attend un instant, lit le cahier et ne rappelle que si rien n'y figure. Limite de l'image : il n'y a pas de cahier central, chaque instance tient sa propre copie du journal, synchronisée par gossip.
 {: .callout .callout-analogie}
 
 La même mécanique détermine votre comportement en cas de panne : si l'instance de position 0 meurt, la suivante enverra **avec ~15 s de retard**, pas avant. Ce retard est le coût de la déduplication, et il s'ajoute à `group_wait` et à l'intervalle d'évaluation dans votre budget de délai.
 
-> ⚠️ **Erreur fréquente** : ouvrir le port 9094 en TCP seulement. Le gossip utilise TCP et UDP. Si les pairs ne se voient pas, chacun se croit seul et notifie : vous recevez les alertes en double ou en triple, et les silences créés sur une instance ne sont pas respectés par les autres. Correction : autoriser TCP et UDP 9094 entre instances (règles de pare-feu, NetworkPolicy), puis contrôler le nombre de membres dans les métriques.
+> ⚠️ **Erreur fréquente**
+>
+> Ouvrir le port 9094 en TCP seulement. Le gossip utilise TCP et UDP. Si les pairs ne se voient pas, chacun se croit seul et notifie : vous recevez les alertes en double ou en triple, et les silences créés sur une instance ne sont pas respectés par les autres. Correction : autoriser TCP et UDP 9094 entre instances (règles de pare-feu, NetworkPolicy), puis contrôler le nombre de membres dans les métriques.
 {: .callout .callout-attention}
 
 ### État des alertes et redémarrages
@@ -322,7 +342,9 @@ Si votre version permet à un Prometheus externe de pousser ses alertes vers l'A
 
 Grafana ne tombe pas parce qu'une Data Source tombe. Il dégrade : les panels concernés affichent une erreur, le reste fonctionne. Mais la façon dont on récupère n'a rien d'automatique, et c'est là que les équipes se trompent.
 
-> 🧠 **Concept clé** : Grafana ne voit qu'**une URL par Data Source**. Il ne sait pas basculer de lui-même vers une seconde source. La redondance doit donc être cachée derrière cette URL.
+> 🧠 **Concept clé**
+>
+> Grafana ne voit qu'**une URL par Data Source**. Il ne sait pas basculer de lui-même vers une seconde source. La redondance doit donc être cachée derrière cette URL.
 {: .callout .callout-important}
 
 | Source | Redondance derrière l'URL | Point d'attention |
@@ -413,7 +435,9 @@ done; echo
 
 Le résultat attendu pour un incident d'instance : quelques erreurs au pire, et **un seul** message par groupe de notifications côté webhook. Deux messages, c'est le gossip qui ne fonctionne pas.
 
-> 💡 **Astuce** : consignez les résultats dans un document d'exploitation (date, version, durée de bascule mesurée). À la prochaine montée de version, vous rejouerez les mêmes scénarios et vous saurez si quelque chose a régressé.
+> 💡 **Astuce**
+>
+> Consignez les résultats dans un document d'exploitation (date, version, durée de bascule mesurée). À la prochaine montée de version, vous rejouerez les mêmes scénarios et vous saurez si quelque chose a régressé.
 {: .callout .callout-astuce}
 
 Le test le plus négligé est le plus utile : après le retour de la base, vérifiez que les **règles d'alerte reprennent seules** sans redémarrage manuel. Si ce n'est pas le cas dans votre version, il faut le savoir avant, pas pendant un incident.

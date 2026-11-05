@@ -59,7 +59,9 @@ flowchart LR
 - **Requêtes** : chaque panneau qui se rafraîchit, chaque règle d'alerte évaluée, chaque investigation en Explore consomme du CPU et de la mémoire côté backend. Ce poste est le plus souvent oublié.
 - **Rétention** : un multiplicateur. Doubler la durée double (grosso modo) le stockage, sans rien changer d'autre.
 
-> 🧠 **Concept clé** : chaque signal a son *facteur dominant*. Pour les métriques, c'est le nombre de séries actives. Pour les logs, c'est le volume d'octets ingérés. Pour les traces, c'est le nombre de spans conservés. Optimiser le mauvais facteur, par exemple réduire la rétention des métriques alors que le problème est la cardinalité, donne un gain faible pour un vrai coût en diagnostic.
+> 🧠 **Concept clé**
+>
+> Chaque signal a son *facteur dominant*. Pour les métriques, c'est le nombre de séries actives. Pour les logs, c'est le volume d'octets ingérés. Pour les traces, c'est le nombre de spans conservés. Optimiser le mauvais facteur, par exemple réduire la rétention des métriques alors que le problème est la cardinalité, donne un gain faible pour un vrai coût en diagnostic.
 {: .callout .callout-important}
 
 | Signal | Facteur dominant | Ce qui pèse vraiment | Levier le plus rentable |
@@ -70,12 +72,16 @@ flowchart LR
 
 ## Métriques : la cardinalité, un multiplicateur silencieux
 
-> 📖 **Définition.** Une série temporelle, c'est une métrique + une combinaison unique de labels.
-{: .callout .callout-definition}
-
 Le nombre total de séries est le **produit** du nombre de valeurs possibles de chaque label.
 
-> 📒 **Analogie : l'annuaire.** Ajouter un critère de classement ne rajoute pas quelques pages, il multiplie le nombre de rubriques.
+> 📖 **Définition**
+>
+> Une série temporelle, c'est une métrique + une combinaison unique de labels.
+{: .callout .callout-definition}
+
+> 📒 **Analogie : l'annuaire**
+>
+> Ajouter un critère de classement ne rajoute pas quelques pages, il multiplie le nombre de rubriques.
 {: .callout .callout-analogie}
 
 Prenons un histogramme de latence HTTP typique :
@@ -101,7 +107,9 @@ topk(10, count by (job) ({__name__=~".+"}))
 rate(prometheus_tsdb_head_samples_appended_total[5m])
 ```
 
-> 💡 **Astuce** : la page `/tsdb-status` de l'interface Prometheus donne les mêmes classements (métriques, labels, paires label/valeur les plus coûteuses) sans exécuter de requête lourde. Commencez par là.
+> 💡 **Astuce**
+>
+> La page `/tsdb-status` de l'interface Prometheus donne les mêmes classements (métriques, labels, paires label/valeur les plus coûteuses) sans exécuter de requête lourde. Commencez par là.
 {: .callout .callout-astuce}
 
 ### Le stockage est rarement le problème des métriques
@@ -133,7 +141,9 @@ scrape_configs:
         action: labeldrop
 ```
 
-> ⚠️ **Erreur fréquente** : un `labeldrop` qui fait entrer deux séries distinctes en collision (même nom, mêmes labels restants) provoque des erreurs d'échantillons dupliqués. Vérifiez que les labels restants suffisent à distinguer les séries.
+> ⚠️ **Erreur fréquente**
+>
+> Un `labeldrop` qui fait entrer deux séries distinctes en collision (même nom, mêmes labels restants) provoque des erreurs d'échantillons dupliqués. Vérifiez que les labels restants suffisent à distinguer les séries.
 {: .callout .callout-attention}
 
 Pour les requêtes lourdes qui reviennent dans plusieurs dashboards, une *recording rule* calcule une fois le résultat agrégé et le stocke. Les panneaux interrogent alors la série précalculée au lieu de rebalayer des centaines de milliers de séries à chaque rafraîchissement.
@@ -177,14 +187,18 @@ limits_config:
   max_global_streams_per_user: 50000
 ```
 
-> 💡 **Astuce** : si vous avez besoin de conserver un identifiant (trace ID, request ID) sans créer un flux par valeur, ne le mettez pas en label. Mettez-le dans la ligne de log, ou en *structured metadata* si votre version de Loki le supporte. Vous le retrouverez par filtre, sans exploser l'index.
+> 💡 **Astuce**
+>
+> Si vous avez besoin de conserver un identifiant (trace ID, request ID) sans créer un flux par valeur, ne le mettez pas en label. Mettez-le dans la ligne de log, ou en *structured metadata* si votre version de Loki le supporte. Vous le retrouverez par filtre, sans exploser l'index.
 {: .callout .callout-astuce}
 
 ## Traces : conserver l'intéressant, pas l'exhaustif
 
 Un système distribué sous charge génère un nombre de spans considérable, et la grande majorité décrit des requêtes réussies, rapides, identiques à des millions d'autres. Conserver 100 % de ces traces est le moyen le plus sûr de payer très cher pour du bruit. D'où le *sampling* : on ne conserve qu'une partie des traces.
 
-> 📊 **Analogie : le sondage.** Comme un institut qui interroge 1 000 personnes plutôt que toute la population, on garde un échantillon représentatif. Limite de l'image : le tail sampling, lui, n'est volontairement pas représentatif, puisqu'il garde toutes les erreurs et toutes les traces lentes.
+> 📊 **Analogie : le sondage**
+>
+> Comme un institut qui interroge 1 000 personnes plutôt que toute la population, on garde un échantillon représentatif. Limite de l'image : le tail sampling, lui, n'est volontairement pas représentatif, puisqu'il garde toutes les erreurs et toutes les traces lentes.
 {: .callout .callout-analogie}
 
 Deux familles :
@@ -216,7 +230,9 @@ processors:
 
 Contrainte d'architecture : pour que le collecteur voie toutes les spans d'une trace, il faut router par `traceID` vers la même instance (exporter de type load-balancing en amont). Sans ça, des décisions sont prises sur des traces incomplètes.
 
-> ⚠️ **Erreur fréquente** : calculer les métriques RED (taux, erreurs, durée) à partir des spans **après** sampling. Avec 5 % de traces conservées, le débit affiché est faux d'un facteur 20 et les dashboards mentent. Calculez les métriques de spans (connector `spanmetrics` ou metrics-generator) **avant** la décision de sampling, ou corrigez avec le taux d'échantillonnage.
+> ⚠️ **Erreur fréquente**
+>
+> Calculer les métriques RED (taux, erreurs, durée) à partir des spans **après** sampling. Avec 5 % de traces conservées, le débit affiché est faux d'un facteur 20 et les dashboards mentent. Calculez les métriques de spans (connector `spanmetrics` ou metrics-generator) **avant** la décision de sampling, ou corrigez avec le taux d'échantillonnage.
 {: .callout .callout-attention}
 
 ## Rétention : durée selon la criticité
@@ -252,7 +268,9 @@ Les noms exacts des paramètres (notamment `delete_request_store`) varient selon
 
 Pour Tempo, la durée est portée par le compactor (`block_retention`), avec une valeur par défaut de 14 jours.
 
-> 💡 **Astuce** : doublez toujours la rétention applicative par une règle de cycle de vie sur le bucket objet pour les anciens blocs orphelins. Cela sert de filet si le compactor s'arrête silencieusement.
+> 💡 **Astuce**
+>
+> Doublez toujours la rétention applicative par une règle de cycle de vie sur le bucket objet pour les anciens blocs orphelins. Cela sert de filet si le compactor s'arrête silencieusement.
 {: .callout .callout-astuce}
 
 ## Requêtes : le coût qu'on ne voit pas dans le stockage
@@ -283,7 +301,9 @@ C'est la partie du module où l'on compare deux modèles de coût différents pa
 
 Un point mérite d'être dit clairement : **« gratuit » n'est pas « sans coût »**.
 
-> 📖 **Définition.** Le TCO (*Total Cost of Ownership*, coût total de possession) d'une plateforme auto-hébergée inclut le temps passé à monter de version Loki ou Tempo, à diagnostiquer une compaction bloquée, à dimensionner les nœuds, à répondre à la page du samedi soir.
+> 📖 **Définition**
+>
+> Le TCO (*Total Cost of Ownership*, coût total de possession) d'une plateforme auto-hébergée inclut le temps passé à monter de version Loki ou Tempo, à diagnostiquer une compaction bloquée, à dimensionner les nœuds, à répondre à la page du samedi soir.
 {: .callout .callout-definition}
 
 Une fraction d'ingénieur à temps plein coûte souvent plus que la facture d'un service managé pour un volume moyen. À l'inverse, à volume très élevé, le prix à la consommation finit par dépasser l'infra et le temps d'équipe.
@@ -357,7 +377,9 @@ Concrètement :
 - **Préférer l'agrégation à la suppression.** Garder `http_requests_total` agrégé par service tout en supprimant le label `pod` conserve l'essentiel. Mais gardez à l'esprit le compromis : sans label `pod`, vous ne saurez plus *quel* pod est défaillant. Si ce cas arrive souvent chez vous, ce label vaut son coût.
 - **Mettre la réduction sous surveillance.** Suivez le taux de requêtes en `No Data`, le nombre de dashboards en erreur et le nombre de requêtes d'investigation sans résultat après la modification.
 
-> 🧠 **Concept clé** : l'objectif n'est pas la facture la plus basse, c'est le **meilleur rapport entre coût et capacité de diagnostic**. Réduire de 40 % le coût en dégradant d'un facteur 2 le temps de résolution des incidents est généralement un mauvais marché, même si personne ne le voit sur la facture.
+> 🧠 **Concept clé**
+>
+> L'objectif n'est pas la facture la plus basse, c'est le **meilleur rapport entre coût et capacité de diagnostic**. Réduire de 40 % le coût en dégradant d'un facteur 2 le temps de résolution des incidents est généralement un mauvais marché, même si personne ne le voit sur la facture.
 {: .callout .callout-important}
 
 ## Diagnostic : erreurs fréquentes

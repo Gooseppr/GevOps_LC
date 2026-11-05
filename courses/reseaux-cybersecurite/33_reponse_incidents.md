@@ -58,7 +58,9 @@ La qualification décide qui est réveillé, quels outils sont autorisés et que
 | Incident de sécurité | Action malveillante avérée ou fortement suspectée | Compte compromis, malware sur un poste, fuite de secret dans un dépôt | CSIRT / SOC avec l'IT | Playbook d'incident, preuves à préserver |
 | Crise | Impact métier majeur, ou décisions qui dépassent la technique | Production arrêtée, données personnelles exfiltrées, extorsion | Direction, cellule de crise | Communication, juridique, notification, arbitrages coûteux |
 
-> 🧠 **Concept clé** : on ne passe pas d'un niveau à l'autre par la taille du problème technique. On bascule en crise quand une décision non technique devient nécessaire : payer ou non, arrêter la production, informer les clients, prévenir une autorité. Un seul serveur chiffré peut être une crise si c'est celui de la facturation un 30 du mois.
+> 🧠 **Concept clé**
+>
+> On ne passe pas d'un niveau à l'autre par la taille du problème technique. On bascule en crise quand une décision non technique devient nécessaire : payer ou non, arrêter la production, informer les clients, prévenir une autorité. Un seul serveur chiffré peut être une crise si c'est celui de la facturation un 30 du mois.
 {: .callout .callout-important}
 
 ```mermaid
@@ -90,7 +92,9 @@ Le répondant n'a pas à lister les ports ouverts. Il doit connaître ce que l'a
 | Journaux | Rétention courte, effacement local | Perte de la chronologie |
 | Postes d'investigation du répondant | Outils lancés avec un compte admin sur une machine compromise | Vol des identifiants du répondant |
 
-> 🔴 **Vecteur d'attaque** : dans les intrusions à finalité d'extorsion, les opérateurs consultent souvent la messagerie des équipes IT et de la direction pour savoir si la détection a eu lieu et quel est le plan. Un canal de crise hébergé sur l'environnement compromis fuite en temps réel.
+> 🔴 **Vecteur d'attaque**
+>
+> Dans les intrusions à finalité d'extorsion, les opérateurs consultent souvent la messagerie des équipes IT et de la direction pour savoir si la détection a eu lieu et quel est le plan. Un canal de crise hébergé sur l'environnement compromis fuite en temps réel.
 {: .callout .callout-danger}
 
 ## Ce que l'attaquant a fait avant que vous le voyiez
@@ -104,7 +108,9 @@ Que faut-il chercher ? Pour le savoir, connaissez d'abord la séquence typique d
 5. **Neutralisation de la récupération** : `vssadmin delete shadows /all /quiet`, arrêt des services de sauvegarde, effacement des journaux (`wevtutil cl Security`).
 6. **Chiffrement** : généralement déclenché hors heures ouvrées, via GPO ou PsExec sur l'ensemble du parc.
 
-> 💡 **Astuce** : le chiffrement est la dernière étape. Quand il se produit, l'attaquant est déjà là depuis des jours ou des semaines, et la donnée est probablement déjà sortie. Se demander « que s'est-il passé avant ? » est plus utile que « comment arrêter le chiffrement ? ».
+> 💡 **Astuce**
+>
+> Le chiffrement est la dernière étape. Quand il se produit, l'attaquant est déjà là depuis des jours ou des semaines, et la donnée est probablement déjà sortie. Se demander « que s'est-il passé avant ? » est plus utile que « comment arrêter le chiffrement ? ».
 {: .callout .callout-astuce}
 
 Autre comportement à anticiper : un attaquant qui se sait détecté accélère. Il lance le chiffrement immédiatement, ou il bascule sur ses accès de secours. D'où la préférence pour un confinement coordonné plutôt qu'un confinement au fil de l'eau (voir plus bas).
@@ -115,7 +121,9 @@ Préparation, identification, confinement, éradication, récupération, retour 
 
 \* PICERL : acronyme anglais des six phases (Preparation, Identification, Containment, Eradication, Recovery, Lessons learned) du modèle de réponse aux incidents de SANS.
 
-> 🔑 **Moyen mnémotechnique** : l'acronyme se lit aussi en français pour les cinq premières lettres : **P**réparation, **I**dentification, **C**onfinement, **É**radication, **R**écupération. Seul le **L** (*Lessons learned*) se traduit par « retour d'expérience ».
+> 🔑 **Moyen mnémotechnique**
+>
+> L'acronyme se lit aussi en français pour les cinq premières lettres : **P**réparation, **I**dentification, **C**onfinement, **É**radication, **R**écupération. Seul le **L** (*Lessons learned*) se traduit par « retour d'expérience ».
 {: .callout .callout-memo}
 
 ### Préparation : ce qu'il faut avoir avant
@@ -132,7 +140,9 @@ La préparation est la phase qui coûte le plus en temps, et le plus souvent cel
 | Sauvegardes | Hors domaine, immuables ou déconnectées, restauration testée | Complexité et licences |
 | Contrat d'assistance | Prestataire de réponse aux incidents qualifié (ANSSI en France) ou assurance cyber avec service d'astreinte | Récurrent, négocié à l'avance |
 
-> 🔒 **Contrôle de sécurité** : un prestataire sous contrat-cadre (« retainer ») arrive en heures, un prestataire à contacter pendant la crise en jours. La différence de coût annuel est faible comparée à l'arrêt d'activité.
+> 🔒 **Contrôle de sécurité**
+>
+> Un prestataire sous contrat-cadre (« retainer ») arrive en heures, un prestataire à contacter pendant la crise en jours. La différence de coût annuel est faible comparée à l'arrêt d'activité.
 {: .callout .callout-securite}
 
 ### Identification : de l'alerte au périmètre
@@ -163,7 +173,9 @@ Get-WinEvent -FilterHashtable @{LogName='System'; Id=7045}
 | `vssadmin list shadows` vide | Serveurs | Copies shadow supprimées, étape de neutralisation de la récupération |
 | Gros volumes sortants vers un stockage cloud | Proxy, NetFlow | Exfiltration, parfois quelques jours avant le chiffrement |
 
-> 💡 **Astuce** : les journaux locaux peuvent être effacés, mais le SIEM, le proxy, le pare-feu et l'EDR conservent souvent la trace. Croisez toujours plusieurs sources avant de conclure à l'absence d'activité.
+> 💡 **Astuce**
+>
+> Les journaux locaux peuvent être effacés, mais le SIEM, le proxy, le pare-feu et l'EDR conservent souvent la trace. Croisez toujours plusieurs sources avant de conclure à l'absence d'activité.
 {: .callout .callout-astuce}
 
 ### Qualification de la gravité et du périmètre
@@ -192,14 +204,18 @@ C'est le point central du module. Chaque réflexe de remédiation a un coût d'e
 | Supprimer le malware avec l'antivirus | Échantillon, parfois horodatages et chemins | Mettre en quarantaine et conserver |
 | Restaurer depuis la dernière sauvegarde | Chronologie, et réintroduction d'un implant | Restaurer dans un réseau isolé, après identification de la date de compromission |
 
-> ⚠️ **Erreur fréquente** : réinitialiser `krbtgt` immédiatement « pour couper l'attaquant ». Un reset incomplet ou fait trop tôt peut rendre l'annuaire instable sans éliminer les accès déjà persistés. La pratique courante est de scoper d'abord, puis de réinitialiser deux fois avec un délai supérieur à la durée de vie maximale des tickets (10 heures par défaut), et de le faire dans la même fenêtre que le reste du confinement.
+> ⚠️ **Erreur fréquente**
+>
+> Réinitialiser `krbtgt` immédiatement « pour couper l'attaquant ». Un reset incomplet ou fait trop tôt peut rendre l'annuaire instable sans éliminer les accès déjà persistés. La pratique courante est de scoper d'abord, puis de réinitialiser deux fois avec un délai supérieur à la durée de vie maximale des tickets (10 heures par défaut), et de le faire dans la même fenêtre que le reste du confinement.
 {: .callout .callout-attention}
 
 ### Isolement d'un poste ou d'un serveur
 
 Ordre de volatilité (RFC 3227) : on capture d'abord ce qui disparaît le plus vite, c'est-à-dire la mémoire, puis les connexions et processus, puis le disque.
 
-> 🔍 **Analogie : la scène de crime sous la pluie.** L'enquêteur relève d'abord les empreintes de pas dans la boue, puis les objets, qui peuvent attendre. La RAM joue le rôle des empreintes : une fois effacée, elle ne revient pas. Limite : ici, ce n'est pas la pluie qui efface, mais souvent le répondant lui-même, quand il éteint la machine.
+> 🔍 **Analogie : la scène de crime sous la pluie**
+>
+> L'enquêteur relève d'abord les empreintes de pas dans la boue, puis les objets, qui peuvent attendre. La RAM joue le rôle des empreintes : une fois effacée, elle ne revient pas. Limite : ici, ce n'est pas la pluie qui efface, mais souvent le répondant lui-même, quand il éteint la machine.
 {: .callout .callout-analogie}
 
 ```mermaid
@@ -250,7 +266,9 @@ Revoke-MgUserSignInSession -UserId <UPN>
 
 Prévoir aussi : révoquer les jetons d'application et les clés d'API associées, vérifier les règles de redirection de messagerie, les applications OAuth consenties et les méthodes MFA ajoutées. Une règle de transfert créée par l'attaquant survit à un changement de mot de passe.
 
-> 🔴 **Vecteur d'attaque** : un attaquant qui a enregistré sa propre méthode MFA sur un compte compromis garde l'accès après la réinitialisation du mot de passe. Vérifier les méthodes d'authentification enregistrées fait partie de l'isolement.
+> 🔴 **Vecteur d'attaque**
+>
+> Un attaquant qui a enregistré sa propre méthode MFA sur un compte compromis garde l'accès après la réinitialisation du mot de passe. Vérifier les méthodes d'authentification enregistrées fait partie de l'isolement.
 {: .callout .callout-danger}
 
 ### Confinement : immédiat, différé ou coordonné
@@ -278,7 +296,9 @@ Le journal des décisions répond à la question de l'audit, de l'assureur et du
 - une ligne par décision ;
 - la décision est consignée avant ou immédiatement après l'action, jamais reconstruite plus tard.
 
-> 📖 **Définition.** La **chaîne de traçabilité** d'une preuve indique qui l'a collectée, quand, depuis quelle machine, avec quel outil, son empreinte, et qui l'a manipulée ensuite.
+> 📖 **Définition**
+>
+> La **chaîne de traçabilité** d'une preuve indique qui l'a collectée, quand, depuis quelle machine, avec quel outil, son empreinte, et qui l'a manipulée ensuite.
 {: .callout .callout-definition}
 
 ## Éradication et récupération
@@ -292,7 +312,9 @@ Le journal des décisions répond à la question de l'audit, de l'assureur et du
 - **Reconnecter par paliers**, en commençant par les services d'infrastructure (annuaire, DNS, PKI), avec une surveillance renforcée et des critères de sortie écrits (aucune alerte pendant X heures, comptes rotés, passerelle corrigée).
 - **Fermer l'accès initial** avant de rétablir : correctif de CVE-2023-4966, invalidation des sessions, MFA obligatoire, sinon la réinfection est rapide.
 
-> ⚠️ **Erreur fréquente** : redémarrer la production dès que « ça marche » sans avoir identifié l'accès initial. Les attaquants qui reviennent quelques jours plus tard avec le même accès sont courants.
+> ⚠️ **Erreur fréquente**
+>
+> Redémarrer la production dès que « ça marche » sans avoir identifié l'accès initial. Les attaquants qui reviennent quelques jours plus tard avec le même accès sont courants.
 {: .callout .callout-attention}
 
 ## Rôles, CSIRT/CERT et coordination
@@ -318,7 +340,9 @@ Le partage d'informations entre CSIRT utilise des marquages comme le **TLP (Traf
 
 Ne publiez pas un indicateur marqué restreint.
 
-> 🧠 **Concept clé** : le coordinateur technique ne mène pas l'investigation et ne prend pas les décisions de direction. Dès qu'une personne cumule les trois rôles, la crise se désorganise en quelques heures.
+> 🧠 **Concept clé**
+>
+> Le coordinateur technique ne mène pas l'investigation et ne prend pas les décisions de direction. Dès qu'une personne cumule les trois rôles, la crise se désorganise en quelques heures.
 {: .callout .callout-important}
 
 ## Communication et obligations de notification
@@ -359,7 +383,9 @@ nmap -Pn -p 22,445,3389 <HOST>
 vol -f <FILE> windows.info
 ```
 
-> 💡 **Astuce** : mesurer les délais est plus instructif que constater « ça marche ». Un isolement qui prend 90 minutes parce que personne n'a les droits sur le commutateur est une découverte utile en exercice et catastrophique en crise.
+> 💡 **Astuce**
+>
+> Mesurer les délais est plus instructif que constater « ça marche ». Un isolement qui prend 90 minutes parce que personne n'a les droits sur le commutateur est une découverte utile en exercice et catastrophique en crise.
 {: .callout .callout-astuce}
 
 ## Scénario complet : une intrusion à finalité d'extorsion
@@ -395,7 +421,9 @@ Le retour d'expérience se tient dans les deux à quatre semaines, quand les fai
 
 Questions utiles : qu'est-ce qui nous a ralentis ? Quelle information nous a manqué ? Quelle décision aurions-nous voulu prendre plus tôt ? Quel contrôle aurait arrêté l'attaquant à l'étape 2 ou 3 ?
 
-> 🔒 **Contrôle de sécurité** : mettre à jour les playbooks et refaire l'exercice qui a échoué dans les trois mois. Un retour d'expérience sans second exercice reste un document.
+> 🔒 **Contrôle de sécurité**
+>
+> Mettre à jour les playbooks et refaire l'exercice qui a échoué dans les trois mois. Un retour d'expérience sans second exercice reste un document.
 {: .callout .callout-securite}
 
 ## Erreurs fréquentes

@@ -53,10 +53,14 @@ Avant de dessiner une architecture, il faut savoir ce qu'on place dedans. Grafan
 2. Elle **interroge les data sources** au nom de l'utilisateur, le plus souvent en mode proxy : c'est le serveur Grafana qui appelle Prometheus, pas le navigateur.
 3. Elle **conserve sa propre configuration** dans une base : dashboards, utilisateurs, organisations, permissions, data sources, règles d'alerte, état des alertes.
 
-> 🧠 **Concept clé** — Grafana est un *client de requêtes* avec un petit état propre. Son état est dans la base de configuration, pas dans le processus. Si la base survit, on peut recréer l'instance. Si la base disparaît, les binaires intacts ne servent à rien. Le coût, lui, se paie dans les backends interrogés.
+> 🧠 **Concept clé**
+>
+> Grafana est un *client de requêtes* avec un petit état propre. Son état est dans la base de configuration, pas dans le processus. Si la base survit, on peut recréer l'instance. Si la base disparaît, les binaires intacts ne servent à rien. Le coût, lui, se paie dans les backends interrogés.
 {: .callout .callout-important}
 
-> 🏛️ **Analogie : le guichet et les archives.** Grafana est un guichet de renseignements. Les archives (Prometheus, Loki, Tempo) sont dans un autre bâtiment. Ajouter des guichets accueille plus de monde, mais ne rend pas les archivistes plus rapides.
+> 🏛️ **Analogie : le guichet et les archives**
+>
+> Grafana est un guichet de renseignements. Les archives (Prometheus, Loki, Tempo) sont dans un autre bâtiment. Ajouter des guichets accueille plus de monde, mais ne rend pas les archivistes plus rapides.
 {: .callout .callout-analogie}
 
 ## Les composants d'une installation de production
@@ -104,14 +108,18 @@ Que signifie une architecture « distribuée » pour Grafana ? Grafana lui-même
 - **Distribuée** se justifie quand le volume de télémétrie dépasse ce qu'une machine encaisse, ou quand la plateforme est un service interne avec un engagement de disponibilité. Il faut une équipe qui sait exploiter Kubernetes, du stockage objet et des mises à jour de composants stateful.
 - **Cloud** s'impose quand l'équipe n'a pas la capacité d'exploiter la plateforme et que la donnée peut quitter l'infrastructure. Les limites arrivent avec la facture quand le volume explose, ou avec l'accès aux data sources en réseau privé (des mécanismes comme Private Data Source Connect existent, leur disponibilité dépend de l'offre).
 
-> 💡 **À retenir.** On ne passe pas en distribué parce que c'est « plus pro ». On y passe quand une mesure précise (saturation d'un backend, SLA exigé) le justifie.
+> 💡 **À retenir**
+>
+> On ne passe pas en distribué parce que c'est « plus pro ». On y passe quand une mesure précise (saturation d'un backend, SLA exigé) le justifie.
 {: .callout .callout-important}
 
 ## Reverse proxy : la porte d'entrée
 
 Grafana sait écouter en HTTPS lui-même, mais en production on place presque toujours un reverse proxy devant.
 
-> 📖 **Définition.** Le reverse proxy est le serveur placé devant Grafana, qui reçoit les requêtes des utilisateurs. Il termine le TLS (Transport Layer Security), centralise les certificats, applique les règles réseau et répartit la charge.
+> 📖 **Définition**
+>
+> Le reverse proxy est le serveur placé devant Grafana, qui reçoit les requêtes des utilisateurs. Il termine le TLS (Transport Layer Security), centralise les certificats, applique les règles réseau et répartit la charge.
 {: .callout .callout-definition}
 
 Deux réglages Grafana comptent autant que le proxy :
@@ -158,7 +166,9 @@ server {
 }
 ```
 
-> ⚠️ **Erreur fréquente** — Régler `proxy_read_timeout` à 30 s alors que certaines requêtes Loki ou Prometheus en prennent 45. Le proxy coupe avant que Grafana n'ait fini, et l'utilisateur voit un 504 qui ressemble à une panne de Grafana. Le timeout du proxy doit être **supérieur ou égal** à celui que Grafana applique à ses data sources (`[dataproxy] timeout`, 30 s par défaut). Sinon c'est le proxy qui décide à la place de Grafana.
+> ⚠️ **Erreur fréquente**
+>
+> Régler `proxy_read_timeout` à 30 s alors que certaines requêtes Loki ou Prometheus en prennent 45. Le proxy coupe avant que Grafana n'ait fini, et l'utilisateur voit un 504 qui ressemble à une panne de Grafana. Le timeout du proxy doit être **supérieur ou égal** à celui que Grafana applique à ses data sources (`[dataproxy] timeout`, 30 s par défaut). Sinon c'est le proxy qui décide à la place de Grafana.
 {: .callout .callout-attention}
 
 ## Base de configuration : SQLite, PostgreSQL ou MySQL
@@ -169,7 +179,9 @@ SQLite est le choix par défaut : un fichier `grafana.db` dans `/var/lib/grafana
 - Le fichier appartient à **une** machine. Deux instances Grafana avec chacune leur SQLite sont deux Grafana différents, avec des dashboards et des utilisateurs différents. Un load balancer devant elles produit un comportement qui change à chaque requête.
 - La sauvegarde cohérente d'un fichier ouvert en écriture demande de la rigueur (le détail viendra au module sur la sauvegarde).
 
-> 🧠 **Concept clé** — Dès qu'on veut plus d'une instance Grafana, la base doit être **externe et partagée**. C'est le critère qui fait basculer, bien avant la taille du fichier.
+> 🧠 **Concept clé**
+>
+> Dès qu'on veut plus d'une instance Grafana, la base doit être **externe et partagée**. C'est le critère qui fait basculer, bien avant la taille du fichier.
 {: .callout .callout-important}
 
 | Critère | SQLite | PostgreSQL | MySQL |
@@ -193,7 +205,9 @@ max_open_conn = 20
 
 Le mot de passe ne doit pas figurer dans le fichier : il passe par la variable d'environnement `GF_DATABASE_PASSWORD`. Grafana traduit toute variable `GF_<SECTION>_<CLÉ>` en surcharge du `grafana.ini`, ce qui convient bien aux conteneurs.
 
-> 💡 **Astuce** — `max_open_conn` multiplié par le nombre d'instances ne doit pas dépasser la limite de connexions de PostgreSQL (`max_connections`). Avec 3 instances à 20 connexions, vous réservez déjà 60 connexions, avant les autres applications.
+> 💡 **Astuce**
+>
+> `max_open_conn` multiplié par le nombre d'instances ne doit pas dépasser la limite de connexions de PostgreSQL (`max_connections`). Avec 3 instances à 20 connexions, vous réservez déjà 60 connexions, avant les autres applications.
 {: .callout .callout-astuce}
 
 La migration de SQLite vers PostgreSQL n'est pas anodine. Autant partir sur une base externe dès que la plateforme dépasse le stade du pilote.
@@ -260,15 +274,19 @@ Un calcul rapide donne l'ordre de grandeur (chiffres illustratifs) :
 
 Les dashboards pèsent donc vingt fois plus que les alertes dans cet exemple, et un seul écran rafraîchi toutes les 5 s sur un mur d'équipe compte comme un utilisateur actif de plus.
 
-> 💡 **Astuce** — `min_refresh_interval` (section `[dashboards]`) impose un plancher aux rafraîchissements automatiques. Avec un plancher à 30 s, la charge d'un dashboard réglé à 5 s est divisée par six, celle d'un dashboard à 10 s par trois, sans toucher à un seul panel.
+> 💡 **Astuce**
+>
+> `min_refresh_interval` (section `[dashboards]`) impose un plancher aux rafraîchissements automatiques. Avec un plancher à 30 s, la charge d'un dashboard réglé à 5 s est divisée par six, celle d'un dashboard à 10 s par trois, sans toucher à un seul panel.
 {: .callout .callout-astuce}
 
 ### Le piège : multiplier les Grafana ne soulage pas les backends
 
-> ⚠️ **Erreur fréquente** — Face à des dashboards lents, ajouter des instances Grafana. Si Prometheus ou Loki sont saturés, c'est comme ouvrir de nouveaux guichets devant des archives déjà débordées : la file à l'intérieur ne bouge pas, et vous augmentez le nombre de demandeurs simultanés.
-{: .callout .callout-attention}
-
 Deux raisons :
+
+> ⚠️ **Erreur fréquente**
+>
+> Face à des dashboards lents, ajouter des instances Grafana. Si Prometheus ou Loki sont saturés, c'est comme ouvrir de nouveaux guichets devant des archives déjà débordées : la file à l'intérieur ne bouge pas, et vous augmentez le nombre de demandeurs simultanés.
+{: .callout .callout-attention}
 
 - Les requêtes lourdes partent toujours vers le même backend. La capacité de traitement n'a pas changé, seule la capacité d'accueil des utilisateurs a augmenté.
 - Dans le mode HA classique, chaque instance évalue l'ensemble des règles d'alerte, et seules les notifications sont dédoublonnées. Trois instances peuvent donc tripler la charge d'évaluation sur les backends (à vérifier selon la version et la configuration utilisées).

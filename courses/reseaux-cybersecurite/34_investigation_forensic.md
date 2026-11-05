@@ -72,7 +72,9 @@ Un attaquant qui agit sur un système écrit à plusieurs endroits, qu'il le veu
 | Exfiltration | Gros volumes sortants, DNS anormal | Proxy, NetFlow, pcap | Haute sans capture réseau |
 | Effacement des traces | Journal vidé, historique supprimé, horodatages modifiés | Événements 1102 et 104, `$MFT`, journaux distants | L'effacement lui-même est une trace |
 
-> 🧠 **Concept clé** : le principe d'échange de Locard s'applique au numérique. Toute action laisse une trace, y compris l'effacement. Corréler plusieurs sources permet de détecter les incohérences, c'est-à-dire ce qu'un attaquant a réussi à masquer dans l'une mais pas dans l'autre.
+> 🧠 **Concept clé**
+>
+> Le principe d'échange de Locard s'applique au numérique. Toute action laisse une trace, y compris l'effacement. Corréler plusieurs sources permet de détecter les incohérences, c'est-à-dire ce qu'un attaquant a réussi à masquer dans l'une mais pas dans l'autre.
 {: .callout .callout-important}
 
 ---
@@ -85,7 +87,9 @@ Qu'est-ce qui donne de la valeur à une preuve numérique ? Il faut pouvoir dém
 - elle est **intègre** : elle n'a pas changé depuis la collecte ;
 - elle est **traçable** : on sait qui l'a eue, quand, et pourquoi.
 
-> 📦 **Analogie : le colis recommandé.** Chaque remise du colis est signée et datée, ce qui retrace tout son parcours. Limite : la signature ne dit rien du contenu. En forensic, c'est le hash revérifié à chaque transfert qui prouve que la preuve n'a pas changé.
+> 📦 **Analogie : le colis recommandé**
+>
+> Chaque remise du colis est signée et datée, ce qui retrace tout son parcours. Limite : la signature ne dit rien du contenu. En forensic, c'est le hash revérifié à chaque transfert qui prouve que la preuve n'a pas changé.
 {: .callout .callout-analogie}
 
 Les cadres de référence sont la RFC 3227 (collecte et archivage des preuves), la norme ISO/IEC 27037 (identification, collecte, acquisition, préservation) et le NIST SP 800-86 (intégration du forensic dans la réponse à incident).
@@ -116,7 +120,9 @@ transfers:
     hash_verified: true
 ```
 
-> 💡 **Astuce** : la fiche est remplie pendant la collecte, pas après. Reconstituer de mémoire l'heure et l'outil produit des trous que la partie adverse (ou un client exigeant) trouvera.
+> 💡 **Astuce**
+>
+> La fiche est remplie pendant la collecte, pas après. Reconstituer de mémoire l'heure et l'outil produit des trous que la partie adverse (ou un client exigeant) trouvera.
 {: .callout .callout-astuce}
 
 ---
@@ -125,7 +131,9 @@ transfers:
 
 Les données ne disparaissent pas toutes à la même vitesse.
 
-> ❄️ **Analogie : la scène de crime sous la neige.** Un enquêteur photographie d'abord les empreintes de pas qui fondent, avant de relever les objets qui ne bougeront pas. Ici, la RAM est la neige et le disque l'objet. Limite : contrairement à l'objet, le disque peut être modifié par chaque geste de l'enquêteur.
+> ❄️ **Analogie : la scène de crime sous la neige**
+>
+> Un enquêteur photographie d'abord les empreintes de pas qui fondent, avant de relever les objets qui ne bougeront pas. Ici, la RAM est la neige et le disque l'objet. Limite : contrairement à l'objet, le disque peut être modifié par chaque geste de l'enquêteur.
 {: .callout .callout-analogie}
 
 La RFC 3227 propose donc de collecter dans l'ordre décroissant de volatilité :
@@ -179,14 +187,18 @@ sha256sum "$OUT"/* > "$OUT/SHA256SUMS"
 
 La ligne sur `/proc/*/exe` vaut le détour : un processus dont le binaire a été supprimé du disque après lancement (technique courante des implants Linux) apparaît avec le suffixe `(deleted)`. Le binaire reste récupérable depuis `/proc/<PID>/exe` tant que le processus tourne.
 
-> 🔒 **Contrôle de sécurité** : décider *avant* l'incident qui peut ordonner une capture mémoire, avec quel outil et sur quel support. Chercher ces réponses pendant la crise coûte plusieurs heures, soit l'écart entre une RAM capturée et une RAM perdue.
+> 🔒 **Contrôle de sécurité**
+>
+> Décider *avant* l'incident qui peut ordonner une capture mémoire, avec quel outil et sur quel support. Chercher ces réponses pendant la crise coûte plusieurs heures, soit l'écart entre une RAM capturée et une RAM perdue.
 {: .callout .callout-securite}
 
 ---
 
 ## Piège central : ce qui détruit une preuve
 
-> ⚠️ **Erreur fréquente** : la collecte est elle-même le premier risque pour la preuve. Voici les actions qui reviennent le plus souvent dans les post-mortems d'investigation, avec leur conséquence concrète.
+> ⚠️ **Erreur fréquente**
+>
+> La collecte est elle-même le premier risque pour la preuve. Voici les actions qui reviennent le plus souvent dans les post-mortems d'investigation, avec leur conséquence concrète.
 {: .callout .callout-attention}
 
 | Geste | Conséquence | Alternative |
@@ -267,7 +279,9 @@ Pour un parc de postes, un collecteur de triage comme KAPE (`kape.exe --tsource 
 
 ## Comment l'attaquant brouille les pistes
 
-> 🔴 **Vecteur d'attaque** : les attaquants expérimentés intègrent l'effacement des traces à leur routine. Connaître leurs techniques indique où chercher les incohérences.
+> 🔴 **Vecteur d'attaque**
+>
+> Les attaquants expérimentés intègrent l'effacement des traces à leur routine. Connaître leurs techniques indique où chercher les incohérences.
 {: .callout .callout-danger}
 
 **Effacement des journaux** (MITRE ATT&CK T1070.001) : `wevtutil cl Security` vide le journal. Cette action génère elle-même l'événement **1102** (journal Security effacé) ou **104** (autre journal, source Eventlog). Leur présence suffit à signaler l'intervention, même si le contenu est perdu. Sous Linux, `history -c`, `unset HISTFILE` ou `ln -sf /dev/null ~/.bash_history` empêchent l'écriture de l'historique, mais pas l'audit système (`auditd`) ni les journaux distants.
@@ -295,7 +309,9 @@ Côté investigation, trois traces à chercher :
 
 *La MFT est la table qui référence chaque fichier d'un volume NTFS avec ses attributs, dont les horodatages.*
 
-> 🧠 **Concept clé** : on n'efface pas toutes les sources simultanément. Un attaquant qui nettoie `Security.evtx` oublie souvent le journal Sysmon, le proxy, les logs d'un équipement réseau ou la mémoire. C'est la **contradiction entre sources** qui révèle la manipulation.
+> 🧠 **Concept clé**
+>
+> On n'efface pas toutes les sources simultanément. Un attaquant qui nettoie `Security.evtx` oublie souvent le journal Sysmon, le proxy, les logs d'un équipement réseau ou la mémoire. C'est la **contradiction entre sources** qui révèle la manipulation.
 {: .callout .callout-important}
 
 ---
@@ -346,17 +362,21 @@ La sortie dépasse souvent plusieurs millions de lignes. Personne ne la lit : on
 
 Chaque ligne vient d'une source différente. Si l'attaquant a effacé le journal Security à 02:33, les lignes antérieures de Sysmon, du proxy et de Prefetch permettent quand même de reconstituer la séquence.
 
-> 💡 **Astuce** : placer l'événement d'effacement dans la chronologie. Tout ce qui précède dans cette source est suspect de lacune, et il faut chercher la même période dans les sources qu'il n'a pas touchées.
+> 💡 **Astuce**
+>
+> Placer l'événement d'effacement dans la chronologie. Tout ce qui précède dans cette source est suspect de lacune, et il faut chercher la même période dans les sources qu'il n'a pas touchées.
 {: .callout .callout-astuce}
 
 ---
 
 ## Recherche d'indicateurs de compromission
 
-> 📖 **Définition.** Un IoC (Indicator of Compromise) est une observation technique associée à une activité malveillante : hash de fichier, adresse IP, domaine, nom de tâche, clé de registre, mutex, chaîne caractéristique.
-{: .callout .callout-definition}
-
 Dans une investigation, on cherche les IoC de deux façons : ceux que l'on **découvre** pendant l'analyse pour les propager au reste du parc, et ceux fournis par des sources externes (sujet du module suivant).
+
+> 📖 **Définition**
+>
+> Un IoC (Indicator of Compromise) est une observation technique associée à une activité malveillante : hash de fichier, adresse IP, domaine, nom de tâche, clé de registre, mutex, chaîne caractéristique.
+{: .callout .callout-definition}
 
 ```bash
 # Rechercher une règle YARA sur un montage de l'image
@@ -420,7 +440,9 @@ Le **beaconing** (balise régulière vers un C2) se repère à l'intervalle quas
 
 Limite structurelle : avec TLS, on ne voit que les métadonnées (destination, SNI, volumes, rythme). Le contenu est inaccessible sans déchiffrement. Il faut le dire dans le rapport au lieu de suggérer ce qui a été exfiltré.
 
-> 💡 **Astuce** : corréler mémoire et réseau. Une connexion visible dans `windows.netscan` et absente des logs du pare-feu indique un contournement du chemin supervisé (autre interface, tunnel, VPN).
+> 💡 **Astuce**
+>
+> Corréler mémoire et réseau. Une connexion visible dans `windows.netscan` et absente des logs du pare-feu indique un contournement du chemin supervisé (autre interface, tunnel, VPN).
 {: .callout .callout-astuce}
 
 ---
@@ -478,7 +500,9 @@ vol -f <MEMDUMP>.lime linux.sockstat
 | Zeek, Wireshark/tshark | Analyse de trafic | Pcap disponible |
 | YARA | Recherche de motifs | Propagation d'un IoC trouvé |
 
-> 🔒 **Contrôle de sécurité** : traiter les échantillons extraits comme du code hostile. Analyse sur une VM isolée, jamais sur le poste de travail de l'analyste, et jamais de double-clic sur un binaire extrait.
+> 🔒 **Contrôle de sécurité**
+>
+> Traiter les échantillons extraits comme du code hostile. Analyse sur une VM isolée, jamais sur le poste de travail de l'analyste, et jamais de double-clic sur un binaire extrait.
 {: .callout .callout-securite}
 
 ---
@@ -557,7 +581,9 @@ Le rapport est le seul livrable que la direction, le juridique ou l'assureur lir
 - **Capture partielle.** Une RAM capturée six heures après le début de l'intrusion ne reflète pas l'état initial.
 - **Intégrité douteuse.** Si la machine a été manipulée avant l'arrivée de l'investigateur, le rapport doit le mentionner : c'est une limite, pas un aveu d'échec.
 
-> 🧠 **Concept clé** : un rapport honnête sur ses limites résiste mieux à la contestation qu'un rapport catégorique. Ce qui est affirmé doit pouvoir être reproduit par un tiers à partir des preuves et des hashes fournis.
+> 🧠 **Concept clé**
+>
+> Un rapport honnête sur ses limites résiste mieux à la contestation qu'un rapport catégorique. Ce qui est affirmé doit pouvoir être reproduit par un tiers à partir des preuves et des hashes fournis.
 {: .callout .callout-important}
 
 ---
