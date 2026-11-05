@@ -3754,6 +3754,780 @@
     ]
   },
   {
+    "id": "grafana",
+    "title": "Grafana",
+    "description": "De la visualisation à l'observabilité en production — dashboards, PromQL, Loki, Tempo, alerting et exploitation.",
+    "icon": "📊",
+    "status": "published",
+    "domain": "Observabilité",
+    "domain_icon": "📡",
+    "domain_order": "10",
+    "audio": false,
+    "path": "/courses/grafana/",
+    "index_path": "/GevOps_LC/courses/grafana/index.html",
+    "themes": [
+      {
+        "id": "fondations",
+        "title": "Fondations",
+        "modules": [
+          {
+            "title": "Concepts fondamentaux de l'observabilité",
+            "path": "/GevOps_LC/courses/grafana/01_concepts_observabilite.html",
+            "file": "01_concepts_observabilite.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "observabilite",
+              "monitoring",
+              "metriques",
+              "logs",
+              "traces"
+            ],
+            "difficulty": "beginner",
+            "duration": "50",
+            "mermaid": true
+          },
+          {
+            "title": "Architecture et écosystème Grafana",
+            "path": "/GevOps_LC/courses/grafana/02_architecture_ecosysteme.html",
+            "file": "02_architecture_ecosysteme.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "grafana",
+              "architecture",
+              "observabilite",
+              "prometheus",
+              "loki",
+              "tempo",
+              "alloy"
+            ],
+            "difficulty": "beginner",
+            "duration": "50",
+            "mermaid": true
+          },
+          {
+            "title": "Installation et premier démarrage",
+            "path": "/GevOps_LC/courses/grafana/03_installation_demarrage.html",
+            "file": "03_installation_demarrage.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "grafana",
+              "docker",
+              "docker-compose",
+              "installation",
+              "configuration",
+              "observabilite"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Interface et navigation Grafana",
+            "path": "/GevOps_LC/courses/grafana/04_interface_navigation.html",
+            "file": "04_interface_navigation.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "grafana",
+              "interface",
+              "navigation",
+              "dashboards",
+              "observabilite"
+            ],
+            "difficulty": "beginner",
+            "duration": "50",
+            "mermaid": true
+          },
+          {
+            "title": "Sources de données et connexions",
+            "path": "/GevOps_LC/courses/grafana/05_sources_donnees.html",
+            "file": "05_sources_donnees.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 5,
+            "tags": [
+              "grafana",
+              "datasources",
+              "prometheus",
+              "loki",
+              "tempo",
+              "docker"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Comprendre les métriques et séries temporelles",
+            "path": "/GevOps_LC/courses/grafana/06_metriques_series_temporelles.html",
+            "file": "06_metriques_series_temporelles.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 6,
+            "tags": [
+              "grafana",
+              "metriques",
+              "series-temporelles",
+              "prometheus",
+              "observabilite"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Premières requêtes PromQL",
+            "path": "/GevOps_LC/courses/grafana/07_premieres_requetes_promql.html",
+            "file": "07_premieres_requetes_promql.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 7,
+            "tags": [
+              "promql",
+              "prometheus",
+              "grafana",
+              "explore",
+              "metriques"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Création de dashboards et panels",
+            "path": "/GevOps_LC/courses/grafana/08_creation_dashboards.html",
+            "file": "08_creation_dashboards.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "grafana",
+              "dashboards",
+              "panels",
+              "visualisation",
+              "prometheus"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Variables, filtres et navigation dynamique",
+            "path": "/GevOps_LC/courses/grafana/09_variables_filtres.html",
+            "file": "09_variables_filtres.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 9,
+            "tags": [
+              "grafana",
+              "variables",
+              "dashboards",
+              "templating",
+              "promql"
+            ],
+            "difficulty": "beginner",
+            "duration": "70",
+            "mermaid": true
+          },
+          {
+            "title": "Exploration initiale des logs et traces",
+            "path": "/GevOps_LC/courses/grafana/10_exploration_logs_traces.html",
+            "file": "10_exploration_logs_traces.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 10,
+            "tags": [
+              "grafana",
+              "loki",
+              "tempo",
+              "logql",
+              "traces",
+              "observabilite"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Premiers diagnostics Grafana",
+            "path": "/GevOps_LC/courses/grafana/11_premiers_diagnostics.html",
+            "file": "11_premiers_diagnostics.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 11,
+            "tags": [
+              "grafana",
+              "diagnostic",
+              "troubleshooting",
+              "prometheus",
+              "observabilite"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Projet pratique — Supervision d'un serveur Linux",
+            "path": "/GevOps_LC/courses/grafana/12_projet_supervision_linux.html",
+            "file": "12_projet_supervision_linux.md",
+            "chapter_title": "Fondations",
+            "chapter": 1,
+            "section": 12,
+            "tags": [
+              "grafana",
+              "prometheus",
+              "node-exporter",
+              "linux",
+              "docker"
+            ],
+            "difficulty": "beginner",
+            "duration": "120",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "intermediaire",
+        "title": "Intermédiaire",
+        "modules": [
+          {
+            "title": "PromQL pour l'analyse opérationnelle",
+            "path": "/GevOps_LC/courses/grafana/13_promql_operationnel.html",
+            "file": "13_promql_operationnel.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "promql",
+              "prometheus",
+              "grafana",
+              "observabilite",
+              "metriques"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Loki et LogQL opérationnel",
+            "path": "/GevOps_LC/courses/grafana/14_loki_logql.html",
+            "file": "14_loki_logql.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "grafana",
+              "loki",
+              "logql",
+              "logs",
+              "observabilite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Tracing distribué et Tempo",
+            "path": "/GevOps_LC/courses/grafana/15_tracing_tempo.html",
+            "file": "15_tracing_tempo.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 3,
+            "tags": [
+              "grafana",
+              "tempo",
+              "tracing",
+              "opentelemetry",
+              "traceql"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Conception de dashboards professionnels",
+            "path": "/GevOps_LC/courses/grafana/16_dashboards_professionnels.html",
+            "file": "16_dashboards_professionnels.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "grafana",
+              "dashboards",
+              "observabilite",
+              "conception",
+              "drilldown",
+              "alerting"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Transformations et traitement des données",
+            "path": "/GevOps_LC/courses/grafana/17_transformations_donnees.html",
+            "file": "17_transformations_donnees.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "grafana",
+              "transformations",
+              "promql",
+              "dashboards",
+              "expressions"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Grafana Alerting — Création et évaluation",
+            "path": "/GevOps_LC/courses/grafana/18_grafana_alerting.html",
+            "file": "18_grafana_alerting.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "grafana",
+              "alerting",
+              "observabilite",
+              "prometheus",
+              "monitoring"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Routage des alertes et gestion du bruit",
+            "path": "/GevOps_LC/courses/grafana/19_routage_alertes.html",
+            "file": "19_routage_alertes.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "grafana",
+              "alerting",
+              "notification-policies",
+              "contact-points",
+              "observabilite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Diagnostic d'incident avec Grafana",
+            "path": "/GevOps_LC/courses/grafana/20_diagnostic_incident.html",
+            "file": "20_diagnostic_incident.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "grafana",
+              "diagnostic",
+              "incident",
+              "observabilite",
+              "promql",
+              "logql"
+            ],
+            "difficulty": "intermediate",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Collecte et intégration des données",
+            "path": "/GevOps_LC/courses/grafana/21_collecte_integration.html",
+            "file": "21_collecte_integration.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 9,
+            "tags": [
+              "grafana",
+              "prometheus",
+              "alloy",
+              "opentelemetry",
+              "collecte"
+            ],
+            "difficulty": "intermediate",
+            "duration": "80",
+            "mermaid": true
+          },
+          {
+            "title": "Observabilité applicative et APIs",
+            "path": "/GevOps_LC/courses/grafana/22_observabilite_applicative.html",
+            "file": "22_observabilite_applicative.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 10,
+            "tags": [
+              "grafana",
+              "prometheus",
+              "promql",
+              "api",
+              "latence",
+              "observabilite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Observabilité des conteneurs et Kubernetes",
+            "path": "/GevOps_LC/courses/grafana/23_observabilite_kubernetes.html",
+            "file": "23_observabilite_kubernetes.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 11,
+            "tags": [
+              "grafana",
+              "kubernetes",
+              "docker",
+              "prometheus",
+              "observabilite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Administration, sécurité et permissions",
+            "path": "/GevOps_LC/courses/grafana/24_administration_securite.html",
+            "file": "24_administration_securite.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 12,
+            "tags": [
+              "grafana",
+              "securite",
+              "rbac",
+              "authentification",
+              "hardening"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Provisioning, API et versionnement",
+            "path": "/GevOps_LC/courses/grafana/25_provisioning_api.html",
+            "file": "25_provisioning_api.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 13,
+            "tags": [
+              "grafana",
+              "provisioning",
+              "api",
+              "terraform",
+              "gitops",
+              "observabilite"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Projet pratique — Observabilité d'une application Web",
+            "path": "/GevOps_LC/courses/grafana/26_projet_observabilite_web.html",
+            "file": "26_projet_observabilite_web.md",
+            "chapter_title": "Intermédiaire",
+            "chapter": 2,
+            "section": 14,
+            "tags": [
+              "grafana",
+              "observabilite",
+              "prometheus",
+              "loki",
+              "tempo",
+              "alerting",
+              "docker"
+            ],
+            "difficulty": "intermediate",
+            "duration": "180",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "avance-expert",
+        "title": "Avancé / Expert",
+        "modules": [
+          {
+            "title": "Architecture Grafana en production",
+            "path": "/GevOps_LC/courses/grafana/27_architecture_production.html",
+            "file": "27_architecture_production.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "grafana",
+              "architecture",
+              "production",
+              "postgresql",
+              "reverse-proxy"
+            ],
+            "difficulty": "advanced",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Grafana as Code et automatisation avancée",
+            "path": "/GevOps_LC/courses/grafana/28_grafana_as_code.html",
+            "file": "28_grafana_as_code.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "grafana",
+              "terraform",
+              "iac",
+              "gitops",
+              "cicd",
+              "provisioning"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Haute disponibilité et résilience",
+            "path": "/GevOps_LC/courses/grafana/29_ha_resilience.html",
+            "file": "29_ha_resilience.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 3,
+            "tags": [
+              "grafana",
+              "haute-disponibilite",
+              "alerting",
+              "postgresql"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Performance, optimisation et cardinalité",
+            "path": "/GevOps_LC/courses/grafana/30_performance_cardinalite.html",
+            "file": "30_performance_cardinalite.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 4,
+            "tags": [
+              "grafana",
+              "performance",
+              "cardinalite",
+              "promql",
+              "logql",
+              "prometheus"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "SLO, SLI et Error Budgets",
+            "path": "/GevOps_LC/courses/grafana/31_slo_sli_error_budgets.html",
+            "file": "31_slo_sli_error_budgets.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 5,
+            "tags": [
+              "grafana",
+              "slo",
+              "sli",
+              "error-budget",
+              "alerting",
+              "prometheus",
+              "fiabilite"
+            ],
+            "difficulty": "advanced",
+            "duration": "80",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité avancée et gouvernance",
+            "path": "/GevOps_LC/courses/grafana/32_securite_gouvernance.html",
+            "file": "32_securite_gouvernance.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 6,
+            "tags": [
+              "grafana",
+              "securite",
+              "rbac",
+              "gouvernance",
+              "service-accounts"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Sauvegarde, restauration et migration",
+            "path": "/GevOps_LC/courses/grafana/33_sauvegarde_migration.html",
+            "file": "33_sauvegarde_migration.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 7,
+            "tags": [
+              "grafana",
+              "sauvegarde",
+              "restauration",
+              "migration",
+              "observabilite"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Troubleshooting avancé de la plateforme",
+            "path": "/GevOps_LC/courses/grafana/34_troubleshooting_avance.html",
+            "file": "34_troubleshooting_avance.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 8,
+            "tags": [
+              "grafana",
+              "troubleshooting",
+              "diagnostic",
+              "alerting",
+              "observabilite"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Meta-monitoring de la plateforme",
+            "path": "/GevOps_LC/courses/grafana/35_meta_monitoring.html",
+            "file": "35_meta_monitoring.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 9,
+            "tags": [
+              "grafana",
+              "meta-monitoring",
+              "observabilite",
+              "alerting",
+              "prometheus"
+            ],
+            "difficulty": "advanced",
+            "duration": "80",
+            "mermaid": true
+          },
+          {
+            "title": "Maîtrise des coûts et de la volumétrie",
+            "path": "/GevOps_LC/courses/grafana/36_couts_volumetrie.html",
+            "file": "36_couts_volumetrie.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 10,
+            "tags": [
+              "grafana",
+              "couts",
+              "cardinalite",
+              "retention",
+              "sampling",
+              "loki",
+              "tempo"
+            ],
+            "difficulty": "advanced",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Observabilité multi-environnement et multi-cluster",
+            "path": "/GevOps_LC/courses/grafana/37_multi_environnement.html",
+            "file": "37_multi_environnement.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 11,
+            "tags": [
+              "grafana",
+              "multi-cluster",
+              "multi-tenant",
+              "labels",
+              "kubernetes",
+              "observabilite"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Observabilité des architectures distribuées",
+            "path": "/GevOps_LC/courses/grafana/38_architectures_distribuees.html",
+            "file": "38_architectures_distribuees.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 12,
+            "tags": [
+              "grafana",
+              "tempo",
+              "tracing",
+              "observabilite",
+              "diagnostic",
+              "microservices"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Exploitation collaborative et amélioration continue",
+            "path": "/GevOps_LC/courses/grafana/39_exploitation_collaborative.html",
+            "file": "39_exploitation_collaborative.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 13,
+            "tags": [
+              "grafana",
+              "runbooks",
+              "ownership",
+              "alerting",
+              "post-mortem",
+              "gitops"
+            ],
+            "difficulty": "advanced",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Projet final — Plateforme d'observabilité de production",
+            "path": "/GevOps_LC/courses/grafana/40_projet_final_production.html",
+            "file": "40_projet_final_production.md",
+            "chapter_title": "Avancé / Expert",
+            "chapter": 3,
+            "section": 14,
+            "tags": [
+              "grafana",
+              "observabilite",
+              "architecture",
+              "terraform",
+              "alerting",
+              "slo",
+              "projet-final"
+            ],
+            "difficulty": "advanced",
+            "duration": "480",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "kafka",
     "title": "Kafka",
     "description": "Architecture événementielle, brokers, topics et consumers.",
@@ -7291,6 +8065,797 @@
             ],
             "difficulty": "intermédiaire",
             "duration": "90",
+            "mermaid": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "reseaux-cybersecurite",
+    "title": "Réseaux et cybersécurité",
+    "description": "Comprendre les réseaux informatiques, leurs vulnérabilités et les métiers de la cybersécurité.",
+    "icon": "🛡️",
+    "status": "published",
+    "domain": "Réseaux et sécurité",
+    "domain_icon": "🛡️",
+    "domain_order": "10",
+    "audio": false,
+    "path": "/courses/reseaux-cybersecurite/",
+    "index_path": "/GevOps_LC/courses/reseaux-cybersecurite/index.html",
+    "themes": [
+      {
+        "id": "fondations-comprendre-les-reseaux-informatiques",
+        "title": "Fondations : comprendre les réseaux informatiques",
+        "modules": [
+          {
+            "title": "Introduction aux réseaux informatiques",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/01_introduction_reseaux.html",
+            "file": "01_introduction_reseaux.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 1,
+            "tags": [
+              "reseaux",
+              "lan",
+              "wan",
+              "topologie",
+              "debutant"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Modèles OSI et TCP/IP",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/02_modeles_osi_tcp_ip.html",
+            "file": "02_modeles_osi_tcp_ip.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 2,
+            "tags": [
+              "osi",
+              "tcp-ip",
+              "encapsulation",
+              "pdu",
+              "modeles-reseau"
+            ],
+            "difficulty": "beginner",
+            "duration": "60",
+            "mermaid": true
+          },
+          {
+            "title": "Couche physique et réseaux Ethernet",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/03_couche_physique_ethernet.html",
+            "file": "03_couche_physique_ethernet.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 3,
+            "tags": [
+              "ethernet",
+              "mac",
+              "arp",
+              "switch",
+              "couche-physique"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Adressage IPv4 et calcul de sous-réseaux",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/04_adressage_ipv4.html",
+            "file": "04_adressage_ipv4.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 4,
+            "tags": [
+              "ipv4",
+              "adressage",
+              "sous-reseaux",
+              "cidr",
+              "masque",
+              "passerelle"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Adressage IPv6 et coexistence IPv4",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/05_adressage_ipv6.html",
+            "file": "05_adressage_ipv6.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 5,
+            "tags": [
+              "ipv6",
+              "adressage",
+              "slaac",
+              "ndp",
+              "icmpv6",
+              "dual-stack"
+            ],
+            "difficulty": "beginner",
+            "duration": "80",
+            "mermaid": true
+          },
+          {
+            "title": "TCP, UDP, ports et sockets",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/06_tcp_udp_ports.html",
+            "file": "06_tcp_udp_ports.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 6,
+            "tags": [
+              "tcp",
+              "udp",
+              "ports",
+              "sockets",
+              "transport"
+            ],
+            "difficulty": "beginner",
+            "duration": "75",
+            "mermaid": true
+          },
+          {
+            "title": "Protocoles et services essentiels",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/07_protocoles_services.html",
+            "file": "07_protocoles_services.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 7,
+            "tags": [
+              "dns",
+              "dhcp",
+              "http",
+              "ssh",
+              "smtp",
+              "ntp",
+              "protocoles"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Routage, NAT et circulation des paquets",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/08_routage_nat.html",
+            "file": "08_routage_nat.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 8,
+            "tags": [
+              "routage",
+              "nat",
+              "passerelle",
+              "ospf",
+              "bgp"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Outils d'administration et de diagnostic réseau",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/09_outils_diagnostic_reseau.html",
+            "file": "09_outils_diagnostic_reseau.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 9,
+            "tags": [
+              "ping",
+              "traceroute",
+              "dig",
+              "ss",
+              "curl",
+              "tcpdump",
+              "diagnostic"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Wireshark et analyse des échanges réseau",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/10_wireshark_analyse.html",
+            "file": "10_wireshark_analyse.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 10,
+            "tags": [
+              "wireshark",
+              "capture",
+              "pcap",
+              "tcp",
+              "tls",
+              "diagnostic"
+            ],
+            "difficulty": "beginner",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Configuration de réseaux locaux et sans fil",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/11_configuration_reseaux_locaux.html",
+            "file": "11_configuration_reseaux_locaux.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 11,
+            "tags": [
+              "reseaux",
+              "vlan",
+              "wifi",
+              "dhcp",
+              "configuration"
+            ],
+            "difficulty": "beginner",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Haute disponibilité, répartition de charge et supervision réseau",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/12_ha_load_balancing_supervision.html",
+            "file": "12_ha_load_balancing_supervision.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 12,
+            "tags": [
+              "haute-disponibilite",
+              "redondance",
+              "load-balancing",
+              "vrrp",
+              "supervision",
+              "snmp"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Premières notions de sécurité et d'exploitation réseau",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/13_securite_exploitation_reseau.html",
+            "file": "13_securite_exploitation_reseau.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 13,
+            "tags": [
+              "securite",
+              "cia",
+              "pare-feu",
+              "acl",
+              "segmentation",
+              "logs",
+              "git"
+            ],
+            "difficulty": "beginner",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Projet pratique — Réseau d'entreprise segmenté",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/14_projet_reseau_segmente.html",
+            "file": "14_projet_reseau_segmente.md",
+            "chapter_title": "Fondations : comprendre les réseaux informatiques",
+            "chapter": 1,
+            "section": 14,
+            "tags": [
+              "vlan",
+              "segmentation",
+              "dhcp",
+              "dns",
+              "nftables",
+              "wireshark",
+              "diagnostic"
+            ],
+            "difficulty": "beginner",
+            "duration": "300",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "intermediaire-comprendre-la-securite-informatique",
+        "title": "Intermédiaire : comprendre la sécurité informatique",
+        "modules": [
+          {
+            "title": "Fondamentaux de la cybersécurité et du système d'information",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/15_fondamentaux_cybersecurite.html",
+            "file": "15_fondamentaux_cybersecurite.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 1,
+            "tags": [
+              "cybersecurite",
+              "risque",
+              "defense-en-profondeur",
+              "moindre-privilege",
+              "zero-trust"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Systèmes d'exploitation et sécurité des postes et serveurs",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/16_securite_systemes.html",
+            "file": "16_securite_systemes.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 2,
+            "tags": [
+              "linux",
+              "windows",
+              "active-directory",
+              "durcissement",
+              "journalisation",
+              "sauvegarde"
+            ],
+            "difficulty": "intermediate",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Identité, authentification et contrôle d'accès",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/17_identite_authentification.html",
+            "file": "17_identite_authentification.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 3,
+            "tags": [
+              "identite",
+              "authentification",
+              "kerberos",
+              "oauth",
+              "iam"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Cryptographie et communications sécurisées",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/18_cryptographie.html",
+            "file": "18_cryptographie.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 4,
+            "tags": [
+              "cryptographie",
+              "tls",
+              "pki",
+              "hachage",
+              "vpn"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Pare-feu, segmentation et protection réseau",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/19_firewall_segmentation.html",
+            "file": "19_firewall_segmentation.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 5,
+            "tags": [
+              "pare-feu",
+              "segmentation",
+              "nftables",
+              "waf",
+              "ids",
+              "vpn"
+            ],
+            "difficulty": "intermediate",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Panorama des cybermenaces et méthodes d'attaque",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/20_cybermenaces.html",
+            "file": "20_cybermenaces.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 6,
+            "tags": [
+              "cybermenaces",
+              "malware",
+              "ransomware",
+              "phishing",
+              "attaque-réseau",
+              "ddos",
+              "mitre-attck",
+              "kill-chain",
+              "mouvement-latéral",
+              "credential-stuffing"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Vulnérabilités, CVE et gestion des correctifs",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/21_vulnerabilites_cve.html",
+            "file": "21_vulnerabilites_cve.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 7,
+            "tags": [
+              "vulnerabilites",
+              "cve",
+              "cvss",
+              "patch-management",
+              "scan",
+              "priorisation"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Introduction à l'audit technique et aux tests d'intrusion",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/22_audit_technique_pentest.html",
+            "file": "22_audit_technique_pentest.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 8,
+            "tags": [
+              "audit",
+              "pentest",
+              "nmap",
+              "reconnaissance",
+              "reporting"
+            ],
+            "difficulty": "intermediate",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité applicative et bases de données",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/23_securite_applicative.html",
+            "file": "23_securite_applicative.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 9,
+            "tags": [
+              "owasp",
+              "securite-applicative",
+              "injection-sql",
+              "xss",
+              "api",
+              "secrets",
+              "bases-de-donnees"
+            ],
+            "difficulty": "intermediate",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Réseaux cloud et sécurité des infrastructures hébergées",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/24_securite_cloud.html",
+            "file": "24_securite_cloud.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 10,
+            "tags": [
+              "cloud",
+              "vpc",
+              "iam",
+              "security-groups",
+              "responsabilite-partagee",
+              "hardening"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Gestion des risques et gouvernance de la sécurité",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/25_risques_gouvernance.html",
+            "file": "25_risques_gouvernance.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 11,
+            "tags": [
+              "risque",
+              "gouvernance",
+              "ebios",
+              "iso27005",
+              "grc"
+            ],
+            "difficulty": "intermediate",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Audit organisationnel, conformité et documentation de sécurité",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/26_audit_organisationnel.html",
+            "file": "26_audit_organisationnel.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 12,
+            "tags": [
+              "audit",
+              "conformite",
+              "iso27001",
+              "smsi",
+              "gouvernance",
+              "preuves"
+            ],
+            "difficulty": "intermediate",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Projet pratique — Audit d'une infrastructure de laboratoire",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/27_projet_audit_laboratoire.html",
+            "file": "27_projet_audit_laboratoire.md",
+            "chapter_title": "Intermédiaire : comprendre la sécurité informatique",
+            "chapter": 2,
+            "section": 13,
+            "tags": [
+              "audit",
+              "infrastructure",
+              "vulnerabilites",
+              "nmap",
+              "remediation",
+              "rapport"
+            ],
+            "difficulty": "intermediate",
+            "duration": "420",
+            "mermaid": true
+          }
+        ]
+      },
+      {
+        "id": "avance-metiers-methodes-et-pratiques-professionnelles-en-cybersecurite",
+        "title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+        "modules": [
+          {
+            "title": "Métier de consultant en cybersécurité",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/28_consultant_cybersecurite.html",
+            "file": "28_consultant_cybersecurite.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 1,
+            "tags": [
+              "conseil",
+              "cybersecurite",
+              "grc",
+              "audit",
+              "cadrage",
+              "rapport"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "RSSI, stratégie de sécurité et gestion des programmes",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/29_rssi_strategie_securite.html",
+            "file": "29_rssi_strategie_securite.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 2,
+            "tags": [
+              "rssi",
+              "gouvernance",
+              "strategie-cyber",
+              "kri",
+              "kpi",
+              "tiers",
+              "feuille-de-route"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Architecture de sécurité et conception des systèmes",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/30_architecture_securite.html",
+            "file": "30_architecture_securite.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 3,
+            "tags": [
+              "architecture",
+              "securite",
+              "zero-trust",
+              "segmentation",
+              "resilience"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Audit de sécurité et pentest en laboratoire",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/31_audit_pentest_laboratoire.html",
+            "file": "31_audit_pentest_laboratoire.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 4,
+            "tags": [
+              "audit",
+              "pentest",
+              "nmap",
+              "burp-suite",
+              "vulnerability-scanning",
+              "laboratoire",
+              "methodologie"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": false
+          },
+          {
+            "title": "Analyste SOC et surveillance des événements",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/32_analyste_soc.html",
+            "file": "32_analyste_soc.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 5,
+            "tags": [
+              "soc",
+              "siem",
+              "detection",
+              "mitre-attack",
+              "triage"
+            ],
+            "difficulty": "advanced",
+            "duration": "180",
+            "mermaid": true
+          },
+          {
+            "title": "Réponse aux incidents et gestion de crise cyber",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/33_reponse_incidents.html",
+            "file": "33_reponse_incidents.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 6,
+            "tags": [
+              "reponse-incident",
+              "crise-cyber",
+              "confinement",
+              "notification",
+              "csirt"
+            ],
+            "difficulty": "advanced",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Investigation numérique et forensic",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/34_investigation_forensic.html",
+            "file": "34_investigation_forensic.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 7,
+            "tags": [
+              "forensic",
+              "dfir",
+              "volatility",
+              "chaine-de-conservation",
+              "memoire",
+              "timeline"
+            ],
+            "difficulty": "advanced",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Cyber Threat Intelligence et analyse des menaces",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/35_threat_intelligence.html",
+            "file": "35_threat_intelligence.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 8,
+            "tags": [
+              "cti",
+              "threat-intelligence",
+              "mitre-attack",
+              "ioc",
+              "stix",
+              "osint"
+            ],
+            "difficulty": "advanced",
+            "duration": "150",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité offensive, défensive et Purple Team",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/36_red_blue_purple_team.html",
+            "file": "36_red_blue_purple_team.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 9,
+            "tags": [
+              "purple-team",
+              "red-team",
+              "blue-team",
+              "adversary-emulation",
+              "detection",
+              "mitre-attack"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Sécurité des données, protection juridique et conformité",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/37_donnees_juridique_conformite.html",
+            "file": "37_donnees_juridique_conformite.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 10,
+            "tags": [
+              "rgpd",
+              "conformite",
+              "donnees",
+              "dpo",
+              "aipd",
+              "juridique"
+            ],
+            "difficulty": "advanced",
+            "duration": "90",
+            "mermaid": true
+          },
+          {
+            "title": "Continuité d'activité et résilience cyber",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/38_continuite_resilience.html",
+            "file": "38_continuite_resilience.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 11,
+            "tags": [
+              "pca",
+              "pra",
+              "bia",
+              "sauvegarde",
+              "ransomware",
+              "resilience",
+              "rto",
+              "rpo"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Méthodologie de mission et projet professionnel cybersécurité",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/39_mission_projet_professionnel.html",
+            "file": "39_mission_projet_professionnel.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 12,
+            "tags": [
+              "methodologie",
+              "mission",
+              "audit",
+              "conseil",
+              "reporting",
+              "portfolio"
+            ],
+            "difficulty": "advanced",
+            "duration": "120",
+            "mermaid": true
+          },
+          {
+            "title": "Projet final — Mission simulée de conseil en cybersécurité",
+            "path": "/GevOps_LC/courses/reseaux-cybersecurite/40_projet_final_mission_conseil.html",
+            "file": "40_projet_final_mission_conseil.md",
+            "chapter_title": "Avancé : métiers, méthodes et pratiques professionnelles en cybersécurité",
+            "chapter": 3,
+            "section": 13,
+            "tags": [
+              "conseil",
+              "audit",
+              "risque",
+              "rapport",
+              "projet"
+            ],
+            "difficulty": "advanced",
+            "duration": "360",
             "mermaid": true
           }
         ]

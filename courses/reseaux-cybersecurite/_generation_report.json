@@ -1,0 +1,11 @@
+{
+  "sujet": "Réseaux et cybersécurité",
+  "generated_at": "2026-11-05T09:57:15",
+  "total_modules": 40,
+  "generated_count": 2,
+  "files": [
+    "courses\\reseaux-cybersecurite\\31_audit_pentest_laboratoire.md",
+    "courses\\reseaux-cybersecurite\\20_cybermenaces.md"
+  ],
+  "failed": []
+}

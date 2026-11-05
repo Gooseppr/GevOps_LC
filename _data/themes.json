@@ -38,6 +38,34 @@
       ]
     },
     {
+      "id": "observabilit",
+      "title": "Observabilité",
+      "icon": "📡",
+      "courses": [
+        {
+          "id": "grafana",
+          "title": "Grafana",
+          "icon": "📊",
+          "status": "published",
+          "path": "/courses/grafana/"
+        }
+      ]
+    },
+    {
+      "id": "r-seaux-et-s-curit",
+      "title": "Réseaux et sécurité",
+      "icon": "🛡️",
+      "courses": [
+        {
+          "id": "reseaux-cybersecurite",
+          "title": "Réseaux et cybersécurité",
+          "icon": "🛡️",
+          "status": "published",
+          "path": "/courses/reseaux-cybersecurite/"
+        }
+      ]
+    },
+    {
       "id": "orchestration",
       "title": "Orchestration",
       "icon": "☸️",
