@@ -37,6 +37,7 @@ Choisis ensuite le bon outil :
 | Qui parle à qui, et dans quel ordre ? | `sequenceDiagram` |
 | Par où passe la donnée ? Quels composants ? | `flowchart` |
 | Dans quel état est l'objet ? | `stateDiagram-v2` |
+| Une petite chaîne de composants, chacun avec son rôle | `classDiagram` avec `direction TB`, et un stéréotype comme `<<ce module>>` |
 | Quelles tables et quelles relations de données ? | `erDiagram` |
 | Quelle exigence, satisfaite ou vérifiée par quoi ? | `requirementDiagram` |
 | Quand, dans quel ordre, sur une période ? | `timeline` ou `gantt` |
@@ -84,6 +85,7 @@ Ne colore rien tant que la structure n'est pas juste.
 Repères de lisibilité (des signaux de relecture, pas des lois) :
 - 10 à 15 nœuds maximum par `flowchart` ;
 - `LR` jusqu'à 5 étapes, `TD` au-delà, car la largeur de page se remplit vite ;
+- pas de `LR` avec des zones ou de longues légendes : Mermaid réduit tout pour tenir dans la page, et le texte devient minuscule ;
 - libellés de moins de 55 caractères, avec `<br/>` si besoin ;
 - `subgraph` pour une zone réelle : LAN, VPC, hôte, backends ;
 - flèches légendées quand le sens n'est pas évident ;
@@ -205,4 +207,5 @@ Syntaxe validée avec Mermaid 10. Rendu à l'écran non vérifié.
 | 1.2 | 2026-11-05 | Choix étendu aux types compatibles avec Mermaid 10, types récents exclus | Demande de l'utilisateur |
 | 1.3 | 2026-11-05 | Configuration du site documentée, options vérifiées sur Mermaid 10 | Page de configuration étudiée |
 | 1.4 | 2026-11-06 | La forme explique la notion, figures HTML, ER réservé aux données, polices de séquence | Deux retours externes |
+| 1.5 | 2026-11-06 | Largeur : `classDiagram` vertical pour une chaîne avec rôles, pas de `LR` avec zones | Retour de l'utilisateur sur Grafana 18 |
 | 1.1 | 2026-11-05 | Erreurs de syntaxe observées sur le site : transitions, quadrants, subgraph, chemins | Correction de 8 schémas invalides |

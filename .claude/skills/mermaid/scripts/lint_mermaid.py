@@ -55,6 +55,8 @@ def check_flowchart(code: str, head: str) -> list[str]:
     steps = longest_path(edges)
     if direction in ("LR", "RL") and steps > MAX_LR_STEPS:
         issues.append(f"{direction} sur {steps} étapes : préférer TD")
+    if direction in ("LR", "RL") and "subgraph" in code:
+        issues.append(f"{direction} avec zones : risque de schéma très large")
     if len(ids) > MAX_NODES:
         issues.append(f"{len(ids)} nœuds : regrouper ou découper")
     if len(edges) >= MAX_EDGES:

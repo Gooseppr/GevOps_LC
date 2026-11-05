@@ -35,20 +35,36 @@ next_module_title: "Routage des alertes et gestion du bruit"
 
 ## Où en est-on dans la chaîne
 
-Ce module traite la règle, en bleu : elle interroge Prometheus à intervalle fixe et décide de l'état de chaque instance. Qui reçoit la notification, et comment, sera vu au module suivant.
+Ce module traite la règle d'alerte, marquée « ce module » : elle interroge Prometheus à intervalle fixe et décide de l'état de chaque instance. Qui reçoit la notification, et comment, sera vu au module suivant.
 
 ```mermaid
-flowchart LR
-    subgraph MESURE["Mesure"]
-        N["node-exporter :9100"] -->|scrape 15 s| P["Prometheus :9090"]
-    end
-    subgraph GRAFANA["Grafana :3000"]
-        R["Règle d'alerte"] -->|instances en alerte| A["Alertmanager intégré"]
-    end
-    P -->|PromQL toutes les minutes| R
-    A -->|module suivant| C["Contact point"]
-    classDef actif fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
-    class R actif
+classDiagram
+    direction TB
+    class NE["node-exporter"] {
+        port 9100
+        expose les métriques
+    }
+    class PR["Prometheus"] {
+        port 9090
+        stocke les séries
+    }
+    class RE["Règle d'alerte"] {
+        <<ce module>>
+        interroge Prometheus
+        décide de l'état des instances
+    }
+    class AM["Alertmanager intégré"] {
+        dans Grafana, port 3000
+        reçoit les instances en alerte
+    }
+    class CP["Contact point"] {
+        <<module suivant>>
+        reçoit la notification
+    }
+    NE --> PR : scrape 15 s
+    PR --> RE : PromQL toutes les minutes
+    RE --> AM : instances en alerte
+    AM --> CP : notification
 ```
 
 ## Mise en situation
@@ -258,7 +274,6 @@ Le bloc `with ... else` n'est pas un détail. En No Data, il n'y a aucune valeur
 
 ```mermaid
 stateDiagram-v2
-    direction LR
     [*] --> Normal
     Normal --> Pending: condition vraie
     Pending --> Alerting: pending period écoulée
