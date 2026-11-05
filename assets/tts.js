@@ -336,7 +336,7 @@
 
   // Only skip code BLOCKS (pre), not inline <code>
   var SKIP_SELECTORS = [
-    "pre", ".mermaid", "svg", ".highlight",
+    "pre", ".mermaid", ".fig", "svg", ".highlight",
     "script", "style", ".module-nav", ".snippet-block"
   ].join(",");
 

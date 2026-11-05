@@ -221,16 +221,27 @@ Reste un problème : si soixante postes sortent simultanément derrière une seu
 
 ```mermaid
 sequenceDiagram
-    participant P as Poste 192.168.10.25
+    participant P as Poste
     participant R as R1 routeur
-    participant W as Serveur 198.51.100.20
-    P->>R: source 192.168.10.25 port 51514 vers 198.51.100.20 port 443
-    Note over R: crée l'entrée de translation<br/>source devient 203.0.113.10 port 40001
-    R->>W: source 203.0.113.10 port 40001 vers 198.51.100.20 port 443
-    W->>R: réponse vers 203.0.113.10 port 40001
-    Note over R: retrouve l'entrée<br/>destination redevient 192.168.10.25 port 51514
-    R->>P: réponse vers 192.168.10.25 port 51514
+    participant W as Serveur
+    P->>R: paquet sortant
+    Note over R: crée l'entrée de translation
+    R->>W: paquet traduit
+    W->>R: réponse
+    Note over R: retrouve l'entrée
+    R->>P: réponse traduite
 ```
+
+Voici ce que le routeur modifie, en surbrillance. Tout le reste ne bouge pas :
+
+| Étape | Source | Destination |
+|---|---|---|
+| Aller, avant R1 | `192.168.10.25:51514` | `198.51.100.20:443` |
+| Aller, après R1 | <mark><code>203.0.113.10:40001</code></mark> | `198.51.100.20:443` |
+| Retour, avant R1 | `198.51.100.20:443` | `203.0.113.10:40001` |
+| Retour, après R1 | `198.51.100.20:443` | <mark><code>192.168.10.25:51514</code></mark> |
+{: .fig-change}
+
 
 Dans la pratique, ce que l'on appelle simplement « le NAT » d'une box ou d'un pare-feu est presque toujours du PAT. Chez certains constructeurs, il porte le nom de « NAT overload ».
 

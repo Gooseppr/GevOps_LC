@@ -13,7 +13,7 @@
   <!-- Minima base styles -->
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   <!-- Site custom styles (nav + design system) -->
-  <link rel="stylesheet" href="{{ '/assets/nav.css' | relative_url }}?v=10">
+  <link rel="stylesheet" href="{{ '/assets/nav.css' | relative_url }}?v=11">
 
   <!-- Mermaid (diagrams) -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -53,12 +53,39 @@
           noteTextColor: '#78350f'
         },
         flowchart: { useMaxWidth: true },
-        sequence: { useMaxWidth: true, wrap: true, mirrorActors: false },
+        sequence: {
+          useMaxWidth: true, wrap: true, mirrorActors: false,
+          // Sinon Mermaid mesure les textes avec sa police par défaut, et ils débordent des notes
+          actorFontFamily: 'Manrope, "Segoe UI", Arial, sans-serif',
+          noteFontFamily: 'Manrope, "Segoe UI", Arial, sans-serif',
+          messageFontFamily: 'Manrope, "Segoe UI", Arial, sans-serif'
+        },
         er: { useMaxWidth: true, fontSize: 14 },
         state: { useMaxWidth: true }
       });
       (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
         mermaid.run();
+      });
+      document.querySelectorAll('.mermaid').forEach(function (el) {
+        el.classList.add('mermaid-zoomable');
+        el.title = 'Cliquer pour agrandir';
+      });
+      document.addEventListener('click', function (event) {
+        var svg = event.target.closest && event.target.closest('.mermaid-zoomable svg');
+        if (!svg) return;
+        var overlay = document.createElement('div');
+        overlay.className = 'mermaid-zoom';
+        var box = document.createElement('div');
+        box.appendChild(svg.cloneNode(true));
+        overlay.appendChild(box);
+        function close() {
+          overlay.remove();
+          document.removeEventListener('keydown', onKey);
+        }
+        function onKey(e) { if (e.key === 'Escape') close(); }
+        overlay.addEventListener('click', close);
+        document.addEventListener('keydown', onKey);
+        document.body.appendChild(overlay);
       });
       {% else %}
       mermaid.initialize({

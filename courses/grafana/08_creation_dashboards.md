@@ -52,17 +52,25 @@ Que manipule-t-on exactement avant de cliquer ?
 > Un dashboard est un document JSON stocké par Grafana. Il contient des panels, et chaque panel contient une ou plusieurs requêtes vers une source de données.
 {: .callout .callout-definition}
 
-```mermaid
-erDiagram
-    "DOSSIER" ||--o{ "DASHBOARD" : "range"
-    "DASHBOARD" ||--o{ "ROW" : "s'organise en"
-    "DASHBOARD" ||--o{ "PANEL" : "contient"
-    "ROW" |o--o{ "PANEL" : "regroupe"
-    "PANEL" ||--|{ "REQUÊTE" : "exécute"
-    "DATA SOURCE" ||--o{ "REQUÊTE" : "répond à"
-```
+<div class="fig fig-dash" markdown="0" role="img" aria-label="Maquette d'un dashboard Grafana : un dossier contient un dashboard, organisé en rows contenant des panels">
+<div class="fig-folder">📁 Dossier : Infra Linux</div>
+<div class="fig-board">
+<div class="fig-board-top"><strong>Dashboard : Serveur Linux</strong><span>Plage de temps · Rafraîchissement</span></div>
+<div class="fig-rowtitle">▾ Row : Vue d'ensemble</div>
+<div class="fig-panels">
+<div class="fig-panel"><span class="fig-ptitle">Panel Stat : CPU</span><span class="fig-stat">42 %</span></div>
+<div class="fig-panel"><span class="fig-ptitle">Panel Stat : Mémoire</span><span class="fig-stat">68 %</span></div>
+<div class="fig-panel"><span class="fig-ptitle">Panel Stat : Disque</span><span class="fig-stat">55 %</span></div>
+</div>
+<div class="fig-rowtitle">▾ Row : Détail ressources</div>
+<div class="fig-panel fig-panel-wide"><span class="fig-ptitle">Panel Time series : CPU par instance</span>
+<svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,45 40,40 80,44 120,28 160,33 200,15 240,25 300,18" fill="none" stroke="#2563eb" stroke-width="2"/></svg>
+<span class="fig-query">Ce panel exécute une requête PromQL → Data source Prometheus</span></div>
+</div>
+</div>
 
-Ce schéma se lit ainsi : `||` signifie « exactement un », `|o` « zéro ou un », `o{` « zéro ou plusieurs » et `|{` « un ou plusieurs ». Un panel peut donc rester hors de toute row, mais il s'appuie sur au moins une requête.
+*Maquette simplifiée, valeurs illustratives.* Les panels sont rangés dans des rows, à l'intérieur du dashboard. Chaque panel s'appuie sur une ou plusieurs requêtes envoyées à une source de données.
+
 
 Le dossier sert surtout à regrouper les dashboards et à poser des permissions, ce qu'on verra au module d'administration. Les rows sont des sections repliables : elles servent à structurer la lecture, pas à décorer.
 

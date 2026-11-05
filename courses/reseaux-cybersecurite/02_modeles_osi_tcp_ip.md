@@ -103,31 +103,19 @@ On les numérote de bas en haut, et les professionnels parlent de « couche 2 »
 
 Le modèle TCP/IP est né de la pratique, et il est plus compact : il fusionne les couches hautes et les couches basses d'OSI.
 
-```mermaid
-flowchart LR
-    subgraph OSI
-        O7[7 Application]
-        O6[6 Présentation]
-        O5[5 Session]
-        O4[4 Transport]
-        O3[3 Réseau]
-        O2[2 Liaison]
-        O1[1 Physique]
-    end
-    subgraph TCPIP[TCP/IP]
-        T4[APPLICATION]
-        T3[TRANSPORT]
-        T2[INTERNET]
-        T1[ACCÈS RÉSEAU]
-    end
-    O7 --- T4
-    O6 --- T4
-    O5 --- T4
-    O4 --- T3
-    O3 --- T2
-    O2 --- T1
-    O1 --- T1
-```
+<div class="fig fig-layers" markdown="0" role="img" aria-label="Correspondance entre les 7 couches OSI et les 4 couches TCP/IP">
+<div class="fig-head">Modèle OSI</div><div class="fig-head">Modèle TCP/IP</div>
+<div class="fig-cell c-app">7 · Application</div><div class="fig-cell c-app fig-span3"><strong>Application</strong></div>
+<div class="fig-cell c-app">6 · Présentation</div>
+<div class="fig-cell c-app">5 · Session</div>
+<div class="fig-cell c-tra">4 · Transport</div><div class="fig-cell c-tra"><strong>Transport</strong></div>
+<div class="fig-cell c-net">3 · Réseau</div><div class="fig-cell c-net"><strong>Internet</strong></div>
+<div class="fig-cell c-acc">2 · Liaison</div><div class="fig-cell c-acc fig-span2"><strong>Accès réseau</strong></div>
+<div class="fig-cell c-acc">1 · Physique</div>
+</div>
+
+Chaque bloc TCP/IP couvre directement les couches OSI qu'il regroupe : Application en réunit trois, et Accès réseau deux.
+
 
 | TCP/IP | Équivalent OSI | Ce qu'on y trouve |
 |--------|----------------|-------------------|
@@ -159,13 +147,16 @@ Votre navigateur veut envoyer une requête web. Il remet les données à la couc
 > Une enveloppe pour le trajet local contient une enveloppe pour le trajet global, qui contient une enveloppe pour l'application destinataire, qui contient enfin la lettre. Chaque intermédiaire n'ouvre que l'enveloppe qui le concerne.
 {: .callout .callout-analogie}
 
-```mermaid
-flowchart TD
-    A[DONNÉES HTTP] --> B[Segment TCP<br/>en-tête TCP + données]
-    B --> C[Paquet IP<br/>en-tête IP + segment]
-    C --> D[Trame Ethernet<br/>en-tête + paquet + contrôle de fin]
-    D --> E[BITS sur le câble ou la radio]
-```
+<div class="fig fig-packet" markdown="0" role="img" aria-label="Chaque couche ajoute son en-tête autour des données">
+<div class="fig-row"><span class="fig-label">Données HTTP</span><span class="fig-bar"><span class="b-data">Données</span></span></div>
+<div class="fig-row"><span class="fig-label">Segment TCP</span><span class="fig-bar"><span class="b-new">En-tête TCP</span><span class="b-data">Données</span></span></div>
+<div class="fig-row"><span class="fig-label">Paquet IP</span><span class="fig-bar"><span class="b-new">En-tête IP</span><span class="b-old">TCP</span><span class="b-data">Données</span></span></div>
+<div class="fig-row"><span class="fig-label">Trame Ethernet</span><span class="fig-bar"><span class="b-new">En-tête Ethernet</span><span class="b-old">IP</span><span class="b-old">TCP</span><span class="b-data">Données</span><span class="b-new">Contrôle de fin</span></span></div>
+<div class="fig-row"><span class="fig-label">Bits</span><span class="fig-bar"><span class="b-bits">0101 1100 0010 1011 … sur le câble ou la radio</span></span></div>
+</div>
+
+En bleu, ce que chaque couche ajoute. Les données restent les mêmes du début à la fin : elles sont seulement enveloppées, puis désenveloppées à l'arrivée.
+
 
 ### Le PDU, ou comment nommer ce qui circule
 

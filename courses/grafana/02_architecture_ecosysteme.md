@@ -133,23 +133,40 @@ Voici l'ensemble de la chaîne :
 
 ```mermaid
 flowchart TD
-    A[Applications et hôtes] --> B[Exporters et SDK OpenTelemetry]
-    B --> C[Grafana Alloy]
-    subgraph BACK["Backends : ils détiennent les données"]
-        P[Prometheus]
-        L[Loki]
-        T[Tempo]
+    subgraph COL["Collecter"]
+        A[Applications et hôtes] --> B[Exporters et SDK OpenTelemetry]
+        B --> C[Grafana Alloy]
     end
-    C -->|métriques| P
-    C -->|logs| L
-    C -->|traces| T
-    P --> G[GRAFANA SERVER]
-    L --> G
-    T --> G
-    G --> D[Base interne : dashboards, utilisateurs]
-    G --> U[Navigateur et alertes]
-    style G fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    subgraph STO["Stocker"]
+        P[Prometheus : métriques]
+        L[Loki : logs]
+        T[Tempo : traces]
+    end
+    subgraph AFF["Interroger et afficher"]
+        G[Grafana Server]
+        U[Navigateur et alertes]
+        D[Base interne : dashboards, utilisateurs]
+    end
+    C --> P
+    C --> L
+    C --> T
+    G -.->|requêtes| P
+    G -.->|requêtes| L
+    G -.->|requêtes| T
+    G --> U
+    G --> D
+    classDef metriques fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef logs fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef traces fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    classDef affichage fill:#fef3c7,stroke:#d97706,color:#78350f
+    class P metriques
+    class L logs
+    class T traces
+    class G affichage
 ```
+
+Les flèches pleines montrent le trajet des données, et les pointillés les requêtes que Grafana envoie aux backends pour les lire.
+
 
 Le schéma est volontairement simplifié. Prometheus peut aussi aller chercher lui-même les métriques chez les exporters, sans Alloy. Les deux modes existent et se combinent, ce qui est une source classique de confusion : quand vous voyez une métrique, demandez-vous toujours qui l'a collectée et par quel chemin.
 

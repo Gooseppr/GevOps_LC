@@ -69,17 +69,17 @@ Chaque ligne contient trois éléments : un **nom** (`http_requests_total`), des
 Ce qui définit une série, c'est la combinaison *nom + ensemble de labels*. Les trois lignes ci-dessus sont donc trois séries différentes, même si elles portent le même nom.
 
 ```mermaid
-erDiagram
-    "MÉTRIQUE" ||--o{ "SÉRIE" : "se décline en"
-    "SÉRIE" ||--o{ "LABEL" : "est identifiée par"
-    "SÉRIE" ||--o{ "ÉCHANTILLON" : "accumule"
-    "ÉCHANTILLON" {
-        int timestamp
-        float valeur
-    }
+flowchart LR
+    A["Nom : http_requests_total"] --> C[Série temporelle]
+    B["Labels : method, status, instance"] --> C
+    C --> D["Échantillon 1<br/>timestamp + valeur"]
+    C --> E["Échantillon 2<br/>timestamp + valeur"]
+    C --> F["Échantillon 3<br/>timestamp + valeur"]
+    classDef source fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    class C source
 ```
 
-Ce schéma se lit ainsi : `||` signifie « exactement un » et `o{` « zéro ou plusieurs ». Une métrique se décline donc en plusieurs séries, et chaque série accumule ses propres échantillons.
+Le nom et les labels identifient la série, et chaque série accumule ses propres échantillons au fil du temps.
 
 > 🧠 **Concept clé**
 >

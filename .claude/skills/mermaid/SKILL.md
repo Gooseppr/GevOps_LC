@@ -37,7 +37,7 @@ Choisis ensuite le bon outil :
 | Qui parle à qui, et dans quel ordre ? | `sequenceDiagram` |
 | Par où passe la donnée ? Quels composants ? | `flowchart` |
 | Dans quel état est l'objet ? | `stateDiagram-v2` |
-| Quels éléments existent, et combien de chacun ? | `erDiagram` |
+| Quelles tables et quelles relations de données ? | `erDiagram` |
 | Quelle exigence, satisfaite ou vérifiée par quoi ? | `requirementDiagram` |
 | Quand, dans quel ordre, sur une période ? | `timeline` ou `gantt` |
 | Comment situer des éléments selon deux critères ? | `quadrantChart` |
@@ -47,9 +47,28 @@ Choisis ensuite le bon outil :
 | Liste sans relation entre les éléments | Liste, pas de schéma |
 | Idée abstraite sans enchaînement | Encart d'analogie ou de définition |
 
-Un aller-retour entre composants se lit mieux en `sequenceDiagram` qu'en `flowchart` à flèches retour. Dans un `erDiagram`, ajoute une phrase qui explique les symboles utilisés (`||`, `o{`, `|{`), car le lecteur ne les connaît pas forcément. Ne force jamais un type parce qu'il est disponible.
+Un aller-retour entre composants se lit mieux en `sequenceDiagram` qu'en `flowchart` à flèches retour. Ne force jamais un type parce qu'il est disponible.
 
 Un processus s'explique par un schéma, pas par une analogie. Si un schéma et une analogie disent la même chose à côté l'un de l'autre, garde le schéma.
+
+### La forme explique la notion
+
+Avant le type de schéma, demande-toi quelle forme fait comprendre la relation sans légende. Sinon, tout finit en rectangles et en flèches, et les notions se ressemblent toutes.
+
+| La notion | Ce qui doit la porter | Forme |
+|---|---|---|
+| Une correspondance entre deux modèles | L'alignement | Figure HTML en colonnes |
+| Une inclusion | L'imbrication | Figure HTML ou `subgraph` |
+| Une modification | Les seuls champs qui changent | Avant/après, avec `<mark>` |
+| Un échange | L'ordre dans le temps | `sequenceDiagram` |
+| Une décision | Les embranchements | `flowchart TD` avec losanges |
+| Une interface à reconnaître | Ce que l'apprenant verra | Maquette annotée |
+
+Mermaid reste l'outil principal. Une figure HTML est réservée aux notions fondamentales que Mermaid explique mal : voir `references/figures.md`. Ne refais pas un schéma qui fonctionne déjà : les séquences TCP et de requête Grafana servent de référence.
+
+Pour un débutant, n'utilise pas `erDiagram` afin d'expliquer un concept : les cardinalités ajoutent un vocabulaire à apprendre. Garde-le pour de vrais modèles de données, comme un schéma SQL.
+
+Dans une séquence, sors les valeurs longues des flèches : un tableau juste en dessous les montre mieux.
 
 ## 2. Construire la structure avant le style
 
@@ -113,7 +132,7 @@ flowchart LR
 
 ### Configuration du site
 
-Les réglages communs sont dans `_includes/head.html`, et ne s'appliquent pour l'instant qu'aux cours Grafana et Réseaux : thème `base` (le seul personnalisable, en couleurs hexadécimales), police Manrope, couleurs neutres, notes ambre, `sequence.wrap`, `sequence.mirrorActors: false`, `er.fontSize`.
+Les schémas de ces cours s'agrandissent au clic. Les réglages communs sont dans `_includes/head.html`, et ne s'appliquent pour l'instant qu'aux cours Grafana et Réseaux : thème `base` (le seul personnalisable, en couleurs hexadécimales), police Manrope, couleurs neutres, notes ambre, `sequence.wrap`, `sequence.mirrorActors: false`, `er.fontSize`.
 
 - Change-les là, plutôt que de répéter une configuration dans chaque schéma. Une configuration propre à un schéma reste une exception justifiée.
 - Vérifie toute option dans `scripts/node_modules/mermaid/dist/config.type.d.ts` : la documentation en ligne décrit la dernière version, et `look` ou `layout` n'existent pas en Mermaid 10.
@@ -185,4 +204,5 @@ Syntaxe validée avec Mermaid 10. Rendu à l'écran non vérifié.
 | 1.0 | 2026-11-05 | Création | Revue des 138 schémas de Grafana et Réseaux, skills Mermaid étudiés |
 | 1.2 | 2026-11-05 | Choix étendu aux types compatibles avec Mermaid 10, types récents exclus | Demande de l'utilisateur |
 | 1.3 | 2026-11-05 | Configuration du site documentée, options vérifiées sur Mermaid 10 | Page de configuration étudiée |
+| 1.4 | 2026-11-06 | La forme explique la notion, figures HTML, ER réservé aux données, polices de séquence | Deux retours externes |
 | 1.1 | 2026-11-05 | Erreurs de syntaxe observées sur le site : transitions, quadrants, subgraph, chemins | Correction de 8 schémas invalides |

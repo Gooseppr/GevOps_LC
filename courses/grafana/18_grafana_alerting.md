@@ -258,14 +258,21 @@ Le bloc `with ... else` n'est pas un détail. En No Data, il n'y a aucune valeur
 
 ```mermaid
 stateDiagram-v2
+    direction LR
     [*] --> Normal
     Normal --> Pending: condition vraie
-    Pending --> Normal: condition fausse
     Pending --> Alerting: pending period écoulée
-    Alerting --> Recovering: condition fausse, keep firing for actif
+    Alerting --> Normal: condition fausse
+    Pending --> Normal: condition fausse
+    Alerting --> Recovering: condition fausse, avec keep firing for
     Recovering --> Alerting: condition à nouveau vraie
     Recovering --> Normal: keep firing for écoulé
-    Alerting --> Normal: condition fausse, sans keep firing for
+    classDef sain fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef attente fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef alerte fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class Normal sain
+    class Pending,Recovering attente
+    class Alerting alerte
 ```
 
 Lisez ce schéma comme le chemin normal d'une alerte. Une pending period à zéro saute Pending, et un keep firing for à zéro saute Recovering.
