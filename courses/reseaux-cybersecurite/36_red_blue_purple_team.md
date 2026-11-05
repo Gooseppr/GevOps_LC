@@ -339,47 +339,41 @@ Un trimestre plus tard, la société lance un Red Team en mode informé. Il part
 
 ## Erreurs fréquentes
 
-> ⚠️ **Filtre de règle sur un répertoire entier**
->
-> - *Configuration dangereuse* : `SourceImage|startswith: 'C:\Windows\System32\'` pour exclure le bruit légitime.
-> - *Conséquence* : `rundll32.exe`, utilisé avec `comsvcs.dll` pour copier LSASS, réside dans ce répertoire. La technique passe sous la règle.
-> - *Correction* : filtrer l'exécutable exact et, si possible, sa signature. Valider chaque exclusion en rejouant le test Atomic correspondant.
-{: .callout .callout-attention}
+⚠️ **Filtre de règle sur un répertoire entier**
 
-> ⚠️ **Tests exécutés depuis un répertoire exclu de l'antivirus**
->
-> - *Configuration dangereuse* : le dossier des outils de test figure dans les exclusions de l'EDR « pour éviter les faux positifs ».
-> - *Conséquence* : aucune alerte, donc une couverture surestimée, ou un résultat qui ne se reproduit pas en production.
-> - *Correction* : vérifier les exclusions avec `Get-MpPreference | Select ExclusionPath, ExclusionProcess`, exécuter depuis un chemin normal sur une machine qui porte la même politique que la production.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : `SourceImage|startswith: 'C:\Windows\System32\'` pour exclure le bruit légitime.
+- *Conséquence* : `rundll32.exe`, utilisé avec `comsvcs.dll` pour copier LSASS, réside dans ce répertoire. La technique passe sous la règle.
+- *Correction* : filtrer l'exécutable exact et, si possible, sa signature. Valider chaque exclusion en rejouant le test Atomic correspondant.
 
-> ⚠️ **Exercice sans nettoyage**
->
-> - *Configuration dangereuse* : tâche planifiée, clé de registre Run ou compte créé pendant l'exercice et laissés en place.
-> - *Conséquence* : persistance involontaire, exploitable par un vrai attaquant, et pollution des investigations futures.
-> - *Correction* : `Invoke-AtomicTest <TECHNIQUE> -Cleanup` après chaque test, plus un inventaire des artefacts créés dans le journal d'opération. Vérifier par comparaison avec l'état initial.
-{: .callout .callout-attention}
+⚠️ **Tests exécutés depuis un répertoire exclu de l'antivirus**
 
-> ⚠️ **Infrastructure de l'exercice non déconflictée**
->
-> - *Configuration dangereuse* : IP et domaines du Red Team inconnus de la white cell.
-> - *Conséquence* : le SOC déclenche une cellule de crise, bloque un prestataire ou, à l'inverse, un vrai attaquant se cache dans le bruit de l'exercice.
-> - *Correction* : liste de déconfliction remise à la white cell avant le démarrage, avec heures d'activité attendues.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : le dossier des outils de test figure dans les exclusions de l'EDR « pour éviter les faux positifs ».
+- *Conséquence* : aucune alerte, donc une couverture surestimée, ou un résultat qui ne se reproduit pas en production.
+- *Correction* : vérifier les exclusions avec `Get-MpPreference | Select ExclusionPath, ExclusionProcess`, exécuter depuis un chemin normal sur une machine qui porte la même politique que la production.
 
-> ⚠️ **Rapport sans retest**
->
-> - *Configuration dangereuse* : constats listés avec une priorité mais sans date de validation.
-> - *Conséquence* : les corrections ne sont jamais vérifiées, et le même chemin réapparaît à l'exercice suivant.
-> - *Correction* : chaque constat porte un propriétaire, une échéance et un test de revalidation (commande ou procédure Atomic) rejouable.
-{: .callout .callout-attention}
+⚠️ **Exercice sans nettoyage**
 
-> ⚠️ **Détection validée une fois, jamais rejouée**
->
-> - *Configuration dangereuse* : un seul passage de validation, sans automatisation.
-> - *Conséquence* : une mise à jour d'agent, de parseur ou de politique casse la règle sans que personne ne le remarque.
-> - *Correction* : rejeu mensuel automatisé des tests de niveau 4 et alerte en cas de dégradation.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : tâche planifiée, clé de registre Run ou compte créé pendant l'exercice et laissés en place.
+- *Conséquence* : persistance involontaire, exploitable par un vrai attaquant, et pollution des investigations futures.
+- *Correction* : `Invoke-AtomicTest <TECHNIQUE> -Cleanup` après chaque test, plus un inventaire des artefacts créés dans le journal d'opération. Vérifier par comparaison avec l'état initial.
+
+⚠️ **Infrastructure de l'exercice non déconflictée**
+
+- *Configuration dangereuse* : IP et domaines du Red Team inconnus de la white cell.
+- *Conséquence* : le SOC déclenche une cellule de crise, bloque un prestataire ou, à l'inverse, un vrai attaquant se cache dans le bruit de l'exercice.
+- *Correction* : liste de déconfliction remise à la white cell avant le démarrage, avec heures d'activité attendues.
+
+⚠️ **Rapport sans retest**
+
+- *Configuration dangereuse* : constats listés avec une priorité mais sans date de validation.
+- *Conséquence* : les corrections ne sont jamais vérifiées, et le même chemin réapparaît à l'exercice suivant.
+- *Correction* : chaque constat porte un propriétaire, une échéance et un test de revalidation (commande ou procédure Atomic) rejouable.
+
+⚠️ **Détection validée une fois, jamais rejouée**
+
+- *Configuration dangereuse* : un seul passage de validation, sans automatisation.
+- *Conséquence* : une mise à jour d'agent, de parseur ou de politique casse la règle sans que personne ne le remarque.
+- *Correction* : rejeu mensuel automatisé des tests de niveau 4 et alerte en cas de dégradation.
 
 ## Résumé
 

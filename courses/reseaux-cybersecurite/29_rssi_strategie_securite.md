@@ -325,23 +325,20 @@ awk -F, -v d="$(date +%F)" 'NR>1 && $5<d {print $1, $2, $5}' exceptions.csv
 Ici, le fichier est un CSV simple (aucune virgule à l'intérieur des champs) dont la colonne 5 est la date d'expiration au format ISO (AAAA-MM-JJ). Toute ligne affichée est une exception expirée, ou sans date d'expiration (champ vide), à traiter.
 - *Correction* : l'échéance est obligatoire, une exception expirée sans décision est supprimée.
 
-> ⚠️ **Tableau de bord sans seuils.**
->
-> - *Conséquence* : les indicateurs sont présentés, commentés, puis oubliés ; aucune décision n'en découle.
-> - *Correction* : chaque indicateur porte un seuil et une décision associée. Sans cela, on le retire.
-{: .callout .callout-attention}
+⚠️ **Tableau de bord sans seuils.**
 
-> ⚠️ **Feuille de route = liste d'achats.**
->
-> - *Conséquence* : les outils arrivent, mais les capacités attendues (détecter, contenir, restaurer) restent absentes.
-> - *Correction* : formuler les objectifs en capacités mesurables, puis choisir les moyens.
-{: .callout .callout-attention}
+- *Conséquence* : les indicateurs sont présentés, commentés, puis oubliés ; aucune décision n'en découle.
+- *Correction* : chaque indicateur porte un seuil et une décision associée. Sans cela, on le retire.
 
-> ⚠️ **Diligence fournisseurs uniforme.**
->
-> - *Conséquence* : le temps est dépensé sur des fournisseurs sans accès, alors que les prestataires critiques restent mal couverts.
-> - *Correction* : le tiering décide de la profondeur de revue.
-{: .callout .callout-attention}
+⚠️ **Feuille de route = liste d'achats.**
+
+- *Conséquence* : les outils arrivent, mais les capacités attendues (détecter, contenir, restaurer) restent absentes.
+- *Correction* : formuler les objectifs en capacités mesurables, puis choisir les moyens.
+
+⚠️ **Diligence fournisseurs uniforme.**
+
+- *Conséquence* : le temps est dépensé sur des fournisseurs sans accès, alors que les prestataires critiques restent mal couverts.
+- *Correction* : le tiering décide de la profondeur de revue.
 
 ## Ce que vous pouvez tester dès maintenant
 

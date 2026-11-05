@@ -455,20 +455,15 @@ Pour garder la complexité sous contrôle :
 
 ## Erreurs fréquentes
 
-> ⚠️ **Politique « accept » par défaut avec quelques règles de blocage.** Conséquence : tout flux oublié est autorisé, et les règles de blocage deviennent une liste noire que l'attaquant contourne par un port non listé. Correction : `policy drop` avec liste blanche, après une phase d'observation. Détection : `nft list ruleset | grep policy` ; revue des configurations de pare-feu avec un outil comme Nipper ou un script maison.
-{: .callout .callout-attention}
+⚠️ **Politique « accept » par défaut avec quelques règles de blocage.** Conséquence : tout flux oublié est autorisé, et les règles de blocage deviennent une liste noire que l'attaquant contourne par un port non listé. Correction : `policy drop` avec liste blanche, après une phase d'observation. Détection : `nft list ruleset | grep policy` ; revue des configurations de pare-feu avec un outil comme Nipper ou un script maison.
 
-> ⚠️ **Sauvegardes jointes au domaine de production.** Conséquence : un administrateur de domaine compromis supprime aussi les sauvegardes, ce qui ne laisse que la rançon. Correction : annuaire et identité séparés pour la sauvegarde, copie immuable, test de restauration trimestriel. Détection : vérifier que le serveur de sauvegarde n'appartient pas au domaine (`systeminfo` sous Windows, `realm list` sous Linux) et que les comptes de production ne peuvent pas s'y connecter.
-{: .callout .callout-attention}
+⚠️ **Sauvegardes jointes au domaine de production.** Conséquence : un administrateur de domaine compromis supprime aussi les sauvegardes, ce qui ne laisse que la rançon. Correction : annuaire et identité séparés pour la sauvegarde, copie immuable, test de restauration trimestriel. Détection : vérifier que le serveur de sauvegarde n'appartient pas au domaine (`systeminfo` sous Windows, `realm list` sous Linux) et que les comptes de production ne peuvent pas s'y connecter.
 
-> ⚠️ **Segmentation déclarée mais non testée.** Conséquence : une règle « any » créée pendant un incident en 2022 rend la zone perméable. Correction : exécuter des scans de validation depuis chaque zone source vers les zones protégées (nmap, `nc -zv`) à chaque changement majeur, et en automatique chaque mois. Détection : écart entre la matrice de flux et le résultat du scan.
-{: .callout .callout-attention}
+⚠️ **Segmentation déclarée mais non testée.** Conséquence : une règle « any » créée pendant un incident en 2022 rend la zone perméable. Correction : exécuter des scans de validation depuis chaque zone source vers les zones protégées (nmap, `nc -zv`) à chaque changement majeur, et en automatique chaque mois. Détection : écart entre la matrice de flux et le résultat du scan.
 
-> ⚠️ **IMDSv1 autorisé sur des instances qui hébergent des applications web.** Conséquence : une SSRF suffit pour voler les identifiants du rôle, souvent bien plus larges que l'application. Correction : `http-tokens required` et rôle à moindre privilège. Détection : Prowler ou ScoutSuite signalent les instances en IMDSv1 ; AWS Config propose aussi une règle gérée dédiée.
-{: .callout .callout-attention}
+⚠️ **IMDSv1 autorisé sur des instances qui hébergent des applications web.** Conséquence : une SSRF suffit pour voler les identifiants du rôle, souvent bien plus larges que l'application. Correction : `http-tokens required` et rôle à moindre privilège. Détection : Prowler ou ScoutSuite signalent les instances en IMDSv1 ; AWS Config propose aussi une règle gérée dédiée.
 
-> ⚠️ **Zero Trust avec un PDP unique et sans compte de secours.** Conséquence : une panne de l'IdP bloque tout le monde, y compris ceux qui doivent le réparer. Correction : IdP en haute disponibilité, deux comptes break-glass hors du chemin normal, alertés à chaque usage, avec test semestriel.
-{: .callout .callout-attention}
+⚠️ **Zero Trust avec un PDP unique et sans compte de secours.** Conséquence : une panne de l'IdP bloque tout le monde, y compris ceux qui doivent le réparer. Correction : IdP en haute disponibilité, deux comptes break-glass hors du chemin normal, alertés à chaque usage, avec test semestriel.
 
 ---
 

@@ -166,6 +166,9 @@ sum(kube_node_status_allocatable{resource="cpu"})
 
 Le second ratio mesure la **réservation**, pas l'usage. Un cluster peut être réservé à 90 % tout en ne consommant que 20 % du CPU : le scheduler refusera de placer de nouveaux pods alors que les machines sont presque au repos. Ce n'est pas un bug, c'est ce que les `requests` sont censées garantir, mais ça surprend les équipes.
 
+> 🍽️ **Analogie : le restaurant complet.** Un restaurant dont toutes les tables sont réservées refuse de nouveaux clients, même si la salle est à moitié vide. Les `requests` jouent le rôle de ces réservations. Limite de l'image : contrairement à une table vide, le CPU réservé mais inutilisé peut être utilisé par les autres pods du nœud.
+{: .callout .callout-analogie}
+
 ### Les pods et conteneurs
 
 La question devient : « Qui consomme quoi, par rapport à ce qui lui est alloué ? ». Les métriques cAdvisor contiennent des séries parasites qu'il faut écarter systématiquement :
@@ -197,6 +200,9 @@ C'est le cœur opérationnel du module : trois signaux qui racontent la majorit�
 
 Quand vous posez une `limit` CPU, le noyau l'applique via le CFS (Completely Fair Scheduler)\* sous forme de quota : sur chaque période de 100 ms, le conteneur reçoit un temps de calcul maximum. Une fois épuisé, ses threads sont **gelés jusqu'à la période suivante**. Votre application ne plante pas, elle attend. Les requêtes s'allongent, des timeouts apparaissent, et rien n'est visible dans les logs.
 
+> ⏱️ **Analogie : un forfait remis à zéro toutes les 100 ms.** Une limit de 200m équivaut à 20 ms de calcul par tranche de 100 ms. Une fois le forfait consommé, le conteneur attend la tranche suivante, même si le nœud est libre. Attention : le forfait est partagé entre tous les threads, donc 4 threads actifs l'épuisent en 5 ms.
+{: .callout .callout-analogie}
+
 ```promql
 sum by (namespace, pod, container) (rate(container_cpu_cfs_throttled_periods_total{container!="", container!="POD"}[5m]))
 /
@@ -209,7 +215,10 @@ Le résultat est la proportion de périodes où le conteneur a été bridé. Une
 
 ### Les OOMKilled
 
-Pour la mémoire, la métrique à suivre n'est pas `container_memory_usage_bytes` (qui inclut du cache fichier récupérable), mais `container_memory_working_set_bytes`. C'est celle qui se rapproche le plus de ce que le noyau regarde avant de tuer un processus. L'OOM (Out Of Memory) killer intervient quand le conteneur dépasse sa limite mémoire.
+Pour la mémoire, la métrique à suivre n'est pas `container_memory_usage_bytes` (qui inclut du cache fichier récupérable), mais `container_memory_working_set_bytes`. L'OOM (Out Of Memory) killer intervient quand le conteneur dépasse sa limite mémoire.
+
+> 📖 **Définition.** Le *working set* est la mémoire d'un conteneur, sans le cache inactif que le noyau peut récupérer. C'est la métrique qui se rapproche le plus de ce que le noyau regarde avant de tuer un processus.
+{: .callout .callout-definition}
 
 ```promql
 max by (namespace, pod, container) (container_memory_working_set_bytes{container!="", container!="POD"})
@@ -238,11 +247,14 @@ On combine les deux séries parce que `last_terminated_reason` reste à `1` tant
 
 C'est le piège central du module, et il explique l'incident de notre mise en situation.
 
-Un pod peut afficher 40 % de CPU « utilisé » par rapport à sa limite et être pourtant fortement bridé. Voici pourquoi. `rate(container_cpu_usage_seconds_total[5m])` est une **moyenne sur cinq minutes**. Une application multithread qui travaille en rafales, par exemple un burst de 80 ms à 4 cœurs au démarrage de chaque requête, épuise son quota (20 ms par période de 100 ms pour une limit de 200m) en quelques millisecondes, puis reste gelée le reste de la période. En moyenne, le CPU paraît modéré. À l'échelle de la requête, la latence est dégradée.
+Un pod peut afficher 40 % de CPU « utilisé » par rapport à sa limite et être pourtant fortement bridé. Pourquoi ? Parce que `rate(container_cpu_usage_seconds_total[5m])` est une **moyenne sur cinq minutes**.
+
+Prenez une application multithread qui travaille en rafales, par exemple avec un burst de 80 ms à 4 cœurs au démarrage de chaque requête. Elle épuise son quota (20 ms par période de 100 ms pour une limit de 200m) en quelques millisecondes, puis reste gelée le reste de la période. En moyenne, le CPU paraît modéré. À l'échelle de la requête, la latence est dégradée.
 
 L'inverse existe aussi, à l'échelle du nœud : un pod **sans limit** n'est jamais bridé, mais si le nœud est surchargé, il attend son tour pour obtenir du CPU. Aucun throttling dans les métriques, et pourtant il est ralenti.
 
-La consommation répond à « combien de CPU le conteneur a-t-il obtenu ? ». La saturation répond à « combien de temps a-t-il attendu pour en obtenir ? ». Ce sont deux questions différentes, et le dashboard doit montrer les deux.
+> 💡 **À retenir.** La **consommation** répond à « combien de CPU le conteneur a-t-il obtenu ? ». La **saturation** répond à « combien de temps a-t-il attendu pour en obtenir ? ». Ce sont deux questions différentes, et le dashboard doit montrer les deux.
+{: .callout .callout-important}
 
 | Ce que vous voulez savoir | Signal à regarder |
 |---------------------------|-------------------|

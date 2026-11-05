@@ -477,47 +477,41 @@ Leçon : la discussion « qui voit quel dashboard » a masqué la vraie question
 
 ## Erreurs fréquentes
 
-> ⚠️ **Accès anonyme avec rôle trop large**
->
-> - Configuration dangereuse : `[auth.anonymous] enabled = true` avec `org_role = Editor`, laissé après une démo.
-> - Conséquence : toute personne atteignant l'URL édite des dashboards et interroge les Data Sources sans compte.
-> - Correction : `enabled = false`. Pour un écran public, un Viewer avec dashboard publié et Data Source dédiée en lecture limitée. Détection : `curl -s -o /dev/null -w '%{http_code}' https://<HOST>/api/search` doit renvoyer 401.
-{: .callout .callout-attention}
+⚠️ **Accès anonyme avec rôle trop large**
 
-> ⚠️ **Token Admin éternel dans le CI**
->
-> - Configuration dangereuse : un service account `Admin` dont le token n'expire jamais, copié dans un pipeline.
-> - Conséquence : quiconque lit les variables du CI (ou leurs logs) contrôle la plateforme, même après le départ de l'auteur.
-> - Correction : un service account par usage avec le rôle minimal, token à durée de vie courte, rotation dans le secrets manager. Détection : l'audit `/api/serviceaccounts/search` ci-dessus.
-{: .callout .callout-attention}
+- Configuration dangereuse : `[auth.anonymous] enabled = true` avec `org_role = Editor`, laissé après une démo.
+- Conséquence : toute personne atteignant l'URL édite des dashboards et interroge les Data Sources sans compte.
+- Correction : `enabled = false`. Pour un écran public, un Viewer avec dashboard publié et Data Source dédiée en lecture limitée. Détection : `curl -s -o /dev/null -w '%{http_code}' https://<HOST>/api/search` doit renvoyer 401.
 
-> ⚠️ **Grafana exposé directement, avec auth proxy**
->
-> - Configuration dangereuse : `[auth.proxy] enabled = true` et port 3000 publié.
-> - Conséquence : l'attaquant envoie lui-même l'en-tête d'identité et devient n'importe quel utilisateur.
-> - Correction : `http_addr = 127.0.0.1`, `whitelist` des IP du proxy, réseau interne. Détection : `nmap -Pn -p 3000 <HOST>` doit montrer le port filtré.
-{: .callout .callout-attention}
+⚠️ **Token Admin éternel dans le CI**
 
-> ⚠️ **`/metrics` ouvert**
->
-> - Configuration dangereuse : endpoint Prometheus de Grafana sans authentification derrière un proxy qui laisse tout passer.
-> - Conséquence : version exacte, nombre d'utilisateurs, handlers : reconnaissance facile.
-> - Correction : `[metrics] basic_auth_username/password`, plus blocage au proxy, et scrape depuis le réseau interne uniquement.
-{: .callout .callout-attention}
+- Configuration dangereuse : un service account `Admin` dont le token n'expire jamais, copié dans un pipeline.
+- Conséquence : quiconque lit les variables du CI (ou leurs logs) contrôle la plateforme, même après le départ de l'auteur.
+- Correction : un service account par usage avec le rôle minimal, token à durée de vie courte, rotation dans le secrets manager. Détection : l'audit `/api/serviceaccounts/search` ci-dessus.
 
-> ⚠️ **Plugin non signé « juste pour tester »**
->
-> - Configuration dangereuse : `allow_loading_unsigned_plugins = *` dans l'environnement de production.
-> - Conséquence : tout code déposé dans le répertoire de plugins s'exécute avec les droits de Grafana.
-> - Correction : liste explicite d'identifiants, plugins intégrés à l'image et scannés. Détection : `grafana cli plugins ls` comparé à la liste attendue.
-{: .callout .callout-attention}
+⚠️ **Grafana exposé directement, avec auth proxy**
 
-> ⚠️ **Data Source avec compte privilégié**
->
-> - Configuration dangereuse : Prometheus, SQL ou API cloud configurés avec un compte d'écriture ou d'administration.
-> - Conséquence : toute fuite de secret ou tout accès Editor à la Data Source devient un accès en écriture au backend.
-> - Correction : compte dédié lecture seule, périmètre minimal, `data_source_proxy_whitelist` pour restreindre les destinations.
-{: .callout .callout-attention}
+- Configuration dangereuse : `[auth.proxy] enabled = true` et port 3000 publié.
+- Conséquence : l'attaquant envoie lui-même l'en-tête d'identité et devient n'importe quel utilisateur.
+- Correction : `http_addr = 127.0.0.1`, `whitelist` des IP du proxy, réseau interne. Détection : `nmap -Pn -p 3000 <HOST>` doit montrer le port filtré.
+
+⚠️ **`/metrics` ouvert**
+
+- Configuration dangereuse : endpoint Prometheus de Grafana sans authentification derrière un proxy qui laisse tout passer.
+- Conséquence : version exacte, nombre d'utilisateurs, handlers : reconnaissance facile.
+- Correction : `[metrics] basic_auth_username/password`, plus blocage au proxy, et scrape depuis le réseau interne uniquement.
+
+⚠️ **Plugin non signé « juste pour tester »**
+
+- Configuration dangereuse : `allow_loading_unsigned_plugins = *` dans l'environnement de production.
+- Conséquence : tout code déposé dans le répertoire de plugins s'exécute avec les droits de Grafana.
+- Correction : liste explicite d'identifiants, plugins intégrés à l'image et scannés. Détection : `grafana cli plugins ls` comparé à la liste attendue.
+
+⚠️ **Data Source avec compte privilégié**
+
+- Configuration dangereuse : Prometheus, SQL ou API cloud configurés avec un compte d'écriture ou d'administration.
+- Conséquence : toute fuite de secret ou tout accès Editor à la Data Source devient un accès en écriture au backend.
+- Correction : compte dédié lecture seule, périmètre minimal, `data_source_proxy_whitelist` pour restreindre les destinations.
 
 ## Résumé
 

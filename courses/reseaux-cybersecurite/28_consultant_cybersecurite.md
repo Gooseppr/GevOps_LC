@@ -479,49 +479,42 @@ Ce qui a fait la différence : le précâblage a transformé un administrateur p
 
 ## Erreurs fréquentes
 
-> ⚠️ **Rapport = export d'outil**
->
-> - *Configuration dangereuse* : copier la sortie du scanner dans le rapport, classée par score.
-> - *Conséquence* : 200 lignes sans priorité ; les risques de configuration (AD, droits, sauvegardes) restent invisibles.
-> - *Correction* : regrouper en scénarios d'attaque, prioriser selon exposition, exploitation active et criticité. *Détection* : un relecteur compte le nombre de constats sans conséquence métier.
-{: .callout .callout-attention}
+⚠️ **Rapport = export d'outil**
 
-> ⚠️ **Périmètre oral**
->
-> - *Conséquence* : dépassement de budget ou action hors autorisation.
-> - *Correction* : avenant écrit, même d'une ligne, avant toute action non prévue.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : copier la sortie du scanner dans le rapport, classée par score.
+- *Conséquence* : 200 lignes sans priorité ; les risques de configuration (AD, droits, sauvegardes) restent invisibles.
+- *Correction* : regrouper en scénarios d'attaque, prioriser selon exposition, exploitation active et criticité. *Détection* : un relecteur compte le nombre de constats sans conséquence métier.
 
-> ⚠️ **Recommandation non exécutable**
->
-> - *Exemple* : « Mettre en place une politique de gestion des correctifs » pour une équipe de deux personnes.
-> - *Correction* : porteur, effort, critère de succès, horizon (voir le registre). *Détection* : demandez à l'administrateur « pouvez-vous commencer lundi ? ».
-{: .callout .callout-attention}
+⚠️ **Périmètre oral**
 
-> ⚠️ **Sévérité fixée par CVSS seul**
->
-> - *Conséquence* : une mauvaise configuration critique (compte privilégié faible) passe sous le radar, et une CVE élevée sur un actif isolé mobilise l'équipe.
-> - *Correction* : priorisation contextuelle ; vérifier l'exploitation active (catalogue KEV) et la criticité de l'actif.
-{: .callout .callout-attention}
+- *Conséquence* : dépassement de budget ou action hors autorisation.
+- *Correction* : avenant écrit, même d'une ligne, avant toute action non prévue.
 
-> ⚠️ **Surestimation de l'impact (ton alarmiste)**
->
-> - *Exemple* : annoncer des millions de pertes sans source.
-> - *Conséquence* : le rapport est discrédité à la première question de la DAF.
-> - *Correction* : chiffres sourcés par le client, ou hypothèses explicites, avec niveau de confiance.
-{: .callout .callout-attention}
+⚠️ **Recommandation non exécutable**
 
-> ⚠️ **Livrable envoyé en clair, métadonnées intactes**
->
-> - *Conséquence* : le rapport circule par mail non chiffré ; le PDF révèle le nom du consultant, des chemins internes ou des versions précédentes.
-> - *Correction* : `age` ou équivalent, secret par un autre canal, `exiftool -a -G1` avant envoi.
-{: .callout .callout-attention}
+- *Exemple* : « Mettre en place une politique de gestion des correctifs » pour une équipe de deux personnes.
+- *Correction* : porteur, effort, critère de succès, horizon (voir le registre). *Détection* : demandez à l'administrateur « pouvez-vous commencer lundi ? ».
 
-> ⚠️ **Comptes de mission oubliés**
->
-> - *Conséquence* : un compte VPN créé pour vous reste actif six mois après la restitution, sans propriétaire ; il devient un point d'entrée.
-> - *Correction* : date d'expiration à la création, désactivation confirmée par écrit à la fin de mission.
-{: .callout .callout-attention}
+⚠️ **Sévérité fixée par CVSS seul**
+
+- *Conséquence* : une mauvaise configuration critique (compte privilégié faible) passe sous le radar, et une CVE élevée sur un actif isolé mobilise l'équipe.
+- *Correction* : priorisation contextuelle ; vérifier l'exploitation active (catalogue KEV) et la criticité de l'actif.
+
+⚠️ **Surestimation de l'impact (ton alarmiste)**
+
+- *Exemple* : annoncer des millions de pertes sans source.
+- *Conséquence* : le rapport est discrédité à la première question de la DAF.
+- *Correction* : chiffres sourcés par le client, ou hypothèses explicites, avec niveau de confiance.
+
+⚠️ **Livrable envoyé en clair, métadonnées intactes**
+
+- *Conséquence* : le rapport circule par mail non chiffré ; le PDF révèle le nom du consultant, des chemins internes ou des versions précédentes.
+- *Correction* : `age` ou équivalent, secret par un autre canal, `exiftool -a -G1` avant envoi.
+
+⚠️ **Comptes de mission oubliés**
+
+- *Conséquence* : un compte VPN créé pour vous reste actif six mois après la restitution, sans propriétaire ; il devient un point d'entrée.
+- *Correction* : date d'expiration à la création, désactivation confirmée par écrit à la fin de mission.
 
 ---
 

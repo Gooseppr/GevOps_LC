@@ -328,23 +328,17 @@ La leçon : le gain ne vient pas d'un meilleur outil, mais du fait que chaque d�
 
 ## Erreurs fréquentes
 
-> ⚠️ **Acceptation orale ou par omission** → en cas d'incident, personne ne sait qui a décidé ni sur quelle base ; l'organisation perd à la fois en défense et en responsabilité. *Correction* : formulaire d'acceptation signé, avec propriétaire, mesures compensatoires et date d'expiration, enregistré au registre.
-{: .callout .callout-attention}
+⚠️ **Acceptation orale ou par omission** → en cas d'incident, personne ne sait qui a décidé ni sur quelle base ; l'organisation perd à la fois en défense et en responsabilité. *Correction* : formulaire d'acceptation signé, avec propriétaire, mesures compensatoires et date d'expiration, enregistré au registre.
 
-> ⚠️ **Tous les risques « moyens »** → les échelles ne sont pas calibrées et les décisions deviennent arbitraires. *Correction* : relier chaque niveau de gravité à des repères en euros, en jours d'arrêt ou en volume de données, comme dans le tableau plus haut. Une relecture croisée par les métiers fait vite apparaître les incohérences.
-{: .callout .callout-attention}
+⚠️ **Tous les risques « moyens »** → les échelles ne sont pas calibrées et les décisions deviennent arbitraires. *Correction* : relier chaque niveau de gravité à des repères en euros, en jours d'arrêt ou en volume de données, comme dans le tableau plus haut. Une relecture croisée par les métiers fait vite apparaître les incohérences.
 
-> ⚠️ **Registre figé après l'analyse initiale** → il décrit un SI qui n'existe plus. *Correction* : brancher les déclencheurs de réexamen (KEV, incident, changement d'architecture) et mesurer le nombre d'acceptations expirées.
-{: .callout .callout-attention}
+⚠️ **Registre figé après l'analyse initiale** → il décrit un SI qui n'existe plus. *Correction* : brancher les déclencheurs de réexamen (KEV, incident, changement d'architecture) et mesurer le nombre d'acceptations expirées.
 
-> ⚠️ **Mesures compensatoires déclaratives** → « le serveur est isolé » alors que le pare-feu autorise du RDP depuis le LAN. *Correction* : tester la mesure (`nmap` depuis la zone concernée, revue des règles de flux) avant de signer l'acceptation et à chaque revue.
-{: .callout .callout-attention}
+⚠️ **Mesures compensatoires déclaratives** → « le serveur est isolé » alors que le pare-feu autorise du RDP depuis le LAN. *Correction* : tester la mesure (`nmap` depuis la zone concernée, revue des règles de flux) avant de signer l'acceptation et à chaque revue.
 
-> ⚠️ **Confondre transfert et disparition du risque** → l'assurance rembourse en partie des pertes, pas l'arrêt d'activité de neuf jours ni la perte de confiance des clients. *Correction* : traiter le transfert comme un complément, jamais comme l'unique traitement des risques de gravité 4.
-{: .callout .callout-attention}
+⚠️ **Confondre transfert et disparition du risque** → l'assurance rembourse en partie des pertes, pas l'arrêt d'activité de neuf jours ni la perte de confiance des clients. *Correction* : traiter le transfert comme un complément, jamais comme l'unique traitement des risques de gravité 4.
 
-> ⚠️ **Appliquer une méthode complète à tout le SI** → épuisement des équipes, aucun suivi. *Correction* : démarrer par les 3 à 5 événements redoutés les plus graves, puis élargir.
-{: .callout .callout-attention}
+⚠️ **Appliquer une méthode complète à tout le SI** → épuisement des équipes, aucun suivi. *Correction* : démarrer par les 3 à 5 événements redoutés les plus graves, puis élargir.
 
 ## Résumé
 

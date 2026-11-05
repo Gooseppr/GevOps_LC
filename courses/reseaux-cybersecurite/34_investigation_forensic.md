@@ -552,47 +552,41 @@ Une alerte EDR signale un accès à `lsass.exe` sur le poste d'un comptable un j
 
 ## Erreurs fréquentes
 
-> ⚠️ **Hasher après coup, ou ne pas hasher du tout**
->
-> - *Configuration dangereuse* : l'image est copiée, déplacée, puis hashée une semaine plus tard « pour vérifier ».
-> - *Conséquence* : impossible de prouver que l'image n'a pas été altérée entre la collecte et l'analyse.
-> - *Correction* : hash calculé pendant l'acquisition (`dc3dd hash=sha256`), vérifié à chaque transfert (`sha256sum -c`), consigné dans la fiche.
-{: .callout .callout-attention}
+⚠️ **Hasher après coup, ou ne pas hasher du tout**
 
-> ⚠️ **Analyser sur l'image originale**
->
-> - *Configuration dangereuse* : l'analyste travaille directement sur l'unique exemplaire de l'image, monté en lecture-écriture.
-> - *Conséquence* : modification involontaire, perte de la référence pour une éventuelle contre-expertise.
-> - *Correction* : copie de travail, original scellé ; montage `ro,noload` via `losetup --read-only`.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : l'image est copiée, déplacée, puis hashée une semaine plus tard « pour vérifier ».
+- *Conséquence* : impossible de prouver que l'image n'a pas été altérée entre la collecte et l'analyse.
+- *Correction* : hash calculé pendant l'acquisition (`dc3dd hash=sha256`), vérifié à chaque transfert (`sha256sum -c`), consigné dans la fiche.
 
-> ⚠️ **Se fier aux horodatages sans les recouper**
->
-> - *Configuration dangereuse* : une chronologie bâtie sur les seules dates du système de fichiers.
-> - *Conséquence* : un timestomping ou une dérive d'horloge produit une histoire fausse mais cohérente en apparence.
-> - *Correction* : confronter `$STANDARD_INFORMATION` et `$FILE_NAME`, croiser avec journaux d'événements et logs distants, mesurer la dérive d'horloge.
-{: .callout .callout-attention}
+⚠️ **Analyser sur l'image originale**
 
-> ⚠️ **Journaux uniquement locaux**
->
-> - *Configuration dangereuse* : aucun transfert de logs vers un stockage distant.
-> - *Conséquence* : un `wevtutil cl` ou un `rm /var/log/*` efface l'unique exemplaire de la preuve.
-> - *Correction* : transfert en quasi temps réel vers un collecteur distant, avec droits d'écriture seule pour les sources.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : l'analyste travaille directement sur l'unique exemplaire de l'image, monté en lecture-écriture.
+- *Conséquence* : modification involontaire, perte de la référence pour une éventuelle contre-expertise.
+- *Correction* : copie de travail, original scellé ; montage `ro,noload` via `losetup --read-only`.
 
-> ⚠️ **Conclure à partir d'un seul outil**
->
-> - *Configuration dangereuse* : traiter chaque résultat `malfind` ou chaque alerte Hayabusa comme une preuve.
-> - *Conséquence* : faux positifs présentés comme des compromissions, ou inversement, rassurer à tort sur un scan négatif.
-> - *Correction* : valider chaque indice par une deuxième source indépendante avant de l'inscrire comme constat.
-{: .callout .callout-attention}
+⚠️ **Se fier aux horodatages sans les recouper**
 
-> ⚠️ **Oublier la clé de récupération**
->
-> - *Configuration dangereuse* : poste chiffré éteint avant que les clés de récupération soient retrouvées.
-> - *Conséquence* : image disque illisible, investigation limitée aux journaux distants.
-> - *Correction* : annuaire des clés de récupération accessible aux enquêteurs ; capture à chaud du volume déverrouillé quand c'est possible.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : une chronologie bâtie sur les seules dates du système de fichiers.
+- *Conséquence* : un timestomping ou une dérive d'horloge produit une histoire fausse mais cohérente en apparence.
+- *Correction* : confronter `$STANDARD_INFORMATION` et `$FILE_NAME`, croiser avec journaux d'événements et logs distants, mesurer la dérive d'horloge.
+
+⚠️ **Journaux uniquement locaux**
+
+- *Configuration dangereuse* : aucun transfert de logs vers un stockage distant.
+- *Conséquence* : un `wevtutil cl` ou un `rm /var/log/*` efface l'unique exemplaire de la preuve.
+- *Correction* : transfert en quasi temps réel vers un collecteur distant, avec droits d'écriture seule pour les sources.
+
+⚠️ **Conclure à partir d'un seul outil**
+
+- *Configuration dangereuse* : traiter chaque résultat `malfind` ou chaque alerte Hayabusa comme une preuve.
+- *Conséquence* : faux positifs présentés comme des compromissions, ou inversement, rassurer à tort sur un scan négatif.
+- *Correction* : valider chaque indice par une deuxième source indépendante avant de l'inscrire comme constat.
+
+⚠️ **Oublier la clé de récupération**
+
+- *Configuration dangereuse* : poste chiffré éteint avant que les clés de récupération soient retrouvées.
+- *Conséquence* : image disque illisible, investigation limitée aux journaux distants.
+- *Correction* : annuaire des clés de récupération accessible aux enquêteurs ; capture à chaud du volume déverrouillé quand c'est possible.
 
 ---
 

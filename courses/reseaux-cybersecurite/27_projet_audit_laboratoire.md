@@ -402,23 +402,17 @@ La valeur de l'audit se lit dans le passage de 214 lignes à 11 décisions. Ce n
 
 ## Erreurs fréquentes
 
-> ⚠️ **Scanner une plage plus large que le labo.** Conséquence : équipements de production atteints, plantages, incident en cascade. Correction : valider les routes avec `ip route` et `traceroute`, travailler avec `-iL scope.txt --excludefile exclusions.txt`, et faire bloquer au pare-feu tout trafic du poste d'audit hors périmètre. Détection : `nmap -sn` ciblé sur une adresse hors périmètre depuis le poste d'audit ne doit rien répondre.
-{: .callout .callout-attention}
+⚠️ **Scanner une plage plus large que le labo.** Conséquence : équipements de production atteints, plantages, incident en cascade. Correction : valider les routes avec `ip route` et `traceroute`, travailler avec `-iL scope.txt --excludefile exclusions.txt`, et faire bloquer au pare-feu tout trafic du poste d'audit hors périmètre. Détection : `nmap -sn` ciblé sur une adresse hors périmètre depuis le poste d'audit ne doit rien répondre.
 
-> ⚠️ **Profil de scan avec contrôles dangereux, sans snapshot.** Conséquence : service arrêté pendant l'audit, arrêt de la mission. Correction : profil non destructif, débit limité, snapshot avant chaque scan, fenêtre horaire définie aux RoE.
-{: .callout .callout-attention}
+⚠️ **Profil de scan avec contrôles dangereux, sans snapshot.** Conséquence : service arrêté pendant l'audit, arrêt de la mission. Correction : profil non destructif, débit limité, snapshot avant chaque scan, fenêtre horaire définie aux RoE.
 
-> ⚠️ **Trier par CVSS brut.** Conséquence : un 9,8 sur un hôte isolé passe avant un 6,5 exposé à tout le LAN qui mène à l'AD. Correction : matrice vraisemblance × impact, avec exposition, KEV et chemin d'attaque.
-{: .callout .callout-attention}
+⚠️ **Trier par CVSS brut.** Conséquence : un 9,8 sur un hôte isolé passe avant un 6,5 exposé à tout le LAN qui mène à l'AD. Correction : matrice vraisemblance × impact, avec exposition, KEV et chemin d'attaque.
 
-> ⚠️ **Livrer l'export du scanner comme rapport.** Conséquence : 214 lignes sans décision possible, les propriétaires ne corrigent rien. Correction : un constat par cause racine, avec preuve et recommandation.
-{: .callout .callout-attention}
+⚠️ **Livrer l'export du scanner comme rapport.** Conséquence : 214 lignes sans décision possible, les propriétaires ne corrigent rien. Correction : un constat par cause racine, avec preuve et recommandation.
 
-> ⚠️ **Compte d'audit laissé actif, mot de passe dans le rapport.** Conséquence : un compte privilégié oublié qui facilite l'attaque suivante. Correction : désactivation le jour de la remise, secrets masqués, résultats bruts chiffrés.
-{: .callout .callout-attention}
+⚠️ **Compte d'audit laissé actif, mot de passe dans le rapport.** Conséquence : un compte privilégié oublié qui facilite l'attaque suivante. Correction : désactivation le jour de la remise, secrets masqués, résultats bruts chiffrés.
 
-> ⚠️ **Retest sans état initial comparable.** Conséquence : impossible de prouver qu'un constat est corrigé, discussion sans fin. Correction : conserver les `-oA` du premier scan, comparer avec `ndiff`, rejouer exactement les commandes de preuve.
-{: .callout .callout-attention}
+⚠️ **Retest sans état initial comparable.** Conséquence : impossible de prouver qu'un constat est corrigé, discussion sans fin. Correction : conserver les `-oA` du premier scan, comparer avec `ndiff`, rejouer exactement les commandes de preuve.
 
 ## Auto-évaluation du niveau 2
 

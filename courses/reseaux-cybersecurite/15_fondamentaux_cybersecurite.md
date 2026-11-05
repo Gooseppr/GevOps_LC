@@ -342,40 +342,35 @@ La leçon dépasse ce scénario : on commence par rendre le chemin le plus proba
 
 ## Erreurs fréquentes
 
-> ⚠️ **Compte de service avec des droits d'administrateur de domaine**
->
-> - *Configuration dangereuse* : un outil de sauvegarde, de supervision ou d'inventaire tourne avec un compte administrateur « pour que ça marche ».
-> - *Conséquence* : la compromission du script, du serveur ou du partage où se trouve le secret donne tout le domaine.
-> - *Correction* : définir les droits strictement nécessaires, stocker le secret dans un coffre plutôt que dans un script, auditer régulièrement les membres des groupes privilégiés (voir la section sur ce que vous pouvez tester).
-{: .callout .callout-attention}
+⚠️ **Compte de service avec des droits d'administrateur de domaine**
 
-> ⚠️ **Sauvegardes dans le même domaine de confiance que la production**
->
-> - *Configuration dangereuse* : les serveurs de sauvegarde sont joints au domaine et accessibles en écriture avec les mêmes comptes.
-> - *Conséquence* : un attaquant qui obtient des privilèges élevés supprime aussi les sauvegardes avant de chiffrer.
-> - *Correction* : une copie hors domaine ou non modifiable, avec des identifiants distincts, et un test de restauration planifié.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : un outil de sauvegarde, de supervision ou d'inventaire tourne avec un compte administrateur « pour que ça marche ».
+- *Conséquence* : la compromission du script, du serveur ou du partage où se trouve le secret donne tout le domaine.
+- *Correction* : définir les droits strictement nécessaires, stocker le secret dans un coffre plutôt que dans un script, auditer régulièrement les membres des groupes privilégiés (voir la section sur ce que vous pouvez tester).
 
-> ⚠️ **Accès distant protégé par un seul mot de passe**
->
-> - *Configuration dangereuse* : VPN, webmail ou portail d'administration accessibles depuis Internet avec identifiant et mot de passe seulement.
-> - *Conséquence* : un hameçonnage ou une fuite de mots de passe suffit pour entrer.
-> - *Correction* : second facteur obligatoire. Pour les administrateurs, préférer une clé de sécurité (FIDO2) à un code par SMS ou à une application de codes, car ces derniers peuvent être interceptés par un proxy d'hameçonnage de type Evilginx.
-{: .callout .callout-attention}
+⚠️ **Sauvegardes dans le même domaine de confiance que la production**
 
-> ⚠️ **Priorisation par le seul score CVSS**
->
-> - *Configuration dangereuse* : le tableau de correctifs est trié par score décroissant, sans tenir compte de l'exposition.
-> - *Conséquence* : une CVE de score 9,8 sur un serveur isolé est traitée avant une CVE de score 7 sur un service exposé avec un exploit public.
-> - *Correction* : prioriser selon l'exposition, la disponibilité d'un exploit et la criticité de l'actif (voir l'exemple Log4Shell).
-{: .callout .callout-attention}
+- *Configuration dangereuse* : les serveurs de sauvegarde sont joints au domaine et accessibles en écriture avec les mêmes comptes.
+- *Conséquence* : un attaquant qui obtient des privilèges élevés supprime aussi les sauvegardes avant de chiffrer.
+- *Correction* : une copie hors domaine ou non modifiable, avec des identifiants distincts, et un test de restauration planifié.
 
-> ⚠️ **« On est derrière un pare-feu »**
->
-> - *Configuration dangereuse* : on suppose que tout ce qui est à l'intérieur est de confiance.
-> - *Conséquence* : dès qu'un compte ou un poste est compromis, l'attaquant circule librement.
-> - *Correction* : traiter l'intérieur comme un réseau non fiable pour les actifs importants (journalisation, droits minimaux, accès contrôlé), ce qui rejoint les principes Zero Trust.
-{: .callout .callout-attention}
+⚠️ **Accès distant protégé par un seul mot de passe**
+
+- *Configuration dangereuse* : VPN, webmail ou portail d'administration accessibles depuis Internet avec identifiant et mot de passe seulement.
+- *Conséquence* : un hameçonnage ou une fuite de mots de passe suffit pour entrer.
+- *Correction* : second facteur obligatoire. Pour les administrateurs, préférer une clé de sécurité (FIDO2) à un code par SMS ou à une application de codes, car ces derniers peuvent être interceptés par un proxy d'hameçonnage de type Evilginx.
+
+⚠️ **Priorisation par le seul score CVSS**
+
+- *Configuration dangereuse* : le tableau de correctifs est trié par score décroissant, sans tenir compte de l'exposition.
+- *Conséquence* : une CVE de score 9,8 sur un serveur isolé est traitée avant une CVE de score 7 sur un service exposé avec un exploit public.
+- *Correction* : prioriser selon l'exposition, la disponibilité d'un exploit et la criticité de l'actif (voir l'exemple Log4Shell).
+
+⚠️ **« On est derrière un pare-feu »**
+
+- *Configuration dangereuse* : on suppose que tout ce qui est à l'intérieur est de confiance.
+- *Conséquence* : dès qu'un compte ou un poste est compromis, l'attaquant circule librement.
+- *Correction* : traiter l'intérieur comme un réseau non fiable pour les actifs importants (journalisation, droits minimaux, accès contrôlé), ce qui rejoint les principes Zero Trust.
 
 ## Résumé
 

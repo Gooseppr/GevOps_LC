@@ -79,17 +79,13 @@ Le dernier point n'est pas théorique pour les données à longue durée de vie 
 
 Le choix de l'algorithme compte moins que le **mode d'opération**.
 
-> 🔴 **Vecteur d'attaque : ECB (Electronic Codebook).** Ce mode chiffre chaque bloc de 16 octets indépendamment. Deux blocs identiques donnent deux blocs chiffrés identiques. L'image du « pingouin ECB » (un logo chiffré dont la silhouette reste visible) illustre le défaut. Adobe a été touché par ce défaut en 2013 : deux utilisateurs avec le même mot de passe avaient le même chiffré, ce qui a permis de recouper les indices.
-{: .callout .callout-danger}
+🔴 **Vecteur d'attaque : ECB (Electronic Codebook).** Ce mode chiffre chaque bloc de 16 octets indépendamment. Deux blocs identiques donnent deux blocs chiffrés identiques. L'image du « pingouin ECB » (un logo chiffré dont la silhouette reste visible) illustre le défaut. Adobe a été touché par ce défaut en 2013 : deux utilisateurs avec le même mot de passe avaient le même chiffré, ce qui a permis de recouper les indices.
 
-> 🔴 **Vecteur d'attaque : CBC sans authentification.** Un attaquant qui peut modifier le chiffré et observer si le serveur répond « padding invalide » ou « données invalides » reconstitue le clair octet par octet. C'est le principe de POODLE (CVE-2014-3566, SSLv3) et de Lucky13.
-{: .callout .callout-danger}
+🔴 **Vecteur d'attaque : CBC sans authentification.** Un attaquant qui peut modifier le chiffré et observer si le serveur répond « padding invalide » ou « données invalides » reconstitue le clair octet par octet. C'est le principe de POODLE (CVE-2014-3566, SSLv3) et de Lucky13.
 
-> 🔒 **Contrôle de sécurité** : utiliser un mode AEAD (Authenticated Encryption with Associated Data)*, concrètement AES-256-GCM (Galois/Counter Mode) ou ChaCha20-Poly1305. Il chiffre et authentifie en une seule opération : toute modification du chiffré est rejetée avant déchiffrement.
-{: .callout .callout-securite}
+🔒 **Contrôle de sécurité** : utiliser un mode AEAD (Authenticated Encryption with Associated Data)*, concrètement AES-256-GCM (Galois/Counter Mode) ou ChaCha20-Poly1305. Il chiffre et authentifie en une seule opération : toute modification du chiffré est rejetée avant déchiffrement.
 
-> ⚠️ **Erreur fréquente** : GCM exige un nonce unique par message pour une clé donnée. Réutiliser un nonce avec la même clé permet à l'attaquant de récupérer la clé d'authentification (« forbidden attack ») et de forger des messages. Un compteur mal persisté après un redémarrage, ou un nonce de 96 bits tiré au hasard sur un volume énorme de messages, suffit à déclencher le problème. Dans la pratique, n'appelez pas ces primitives directement : utilisez libsodium, Tink ou l'API de haut niveau de votre langage, qui gèrent le nonce pour vous.
-{: .callout .callout-attention}
+⚠️ **Erreur fréquente** : GCM exige un nonce unique par message pour une clé donnée. Réutiliser un nonce avec la même clé permet à l'attaquant de récupérer la clé d'authentification (« forbidden attack ») et de forger des messages. Un compteur mal persisté après un redémarrage, ou un nonce de 96 bits tiré au hasard sur un volume énorme de messages, suffit à déclencher le problème. Dans la pratique, n'appelez pas ces primitives directement : utilisez libsodium, Tink ou l'API de haut niveau de votre langage, qui gèrent le nonce pour vous.
 
 \* AEAD : mode de chiffrement qui garantit à la fois la confidentialité du message et la détection de toute altération, en y incluant éventuellement des données associées (en-têtes) non chiffrées mais authentifiées.
 
@@ -215,14 +211,11 @@ L'AC racine reste hors ligne autant que possible. Ce sont les intermédiaires qu
 4. Le certificat n'est pas révoqué, via CRL (Certificate Revocation List) ou OCSP (Online Certificate Status Protocol). En pratique la révocation est le maillon faible : beaucoup de clients échouent « en ouvert » si le répondeur ne répond pas, d'où l'intérêt de l'agrafage OCSP côté serveur.
 5. Pour les certificats publics, la présence dans les journaux de Certificate Transparency, que les navigateurs exigent.
 
-> 🔴 **Vecteur d'attaque : CA compromise.** En 2011, DigiNotar a été compromise et des certificats frauduleux, dont un `*.google.com`, ont été émis puis utilisés pour intercepter des connexions d'utilisateurs en Iran. Le chiffrement TLS fonctionnait parfaitement : c'est la confiance accordée à l'émetteur qui était rompue. La réponse a été le retrait de DigiNotar des magasins de confiance, d'où la faillite de l'autorité.
-{: .callout .callout-danger}
+🔴 **Vecteur d'attaque : CA compromise.** En 2011, DigiNotar a été compromise et des certificats frauduleux, dont un `*.google.com`, ont été émis puis utilisés pour intercepter des connexions d'utilisateurs en Iran. Le chiffrement TLS fonctionnait parfaitement : c'est la confiance accordée à l'émetteur qui était rompue. La réponse a été le retrait de DigiNotar des magasins de confiance, d'où la faillite de l'autorité.
 
-> 🔴 **Vecteur d'attaque : PKI interne.** Dans un domaine Windows, les modèles de certificats d'AD CS (Active Directory Certificate Services) mal configurés permettent à un utilisateur ordinaire d'obtenir un certificat au nom d'un administrateur. La famille de faiblesses « ESC1 » à « ESC8 » a été documentée par SpecterOps et s'audite avec Certipy ou Certify. Un certificat est aussi une preuve d'identité.
-{: .callout .callout-danger}
+🔴 **Vecteur d'attaque : PKI interne.** Dans un domaine Windows, les modèles de certificats d'AD CS (Active Directory Certificate Services) mal configurés permettent à un utilisateur ordinaire d'obtenir un certificat au nom d'un administrateur. La famille de faiblesses « ESC1 » à « ESC8 » a été documentée par SpecterOps et s'audite avec Certipy ou Certify. Un certificat est aussi une preuve d'identité.
 
-> 🔒 **Contrôle de sécurité** : automatiser l'émission et le renouvellement (protocole ACME — Automatic Certificate Management Environment, avec certbot ou un client intégré). Les certificats publics ont des durées de vie qui raccourcissent, et un renouvellement manuel finit toujours par être oublié. Le coût est d'investir dans l'automatisation et la supervision.
-{: .callout .callout-securite}
+🔒 **Contrôle de sécurité** : automatiser l'émission et le renouvellement (protocole ACME — Automatic Certificate Management Environment, avec certbot ou un client intégré). Les certificats publics ont des durées de vie qui raccourcissent, et un renouvellement manuel finit toujours par être oublié. Le coût est d'investir dans l'automatisation et la supervision.
 
 ## TLS et HTTPS : ce que le client vérifie vraiment
 
@@ -244,17 +237,13 @@ Les deux côtés calculent le même secret à partir des parts de clé, dériven
 
 ### Comment on attaque un déploiement TLS
 
-> 🔴 **Interception par proxy** : `mitmproxy` ou Burp Suite se placent entre le client et le serveur et présentent un certificat généré à la volée. Cela ne fonctionne que si le client accepte l'autorité du proxy (installation de la CA sur le poste, ou validation désactivée dans le code). C'est exactement ce que font les proxys d'inspection TLS en entreprise. Ce mécanisme est légitime quand il est maîtrisé, et dangereux quand une CA d'interception est installée partout sans contrôle.
-{: .callout .callout-danger}
+🔴 **Interception par proxy** : `mitmproxy` ou Burp Suite se placent entre le client et le serveur et présentent un certificat généré à la volée. Cela ne fonctionne que si le client accepte l'autorité du proxy (installation de la CA sur le poste, ou validation désactivée dans le code). C'est exactement ce que font les proxys d'inspection TLS en entreprise. Ce mécanisme est légitime quand il est maîtrisé, et dangereux quand une CA d'interception est installée partout sans contrôle.
 
-> 🔴 **SSL stripping** : l'attaquant, sur le chemin, intercepte la première requête en `http://` avant la redirection vers HTTPS et maintient la victime en clair (outil historique : `sslstrip`). La parade est l'en-tête HSTS (HTTP Strict Transport Security), qui ordonne au navigateur de ne plus jamais tenter HTTP pour ce domaine.
-{: .callout .callout-danger}
+🔴 **SSL stripping** : l'attaquant, sur le chemin, intercepte la première requête en `http://` avant la redirection vers HTTPS et maintient la victime en clair (outil historique : `sslstrip`). La parade est l'en-tête HSTS (HTTP Strict Transport Security), qui ordonne au navigateur de ne plus jamais tenter HTTP pour ce domaine.
 
-> 🔴 **Downgrade et suites faibles** : si le serveur accepte SSLv3 ou TLS 1.0 « pour les vieux clients », l'attaquant provoque la négociation du protocole le plus faible. C'est le terrain de POODLE, et celui de Sweet32 (CVE-2016-2183) pour les suites 3DES.
-{: .callout .callout-danger}
+🔴 **Downgrade et suites faibles** : si le serveur accepte SSLv3 ou TLS 1.0 « pour les vieux clients », l'attaquant provoque la négociation du protocole le plus faible. C'est le terrain de POODLE, et celui de Sweet32 (CVE-2016-2183) pour les suites 3DES.
 
-> 🔴 **Faille d'implémentation** : Heartbleed (CVE-2014-0160) était un défaut de lecture mémoire dans l'extension heartbeat d'OpenSSL. Aucune configuration TLS ne le corrigeait : seul le patch le faisait. Le chiffrement ne remplace pas la gestion des vulnérabilités.
-{: .callout .callout-danger}
+🔴 **Faille d'implémentation** : Heartbleed (CVE-2014-0160) était un défaut de lecture mémoire dans l'extension heartbeat d'OpenSSL. Aucune configuration TLS ne le corrigeait : seul le patch le faisait. Le chiffrement ne remplace pas la gestion des vulnérabilités.
 
 ### Configuration durcie
 
@@ -317,14 +306,11 @@ PublicKey = <CLIENT_PUBLIC_KEY>
 AllowedIPs = 10.8.0.2/32
 ```
 
-> 🧠 **Concept clé** : `AllowedIPs` joue deux rôles. En sortie, il sert de table de routage ; en entrée, il filtre : un paquet déchiffré dont l'adresse source n'est pas dans `AllowedIPs` du pair est abandonné. Un `AllowedIPs = 0.0.0.0/0` côté serveur donne à ce client le droit de se faire passer pour n'importe quelle adresse.
-{: .callout .callout-important}
+🧠 **Concept clé** : `AllowedIPs` joue deux rôles. En sortie, il sert de table de routage ; en entrée, il filtre : un paquet déchiffré dont l'adresse source n'est pas dans `AllowedIPs` du pair est abandonné. Un `AllowedIPs = 0.0.0.0/0` côté serveur donne à ce client le droit de se faire passer pour n'importe quelle adresse.
 
-> 🔴 **Vecteur d'attaque sur IPsec : mode agressif et PSK faible.** Avec IKEv1 en mode agressif, le haché d'authentification dérivé de la PSK est envoyé avant l'authentification du client. `ike-scan --aggressive` le récupère, puis `psk-crack` ou `hashcat` le casse hors ligne. Parades : IKEv2, authentification par certificats, ou PSK longue et aléatoire.
-{: .callout .callout-danger}
+🔴 **Vecteur d'attaque sur IPsec : mode agressif et PSK faible.** Avec IKEv1 en mode agressif, le haché d'authentification dérivé de la PSK est envoyé avant l'authentification du client. `ike-scan --aggressive` le récupère, puis `psk-crack` ou `hashcat` le casse hors ligne. Parades : IKEv2, authentification par certificats, ou PSK longue et aléatoire.
 
-> 🔴 **Vecteur d'attaque : l'équipement VPN lui-même.** Les concentrateurs exposés sont des cibles de choix. CVE-2019-11510 (Pulse Connect Secure, lecture arbitraire de fichiers) et CVE-2018-13379 (Fortinet FortiOS, traversée de répertoire) ont été massivement exploités pour voler des identifiants. Un tunnel solide ne compense pas un équipement non patché, ce qui rejoint la gestion des correctifs.
-{: .callout .callout-danger}
+🔴 **Vecteur d'attaque : l'équipement VPN lui-même.** Les concentrateurs exposés sont des cibles de choix. CVE-2019-11510 (Pulse Connect Secure, lecture arbitraire de fichiers) et CVE-2018-13379 (Fortinet FortiOS, traversée de répertoire) ont été massivement exploités pour voler des identifiants. Un tunnel solide ne compense pas un équipement non patché, ce qui rejoint la gestion des correctifs.
 
 ## Au repos et en transit : choisir où chiffrer
 
@@ -377,47 +363,41 @@ Ce que l'analyse post-incident met en évidence :
 
 ## Erreurs fréquentes
 
-> ⚠️ **Haché rapide pour les mots de passe.**
->
-> - *Configuration dangereuse* : `SHA256(mot_de_passe)` ou `MD5` en base, avec ou sans sel unique.
-> - *Conséquence* : un dump permet un cassage par GPU à raison de milliards d'essais par seconde.
-> - *Correction* : argon2id ou bcrypt, sel automatique. Détection : une colonne de 32 ou 64 caractères hexadécimaux est suspecte, alors qu'un préfixe `$argon2id$` ou `$2b$` est attendu.
-{: .callout .callout-attention}
+⚠️ **Haché rapide pour les mots de passe.**
 
-> ⚠️ **Chiffrement sans authentification, nonce réutilisé.**
->
-> - *Configuration dangereuse* : AES-CBC sans MAC, AES-GCM avec un nonce fixe ou un compteur remis à zéro.
-> - *Conséquence* : oracle de padding, falsification de messages, récupération de la clé d'authentification.
-> - *Correction* : libsodium ou Tink (API de haut niveau), AES-256-GCM ou ChaCha20-Poly1305. Détection : règles Semgrep ou Bandit repérant `AES.MODE_ECB`, `MODE_CBC` ou un `iv` constant.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : `SHA256(mot_de_passe)` ou `MD5` en base, avec ou sans sel unique.
+- *Conséquence* : un dump permet un cassage par GPU à raison de milliards d'essais par seconde.
+- *Correction* : argon2id ou bcrypt, sel automatique. Détection : une colonne de 32 ou 64 caractères hexadécimaux est suspecte, alors qu'un préfixe `$argon2id$` ou `$2b$` est attendu.
 
-> ⚠️ **Validation de certificat désactivée.**
->
-> - *Configuration dangereuse* : `requests.get(url, verify=False)`, `curl -k`, `InsecureSkipVerify: true`, `TrustManager` acceptant tout.
-> - *Conséquence* : n'importe quel attaquant sur le chemin devient le serveur légitime.
-> - *Correction* : installer la CA interne dans le magasin de confiance de l'environnement. Détection : Semgrep en CI, `grep -R "verify=False"`, test avec mitmproxy.
-{: .callout .callout-attention}
+⚠️ **Chiffrement sans authentification, nonce réutilisé.**
 
-> ⚠️ **Clé privée dans le dépôt ou l'image.**
->
-> - *Configuration dangereuse* : `server.key` ou `.env` committés, ou copiés dans une couche d'image.
-> - *Conséquence* : l'historique Git et les registres conservent la clé même après suppression. Quiconque la récupère usurpe le service et, sans forward secrecy, déchiffre le trafic enregistré.
-> - *Correction* : révoquer et régénérer la clé, la stocker dans un coffre de secrets, l'injecter à l'exécution. Détection : `gitleaks`, `trufflehog`, `trivy image --scanners secret`.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : AES-CBC sans MAC, AES-GCM avec un nonce fixe ou un compteur remis à zéro.
+- *Conséquence* : oracle de padding, falsification de messages, récupération de la clé d'authentification.
+- *Correction* : libsodium ou Tink (API de haut niveau), AES-256-GCM ou ChaCha20-Poly1305. Détection : règles Semgrep ou Bandit repérant `AES.MODE_ECB`, `MODE_CBC` ou un `iv` constant.
 
-> ⚠️ **Un certificat wildcard partagé partout.**
->
-> - *Configuration dangereuse* : le même `*.entreprise.fr` et la même clé privée copiés sur 40 serveurs.
-> - *Conséquence* : la compromission du serveur le moins protégé permet d'usurper tous les autres noms.
-> - *Correction* : un certificat par service ou par zone de confiance, rendu praticable par l'automatisation ACME.
-{: .callout .callout-attention}
+⚠️ **Validation de certificat désactivée.**
 
-> ⚠️ **Confondre encodage, hachage et chiffrement.**
->
-> - *Configuration dangereuse* : secrets « protégés » en Base64, XOR avec une constante, ou « chiffrement maison ».
-> - *Conséquence* : Base64 est un simple encodage réversible sans clé, et tout schéma maison se casse en quelques minutes avec `CyberChef`.
-> - *Correction* : primitives standard et éprouvées, jamais d'algorithme inventé. Si les données doivent être comparées sans être relues, c'est un haché ; si elles doivent être relues, c'est du chiffrement avec une clé gérée.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : `requests.get(url, verify=False)`, `curl -k`, `InsecureSkipVerify: true`, `TrustManager` acceptant tout.
+- *Conséquence* : n'importe quel attaquant sur le chemin devient le serveur légitime.
+- *Correction* : installer la CA interne dans le magasin de confiance de l'environnement. Détection : Semgrep en CI, `grep -R "verify=False"`, test avec mitmproxy.
+
+⚠️ **Clé privée dans le dépôt ou l'image.**
+
+- *Configuration dangereuse* : `server.key` ou `.env` committés, ou copiés dans une couche d'image.
+- *Conséquence* : l'historique Git et les registres conservent la clé même après suppression. Quiconque la récupère usurpe le service et, sans forward secrecy, déchiffre le trafic enregistré.
+- *Correction* : révoquer et régénérer la clé, la stocker dans un coffre de secrets, l'injecter à l'exécution. Détection : `gitleaks`, `trufflehog`, `trivy image --scanners secret`.
+
+⚠️ **Un certificat wildcard partagé partout.**
+
+- *Configuration dangereuse* : le même `*.entreprise.fr` et la même clé privée copiés sur 40 serveurs.
+- *Conséquence* : la compromission du serveur le moins protégé permet d'usurper tous les autres noms.
+- *Correction* : un certificat par service ou par zone de confiance, rendu praticable par l'automatisation ACME.
+
+⚠️ **Confondre encodage, hachage et chiffrement.**
+
+- *Configuration dangereuse* : secrets « protégés » en Base64, XOR avec une constante, ou « chiffrement maison ».
+- *Conséquence* : Base64 est un simple encodage réversible sans clé, et tout schéma maison se casse en quelques minutes avec `CyberChef`.
+- *Correction* : primitives standard et éprouvées, jamais d'algorithme inventé. Si les données doivent être comparées sans être relues, c'est un haché ; si elles doivent être relues, c'est du chiffrement avec une clé gérée.
 
 ## Résumé
 

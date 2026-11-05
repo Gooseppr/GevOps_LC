@@ -282,47 +282,41 @@ Trois leçons à retenir :
 
 ## Erreurs fréquentes
 
-> ⚠️ **Valider sur la foi des documents seuls**
->
-> - Configuration dangereuse : conclure à la conformité parce que la procédure existe et est signée.
-> - Conséquence : les dérogations, comptes orphelins et systèmes non inventoriés ne sont jamais vus.
-> - Correction : pour chaque exigence critique, ajouter au moins une preuve produite par le système (export AD, `sshd -T`, comparaison inventaire et Nmap).
-{: .callout .callout-attention}
+⚠️ **Valider sur la foi des documents seuls**
 
-> ⚠️ **Laisser l'audité choisir ses échantillons**
->
-> - Configuration dangereuse : l'audité sélectionne les serveurs, les tickets ou les comptes présentés.
-> - Conséquence : l'échantillon est représentatif de ce que l'équipe veut montrer, pas de la réalité.
-> - Correction : l'auditeur tire lui-même l'échantillon à partir d'un export complet, en consignant la méthode dans le cadrage.
-{: .callout .callout-attention}
+- Configuration dangereuse : conclure à la conformité parce que la procédure existe et est signée.
+- Conséquence : les dérogations, comptes orphelins et systèmes non inventoriés ne sont jamais vus.
+- Correction : pour chaque exigence critique, ajouter au moins une preuve produite par le système (export AD, `sshd -T`, comparaison inventaire et Nmap).
 
-> ⚠️ **Écrire un écart sans critère ni cause**
->
-> - Configuration dangereuse : « La gestion des correctifs est insuffisante. »
-> - Conséquence : l'audité conteste, personne ne sait comment clôturer, et la même recommandation revient à l'audit suivant.
-> - Correction : appliquer la structure critère, constat, cause, conséquence, avec les preuves rattachées.
-{: .callout .callout-attention}
+⚠️ **Laisser l'audité choisir ses échantillons**
 
-> ⚠️ **Plan de remédiation sans critère de clôture**
->
-> - Configuration dangereuse : « Renforcer le contrôle des accès. »
-> - Conséquence : l'action est déclarée terminée sans qu'on puisse le vérifier.
-> - Correction : écrire la condition de clôture sous forme observable (« export AD sans compte orphelin dans Domain Admins »).
-{: .callout .callout-attention}
+- Configuration dangereuse : l'audité sélectionne les serveurs, les tickets ou les comptes présentés.
+- Conséquence : l'échantillon est représentatif de ce que l'équipe veut montrer, pas de la réalité.
+- Correction : l'auditeur tire lui-même l'échantillon à partir d'un export complet, en consignant la méthode dans le cadrage.
 
-> ⚠️ **Confondre dérogation et acceptation du risque**
->
-> - Configuration dangereuse : une exception décidée par l'équipe technique, sans date ni signataire.
-> - Conséquence : elle devient permanente, comme le compte de sauvegarde du scénario d'ouverture.
-> - Correction : exiger un propriétaire, un risque documenté, une signature d'un décideur et une date de réexamen.
-{: .callout .callout-attention}
+⚠️ **Écrire un écart sans critère ni cause**
 
-> ⚠️ **Oublier le périmètre dans la conclusion**
->
-> - Configuration dangereuse : un rapport qui conclut « l'organisation est conforme ».
-> - Conséquence : le client lit une garantie de sécurité globale que l'audit ne donne pas.
-> - Correction : borner chaque conclusion au périmètre, à la période et à la méthode.
-{: .callout .callout-attention}
+- Configuration dangereuse : « La gestion des correctifs est insuffisante. »
+- Conséquence : l'audité conteste, personne ne sait comment clôturer, et la même recommandation revient à l'audit suivant.
+- Correction : appliquer la structure critère, constat, cause, conséquence, avec les preuves rattachées.
+
+⚠️ **Plan de remédiation sans critère de clôture**
+
+- Configuration dangereuse : « Renforcer le contrôle des accès. »
+- Conséquence : l'action est déclarée terminée sans qu'on puisse le vérifier.
+- Correction : écrire la condition de clôture sous forme observable (« export AD sans compte orphelin dans Domain Admins »).
+
+⚠️ **Confondre dérogation et acceptation du risque**
+
+- Configuration dangereuse : une exception décidée par l'équipe technique, sans date ni signataire.
+- Conséquence : elle devient permanente, comme le compte de sauvegarde du scénario d'ouverture.
+- Correction : exiger un propriétaire, un risque documenté, une signature d'un décideur et une date de réexamen.
+
+⚠️ **Oublier le périmètre dans la conclusion**
+
+- Configuration dangereuse : un rapport qui conclut « l'organisation est conforme ».
+- Conséquence : le client lit une garantie de sécurité globale que l'audit ne donne pas.
+- Correction : borner chaque conclusion au périmètre, à la période et à la méthode.
 
 ## Résumé
 

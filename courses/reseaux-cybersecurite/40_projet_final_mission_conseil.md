@@ -400,40 +400,35 @@ Leçons à retenir :
 
 ## Erreurs fréquentes
 
-> ⚠️ **Livrer l'export du scanner comme rapport.**
->
-> - *Configuration dangereuse* : joindre le PDF du scanner en annexe unique, sans tri.
-> - *Conséquence* : la DSI ne sait pas par où commencer, la direction ne comprend rien, et la mission est perçue comme un coût sans décision.
-> - *Correction* : regrouper par scénario de risque, garder les constats qui alimentent le registre, renvoyer le reste en annexe d'hygiène. Contrôle : chaque constat du rapport renvoie à un risque `R<N>`.
-{: .callout .callout-attention}
+⚠️ **Livrer l'export du scanner comme rapport.**
 
-> ⚠️ **Tester sans autorisation écrite ni règles d'engagement.**
->
-> - *Configuration dangereuse* : un accord oral du responsable informatique, sans périmètre ni fenêtre.
-> - *Conséquence* : un scan de port fait tomber un automate d'entrepôt, personne ne sait qui a lancé quoi, et vous n'avez aucune protection juridique.
-> - *Correction* : RoE signées avant toute action, liste des hôtes interdits, contact joignable pendant les tests. Même en laboratoire, prenez l'habitude de le faire.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : joindre le PDF du scanner en annexe unique, sans tri.
+- *Conséquence* : la DSI ne sait pas par où commencer, la direction ne comprend rien, et la mission est perçue comme un coût sans décision.
+- *Correction* : regrouper par scénario de risque, garder les constats qui alimentent le registre, renvoyer le reste en annexe d'hygiène. Contrôle : chaque constat du rapport renvoie à un risque `R<N>`.
 
-> ⚠️ **Valider la sauvegarde par le statut du job.**
->
-> - *Configuration dangereuse* : se fier au « succès » de l'outil de sauvegarde, sur un dépôt accessible avec les identifiants du domaine.
-> - *Conséquence* : en cas d'incident, la restauration échoue ou prend trois fois plus longtemps que prévu, et les sauvegardes sont chiffrées avec le reste.
-> - *Correction* : test de restauration chronométré sur une autre machine, `restic check --read-data` ou équivalent, dépôt hors domaine en mode ajout uniquement.
-{: .callout .callout-attention}
+⚠️ **Tester sans autorisation écrite ni règles d'engagement.**
 
-> ⚠️ **Confondre sévérité technique et risque.**
->
-> - *Configuration dangereuse* : classer les constats par CVSS seul.
-> - *Conséquence* : on corrige d'abord ce qui est bruyant plutôt que ce qui ouvre le chemin vers l'ERP.
-> - *Correction* : chaque constat porte un risque associé et un impact métier chiffré. Le rapport indique la sévérité technique et le niveau de risque séparément.
-{: .callout .callout-attention}
+- *Configuration dangereuse* : un accord oral du responsable informatique, sans périmètre ni fenêtre.
+- *Conséquence* : un scan de port fait tomber un automate d'entrepôt, personne ne sait qui a lancé quoi, et vous n'avez aucune protection juridique.
+- *Correction* : RoE signées avant toute action, liste des hôtes interdits, contact joignable pendant les tests. Même en laboratoire, prenez l'habitude de le faire.
 
-> ⚠️ **Chiffrer l'effort sans hypothèses.**
->
-> - *Configuration dangereuse* : « Segmentation : 15 J/H » sans mention de la dépendance à l'éditeur de l'ERP ni de la fenêtre de maintenance.
-> - *Conséquence* : le chiffre double au premier obstacle et vous perdez votre crédibilité.
-> - *Correction* : chaque estimation s'accompagne de ses hypothèses, de ses dépendances et d'une fourchette (« 12 à 18 J/H »).
-{: .callout .callout-attention}
+⚠️ **Valider la sauvegarde par le statut du job.**
+
+- *Configuration dangereuse* : se fier au « succès » de l'outil de sauvegarde, sur un dépôt accessible avec les identifiants du domaine.
+- *Conséquence* : en cas d'incident, la restauration échoue ou prend trois fois plus longtemps que prévu, et les sauvegardes sont chiffrées avec le reste.
+- *Correction* : test de restauration chronométré sur une autre machine, `restic check --read-data` ou équivalent, dépôt hors domaine en mode ajout uniquement.
+
+⚠️ **Confondre sévérité technique et risque.**
+
+- *Configuration dangereuse* : classer les constats par CVSS seul.
+- *Conséquence* : on corrige d'abord ce qui est bruyant plutôt que ce qui ouvre le chemin vers l'ERP.
+- *Correction* : chaque constat porte un risque associé et un impact métier chiffré. Le rapport indique la sévérité technique et le niveau de risque séparément.
+
+⚠️ **Chiffrer l'effort sans hypothèses.**
+
+- *Configuration dangereuse* : « Segmentation : 15 J/H » sans mention de la dépendance à l'éditeur de l'ERP ni de la fenêtre de maintenance.
+- *Conséquence* : le chiffre double au premier obstacle et vous perdez votre crédibilité.
+- *Correction* : chaque estimation s'accompagne de ses hypothèses, de ses dépendances et d'une fourchette (« 12 à 18 J/H »).
 
 ---
 

@@ -451,23 +451,17 @@ Les leçons tiennent en un tableau :
 
 ## Erreurs fréquentes
 
-> ⚠️ **Copie de production dans les environnements de test.** Les développeurs et les prestataires de recette accèdent à des données réelles, hors registre. Détection : regex sur les bases de test (`grep` sur e-mails, IBAN) ou outil de découverte de données. Correction : pipeline de pseudonymisation à la copie, ou jeu synthétique.
-{: .callout .callout-attention}
+⚠️ **Copie de production dans les environnements de test.** Les développeurs et les prestataires de recette accèdent à des données réelles, hors registre. Détection : regex sur les bases de test (`grep` sur e-mails, IBAN) ou outil de découverte de données. Correction : pipeline de pseudonymisation à la copie, ou jeu synthétique.
 
-> ⚠️ **DPO et RSSI confondus, ou DPO sans accès aux projets.** Le conflit d'intérêts affaiblit les deux fonctions, et un DPO consulté après coup ne peut pas conseiller. Correction : rôles séparés, DPO invité aux revues d'architecture et à l'escalade incident.
-{: .callout .callout-attention}
+⚠️ **DPO et RSSI confondus, ou DPO sans accès aux projets.** Le conflit d'intérêts affaiblit les deux fonctions, et un DPO consulté après coup ne peut pas conseiller. Correction : rôles séparés, DPO invité aux revues d'architecture et à l'escalade incident.
 
-> ⚠️ **Contrat sous-traitant signé sans délai de notification ni droit d'audit.** En incident, vous découvrez que le prestataire vous prévient quand il veut. Correction : avenant avec délai court, liste des sous-traitants ultérieurs, demande annuelle d'attestation.
-{: .callout .callout-attention}
+⚠️ **Contrat sous-traitant signé sans délai de notification ni droit d'audit.** En incident, vous découvrez que le prestataire vous prévient quand il veut. Correction : avenant avec délai court, liste des sous-traitants ultérieurs, demande annuelle d'attestation.
 
-> ⚠️ **Logs en DEBUG avec payloads complets.** E-mails, tokens et données de formulaire apparaissent en clair dans un outil lisible par tout le monde. Détection : `grep -iE '@[a-z0-9.-]+\.[a-z]{2,}' <LOG>`. Correction : filtrage dans le middleware de logging avant écriture, rétention bornée.
-{: .callout .callout-attention}
+⚠️ **Logs en DEBUG avec payloads complets.** E-mails, tokens et données de formulaire apparaissent en clair dans un outil lisible par tout le monde. Détection : `grep -iE '@[a-z0-9.-]+\.[a-z]{2,}' <LOG>`. Correction : filtrage dans le middleware de logging avant écriture, rétention bornée.
 
-> ⚠️ **Registre figé.** Rempli lors d'un projet de mise en conformité, jamais mis à jour. Correction : lier la mise à jour au processus de changement. Une nouvelle application ou un nouveau SaaS ne passe pas en production sans une ligne dans le registre.
-{: .callout .callout-attention}
+⚠️ **Registre figé.** Rempli lors d'un projet de mise en conformité, jamais mis à jour. Correction : lier la mise à jour au processus de changement. Une nouvelle application ou un nouveau SaaS ne passe pas en production sans une ligne dans le registre.
 
-> ⚠️ **Hash simple pris pour de l'anonymisation.** Voir plus haut : réversible par dictionnaire. Correction : HMAC avec clé séparée, et traiter le résultat comme une donnée personnelle pseudonymisée.
-{: .callout .callout-attention}
+⚠️ **Hash simple pris pour de l'anonymisation.** Voir plus haut : réversible par dictionnaire. Correction : HMAC avec clé séparée, et traiter le résultat comme une donnée personnelle pseudonymisée.
 
 ---
 

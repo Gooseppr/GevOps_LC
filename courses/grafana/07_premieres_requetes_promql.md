@@ -46,7 +46,11 @@ Les noms de métriques et de labels de ce module (`http_requests_total`, `job="a
 
 Dans le module précédent, vous avez vu comment les métriques sont stockées : des séries temporelles identifiées par un nom et des labels, avec des counters, des gauges et des histogrammes. Il manque l'outil pour poser des questions à ces données.
 
-PromQL (Prometheus Query Language) est ce langage. Il ressemble peu à du SQL. On ne parle pas de lignes ni de tables, mais de **séries** que l'on sélectionne, transforme et agrège. Une requête PromQL se lit presque toujours de l'intérieur vers l'extérieur : on choisit d'abord les séries, puis on les transforme, puis on les agrège.
+PromQL (Prometheus Query Language) est ce langage. Il ressemble peu à du SQL. On ne parle pas de lignes ni de tables, mais de **séries** que l'on sélectionne, transforme et agrège. Une requête PromQL se lit presque toujours de l'intérieur vers l'extérieur :
+
+1. on choisit d'abord les séries ;
+2. puis on les transforme ;
+3. puis on les agrège.
 
 Vous n'avez rien à installer. PromQL s'écrit dans Grafana, dans Explore ou plus tard dans un panel, et c'est la data source Prometheus qui l'exécute. Grafana envoie le texte de votre requête et affiche la réponse.
 
@@ -116,6 +120,9 @@ Ligne par ligne :
 - `[5m]` transforme ce sélecteur en range vector couvrant les 5 dernières minutes.
 - `rate(...)` calcule, pour chaque série, l'augmentation moyenne **par seconde** sur cette fenêtre. Il gère aussi les remises à zéro du counter, par exemple lors d'un redémarrage.
 
+> 🚗 **Analogie : le compteur kilométrique.** Un counter ressemble au compteur kilométrique d'une voiture : il ne fait qu'augmenter. `rate()` en déduit une vitesse moyenne, comme si vous divisiez les kilomètres parcourus pendant les 5 dernières minutes par leur durée. Limite de l'image : un counter peut repartir de zéro au redémarrage, et `rate()` sait compenser cette remise à zéro.
+{: .callout .callout-analogie}
+
 Le résultat est un instant vector avec une série par combinaison de labels (instance, method, status, etc.). Le nom de la métrique disparaît du résultat, car ce n'est plus un total mais un débit.
 
 `increase()` est proche, mais exprime le **volume total** sur la fenêtre plutôt que la vitesse :
@@ -158,6 +165,9 @@ sum without (instance) (rate(http_requests_total{job="api"}[5m]))
 
 La première requête renvoie une série par code de statut : 200, 404, 500, etc. La seconde supprime seulement `instance`, donc on additionne les réplicas mais on garde `method`, `status`, `handler` et tout ce qui existe. Choisissez `by()` quand vous savez précisément ce que vous voulez voir. Choisissez `without()` quand vous voulez simplement « fusionner les réplicas » sans énumérer tous les autres labels.
 
+> 🔑 **Moyen mnémotechnique** : lisez les clauses en français. *by* signifie « par » : `sum by (status)` se lit « la somme par statut », et seul `status` reste. *without* signifie « sans » : `sum without (instance)` se lit « la somme sans instance », et seul `instance` disparaît.
+{: .callout .callout-memo}
+
 > ⚠️ **Erreur fréquente** : agréger trop tôt, ou trop fort. Une agrégation est comme un entonnoir : on ne peut pas retrouver ensuite ce qu'on a mélangé.
 {: .callout .callout-attention}
 
@@ -169,7 +179,10 @@ En pratique, commencez par la requête la plus détaillée, observez quels label
 
 ## histogram_quantile : lire un percentile
 
-Un histogramme Prometheus ne stocke pas les durées individuelles. Il compte combien de requêtes sont tombées sous certains seuils : c'est la série `_bucket`, avec un label `le` (« less than or equal »). `histogram_quantile()` reconstruit une estimation du percentile à partir de ces compteurs cumulés.
+Un histogramme Prometheus ne stocke pas les durées individuelles. Il compte les requêtes par seuil de durée, et `histogram_quantile()` reconstruit une estimation du percentile à partir de ces compteurs cumulés.
+
+> 📖 **Définition.** Un *bucket* est un compteur cumulé exposé dans la série `_bucket`. Son label `le` (« less than or equal ») donne le seuil : le bucket `le="0.5"` compte toutes les requêtes ayant duré 0,5 s ou moins. Chaque bucket inclut donc les précédents.
+{: .callout .callout-definition}
 
 ```promql
 histogram_quantile(
@@ -197,7 +210,7 @@ Les histogrammes dits « natifs » existent aussi dans les versions récentes de
 
 ## Trouver les métriques disponibles avec Explore
 
-Avant de requêter, il faut savoir ce qui existe. Dans Grafana :
+Que pouvez-vous interroger, au juste ? Avant d'écrire une requête, il faut savoir ce qui existe. Dans Grafana :
 
 1. Ouvrez **Explore** depuis le menu de navigation.
 2. Choisissez votre data source Prometheus en haut de la page.

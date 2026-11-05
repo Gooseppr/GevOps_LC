@@ -436,47 +436,41 @@ La norme ISO 22301 structure un système de management de la continuité d'activ
 
 ## Erreurs fréquentes
 
-> ⚠️ **Console de sauvegarde jointe au domaine.**
->
-> - Conséquence : la compromission d'un compte administrateur AD donne accès à la suppression des points de restauration.
-> - Correction : serveur en workgroup, comptes locaux nominatifs et MFA, accès depuis un poste dédié.
-> - Détection : `(Get-CimInstance Win32_ComputerSystem).PartOfDomain` sur le serveur de sauvegarde doit renvoyer `False`.
-{: .callout .callout-attention}
+⚠️ **Console de sauvegarde jointe au domaine.**
 
-> ⚠️ **Immuabilité en mode Governance.**
->
-> - Conséquence : un compte avec `s3:BypassGovernanceRetention` supprime les sauvegardes, donc un attaquant qui a volé des clés d'administration cloud aussi.
-> - Correction : mode `COMPLIANCE` pour la copie de dernier recours, avec une rétention supérieure au dwell time.
-> - Détection : `aws s3api get-object-lock-configuration --bucket <BUCKET>` et un test réel de suppression.
-{: .callout .callout-attention}
+- Conséquence : la compromission d'un compte administrateur AD donne accès à la suppression des points de restauration.
+- Correction : serveur en workgroup, comptes locaux nominatifs et MFA, accès depuis un poste dédié.
+- Détection : `(Get-CimInstance Win32_ComputerSystem).PartOfDomain` sur le serveur de sauvegarde doit renvoyer `False`.
 
-> ⚠️ **Réplication prise pour une sauvegarde.**
->
-> - Conséquence : un chiffrement ou une suppression est répliqué en quelques minutes, et le site de secours ne contient plus de version saine.
-> - Correction : ajouter une copie à points de restauration multiples, immuable, indépendante de la réplication.
-> - Détection : demander « peut-on restaurer l'état d'il y a 7 jours depuis le site de secours ? ». Si non, la copie n'est pas une sauvegarde.
-{: .callout .callout-attention}
+⚠️ **Immuabilité en mode Governance.**
 
-> ⚠️ **Secrets de reprise dans le SI à restaurer.**
->
-> - Conséquence : clé de chiffrement des sauvegardes, DSRM ou clés BitLocker dans un coffre hébergé sur la production. Les données sont là mais illisibles.
-> - Correction : copie hors SI, scellée, accès à deux personnes, vérification lors de chaque exercice.
-> - Détection : lors d'un exercice, couper l'accès au coffre et tenter la reprise.
-{: .callout .callout-attention}
+- Conséquence : un compte avec `s3:BypassGovernanceRetention` supprime les sauvegardes, donc un attaquant qui a volé des clés d'administration cloud aussi.
+- Correction : mode `COMPLIANCE` pour la copie de dernier recours, avec une rétention supérieure au dwell time.
+- Détection : `aws s3api get-object-lock-configuration --bucket <BUCKET>` et un test réel de suppression.
 
-> ⚠️ **Plan et annuaire de crise hébergés sur le SI.**
->
-> - Conséquence : l'équipe ne trouve ni la procédure ni les numéros de téléphone.
-> - Correction : version imprimée, copie sur support indépendant, canal de crise alternatif validé.
-> - Détection : exercice sur table sans accès au SI.
-{: .callout .callout-attention}
+⚠️ **Réplication prise pour une sauvegarde.**
 
-> ⚠️ **Restauration du dernier point sans analyse.**
->
-> - Conséquence : réinstallation du malware ou de la persistance, nouvelle compromission quelques heures après la reprise.
-> - Correction : sélectionner un point antérieur à la compromission estimée, l'analyser (antivirus, YARA) dans un environnement isolé, puis reprendre.
-> - Détection : le runbook de reprise doit contenir une étape explicite « choix et validation du point de restauration ».
-{: .callout .callout-attention}
+- Conséquence : un chiffrement ou une suppression est répliqué en quelques minutes, et le site de secours ne contient plus de version saine.
+- Correction : ajouter une copie à points de restauration multiples, immuable, indépendante de la réplication.
+- Détection : demander « peut-on restaurer l'état d'il y a 7 jours depuis le site de secours ? ». Si non, la copie n'est pas une sauvegarde.
+
+⚠️ **Secrets de reprise dans le SI à restaurer.**
+
+- Conséquence : clé de chiffrement des sauvegardes, DSRM ou clés BitLocker dans un coffre hébergé sur la production. Les données sont là mais illisibles.
+- Correction : copie hors SI, scellée, accès à deux personnes, vérification lors de chaque exercice.
+- Détection : lors d'un exercice, couper l'accès au coffre et tenter la reprise.
+
+⚠️ **Plan et annuaire de crise hébergés sur le SI.**
+
+- Conséquence : l'équipe ne trouve ni la procédure ni les numéros de téléphone.
+- Correction : version imprimée, copie sur support indépendant, canal de crise alternatif validé.
+- Détection : exercice sur table sans accès au SI.
+
+⚠️ **Restauration du dernier point sans analyse.**
+
+- Conséquence : réinstallation du malware ou de la persistance, nouvelle compromission quelques heures après la reprise.
+- Correction : sélectionner un point antérieur à la compromission estimée, l'analyser (antivirus, YARA) dans un environnement isolé, puis reprendre.
+- Détection : le runbook de reprise doit contenir une étape explicite « choix et validation du point de restauration ».
 
 ## Résumé
 

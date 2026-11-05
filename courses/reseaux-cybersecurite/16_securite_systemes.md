@@ -419,20 +419,17 @@ Correction : gMSA quand l'application le supporte, sinon mot de passe long dans 
 Conséquence : les événements sont écrasés en quelques heures, une investigation ne trouve rien avant le jour de l'alerte.
 Correction : augmenter la taille, centraliser les journaux. Vérifier : `wevtutil gl Security` (champ `maxSize`).
 
-> ⚠️ **Sauvegardes sur un partage accessible par le compte d'administration du domaine.**
-{: .callout .callout-attention}
+⚠️ **Sauvegardes sur un partage accessible par le compte d'administration du domaine.**
 
 Conséquence : le ransomware chiffre aussi les sauvegardes, ou un attaquant les supprime.
 Correction : copie immuable ou hors domaine, compte de suppression distinct. Test simple : depuis un poste admin du domaine, tenter de supprimer un fichier de sauvegarde ; si ça marche, l'attaquant le pourra aussi.
 
-> ⚠️ **Appliquer un benchmark CIS Level 2 sur tout le parc en une fois.**
-{: .callout .callout-attention}
+⚠️ **Appliquer un benchmark CIS Level 2 sur tout le parc en une fois.**
 
 Conséquence : applications métier cassées, désactivation des règles « pour que ça marche », durcissement abandonné.
 Correction : démarrer par Level 1, mode audit, anneau pilote, exceptions documentées.
 
-> ⚠️ **Admin local au mot de passe identique sur tous les postes.**
-{: .callout .callout-attention}
+⚠️ **Admin local au mot de passe identique sur tous les postes.**
 
 Conséquence : un seul poste compromis donne l'accès administrateur à tous les autres.
 Correction : LAPS. Détecter en comparant les hachages des comptes locaux lors d'un audit autorisé, ou simplement en demandant au support comment il se connecte en urgence.

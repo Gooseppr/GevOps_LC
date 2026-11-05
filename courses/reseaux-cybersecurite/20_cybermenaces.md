@@ -310,17 +310,13 @@ Les leçons tirées sont systématiquement les mêmes dans ces cas :
 
 ## Erreurs fréquentes
 
-> ⚠️ **Confondre chiffrement et sécurité du transport** — HTTPS protège les données en transit, pas les identifiants stockés côté serveur. Un site en HTTPS peut parfaitement être vulnérable à une injection SQL ou à un vol de session. La présence du cadenas ne dit rien sur la sécurité de l'application.
-{: .callout .callout-attention}
+⚠️ **Confondre chiffrement et sécurité du transport** — HTTPS protège les données en transit, pas les identifiants stockés côté serveur. Un site en HTTPS peut parfaitement être vulnérable à une injection SQL ou à un vol de session. La présence du cadenas ne dit rien sur la sécurité de l'application.
 
-> ⚠️ **Croire que la MFA bloque tout phishing** — Les attaques AiTM (Evilginx2, Modlishka) contournent la MFA TOTP et SMS en interceptant le cookie de session post-authentification. Seules les méthodes résistantes au phishing (passkeys, FIDO2/WebAuthn) résolvent ce problème structurellement.
-{: .callout .callout-attention}
+⚠️ **Croire que la MFA bloque tout phishing** — Les attaques AiTM (Evilginx2, Modlishka) contournent la MFA TOTP et SMS en interceptant le cookie de session post-authentification. Seules les méthodes résistantes au phishing (passkeys, FIDO2/WebAuthn) résolvent ce problème structurellement.
 
-> ⚠️ **Traiter les sauvegardes comme une défense anti-ransomware** — Une sauvegarde accessible depuis le réseau compromis sera chiffrée ou supprimée en premier. La règle 3-2-1 (3 copies, 2 supports différents, 1 hors ligne) n'est une défense que si la copie hors ligne est réellement déconnectée du réseau.
-{: .callout .callout-attention}
+⚠️ **Traiter les sauvegardes comme une défense anti-ransomware** — Une sauvegarde accessible depuis le réseau compromis sera chiffrée ou supprimée en premier. La règle 3-2-1 (3 copies, 2 supports différents, 1 hors ligne) n'est une défense que si la copie hors ligne est réellement déconnectée du réseau.
 
-> ⚠️ **Penser qu'un attaquant s'arrête après la détection** — Un attaquant qui sait avoir été détecté peut accélérer son calendrier plutôt que de se retirer. La détection sans réponse coordonnée peut provoquer un déclenchement anticipé du ransomware ou une exfiltration d'urgence.
-{: .callout .callout-attention}
+⚠️ **Penser qu'un attaquant s'arrête après la détection** — Un attaquant qui sait avoir été détecté peut accélérer son calendrier plutôt que de se retirer. La détection sans réponse coordonnée peut provoquer un déclenchement anticipé du ransomware ou une exfiltration d'urgence.
 
 ---
 

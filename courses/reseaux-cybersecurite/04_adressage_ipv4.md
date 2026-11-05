@@ -42,7 +42,10 @@ Rien n'est cassé côté câble ni côté switch : le module précédent a déj�
 
 Ethernet sait faire communiquer des machines sur un même segment, mais il ne sait pas organiser un réseau à grande échelle. Une adresse MAC n'a aucune structure : rien dans `3C:22:FB:10:A4:7E` n'indique où se trouve la machine. Un équipement qui devrait retenir l'emplacement de chaque MAC de la planète n'existerait pas.
 
-L'adresse IP résout ce problème avec une hiérarchie, comme une adresse postale. « 12 rue des Lilas » se découpe en une partie qui désigne la rue et une partie qui désigne le numéro dans la rue. Une adresse IP contient de la même façon une partie **réseau** (la rue) et une partie **hôte** (le numéro). Le postier n'a pas besoin de connaître toutes les maisons du pays : il lui suffit de reconnaître la rue.
+L'adresse IP résout ce problème avec une hiérarchie. Elle contient une partie **réseau** et une partie **hôte**.
+
+> 📮 **Analogie : l'adresse postale.** « 12 rue des Lilas » se découpe en une rue (la partie réseau) et un numéro dans cette rue (la partie hôte). Le postier n'a pas besoin de connaître toutes les maisons du pays : il lui suffit de reconnaître la rue.
+{: .callout .callout-analogie}
 
 Le **masque** de sous-réseau indique où s'arrête la rue et où commence le numéro. Presque tout ce module consiste à manipuler cette frontière.
 
@@ -60,11 +63,16 @@ Voici `192.168.10.37` en binaire :
 
 Pour convertir sans calculette, retenez les poids des bits d'un octet : `128 64 32 16 8 4 2 1`. Prenez 168. Il contient 128 (reste 40), puis 32 (reste 8), puis 8. Les bits 128, 32 et 8 sont à 1, ce qui donne `10101000`. Après quelques exercices, on ne le fait plus que pour les octets qui comptent.
 
-Avec 32 bits, il existe 2³², soit environ 4,3 milliards d'adresses. Ça paraît énorme, mais beaucoup sont réservées, et c'est une des raisons de l'existence de l'IPv6, qui fait l'objet du module suivant.
+Avec 32 bits, il existe 2³², soit environ 4,3 milliards d'adresses. Cela paraît énorme, mais beaucoup sont réservées, et c'est une des raisons de l'existence de l'IPv6, qui fait l'objet du module suivant.
 
 ### Publiques, privées, réservées
 
-Toutes les adresses ne sont pas utilisables de la même façon. Les adresses **publiques** sont routées sur Internet et attribuées de manière unique. Les adresses **privées** sont réservées aux réseaux internes : n'importe quelle entreprise peut les utiliser, et c'est pour cela que votre box et celle de votre voisin ont probablement la même plage. Une machine privée accède à Internet grâce à NAT (Network Address Translation), un mécanisme de traduction étudié dans le module de routage.
+Toutes les adresses ne sont pas utilisables de la même façon :
+
+- les adresses **publiques** sont routées sur Internet et attribuées de manière unique ;
+- les adresses **privées** sont réservées aux réseaux internes. N'importe quelle entreprise peut les utiliser : c'est pour cela que votre box et celle de votre voisin ont probablement la même plage.
+
+Une machine privée accède à Internet grâce à NAT (Network Address Translation), un mécanisme de traduction étudié dans le module de routage.
 
 | Plage | Usage | Remarque |
 |-------|-------|----------|
@@ -82,7 +90,10 @@ Toutes les adresses ne sont pas utilisables de la même façon. Les adresses **p
 
 ## Masque, CIDR et préfixe
 
-Le masque est lui aussi une valeur de 32 bits, composée d'une suite continue de 1 puis d'une suite de 0. Les bits à 1 marquent la partie réseau, les bits à 0 la partie hôte. Pour retrouver le réseau d'une adresse, la machine fait un **ET logique bit à bit** entre l'adresse et le masque : là où le masque vaut 0, tout est effacé.
+> 📖 **Définition.** Le masque est une valeur de 32 bits composée d'une suite continue de 1, puis d'une suite de 0. Les bits à 1 marquent la partie réseau, les bits à 0 la partie hôte.
+{: .callout .callout-definition}
+
+Comment la machine retrouve-t-elle le réseau d'une adresse ? Elle fait un **ET logique bit à bit** entre l'adresse et le masque : là où le masque vaut 0, tout est effacé.
 
 ```
 Adresse   192.168.10.37   11000000.10101000.00001010.00100101
@@ -141,7 +152,10 @@ Découper, c'est **emprunter des bits** à la partie hôte pour les ajouter à l
 
 On peut raisonner dans l'autre sens, en partant du besoin : « combien de machines dois-je prévoir ? » Cherchez la plus petite puissance de 2 dont le résultat moins 2 couvre ce nombre. Pour 25 machines, un `/27` (30 hôtes) suffit. Pour 40, il faut un `/26` (62 hôtes), car `/27` ne contiendrait que 30 machines.
 
-Quand les besoins diffèrent d'un service à l'autre, on n'impose pas la même taille à tout le monde. Cette technique s'appelle VLSM (Variable Length Subnet Mask) : on découpe par blocs de tailles différentes, en plaçant les plus gros d'abord. Un seul principe à respecter : chaque bloc commence à une adresse multiple de sa propre taille.
+Quand les besoins diffèrent d'un service à l'autre, on n'impose pas la même taille à tout le monde. Cette technique s'appelle VLSM (Variable Length Subnet Mask) : on découpe par blocs de tailles différentes, en plaçant les plus gros d'abord.
+
+> 💡 **À retenir** : chaque bloc commence à une adresse multiple de sa propre taille. Un `/27` (32 adresses) peut commencer en `.64`, jamais en `.80`.
+{: .callout .callout-important}
 
 ## La passerelle par défaut
 
@@ -259,7 +273,9 @@ ip route add default via 192.168.10.97
 
 Ces commandes ne survivent pas à un redémarrage : la configuration persistante dépend de la distribution (Netplan, NetworkManager, fichiers de configuration réseau).
 
-**Ce plan est volontairement serré**, ce qui est un bon exercice de découpage. Pour un nouveau réseau, en revanche, je recommande de partir de `10.20.0.0/16` et d'attribuer un `/24` par zone en faisant correspondre le troisième octet à la zone (`10.20.10.0/24` pour les postes, `10.20.20.0/24` pour les serveurs…). On y perd en économie d'adresses, ce qui n'a aucune importance en privé, mais on gagne en lisibilité : on reconnaît la zone d'une machine au premier coup d'œil.
+**Ce plan est volontairement serré**, ce qui est un bon exercice de découpage. Pour un nouveau réseau, en revanche, je recommande de partir de `10.20.0.0/16` et d'attribuer un `/24` par zone. Le troisième octet correspond alors à la zone (`10.20.10.0/24` pour les postes, `10.20.20.0/24` pour les serveurs…).
+
+On y perd en économie d'adresses, ce qui n'a aucune importance en privé. On y gagne en lisibilité : on reconnaît la zone d'une machine au premier coup d'œil.
 
 Entre ces sous-réseaux, rien ne circule sans routeur. Comment ces échanges s'organisent est l'objet du module de routage, et comment on les filtre viendra avec les pare-feu.
 
@@ -280,7 +296,9 @@ default via 192.168.10.1 dev eth0
 192.168.10.0/24 dev eth0 proto kernel scope link src 192.168.10.50
 ```
 
-La ligne du sous-réseau annonce `/24` au lieu de `/26`. Le poste est persuadé que tout ce qui va de `192.168.10.0` à `192.168.10.255` se trouve sur son segment. Pour joindre `192.168.10.120`, il ne passe donc pas par la passerelle : il cherche l'imprimante directement sur son segment local, où elle ne se trouve pas, car chaque zone du plan dispose de son propre segment (un VLAN par zone sur le switch). Aucune réponse ne revient.
+La ligne du sous-réseau annonce `/24` au lieu de `/26`. Le poste est donc persuadé que tout ce qui va de `192.168.10.0` à `192.168.10.255` se trouve sur son segment.
+
+Pour joindre `192.168.10.120`, il ne passe pas par la passerelle : il cherche l'imprimante directement sur son segment local. Or elle ne s'y trouve pas, car chaque zone du plan dispose de son propre segment (un VLAN par zone sur le switch). Aucune réponse ne revient.
 
 Cela explique tous les symptômes :
 
