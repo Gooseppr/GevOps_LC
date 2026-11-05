@@ -141,17 +141,19 @@ GRAFANA_ADMIN_PASSWORD=<MOT_DE_PASSE_SOLIDE>
 
 Quelques choix méritent une explication, parce que ce sont eux qui font échouer ce montage quand on les omet.
 
-🧠 **Concept clé — Node Exporter dans un conteneur observe… le conteneur, sauf si on lui ouvre l'hôte.** Par défaut, un conteneur a son propre système de fichiers et sa propre pile réseau. Les métriques de disque seraient celles de l'overlay Docker, et les interfaces réseau seraient celles du conteneur. Trois réglages corrigent cela :
-
-- `pid: host` donne accès aux processus de l'hôte.
-- `network_mode: host` expose les vraies interfaces réseau.
-- Le montage `/:/host:ro` combiné à `--path.rootfs=/host` permet de lire les vrais systèmes de fichiers, en lecture seule.
+> 🧠 **Concept clé — Node Exporter dans un conteneur observe… le conteneur, sauf si on lui ouvre l'hôte.** Par défaut, un conteneur a son propre système de fichiers et sa propre pile réseau. Les métriques de disque seraient celles de l'overlay Docker, et les interfaces réseau seraient celles du conteneur. Trois réglages corrigent cela :
+>
+> - `pid: host` donne accès aux processus de l'hôte.
+> - `network_mode: host` expose les vraies interfaces réseau.
+> - Le montage `/:/host:ro` combiné à `--path.rootfs=/host` permet de lire les vrais systèmes de fichiers, en lecture seule.
+{: .callout .callout-important}
 
 Comme l'exporter tourne dans le réseau de l'hôte, Prometheus l'atteint via `host.docker.internal`, que la ligne `extra_hosts` fait pointer vers la passerelle Docker. Sur une vraie infrastructure, vous installeriez plutôt l'exporter directement sur chaque serveur, et Prometheus tournerait ailleurs.
 
 Le bloc `labels: instance: 'srv-lab-01'` remplace le label `instance` par défaut, qui vaudrait `host.docker.internal:9100`. Un nom parlant rend la variable et les titres de panels lisibles. Dans l'équipe, chacun saura de quelle machine on parle.
 
-⚠️ **Erreur fréquente — Node Exporter exposé sur toutes les interfaces.** Avec `network_mode: host`, le port 9100 écoute sur toutes les interfaces de la machine, et ses métriques révèlent beaucoup de choses (versions, points de montage, noms d'hôtes). Filtrez-le avec le pare-feu pour ne laisser passer que Prometheus. Les ports de Grafana et Prometheus sont déjà liés à `127.0.0.1` dans ce Compose. Pour y accéder à distance, passez par un tunnel SSH ou un reverse proxy.
+> ⚠️ **Erreur fréquente — Node Exporter exposé sur toutes les interfaces.** Avec `network_mode: host`, le port 9100 écoute sur toutes les interfaces de la machine, et ses métriques révèlent beaucoup de choses (versions, points de montage, noms d'hôtes). Filtrez-le avec le pare-feu pour ne laisser passer que Prometheus. Les ports de Grafana et Prometheus sont déjà liés à `127.0.0.1` dans ce Compose. Pour y accéder à distance, passez par un tunnel SSH ou un reverse proxy.
+{: .callout .callout-attention}
 
 ### Démarrage
 
@@ -191,7 +193,8 @@ up{job="node"}
 
 Une valeur `1` pour `srv-lab-01` confirme que toute la chaîne fonctionne. À partir de là, un panel vide ne peut plus venir de la plomberie : il vient de la requête ou du filtre.
 
-💡 **Astuce** — Dans Explore, tapez simplement `node_` et laissez l'autocomplétion vous montrer ce que l'exporter expose. Quelques minutes de lecture des noms de métriques vous apprendront plus que n'importe quelle liste.
+> 💡 **Astuce** — Dans Explore, tapez simplement `node_` et laissez l'autocomplétion vous montrer ce que l'exporter expose. Quelques minutes de lecture des noms de métriques vous apprendront plus que n'importe quelle liste.
+{: .callout .callout-astuce}
 
 ## Construire le dashboard, une question à la fois
 
@@ -217,7 +220,8 @@ time() - node_boot_time_seconds{instance=~"$instance"}
 
 Un uptime qui retombe à quelques minutes révèle un redémarrage, parfois inattendu.
 
-⚠️ **Erreur fréquente — Confondre « DOWN » et « machine en panne ».** `up = 0` signifie seulement que Prometheus n'a pas réussi à lire l'exporter. La machine peut très bien tourner, avec un exporter arrêté ou un pare-feu qui bloque. Le panel dit « je ne vois plus la machine », pas « la machine est morte ».
+> ⚠️ **Erreur fréquente — Confondre « DOWN » et « machine en panne ».** `up = 0` signifie seulement que Prometheus n'a pas réussi à lire l'exporter. La machine peut très bien tourner, avec un exporter arrêté ou un pare-feu qui bloque. Le panel dit « je ne vois plus la machine », pas « la machine est morte ».
+{: .callout .callout-attention}
 
 ### « A-t-on du CPU ? »
 
@@ -296,7 +300,8 @@ Pour l'instant, le dashboard ne montre qu'une machine. Une variable le rend util
 
 `node_uname_info` est une métrique qui existe une seule fois par machine, ce qui en fait une bonne source pour lister les serveurs sans doublons.
 
-⚠️ **Erreur fréquente — `instance="$instance"` au lieu de `instance=~"$instance"`.** Dès qu'on sélectionne plusieurs machines ou « All », Grafana remplace la variable par une alternative du type `(srv-a|srv-b)`. Avec l'opérateur `=`, Prometheus cherche une instance littéralement nommée ainsi et ne renvoie rien. Avec `=~`, c'est une expression régulière et tout fonctionne. Pour toute variable multi-valeur, utilisez toujours `=~`.
+> ⚠️ **Erreur fréquente — `instance="$instance"` au lieu de `instance=~"$instance"`.** Dès qu'on sélectionne plusieurs machines ou « All », Grafana remplace la variable par une alternative du type `(srv-a|srv-b)`. Avec l'opérateur `=`, Prometheus cherche une instance littéralement nommée ainsi et ne renvoie rien. Avec `=~`, c'est une expression régulière et tout fonctionne. Pour toute variable multi-valeur, utilisez toujours `=~`.
+{: .callout .callout-attention}
 
 Ajoutez `{{instance}}` dans la légende des panels, pour distinguer les courbes quand plusieurs machines sont affichées.
 

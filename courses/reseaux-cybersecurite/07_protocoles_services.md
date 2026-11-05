@@ -83,7 +83,8 @@ Le serveur **autoritaire** détient la réponse officielle pour une zone. Le ré
 
 Chaque réponse porte un **TTL (Time To Live)**, la durée en secondes pendant laquelle le résolveur peut la garder en cache. Il évite ainsi de refaire tout le parcours à chaque requête.
 
-⚠️ **Comportement contre-intuitif** : on parle de « propagation DNS » après un changement d'enregistrement, mais rien ne se propage. Ce sont des caches qui expirent chacun à leur rythme. Si l'ancien enregistrement avait un TTL de 24 h, certains utilisateurs verront l'ancienne adresse jusqu'à 24 h après votre changement. Baissez le TTL à l'avance (par exemple à 300 s la veille d'une migration), pas après. Ce TTL n'a rien à voir avec celui des paquets IP, même si les deux noms sont identiques.
+> ⚠️ **Comportement contre-intuitif** : on parle de « propagation DNS » après un changement d'enregistrement, mais rien ne se propage. Ce sont des caches qui expirent chacun à leur rythme. Si l'ancien enregistrement avait un TTL de 24 h, certains utilisateurs verront l'ancienne adresse jusqu'à 24 h après votre changement. Baissez le TTL à l'avance (par exemple à 300 s la veille d'une migration), pas après. Ce TTL n'a rien à voir avec celui des paquets IP, même si les deux noms sont identiques.
+{: .callout .callout-attention}
 
 Les enregistrements qu'on croise tous les jours :
 
@@ -99,7 +100,8 @@ Les enregistrements qu'on croise tous les jours :
 
 DNS utilise le port 53, en UDP pour la plupart des requêtes et en TCP quand la réponse est trop grosse ou pour les transferts de zone entre serveurs.
 
-💡 **Point clé** : DNS est une dépendance cachée de presque tout. Quand « Internet ne marche plus », le réseau est souvent intact et c'est la résolution de noms qui est cassée. Le test `ping <adresse IP>` qui réussit alors que `ping <nom>` échoue est le meilleur réflexe de tri.
+> 💡 **Point clé** : DNS est une dépendance cachée de presque tout. Quand « Internet ne marche plus », le réseau est souvent intact et c'est la résolution de noms qui est cassée. Le test `ping <adresse IP>` qui réussit alors que `ping <nom>` échoue est le meilleur réflexe de tri.
+{: .callout .callout-important}
 
 ### DHCP : arriver sur un réseau sans rien configurer
 
@@ -121,7 +123,8 @@ Le client n'a pas encore d'adresse IP, il ne peut donc pas adresser le serveur d
 
 À mi-bail, le client demande discrètement à renouveler. S'il n'obtient pas de réponse, il retente avant l'expiration, puis recommence à zéro si le bail est perdu.
 
-⚠️ **Piège** : si un poste n'obtient aucune réponse DHCP, Windows (et beaucoup de systèmes) s'attribue lui-même une adresse en `169.254.x.x`. Cette adresse indique qu'il n'a pas pu joindre le serveur DHCP, et en aucun cas que le serveur lui a donné une adresse valide. Elle suffit pour parler à d'autres machines dans le même cas, mais pas pour sortir du réseau local.
+> ⚠️ **Piège** : si un poste n'obtient aucune réponse DHCP, Windows (et beaucoup de systèmes) s'attribue lui-même une adresse en `169.254.x.x`. Cette adresse indique qu'il n'a pas pu joindre le serveur DHCP, et en aucun cas que le serveur lui a donné une adresse valide. Elle suffit pour parler à d'autres machines dans le même cas, mais pas pour sortir du réseau local.
+{: .callout .callout-attention}
 
 ### HTTP et HTTPS : questions, réponses, et un certificat
 
@@ -208,7 +211,8 @@ Ces deux protocoles sont conçus pour des réseaux de confiance. Exposer SMB ou 
 
 **ICMP (Internet Control Message Protocol)** est un cas à part : il ne passe ni par TCP ni par UDP, donc il n'y a pas de port. Il voyage directement dans les paquets IP et sert à signaler des événements : une destination injoignable, un paquet expiré, ou la simple question « êtes-vous là ? ». C'est ce que fait `ping`, avec un *Echo Request* auquel la cible répond par un *Echo Reply*.
 
-⚠️ Un `ping` qui échoue ne prouve pas que la machine est éteinte. Beaucoup de pare-feu bloquent ICMP par prudence, tout en laissant passer les services utiles. Avant de conclure, testez le port du service concerné.
+> ⚠️ Un `ping` qui échoue ne prouve pas que la machine est éteinte. Beaucoup de pare-feu bloquent ICMP par prudence, tout en laissant passer les services utiles. Avant de conclure, testez le port du service concerné.
+{: .callout .callout-attention}
 
 **NTP (Network Time Protocol)**, port UDP 123, synchronise les horloges. On y pense peu, mais l'heure juste soutient beaucoup de choses :
 
@@ -289,9 +293,11 @@ Ces protocoles ont été conçus à une époque où le réseau était un cercle 
 
 ### Chiffré ne veut pas dire authentifié
 
-⚠️ C'est le piège central de ce module. Vous pouvez parler dans un tunnel parfaitement chiffré… avec la mauvaise personne.
+> ⚠️ C'est le piège central de ce module. Vous pouvez parler dans un tunnel parfaitement chiffré… avec la mauvaise personne.
+{: .callout .callout-attention}
 
-🧠 **Concept fondamental** : une communication sûre répond à trois questions distinctes.
+> 🧠 **Concept fondamental** : une communication sûre répond à trois questions distinctes.
+{: .callout .callout-important}
 
 ```mermaid
 flowchart TD

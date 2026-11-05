@@ -111,7 +111,8 @@ export OTEL_TRACES_SAMPLER_ARG=0.25
 
 Le nom du service est critique : c'est lui qui apparaît dans la cascade, dans le service graph et dans vos requêtes TraceQL. Un service qui s'appelle `unknown_service:java` vous fera perdre du temps.
 
-💡 **Astuce** — Dans une architecture mixte, vérifiez que tous les services utilisent le même format de propagation. Un service ancien qui n'émet que des en-têtes `b3` (Zipkin) coupera la chaîne face à des services en `tracecontext`. `OTEL_PROPAGATORS=tracecontext,b3` permet de parler les deux le temps de la migration.
+> 💡 **Astuce** — Dans une architecture mixte, vérifiez que tous les services utilisent le même format de propagation. Un service ancien qui n'émet que des en-têtes `b3` (Zipkin) coupera la chaîne face à des services en `tracecontext`. `OTEL_PROPAGATORS=tracecontext,b3` permet de parler les deux le temps de la migration.
+{: .callout .callout-astuce}
 
 ## Brancher Tempo à Grafana
 
@@ -213,7 +214,8 @@ On peut aussi agréger sur les spans d'une même trace avec un pipe :
 
 Voilà le détecteur de N+1 : toute trace contenant plus de quinze appels de base de données.
 
-⚠️ **Erreur fréquente** — Filtrer sur `duration > 2s` sans restreindre le service retourne aussi des spans racine légitimement longs (un traitement batch, un websocket). Ajoutez toujours `resource.service.name` ou `name` pour cibler ce qui vous intéresse. Et pensez à resserrer la fenêtre de temps dans Grafana : TraceQL parcourt le stockage sur la plage choisie, et sur une grande plage c'est lent.
+> ⚠️ **Erreur fréquente** — Filtrer sur `duration > 2s` sans restreindre le service retourne aussi des spans racine légitimement longs (un traitement batch, un websocket). Ajoutez toujours `resource.service.name` ou `name` pour cibler ce qui vous intéresse. Et pensez à resserrer la fenêtre de temps dans Grafana : TraceQL parcourt le stockage sur la plage choisie, et sur une grande plage c'est lent.
+{: .callout .callout-attention}
 
 Si vous voulez scripter ou tester sans passer par l'interface, l'API HTTP de Tempo fait la même chose :
 
@@ -231,7 +233,8 @@ TraceQL travaille trace par trace. Pour voir la forme globale (quels services s'
 
 L'intérêt diagnostique est direct : le service graph vous dit *quelle arête* s'est dégradée, puis vous basculez sur TraceQL pour obtenir des exemples précis. Les span metrics vous donnent aussi des courbes de latence par opération dans des panels classiques, avec un lien vers des traces d'exemple.
 
-🧠 **Concept clé** — Les métriques répondent à « combien et depuis quand », les traces à « où dans le chemin ». Le bon réflexe est de partir de la métrique (l'alerte, le panel qui dérive), puis de descendre vers une trace représentative de la période concernée.
+> 🧠 **Concept clé** — Les métriques répondent à « combien et depuis quand », les traces à « où dans le chemin ». Le bon réflexe est de partir de la métrique (l'alerte, le panel qui dérive), puis de descendre vers une trace représentative de la période concernée.
+{: .callout .callout-important}
 
 ## Relier logs et traces
 
@@ -254,7 +257,8 @@ jsonData:
 
 Le `$$` est l'échappement du provisioning Grafana ; dans l'interface, vous écrivez `${__value.raw}`. Si vos logs sont en JSON, adaptez la regex au nom du champ (`"trace_id":"(\w+)"`).
 
-💡 **Astuce** — Pour tester la chaîne, prenez un Trace ID dans Tempo et cherchez-le avec `{service_name="paiement"} |= "<TRACE_ID>"` dans Explore Loki. Zéro résultat signifie que l'application n'écrit pas l'identifiant, et c'est à corriger côté code avant de toucher à Grafana.
+> 💡 **Astuce** — Pour tester la chaîne, prenez un Trace ID dans Tempo et cherchez-le avec `{service_name="paiement"} |= "<TRACE_ID>"` dans Explore Loki. Zéro résultat signifie que l'application n'écrit pas l'identifiant, et c'est à corriger côté code avant de toucher à Grafana.
+{: .callout .callout-astuce}
 
 ## Diagnostic : pourquoi ma trace est absente ou incomplète
 

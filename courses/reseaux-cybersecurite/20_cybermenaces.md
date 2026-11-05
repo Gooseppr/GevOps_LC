@@ -46,7 +46,8 @@ Ce module vous donne les outils pour décomposer n'importe quelle attaque avec c
 
 ## Les grandes familles de malwares
 
-🧠 **Concept clé** — Un malware n'est pas défini par ce qu'il est, mais par ce qu'il fait. La même base de code peut être un espion, un relais ou un destructeur selon sa configuration.
+> 🧠 **Concept clé** — Un malware n'est pas défini par ce qu'il est, mais par ce qu'il fait. La même base de code peut être un espion, un relais ou un destructeur selon sa configuration.
+{: .callout .callout-important}
 
 ### Ransomware
 
@@ -66,7 +67,8 @@ Cobalt Strike Beacon est l'exemple canonique. Il est utilisé aussi bien lors de
 
 Un ver se propage sans fichier hôte et sans interaction utilisateur. EternalBlue + DoublePulsar (le vecteur de WannaCry) est l'exemple de référence : scan du réseau, exploitation SMBv1, injection d'un shellcode en mémoire, réplication. La phase d'exploitation se déroule en mémoire, ce qui la rend difficile à détecter pour un antivirus fondé sur les signatures de fichiers. WannaCry dépose ensuite ses binaires sur le disque.
 
-🔴 **Vecteur d'attaque** — Les vers modernes combinent exploitation d'une vulnérabilité réseau (mouvement horizontal) et escalade de privilèges locale (mouvement vertical). La propagation est exponentielle : un seul hôte compromis suffit à atteindre des milliers d'autres en quelques minutes sur un réseau non segmenté.
+> 🔴 **Vecteur d'attaque** — Les vers modernes combinent exploitation d'une vulnérabilité réseau (mouvement horizontal) et escalade de privilèges locale (mouvement vertical). La propagation est exponentielle : un seul hôte compromis suffit à atteindre des milliers d'autres en quelques minutes sur un réseau non segmenté.
+{: .callout .callout-danger}
 
 ---
 
@@ -89,7 +91,8 @@ Un spear phishing efficace utilise des informations collectées sur LinkedIn, le
 
 La MFA ne suffit plus contre les attaques AiTM (Adversary-in-the-Middle). Des frameworks comme **Evilginx2** ou **Modlishka** agissent en proxy inverse : l'utilisateur se connecte réellement sur le vrai service (et passe la MFA), mais le proxy intercepte le cookie de session en transit. L'attaquant rejoue ce cookie — il n'a jamais eu besoin du mot de passe ni du second facteur.
 
-🔴 **Vecteur d'attaque** — Avec Evilginx2, la chaîne complète prend moins de 10 minutes : déploiement d'un phishlet, envoi d'un lien, capture du cookie de session, accès à Microsoft 365 ou Gmail sans aucune alerte MFA côté victime.
+> 🔴 **Vecteur d'attaque** — Avec Evilginx2, la chaîne complète prend moins de 10 minutes : déploiement d'un phishlet, envoi d'un lien, capture du cookie de session, accès à Microsoft 365 ou Gmail sans aucune alerte MFA côté victime.
+{: .callout .callout-danger}
 
 ---
 
@@ -105,7 +108,8 @@ Hydra, Medusa, et CrackMapExec sont les outils courants. CrackMapExec permet de 
 
 Après chaque fuite de données publique (Collection #1-5, par exemple), des milliards de paires email/mot de passe circulent. Le credential stuffing consiste à tester ces paires sur d'autres services — en supposant que les utilisateurs réutilisent leurs mots de passe.
 
-⚠️ **Erreur fréquente** — Une application peut ne jamais avoir été compromise et pourtant présenter des connexions suspectes légitimes depuis ces bases. Les logs montrent des connexions réussies — pas d'alerte, pas d'anomalie. Seul un contrôle sur la détection d'anomalies comportementales (géolocalisation inhabituelle, appareil inconnu) permet de distinguer l'utilisateur légitime de l'attaquant.
+> ⚠️ **Erreur fréquente** — Une application peut ne jamais avoir été compromise et pourtant présenter des connexions suspectes légitimes depuis ces bases. Les logs montrent des connexions réussies — pas d'alerte, pas d'anomalie. Seul un contrôle sur la détection d'anomalies comportementales (géolocalisation inhabituelle, appareil inconnu) permet de distinguer l'utilisateur légitime de l'attaquant.
+{: .callout .callout-attention}
 
 ---
 
@@ -131,7 +135,8 @@ Le trafic HTTPS est chiffré et non lisible directement — mais l'attaquant peu
 
 Une fois le trafic redirigé via ARP spoofing, l'attaquant peut intercepter les requêtes DNS et y répondre avec des adresses frauduleuses avant le vrai serveur. L'outil **dnsspoof** (ou Bettercap en mode DNS) permet de pointer `login.monentreprise.com` vers un serveur sous contrôle de l'attaquant.
 
-🔒 **Contrôle de sécurité** — DNSSEC signe cryptographiquement les enregistrements DNS et empêche le spoofing côté résolveur. Sur le réseau local, le Dynamic ARP Inspection (DAI) sur les switchs managés bloque les ARP replies non conformes à la table DHCP snooping. Ces contrôles réduisent fortement ces risques, mais DNSSEC est validé par le résolveur : il ne protège généralement pas le segment entre le poste et ce résolveur.
+> 🔒 **Contrôle de sécurité** — DNSSEC signe cryptographiquement les enregistrements DNS et empêche le spoofing côté résolveur. Sur le réseau local, le Dynamic ARP Inspection (DAI) sur les switchs managés bloque les ARP replies non conformes à la table DHCP snooping. Ces contrôles réduisent fortement ces risques, mais DNSSEC est validé par le résolveur : il ne protège généralement pas le segment entre le poste et ce résolveur.
+{: .callout .callout-securite}
 
 ---
 
@@ -151,7 +156,8 @@ Un DDoS (Distributed Denial of Service) vise à rendre un service inaccessible e
 
 **Slowloris** fonctionne différemment : il ouvre le maximum de connexions HTTP vers un serveur et envoie des headers incomplets très lentement, maintenant ces connexions ouvertes jusqu'à saturation du pool du serveur web. Il ne nécessite pas de bande passante importante — un seul hôte peut mettre hors service un serveur Apache mal configuré.
 
-🔴 **Vecteur d'attaque** — Les botnets IoT (Mirai et ses variants) agrègent des centaines de milliers d'appareils compromis (caméras IP, routeurs) pour des attaques volumétriques. L'attaque contre le fournisseur DNS Dyn en 2016 a démontré qu'une infrastructure DNS critique peut être rendue inopérante, coupant l'accès à des services majeurs simultanément.
+> 🔴 **Vecteur d'attaque** — Les botnets IoT (Mirai et ses variants) agrègent des centaines de milliers d'appareils compromis (caméras IP, routeurs) pour des attaques volumétriques. L'attaque contre le fournisseur DNS Dyn en 2016 a démontré qu'une infrastructure DNS critique peut être rendue inopérante, coupant l'accès à des services majeurs simultanément.
+{: .callout .callout-danger}
 
 ---
 
@@ -167,7 +173,8 @@ Toute application exposée sur Internet est une surface d'attaque. Les vecteurs 
 
 **Exploitation de CVEs sur des services exposés** — Un service non patché (VPN SSL, serveur de messagerie, interface d'administration) peut être compromis directement. CVE-2021-44228 (Log4Shell) a permis une exécution de code à distance via un simple champ de log — le User-Agent HTTP suffisait à déclencher l'exploit sur des millions d'applications Java.
 
-💡 **Astuce** — Pour identifier rapidement les services exposés d'une organisation, `shodan.io` indexe les banners des services accessibles sur Internet avec leurs versions. Un adversaire fait exactement cette recherche avant de vous attaquer.
+> 💡 **Astuce** — Pour identifier rapidement les services exposés d'une organisation, `shodan.io` indexe les banners des services accessibles sur Internet avec leurs versions. Un adversaire fait exactement cette recherche avant de vous attaquer.
+{: .callout .callout-astuce}
 
 ---
 
@@ -193,7 +200,8 @@ L'attaquant cherche à maintenir son accès même après un redémarrage, un cha
 - Backdoor dans les scripts de démarrage, les GPO, ou les hooks WMI
 - Golden Ticket Kerberos : si l'attaquant a compromis le compte `krbtgt` (hash), il peut générer des tickets valides pour n'importe quel compte, valables 10 ans par défaut
 
-🔴 **Vecteur d'attaque** — Un Golden Ticket survit à un reset du mot de passe d'un compte utilisateur. Il n'est invalidé que si le hash du compte `krbtgt` est changé deux fois (car les DCs maintiennent l'ancienne clé une période). Un attaquant avec un Golden Ticket peut rester invisible pendant des mois.
+> 🔴 **Vecteur d'attaque** — Un Golden Ticket survit à un reset du mot de passe d'un compte utilisateur. Il n'est invalidé que si le hash du compte `krbtgt` est changé deux fois (car les DCs maintiennent l'ancienne clé une période). Un attaquant avec un Golden Ticket peut rester invisible pendant des mois.
+{: .callout .callout-danger}
 
 ---
 
@@ -240,13 +248,15 @@ flowchart TD
 
 La force d'ATT&CK : chaque technique référence les groupes APT connus qui l'utilisent, les détections possibles, les mitigations recommandées, et des exemples de procédures réelles. C'est un langage commun entre équipes red et blue.
 
-💡 **Astuce** — Le MITRE ATT&CK Navigator (`https://mitre-attack.github.io/attack-navigator/`) permet de visualiser la couverture de détection d'un SOC en surchargeant la matrice avec les règles actives. Un exercice concret : prendre un rapport d'incident public (ex. : les rapports Mandiant ou CrowdStrike) et mapper chaque technique décrite sur ATT&CK.
+> 💡 **Astuce** — Le MITRE ATT&CK Navigator (`https://mitre-attack.github.io/attack-navigator/`) permet de visualiser la couverture de détection d'un SOC en surchargeant la matrice avec les règles actives. Un exercice concret : prendre un rapport d'incident public (ex. : les rapports Mandiant ou CrowdStrike) et mapper chaque technique décrite sur ATT&CK.
+{: .callout .callout-astuce}
 
 ---
 
 ## Vulnérabilité vs exploitabilité réelle
 
-⚠️ **Piège central de ce module** — Un scanner de vulnérabilités qui retourne 847 CVEs ne signifie pas que 847 vecteurs d'attaque sont actifs. Cette confusion génère soit une paralysie (tout corriger en urgence), soit un désengagement (trop pour être traité).
+> ⚠️ **Piège central de ce module** — Un scanner de vulnérabilités qui retourne 847 CVEs ne signifie pas que 847 vecteurs d'attaque sont actifs. Cette confusion génère soit une paralysie (tout corriger en urgence), soit un désengagement (trop pour être traité).
+{: .callout .callout-attention}
 
 ### Les conditions d'exploitabilité
 
@@ -271,7 +281,8 @@ Un scanner retourne cette vulnérabilité sur 200 postes. Mais :
 
 La CVE est réelle. Le risque opérationnel dépend du contexte.
 
-🧠 **Concept clé** — Le CVSS (Common Vulnerability Scoring System) mesure la sévérité intrinsèque d'une vulnérabilité, pas le risque dans votre contexte. Le score environnemental (CVSS v3 Environmental Score) ajuste ce score en fonction de votre exposition réelle, mais il est rarement calculé par les équipes qui reçoivent les rapports de scan.
+> 🧠 **Concept clé** — Le CVSS (Common Vulnerability Scoring System) mesure la sévérité intrinsèque d'une vulnérabilité, pas le risque dans votre contexte. Le score environnemental (CVSS v3 Environmental Score) ajuste ce score en fonction de votre exposition réelle, mais il est rarement calculé par les équipes qui reçoivent les rapports de scan.
+{: .callout .callout-important}
 
 ---
 
@@ -299,13 +310,17 @@ Les leçons tirées sont systématiquement les mêmes dans ces cas :
 
 ## Erreurs fréquentes
 
-⚠️ **Confondre chiffrement et sécurité du transport** — HTTPS protège les données en transit, pas les identifiants stockés côté serveur. Un site en HTTPS peut parfaitement être vulnérable à une injection SQL ou à un vol de session. La présence du cadenas ne dit rien sur la sécurité de l'application.
+> ⚠️ **Confondre chiffrement et sécurité du transport** — HTTPS protège les données en transit, pas les identifiants stockés côté serveur. Un site en HTTPS peut parfaitement être vulnérable à une injection SQL ou à un vol de session. La présence du cadenas ne dit rien sur la sécurité de l'application.
+{: .callout .callout-attention}
 
-⚠️ **Croire que la MFA bloque tout phishing** — Les attaques AiTM (Evilginx2, Modlishka) contournent la MFA TOTP et SMS en interceptant le cookie de session post-authentification. Seules les méthodes résistantes au phishing (passkeys, FIDO2/WebAuthn) résolvent ce problème structurellement.
+> ⚠️ **Croire que la MFA bloque tout phishing** — Les attaques AiTM (Evilginx2, Modlishka) contournent la MFA TOTP et SMS en interceptant le cookie de session post-authentification. Seules les méthodes résistantes au phishing (passkeys, FIDO2/WebAuthn) résolvent ce problème structurellement.
+{: .callout .callout-attention}
 
-⚠️ **Traiter les sauvegardes comme une défense anti-ransomware** — Une sauvegarde accessible depuis le réseau compromis sera chiffrée ou supprimée en premier. La règle 3-2-1 (3 copies, 2 supports différents, 1 hors ligne) n'est une défense que si la copie hors ligne est réellement déconnectée du réseau.
+> ⚠️ **Traiter les sauvegardes comme une défense anti-ransomware** — Une sauvegarde accessible depuis le réseau compromis sera chiffrée ou supprimée en premier. La règle 3-2-1 (3 copies, 2 supports différents, 1 hors ligne) n'est une défense que si la copie hors ligne est réellement déconnectée du réseau.
+{: .callout .callout-attention}
 
-⚠️ **Penser qu'un attaquant s'arrête après la détection** — Un attaquant qui sait avoir été détecté peut accélérer son calendrier plutôt que de se retirer. La détection sans réponse coordonnée peut provoquer un déclenchement anticipé du ransomware ou une exfiltration d'urgence.
+> ⚠️ **Penser qu'un attaquant s'arrête après la détection** — Un attaquant qui sait avoir été détecté peut accélérer son calendrier plutôt que de se retirer. La détection sans réponse coordonnée peut provoquer un déclenchement anticipé du ransomware ou une exfiltration d'urgence.
+{: .callout .callout-attention}
 
 ---
 

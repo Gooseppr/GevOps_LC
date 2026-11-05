@@ -95,7 +95,8 @@ flowchart LR
 
 Chaque flèche est une occasion d'arrêter l'attaquant. Elle n'existe que si le contrôle correspondant a été conçu avant l'incident, pas déployé après.
 
-🧠 **Concept clé : la profondeur se mesure en indépendance.** Empiler un pare-feu, un WAF et un proxy ne fait pas de la défense en profondeur si un cookie de session volé les contourne tous les trois. Deux couches sont réellement distinctes quand elles ne tombent pas pour la même raison. Un EDR et un pare-feu interne ont des modes de défaillance différents : l'un voit le comportement d'un hôte, l'autre filtre une relation réseau. Un EDR et un second antivirus reposent sur la même télémétrie hôte.
+> 🧠 **Concept clé : la profondeur se mesure en indépendance.** Empiler un pare-feu, un WAF et un proxy ne fait pas de la défense en profondeur si un cookie de session volé les contourne tous les trois. Deux couches sont réellement distinctes quand elles ne tombent pas pour la même raison. Un EDR et un pare-feu interne ont des modes de défaillance différents : l'un voit le comportement d'un hôte, l'autre filtre une relation réseau. Un EDR et un second antivirus reposent sur la même télémétrie hôte.
+{: .callout .callout-important}
 
 ### Les couches à concevoir
 
@@ -203,7 +204,8 @@ spec:
   policyTypes: [Ingress, Egress]
 ```
 
-⚠️ **Erreur fréquente** : appliquer cette politique sur un cluster dont le CNI (Container Network Interface) n'applique pas les NetworkPolicy (Flannel seul, par exemple). Le manifeste est accepté, aucune erreur n'apparaît, et rien n'est filtré. Vérifiez avec un test réel (voir ci-dessous). Avec Calico ou Cilium, pensez aussi à autoriser explicitement le DNS en egress vers kube-dns, sinon les pods perdent la résolution de noms.
+> ⚠️ **Erreur fréquente** : appliquer cette politique sur un cluster dont le CNI (Container Network Interface) n'applique pas les NetworkPolicy (Flannel seul, par exemple). Le manifeste est accepté, aucune erreur n'apparaît, et rien n'est filtré. Vérifiez avec un test réel (voir ci-dessous). Avec Calico ou Cilium, pensez aussi à autoriser explicitement le DNS en egress vers kube-dns, sinon les pods perdent la résolution de noms.
+{: .callout .callout-attention}
 
 ### Vérifier que la segmentation tient
 
@@ -221,7 +223,8 @@ curl -m 5 -sS -o /dev/null -w "%{http_code}\n" https://<EXTERNAL_URL>
 
 Un serveur de base de données qui obtient un `200` vers Internet est un canal C2 en attente. Dans Kubernetes : `kubectl exec -n <NAMESPACE> <POD> -- nc -zv -w 3 <SERVICE> <PORT>`.
 
-💡 **Astuce** : déployez toujours en deux temps. D'abord un mode observation (journalisation sans blocage) pendant deux à quatre semaines, pour couvrir un cycle complet de traitements mensuels. Ensuite le blocage, zone par zone, avec un retour arrière préparé.
+> 💡 **Astuce** : déployez toujours en deux temps. D'abord un mode observation (journalisation sans blocage) pendant deux à quatre semaines, pour couvrir un cycle complet de traitements mensuels. Ensuite le blocage, zone par zone, avec un retour arrière préparé.
+{: .callout .callout-astuce}
 
 ---
 
@@ -235,7 +238,8 @@ Zero Trust, tel que décrit dans NIST SP 800-207, repose sur une idée : chaque 
 
 \* Le PDP et le PEP sont séparés pour que la logique de décision soit centralisée et auditée pendant que l'application de la décision reste au plus près de la ressource.
 
-🧠 **Zero Trust n'est pas un produit.** C'est une trajectoire. Les fournisseurs vendent des briques ; l'architecture reste à votre charge. Commencez par ce qui a le plus d'effet.
+> 🧠 **Zero Trust n'est pas un produit.** C'est une trajectoire. Les fournisseurs vendent des briques ; l'architecture reste à votre charge. Commencez par ce qui a le plus d'effet.
+{: .callout .callout-important}
 
 ### Trois chantiers dans l'ordre d'efficacité
 
@@ -343,7 +347,8 @@ Une règle sans propriétaire ni justification est une règle qu'on ne pourra ja
 
 Avant de chiffrer, les opérateurs de rançongiciels détruisent la capacité de restauration : `vssadmin delete shadows /all /quiet`, suppression des dépôts de sauvegarde, vol des identifiants stockés dans la console. La CVE-2023-27532 (Veeam Backup & Replication, exposition d'identifiants) a été exploitée dans ce but. Une architecture de reprise doit donc être conçue pour survivre à un attaquant disposant de droits d'administrateur sur la production.
 
-🧠 **Concept clé : la haute disponibilité n'est pas une reprise.** La réplication synchrone copie fidèlement les écritures, y compris le chiffrement malveillant et une suppression accidentelle. La HA répond à la panne ; la reprise répond à la corruption et à l'attaque. Il faut les deux, avec des mécanismes différents.
+> 🧠 **Concept clé : la haute disponibilité n'est pas une reprise.** La réplication synchrone copie fidèlement les écritures, y compris le chiffrement malveillant et une suppression accidentelle. La HA répond à la panne ; la reprise répond à la corruption et à l'attaque. Il faut les deux, avec des mécanismes différents.
+{: .callout .callout-important}
 
 ### Fixer les objectifs avant de choisir la technologie
 
@@ -365,7 +370,8 @@ Un RTO de quelques minutes exige au minimum un actif-passif chaud avec bascule a
 
 Listez ce dont dépend tout le reste : annuaire, DNS, PKI, IdP, PDP, serveur de journaux, bastion. Si l'un tombe ou est compromis, que devient le système ? Un annuaire unique est un SPOF de disponibilité et le trésor de l'attaquant ; il demande donc des réplicas, des sauvegardes testées et une procédure de reconstruction écrite.
 
-💡 **Astuce** : mesurez un RTO réel avec un exercice de restauration chronométré d'une application de niveau 1, depuis la sauvegarde immuable, par une personne qui n'a pas conçu la procédure. Le chiffre obtenu est souvent trois à dix fois supérieur au RTO supposé.
+> 💡 **Astuce** : mesurez un RTO réel avec un exercice de restauration chronométré d'une application de niveau 1, depuis la sauvegarde immuable, par une personne qui n'a pas conçu la procédure. Le chiffre obtenu est souvent trois à dix fois supérieur au RTO supposé.
+{: .callout .callout-astuce}
 
 ---
 
@@ -428,11 +434,12 @@ La revue se place **avant** la construction, au moment où changer un schéma co
 
 ## Quand la complexité affaiblit l'architecture
 
-⚠️ **Une architecture plus complexe n'est pas nécessairement plus sécurisée.** Chaque contrôle ajouté apporte une surface d'attaque, une dépendance, un mode de défaillance et une compétence à maintenir. Trois symptômes reviennent :
-
-- **Les règles que personne ne comprend.** Après quelques années, un pare-feu inter-zones contient 12 000 règles, dont des centaines d'exceptions sans propriétaire. Nul n'ose les supprimer. L'attaquant n'a pas besoin de trouver une faille : il suffit qu'une règle trop large subsiste.
-- **Le contrôle qui devient la cible.** Les passerelles VPN, les ADC et les pare-feu exposés ont régulièrement été exploités (CVE-2019-19781, CVE-2023-46805 et CVE-2024-21887 cités plus haut). Un empilement de produits de bordure multiplie les composants à patcher en urgence.
-- **Le contournement par les équipes.** Quand le contrôle est trop pénible (bastion lent, flux bloqués sans explication), les administrateurs installent un accès parallèle. La sécurité réelle devient pire que sur une architecture simple.
+> ⚠️ **Une architecture plus complexe n'est pas nécessairement plus sécurisée.** Chaque contrôle ajouté apporte une surface d'attaque, une dépendance, un mode de défaillance et une compétence à maintenir. Trois symptômes reviennent :
+>
+> - **Les règles que personne ne comprend.** Après quelques années, un pare-feu inter-zones contient 12 000 règles, dont des centaines d'exceptions sans propriétaire. Nul n'ose les supprimer. L'attaquant n'a pas besoin de trouver une faille : il suffit qu'une règle trop large subsiste.
+> - **Le contrôle qui devient la cible.** Les passerelles VPN, les ADC et les pare-feu exposés ont régulièrement été exploités (CVE-2019-19781, CVE-2023-46805 et CVE-2024-21887 cités plus haut). Un empilement de produits de bordure multiplie les composants à patcher en urgence.
+> - **Le contournement par les équipes.** Quand le contrôle est trop pénible (bastion lent, flux bloqués sans explication), les administrateurs installent un accès parallèle. La sécurité réelle devient pire que sur une architecture simple.
+{: .callout .callout-attention}
 
 Un test de lisibilité aide à trancher : un ingénieur d'astreinte à 3 h du matin peut-il, en cinq minutes, expliquer pourquoi le flux A vers B est autorisé et comment le couper ? Sinon, la complexité a dépassé la capacité d'exploitation.
 
@@ -448,15 +455,20 @@ Pour garder la complexité sous contrôle :
 
 ## Erreurs fréquentes
 
-⚠️ **Politique « accept » par défaut avec quelques règles de blocage.** Conséquence : tout flux oublié est autorisé, et les règles de blocage deviennent une liste noire que l'attaquant contourne par un port non listé. Correction : `policy drop` avec liste blanche, après une phase d'observation. Détection : `nft list ruleset | grep policy` ; revue des configurations de pare-feu avec un outil comme Nipper ou un script maison.
+> ⚠️ **Politique « accept » par défaut avec quelques règles de blocage.** Conséquence : tout flux oublié est autorisé, et les règles de blocage deviennent une liste noire que l'attaquant contourne par un port non listé. Correction : `policy drop` avec liste blanche, après une phase d'observation. Détection : `nft list ruleset | grep policy` ; revue des configurations de pare-feu avec un outil comme Nipper ou un script maison.
+{: .callout .callout-attention}
 
-⚠️ **Sauvegardes jointes au domaine de production.** Conséquence : un administrateur de domaine compromis supprime aussi les sauvegardes, ce qui ne laisse que la rançon. Correction : annuaire et identité séparés pour la sauvegarde, copie immuable, test de restauration trimestriel. Détection : vérifier que le serveur de sauvegarde n'appartient pas au domaine (`systeminfo` sous Windows, `realm list` sous Linux) et que les comptes de production ne peuvent pas s'y connecter.
+> ⚠️ **Sauvegardes jointes au domaine de production.** Conséquence : un administrateur de domaine compromis supprime aussi les sauvegardes, ce qui ne laisse que la rançon. Correction : annuaire et identité séparés pour la sauvegarde, copie immuable, test de restauration trimestriel. Détection : vérifier que le serveur de sauvegarde n'appartient pas au domaine (`systeminfo` sous Windows, `realm list` sous Linux) et que les comptes de production ne peuvent pas s'y connecter.
+{: .callout .callout-attention}
 
-⚠️ **Segmentation déclarée mais non testée.** Conséquence : une règle « any » créée pendant un incident en 2022 rend la zone perméable. Correction : exécuter des scans de validation depuis chaque zone source vers les zones protégées (nmap, `nc -zv`) à chaque changement majeur, et en automatique chaque mois. Détection : écart entre la matrice de flux et le résultat du scan.
+> ⚠️ **Segmentation déclarée mais non testée.** Conséquence : une règle « any » créée pendant un incident en 2022 rend la zone perméable. Correction : exécuter des scans de validation depuis chaque zone source vers les zones protégées (nmap, `nc -zv`) à chaque changement majeur, et en automatique chaque mois. Détection : écart entre la matrice de flux et le résultat du scan.
+{: .callout .callout-attention}
 
-⚠️ **IMDSv1 autorisé sur des instances qui hébergent des applications web.** Conséquence : une SSRF suffit pour voler les identifiants du rôle, souvent bien plus larges que l'application. Correction : `http-tokens required` et rôle à moindre privilège. Détection : Prowler ou ScoutSuite signalent les instances en IMDSv1 ; AWS Config propose aussi une règle gérée dédiée.
+> ⚠️ **IMDSv1 autorisé sur des instances qui hébergent des applications web.** Conséquence : une SSRF suffit pour voler les identifiants du rôle, souvent bien plus larges que l'application. Correction : `http-tokens required` et rôle à moindre privilège. Détection : Prowler ou ScoutSuite signalent les instances en IMDSv1 ; AWS Config propose aussi une règle gérée dédiée.
+{: .callout .callout-attention}
 
-⚠️ **Zero Trust avec un PDP unique et sans compte de secours.** Conséquence : une panne de l'IdP bloque tout le monde, y compris ceux qui doivent le réparer. Correction : IdP en haute disponibilité, deux comptes break-glass hors du chemin normal, alertés à chaque usage, avec test semestriel.
+> ⚠️ **Zero Trust avec un PDP unique et sans compte de secours.** Conséquence : une panne de l'IdP bloque tout le monde, y compris ceux qui doivent le réparer. Correction : IdP en haute disponibilité, deux comptes break-glass hors du chemin normal, alertés à chaque usage, avec test semestriel.
+{: .callout .callout-attention}
 
 ---
 

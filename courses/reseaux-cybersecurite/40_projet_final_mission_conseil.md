@@ -63,7 +63,8 @@ La fiche de cadrage tient sur deux pages et contient :
 | Livrables | Rapport, synthèse exécutive, support de restitution, registre de risques |
 | Critère d'acceptation | Chaque constat est reproductible par la DSI à partir du rapport seul |
 
-⚠️ **Piège : le périmètre qui glisse.** En cours de mission, la direction demande « et vous pouvez aussi regarder la messagerie ? ». Si vous dites oui sans avenant, vous perdez le contrôle du budget et de la qualité. La réponse correcte est : « C'est pertinent, voici l'effort supplémentaire et ce qu'on retire ou décale. »
+> ⚠️ **Piège : le périmètre qui glisse.** En cours de mission, la direction demande « et vous pouvez aussi regarder la messagerie ? ». Si vous dites oui sans avenant, vous perdez le contrôle du budget et de la qualité. La réponse correcte est : « C'est pertinent, voici l'effort supplémentaire et ce qu'on retire ou décale. »
+{: .callout .callout-attention}
 
 Le déroulé standard d'une mission de dix jours (durées illustratives) :
 
@@ -120,7 +121,8 @@ Registre de risques de Transvia (échelles 1 à 5, valeurs illustratives, que vo
 | R3 | Indisponibilité de l'ERP (défaillance matérielle) sans restauration éprouvée | 3 | 4 | 12 |
 | R4 | Fuite de données clients via secrets stockés dans les partages | 3 | 3 | 9 |
 
-💡 **Astuce** : demandez au directeur de l'entrepôt combien coûte une journée d'arrêt. Cette seule réponse (par exemple « environ 40 000 € de commandes retardées et de pénalités ») justifie plus de budget sécurité que dix slides techniques.
+> 💡 **Astuce** : demandez au directeur de l'entrepôt combien coûte une journée d'arrêt. Cette seule réponse (par exemple « environ 40 000 € de commandes retardées et de pénalités ») justifie plus de budget sécurité que dix slides techniques.
+{: .callout .callout-astuce}
 
 ---
 
@@ -130,7 +132,8 @@ Les contrôles servent à prouver ou à infirmer les scénarios du registre, pas
 
 ### Réseau : signature SMB et exposition héritée
 
-🔴 **Vecteur d'attaque.** Quand la signature SMB n'est pas exigée, un attaquant en position réseau utilise la coercition d'authentification ou l'empoisonnement LLMNR/NBT-NS (outil : Responder), puis relaie les authentifications NTLM avec `ntlmrelayx` d'Impacket vers un serveur qui accepte sans signature. Il obtient une session sans jamais casser un mot de passe.
+> 🔴 **Vecteur d'attaque.** Quand la signature SMB n'est pas exigée, un attaquant en position réseau utilise la coercition d'authentification ou l'empoisonnement LLMNR/NBT-NS (outil : Responder), puis relaie les authentifications NTLM avec `ntlmrelayx` d'Impacket vers un serveur qui accepte sans signature. Il obtient une session sans jamais casser un mot de passe.
+{: .callout .callout-danger}
 
 ```bash
 nmap -p445 --script smb2-security-mode,smb-vuln-ms17-010 <HOST>
@@ -140,7 +143,8 @@ Le message « Message signing enabled but not required » est le constat à rele
 
 ### Active Directory : où se cache l'élévation de privilèges
 
-🧠 **Concept clé : le Kerberoasting.** N'importe quel utilisateur du domaine peut demander un ticket de service (TGS) pour tout compte possédant un SPN. Ce ticket est chiffré avec une clé dérivée du mot de passe du compte de service. L'attaquant le récupère (`GetUserSPNs.py`, Rubeus), l'emporte hors ligne et le casse avec hashcat (mode 13100 pour RC4). Aucune alerte n'est déclenchée côté réseau, et un mot de passe de 10 caractères tombe en heures ou en jours selon le matériel.
+> 🧠 **Concept clé : le Kerberoasting.** N'importe quel utilisateur du domaine peut demander un ticket de service (TGS) pour tout compte possédant un SPN. Ce ticket est chiffré avec une clé dérivée du mot de passe du compte de service. L'attaquant le récupère (`GetUserSPNs.py`, Rubeus), l'emporte hors ligne et le casse avec hashcat (mode 13100 pour RC4). Aucune alerte n'est déclenchée côté réseau, et un mot de passe de 10 caractères tombe en heures ou en jours selon le matériel.
+{: .callout .callout-important}
 
 Côté défenseur, on énumère les mêmes cibles avec un compte standard :
 
@@ -196,7 +200,8 @@ Chaque constat porte une preuve horodatée que la DSI peut rejouer. Conservez le
 sha256sum evidence/* > evidence/SHA256SUMS
 ```
 
-⚠️ **Erreur fréquente** : la capture d'écran sans commande, sans horodatage et sans identité de l'hôte testé. Six mois plus tard, personne ne peut la reproduire ni la contester.
+> ⚠️ **Erreur fréquente** : la capture d'écran sans commande, sans horodatage et sans identité de l'hôte testé. Six mois plus tard, personne ne peut la reproduire ni la contester.
+{: .callout .callout-attention}
 
 ---
 
@@ -255,7 +260,8 @@ Ce que vous mesurez pendant l'exercice :
 - **Délai de décision de containment** : qui a le droit d'isoler un serveur de production, et en combien de temps le sait-on ?
 - **Qualité de la communication** : la direction apprend-elle l'incident par la DSI ou par un client ?
 
-💡 **Astuce** : l'étape 5 est la plus rentable à tester. `vssadmin delete shadows` est utilisée par de nombreux ransomwares avant le chiffrement. Si votre exercice ne génère aucune alerte à ce stade, vous disposez d'un exemple parlant pour la restitution.
+> 💡 **Astuce** : l'étape 5 est la plus rentable à tester. `vssadmin delete shadows` est utilisée par de nombreux ransomwares avant le chiffrement. Si votre exercice ne génère aucune alerte à ce stade, vous disposez d'un exemple parlant pour la restitution.
+{: .callout .callout-astuce}
 
 ---
 
@@ -303,7 +309,8 @@ Plan Transvia (efforts en jours-homme et coûts illustratifs, avec une hypothès
 
 Total : 63 J/H, soit environ 44 000 € hors licences. Précisez toujours les hypothèses sous un chiffre, sinon il ne vaut rien : « sous réserve que l'éditeur de l'ERP valide le changement de compte en moins de 5 jours ».
 
-🔒 **Contrôle de sécurité** : sur le dépôt de sauvegarde, le mode « ajout uniquement » casse la chaîne d'attaque du ransomware. Exemple avec rest-server pour restic :
+> 🔒 **Contrôle de sécurité** : sur le dépôt de sauvegarde, le mode « ajout uniquement » casse la chaîne d'attaque du ransomware. Exemple avec rest-server pour restic :
+{: .callout .callout-securite}
 
 ```bash
 # Avant : dépôt modifiable par tout client authentifié
@@ -393,30 +400,40 @@ Leçons à retenir :
 
 ## Erreurs fréquentes
 
-⚠️ **Livrer l'export du scanner comme rapport.**
-- *Configuration dangereuse* : joindre le PDF du scanner en annexe unique, sans tri.
-- *Conséquence* : la DSI ne sait pas par où commencer, la direction ne comprend rien, et la mission est perçue comme un coût sans décision.
-- *Correction* : regrouper par scénario de risque, garder les constats qui alimentent le registre, renvoyer le reste en annexe d'hygiène. Contrôle : chaque constat du rapport renvoie à un risque `R<N>`.
+> ⚠️ **Livrer l'export du scanner comme rapport.**
+>
+> - *Configuration dangereuse* : joindre le PDF du scanner en annexe unique, sans tri.
+> - *Conséquence* : la DSI ne sait pas par où commencer, la direction ne comprend rien, et la mission est perçue comme un coût sans décision.
+> - *Correction* : regrouper par scénario de risque, garder les constats qui alimentent le registre, renvoyer le reste en annexe d'hygiène. Contrôle : chaque constat du rapport renvoie à un risque `R<N>`.
+{: .callout .callout-attention}
 
-⚠️ **Tester sans autorisation écrite ni règles d'engagement.**
-- *Configuration dangereuse* : un accord oral du responsable informatique, sans périmètre ni fenêtre.
-- *Conséquence* : un scan de port fait tomber un automate d'entrepôt, personne ne sait qui a lancé quoi, et vous n'avez aucune protection juridique.
-- *Correction* : RoE signées avant toute action, liste des hôtes interdits, contact joignable pendant les tests. Même en laboratoire, prenez l'habitude de le faire.
+> ⚠️ **Tester sans autorisation écrite ni règles d'engagement.**
+>
+> - *Configuration dangereuse* : un accord oral du responsable informatique, sans périmètre ni fenêtre.
+> - *Conséquence* : un scan de port fait tomber un automate d'entrepôt, personne ne sait qui a lancé quoi, et vous n'avez aucune protection juridique.
+> - *Correction* : RoE signées avant toute action, liste des hôtes interdits, contact joignable pendant les tests. Même en laboratoire, prenez l'habitude de le faire.
+{: .callout .callout-attention}
 
-⚠️ **Valider la sauvegarde par le statut du job.**
-- *Configuration dangereuse* : se fier au « succès » de l'outil de sauvegarde, sur un dépôt accessible avec les identifiants du domaine.
-- *Conséquence* : en cas d'incident, la restauration échoue ou prend trois fois plus longtemps que prévu, et les sauvegardes sont chiffrées avec le reste.
-- *Correction* : test de restauration chronométré sur une autre machine, `restic check --read-data` ou équivalent, dépôt hors domaine en mode ajout uniquement.
+> ⚠️ **Valider la sauvegarde par le statut du job.**
+>
+> - *Configuration dangereuse* : se fier au « succès » de l'outil de sauvegarde, sur un dépôt accessible avec les identifiants du domaine.
+> - *Conséquence* : en cas d'incident, la restauration échoue ou prend trois fois plus longtemps que prévu, et les sauvegardes sont chiffrées avec le reste.
+> - *Correction* : test de restauration chronométré sur une autre machine, `restic check --read-data` ou équivalent, dépôt hors domaine en mode ajout uniquement.
+{: .callout .callout-attention}
 
-⚠️ **Confondre sévérité technique et risque.**
-- *Configuration dangereuse* : classer les constats par CVSS seul.
-- *Conséquence* : on corrige d'abord ce qui est bruyant plutôt que ce qui ouvre le chemin vers l'ERP.
-- *Correction* : chaque constat porte un risque associé et un impact métier chiffré. Le rapport indique la sévérité technique et le niveau de risque séparément.
+> ⚠️ **Confondre sévérité technique et risque.**
+>
+> - *Configuration dangereuse* : classer les constats par CVSS seul.
+> - *Conséquence* : on corrige d'abord ce qui est bruyant plutôt que ce qui ouvre le chemin vers l'ERP.
+> - *Correction* : chaque constat porte un risque associé et un impact métier chiffré. Le rapport indique la sévérité technique et le niveau de risque séparément.
+{: .callout .callout-attention}
 
-⚠️ **Chiffrer l'effort sans hypothèses.**
-- *Configuration dangereuse* : « Segmentation : 15 J/H » sans mention de la dépendance à l'éditeur de l'ERP ni de la fenêtre de maintenance.
-- *Conséquence* : le chiffre double au premier obstacle et vous perdez votre crédibilité.
-- *Correction* : chaque estimation s'accompagne de ses hypothèses, de ses dépendances et d'une fourchette (« 12 à 18 J/H »).
+> ⚠️ **Chiffrer l'effort sans hypothèses.**
+>
+> - *Configuration dangereuse* : « Segmentation : 15 J/H » sans mention de la dépendance à l'éditeur de l'ERP ni de la fenêtre de maintenance.
+> - *Conséquence* : le chiffre double au premier obstacle et vous perdez votre crédibilité.
+> - *Correction* : chaque estimation s'accompagne de ses hypothèses, de ses dépendances et d'une fourchette (« 12 à 18 J/H »).
+{: .callout .callout-attention}
 
 ---
 

@@ -78,7 +78,8 @@ Les deux familles partagent le même modèle de base : un noyau en mode privilé
 | Journaux | `journald`, fichiers `/var/log`, `auditd` | Journaux d'événements (Security, System, Application) |
 | Configuration centralisée | Outils externes (Ansible, Puppet…) | GPO via Active Directory, Intune pour le cloud |
 
-🧠 **Concept clé** : sous Windows, le droit d'agir ne dépend pas seulement de l'appartenance à un groupe, mais aussi des **privilèges** présents dans le jeton du processus. Un compte non administrateur qui possède `SeImpersonatePrivilege` peut souvent atteindre SYSTEM. Auditer les groupes ne suffit donc pas.
+> 🧠 **Concept clé** : sous Windows, le droit d'agir ne dépend pas seulement de l'appartenance à un groupe, mais aussi des **privilèges** présents dans le jeton du processus. Un compte non administrateur qui possède `SeImpersonatePrivilege` peut souvent atteindre SYSTEM. Auditer les groupes ne suffit donc pas.
+{: .callout .callout-important}
 
 ## Comptes, groupes et privilèges : de l'accès local à l'administration complète
 
@@ -103,11 +104,13 @@ whoami /groups
 net localgroup administrators
 ```
 
-🔴 **Vecteur d'attaque** : un attaquant qui compromet un pool d'applications IIS ou un compte SQL Server hérite souvent de `SeImpersonatePrivilege`. Avec PrintSpoofer ou GodPotato, il fait authentifier un service SYSTEM auprès de son processus et récupère un jeton SYSTEM. Le compte n'est pas administrateur, mais il suffit.
+> 🔴 **Vecteur d'attaque** : un attaquant qui compromet un pool d'applications IIS ou un compte SQL Server hérite souvent de `SeImpersonatePrivilege`. Avec PrintSpoofer ou GodPotato, il fait authentifier un service SYSTEM auprès de son processus et récupère un jeton SYSTEM. Le compte n'est pas administrateur, mais il suffit.
+{: .callout .callout-danger}
 
 ### Côté défense
 
-🔒 **Contrôle de sécurité** : le principe de moindre privilège se traduit en actions précises.
+> 🔒 **Contrôle de sécurité** : le principe de moindre privilège se traduit en actions précises.
+{: .callout .callout-securite}
 
 - **Un compte par usage.** L'administrateur a un compte standard pour la messagerie et un compte distinct pour l'administration. Cela coûte un second mot de passe et un peu de friction, et supprime le cas où un phishing atterrit sur une session privilégiée.
 - **`sudo` ciblé.** Ne jamais autoriser un éditeur, un interpréteur ou un outil capable de lancer un shell. Écrire une règle précise par commande dans `/etc/sudoers.d/` et valider avant de quitter.
@@ -128,9 +131,11 @@ Exemple de règle `sudo` restreinte :
 sudo visudo -cf /etc/sudoers.d/ops-nginx
 ```
 
-⚠️ **Erreur fréquente : le compte de service ajouté à un groupe puissant « pour que ça marche ».** Conséquence : toute machine où ce compte ouvre une session devient un point d'entrée vers l'administration du domaine. Correction : lister les droits réellement nécessaires. Une sauvegarde a besoin de lire des fichiers, pas de gérer l'annuaire. Sous Windows, ce besoin passe par des droits délégués limités aux serveurs sauvegardés (par exemple le groupe local *Backup Operators* d'un serveur membre), pas par Domain Admins. Sur un contrôleur de domaine, *Backup Operators* donne `SeBackupPrivilege`, qui permet de lire NTDS.dit : ce groupe y équivaut alors à une administration du domaine.
+> ⚠️ **Erreur fréquente : le compte de service ajouté à un groupe puissant « pour que ça marche ».** Conséquence : toute machine où ce compte ouvre une session devient un point d'entrée vers l'administration du domaine. Correction : lister les droits réellement nécessaires. Une sauvegarde a besoin de lire des fichiers, pas de gérer l'annuaire. Sous Windows, ce besoin passe par des droits délégués limités aux serveurs sauvegardés (par exemple le groupe local *Backup Operators* d'un serveur membre), pas par Domain Admins. Sur un contrôleur de domaine, *Backup Operators* donne `SeBackupPrivilege`, qui permet de lire NTDS.dit : ce groupe y équivaut alors à une administration du domaine.
+{: .callout .callout-attention}
 
-💡 **Astuce** : pour auditer les comptes à UID 0 sur Linux, `awk -F: '($3==0){print $1}' /etc/passwd`. Tout résultat autre que `root` mérite une explication immédiate.
+> 💡 **Astuce** : pour auditer les comptes à UID 0 sur Linux, `awk -F: '($3==0){print $1}' /etc/passwd`. Tout résultat autre que `root` mérite une explication immédiate.
+{: .callout .callout-astuce}
 
 ## Active Directory : domaine, annuaire et GPO
 
@@ -158,15 +163,18 @@ Trois conséquences pratiques :
 2. **Domain Admins est un groupe de domaine entier.** Un membre est administrateur de chaque machine jointe. Le groupe doit rester presque vide en temps normal. Enterprise Admins et Schema Admins sont plus larges encore.
 3. **Une GPO est un mécanisme de déploiement.** Elle s'applique par héritage (site, domaine, OU) et les machines la récupèrent régulièrement. Quelqu'un qui peut modifier une GPO peut exécuter du code sur toutes les machines qu'elle touche.
 
-🔴 **Vecteur d'attaque** : l'outil SharpGPOAbuse ajoute une tâche planifiée immédiate ou un script de démarrage à une GPO modifiable. Aucune vulnérabilité n'est utilisée, uniquement un droit d'écriture trop généreux sur l'objet GPO, souvent hérité d'une délégation ancienne. BloodHound cartographie justement ces chemins d'attaque (qui peut modifier quoi).
+> 🔴 **Vecteur d'attaque** : l'outil SharpGPOAbuse ajoute une tâche planifiée immédiate ou un script de démarrage à une GPO modifiable. Aucune vulnérabilité n'est utilisée, uniquement un droit d'écriture trop généreux sur l'objet GPO, souvent hérité d'une délégation ancienne. BloodHound cartographie justement ces chemins d'attaque (qui peut modifier quoi).
+{: .callout .callout-danger}
 
-🔴 **Vecteur d'attaque, version historique** : avant le correctif MS14-025, les *Group Policy Preferences* permettaient de définir un mot de passe d'administrateur local dans une GPO. Il était chiffré en AES, mais la clé a été publiée par Microsoft. Le fichier XML (`cpassword`) est lisible par tout utilisateur du domaine dans SYSVOL. Beaucoup d'environnements anciens en contiennent encore des restes. Vérification :
+> 🔴 **Vecteur d'attaque, version historique** : avant le correctif MS14-025, les *Group Policy Preferences* permettaient de définir un mot de passe d'administrateur local dans une GPO. Il était chiffré en AES, mais la clé a été publiée par Microsoft. Le fichier XML (`cpassword`) est lisible par tout utilisateur du domaine dans SYSVOL. Beaucoup d'environnements anciens en contiennent encore des restes. Vérification :
+{: .callout .callout-danger}
 
 ```powershell
 findstr /S /I cpassword \\<DOMAINE>\sysvol\<DOMAINE>\policies\*.xml
 ```
 
-🔒 **Contrôle de sécurité** : côté défense, les actions concrètes sont les suivantes.
+> 🔒 **Contrôle de sécurité** : côté défense, les actions concrètes sont les suivantes.
+{: .callout .callout-securite}
 
 - Lister régulièrement les membres des groupes à privilèges : `Get-ADGroupMember "Domain Admins" -Recursive`.
 - Auditer qui peut modifier les GPO, surtout celles liées à la racine du domaine ou à l'OU des DC. Le droit « Edit settings » ne devrait appartenir qu'à un petit groupe d'administrateurs.
@@ -237,13 +245,15 @@ sudo augenrules --load
 sudo ausearch -k identity -ts today
 ```
 
-⚠️ Journaliser chaque `execve` de l'espace utilisateur donne une vision précieuse, mais génère un volume important sur un serveur actif. Sur un serveur de production, commencer par les fichiers d'identité et les exécutions de root, puis élargir en mesurant l'impact disque et CPU.
+> ⚠️ Journaliser chaque `execve` de l'espace utilisateur donne une vision précieuse, mais génère un volume important sur un serveur actif. Sur un serveur de production, commencer par les fichiers d'identité et les exécutions de root, puis élargir en mesurant l'impact disque et CPU.
+{: .callout .callout-attention}
 
-🔒 **Contrôle de détection** : trois règles à valeur immédiate, quel que soit l'outil de corrélation :
-
-- Événement 1102 ou 104 : alerte immédiate.
-- 4728/4732/4756 sur un groupe privilégié en dehors d'une fenêtre de changement : alerte.
-- Commande contenant `vssadmin delete shadows`, `wbadmin delete catalog` ou `bcdedit ... recoveryenabled no` dans les événements 4688 : alerte critique, c'est le geste habituel qui précède un chiffrement.
+> 🔒 **Contrôle de détection** : trois règles à valeur immédiate, quel que soit l'outil de corrélation :
+>
+> - Événement 1102 ou 104 : alerte immédiate.
+> - 4728/4732/4756 sur un groupe privilégié en dehors d'une fenêtre de changement : alerte.
+> - Commande contenant `vssadmin delete shadows`, `wbadmin delete catalog` ou `bcdedit ... recoveryenabled no` dans les événements 4688 : alerte critique, c'est le geste habituel qui précède un chiffrement.
+{: .callout .callout-securite}
 
 ## Mises à jour, correctifs et durcissement
 
@@ -310,7 +320,8 @@ systemd-analyze security <SERVICE>
 
 Le coût : un service qui écrit ailleurs que prévu échouera. Il faut tester, lire `journalctl -u <SERVICE>` et ajuster `ReadWritePaths`.
 
-⚠️ **Erreur fréquente : durcir à la main, serveur par serveur.** Conséquence : dérive de configuration, une machine « oubliée » ouvre la porte. Correction : porter le durcissement dans une GPO, un rôle Ansible ou une image de base, et mesurer l'écart avec un outil d'audit (voir section tests).
+> ⚠️ **Erreur fréquente : durcir à la main, serveur par serveur.** Conséquence : dérive de configuration, une machine « oubliée » ouvre la porte. Correction : porter le durcissement dans une GPO, un rôle Ansible ou une image de base, et mesurer l'écart avec un outil d'audit (voir section tests).
+{: .callout .callout-attention}
 
 ## Sauvegardes et restauration : ce qui reste quand le reste est chiffré
 
@@ -336,7 +347,8 @@ restic restore latest --target /tmp/restore-test --include /etc/nginx
 
 Sous Windows Server, la sauvegarde de l'état du système d'un DC peut s'obtenir avec `wbadmin start systemstatebackup -backupTarget:<LECTEUR>:` (l'outil disponible dépend de la version et du rôle installé).
 
-💡 **Astuce** : planifier un test de restauration trimestriel d'un système réel, avec chronométrage, et comparer le résultat au RTO annoncé. L'écart est presque toujours désagréable, et il vaut mieux le découvrir un mardi.
+> 💡 **Astuce** : planifier un test de restauration trimestriel d'un système réel, avec chronométrage, et comparer le résultat au RTO annoncé. L'écart est presque toujours désagréable, et il vaut mieux le découvrir un mardi.
+{: .callout .callout-astuce}
 
 ## Tester ce qui a été mis en place
 
@@ -389,27 +401,39 @@ Aucune ligne n'exige un produit exotique. Chacune demande une décision de prior
 
 ## Erreurs fréquentes
 
-⚠️ **`NOPASSWD: ALL` dans sudoers pour un groupe entier.**
+> ⚠️ **`NOPASSWD: ALL` dans sudoers pour un groupe entier.**
+{: .callout .callout-attention}
+
 Conséquence : n'importe quel compte du groupe compromis devient root sans friction ni trace d'authentification supplémentaire.
 Correction : règles par commande exacte dans `/etc/sudoers.d/`, sans éditeur ni interpréteur. Détecter avec `sudo -l -U <UTILISATEUR>` et `grep -r NOPASSWD /etc/sudoers /etc/sudoers.d/`.
 
-⚠️ **Compte de service avec un mot de passe statique et des droits de domaine.**
+> ⚠️ **Compte de service avec un mot de passe statique et des droits de domaine.**
+{: .callout .callout-attention}
+
 Conséquence : le mot de passe se retrouve dans un script, un fichier de config ou un partage, et le compte ouvre des sessions partout.
 Correction : gMSA quand l'application le supporte, sinon mot de passe long dans un coffre avec rotation, et droits limités. Rechercher : `Get-ADUser -Filter {ServicePrincipalName -ne "$null"} -Properties MemberOf`.
 
-⚠️ **Journal Security à 20 Mo sur un contrôleur de domaine.**
+> ⚠️ **Journal Security à 20 Mo sur un contrôleur de domaine.**
+{: .callout .callout-attention}
+
 Conséquence : les événements sont écrasés en quelques heures, une investigation ne trouve rien avant le jour de l'alerte.
 Correction : augmenter la taille, centraliser les journaux. Vérifier : `wevtutil gl Security` (champ `maxSize`).
 
-⚠️ **Sauvegardes sur un partage accessible par le compte d'administration du domaine.**
+> ⚠️ **Sauvegardes sur un partage accessible par le compte d'administration du domaine.**
+{: .callout .callout-attention}
+
 Conséquence : le ransomware chiffre aussi les sauvegardes, ou un attaquant les supprime.
 Correction : copie immuable ou hors domaine, compte de suppression distinct. Test simple : depuis un poste admin du domaine, tenter de supprimer un fichier de sauvegarde ; si ça marche, l'attaquant le pourra aussi.
 
-⚠️ **Appliquer un benchmark CIS Level 2 sur tout le parc en une fois.**
+> ⚠️ **Appliquer un benchmark CIS Level 2 sur tout le parc en une fois.**
+{: .callout .callout-attention}
+
 Conséquence : applications métier cassées, désactivation des règles « pour que ça marche », durcissement abandonné.
 Correction : démarrer par Level 1, mode audit, anneau pilote, exceptions documentées.
 
-⚠️ **Admin local au mot de passe identique sur tous les postes.**
+> ⚠️ **Admin local au mot de passe identique sur tous les postes.**
+{: .callout .callout-attention}
+
 Conséquence : un seul poste compromis donne l'accès administrateur à tous les autres.
 Correction : LAPS. Détecter en comparant les hachages des comptes locaux lors d'un audit autorisé, ou simplement en demandant au support comment il se connecte en urgence.
 

@@ -64,7 +64,8 @@ On distingue généralement quatre rôles. Ils ne cherchent pas la même chose, 
 | DevOps / SRE | « Quelle ressource sature, quel changement a tout déclenché ? » | Saturation, files d'attente, déploiements, état du cluster, liens vers logs et traces | Pendant les incidents et la capacité |
 | Développeur | « Mon service se comporte-t-il bien après mon déploiement ? » | Latence par endpoint, erreurs par version, requêtes lentes, logs filtrés | Après chaque mise en production |
 
-🧠 **Concept clé** — Le rôle détermine le niveau d'abstraction. Le NOC lit des états (OK / dégradé / en panne), le développeur lit des distributions et des endpoints. Mélanger les deux dans un même écran force chacun à ignorer 80 % de ce qu'il voit.
+> 🧠 **Concept clé** — Le rôle détermine le niveau d'abstraction. Le NOC lit des états (OK / dégradé / en panne), le développeur lit des distributions et des endpoints. Mélanger les deux dans un même écran force chacun à ignorer 80 % de ce qu'il voit.
+{: .callout .callout-important}
 
 Cela ne veut pas dire quatre silos de données. Les mêmes sources alimentent les mêmes séries ; seul l'angle change. Si le NOC et le développeur voient des chiffres différents pour « le taux d'erreur du checkout », vous avez un problème de définition, pas de dashboard (on y revient dans la section sur la standardisation).
 
@@ -92,7 +93,8 @@ flowchart TD
 
 Au niveau Service, on retrouve souvent la méthode RED (Rate, Errors, Duration) : débit, erreurs et latence vues du côté de l'utilisateur. Au niveau Resource, c'est plutôt USE (Utilization, Saturation, Errors) : taux d'utilisation, saturation et erreurs d'une ressource. Les deux méthodes se complètent : RED dit *que* le service souffre, USE aide à comprendre *quelle ressource* en est la cause.
 
-💡 **Astuce** — Nommez et rangez vos dashboards pour refléter ce niveau : un dossier par domaine, un préfixe ou un tag par niveau (`level:overview`, `level:service`, `level:resource`). Le jour où l'astreinte cherche « le dashboard de la base de données du checkout », la recherche Grafana par tag fait gagner plusieurs minutes.
+> 💡 **Astuce** — Nommez et rangez vos dashboards pour refléter ce niveau : un dossier par domaine, un préfixe ou un tag par niveau (`level:overview`, `level:service`, `level:resource`). Le jour où l'astreinte cherche « le dashboard de la base de données du checkout », la recherche Grafana par tag fait gagner plusieurs minutes.
+{: .callout .callout-astuce}
 
 Le niveau Overview mérite une attention particulière : il doit tenir sur un écran sans scroll. Si vous avez trente services, groupez-les (par domaine métier ou par équipe) plutôt que de créer un mur de trente cartes.
 
@@ -147,7 +149,8 @@ histogram_quantile(0.95,
 
 Je ne détaille pas ici le fonctionnement de ces fonctions (c'est le terrain du module PromQL opérationnel). Retenez l'intention : chaque panel du bandeau supérieur doit afficher un KPI, jamais un compteur brut.
 
-⚠️ **Erreur fréquente** — Construire le dashboard à partir de la liste des métriques disponibles dans Prometheus (« tiens, il y a cette métrique, je l'ajoute »). On obtient une collection de graphiques sans question sous-jacente. **Correction** : partez de la question (« les paiements passent-ils ? »), puis cherchez la métrique qui y répond. Si elle n'existe pas, c'est une information précieuse : un trou d'instrumentation à combler.
+> ⚠️ **Erreur fréquente** — Construire le dashboard à partir de la liste des métriques disponibles dans Prometheus (« tiens, il y a cette métrique, je l'ajoute »). On obtient une collection de graphiques sans question sous-jacente. **Correction** : partez de la question (« les paiements passent-ils ? »), puis cherchez la métrique qui y répond. Si elle n'existe pas, c'est une information précieuse : un trou d'instrumentation à combler.
+{: .callout .callout-attention}
 
 Les métriques brutes ne disparaissent pas pour autant. Elles ont leur place en bas de dashboard, dans les rows repliées ou dans Explore, pour le diagnostic fin. Elles ne doivent juste pas occuper la zone de lecture principale.
 
@@ -167,7 +170,8 @@ Ici, `var-service` renseigne la variable du dashboard cible avec la valeur de la
 
 Le même principe permet de sauter vers le niveau « preuve » : depuis un panel de latence, un data link vers Explore avec une requête Loki préfiltrée sur le service, ou vers Tempo pour les traces lentes sur la même période (le fonctionnement de Tempo est couvert dans le module précédent, ici on ne fait que le brancher).
 
-💡 **Astuce** — Testez vos liens comme un utilisateur sous pression : à partir de l'Overview, combien de clics pour arriver aux logs du service fautif, avec la bonne période et le bon filtre ? Au-delà de 3 clics ou si l'on doit retaper un nom de service, le parcours est à reprendre.
+> 💡 **Astuce** — Testez vos liens comme un utilisateur sous pression : à partir de l'Overview, combien de clics pour arriver aux logs du service fautif, avec la bonne période et le bon filtre ? Au-delà de 3 clics ou si l'on doit retaper un nom de service, le parcours est à reprendre.
+{: .callout .callout-astuce}
 
 Un détail qui évite bien des frustrations : les variables d'un dashboard (`$service`, `$env`) doivent porter **le même nom** d'un dashboard à l'autre. Si l'Overview envoie `var-service` et que le dashboard Service attend `var-app`, le lien fonctionne… mais la variable transmise est ignorée et le dashboard cible garde sa valeur par défaut ou mémorisée, pas le service cliqué.
 
@@ -185,7 +189,8 @@ Voici ce qu'il faut figer dans une convention d'équipe :
 
 Ces réglages se trouvent dans l'éditeur de panel, onglet *Standard options* (unité, décimales, min/max) et *Thresholds*. L'organisation exacte des menus évolue selon les versions, mais ces blocs existent partout.
 
-⚠️ **Erreur fréquente** — Fixer le seuil rouge d'un panel de latence à une valeur arbitraire, par exemple 500 ms, sur tous les services. Un service batch qui répond en 2 s par conception sera rouge en permanence, et l'équipe finira par ignorer cette couleur. **Correction** : un seuil se définit par service, à partir de ce qui est acceptable pour son utilisateur, ou se pilote par variable/override si le même panel est réutilisé.
+> ⚠️ **Erreur fréquente** — Fixer le seuil rouge d'un panel de latence à une valeur arbitraire, par exemple 500 ms, sur tous les services. Un service batch qui répond en 2 s par conception sera rouge en permanence, et l'équipe finira par ignorer cette couleur. **Correction** : un seuil se définit par service, à partir de ce qui est acceptable pour son utilisateur, ou se pilote par variable/override si le même panel est réutilisé.
+{: .callout .callout-attention}
 
 ## Annotations : donner la mémoire du temps à vos graphiques
 
@@ -253,7 +258,8 @@ C'est le défaut le plus répandu, et il se repère vite.
 
 Un test rapide : montrez le dashboard à quelqu'un qui n'est pas son auteur, pendant dix secondes, puis cachez l'écran. S'il ne sait pas dire si le service va bien ni quoi faire ensuite, le dashboard est à revoir.
 
-⚠️ **Erreur fréquente** — Ajouter un panel à chaque incident « pour ne plus se faire avoir ». Au bout d'un an, le dashboard est un cimetière de post-mortems. **Correction** : après un incident, demandez-vous si l'information manquante doit devenir un KPI (dans le bandeau), un détail (dans une row repliée) ou une alerte (ce qui relève du module sur Grafana Alerting). Beaucoup de leçons d'incident ne méritent pas un panel.
+> ⚠️ **Erreur fréquente** — Ajouter un panel à chaque incident « pour ne plus se faire avoir ». Au bout d'un an, le dashboard est un cimetière de post-mortems. **Correction** : après un incident, demandez-vous si l'information manquante doit devenir un KPI (dans le bandeau), un détail (dans une row repliée) ou une alerte (ce qui relève du module sur Grafana Alerting). Beaucoup de leçons d'incident ne méritent pas un panel.
+{: .callout .callout-attention}
 
 ## Scénario illustratif : refonte du parcours de paiement
 

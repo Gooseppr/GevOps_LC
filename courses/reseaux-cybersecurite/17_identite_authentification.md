@@ -51,7 +51,8 @@ Ce module détaille chaque maillon de cette chaîne.
 
 ## Trois questions, trois mécanismes différents
 
-🧠 **Concept clé** : un système d'accès répond à trois questions successives, et chacune a ses propres failles.
+> 🧠 **Concept clé** : un système d'accès répond à trois questions successives, et chacune a ses propres failles.
+{: .callout .callout-important}
 
 | Question | Nom | Mécanisme typique | Où ça casse |
 |---|---|---|---|
@@ -86,9 +87,11 @@ Les acteurs les plus probables sont des opérateurs de ransomware ou des courtie
 
 Deux techniques dominent, et elles n'ont rien de sophistiqué.
 
-🔴 **Vecteur d'attaque : credential stuffing.** L'attaquant rejoue des couples login/mot de passe issus de fuites sur d'autres sites. Il compte sur la réutilisation. Des outils d'automatisation comme OpenBullet existent pour ça, et le trafic ressemble à des connexions normales réparties sur des milliers d'adresses IP.
+> 🔴 **Vecteur d'attaque : credential stuffing.** L'attaquant rejoue des couples login/mot de passe issus de fuites sur d'autres sites. Il compte sur la réutilisation. Des outils d'automatisation comme OpenBullet existent pour ça, et le trafic ressemble à des connexions normales réparties sur des milliers d'adresses IP.
+{: .callout .callout-danger}
 
-🔴 **Vecteur d'attaque : password spraying.** À l'inverse du brute force classique, on teste **un seul** mot de passe plausible (`Printemps2025!`, `<Entreprise>2025`) contre **tous** les comptes. Le verrouillage après 5 échecs par compte ne se déclenche jamais. Des outils comme Kerbrute (`passwordspray`) ou MSOLSpray font ça sur Kerberos ou sur Microsoft 365.
+> 🔴 **Vecteur d'attaque : password spraying.** À l'inverse du brute force classique, on teste **un seul** mot de passe plausible (`Printemps2025!`, `<Entreprise>2025`) contre **tous** les comptes. Le verrouillage après 5 échecs par compte ne se déclenche jamais. Des outils comme Kerbrute (`passwordspray`) ou MSOLSpray font ça sur Kerberos ou sur Microsoft 365.
+{: .callout .callout-danger}
 
 La recommandation du NIST (SP 800-63B) est à l'opposé de nombreuses politiques d'entreprise : privilégier la longueur plutôt que les règles de composition, comparer les mots de passe choisis à des listes de mots de passe compromis, et ne pas imposer de rotation périodique sans soupçon de compromission. La rotation forcée pousse les utilisateurs à incrémenter un suffixe, ce qui est exactement ce que le spraying exploite. La contrepartie est un coût d'intégration : brancher un contrôle de listes compromises (par exemple via un filtre de mots de passe AD ou un service tiers) demande un projet, pas un simple réglage.
 
@@ -102,7 +105,8 @@ La recommandation du NIST (SP 800-63B) est à l'opposé de nombreuses politiques
 | Push avec number matching | Réduit la fatigue, mais pas le relais AiTM | Non |
 | FIDO2 / passkey | Vol de l'appareil, compromission du processus de récupération | **Oui** |
 
-⚠️ **Erreur fréquente** : croire que « MFA activé » est une propriété binaire. Un proxy Evilginx placé entre la victime et le vrai site transmet le mot de passe, puis le code TOTP, puis récupère le cookie de session émis après validation. Le MFA a fonctionné, mais l'attaquant possède la session.
+> ⚠️ **Erreur fréquente** : croire que « MFA activé » est une propriété binaire. Un proxy Evilginx placé entre la victime et le vrai site transmet le mot de passe, puis le code TOTP, puis récupère le cookie de session émis après validation. Le MFA a fonctionné, mais l'attaquant possède la session.
+{: .callout .callout-attention}
 
 ### Passkeys : pourquoi elles changent la donne
 
@@ -110,7 +114,8 @@ Une passkey repose sur WebAuthn (Web Authentication) et FIDO2. À l'inscription,
 
 Sur un faux domaine, l'authentificateur ne trouve aucun credential pour cette origine, et une signature relayée serait invalide pour le vrai site. L'utilisateur ne peut pas se faire piéger, même s'il le veut. C'est ce qui sépare « authentification forte » (au moins deux facteurs différents) de « résistante au phishing ».
 
-🔒 **Contrôle de sécurité** : déployer d'abord des clés FIDO2 ou des passkeys pour les administrateurs et les accès à risque, puis étendre. Cela évite de payer le coût de support pour 800 personnes avant d'avoir sécurisé les 15 comptes qui comptent.
+> 🔒 **Contrôle de sécurité** : déployer d'abord des clés FIDO2 ou des passkeys pour les administrateurs et les accès à risque, puis étendre. Cela évite de payer le coût de support pour 800 personnes avant d'avoir sécurisé les 15 comptes qui comptent.
+{: .callout .callout-securite}
 
 Limites à connaître avant de décider :
 
@@ -118,7 +123,8 @@ Limites à connaître avant de décider :
 - Les passkeys synchronisées déplacent une partie du risque vers le compte du fournisseur de synchronisation.
 - Les applications héritières (protocoles sans navigateur) ne supportent pas WebAuthn et doivent être traitées à part.
 
-💡 **Astuce** : bloquer l'authentification héritière (basic auth sur IMAP, SMTP, certains endpoints Exchange). Elle ne supporte pas le MFA et contourne donc toute politique que vous venez de déployer.
+> 💡 **Astuce** : bloquer l'authentification héritière (basic auth sur IMAP, SMTP, certains endpoints Exchange). Elle ne supporte pas le MFA et contourne donc toute politique que vous venez de déployer.
+{: .callout .callout-astuce}
 
 ## Où vivent les identités : comptes locaux, annuaires, fédération
 
@@ -130,13 +136,17 @@ Quand plusieurs organisations ou applications doivent partager une identité san
 
 ### LDAP : trois façons de le faire mal
 
-🔴 **Vecteur d'attaque : bind anonyme.** Si l'annuaire accepte des requêtes sans authentification, n'importe qui sur le réseau énumère utilisateurs, groupes et attributs. Test : `ldapsearch -x -H ldap://<HOST> -b "<BASE_DN>" "(objectClass=user)"`.
+> 🔴 **Vecteur d'attaque : bind anonyme.** Si l'annuaire accepte des requêtes sans authentification, n'importe qui sur le réseau énumère utilisateurs, groupes et attributs. Test : `ldapsearch -x -H ldap://<HOST> -b "<BASE_DN>" "(objectClass=user)"`.
+{: .callout .callout-danger}
 
-🔴 **Vecteur d'attaque : bind simple sur le port 389.** Le mot de passe transite en clair. Il faut LDAPS (636) ou StartTLS. Dans un domaine AD, l'attaquant peut aussi relayer une authentification NTLM vers LDAP. D'où les réglages de *LDAP signing* et de *channel binding*.
+> 🔴 **Vecteur d'attaque : bind simple sur le port 389.** Le mot de passe transite en clair. Il faut LDAPS (636) ou StartTLS. Dans un domaine AD, l'attaquant peut aussi relayer une authentification NTLM vers LDAP. D'où les réglages de *LDAP signing* et de *channel binding*.
+{: .callout .callout-danger}
 
-🔴 **Vecteur d'attaque : injection LDAP.** Si une application construit un filtre par concaténation, par exemple `(&(uid=<INPUT>)(userPassword=<PWD>))`, une entrée comme `*)(uid=*))(|(uid=*` peut transformer le filtre pour qu'il retourne toujours vrai. La correction est l'échappement des caractères spéciaux (`* ( ) \ NUL`), ou des filtres paramétrés par la bibliothèque.
+> 🔴 **Vecteur d'attaque : injection LDAP.** Si une application construit un filtre par concaténation, par exemple `(&(uid=<INPUT>)(userPassword=<PWD>))`, une entrée comme `*)(uid=*))(|(uid=*` peut transformer le filtre pour qu'il retourne toujours vrai. La correction est l'échappement des caractères spéciaux (`* ( ) \ NUL`), ou des filtres paramétrés par la bibliothèque.
+{: .callout .callout-danger}
 
-🔒 **Contrôle de sécurité** : exiger la signature LDAP côté contrôleur de domaine. Le coût réel est la compatibilité : d'anciens équipements (imprimantes, NAS, applications maison) font du bind simple non signé. Avant de passer en « requis », relever à 2 le niveau de diagnostic « 16 LDAP Interface Events » dans le registre du contrôleur de domaine pour journaliser chaque liaison non signée (événement 2889 du journal *Directory Service* ; par défaut, seul le récapitulatif 2887 apparaît toutes les 24 h), laisser tourner une à deux semaines, corriger les clients, puis bloquer.
+> 🔒 **Contrôle de sécurité** : exiger la signature LDAP côté contrôleur de domaine. Le coût réel est la compatibilité : d'anciens équipements (imprimantes, NAS, applications maison) font du bind simple non signé. Avant de passer en « requis », relever à 2 le niveau de diagnostic « 16 LDAP Interface Events » dans le registre du contrôleur de domaine pour journaliser chaque liaison non signée (événement 2889 du journal *Directory Service* ; par défaut, seul le récapitulatif 2887 apparaît toutes les 24 h), laisser tourner une à deux semaines, corriger les clients, puis bloquer.
+{: .callout .callout-securite}
 
 ## Kerberos : le mécanisme des tickets
 
@@ -165,25 +175,30 @@ C'est ce dernier point qui fonde l'attaque la plus rentable sur AD.
 
 ### Attaques sur Kerberos
 
-🔴 **Kerberoasting.** Tout utilisateur authentifié peut demander un ticket pour n'importe quel SPN. Une partie de ce ticket est chiffrée avec le hash du mot de passe du compte de service. L'attaquant l'extrait (`GetUserSPNs.py` d'Impacket, `Rubeus kerberoast`) et le casse hors ligne avec hashcat (mode 13100 pour les tickets RC4). Aucun échec d'authentification n'est généré, rien ne déclenche de verrouillage, et le contrôleur de domaine ne voit qu'une demande de ticket banale. La technique a été présentée par Tim Medin en 2014 et reste efficace parce que les comptes de service ont des mots de passe humains, anciens, et parfois des droits excessifs.
+> 🔴 **Kerberoasting.** Tout utilisateur authentifié peut demander un ticket pour n'importe quel SPN. Une partie de ce ticket est chiffrée avec le hash du mot de passe du compte de service. L'attaquant l'extrait (`GetUserSPNs.py` d'Impacket, `Rubeus kerberoast`) et le casse hors ligne avec hashcat (mode 13100 pour les tickets RC4). Aucun échec d'authentification n'est généré, rien ne déclenche de verrouillage, et le contrôleur de domaine ne voit qu'une demande de ticket banale. La technique a été présentée par Tim Medin en 2014 et reste efficace parce que les comptes de service ont des mots de passe humains, anciens, et parfois des droits excessifs.
+{: .callout .callout-danger}
 
-🔴 **AS-REP roasting.** Les comptes avec l'option « ne pas exiger la préauthentification Kerberos » répondent à une requête non authentifiée avec une réponse chiffrée par leur secret, cassable hors ligne (hashcat mode 18200). Ces comptes sont rares, mais souvent oubliés depuis une migration.
+> 🔴 **AS-REP roasting.** Les comptes avec l'option « ne pas exiger la préauthentification Kerberos » répondent à une requête non authentifiée avec une réponse chiffrée par leur secret, cassable hors ligne (hashcat mode 18200). Ces comptes sont rares, mais souvent oubliés depuis une migration.
+{: .callout .callout-danger}
 
-🔴 **Silver ticket et Golden ticket.** Avec le hash d'un compte de service, on forge des tickets de service pour ce service (silver). Avec le hash de `krbtgt`, on forge des TGT pour n'importe quel utilisateur, y compris inexistant (golden), avec Mimikatz par exemple. Cette dernière persistance survit au changement de mot de passe de l'utilisateur : seule la double réinitialisation de `krbtgt` (avec un délai entre les deux, pour laisser expirer les tickets existants) la coupe.
+> 🔴 **Silver ticket et Golden ticket.** Avec le hash d'un compte de service, on forge des tickets de service pour ce service (silver). Avec le hash de `krbtgt`, on forge des TGT pour n'importe quel utilisateur, y compris inexistant (golden), avec Mimikatz par exemple. Cette dernière persistance survit au changement de mot de passe de l'utilisateur : seule la double réinitialisation de `krbtgt` (avec un délai entre les deux, pour laisser expirer les tickets existants) la coupe.
+{: .callout .callout-danger}
 
-🔒 **Contrôles de sécurité** :
-
-- Pour les comptes de service, utiliser des gMSA (group Managed Service Accounts) : l'AD génère et fait tourner un mot de passe long et aléatoire, inatteignable par cassage hors ligne. Quand ce n'est pas possible, imposer 25 caractères aléatoires ou plus.
-- Retirer les comptes de service des groupes privilégiés, ou réduire leurs droits au strict nécessaire.
-- Forcer AES pour Kerberos et désactiver RC4 quand c'est possible. Contrepartie : les systèmes très anciens cesseront de s'authentifier, il faut donc inventorier avant.
-- Placer les comptes d'administration dans le groupe *Protected Users*, qui désactive NTLM, RC4 et la délégation pour eux. Contrepartie : certaines applications qui reposent sur NTLM ou sur la délégation tomberont.
-- Synchroniser l'heure. Kerberos tolère un écart de 5 minutes par défaut, au-delà les authentifications échouent.
+> 🔒 **Contrôles de sécurité** :
+>
+> - Pour les comptes de service, utiliser des gMSA (group Managed Service Accounts) : l'AD génère et fait tourner un mot de passe long et aléatoire, inatteignable par cassage hors ligne. Quand ce n'est pas possible, imposer 25 caractères aléatoires ou plus.
+> - Retirer les comptes de service des groupes privilégiés, ou réduire leurs droits au strict nécessaire.
+> - Forcer AES pour Kerberos et désactiver RC4 quand c'est possible. Contrepartie : les systèmes très anciens cesseront de s'authentifier, il faut donc inventorier avant.
+> - Placer les comptes d'administration dans le groupe *Protected Users*, qui désactive NTLM, RC4 et la délégation pour eux. Contrepartie : certaines applications qui reposent sur NTLM ou sur la délégation tomberont.
+> - Synchroniser l'heure. Kerberos tolère un écart de 5 minutes par défaut, au-delà les authentifications échouent.
+{: .callout .callout-securite}
 
 ## SSO, OAuth 2.0, OpenID Connect et SAML
 
 Le SSO (Single Sign-On) évite de se reconnecter à chaque application : l'utilisateur s'authentifie une fois auprès de l'IdP, et les applications reçoivent une preuve. Trois standards se partagent ce terrain, avec des rôles différents.
 
-⚠️ **Piège à traiter explicitement : OAuth 2.0 est un cadre d'autorisation, pas à lui seul un protocole d'authentification.**
+> ⚠️ **Piège à traiter explicitement : OAuth 2.0 est un cadre d'autorisation, pas à lui seul un protocole d'authentification.**
+{: .callout .callout-attention}
 
 OAuth 2.0 (RFC 6749) règle une seule question : comment une application obtient, avec le consentement de l'utilisateur, un **access token** pour appeler une API avec des droits limités (les *scopes*). Ce jeton dit : « le porteur peut appeler l'API X avec le scope Y ». Il ne dit pas qui est l'utilisateur, ni qu'il vient de s'authentifier, ni pour quelle application la connexion a eu lieu. L'application cliente n'a même pas à pouvoir lire son contenu : il est destiné à l'API.
 
@@ -219,19 +234,24 @@ Une application qui valide un `id_token` doit contrôler au minimum :
 
 ### Attaques propres à OAuth et OIDC
 
-🔴 **redirect_uri mal validé.** Si l'IdP accepte un préfixe ou un joker (`https://app.example.com/*`), un attaquant qui trouve une redirection ouverte sur ce domaine envoie à la victime un lien d'autorisation légitime dont le code finit chez lui. La validation doit être une comparaison exacte de chaîne.
+> 🔴 **redirect_uri mal validé.** Si l'IdP accepte un préfixe ou un joker (`https://app.example.com/*`), un attaquant qui trouve une redirection ouverte sur ce domaine envoie à la victime un lien d'autorisation légitime dont le code finit chez lui. La validation doit être une comparaison exacte de chaîne.
+{: .callout .callout-danger}
 
-🔴 **State absent.** Sans `state` lié à la session, l'attaquant peut lier son propre compte à celui de la victime (CSRF sur le callback).
+> 🔴 **State absent.** Sans `state` lié à la session, l'attaquant peut lier son propre compte à celui de la victime (CSRF sur le callback).
+{: .callout .callout-danger}
 
-🔴 **Illicit consent grant.** Pas de vol de mot de passe ici : une application malveillante enregistrée chez un fournisseur cloud demande des scopes comme `Mail.Read` par un lien de phishing. L'utilisateur clique « Accepter », et l'attaquant obtient un refresh token qui survit à une réinitialisation du mot de passe. Parade : restreindre le consentement utilisateur, exiger un consentement administrateur pour les scopes sensibles, et revoir régulièrement la liste des applications d'entreprise.
+> 🔴 **Illicit consent grant.** Pas de vol de mot de passe ici : une application malveillante enregistrée chez un fournisseur cloud demande des scopes comme `Mail.Read` par un lien de phishing. L'utilisateur clique « Accepter », et l'attaquant obtient un refresh token qui survit à une réinitialisation du mot de passe. Parade : restreindre le consentement utilisateur, exiger un consentement administrateur pour les scopes sensibles, et revoir régulièrement la liste des applications d'entreprise.
+{: .callout .callout-danger}
 
 ### SAML
 
 SAML (Security Assertion Markup Language) est le standard plus ancien de fédération en entreprise. L'IdP envoie au SP (Service Provider) une assertion XML signée, via le navigateur de l'utilisateur. La sécurité entière dépend de la **validation de la signature** par le SP.
 
-🔴 **XML Signature Wrapping.** Le parseur valide la signature d'un élément, mais l'application lit les attributs d'un autre élément injecté. Ce genre de faille a produit des contournements d'authentification critiques dans plusieurs implémentations SAML.
+> 🔴 **XML Signature Wrapping.** Le parseur valide la signature d'un élément, mais l'application lit les attributs d'un autre élément injecté. Ce genre de faille a produit des contournements d'authentification critiques dans plusieurs implémentations SAML.
+{: .callout .callout-danger}
 
-🔴 **Golden SAML.** Un attaquant qui vole la clé privée de signature de l'IdP peut forger des assertions pour n'importe quel utilisateur, **sans mot de passe et sans MFA**. La technique a été décrite publiquement par CyberArk et observée dans la campagne SolarWinds. La défense est de traiter les serveurs d'IdP et leurs clés comme des actifs de niveau 0 : accès restreint, HSM (Hardware Security Module) quand c'est possible, surveillance des exports de certificat.
+> 🔴 **Golden SAML.** Un attaquant qui vole la clé privée de signature de l'IdP peut forger des assertions pour n'importe quel utilisateur, **sans mot de passe et sans MFA**. La technique a été décrite publiquement par CyberArk et observée dans la campagne SolarWinds. La défense est de traiter les serveurs d'IdP et leurs clés comme des actifs de niveau 0 : accès restreint, HSM (Hardware Security Module) quand c'est possible, surveillance des exports de certificat.
+{: .callout .callout-danger}
 
 ### Quel protocole pour quel besoin
 
@@ -259,15 +279,18 @@ Le modèle *Joiner-Mover-Leaver* décrit trois moments, et la majorité des éca
 - **Mover** : changement de poste. Les droits de l'ancien rôle doivent être **retirés**, sinon s'installe le *privilege creep* : le chef de projet qui a été comptable, puis support, cumule trois périmètres.
 - **Leaver** : désactivation à la date de départ, sans attendre le ticket.
 
-⚠️ **Erreur fréquente** : désactiver le compte et considérer l'accès coupé. Les sessions web existantes, les refresh tokens OAuth, les clés d'API et les mots de passe d'application peuvent rester valides. Il faut révoquer explicitement les sessions et jetons, et vérifier dans les journaux de l'IdP qu'aucune activité ne subsiste après la date de départ.
+> ⚠️ **Erreur fréquente** : désactiver le compte et considérer l'accès coupé. Les sessions web existantes, les refresh tokens OAuth, les clés d'API et les mots de passe d'application peuvent rester valides. Il faut révoquer explicitement les sessions et jetons, et vérifier dans les journaux de l'IdP qu'aucune activité ne subsiste après la date de départ.
+{: .callout .callout-attention}
 
-🔒 **Contrôle de sécurité** : une revue périodique des accès (trimestrielle pour les droits sensibles, annuelle pour le reste) où le **responsable métier** confirme les droits de son équipe, pas l'équipe IT. Pour tenir ce rythme sans épuiser les managers, on concentre la revue sur les groupes privilégiés et les applications critiques.
+> 🔒 **Contrôle de sécurité** : une revue périodique des accès (trimestrielle pour les droits sensibles, annuelle pour le reste) où le **responsable métier** confirme les droits de son équipe, pas l'équipe IT. Pour tenir ce rythme sans épuiser les managers, on concentre la revue sur les groupes privilégiés et les applications critiques.
+{: .callout .callout-securite}
 
 ## PAM : gérer les comptes à privilèges
 
 Un compte administrateur est le contrôle le plus rentable pour un attaquant : un seul vol de credential donne accès à des centaines de systèmes. La gestion des accès à privilèges (PAM, Privileged Access Management) réduit cette exposition.
 
-🔴 **Vecteur d'attaque : récolte de credentials sur les postes.** Un administrateur se connecte avec son compte `Domain Admin` sur un poste de travail utilisateur pour dépanner. Le hash ou le ticket reste en mémoire. L'attaquant qui a pris ce poste l'extrait avec Mimikatz, et le domaine est perdu. Le modèle de niveaux d'administration (*tiering*) sépare : comptes pour l'annuaire et les contrôleurs de domaine, comptes pour les serveurs, comptes pour les postes. Un compte d'un niveau ne se connecte jamais à un niveau inférieur.
+> 🔴 **Vecteur d'attaque : récolte de credentials sur les postes.** Un administrateur se connecte avec son compte `Domain Admin` sur un poste de travail utilisateur pour dépanner. Le hash ou le ticket reste en mémoire. L'attaquant qui a pris ce poste l'extrait avec Mimikatz, et le domaine est perdu. Le modèle de niveaux d'administration (*tiering*) sépare : comptes pour l'annuaire et les contrôleurs de domaine, comptes pour les serveurs, comptes pour les postes. Un compte d'un niveau ne se connecte jamais à un niveau inférieur.
+{: .callout .callout-danger}
 
 Les briques d'une architecture PAM :
 
@@ -367,37 +390,49 @@ La leçon pour un livrable : ne pas présenter 40 constats à égalité, mais un
 
 ## Erreurs fréquentes
 
-⚠️ **Utiliser l'access token comme preuve de connexion.**
+> ⚠️ **Utiliser l'access token comme preuve de connexion.**
+{: .callout .callout-attention}
+
 *Configuration* : l'application web reçoit un access token et appelle `userinfo` pour savoir qui est connecté, sans valider d'`id_token`.
 *Conséquence* : un jeton émis pour une autre application peut être rejoué ici (confusion d'audience).
 *Correction* : passer en OIDC, valider `iss`, `aud`, `exp`, `nonce` et la signature de l'`id_token`.
 *Détection* : en revue de code, chercher les endroits où un access token sert à déterminer l'identité ; en audit, rejouer un jeton émis pour un autre client.
 
-⚠️ **Compte de service privilégié, mot de passe statique.**
+> ⚠️ **Compte de service privilégié, mot de passe statique.**
+{: .callout .callout-attention}
+
 *Configuration* : `svc_backup` dans `Domain Admins`, mot de passe de 10 caractères, jamais renouvelé.
 *Conséquence* : Kerberoasting puis compromission du domaine, sans alerte au moment du vol du ticket.
 *Correction* : gMSA, ou mot de passe aléatoire de 25 caractères ou plus, et droits réduits au service concerné.
 *Détection* : requête `Get-ADUser` avec `ServicePrincipalName` croisée avec l'appartenance aux groupes privilégiés.
 
-⚠️ **`redirect_uri` en préfixe ou avec joker.**
+> ⚠️ **`redirect_uri` en préfixe ou avec joker.**
+{: .callout .callout-attention}
+
 *Configuration* : `https://app.example.com/*` enregistré chez l'IdP.
 *Conséquence* : combiné à une redirection ouverte sur le domaine, le code d'autorisation part chez l'attaquant.
 *Correction* : liste de valeurs exactes, PKCE obligatoire, `state` lié à la session.
 *Détection* : le test `curl` de la section précédente.
 
-⚠️ **MFA push sans number matching, avec exclusions larges.**
+> ⚠️ **MFA push sans number matching, avec exclusions larges.**
+{: .callout .callout-attention}
+
 *Configuration* : approbation en un tap, et exemption pour « les adresses IP du siège » ou « les pays de confiance ».
 *Conséquence* : fatigue MFA ; l'attaquant qui passe par un proxy dans le pays autorisé contourne la règle.
 *Correction* : number matching, exclusions limitées à des comptes de secours documentés, accès conditionnel plutôt qu'exemptions d'IP larges.
 *Détection* : revue des politiques d'accès conditionnel, recherche des comptes exclus du MFA.
 
-⚠️ **LDAP en clair et bind anonyme actif.**
+> ⚠️ **LDAP en clair et bind anonyme actif.**
+{: .callout .callout-attention}
+
 *Configuration* : applications qui interrogent l'annuaire sur le port 389 avec un bind simple, signature LDAP non exigée.
 *Conséquence* : mot de passe de compte de service visible sur le réseau, relais NTLM vers LDAP.
 *Correction* : LDAPS ou StartTLS, signature et channel binding exigés après une période d'audit (événement 2889).
 *Détection* : `ldapsearch` anonyme, capture réseau filtrée sur le port 389.
 
-⚠️ **Désactiver un compte sans révoquer les sessions.**
+> ⚠️ **Désactiver un compte sans révoquer les sessions.**
+{: .callout .callout-attention}
+
 *Configuration* : le processus Leaver se limite à décocher « compte activé ».
 *Conséquence* : refresh tokens, cookies de session et clés d'API restent exploitables plusieurs jours ou semaines.
 *Correction* : révocation explicite des sessions et jetons dans l'IdP, rotation des secrets partagés.

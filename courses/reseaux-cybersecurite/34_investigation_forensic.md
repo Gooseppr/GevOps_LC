@@ -70,7 +70,8 @@ Un attaquant qui agit sur un système écrit à plusieurs endroits, qu'il le veu
 | Exfiltration | Gros volumes sortants, DNS anormal | Proxy, NetFlow, pcap | Haute sans capture réseau |
 | Effacement des traces | Journal vidé, historique supprimé, horodatages modifiés | Événements 1102 et 104, `$MFT`, journaux distants | L'effacement lui-même est une trace |
 
-🧠 **Concept clé** : le principe d'échange de Locard s'applique au numérique. Toute action laisse une trace, y compris l'effacement. Corréler plusieurs sources permet de détecter les incohérences, c'est-à-dire ce qu'un attaquant a réussi à masquer dans l'une mais pas dans l'autre.
+> 🧠 **Concept clé** : le principe d'échange de Locard s'applique au numérique. Toute action laisse une trace, y compris l'effacement. Corréler plusieurs sources permet de détecter les incohérences, c'est-à-dire ce qu'un attaquant a réussi à masquer dans l'une mais pas dans l'autre.
+{: .callout .callout-important}
 
 ---
 
@@ -104,7 +105,8 @@ transfers:
     hash_verified: true
 ```
 
-💡 **Astuce** : la fiche est remplie pendant la collecte, pas après. Reconstituer de mémoire l'heure et l'outil produit des trous que la partie adverse (ou un client exigeant) trouvera.
+> 💡 **Astuce** : la fiche est remplie pendant la collecte, pas après. Reconstituer de mémoire l'heure et l'outil produit des trous que la partie adverse (ou un client exigeant) trouvera.
+{: .callout .callout-astuce}
 
 ---
 
@@ -161,13 +163,15 @@ sha256sum "$OUT"/* > "$OUT/SHA256SUMS"
 
 La ligne sur `/proc/*/exe` vaut le détour : un processus dont le binaire a été supprimé du disque après lancement (technique courante des implants Linux) apparaît avec le suffixe `(deleted)`. Le binaire reste récupérable depuis `/proc/<PID>/exe` tant que le processus tourne.
 
-🔒 **Contrôle de sécurité** : décider *avant* l'incident qui peut ordonner une capture mémoire, avec quel outil et sur quel support. Chercher ces réponses pendant la crise coûte plusieurs heures, soit l'écart entre une RAM capturée et une RAM perdue.
+> 🔒 **Contrôle de sécurité** : décider *avant* l'incident qui peut ordonner une capture mémoire, avec quel outil et sur quel support. Chercher ces réponses pendant la crise coûte plusieurs heures, soit l'écart entre une RAM capturée et une RAM perdue.
+{: .callout .callout-securite}
 
 ---
 
 ## Piège central : ce qui détruit une preuve
 
-⚠️ **Erreur fréquente** : la collecte est elle-même le premier risque pour la preuve. Voici les actions qui reviennent le plus souvent dans les post-mortems d'investigation, avec leur conséquence concrète.
+> ⚠️ **Erreur fréquente** : la collecte est elle-même le premier risque pour la preuve. Voici les actions qui reviennent le plus souvent dans les post-mortems d'investigation, avec leur conséquence concrète.
+{: .callout .callout-attention}
 
 | Geste | Conséquence | Alternative |
 |---|---|---|
@@ -247,7 +251,8 @@ Pour un parc de postes, un collecteur de triage comme KAPE (`kape.exe --tsource 
 
 ## Comment l'attaquant brouille les pistes
 
-🔴 **Vecteur d'attaque** : les attaquants expérimentés intègrent l'effacement des traces à leur routine. Connaître leurs techniques indique où chercher les incohérences.
+> 🔴 **Vecteur d'attaque** : les attaquants expérimentés intègrent l'effacement des traces à leur routine. Connaître leurs techniques indique où chercher les incohérences.
+{: .callout .callout-danger}
 
 **Effacement des journaux** (MITRE ATT&CK T1070.001) : `wevtutil cl Security` vide le journal. Cette action génère elle-même l'événement **1102** (journal Security effacé) ou **104** (autre journal, source Eventlog). Leur présence suffit à signaler l'intervention, même si le contenu est perdu. Sous Linux, `history -c`, `unset HISTFILE` ou `ln -sf /dev/null ~/.bash_history` empêchent l'écriture de l'historique, mais pas l'audit système (`auditd`) ni les journaux distants.
 
@@ -261,7 +266,8 @@ Pour un parc de postes, un collecteur de triage comme KAPE (`kape.exe --tsource 
 
 *La MFT est la table qui référence chaque fichier d'un volume NTFS avec ses attributs, dont les horodatages.*
 
-🧠 **Concept clé** : on n'efface pas toutes les sources simultanément. Un attaquant qui nettoie `Security.evtx` oublie souvent le journal Sysmon, le proxy, les logs d'un équipement réseau ou la mémoire. C'est la **contradiction entre sources** qui révèle la manipulation.
+> 🧠 **Concept clé** : on n'efface pas toutes les sources simultanément. Un attaquant qui nettoie `Security.evtx` oublie souvent le journal Sysmon, le proxy, les logs d'un équipement réseau ou la mémoire. C'est la **contradiction entre sources** qui révèle la manipulation.
+{: .callout .callout-important}
 
 ---
 
@@ -311,7 +317,8 @@ La sortie dépasse souvent plusieurs millions de lignes. Personne ne la lit : on
 
 Chaque ligne vient d'une source différente. Si l'attaquant a effacé le journal Security à 02:33, les lignes antérieures de Sysmon, du proxy et de Prefetch permettent quand même de reconstituer la séquence.
 
-💡 **Astuce** : placer l'événement d'effacement dans la chronologie. Tout ce qui précède dans cette source est suspect de lacune, et il faut chercher la même période dans les sources qu'il n'a pas touchées.
+> 💡 **Astuce** : placer l'événement d'effacement dans la chronologie. Tout ce qui précède dans cette source est suspect de lacune, et il faut chercher la même période dans les sources qu'il n'a pas touchées.
+{: .callout .callout-astuce}
 
 ---
 
@@ -381,7 +388,8 @@ Le **beaconing** (balise régulière vers un C2) se repère à l'intervalle quas
 
 Limite structurelle : avec TLS, on ne voit que les métadonnées (destination, SNI, volumes, rythme). Le contenu est inaccessible sans déchiffrement. Il faut le dire dans le rapport au lieu de suggérer ce qui a été exfiltré.
 
-💡 **Astuce** : corréler mémoire et réseau. Une connexion visible dans `windows.netscan` et absente des logs du pare-feu indique un contournement du chemin supervisé (autre interface, tunnel, VPN).
+> 💡 **Astuce** : corréler mémoire et réseau. Une connexion visible dans `windows.netscan` et absente des logs du pare-feu indique un contournement du chemin supervisé (autre interface, tunnel, VPN).
+{: .callout .callout-astuce}
 
 ---
 
@@ -438,7 +446,8 @@ vol -f <MEMDUMP>.lime linux.sockstat
 | Zeek, Wireshark/tshark | Analyse de trafic | Pcap disponible |
 | YARA | Recherche de motifs | Propagation d'un IoC trouvé |
 
-🔒 **Contrôle de sécurité** : traiter les échantillons extraits comme du code hostile. Analyse sur une VM isolée, jamais sur le poste de travail de l'analyste, et jamais de double-clic sur un binaire extrait.
+> 🔒 **Contrôle de sécurité** : traiter les échantillons extraits comme du code hostile. Analyse sur une VM isolée, jamais sur le poste de travail de l'analyste, et jamais de double-clic sur un binaire extrait.
+{: .callout .callout-securite}
 
 ---
 
@@ -516,7 +525,8 @@ Le rapport est le seul livrable que la direction, le juridique ou l'assureur lir
 - **Capture partielle.** Une RAM capturée six heures après le début de l'intrusion ne reflète pas l'état initial.
 - **Intégrité douteuse.** Si la machine a été manipulée avant l'arrivée de l'investigateur, le rapport doit le mentionner : c'est une limite, pas un aveu d'échec.
 
-🧠 **Concept clé** : un rapport honnête sur ses limites résiste mieux à la contestation qu'un rapport catégorique. Ce qui est affirmé doit pouvoir être reproduit par un tiers à partir des preuves et des hashes fournis.
+> 🧠 **Concept clé** : un rapport honnête sur ses limites résiste mieux à la contestation qu'un rapport catégorique. Ce qui est affirmé doit pouvoir être reproduit par un tiers à partir des preuves et des hashes fournis.
+{: .callout .callout-important}
 
 ---
 
@@ -542,35 +552,47 @@ Une alerte EDR signale un accès à `lsass.exe` sur le poste d'un comptable un j
 
 ## Erreurs fréquentes
 
-⚠️ **Hasher après coup, ou ne pas hasher du tout**
-- *Configuration dangereuse* : l'image est copiée, déplacée, puis hashée une semaine plus tard « pour vérifier ».
-- *Conséquence* : impossible de prouver que l'image n'a pas été altérée entre la collecte et l'analyse.
-- *Correction* : hash calculé pendant l'acquisition (`dc3dd hash=sha256`), vérifié à chaque transfert (`sha256sum -c`), consigné dans la fiche.
+> ⚠️ **Hasher après coup, ou ne pas hasher du tout**
+>
+> - *Configuration dangereuse* : l'image est copiée, déplacée, puis hashée une semaine plus tard « pour vérifier ».
+> - *Conséquence* : impossible de prouver que l'image n'a pas été altérée entre la collecte et l'analyse.
+> - *Correction* : hash calculé pendant l'acquisition (`dc3dd hash=sha256`), vérifié à chaque transfert (`sha256sum -c`), consigné dans la fiche.
+{: .callout .callout-attention}
 
-⚠️ **Analyser sur l'image originale**
-- *Configuration dangereuse* : l'analyste travaille directement sur l'unique exemplaire de l'image, monté en lecture-écriture.
-- *Conséquence* : modification involontaire, perte de la référence pour une éventuelle contre-expertise.
-- *Correction* : copie de travail, original scellé ; montage `ro,noload` via `losetup --read-only`.
+> ⚠️ **Analyser sur l'image originale**
+>
+> - *Configuration dangereuse* : l'analyste travaille directement sur l'unique exemplaire de l'image, monté en lecture-écriture.
+> - *Conséquence* : modification involontaire, perte de la référence pour une éventuelle contre-expertise.
+> - *Correction* : copie de travail, original scellé ; montage `ro,noload` via `losetup --read-only`.
+{: .callout .callout-attention}
 
-⚠️ **Se fier aux horodatages sans les recouper**
-- *Configuration dangereuse* : une chronologie bâtie sur les seules dates du système de fichiers.
-- *Conséquence* : un timestomping ou une dérive d'horloge produit une histoire fausse mais cohérente en apparence.
-- *Correction* : confronter `$STANDARD_INFORMATION` et `$FILE_NAME`, croiser avec journaux d'événements et logs distants, mesurer la dérive d'horloge.
+> ⚠️ **Se fier aux horodatages sans les recouper**
+>
+> - *Configuration dangereuse* : une chronologie bâtie sur les seules dates du système de fichiers.
+> - *Conséquence* : un timestomping ou une dérive d'horloge produit une histoire fausse mais cohérente en apparence.
+> - *Correction* : confronter `$STANDARD_INFORMATION` et `$FILE_NAME`, croiser avec journaux d'événements et logs distants, mesurer la dérive d'horloge.
+{: .callout .callout-attention}
 
-⚠️ **Journaux uniquement locaux**
-- *Configuration dangereuse* : aucun transfert de logs vers un stockage distant.
-- *Conséquence* : un `wevtutil cl` ou un `rm /var/log/*` efface l'unique exemplaire de la preuve.
-- *Correction* : transfert en quasi temps réel vers un collecteur distant, avec droits d'écriture seule pour les sources.
+> ⚠️ **Journaux uniquement locaux**
+>
+> - *Configuration dangereuse* : aucun transfert de logs vers un stockage distant.
+> - *Conséquence* : un `wevtutil cl` ou un `rm /var/log/*` efface l'unique exemplaire de la preuve.
+> - *Correction* : transfert en quasi temps réel vers un collecteur distant, avec droits d'écriture seule pour les sources.
+{: .callout .callout-attention}
 
-⚠️ **Conclure à partir d'un seul outil**
-- *Configuration dangereuse* : traiter chaque résultat `malfind` ou chaque alerte Hayabusa comme une preuve.
-- *Conséquence* : faux positifs présentés comme des compromissions, ou inversement, rassurer à tort sur un scan négatif.
-- *Correction* : valider chaque indice par une deuxième source indépendante avant de l'inscrire comme constat.
+> ⚠️ **Conclure à partir d'un seul outil**
+>
+> - *Configuration dangereuse* : traiter chaque résultat `malfind` ou chaque alerte Hayabusa comme une preuve.
+> - *Conséquence* : faux positifs présentés comme des compromissions, ou inversement, rassurer à tort sur un scan négatif.
+> - *Correction* : valider chaque indice par une deuxième source indépendante avant de l'inscrire comme constat.
+{: .callout .callout-attention}
 
-⚠️ **Oublier la clé de récupération**
-- *Configuration dangereuse* : poste chiffré éteint avant que les clés de récupération soient retrouvées.
-- *Conséquence* : image disque illisible, investigation limitée aux journaux distants.
-- *Correction* : annuaire des clés de récupération accessible aux enquêteurs ; capture à chaud du volume déverrouillé quand c'est possible.
+> ⚠️ **Oublier la clé de récupération**
+>
+> - *Configuration dangereuse* : poste chiffré éteint avant que les clés de récupération soient retrouvées.
+> - *Conséquence* : image disque illisible, investigation limitée aux journaux distants.
+> - *Correction* : annuaire des clés de récupération accessible aux enquêteurs ; capture à chaud du volume déverrouillé quand c'est possible.
+{: .callout .callout-attention}
 
 ---
 

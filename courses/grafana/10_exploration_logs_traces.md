@@ -49,7 +49,8 @@ Un **log** est un événement daté : « à 14:20:03, le service `checkout` a re
 
 Une **trace** est l'histoire d'une seule requête, déjà reconstituée. Elle est composée de **spans**, chacun représentant une opération mesurée (un appel HTTP, une requête SQL, un traitement interne), avec son début, sa durée et son parent. L'ensemble forme un arbre.
 
-🧠 **Concept clé** — Une trace distribuée n'est pas un fichier journal. Un fichier journal est une suite chronologique de lignes écrites par un seul processus. Une trace est un graphe de spans émis par plusieurs services, rassemblés après coup grâce à un identifiant commun, le `trace_id`. Elle peut aussi être incomplète : si un service n'est pas instrumenté, ou si la requête a été écartée par l'échantillonnage (sampling), il manque des morceaux, voire toute la trace. Lire une trace comme on lit un log (de haut en bas, ligne par ligne) conduit à des conclusions fausses.
+> 🧠 **Concept clé** — Une trace distribuée n'est pas un fichier journal. Un fichier journal est une suite chronologique de lignes écrites par un seul processus. Une trace est un graphe de spans émis par plusieurs services, rassemblés après coup grâce à un identifiant commun, le `trace_id`. Elle peut aussi être incomplète : si un service n'est pas instrumenté, ou si la requête a été écartée par l'échantillonnage (sampling), il manque des morceaux, voire toute la trace. Lire une trace comme on lit un log (de haut en bas, ligne par ligne) conduit à des conclusions fausses.
+{: .callout .callout-important}
 
 Le lien entre les deux est l'identifiant de trace, quand l'application l'écrit dans ses logs. Ce fil permet de passer d'un monde à l'autre, et tout le module y mène.
 
@@ -100,7 +101,8 @@ Imaginez une bibliothèque où seuls les rayons sont étiquetés, pas les pages 
 
 Conséquence pratique, visible tout de suite : une requête Loki doit commencer par un sélecteur de flux avec au moins un critère non vide. `{}` est refusé.
 
-⚠️ **Erreur fréquente** — Vouloir « tout chercher » en tapant seulement un mot, comme on le ferait dans un moteur de recherche. Il faut toujours dire dans quel flux chercher (`{app="checkout"}`), puis ajouter le mot. Sans cela, soit la requête est rejetée, soit elle parcourt un volume énorme et expire.
+> ⚠️ **Erreur fréquente** — Vouloir « tout chercher » en tapant seulement un mot, comme on le ferait dans un moteur de recherche. Il faut toujours dire dans quel flux chercher (`{app="checkout"}`), puis ajouter le mot. Sans cela, soit la requête est rejetée, soit elle parcourt un volume énorme et expire.
+{: .callout .callout-attention}
 
 ### Lire le résultat
 
@@ -109,7 +111,8 @@ Sous la requête, Explore affiche un histogramme du volume de logs dans le temps
 - L'histogramme montre les pics. Un pic de volume coïncide souvent avec un incident, et cliquer-glisser sur l'histogramme restreint la période.
 - Cliquer sur une ligne la déplie : Grafana y affiche les labels du flux et, si le format est reconnu, les champs détectés. On peut cliquer sur un champ pour l'ajouter ou l'exclure du filtre.
 
-💡 **Astuce** — Le bouton *Live* (suivi en direct) est précieux quand vous reproduisez un problème : vous déclenchez la requête fautive depuis un terminal et vous voyez la ligne apparaître en quelques secondes.
+> 💡 **Astuce** — Le bouton *Live* (suivi en direct) est précieux quand vous reproduisez un problème : vous déclenchez la requête fautive depuis un terminal et vous voyez la ligne apparaître en quelques secondes.
+{: .callout .callout-astuce}
 
 ## LogQL pour débuter : sélectionner, filtrer, extraire
 
@@ -154,7 +157,8 @@ Pour rendre le résultat lisible pendant l'investigation, reformatez la ligne :
 {app="checkout"} | json | status >= 500 | line_format "{{.method}} {{.path}} {{.status}} {{.duration}} {{.trace_id}}"
 ```
 
-💡 **Astuce** — Affichez toujours le `trace_id` dans `line_format` quand il existe. C'est l'information que vous irez chercher à l'étape suivante.
+> 💡 **Astuce** — Affichez toujours le `trace_id` dans `line_format` quand il existe. C'est l'information que vous irez chercher à l'étape suivante.
+{: .callout .callout-astuce}
 
 ### Passer des logs à un graphe
 
@@ -204,7 +208,8 @@ La vue est une cascade horizontale (parfois appelée waterfall ou flame view) :
 
 Il y a une subtilité qui trompe tous les débutants. Pour des appels synchrones, la durée d'un span **inclut** celle de ses enfants. Un span racine de 5 s ne veut donc pas dire que le premier service est lent : si son unique enfant (l'appel au service de paiement) dure 4,8 s, le temps est passé en aval. À l'inverse, un span long dont les enfants sont courts signale du temps passé dans le code du span lui-même, ou dans une partie non instrumentée. Cette règle n'est pas absolue. Des enfants exécutés en parallèle se chevauchent, et un enfant asynchrone (message, appel sans attente de réponse) peut se terminer après son parent. Dans ces cas, soustraire les durées ne donne pas le temps propre du parent.
 
-⚠️ **Erreur fréquente** — Accuser le premier span long de la liste. Descendez toujours l'arbre jusqu'au span le plus profond qui explique l'essentiel de la durée avant de formuler une hypothèse.
+> ⚠️ **Erreur fréquente** — Accuser le premier span long de la liste. Descendez toujours l'arbre jusqu'au span le plus profond qui explique l'essentiel de la durée avant de formuler une hypothèse.
+{: .callout .callout-attention}
 
 ## Corrélation manuelle : relier métriques, logs et traces
 
@@ -227,7 +232,8 @@ Ces réglages se trouvent dans la configuration des data sources et leur libell�
 
 Si les applications et Prometheus sont configurés pour les exemplars, un point sur un graphe de latence peut pointer directement vers une trace représentative. C'est une piste à connaître, pas un prérequis du module : tout le reste fonctionne sans.
 
-💡 **Astuce** — Quand les liens automatiques ne remontent rien, regardez les noms. Le même service peut s'appeler `checkout` dans le label Loki `app`, `checkout-svc` dans l'attribut `service.name` des traces, et `checkout_prod` dans une métrique. Un nommage homogène entre les trois signaux est le premier ingrédient d'une corrélation qui marche.
+> 💡 **Astuce** — Quand les liens automatiques ne remontent rien, regardez les noms. Le même service peut s'appeler `checkout` dans le label Loki `app`, `checkout-svc` dans l'attribut `service.name` des traces, et `checkout_prod` dans une métrique. Un nommage homogène entre les trois signaux est le premier ingrédient d'une corrélation qui marche.
+{: .callout .callout-astuce}
 
 ## Erreurs fréquentes
 
@@ -249,7 +255,8 @@ Cause : trace non échantillonnée, rétention dépassée, ou identifiant tronqu
 **Symptôme : la trace s'affiche, mais incomplète (quelques spans, pas de service aval).**
 Cause : un service du trajet n'est pas instrumenté ou ne propage pas le contexte de trace. Correction : ne pas conclure que « l'aval n'a rien fait » ; signaler le trou d'instrumentation à l'équipe concernée.
 
-⚠️ **Erreur fréquente** — Mettre un identifiant de requête, un utilisateur ou une adresse IP en **label** Loki. Chaque valeur différente crée un nouveau flux, ce qui dégrade l'index et les performances. Ces valeurs vivent dans le contenu de la ligne et se retrouvent par filtre ou par parsing, pas par label.
+> ⚠️ **Erreur fréquente** — Mettre un identifiant de requête, un utilisateur ou une adresse IP en **label** Loki. Chaque valeur différente crée un nouveau flux, ce qui dégrade l'index et les performances. Ces valeurs vivent dans le contenu de la ligne et se retrouvent par filtre ou par parsing, pas par label.
+{: .callout .callout-attention}
 
 ## Cas réel en entreprise (scénario illustratif)
 

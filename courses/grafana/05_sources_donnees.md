@@ -44,7 +44,8 @@ Prometheus est pourtant bien là, et l'URL fonctionne depuis la VM. Le problème
 
 Grafana ne stocke pas vos métriques, vos logs ni vos traces. Il possède une **Data Source** pour chaque système à interroger : un nom, un type (`prometheus`, `loki`, `tempo`, `postgres`…), une adresse et éventuellement des identifiants. Quand vous ouvrez un panel ou Explore, Grafana envoie la requête à cette adresse et affiche la réponse.
 
-🧠 **Concept clé** : avec le mode d'accès par défaut, appelé **Server** (ou `proxy` dans les fichiers), les requêtes ne partent pas de votre navigateur. Elles partent du **processus Grafana**. L'URL d'une source doit donc être joignable *depuis la machine ou le conteneur où tourne Grafana*, pas depuis votre poste.
+> 🧠 **Concept clé** : avec le mode d'accès par défaut, appelé **Server** (ou `proxy` dans les fichiers), les requêtes ne partent pas de votre navigateur. Elles partent du **processus Grafana**. L'URL d'une source doit donc être joignable *depuis la machine ou le conteneur où tourne Grafana*, pas depuis votre poste.
+{: .callout .callout-important}
 
 ```mermaid
 flowchart LR
@@ -117,7 +118,8 @@ curl -s http://localhost:9090/-/ready
 
 Ce `curl` est exécuté sur l'hôte, via le port publié. Il valide Prometheus, pas encore la liaison Grafana → Prometheus.
 
-💡 **Astuce** : pour un vrai déploiement, remplacez `latest` par une version précise (`grafana/grafana:<VERSION>`). Une mise à jour silencieuse peut changer l'interface d'un jour à l'autre.
+> 💡 **Astuce** : pour un vrai déploiement, remplacez `latest` par une version précise (`grafana/grafana:<VERSION>`). Une mise à jour silencieuse peut changer l'interface d'un jour à l'autre.
+{: .callout .callout-astuce}
 
 ## Ajouter Prometheus dans l'interface
 
@@ -146,7 +148,8 @@ Quelques réglages méritent d'être compris, sans qu'il faille tous les modifie
 
 Ici, TLS (Transport Layer Security) désigne le chiffrement du lien HTTPS entre Grafana et la source. Si votre source utilise un certificat signé par une autorité interne, ajoutez cette autorité dans **CA Cert** plutôt que de cocher « Skip TLS Verify ». Ce dernier réglage fait disparaître l'erreur, mais aussi la garantie de parler au bon serveur.
 
-⚠️ **Erreur fréquente** : mettre un mot de passe ou un jeton dans un fichier versionné, ou le saisir dans un champ visible par tous les éditeurs. Grafana stocke les secrets de manière chiffrée via ses champs dédiés (`secureJsonData` en provisioning). Dans un fichier de configuration, référencez une variable d'environnement plutôt qu'une valeur en clair.
+> ⚠️ **Erreur fréquente** : mettre un mot de passe ou un jeton dans un fichier versionné, ou le saisir dans un champ visible par tous les éditeurs. Grafana stocke les secrets de manière chiffrée via ses champs dédiés (`secureJsonData` en provisioning). Dans un fichier de configuration, référencez une variable d'environnement plutôt qu'une valeur en clair.
+{: .callout .callout-attention}
 
 ## Tester vraiment : au-delà du bouton
 
@@ -190,7 +193,8 @@ Pour **Tempo**, le principe est le même, avec un point d'attention : c'est l'**
 
 Grafana embarque nativement plusieurs sources relationnelles : **PostgreSQL**, **MySQL** et **Microsoft SQL Server**, entre autres. Elles servent à croiser métriques et données métier, par exemple le nombre de commandes par heure. Les réglages sont ceux d'une connexion de base classique : hôte et port (`postgres:5432`), nom de base, utilisateur, mode TLS.
 
-⚠️ **Erreur fréquente** : brancher Grafana sur une base avec un compte applicatif aux droits d'écriture. Grafana exécute les requêtes SQL qu'on lui donne, et un éditeur de dashboard peut donc, en théorie, écrire n'importe quoi. Créez un compte dédié en **lecture seule**, limité aux tables utiles.
+> ⚠️ **Erreur fréquente** : brancher Grafana sur une base avec un compte applicatif aux droits d'écriture. Grafana exécute les requêtes SQL qu'on lui donne, et un éditeur de dashboard peut donc, en théorie, écrire n'importe quoi. Créez un compte dédié en **lecture seule**, limité aux tables utiles.
+{: .callout .callout-attention}
 
 Pour d'autres systèmes (Elasticsearch, CloudWatch, Zabbix, MongoDB…), regardez dans le catalogue : **Connections → Add new connection**, puis recherche par nom. Certains plugins sont installables depuis l'interface, d'autres en ligne de commande, avec un redémarrage de Grafana :
 
@@ -270,7 +274,8 @@ La variable `PROM_PASSWORD` est fournie à l'exécution (variable d'environnemen
 
 Quand une connexion échoue, lisez le message d'erreur avec attention : il indique presque toujours à quelle couche s'arrêter. Les formulations exactes varient avec la version de Grafana.
 
-⚠️ **Le piège central : `localhost` dans un conteneur.** `localhost` désigne toujours *la machine qui exécute le processus*. Pour Grafana dans un conteneur, c'est le conteneur Grafana, pas la VM ni les autres conteneurs. Une URL `http://localhost:9090` ne peut donc réussir que si Prometheus tourne dans ce même conteneur.
+> ⚠️ **Le piège central : `localhost` dans un conteneur.** `localhost` désigne toujours *la machine qui exécute le processus*. Pour Grafana dans un conteneur, c'est le conteneur Grafana, pas la VM ni les autres conteneurs. Une URL `http://localhost:9090` ne peut donc réussir que si Prometheus tourne dans ce même conteneur.
+{: .callout .callout-attention}
 
 Voici les correctifs selon l'emplacement de la cible :
 
@@ -330,7 +335,8 @@ Message typique : `context deadline exceeded` ou `i/o timeout`.
 
 Un `401` ou `403` signale que la connexion fonctionne mais que les identifiants sont refusés ou insuffisants. Un `x509: certificate signed by unknown authority` indique une autorité de certification inconnue de Grafana : ajoutez-la dans **CA Cert**. Un `404` sur le test peut venir d'un préfixe d'URL oublié derrière un reverse proxy, par exemple `https://monitoring.example/prometheus`.
 
-💡 **Astuce** : suivez toujours la même séquence, du plus bas au plus haut. Le nom se résout-il ? Le port répond-il ? L'authentification passe-t-elle ? La requête retourne-t-elle des données ? On s'arrête dès qu'un maillon casse, sans toucher aux couches supérieures.
+> 💡 **Astuce** : suivez toujours la même séquence, du plus bas au plus haut. Le nom se résout-il ? Le port répond-il ? L'authentification passe-t-elle ? La requête retourne-t-elle des données ? On s'arrête dès qu'un maillon casse, sans toucher aux couches supérieures.
+{: .callout .callout-astuce}
 
 ## Cas réel : scénario d'une migration vers Compose
 

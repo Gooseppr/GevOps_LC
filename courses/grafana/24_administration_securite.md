@@ -36,7 +36,8 @@ next_module_title: "Provisioning, API et versionnement"
 
 En décembre 2021, Grafana publie des correctifs pour **CVE-2021-43798**. Le défaut touche les versions 8.0.0-beta1 à 8.3.0 et affecte une route qui sert les fichiers statiques des plugins : un chemin avec des `../` permet de sortir du répertoire du plugin. Aucun compte n'est nécessaire. Des scanners comme `nuclei` ont aussitôt embarqué un template de détection, et des instances exposées sur Internet ont été balayées en masse.
 
-🔴 **Vecteur d'attaque** : l'attaquant ne se contente pas de `/etc/passwd`. Il cible deux fichiers.
+> 🔴 **Vecteur d'attaque** : l'attaquant ne se contente pas de `/etc/passwd`. Il cible deux fichiers.
+{: .callout .callout-danger}
 
 ```bash
 # Test non destructif sur votre propre instance (--path-as-is empêche curl de normaliser les ../)
@@ -72,7 +73,8 @@ Ce module construit la défense dans l'ordre inverse de l'attaque : réduire ce 
 
 ## Organisations, utilisateurs, équipes et dossiers ⭐
 
-🧠 **Concept clé** : ces quatre niveaux ne protègent pas contre la même chose. La majorité des incidents d'accès Grafana viennent de la confusion entre « masquer dans l'interface » et « isoler dans le backend ».
+> 🧠 **Concept clé** : ces quatre niveaux ne protègent pas contre la même chose. La majorité des incidents d'accès Grafana viennent de la confusion entre « masquer dans l'interface » et « isoler dans le backend ».
+{: .callout .callout-important}
 
 ```mermaid
 flowchart TD
@@ -118,7 +120,8 @@ Le coût d'Enterprise est réel, mais le coût inverse l'est aussi : sans permis
 
 Un Viewer limité au dossier `Team-A` ne peut pas ouvrir les dashboards de `Team-B`. Mais en OSS, il garde le droit d'interroger les Data Sources de l'organisation. L'UI n'est qu'un client de l'API ; masquer Explore n'est donc pas une protection.
 
-🔴 **Vecteur d'attaque** : un compte Viewer appelle directement `/api/ds/query`. L'`uid` de la Data Source apparaît dans le JSON de n'importe quel dashboard lisible.
+> 🔴 **Vecteur d'attaque** : un compte Viewer appelle directement `/api/ds/query`. L'`uid` de la Data Source apparaît dans le JSON de n'importe quel dashboard lisible.
+{: .callout .callout-danger}
 
 ```bash
 curl -s -u <VIEWER>:<PASSWORD> -H 'Content-Type: application/json' \
@@ -128,7 +131,8 @@ curl -s -u <VIEWER>:<PASSWORD> -H 'Content-Type: application/json' \
 
 Si la réponse contient des séries du namespace `team-b-prod`, la frontière n'existe qu'au niveau de l'interface.
 
-🔒 **Contrôle de sécurité** : le bon choix dépend du niveau d'isolation exigé.
+> 🔒 **Contrôle de sécurité** : le bon choix dépend du niveau d'isolation exigé.
+{: .callout .callout-securite}
 
 | Besoin | Mise en œuvre | Compromis |
 |---|---|---|
@@ -154,7 +158,8 @@ datasources:
       httpHeaderValue1: team-a
 ```
 
-⚠️ **Erreur fréquente** : `X-Scope-OrgID` est une convention d'adressage, pas une authentification. Si Loki est joignable directement depuis le réseau des utilisateurs, n'importe qui peut choisir un autre tenant. Il faut une passerelle qui authentifie et fixe l'en-tête, ou une isolation réseau stricte, ce qui fait entrer le pare-feu dans le périmètre de sécurité des données.
+> ⚠️ **Erreur fréquente** : `X-Scope-OrgID` est une convention d'adressage, pas une authentification. Si Loki est joignable directement depuis le réseau des utilisateurs, n'importe qui peut choisir un autre tenant. Il faut une passerelle qui authentifie et fixe l'en-tête, ou une isolation réseau stricte, ce qui fait entrer le pare-feu dans le périmètre de sécurité des données.
+{: .callout .callout-attention}
 
 ## Authentification : local, OAuth et SSO
 
@@ -193,7 +198,8 @@ Points à comprendre :
 
 Compte de secours : gardez un compte local administrateur au mot de passe fort et stocké hors ligne. Après activation du SSO, vous pouvez masquer le formulaire avec `[auth] disable_login_form = true`. Pour reprendre la main en cas d'IdP indisponible, il faut un accès shell : `grafana cli admin reset-admin-password <PASSWORD>`.
 
-⚠️ **Auth proxy** (`[auth.proxy]`) : Grafana fait confiance à un en-tête (ex. `X-WEBAUTH-USER`) posé par le proxy. Si Grafana est joignable sans passer par le proxy, un simple `curl -H 'X-WEBAUTH-USER: admin'` suffit. N'activez ce mode que si Grafana n'écoute que sur le réseau du proxy et définissez `whitelist` avec ses adresses.
+> ⚠️ **Auth proxy** (`[auth.proxy]`) : Grafana fait confiance à un en-tête (ex. `X-WEBAUTH-USER`) posé par le proxy. Si Grafana est joignable sans passer par le proxy, un simple `curl -H 'X-WEBAUTH-USER: admin'` suffit. N'activez ce mode que si Grafana n'écoute que sur le réseau du proxy et définissez `whitelist` avec ses adresses.
+{: .callout .callout-attention}
 
 ## Configuration sécurisée
 
@@ -270,7 +276,8 @@ Ce que ça coûte et ce que ça impose :
 - `$__file{...}` lit le secret depuis un fichier monté (Docker secrets, Kubernetes Secret). En variables d'environnement, le suffixe `__FILE` fait la même chose : `GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_admin_password`.
 - Les paramètres dépendent de la version : vérifiez `defaults.ini` de la version déployée.
 
-💡 **Astuce** : changez le mot de passe admin dès le premier démarrage, avant de publier quoi que ce soit. Après coup, `grafana cli admin reset-admin-password` marche aussi, mais ne répare pas le fait que la fenêtre d'exposition ait existé.
+> 💡 **Astuce** : changez le mot de passe admin dès le premier démarrage, avant de publier quoi que ce soit. Après coup, `grafana cli admin reset-admin-password` marche aussi, mais ne répare pas le fait que la fenêtre d'exposition ait existé.
+{: .callout .callout-astuce}
 
 ## Secrets et credentials de Data Sources
 
@@ -303,7 +310,8 @@ Règles de gestion :
 - Chaque Data Source utilise un compte backend en **lecture seule** avec le périmètre minimal. Pour une base SQL, un rôle `SELECT` sur les schémas utiles, pas le compte applicatif.
 - Jamais d'identifiants dans l'URL (`https://user:pass@host`), ni de token dans une query string : l'URL apparaît dans les logs du proxy et dans le JSON de Data Source lisible par les éditeurs.
 
-⚠️ **Erreur fréquente** : un token API collé dans un panel Text ou un champ « custom header » de l'UI plutôt que dans `secureJsonData`. Il devient lisible dans l'export JSON du dashboard et indexé par tout outil de sauvegarde. Correction : en-têtes sensibles via `httpHeaderName1` + `secureJsonData.httpHeaderValue1`.
+> ⚠️ **Erreur fréquente** : un token API collé dans un panel Text ou un champ « custom header » de l'UI plutôt que dans `secureJsonData`. Il devient lisible dans l'export JSON du dashboard et indexé par tout outil de sauvegarde. Correction : en-têtes sensibles via `httpHeaderName1` + `secureJsonData.httpHeaderValue1`.
+{: .callout .callout-attention}
 
 Après un incident, la rotation se fait côté **backend** : changez le mot de passe de chaque compte stocké dans Grafana, puis mettez à jour la Data Source. Régénérer `secret_key` ne protège pas des secrets déjà déchiffrés par l'attaquant.
 
@@ -469,35 +477,47 @@ Leçon : la discussion « qui voit quel dashboard » a masqué la vraie question
 
 ## Erreurs fréquentes
 
-⚠️ **Accès anonyme avec rôle trop large**
-- Configuration dangereuse : `[auth.anonymous] enabled = true` avec `org_role = Editor`, laissé après une démo.
-- Conséquence : toute personne atteignant l'URL édite des dashboards et interroge les Data Sources sans compte.
-- Correction : `enabled = false`. Pour un écran public, un Viewer avec dashboard publié et Data Source dédiée en lecture limitée. Détection : `curl -s -o /dev/null -w '%{http_code}' https://<HOST>/api/search` doit renvoyer 401.
+> ⚠️ **Accès anonyme avec rôle trop large**
+>
+> - Configuration dangereuse : `[auth.anonymous] enabled = true` avec `org_role = Editor`, laissé après une démo.
+> - Conséquence : toute personne atteignant l'URL édite des dashboards et interroge les Data Sources sans compte.
+> - Correction : `enabled = false`. Pour un écran public, un Viewer avec dashboard publié et Data Source dédiée en lecture limitée. Détection : `curl -s -o /dev/null -w '%{http_code}' https://<HOST>/api/search` doit renvoyer 401.
+{: .callout .callout-attention}
 
-⚠️ **Token Admin éternel dans le CI**
-- Configuration dangereuse : un service account `Admin` dont le token n'expire jamais, copié dans un pipeline.
-- Conséquence : quiconque lit les variables du CI (ou leurs logs) contrôle la plateforme, même après le départ de l'auteur.
-- Correction : un service account par usage avec le rôle minimal, token à durée de vie courte, rotation dans le secrets manager. Détection : l'audit `/api/serviceaccounts/search` ci-dessus.
+> ⚠️ **Token Admin éternel dans le CI**
+>
+> - Configuration dangereuse : un service account `Admin` dont le token n'expire jamais, copié dans un pipeline.
+> - Conséquence : quiconque lit les variables du CI (ou leurs logs) contrôle la plateforme, même après le départ de l'auteur.
+> - Correction : un service account par usage avec le rôle minimal, token à durée de vie courte, rotation dans le secrets manager. Détection : l'audit `/api/serviceaccounts/search` ci-dessus.
+{: .callout .callout-attention}
 
-⚠️ **Grafana exposé directement, avec auth proxy**
-- Configuration dangereuse : `[auth.proxy] enabled = true` et port 3000 publié.
-- Conséquence : l'attaquant envoie lui-même l'en-tête d'identité et devient n'importe quel utilisateur.
-- Correction : `http_addr = 127.0.0.1`, `whitelist` des IP du proxy, réseau interne. Détection : `nmap -Pn -p 3000 <HOST>` doit montrer le port filtré.
+> ⚠️ **Grafana exposé directement, avec auth proxy**
+>
+> - Configuration dangereuse : `[auth.proxy] enabled = true` et port 3000 publié.
+> - Conséquence : l'attaquant envoie lui-même l'en-tête d'identité et devient n'importe quel utilisateur.
+> - Correction : `http_addr = 127.0.0.1`, `whitelist` des IP du proxy, réseau interne. Détection : `nmap -Pn -p 3000 <HOST>` doit montrer le port filtré.
+{: .callout .callout-attention}
 
-⚠️ **`/metrics` ouvert**
-- Configuration dangereuse : endpoint Prometheus de Grafana sans authentification derrière un proxy qui laisse tout passer.
-- Conséquence : version exacte, nombre d'utilisateurs, handlers : reconnaissance facile.
-- Correction : `[metrics] basic_auth_username/password`, plus blocage au proxy, et scrape depuis le réseau interne uniquement.
+> ⚠️ **`/metrics` ouvert**
+>
+> - Configuration dangereuse : endpoint Prometheus de Grafana sans authentification derrière un proxy qui laisse tout passer.
+> - Conséquence : version exacte, nombre d'utilisateurs, handlers : reconnaissance facile.
+> - Correction : `[metrics] basic_auth_username/password`, plus blocage au proxy, et scrape depuis le réseau interne uniquement.
+{: .callout .callout-attention}
 
-⚠️ **Plugin non signé « juste pour tester »**
-- Configuration dangereuse : `allow_loading_unsigned_plugins = *` dans l'environnement de production.
-- Conséquence : tout code déposé dans le répertoire de plugins s'exécute avec les droits de Grafana.
-- Correction : liste explicite d'identifiants, plugins intégrés à l'image et scannés. Détection : `grafana cli plugins ls` comparé à la liste attendue.
+> ⚠️ **Plugin non signé « juste pour tester »**
+>
+> - Configuration dangereuse : `allow_loading_unsigned_plugins = *` dans l'environnement de production.
+> - Conséquence : tout code déposé dans le répertoire de plugins s'exécute avec les droits de Grafana.
+> - Correction : liste explicite d'identifiants, plugins intégrés à l'image et scannés. Détection : `grafana cli plugins ls` comparé à la liste attendue.
+{: .callout .callout-attention}
 
-⚠️ **Data Source avec compte privilégié**
-- Configuration dangereuse : Prometheus, SQL ou API cloud configurés avec un compte d'écriture ou d'administration.
-- Conséquence : toute fuite de secret ou tout accès Editor à la Data Source devient un accès en écriture au backend.
-- Correction : compte dédié lecture seule, périmètre minimal, `data_source_proxy_whitelist` pour restreindre les destinations.
+> ⚠️ **Data Source avec compte privilégié**
+>
+> - Configuration dangereuse : Prometheus, SQL ou API cloud configurés avec un compte d'écriture ou d'administration.
+> - Conséquence : toute fuite de secret ou tout accès Editor à la Data Source devient un accès en écriture au backend.
+> - Correction : compte dédié lecture seule, périmètre minimal, `data_source_proxy_whitelist` pour restreindre les destinations.
+{: .callout .callout-attention}
 
 ## Résumé
 

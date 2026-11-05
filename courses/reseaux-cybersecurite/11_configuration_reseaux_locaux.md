@@ -98,7 +98,8 @@ ip route get 192.168.20.2
 
 Le mot `via` indique que la destination est hors du réseau local et que le paquet part chez la passerelle. S'il n'y a pas de `via`, la destination est considérée comme voisine directe.
 
-💡 **Point clé** : `ip addr add 192.168.10.50/24 dev enp0s3` fonctionne instantanément, mais il ne modifie que la mémoire du noyau. Au prochain redémarrage ou rechargement du réseau, tout disparaît. C'est parfait pour un test rapide et trompeur pour une vraie configuration.
+> 💡 **Point clé** : `ip addr add 192.168.10.50/24 dev enp0s3` fonctionne instantanément, mais il ne modifie que la mémoire du noyau. Au prochain redémarrage ou rechargement du réseau, tout disparaît. C'est parfait pour un test rapide et trompeur pour une vraie configuration.
+{: .callout .callout-important}
 
 Pour rendre la configuration persistante, l'outil dépend de la distribution. Sur Ubuntu serveur, c'est généralement Netplan :
 
@@ -201,7 +202,8 @@ Une idée reçue à écarter : la passerelle ne résout pas les noms. Elle ne fa
 
 Imaginez un open-space où chaque annonce faite à voix haute est entendue par tout le monde. C'est un réseau local classique : un broadcast atteint toutes les machines. Un VLAN installe des cloisons dans la pièce, sans déplacer le moindre bureau.
 
-🧠 **Concept fondamental** : un VLAN est un domaine de broadcast distinct. Le switch ne livre une trame qu'aux ports qui appartiennent au même VLAN. Par convention, un VLAN correspond à un sous-réseau IP, donc deux machines de VLAN différents ne peuvent pas se parler au niveau 2. Il faut passer par un routeur.
+> 🧠 **Concept fondamental** : un VLAN est un domaine de broadcast distinct. Le switch ne livre une trame qu'aux ports qui appartiennent au même VLAN. Par convention, un VLAN correspond à un sous-réseau IP, donc deux machines de VLAN différents ne peuvent pas se parler au niveau 2. Il faut passer par un routeur.
+{: .callout .callout-important}
 
 ### Comment le switch distingue les VLAN
 
@@ -269,7 +271,8 @@ Port    Vlans allowed on trunk
 Gi0/24  10,20,30
 ```
 
-⚠️ **Comportement contre-intuitif** : le port `Gi0/24` n'apparaît pas dans `show vlan brief`, alors qu'il porte tous les VLAN. Cette commande ne liste que les ports access. Ceux qui cherchent leur trunk dans cette sortie concluent à tort qu'il est cassé. Il faut aller dans `show interfaces trunk`, qui indique aussi le VLAN natif et la liste des VLAN autorisés.
+> ⚠️ **Comportement contre-intuitif** : le port `Gi0/24` n'apparaît pas dans `show vlan brief`, alors qu'il porte tous les VLAN. Cette commande ne liste que les ports access. Ceux qui cherchent leur trunk dans cette sortie concluent à tort qu'il est cassé. Il faut aller dans `show interfaces trunk`, qui indique aussi le VLAN natif et la liste des VLAN autorisés.
+{: .callout .callout-attention}
 
 Pour tester un trunk depuis une machine Linux, vous pouvez créer une interface VLAN virtuelle. Elle n'a pas besoin de switch physique pour s'entraîner dans une machine virtuelle :
 
@@ -388,7 +391,8 @@ Le chiffrement du Wi-Fi s'appelle WPA (Wi-Fi Protected Access). Voici les modes 
 
 Le mode entreprise suppose une gestion des identités, qui est l'objet d'un module ultérieur. Pour un petit réseau, WPA3-Personal ou, à défaut, le mode mixte WPA2/WPA3 (utile pour les clients anciens) fait le travail.
 
-⚠️ **Piège** : le handshake WPA2 peut être capturé par n'importe qui à portée radio. Avec une passphrase courte ou tirée du dictionnaire, un attaquant la retrouve ensuite chez lui, hors ligne, sans que vous voyiez rien. Utilisez au moins 16 caractères aléatoires, ou passez en WPA3.
+> ⚠️ **Piège** : le handshake WPA2 peut être capturé par n'importe qui à portée radio. Avec une passphrase courte ou tirée du dictionnaire, un attaquant la retrouve ensuite chez lui, hors ligne, sans que vous voyiez rien. Utilisez au moins 16 caractères aléatoires, ou passez en WPA3.
+{: .callout .callout-attention}
 
 Parmi les réglages qui donnent une fausse impression de sécurité, on trouve le SSID masqué, qui se lit en une capture, et le filtrage par adresse MAC, qui se contourne en copiant une adresse observée. Désactivez aussi le WPS (Wi-Fi Protected Setup), dont le code PIN a des faiblesses connues. Sur un SSID invité, activez l'isolation des clients si l'AP la propose, pour que deux invités ne se voient pas entre eux.
 

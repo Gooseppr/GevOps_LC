@@ -61,7 +61,8 @@ flowchart LR
 
 Un routeur ne connaît pas le chemin complet vers la destination. Il sait seulement **à qui confier le paquet ensuite**. C'est le principe du carrefour : un panneau indique « Lyon : à droite », sans vous accompagner jusqu'à Lyon. À chaque carrefour, une nouvelle décision locale est prise, et le paquet finit par arriver parce que chaque saut fait un bon choix.
 
-🧠 **Concept fondamental** : le routage fonctionne **saut par saut**. Chaque équipement ne décide que du prochain saut, jamais du trajet complet.
+> 🧠 **Concept fondamental** : le routage fonctionne **saut par saut**. Chaque équipement ne décide que du prochain saut, jamais du trajet complet.
+{: .callout .callout-important}
 
 La première décision se prend sur la machine émettrice, avant même qu'un routeur n'intervienne. Votre poste compare l'adresse de destination à sa propre adresse et à son masque :
 
@@ -83,7 +84,8 @@ Quand un paquet traverse un routeur, deux choses changent et une reste stable :
 - le TTL (Time To Live), un compteur placé dans l'en-tête IP, est décrémenté de 1. À zéro, le routeur jette le paquet : c'est ce qui empêche les boucles de tourner indéfiniment ;
 - les adresses IP source et destination restent identiques, sauf si un NAT intervient, ce que nous verrons plus loin.
 
-💡 **Point clé** : l'adresse IP de destination reste celle de la machine finale, mais l'adresse MAC de destination est celle du **prochain routeur**. Quand une capture montre un paquet adressé à l'IP d'un serveur mais à la MAC du routeur, c'est parfaitement normal.
+> 💡 **Point clé** : l'adresse IP de destination reste celle de la machine finale, mais l'adresse MAC de destination est celle du **prochain routeur**. Quand une capture montre un paquet adressé à l'IP d'un serveur mais à la MAC du routeur, c'est parfaitement normal.
+{: .callout .callout-important}
 
 ## Lire une table de routage
 
@@ -115,7 +117,8 @@ Si plusieurs lignes correspondent à la destination, le routeur applique la règ
 | `10.2.0.5` | `10.0.0.0/8`, `default` | `10.0.0.0/8` |
 | `8.8.8.8` | `default` | `default` |
 
-⚠️ **Comportement contre-intuitif** : l'ordre d'affichage ne compte pas, et la route par défaut n'est consultée qu'en dernier recours, quelle que soit sa position. La métrique (`metric`), elle, ne sert qu'à départager deux routes de **même préfixe**. Une route `/24` avec une mauvaise métrique l'emporte toujours sur une `/16` avec une excellente métrique.
+> ⚠️ **Comportement contre-intuitif** : l'ordre d'affichage ne compte pas, et la route par défaut n'est consultée qu'en dernier recours, quelle que soit sa position. La métrique (`metric`), elle, ne sert qu'à départager deux routes de **même préfixe**. Une route `/24` avec une mauvaise métrique l'emporte toujours sur une `/16` avec une excellente métrique.
+{: .callout .callout-attention}
 
 Pour savoir ce que décidera le noyau pour une destination précise, sans envoyer de trafic, demandez-le-lui :
 
@@ -162,7 +165,8 @@ sudo ip route add default via 203.0.113.1 dev eth2
 
 Un routeur de bordure n'en a généralement qu'une, pointée vers l'opérateur. Un poste de travail aussi : c'est ce que la configuration réseau appelle la passerelle.
 
-⚠️ **Piège classique** : les routes ajoutées avec `ip route add` **disparaissent au redémarrage**. Il faut les inscrire dans la configuration persistante de la distribution (Netplan, NetworkManager, fichiers `/etc/network/`, etc., selon le système). Le mécanisme varie, mais le principe est constant : la commande en ligne est un test, la configuration est un fichier.
+> ⚠️ **Piège classique** : les routes ajoutées avec `ip route add` **disparaissent au redémarrage**. Il faut les inscrire dans la configuration persistante de la distribution (Netplan, NetworkManager, fichiers `/etc/network/`, etc., selon le système). Le mécanisme varie, mais le principe est constant : la commande en ligne est un test, la configuration est un fichier.
+{: .callout .callout-attention}
 
 Sous Windows, les équivalents existent, avec l'option `-p` pour rendre la route persistante :
 
@@ -213,7 +217,8 @@ sudo nft add rule ip nat postrouting oifname "eth2" masquerade
 
 `masquerade` est un SNAT qui prend automatiquement l'adresse de l'interface de sortie. C'est pratique quand l'adresse publique change (abonnement grand public). Avec une adresse fixe, on écrit `snat to 203.0.113.10`, un peu plus efficace. Le contenu de la table de translation se consulte avec `sudo conntrack -L` (paquet `conntrack`).
 
-⚠️ **Piège** : la règle est limitée à `oifname "eth2"`, l'interface WAN. Sans cette restriction, le trafic entre le siège et l'agence serait lui aussi masqué, et les serveurs de l'agence ne verraient plus que `R1` comme source. Les journaux d'audit deviennent alors inexploitables.
+> ⚠️ **Piège** : la règle est limitée à `oifname "eth2"`, l'interface WAN. Sans cette restriction, le trafic entre le siège et l'agence serait lui aussi masqué, et les serveurs de l'agence ne verraient plus que `R1` comme source. Les journaux d'audit deviennent alors inexploitables.
+{: .callout .callout-attention}
 
 ### DNAT : publier un service interne
 
@@ -292,7 +297,8 @@ traceroute to 192.168.30.10, 30 hops max, 60 byte packets
 
 L'option `-n` évite les résolutions DNS, qui ralentissent l'affichage et brouillent la lecture. Chaque ligne est un routeur traversé, et les trois durées sont les temps aller-retour des trois sondes. Ici, le paquet passe par `R1`, puis `R2`, puis arrive à destination. Sous Windows, la commande équivalente est `tracert -d`.
 
-⚠️ **Comportement contre-intuitif** : une ligne `* * *` ne signifie pas forcément que le saut est en panne. Beaucoup de routeurs et de pare-feu filtrent ou limitent les messages ICMP, et transmettent pourtant très bien le trafic réel. Ce qui compte, c'est que **les sauts suivants répondent** ou non.
+> ⚠️ **Comportement contre-intuitif** : une ligne `* * *` ne signifie pas forcément que le saut est en panne. Beaucoup de routeurs et de pare-feu filtrent ou limitent les messages ICMP, et transmettent pourtant très bien le trafic réel. Ce qui compte, c'est que **les sauts suivants répondent** ou non.
+{: .callout .callout-attention}
 
 Pour comprendre un mauvais choix de chemin, on combine `traceroute` (le chemin réel) avec `ip route get` (la décision locale), puis on remonte hop par hop. Les outils de diagnostic sont traités en détail dans le module suivant.
 

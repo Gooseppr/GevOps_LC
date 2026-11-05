@@ -68,7 +68,8 @@ Ces trois approches ne sont pas des niveaux successifs. Elles répondent à des 
 | Mesure mal | Couverture : une technique non utilisée n'est pas testée | Sa propre efficacité, faute d'adversaire | Réalisme de l'enchaînement et pression psychologique |
 | Coût | Élevé (profils rares, durée) | Récurrent, intégré aux opérations | Modéré, mais mobilise les deux équipes |
 
-🧠 **Concept clé** : la Purple Team n'est pas une troisième équipe. C'est une façon de travailler où l'attaquant rejoue ses actions sous les yeux du défenseur, qui ajuste ses règles dans la foulée. Dans beaucoup d'organisations, ce sont les mêmes personnes qui alternent les rôles selon la semaine.
+> 🧠 **Concept clé** : la Purple Team n'est pas une troisième équipe. C'est une façon de travailler où l'attaquant rejoue ses actions sous les yeux du défenseur, qui ajuste ses règles dans la foulée. Dans beaucoup d'organisations, ce sont les mêmes personnes qui alternent les rôles selon la semaine.
+{: .callout .callout-important}
 
 La différence avec le pentest du module 31 porte sur l'objectif. Un pentest cherche des vulnérabilités à périmètre borné. Un Red Team cherche à atteindre un objectif métier en évitant d'être détecté. Un exercice Purple cherche à mesurer la détection, pas à l'éviter.
 
@@ -137,7 +138,8 @@ Un exercice sans cadre est une intrusion. Les règles d'engagement (RoE, Rules o
 
 Pour les secteurs régulés, des cadres formalisent cette démarche. TIBER-EU (Threat Intelligence-based Ethical Red Teaming) en est un exemple dans la finance. Il impose notamment que le scénario s'appuie sur du renseignement sur les menaces. Vérifiez la version en vigueur avant de vous y référer dans une mission.
 
-💡 **Astuce** : pour un premier exercice, partez en *assumed breach*. Donnez au Red Team un poste compromis et un compte standard. Vous économisez trois semaines d'accès initial et testez directement ce qui compte : ce qui se passe après la compromission.
+> 💡 **Astuce** : pour un premier exercice, partez en *assumed breach*. Donnez au Red Team un poste compromis et un compte standard. Vous économisez trois semaines d'accès initial et testez directement ce qui compte : ce qui se passe après la compromission.
+{: .callout .callout-astuce}
 
 ## Tests de sécurité : rejouer une technique en laboratoire
 
@@ -169,7 +171,8 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4769} -MaxEvents 500 |
 
 L'index `Properties[5]` correspond au champ `TicketEncryptionType` sur les versions récentes de Windows. Contrôlez-le sur votre version avant d'industrialiser la requête.
 
-⚠️ N'exécutez jamais ces tests sur des machines de production sans accord écrit, ni depuis un répertoire exclu de l'antivirus (voir « Erreurs fréquentes »).
+> ⚠️ N'exécutez jamais ces tests sur des machines de production sans accord écrit, ni depuis un répertoire exclu de l'antivirus (voir « Erreurs fréquentes »).
+{: .callout .callout-attention}
 
 ## Contrôles de détection : valider la couverture, pas l'existence d'une règle
 
@@ -225,7 +228,8 @@ Chaque lacune appelle un type de contrôle différent, et chaque type a un coût
 | Mouvement latéral SMB | Segmentation, LAPS pour des mots de passe d'administrateur local uniques | Corrélation 4624 type 3 + création de service (7045) | Désactivation des comptes, restauration |
 | Chiffrement par rançongiciel | Sauvegardes hors ligne et testées | Alerte sur suppression massive de clichés (`vssadmin delete shadows`) | Plan de restauration documenté |
 
-🔒 **Contrôle de sécurité** : le préventif coûte en friction (Credential Guard exige du matériel compatible et casse certaines applications anciennes). Le détectif coûte en temps d'analyste. Le correctif coûte en temps de reprise. Un exercice Purple sert à décider où placer la dépense : on bloque ce qui est peu coûteux à bloquer, on détecte ce qu'on ne peut pas bloquer, et on s'entraîne à corriger ce qu'on ne peut ni l'un ni l'autre.
+> 🔒 **Contrôle de sécurité** : le préventif coûte en friction (Credential Guard exige du matériel compatible et casse certaines applications anciennes). Le détectif coûte en temps d'analyste. Le correctif coûte en temps de reprise. Un exercice Purple sert à décider où placer la dépense : on bloque ce qui est peu coûteux à bloquer, on détecte ce qu'on ne peut pas bloquer, et on s'entraîne à corriger ce qu'on ne peut ni l'un ni l'autre.
+{: .callout .callout-securite}
 
 ## Coordination attaque simulée et réponse défensive
 
@@ -267,7 +271,8 @@ Peu d'indicateurs servent vraiment :
 - **Taux de régression** : détections de niveau 4 qui retombent plus bas au cycle suivant, souvent après une mise à jour d'agent ou de parsers.
 - **Délai de correction** des constats, en jours, par criticité.
 
-⚠️ **Piège fréquent** : afficher « 85 % de couverture ATT&CK » sur un tableau de bord. Le chiffre mélange des techniques jamais testées, des techniques détectées par hasard et des techniques validées. Sans la méthode de calcul, il est inutilisable.
+> ⚠️ **Piège fréquent** : afficher « 85 % de couverture ATT&CK » sur un tableau de bord. Le chiffre mélange des techniques jamais testées, des techniques détectées par hasard et des techniques validées. Sans la méthode de calcul, il est inutilisable.
+{: .callout .callout-attention}
 
 Pour que la validation survive aux changements, automatisez-la. Rejouez les tests Atomic chaque mois sur un groupe de machines représentatif (même politique EDR, mêmes exclusions que la production) et comparez les alertes obtenues au résultat du cycle précédent.
 
@@ -334,35 +339,47 @@ Un trimestre plus tard, la société lance un Red Team en mode informé. Il part
 
 ## Erreurs fréquentes
 
-⚠️ **Filtre de règle sur un répertoire entier**
-- *Configuration dangereuse* : `SourceImage|startswith: 'C:\Windows\System32\'` pour exclure le bruit légitime.
-- *Conséquence* : `rundll32.exe`, utilisé avec `comsvcs.dll` pour copier LSASS, réside dans ce répertoire. La technique passe sous la règle.
-- *Correction* : filtrer l'exécutable exact et, si possible, sa signature. Valider chaque exclusion en rejouant le test Atomic correspondant.
+> ⚠️ **Filtre de règle sur un répertoire entier**
+>
+> - *Configuration dangereuse* : `SourceImage|startswith: 'C:\Windows\System32\'` pour exclure le bruit légitime.
+> - *Conséquence* : `rundll32.exe`, utilisé avec `comsvcs.dll` pour copier LSASS, réside dans ce répertoire. La technique passe sous la règle.
+> - *Correction* : filtrer l'exécutable exact et, si possible, sa signature. Valider chaque exclusion en rejouant le test Atomic correspondant.
+{: .callout .callout-attention}
 
-⚠️ **Tests exécutés depuis un répertoire exclu de l'antivirus**
-- *Configuration dangereuse* : le dossier des outils de test figure dans les exclusions de l'EDR « pour éviter les faux positifs ».
-- *Conséquence* : aucune alerte, donc une couverture surestimée, ou un résultat qui ne se reproduit pas en production.
-- *Correction* : vérifier les exclusions avec `Get-MpPreference | Select ExclusionPath, ExclusionProcess`, exécuter depuis un chemin normal sur une machine qui porte la même politique que la production.
+> ⚠️ **Tests exécutés depuis un répertoire exclu de l'antivirus**
+>
+> - *Configuration dangereuse* : le dossier des outils de test figure dans les exclusions de l'EDR « pour éviter les faux positifs ».
+> - *Conséquence* : aucune alerte, donc une couverture surestimée, ou un résultat qui ne se reproduit pas en production.
+> - *Correction* : vérifier les exclusions avec `Get-MpPreference | Select ExclusionPath, ExclusionProcess`, exécuter depuis un chemin normal sur une machine qui porte la même politique que la production.
+{: .callout .callout-attention}
 
-⚠️ **Exercice sans nettoyage**
-- *Configuration dangereuse* : tâche planifiée, clé de registre Run ou compte créé pendant l'exercice et laissés en place.
-- *Conséquence* : persistance involontaire, exploitable par un vrai attaquant, et pollution des investigations futures.
-- *Correction* : `Invoke-AtomicTest <TECHNIQUE> -Cleanup` après chaque test, plus un inventaire des artefacts créés dans le journal d'opération. Vérifier par comparaison avec l'état initial.
+> ⚠️ **Exercice sans nettoyage**
+>
+> - *Configuration dangereuse* : tâche planifiée, clé de registre Run ou compte créé pendant l'exercice et laissés en place.
+> - *Conséquence* : persistance involontaire, exploitable par un vrai attaquant, et pollution des investigations futures.
+> - *Correction* : `Invoke-AtomicTest <TECHNIQUE> -Cleanup` après chaque test, plus un inventaire des artefacts créés dans le journal d'opération. Vérifier par comparaison avec l'état initial.
+{: .callout .callout-attention}
 
-⚠️ **Infrastructure de l'exercice non déconflictée**
-- *Configuration dangereuse* : IP et domaines du Red Team inconnus de la white cell.
-- *Conséquence* : le SOC déclenche une cellule de crise, bloque un prestataire ou, à l'inverse, un vrai attaquant se cache dans le bruit de l'exercice.
-- *Correction* : liste de déconfliction remise à la white cell avant le démarrage, avec heures d'activité attendues.
+> ⚠️ **Infrastructure de l'exercice non déconflictée**
+>
+> - *Configuration dangereuse* : IP et domaines du Red Team inconnus de la white cell.
+> - *Conséquence* : le SOC déclenche une cellule de crise, bloque un prestataire ou, à l'inverse, un vrai attaquant se cache dans le bruit de l'exercice.
+> - *Correction* : liste de déconfliction remise à la white cell avant le démarrage, avec heures d'activité attendues.
+{: .callout .callout-attention}
 
-⚠️ **Rapport sans retest**
-- *Configuration dangereuse* : constats listés avec une priorité mais sans date de validation.
-- *Conséquence* : les corrections ne sont jamais vérifiées, et le même chemin réapparaît à l'exercice suivant.
-- *Correction* : chaque constat porte un propriétaire, une échéance et un test de revalidation (commande ou procédure Atomic) rejouable.
+> ⚠️ **Rapport sans retest**
+>
+> - *Configuration dangereuse* : constats listés avec une priorité mais sans date de validation.
+> - *Conséquence* : les corrections ne sont jamais vérifiées, et le même chemin réapparaît à l'exercice suivant.
+> - *Correction* : chaque constat porte un propriétaire, une échéance et un test de revalidation (commande ou procédure Atomic) rejouable.
+{: .callout .callout-attention}
 
-⚠️ **Détection validée une fois, jamais rejouée**
-- *Configuration dangereuse* : un seul passage de validation, sans automatisation.
-- *Conséquence* : une mise à jour d'agent, de parseur ou de politique casse la règle sans que personne ne le remarque.
-- *Correction* : rejeu mensuel automatisé des tests de niveau 4 et alerte en cas de dégradation.
+> ⚠️ **Détection validée une fois, jamais rejouée**
+>
+> - *Configuration dangereuse* : un seul passage de validation, sans automatisation.
+> - *Conséquence* : une mise à jour d'agent, de parseur ou de politique casse la règle sans que personne ne le remarque.
+> - *Correction* : rejeu mensuel automatisé des tests de niveau 4 et alerte en cas de dégradation.
+{: .callout .callout-attention}
 
 ## Résumé
 

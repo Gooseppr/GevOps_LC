@@ -59,7 +59,8 @@ flowchart LR
 
 Sur ce schéma, il y a deux familles de liens. Les liens synchrones (`sync`) bloquent l'appelant : si payments est lent, checkout attend, donc le client aussi. Le lien par message découple : checkout publie et continue, et la lenteur du worker ne se voit pas dans la réponse au client, mais ailleurs (email envoyé avec 20 minutes de retard). Les symptômes ne se lisent donc pas de la même façon selon le type de lien.
 
-🧠 **Concept clé** : une trace est un arbre de spans. Un span représente une unité de travail (un appel HTTP entrant, une requête SQL, un publish Kafka) avec un début, une durée, un statut et des attributs. Tous les spans d'une même requête partagent un trace ID. Cet identifiant circule entre services dans un en-tête, et c'est lui qui permet de recoller les morceaux.
+> 🧠 **Concept clé** : une trace est un arbre de spans. Un span représente une unité de travail (un appel HTTP entrant, une requête SQL, un publish Kafka) avec un début, une durée, un statut et des attributs. Tous les spans d'une même requête partagent un trace ID. Cet identifiant circule entre services dans un en-tête, et c'est lui qui permet de recoller les morceaux.
+{: .callout .callout-important}
 
 ## Ce qui fait tenir la corrélation
 
@@ -128,9 +129,11 @@ datasources:
 
 Le `$$` est un échappement propre au provisioning : Grafana interpolerait sinon `$` comme une variable d'environnement.
 
-💡 **Astuce** : les fenêtres `spanStartTimeShift` et `spanEndTimeShift` élargissent la recherche de logs autour du span. Quelques minutes de marge compensent les décalages d'horloge et le délai d'ingestion de Loki, sinon le lien « Logs for this span » ouvre une requête vide alors que les logs existent.
+> 💡 **Astuce** : les fenêtres `spanStartTimeShift` et `spanEndTimeShift` élargissent la recherche de logs autour du span. Quelques minutes de marge compensent les décalages d'horloge et le délai d'ingestion de Loki, sinon le lien « Logs for this span » ouvre une requête vide alors que les logs existent.
+{: .callout .callout-astuce}
 
-⚠️ **Erreur fréquente** : mettre `trace_id` en label Loki pour faciliter la recherche. Chaque requête créerait un flux distinct : cardinalité explosive, ingestion dégradée. Le trace ID se garde dans le contenu de la ligne (log JSON, `| json | trace_id="..."`) ou dans les structured metadata si votre version de Loki les supporte. Les labels restent réservés aux dimensions stables (service, environnement, cluster).
+> ⚠️ **Erreur fréquente** : mettre `trace_id` en label Loki pour faciliter la recherche. Chaque requête créerait un flux distinct : cardinalité explosive, ingestion dégradée. Le trace ID se garde dans le contenu de la ligne (log JSON, `| json | trace_id="..."`) ou dans les structured metadata si votre version de Loki les supporte. Les labels restent réservés aux dimensions stables (service, environnement, cluster).
+{: .callout .callout-attention}
 
 Le trace ID dans les logs n'est pas automatique : il faut que le logger de chaque service l'injecte depuis le contexte courant. Un service qui produit des traces mais pas de logs corrélés laisse un trou dans l'investigation, sans qu'aucune alerte ne le signale.
 
@@ -235,14 +238,15 @@ Un autre piège : si un message est rejoué (retry, dead letter queue), il peut 
 
 ## Une trace incomplète ne prouve rien sur l'absence
 
-⚠️ **Piège à traiter explicitement.** Vous ouvrez la trace d'une commande défaillante. Il y a gateway, checkout, payments. Pas de span `inventory`. Conclusion tentante : « checkout n'a jamais appelé inventory. » Cette conclusion est fausse tant qu'elle n'est pas recoupée, car plusieurs mécanismes font disparaître des spans sans que le composant ait été épargné :
-
-- **Échantillonnage** : en head sampling, la décision est prise au début, mais certains services peuvent avoir leur propre politique (ou un sampler non aligné sur le parent). En tail sampling, une partie des spans peut être jetée ou arriver trop tard pour la décision.
-- **Perte à l'export** : un processus tué (OOM, redémarrage de pod) avant le flush de son buffer perd ses derniers spans. Or ce sont souvent ceux de l'incident.
-- **Limites d'ingestion** : taille maximale de trace, rate limit du collecteur ou de Tempo ; les spans en trop sont rejetés.
-- **Rupture de propagation** : un proxy, un SDK ou un client de messagerie ne transmet pas l'en-tête ; inventory a bien tourné, mais dans une autre trace.
-- **Composant non instrumenté** : la base du stock on-prem ou le PSP externe n'émettent aucun span, ce qui ne veut pas dire qu'ils ne font rien.
-- **Spans en retard** : la trace est consultée avant l'arrivée de tous les spans, surtout avec des services lointains ou des batchs d'export longs.
+> ⚠️ **Piège à traiter explicitement.** Vous ouvrez la trace d'une commande défaillante. Il y a gateway, checkout, payments. Pas de span `inventory`. Conclusion tentante : « checkout n'a jamais appelé inventory. » Cette conclusion est fausse tant qu'elle n'est pas recoupée, car plusieurs mécanismes font disparaître des spans sans que le composant ait été épargné :
+>
+> - **Échantillonnage** : en head sampling, la décision est prise au début, mais certains services peuvent avoir leur propre politique (ou un sampler non aligné sur le parent). En tail sampling, une partie des spans peut être jetée ou arriver trop tard pour la décision.
+> - **Perte à l'export** : un processus tué (OOM, redémarrage de pod) avant le flush de son buffer perd ses derniers spans. Or ce sont souvent ceux de l'incident.
+> - **Limites d'ingestion** : taille maximale de trace, rate limit du collecteur ou de Tempo ; les spans en trop sont rejetés.
+> - **Rupture de propagation** : un proxy, un SDK ou un client de messagerie ne transmet pas l'en-tête ; inventory a bien tourné, mais dans une autre trace.
+> - **Composant non instrumenté** : la base du stock on-prem ou le PSP externe n'émettent aucun span, ce qui ne veut pas dire qu'ils ne font rien.
+> - **Spans en retard** : la trace est consultée avant l'arrivée de tous les spans, surtout avec des services lointains ou des batchs d'export longs.
+{: .callout .callout-attention}
 
 Le raisonnement correct est un recoupement. L'absence dans la trace est un indice, jamais une preuve ; une preuve d'absence demande plusieurs sources indépendantes qui concordent.
 
@@ -279,7 +283,8 @@ histogram_quantile(0.99,
 
 Si un pod sort du lot, vous avez un candidat (nœud dégradé, connexion DNS lente, cache froid). Si tous les pods sont uniformes, la différence vient de la requête (payload, client, chemin applicatif) et non de l'infrastructure.
 
-🧠 **Concept clé** : un taux d'erreur global faible est compatible avec une panne totale pour un segment. Si un client représentant 2 % du trafic dépend d'un chemin cassé, votre SLO global reste vert. Segmentez avant de conclure que « tout va bien ».
+> 🧠 **Concept clé** : un taux d'erreur global faible est compatible avec une panne totale pour un segment. Si un client représentant 2 % du trafic dépend d'un chemin cassé, votre SLO global reste vert. Segmentez avant de conclure que « tout va bien ».
+{: .callout .callout-important}
 
 ## Architecture hybride ou multicloud
 

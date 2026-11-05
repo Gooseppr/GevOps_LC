@@ -50,7 +50,8 @@ Un **SLO (Service Level Objective)** est la cible que l'on se fixe sur ce SLI, s
 
 L'**error budget** est le complément : 100 % − SLO. C'est la quantité d'échecs que l'on s'autorise. Ce n'est pas une tolérance honteuse, c'est une ressource que l'on dépense en déployant, en migrant, en prenant des risques.
 
-🧠 **Concept clé** : un SLI se ramène toujours à une fraction `événements_bons / événements_valides`. Cette forme unique, comprise entre 0 et 1, rend tous les SLI comparables, et permet de calculer budgets et burn rates avec les mêmes formules, quel que soit le service.
+> 🧠 **Concept clé** : un SLI se ramène toujours à une fraction `événements_bons / événements_valides`. Cette forme unique, comprise entre 0 et 1, rend tous les SLI comparables, et permet de calculer budgets et burn rates avec les mêmes formules, quel que soit le service.
+{: .callout .callout-important}
 
 Pour l'intuition, pensez à un budget mensuel de dépenses : le SLO, c'est le plafond que vous vous fixez, l'error budget ce qu'il vous reste à dépenser, et le burn rate la vitesse à laquelle vous le videz. Dépenser 80 % du budget en trois jours revient à le vider environ huit fois trop vite (burn rate ≈ 8) : c'est un rythme qui impose d'agir sans attendre.
 
@@ -78,13 +79,15 @@ sum(rate(http_request_duration_seconds_count{job="api"}[5m]))
 
 Le SLO devient alors « 95 % des requêtes répondent en moins de 300 ms ».
 
-⚠️ **Erreur fréquente** : la valeur de `le` doit correspondre exactement à une borne de bucket de l'histogramme. Avec des buckets à 0.25 et 0.5, `le="0.3"` ne renvoie rien. Si vous voulez un seuil à 300 ms, il faut l'ajouter à l'instrumentation, ce qui est plus simple à faire avant d'écrire le SLO qu'après.
+> ⚠️ **Erreur fréquente** : la valeur de `le` doit correspondre exactement à une borne de bucket de l'histogramme. Avec des buckets à 0.25 et 0.5, `le="0.3"` ne renvoie rien. Si vous voulez un seuil à 300 ms, il faut l'ajouter à l'instrumentation, ce qui est plus simple à faire avant d'écrire le SLO qu'après.
+{: .callout .callout-attention}
 
 **Disponibilité.** Deux approches coexistent. La première est basée sur le trafic réel : le taux de succès ci-dessus fait office de disponibilité. La seconde utilise des sondes synthétiques (par exemple le blackbox exporter) qui interrogent un parcours toutes les 30 secondes, et la disponibilité est la proportion de sondes réussies. Les sondes sont indispensables quand le trafic est faible ou nul la nuit : sans requêtes, un SLI basé sur le trafic ne dit rien.
 
 ### Disponibilité infrastructure ≠ disponibilité fonctionnelle
 
-⚠️ **Le piège du plan, et le plus coûteux en pratique.** La métrique `up == 1` signifie que Prometheus a pu scraper la cible. Un pod `Ready` signifie que sa sonde de santé répond. Aucune des deux ne dit que le client peut payer sa commande.
+> ⚠️ **Le piège du plan, et le plus coûteux en pratique.** La métrique `up == 1` signifie que Prometheus a pu scraper la cible. Un pod `Ready` signifie que sa sonde de santé répond. Aucune des deux ne dit que le client peut payer sa commande.
+{: .callout .callout-attention}
 
 Voici des cas où l'infrastructure est à 100 % et le service à 0 % utile :
 
@@ -102,7 +105,8 @@ La règle est donc de mesurer le plus près possible de l'utilisateur, sur un pa
 
 Le plus solide combine souvent l'ingress (trafic réel) et une sonde sur le parcours critique. Les métriques d'infrastructure (CPU, mémoire, état des pods) restent utiles, mais pour le diagnostic, pas pour définir la fiabilité.
 
-💡 **Astuce** : choisissez peu de SLI par service, deux ou trois suffisent (succès + latence sur le parcours principal). Un SLI par métrique disponible reproduit le dashboard « tout ce qu'on peut afficher », et c'est justement ce qu'on cherche à éviter.
+> 💡 **Astuce** : choisissez peu de SLI par service, deux ou trois suffisent (succès + latence sur le parcours principal). Un SLI par métrique disponible reproduit le dashboard « tout ce qu'on peut afficher », et c'est justement ce qu'on cherche à éviter.
+{: .callout .callout-astuce}
 
 ## Fixer un SLO réaliste
 
@@ -149,7 +153,8 @@ Le budget restant se calcule dans Prometheus ainsi :
 
 Le résultat vaut 1 quand rien n'a été dépensé, 0 quand le budget est épuisé, et devient négatif si le SLO est violé. Le `or vector(0)` est nécessaire : tant qu'aucune erreur 5xx n'a été émise, la série filtrée n'existe pas et la requête renverrait un résultat vide au lieu de 1. `0.001` est le budget (1 − 0,999) : si vous changez le SLO, changez cette valeur.
 
-💡 **Astuce** : une requête sur 30 jours coûte cher à chaque rafraîchissement du dashboard. Pour la production, enregistrez par recording rule le débit d'erreurs et le débit total (et non un ratio), puis sommez chacun sur la fenêtre avant de diviser : moyenner des ratios avec `avg_over_time` pondérerait par le temps et non par le volume de requêtes. Le module précédent a détaillé ce levier de performance, il s'applique ici tel quel. Vérifiez aussi que la rétention de votre backend couvre bien la fenêtre du SLO : avec 15 jours de rétention, un SLO sur 30 jours affichera des résultats faux, sans erreur visible.
+> 💡 **Astuce** : une requête sur 30 jours coûte cher à chaque rafraîchissement du dashboard. Pour la production, enregistrez par recording rule le débit d'erreurs et le débit total (et non un ratio), puis sommez chacun sur la fenêtre avant de diviser : moyenner des ratios avec `avg_over_time` pondérerait par le temps et non par le volume de requêtes. Le module précédent a détaillé ce levier de performance, il s'applique ici tel quel. Vérifiez aussi que la rétention de votre backend couvre bien la fenêtre du SLO : avec 15 jours de rétention, un SLO sur 30 jours affichera des résultats faux, sans erreur visible.
+{: .callout .callout-astuce}
 
 ### Lire le budget pour décider
 
@@ -161,7 +166,8 @@ Le budget sert à arbitrer, pas à décorer un dashboard. Une **error budget pol
 
 L'intérêt de cette politique est qu'elle évite la négociation à chaud pendant un incident : la règle existait avant.
 
-⚠️ **Erreur fréquente** : considérer qu'un budget intact à 100 % en fin de période est une réussite. Il peut signifier au contraire que l'objectif est trop prudent, ou que l'équipe n'ose plus rien livrer. Un budget jamais consommé est un signal à examiner, au même titre qu'un budget épuisé.
+> ⚠️ **Erreur fréquente** : considérer qu'un budget intact à 100 % en fin de période est une réussite. Il peut signifier au contraire que l'objectif est trop prudent, ou que l'équipe n'ose plus rien livrer. Un budget jamais consommé est un signal à examiner, au même titre qu'un budget épuisé.
+{: .callout .callout-attention}
 
 ## Burn rate et alertes multi-fenêtres
 

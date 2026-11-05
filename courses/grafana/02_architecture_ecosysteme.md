@@ -44,7 +44,8 @@ Ces trois questions ont la même racine : personne dans l'équipe n'a de représ
 
 Voici l'analogie qui sert pour tout le reste du parcours. Un navigateur Web n'héberge aucun site : il va chercher des pages chez des serveurs, les met en forme et vous les présente. Si un site est en panne, vous ne dites pas que Firefox est cassé. Grafana tient exactement ce rôle vis-à-vis de vos métriques, logs et traces. Il interroge des systèmes qui détiennent les données et en fait quelque chose de lisible.
 
-🧠 **Concept clé** : Grafana ne stocke pas la télémétrie. Il stocke seulement sa propre configuration (dashboards, utilisateurs, définitions de Data Sources, règles d'alerte). Les points de métriques, les lignes de logs et les traces vivent dans les backends.
+> 🧠 **Concept clé** : Grafana ne stocke pas la télémétrie. Il stocke seulement sa propre configuration (dashboards, utilisateurs, définitions de Data Sources, règles d'alerte). Les points de métriques, les lignes de logs et les traces vivent dans les backends.
+{: .callout .callout-important}
 
 Regardons les pièces de Grafana lui-même.
 
@@ -214,9 +215,11 @@ Le modèle en couches donne une méthode de diagnostic simple : on remonte du ba
 | Panels qui répondent lentement ou expirent | Backend surchargé par le nombre ou le coût des requêtes | Réduire le rafraîchissement, la plage de temps ou le nombre de panels, regarder la charge du backend |
 | Données absentes depuis un moment précis | Pas de collecte pendant la période (exporter, Alloy, scrape) | Vérifier l'étage collecte, pas Grafana |
 
-💡 **Astuce** : dans un panel, le menu *Inspect* (selon la version, accessible aussi par la touche `i` au survol) permet de voir la requête réellement envoyée, la réponse brute et le temps d'exécution. C'est le moyen le plus rapide de savoir si le problème vient de la requête, du backend ou de l'affichage.
+> 💡 **Astuce** : dans un panel, le menu *Inspect* (selon la version, accessible aussi par la touche `i` au survol) permet de voir la requête réellement envoyée, la réponse brute et le temps d'exécution. C'est le moyen le plus rapide de savoir si le problème vient de la requête, du backend ou de l'affichage.
+{: .callout .callout-astuce}
 
-⚠️ **Erreur fréquente** : conclure que « Grafana est en panne » parce que les graphiques sont vides. Un `No data` signifie qu'une requête n'a rien renvoyé, ce qui peut être normal ou provenir d'un autre composant. Le test à faire en premier est de séparer l'état de Grafana (santé) de l'état de la donnée (requête directe).
+> ⚠️ **Erreur fréquente** : conclure que « Grafana est en panne » parce que les graphiques sont vides. Un `No data` signifie qu'une requête n'a rien renvoyé, ce qui peut être normal ou provenir d'un autre composant. Le test à faire en premier est de séparer l'état de Grafana (santé) de l'état de la donnée (requête directe).
+{: .callout .callout-attention}
 
 ## Scénario : un dashboard qui fait tomber Prometheus
 

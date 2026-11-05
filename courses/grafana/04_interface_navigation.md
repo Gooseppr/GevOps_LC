@@ -87,7 +87,8 @@ Chaque dashboard possède un identifiant unique, l'UID (Unique Identifier), visi
 
 ## Le sélecteur temporel : le réglage qui change tout
 
-🧠 **Concept clé** — Un panel ne « contient » pas de données. Il envoie une requête à la source de données pour une fenêtre de temps précise, puis dessine le résultat. Changez la fenêtre, vous changez la requête, donc ce que vous voyez. La barre en haut à droite du dashboard pilote cette fenêtre pour tous les panels à la fois.
+> 🧠 **Concept clé** — Un panel ne « contient » pas de données. Il envoie une requête à la source de données pour une fenêtre de temps précise, puis dessine le résultat. Changez la fenêtre, vous changez la requête, donc ce que vous voyez. La barre en haut à droite du dashboard pilote cette fenêtre pour tous les panels à la fois.
+{: .callout .callout-important}
 
 Elle comporte trois contrôles, tous trois source d'erreurs d'interprétation.
 
@@ -104,7 +105,8 @@ Il y a aussi les boutons de zoom à côté : la loupe pour dézoomer, les flèch
 
 À côté de la période se trouve le menu d'auto-refresh (Off, 5s, 10s, 30s, 1m, etc.). Il relance périodiquement les requêtes. Une valeur trop basse sur un dashboard chargé met la source de données sous pression sans rien apporter : une métrique collectée toutes les 15 secondes n'a aucune raison d'être rafraîchie toutes les 5. L'administrateur peut d'ailleurs fixer un plancher (paramètre `min_refresh_interval` dans la section `[dashboards]` de la configuration serveur).
 
-💡 **Astuce** — Le bouton de rafraîchissement manuel (la flèche circulaire) fonctionne même quand l'auto-refresh est sur Off. En investigation, laissez l'auto-refresh éteint : une page qui bouge pendant que vous analysez est plus gênante qu'utile.
+> 💡 **Astuce** — Le bouton de rafraîchissement manuel (la flèche circulaire) fonctionne même quand l'auto-refresh est sur Off. En investigation, laissez l'auto-refresh éteint : une page qui bouge pendant que vous analysez est plus gênante qu'utile.
+{: .callout .callout-astuce}
 
 ### Le fuseau horaire
 
@@ -118,7 +120,8 @@ Le fuseau se règle au niveau du dashboard (Settings → General, ou « Change t
 
 Quand vos serveurs, vos logs et vos collègues sont répartis sur plusieurs fuseaux, **passer en UTC** est le réflexe le plus fiable : une seule référence, pas de décalage d'heure d'été à calculer.
 
-⚠️ **Erreur fréquente** — Conclure « rien d'anormal » en regardant une période qui ne contient pas l'événement, ou qui l'écrase. Trois mécanismes expliquent ce piège :
+> ⚠️ **Erreur fréquente** — Conclure « rien d'anormal » en regardant une période qui ne contient pas l'événement, ou qui l'écrase. Trois mécanismes expliquent ce piège :
+{: .callout .callout-attention}
 
 1. **La fenêtre est trop courte ou mal placée.** « Last 6 hours » lundi matin ne montre rien du samedi soir.
 2. **La fenêtre est trop large.** Sur 30 jours, Grafana ne peut pas afficher chaque point : la requête est agrégée par pas plus grand, et un pic de deux minutes disparaît dans la moyenne. Le même incident est net sur 1 heure et invisible sur 7 jours.
@@ -163,7 +166,8 @@ Si vous ne voyez pas le bouton, ce n'est pas un bug d'affichage, c'est une quest
 
 À ne pas confondre : le « Grafana Admin » (administrateur de toute l'instance, qui gère organisations et utilisateurs globaux) n'est pas la même chose qu'un « Admin » d'organisation. Le premier voit l'ensemble du serveur, le second seulement son organisation.
 
-💡 **Astuce** — Pour partager une vue précise sans donner de droits d'édition, utilisez le bouton Share (ou Export, selon la version) du dashboard. Le lien généré peut inclure la période courante : cochez l'option de verrouillage de la période si elle est proposée. Votre collègue verra ce que vous voyez, pas « les 6 dernières heures » depuis son clic.
+> 💡 **Astuce** — Pour partager une vue précise sans donner de droits d'édition, utilisez le bouton Share (ou Export, selon la version) du dashboard. Le lien généré peut inclure la période courante : cochez l'option de verrouillage de la période si elle est proposée. Votre collègue verra ce que vous voyez, pas « les 6 dernières heures » depuis son clic.
+{: .callout .callout-astuce}
 
 ## Importer un dashboard communautaire
 
@@ -188,7 +192,8 @@ Une fois importé, vérifiez trois choses avant de lui faire confiance :
 - la **période** et le **fuseau** du dashboard sont ceux que vous attendez ;
 - les **variables** en haut de page (instance, job, environnement) pointent vers vos propres valeurs, pas vers celles de l'auteur.
 
-⚠️ **Erreur fréquente** — Importer un dashboard et le considérer comme fiable parce qu'il est joli et très téléchargé. Il suppose souvent que vos métriques portent les mêmes noms et les mêmes étiquettes que chez son auteur. Si ce n'est pas le cas, certains panels resteront vides, d'autres afficheront des valeurs trompeuses. **Correction :** ouvrez quelques panels en mode édition, lisez la requête, et confirmez qu'elle correspond bien à ce que le titre annonce. Traitez un dashboard communautaire comme un brouillon à relire, pas comme un produit fini.
+> ⚠️ **Erreur fréquente** — Importer un dashboard et le considérer comme fiable parce qu'il est joli et très téléchargé. Il suppose souvent que vos métriques portent les mêmes noms et les mêmes étiquettes que chez son auteur. Si ce n'est pas le cas, certains panels resteront vides, d'autres afficheront des valeurs trompeuses. **Correction :** ouvrez quelques panels en mode édition, lisez la requête, et confirmez qu'elle correspond bien à ce que le titre annonce. Traitez un dashboard communautaire comme un brouillon à relire, pas comme un produit fini.
+{: .callout .callout-attention}
 
 ## Diagnostic : quand l'interface semble mentir
 

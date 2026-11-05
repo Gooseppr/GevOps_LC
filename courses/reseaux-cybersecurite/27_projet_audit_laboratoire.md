@@ -118,14 +118,16 @@ donnees: "preuves chiffrees, suppression a J+<N> apres remise du rapport"
 signature: "<COMMANDITAIRE> / <AUDITEUR> - <DATE>"
 ```
 
-⚠️ **Toutes les vérifications restent limitées à un environnement autorisé.** « C'est un labo » n'est pas une autorisation. Le propriétaire réel de chaque machine et de chaque lien réseau doit avoir signé. En France, l'accès frauduleux à un système de traitement automatisé de données relève de l'article 323-1 du Code pénal, que la cible soit un labo ou non.
+> ⚠️ **Toutes les vérifications restent limitées à un environnement autorisé.** « C'est un labo » n'est pas une autorisation. Le propriétaire réel de chaque machine et de chaque lien réseau doit avoir signé. En France, l'accès frauduleux à un système de traitement automatisé de données relève de l'article 323-1 du Code pénal, que la cible soit un labo ou non.
+{: .callout .callout-attention}
 
 Deux lignes du cadrage évitent les pires dérapages :
 
 - **`preuve_minimale_exploitation`** : elle décide à l'avance jusqu'où vous pouvez aller pour confirmer une faille. Sans elle, vous vous arrêtez à la version et à la configuration observées. L'exploitation proprement dite relève du module de pentest en laboratoire, pas de cet audit.
 - **`arret_immediat_si`** : elle transforme l'incident du scénario d'ouverture en simple pause.
 
-💡 Avant de valider le périmètre, vérifiez ce que votre poste d'audit atteint réellement : `ip route` pour les routes, `traceroute <HOTE_HORS_LABO>` pour voir si vous sortez du labo. La frontière du labo se prouve avec les routes, pas avec le schéma.
+> 💡 Avant de valider le périmètre, vérifiez ce que votre poste d'audit atteint réellement : `ip route` pour les routes, `traceroute <HOTE_HORS_LABO>` pour voir si vous sortez du labo. La frontière du labo se prouve avec les routes, pas avec le schéma.
+{: .callout .callout-important}
 
 ## Phase 1 : inventaire des actifs et cartographie des flux
 
@@ -220,7 +222,8 @@ Lancez deux scans, car ils répondent à deux questions :
 
 Avec Greenbone/OpenVAS, le principe est de créer une cible avec les hôtes du périmètre, une tâche avec un profil non destructif et un débit limité, puis d'ajouter les identifiants pour le scan authentifié. Les noms de menus changent selon la version.
 
-🔒 Prenez un snapshot des VM avant chaque scan et lancez-le pendant la fenêtre prévue au cadrage. C'est la réponse directe à l'incident d'ouverture.
+> 🔒 Prenez un snapshot des VM avant chaque scan et lancez-le pendant la fenêtre prévue au cadrage. C'est la réponse directe à l'incident d'ouverture.
+{: .callout .callout-securite}
 
 ### Tri : un résultat de scanner est une hypothèse
 
@@ -375,7 +378,8 @@ Le rapport tient en six parties, sans remplissage :
 - Vérification : mêmes commande et sortie après correction.
 ```
 
-💡 Capturez chaque preuve en une ligne, horodatée et empreintée :
+> 💡 Capturez chaque preuve en une ligne, horodatée et empreintée :
+{: .callout .callout-important}
 
 ```bash
 <COMMANDE> | tee preuves/F01_$(date -u +%Y%m%dT%H%M%SZ).txt
@@ -398,17 +402,23 @@ La valeur de l'audit se lit dans le passage de 214 lignes à 11 décisions. Ce n
 
 ## Erreurs fréquentes
 
-⚠️ **Scanner une plage plus large que le labo.** Conséquence : équipements de production atteints, plantages, incident en cascade. Correction : valider les routes avec `ip route` et `traceroute`, travailler avec `-iL scope.txt --excludefile exclusions.txt`, et faire bloquer au pare-feu tout trafic du poste d'audit hors périmètre. Détection : `nmap -sn` ciblé sur une adresse hors périmètre depuis le poste d'audit ne doit rien répondre.
+> ⚠️ **Scanner une plage plus large que le labo.** Conséquence : équipements de production atteints, plantages, incident en cascade. Correction : valider les routes avec `ip route` et `traceroute`, travailler avec `-iL scope.txt --excludefile exclusions.txt`, et faire bloquer au pare-feu tout trafic du poste d'audit hors périmètre. Détection : `nmap -sn` ciblé sur une adresse hors périmètre depuis le poste d'audit ne doit rien répondre.
+{: .callout .callout-attention}
 
-⚠️ **Profil de scan avec contrôles dangereux, sans snapshot.** Conséquence : service arrêté pendant l'audit, arrêt de la mission. Correction : profil non destructif, débit limité, snapshot avant chaque scan, fenêtre horaire définie aux RoE.
+> ⚠️ **Profil de scan avec contrôles dangereux, sans snapshot.** Conséquence : service arrêté pendant l'audit, arrêt de la mission. Correction : profil non destructif, débit limité, snapshot avant chaque scan, fenêtre horaire définie aux RoE.
+{: .callout .callout-attention}
 
-⚠️ **Trier par CVSS brut.** Conséquence : un 9,8 sur un hôte isolé passe avant un 6,5 exposé à tout le LAN qui mène à l'AD. Correction : matrice vraisemblance × impact, avec exposition, KEV et chemin d'attaque.
+> ⚠️ **Trier par CVSS brut.** Conséquence : un 9,8 sur un hôte isolé passe avant un 6,5 exposé à tout le LAN qui mène à l'AD. Correction : matrice vraisemblance × impact, avec exposition, KEV et chemin d'attaque.
+{: .callout .callout-attention}
 
-⚠️ **Livrer l'export du scanner comme rapport.** Conséquence : 214 lignes sans décision possible, les propriétaires ne corrigent rien. Correction : un constat par cause racine, avec preuve et recommandation.
+> ⚠️ **Livrer l'export du scanner comme rapport.** Conséquence : 214 lignes sans décision possible, les propriétaires ne corrigent rien. Correction : un constat par cause racine, avec preuve et recommandation.
+{: .callout .callout-attention}
 
-⚠️ **Compte d'audit laissé actif, mot de passe dans le rapport.** Conséquence : un compte privilégié oublié qui facilite l'attaque suivante. Correction : désactivation le jour de la remise, secrets masqués, résultats bruts chiffrés.
+> ⚠️ **Compte d'audit laissé actif, mot de passe dans le rapport.** Conséquence : un compte privilégié oublié qui facilite l'attaque suivante. Correction : désactivation le jour de la remise, secrets masqués, résultats bruts chiffrés.
+{: .callout .callout-attention}
 
-⚠️ **Retest sans état initial comparable.** Conséquence : impossible de prouver qu'un constat est corrigé, discussion sans fin. Correction : conserver les `-oA` du premier scan, comparer avec `ndiff`, rejouer exactement les commandes de preuve.
+> ⚠️ **Retest sans état initial comparable.** Conséquence : impossible de prouver qu'un constat est corrigé, discussion sans fin. Correction : conserver les `-oA` du premier scan, comparer avec `ndiff`, rejouer exactement les commandes de preuve.
+{: .callout .callout-attention}
 
 ## Auto-évaluation du niveau 2
 

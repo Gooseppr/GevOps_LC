@@ -47,7 +47,8 @@ Les moteurs de logs classiques indexent le texte des lignes, ce qui rend la rech
 
 Pensez à une bibliothèque où seules les étiquettes des rayons sont cataloguées, sans index des mots de chaque livre. Pour retrouver une phrase, on va vite au bon rayon grâce à l'étiquette, puis on feuillette. C'est peu coûteux à maintenir, mais cela suppose que les étiquettes soient bien choisies.
 
-🧠 **Concept clé** — Un *stream* est l'ensemble des lignes qui partagent exactement la même combinaison de labels. `{service="api", env="prod"}` est un stream. Si vous ajoutez `pod="api-7f9c"`, vous obtenez un stream par pod. Chaque stream a ses propres chunks. Le nombre de streams actifs est donc la grandeur qui pilote le coût et les performances de Loki, bien plus que le volume brut de logs.
+> 🧠 **Concept clé** — Un *stream* est l'ensemble des lignes qui partagent exactement la même combinaison de labels. `{service="api", env="prod"}` est un stream. Si vous ajoutez `pod="api-7f9c"`, vous obtenez un stream par pod. Chaque stream a ses propres chunks. Le nombre de streams actifs est donc la grandeur qui pilote le coût et les performances de Loki, bien plus que le volume brut de logs.
+{: .callout .callout-important}
 
 Une requête LogQL (Log Query Language) se lit toujours dans le même sens, de gauche à droite :
 
@@ -188,7 +189,8 @@ curl -s http://localhost:3100/loki/api/v1/label/service/values
 
 Vous devez voir `service` et `env` dans les labels, et `demo-api`, `loki`, `alloy`, `grafana` dans les valeurs. Ensuite, dans Grafana (`http://localhost:3000`), ajoutez la source de données : *Connections → Data sources → Add data source → Loki*, URL `http://loki:3100`, puis *Save & test*. Les intitulés de menus varient légèrement selon les versions de Grafana.
 
-💡 **Astuce** — Les appels `curl` sur `/labels` et `/label/<NOM>/values` sont le meilleur réflexe quand une requête ne renvoie rien. Ils disent en une seconde si Loki a reçu des données et sous quels labels exacts, sans passer par l'interface.
+> 💡 **Astuce** — Les appels `curl` sur `/labels` et `/label/<NOM>/values` sont le meilleur réflexe quand une requête ne renvoie rien. Ils disent en une seconde si Loki a reçu des données et sous quels labels exacts, sans passer par l'interface.
+{: .callout .callout-astuce}
 
 ## Lire les logs : sélecteurs et filtres de lignes
 
@@ -200,7 +202,8 @@ Ouvrez *Explore*, choisissez Loki et passez en mode *Code*. Tout commence par un
 
 Les quatre opérateurs sont `=`, `!=`, `=~` et `!~`. Les regex sont ancrées : `service=~"api"` ne trouve pas `demo-api`, alors que `service=~".*api"` oui.
 
-⚠️ **Erreur fréquente** — Un sélecteur dont aucun matcher ne restreint réellement la recherche, comme `{}` ou `{service=~".*"}`, est refusé avec le message *queries require at least one regexp or equality matcher that does not have an empty-compatible value*. Loki refuse de lire tous les streams. Ajoutez au moins un matcher, d'égalité ou regex, qui ne peut pas correspondre à une valeur vide : `service="demo-api"`, `env="dev"` ou `service=~".+"` conviennent.
+> ⚠️ **Erreur fréquente** — Un sélecteur dont aucun matcher ne restreint réellement la recherche, comme `{}` ou `{service=~".*"}`, est refusé avec le message *queries require at least one regexp or equality matcher that does not have an empty-compatible value*. Loki refuse de lire tous les streams. Ajoutez au moins un matcher, d'égalité ou regex, qui ne peut pas correspondre à une valeur vide : `service="demo-api"`, `env="dev"` ou `service=~".+"` conviennent.
+{: .callout .callout-attention}
 
 Après le sélecteur viennent les filtres de lignes, qui cherchent du texte brut :
 
@@ -270,7 +273,8 @@ Pour rendre le résultat lisible, `line_format` réécrit la ligne affichée à 
   | line_format "{{.path}} → {{.status}} en {{.duration_ms}}ms ({{.request_id}})"
 ```
 
-💡 **Astuce** — Si votre flux mélange des lignes JSON et du texte, `| json` produit un label `__error__="JSONParserErr"` sur les lignes qui ne sont pas du JSON. Ajoutez `| __error__=""` après le parser pour les écarter, ou mettez un filtre `|= "{"` avant. Pareil pour logfmt (`LogfmtParserErr`).
+> 💡 **Astuce** — Si votre flux mélange des lignes JSON et du texte, `| json` produit un label `__error__="JSONParserErr"` sur les lignes qui ne sont pas du JSON. Ajoutez `| __error__=""` après le parser pour les écarter, ou mettez un filtre `|= "{"` avant. Pareil pour logfmt (`LogfmtParserErr`).
+{: .callout .callout-astuce}
 
 ## Des logs aux métriques
 
@@ -288,7 +292,8 @@ rate({service="demo-api"} | json | level="error" [5m])
 
 La différence est la même qu'entre un compteur de passages et une vitesse : `count_over_time` donne un total pour la fenêtre, `rate` le divise par la durée en secondes. Pour un dashboard où l'on veut comparer des périodes de longueur différente, `rate` est plus stable. Pour un message « il y a eu 37 erreurs en 5 minutes », `count_over_time` est plus parlant.
 
-🧠 **Concept clé** — Contrairement à `rate()` en PromQL, il n'y a ici aucun compteur ni gestion de reset : Loki compte simplement les lignes présentes dans la fenêtre. Une ligne par événement, donc un événement égale une ligne.
+> 🧠 **Concept clé** — Contrairement à `rate()` en PromQL, il n'y a ici aucun compteur ni gestion de reset : Loki compte simplement les lignes présentes dans la fenêtre. Une ligne par événement, donc un événement égale une ligne.
+{: .callout .callout-important}
 
 On agrège ensuite avec les opérateurs habituels :
 
@@ -321,7 +326,8 @@ Ces requêtes de métriques sont aussi la base des règles d'alerte sur logs, qu
 
 C'est le point qui fait la différence entre un Loki agréable et un Loki qui s'effondre.
 
-⚠️ **Erreur fréquente** — Transformer un champ à forte cardinalité en label : `user_id`, `request_id`, `trace_id`, adresse IP cliente, URL complète avec identifiants. Chaque valeur distincte crée un nouveau stream. Avec 10 services, 3 environnements et 20 pods, vous avez déjà 600 streams. Ajoutez 50 000 `user_id` et vous visez des millions. Conséquences : index qui gonfle, chunks minuscules vidés en permanence, requêtes lentes parce qu'il faut ouvrir des milliers de petits blocs, et, tôt ou tard, rejet à l'ingestion avec `maximum active stream limit exceeded`. **Correction** : laissez ces valeurs dans le texte ou dans les métadonnées structurées, et filtrez-les à la lecture.
+> ⚠️ **Erreur fréquente** — Transformer un champ à forte cardinalité en label : `user_id`, `request_id`, `trace_id`, adresse IP cliente, URL complète avec identifiants. Chaque valeur distincte crée un nouveau stream. Avec 10 services, 3 environnements et 20 pods, vous avez déjà 600 streams. Ajoutez 50 000 `user_id` et vous visez des millions. Conséquences : index qui gonfle, chunks minuscules vidés en permanence, requêtes lentes parce qu'il faut ouvrir des milliers de petits blocs, et, tôt ou tard, rejet à l'ingestion avec `maximum active stream limit exceeded`. **Correction** : laissez ces valeurs dans le texte ou dans les métadonnées structurées, et filtrez-les à la lecture.
+{: .callout .callout-attention}
 
 Un label doit donc avoir peu de valeurs, des valeurs stables, et servir à restreindre la recherche : `service`, `env`, `cluster`, `namespace`. La sévérité (`level`, quatre à six valeurs) est un cas limite. C'est acceptable si tous vos logs sont normalisés, mais cela multiplie les streams par service. Si vous hésitez, parsez à la lecture.
 

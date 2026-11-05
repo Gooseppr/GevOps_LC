@@ -50,7 +50,8 @@ Dans la vie courante, « supervision » et « monitoring » sont souvent employ�
 
 Le monitoring suppose que vous connaissez à l'avance les pannes possibles : vous posez des seuils sur ce que vous avez prévu. L'observabilité vise le cas que personne n'a prévu. Un système est observable quand ses signaux de sortie suffisent à comprendre son état interne sans modifier le code ni se connecter à un serveur pour « voir ce qui se passe ».
 
-🧠 **Concept clé** : l'observabilité n'est pas un produit qu'on installe, c'est une propriété du système. Elle dépend de la richesse et de la qualité des signaux émis, et de la capacité à les croiser. Un outil de visualisation ne la crée pas à lui seul.
+> 🧠 **Concept clé** : l'observabilité n'est pas un produit qu'on installe, c'est une propriété du système. Elle dépend de la richesse et de la qualité des signaux émis, et de la capacité à les croiser. Un outil de visualisation ne la crée pas à lui seul.
+{: .callout .callout-important}
 
 Une analogie aide ici. La supervision, c'est le voyant « moteur » du tableau de bord d'une voiture : allumé ou éteint. Le monitoring, ce sont les jauges avec des zones rouges. L'observabilité, c'est la valise de diagnostic du garagiste : elle lit assez de données internes pour expliquer une panne que le constructeur n'avait pas prévue.
 
@@ -105,7 +106,8 @@ C'est l'un des signaux les plus rentables en incident. Une grande partie des pan
 
 En pratique, l'enquête suit presque toujours le même chemin. La métrique détecte, la trace localise, le log explique, l'événement donne le déclencheur.
 
-💡 **Astuce** : ce chemin ne fonctionne que si vous pouvez passer d'un signal à l'autre. Une même heure, un même nom de service ou un identifiant de requête (`trace_id`) présent dans les logs et les traces suffisent à les relier. Sans ce fil commun, vous avez trois silos.
+> 💡 **Astuce** : ce chemin ne fonctionne que si vous pouvez passer d'un signal à l'autre. Une même heure, un même nom de service ou un identifiant de requête (`trace_id`) présent dans les logs et les traces suffisent à les relier. Sans ce fil commun, vous avez trois silos.
+{: .callout .callout-astuce}
 
 ## Ce qu'on observe : de l'infrastructure aux dépendances
 
@@ -142,7 +144,8 @@ Issus de la pratique SRE (Site Reliability Engineering) popularisée par Google,
 - **Erreurs** : la part des requêtes qui échouent, explicitement (code 500) ou implicitement (réponse 200 avec un contenu faux).
 - **Saturation** : à quel point le service est proche de sa limite (file d'attente qui s'allonge, pool de connexions presque plein).
 
-⚠️ **Erreur fréquente** : suivre la latence moyenne. Si 95 % des requêtes durent 100 ms et 5 % durent 5 secondes, la moyenne reste « acceptable » alors qu'un utilisateur sur vingt a une expérience désastreuse. Regardez les percentiles. Le p95 signifie que 95 % des requêtes vont plus vite que cette valeur, et le p99 resserre encore la queue de distribution.
+> ⚠️ **Erreur fréquente** : suivre la latence moyenne. Si 95 % des requêtes durent 100 ms et 5 % durent 5 secondes, la moyenne reste « acceptable » alors qu'un utilisateur sur vingt a une expérience désastreuse. Regardez les percentiles. Le p95 signifie que 95 % des requêtes vont plus vite que cette valeur, et le p99 resserre encore la queue de distribution.
+{: .callout .callout-attention}
 
 ### RED pour les services, USE pour les ressources
 
@@ -163,7 +166,8 @@ Elles se recoupent largement avec les Golden Signals :
 
 La règle d'usage est simple : RED pour décrire ce que vivent les utilisateurs d'un service, USE pour comprendre pourquoi une ressource est un goulot. Vous commencez par RED (le symptôme), puis vous descendez en USE (la cause possible).
 
-🧠 **Concept clé** : l'indicateur de santé le plus utile est celui qui reflète l'expérience de l'utilisateur, pas celui qui reflète l'état d'une machine. Un CPU à 90 % qui n'affecte personne n'est pas un incident. Un CPU à 30 % avec 10 % de paiements en erreur en est un.
+> 🧠 **Concept clé** : l'indicateur de santé le plus utile est celui qui reflète l'expérience de l'utilisateur, pas celui qui reflète l'état d'une machine. Un CPU à 90 % qui n'affecte personne n'est pas un incident. Un CPU à 30 % avec 10 % de paiements en erreur en est un.
+{: .callout .callout-important}
 
 ## De la donnée à la décision : la chaîne complète
 
@@ -190,7 +194,8 @@ Cette chaîne est la clé de tout diagnostic de plateforme. Quand un graphique e
 
 ### Le piège : Grafana n'est ni collecteur ni base de métriques
 
-⚠️ **Erreur fréquente** : croire que Grafana « contient » les métriques. Beaucoup de débutants installent Grafana, ouvrent un tableau de bord et s'étonnent qu'il n'y ait rien à afficher.
+> ⚠️ **Erreur fréquente** : croire que Grafana « contient » les métriques. Beaucoup de débutants installent Grafana, ouvrent un tableau de bord et s'étonnent qu'il n'y ait rien à afficher.
+{: .callout .callout-attention}
 
 Grafana intervient aux étapes 3 et 4 (et il évalue des règles d'alerte à l'étape 5). Il se connecte à des sources de données qui détiennent réellement les signaux, lance des requêtes contre elles et dessine les résultats. Il ne va pas lire vos serveurs et il ne conserve pas vos séries temporelles. Ce qu'il stocke lui-même, c'est sa propre configuration : tableaux de bord, utilisateurs, paramètres de connexion.
 
@@ -224,7 +229,8 @@ Le trafic est stable, donc ce n'est pas une surcharge de demande. Les erreurs on
 
 **5. Conclure sans confondre symptôme et cause.** Le symptôme est la lenteur des paiements. La cause racine probable est la gestion des connexions dans la version déployée à 14 h 02. L'action est un retour arrière puis une correction. Chaque signal a joué son rôle, et aucun n'aurait suffi seul.
 
-💡 **Astuce** : notez dans votre rapport les éléments qui ont confirmé l'hypothèse, pas seulement la conclusion. Le prochain qui lira vos notes pourra refaire le raisonnement et le contester.
+> 💡 **Astuce** : notez dans votre rapport les éléments qui ont confirmé l'hypothèse, pas seulement la conclusion. Le prochain qui lira vos notes pourra refaire le raisonnement et le contester.
+{: .callout .callout-astuce}
 
 ## Bonnes pratiques
 

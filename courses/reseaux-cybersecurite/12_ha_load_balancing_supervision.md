@@ -42,7 +42,8 @@ Ce module répond à ces deux questions : comment faire pour qu'une panne ne se 
 
 ## Le problème : un maillon unique suffit à tout arrêter
 
-🧠 **Concept fondamental.** Un point de défaillance unique (SPOF, Single Point of Failure) est un élément dont la panne arrête à elle seule un service entier. Ce peut être un switch, un routeur, un câble, une alimentation, un serveur, ou même une personne qui est la seule à connaître un mot de passe.
+> 🧠 **Concept fondamental.** Un point de défaillance unique (SPOF, Single Point of Failure) est un élément dont la panne arrête à elle seule un service entier. Ce peut être un switch, un routeur, un câble, une alimentation, un serveur, ou même une personne qui est la seule à connaître un mot de passe.
+{: .callout .callout-important}
 
 L'image la plus parlante est celle d'un pont. Si votre ville n'a qu'un seul pont sur le fleuve, sa fermeture isole un quartier. Avec deux ponts, la fermeture de l'un ne bloque personne. En revanche, si les deux ponts sont accessibles par la même avenue, vous n'avez pas gagné grand-chose.
 
@@ -56,7 +57,8 @@ Les chiffres aident à ressentir l'effet. La disponibilité se mesure en pourcen
 
 Deux équipements placés **l'un après l'autre** (en série) font baisser le total : deux éléments à 99,9 % donnent environ 99,8 %. Deux équipements placés **côte à côte** (en parallèle) le font monter : la probabilité que les deux tombent en même temps devient infime, de l'ordre de 99,9999 % si leurs pannes sont indépendantes. Ce dernier point est la clé. Une redondance n'est utile que si les deux chemins ne partagent pas la même cause de panne : même prise électrique, même goulotte, même fournisseur d'accès, même mise à jour appliquée en même temps.
 
-💡 **Point clé.** La haute disponibilité ne supprime pas les pannes, elle les rend invisibles pour les utilisateurs. La durée d'interruption vue par les utilisateurs passe alors de « trois heures » à « quelques secondes », car la bascule est automatique. La réparation de l'élément en panne (MTTR, Mean Time To Repair) reste à faire, mais sans urgence.
+> 💡 **Point clé.** La haute disponibilité ne supprime pas les pannes, elle les rend invisibles pour les utilisateurs. La durée d'interruption vue par les utilisateurs passe alors de « trois heures » à « quelques secondes », car la bascule est automatique. La réparation de l'élément en panne (MTTR, Mean Time To Repair) reste à faire, mais sans urgence.
+{: .callout .callout-important}
 
 Voici l'architecture que nous allons construire pas à pas. Les couches réseau et service y sont dédoublées ; le schéma est simplifié (la supervision, par exemple, n'y figure qu'une fois) :
 
@@ -82,7 +84,8 @@ flowchart TB
 
 Quand une liaison entre deux switches sature ou qu'un câble est un SPOF, on peut en poser plusieurs et les faire passer pour un seul lien logique. LACP (Link Aggregation Control Protocol, norme IEEE 802.1AX) négocie cette agrégation entre les deux extrémités. Chaque côté vérifie que l'autre est bien configuré pareil, avant d'activer les ports. Si un câble tombe, le trafic se répartit sur les liens restants, souvent en moins d'une seconde.
 
-⚠️ **Comportement contre-intuitif.** Quatre liens de 1 Gbit/s ne donnent pas un lien de 4 Gbit/s pour une même conversation. Le switch choisit le lien de chaque flux en calculant un hachage sur les adresses MAC, les adresses IP ou les ports. Une même connexion TCP reste donc sur un seul câble, et ne dépasse jamais 1 Gbit/s. L'agrégation améliore le débit **cumulé** de nombreux flux, pas la vitesse d'un transfert unique.
+> ⚠️ **Comportement contre-intuitif.** Quatre liens de 1 Gbit/s ne donnent pas un lien de 4 Gbit/s pour une même conversation. Le switch choisit le lien de chaque flux en calculant un hachage sur les adresses MAC, les adresses IP ou les ports. Une même connexion TCP reste donc sur un seul câble, et ne dépasse jamais 1 Gbit/s. L'agrégation améliore le débit **cumulé** de nombreux flux, pas la vitesse d'un transfert unique.
+{: .callout .callout-attention}
 
 Autre limite : agréger deux câbles vers le **même** switch protège contre la panne d'un câble, pas contre celle du switch. Pour survivre à la perte d'un équipement, les liens doivent partir vers deux switches distincts. Cela demande que ces switches sachent se comporter comme un seul à l'autre bout (empilage, ou fonction de type MLAG selon les constructeurs, le nom varie).
 
@@ -167,7 +170,8 @@ vrrp_instance VI_1 {
 
 Sur le second nœud : `state BACKUP` et `priority 100`, tout le reste identique.
 
-⚠️ **Piège classique : le routeur est vivant mais inutile.** Si le master garde sa liaison vers les clients mais perd celle vers Internet, il continue d'envoyer ses annonces et reste master. Tout le trafic part donc vers un routeur qui ne sait plus sortir. La parade s'appelle le *tracking* : on lie la priorité à l'état d'un lien amont ou d'une route. Si Internet disparaît, la priorité baisse et le backup prend la main, à condition que la préemption soit active sur celui-ci (à activer explicitement en HSRP).
+> ⚠️ **Piège classique : le routeur est vivant mais inutile.** Si le master garde sa liaison vers les clients mais perd celle vers Internet, il continue d'envoyer ses annonces et reste master. Tout le trafic part donc vers un routeur qui ne sait plus sortir. La parade s'appelle le *tracking* : on lie la priorité à l'état d'un lien amont ou d'une route. Si Internet disparaît, la priorité baisse et le backup prend la main, à condition que la préemption soit active sur celui-ci (à activer explicitement en HSRP).
+{: .callout .callout-attention}
 
 Dernier piège : si les annonces entre les deux routeurs sont bloquées (VLAN non autorisé sur un trunk, pare-feu au milieu), chacun croit être seul. On se retrouve avec deux masters, des conflits d'adresse et des flapping de MAC. C'est la situation à reconnaître en cas de comportement erratique.
 
@@ -221,7 +225,8 @@ backend web_pool
     server web2 10.10.20.12:8080 check inter 3s fall 3 rise 2
 ```
 
-💡 **Point clé.** Le load balancer est lui-même un SPOF. On le double, et c'est ici qu'on retrouve VRRP : deux instances HAProxy avec keepalived se partagent une IP virtuelle. La haute disponibilité se construit ainsi, par couches empilées.
+> 💡 **Point clé.** Le load balancer est lui-même un SPOF. On le double, et c'est ici qu'on retrouve VRRP : deux instances HAProxy avec keepalived se partagent une IP virtuelle. La haute disponibilité se construit ainsi, par couches empilées.
+{: .callout .callout-important}
 
 Autre sujet à anticiper : la persistance de session. Si l'application garde l'état de l'utilisateur en mémoire du serveur, il faut le renvoyer au même serveur (cookie ou source hash). Sinon, mieux vaut stocker les sessions dans un composant partagé, pour que n'importe quel serveur puisse reprendre.
 

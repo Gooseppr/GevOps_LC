@@ -59,7 +59,8 @@ flowchart LR
 - **Requêtes** : chaque panneau qui se rafraîchit, chaque règle d'alerte évaluée, chaque investigation en Explore consomme du CPU et de la mémoire côté backend. Ce poste est le plus souvent oublié.
 - **Rétention** : un multiplicateur. Doubler la durée double (grosso modo) le stockage, sans rien changer d'autre.
 
-🧠 **Concept clé** : chaque signal a son *facteur dominant*. Pour les métriques, c'est le nombre de séries actives. Pour les logs, c'est le volume d'octets ingérés. Pour les traces, c'est le nombre de spans conservés. Optimiser le mauvais facteur, par exemple réduire la rétention des métriques alors que le problème est la cardinalité, donne un gain faible pour un vrai coût en diagnostic.
+> 🧠 **Concept clé** : chaque signal a son *facteur dominant*. Pour les métriques, c'est le nombre de séries actives. Pour les logs, c'est le volume d'octets ingérés. Pour les traces, c'est le nombre de spans conservés. Optimiser le mauvais facteur, par exemple réduire la rétention des métriques alors que le problème est la cardinalité, donne un gain faible pour un vrai coût en diagnostic.
+{: .callout .callout-important}
 
 | Signal | Facteur dominant | Ce qui pèse vraiment | Levier le plus rentable |
 |---|---|---|---|
@@ -94,7 +95,8 @@ topk(10, count by (job) ({__name__=~".+"}))
 rate(prometheus_tsdb_head_samples_appended_total[5m])
 ```
 
-💡 **Astuce** : la page `/tsdb-status` de l'interface Prometheus donne les mêmes classements (métriques, labels, paires label/valeur les plus coûteuses) sans exécuter de requête lourde. Commencez par là.
+> 💡 **Astuce** : la page `/tsdb-status` de l'interface Prometheus donne les mêmes classements (métriques, labels, paires label/valeur les plus coûteuses) sans exécuter de requête lourde. Commencez par là.
+{: .callout .callout-astuce}
 
 ### Le stockage est rarement le problème des métriques
 
@@ -123,7 +125,8 @@ scrape_configs:
         action: labeldrop
 ```
 
-⚠️ **Erreur fréquente** : un `labeldrop` qui fait entrer deux séries distinctes en collision (même nom, mêmes labels restants) provoque des erreurs d'échantillons dupliqués. Vérifiez que les labels restants suffisent à distinguer les séries.
+> ⚠️ **Erreur fréquente** : un `labeldrop` qui fait entrer deux séries distinctes en collision (même nom, mêmes labels restants) provoque des erreurs d'échantillons dupliqués. Vérifiez que les labels restants suffisent à distinguer les séries.
+{: .callout .callout-attention}
 
 Pour les requêtes lourdes qui reviennent dans plusieurs dashboards, une *recording rule* calcule une fois le résultat agrégé et le stocke. Les panneaux interrogent alors la série précalculée au lieu de rebalayer des centaines de milliers de séries à chaque rafraîchissement.
 
@@ -166,7 +169,8 @@ limits_config:
   max_global_streams_per_user: 50000
 ```
 
-💡 **Astuce** : si vous avez besoin de conserver un identifiant (trace ID, request ID) sans créer un flux par valeur, ne le mettez pas en label. Mettez-le dans la ligne de log, ou en *structured metadata* si votre version de Loki le supporte. Vous le retrouverez par filtre, sans exploser l'index.
+> 💡 **Astuce** : si vous avez besoin de conserver un identifiant (trace ID, request ID) sans créer un flux par valeur, ne le mettez pas en label. Mettez-le dans la ligne de log, ou en *structured metadata* si votre version de Loki le supporte. Vous le retrouverez par filtre, sans exploser l'index.
+{: .callout .callout-astuce}
 
 ## Traces : conserver l'intéressant, pas l'exhaustif
 
@@ -201,7 +205,8 @@ processors:
 
 Contrainte d'architecture : pour que le collecteur voie toutes les spans d'une trace, il faut router par `traceID` vers la même instance (exporter de type load-balancing en amont). Sans ça, des décisions sont prises sur des traces incomplètes.
 
-⚠️ **Erreur fréquente** : calculer les métriques RED (taux, erreurs, durée) à partir des spans **après** sampling. Avec 5 % de traces conservées, le débit affiché est faux d'un facteur 20 et les dashboards mentent. Calculez les métriques de spans (connector `spanmetrics` ou metrics-generator) **avant** la décision de sampling, ou corrigez avec le taux d'échantillonnage.
+> ⚠️ **Erreur fréquente** : calculer les métriques RED (taux, erreurs, durée) à partir des spans **après** sampling. Avec 5 % de traces conservées, le débit affiché est faux d'un facteur 20 et les dashboards mentent. Calculez les métriques de spans (connector `spanmetrics` ou metrics-generator) **avant** la décision de sampling, ou corrigez avec le taux d'échantillonnage.
+{: .callout .callout-attention}
 
 ## Rétention : durée selon la criticité
 
@@ -236,7 +241,8 @@ Les noms exacts des paramètres (notamment `delete_request_store`) varient selon
 
 Pour Tempo, la durée est portée par le compactor (`block_retention`), avec une valeur par défaut de 14 jours.
 
-💡 **Astuce** : doublez toujours la rétention applicative par une règle de cycle de vie sur le bucket objet pour les anciens blocs orphelins. Cela sert de filet si le compactor s'arrête silencieusement.
+> 💡 **Astuce** : doublez toujours la rétention applicative par une règle de cycle de vie sur le bucket objet pour les anciens blocs orphelins. Cela sert de filet si le compactor s'arrête silencieusement.
+{: .callout .callout-astuce}
 
 ## Requêtes : le coût qu'on ne voit pas dans le stockage
 
@@ -329,7 +335,8 @@ Concrètement :
 - **Préférer l'agrégation à la suppression.** Garder `http_requests_total` agrégé par service tout en supprimant le label `pod` conserve l'essentiel. Mais gardez à l'esprit le compromis : sans label `pod`, vous ne saurez plus *quel* pod est défaillant. Si ce cas arrive souvent chez vous, ce label vaut son coût.
 - **Mettre la réduction sous surveillance.** Suivez le taux de requêtes en `No Data`, le nombre de dashboards en erreur et le nombre de requêtes d'investigation sans résultat après la modification.
 
-🧠 **Concept clé** : l'objectif n'est pas la facture la plus basse, c'est le **meilleur rapport entre coût et capacité de diagnostic**. Réduire de 40 % le coût en dégradant d'un facteur 2 le temps de résolution des incidents est généralement un mauvais marché, même si personne ne le voit sur la facture.
+> 🧠 **Concept clé** : l'objectif n'est pas la facture la plus basse, c'est le **meilleur rapport entre coût et capacité de diagnostic**. Réduire de 40 % le coût en dégradant d'un facteur 2 le temps de résolution des incidents est généralement un mauvais marché, même si personne ne le voit sur la facture.
+{: .callout .callout-important}
 
 ## Diagnostic : erreurs fréquentes
 

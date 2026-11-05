@@ -87,9 +87,11 @@ curl -G 'http://localhost:9090/api/v1/query_range' \
 
 Dans Grafana, un panel **Time series** envoie une range query. Un panel **Stat**, **Gauge** ou **Table** n'a souvent besoin que de la valeur courante, donc d'une instant query. Dans l'éditeur de requêtes Prometheus, l'option *Type* (Range, Instant ou Both) permet de choisir. Son emplacement exact varie selon la version de Grafana.
 
-🧠 **Concept clé** : un « graphique » est une pile d'instant queries. Si une expression est lente, elle l'est à chaque pas. Une range query de 6 h avec un pas de 15 s évalue l'expression 1 440 fois.
+> 🧠 **Concept clé** : un « graphique » est une pile d'instant queries. Si une expression est lente, elle l'est à chaque pas. Une range query de 6 h avec un pas de 15 s évalue l'expression 1 440 fois.
+{: .callout .callout-important}
 
-💡 Dans un panel Grafana, remplacez les fenêtres fixes par `$__rate_interval` : `rate(http_requests_total[$__rate_interval])`. Grafana calcule alors une fenêtre cohérente avec l'intervalle de scrape et le niveau de zoom, ce qui évite les graphiques troués quand on zoome fort.
+> 💡 Dans un panel Grafana, remplacez les fenêtres fixes par `$__rate_interval` : `rate(http_requests_total[$__rate_interval])`. Grafana calcule alors une fenêtre cohérente avec l'intervalle de scrape et le niveau de zoom, ce qui évite les graphiques troués quand on zoome fort.
+{: .callout .callout-important}
 
 ## Construire un taux d'erreurs fiable
 
@@ -134,7 +136,8 @@ sum by (service) (rate(http_requests_total[5m]))
 
 L'opérateur `or` garde toutes les séries de gauche, puis ajoute celles de droite dont les labels n'existent pas à gauche. Le `* 0` transforme le débit total en zéros. Les services sans 5xx reçoivent donc un 0 explicite.
 
-⚠️ **Erreur fréquente** : un service sans trafic donne `0 / 0`, soit `NaN`. Ajoutez un filtre `> 0` sur le dénominateur ou conditionnez l'alerte au trafic (voir les cas d'utilisation). Ne masquez pas ce `NaN` avec une valeur par défaut : « pas de trafic » et « pas d'erreurs » sont deux situations différentes.
+> ⚠️ **Erreur fréquente** : un service sans trafic donne `0 / 0`, soit `NaN`. Ajoutez un filtre `> 0` sur le dénominateur ou conditionnez l'alerte au trafic (voir les cas d'utilisation). Ne masquez pas ce `NaN` avec une valeur par défaut : « pas de trafic » et « pas d'erreurs » sont deux situations différentes.
+{: .callout .callout-attention}
 
 ## Vector matching : faire se rencontrer deux séries
 
@@ -147,7 +150,8 @@ Quand les labels diffèrent, on précise le critère :
 - `on(l1, l2)` : ne comparer **que** sur ces labels ;
 - `ignoring(l1)` : comparer sur **tous sauf** ceux-là.
 
-🧠 **Concept clé** : `on()` liste ce qui doit être égal, `ignoring()` liste ce qui peut différer. Pour l'appariement, les deux reviennent au même. Ce n'est pas le cas pour le résultat : en correspondance one-to-one, `on()` ne conserve que les labels listés, alors que `ignoring()` conserve tous les autres. Choisissez selon les labels dont vous avez besoin en sortie (légendes, jointures suivantes).
+> 🧠 **Concept clé** : `on()` liste ce qui doit être égal, `ignoring()` liste ce qui peut différer. Pour l'appariement, les deux reviennent au même. Ce n'est pas le cas pour le résultat : en correspondance one-to-one, `on()` ne conserve que les labels listés, alors que `ignoring()` conserve tous les autres. Choisissez selon les labels dont vous avez besoin en sortie (légendes, jointures suivantes).
+{: .callout .callout-important}
 
 ### Many-to-one avec `group_left`
 
@@ -176,7 +180,8 @@ node_uname_info                                                       # droite :
 
 Les labels listés entre parenthèses après `group_left` sont copiés du côté droit vers le résultat. Dans le panel, la légende peut alors utiliser `{{nodename}}`.
 
-💡 La multiplication par une métrique « info » est préférable à une addition : multiplier par 1 laisse la valeur intacte, alors qu'additionner la fausserait.
+> 💡 La multiplication par une métrique « info » est préférable à une addition : multiplier par 1 laisse la valeur intacte, alors qu'additionner la fausserait.
+{: .callout .callout-important}
 
 ### ⚠️ Jointures many-to-many et erreurs de correspondance
 
@@ -205,7 +210,8 @@ Deux corrections sont possibles : rendre la clé plus précise (`on(instance, jo
 
 L'erreur inverse est **silencieuse** : si aucune paire de labels ne correspond (un côté porte `instance="web-01:9100"`, l'autre `instance="web-01"`), le résultat est simplement vide, sans message. Un résultat vide après une jointure doit toujours faire penser à des labels qui ne s'alignent pas.
 
-💡 Les opérateurs ensemblistes `and`, `or` et `unless` fonctionnent différemment : ils sont many-to-many par nature et n'ont pas besoin de `group_left`. On les utilise pour des conditions, pas pour calculer.
+> 💡 Les opérateurs ensemblistes `and`, `or` et `unless` fonctionnent différemment : ils sont many-to-many par nature et n'ont pas besoin de `group_left`. On les utilise pour des conditions, pas pour calculer.
+{: .callout .callout-important}
 
 ## Comparer dans le temps : offset, comparaisons et sous-requêtes
 
@@ -337,7 +343,8 @@ Deux limites sont à connaître :
 - La série n'existe **qu'à partir du moment où la règle est active**. Il n'y a pas de rétroactivité : votre graphique sur 30 jours sera vide avant le déploiement.
 - Enregistrez le numérateur et le dénominateur séparément, et faites la division à la lecture. Un ratio pré-enregistré ne peut plus être agrégé correctement (la moyenne de deux ratios n'est pas le ratio des sommes).
 
-💡 Avec ces recording rules en place, la sous-requête du pic d'erreurs devient bien moins coûteuse : `max_over_time((service:http_errors:rate5m / service:http_requests:rate5m)[1h:1m])` ne relit que des séries déjà agrégées. Cette économie est une bonne raison de précalculer.
+> 💡 Avec ces recording rules en place, la sous-requête du pic d'erreurs devient bien moins coûteuse : `max_over_time((service:http_errors:rate5m / service:http_requests:rate5m)[1h:1m])` ne relit que des séries déjà agrégées. Cette économie est une bonne raison de précalculer.
+{: .callout .callout-important}
 
 ## Cas d'utilisation
 
@@ -408,7 +415,8 @@ Résultat attendu : un tableau où `web-01` apparaît avec ses deux valeurs côt
 **Cause** : les deux panels n'utilisent pas le même mode (Range pour l'un, Instant pour l'autre), ou des fenêtres de `rate` différentes.
 **Correction** : alignez la fenêtre (`$__rate_interval` partout) et vérifiez le champ *Type* de chaque requête.
 
-💡 **Astuce** : dans Explore, passez en mode *Both* pour afficher le graphique et la table instantanée en même temps. Le graphique révèle la tendance, la table révèle les labels exacts, ce qui accélère beaucoup le débogage de correspondances.
+> 💡 **Astuce** : dans Explore, passez en mode *Both* pour afficher le graphique et la table instantanée en même temps. Le graphique révèle la tendance, la table révèle les labels exacts, ce qui accélère beaucoup le débogage de correspondances.
+{: .callout .callout-astuce}
 
 ## Bonnes pratiques
 

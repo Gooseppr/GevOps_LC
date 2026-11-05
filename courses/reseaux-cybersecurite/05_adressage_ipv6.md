@@ -65,7 +65,8 @@ Personne n'écrit cela en entier. Deux règles permettent de raccourcir :
 
 L'adresse ci-dessus devient donc `2001:db8::1`.
 
-⚠️ **Comportement contre-intuitif** : `::` ne peut apparaître qu'une fois par adresse. Dans `2001:0:0:1:0:0:0:1`, deux suites de zéros sont possibles. Si l'on remplaçait les deux, on ne saurait plus combien de groupes chaque `::` représente. La règle consiste à compresser la suite la plus longue (ici la seconde) : `2001:0:0:1::1`.
+> ⚠️ **Comportement contre-intuitif** : `::` ne peut apparaître qu'une fois par adresse. Dans `2001:0:0:1:0:0:0:1`, deux suites de zéros sont possibles. Si l'on remplaçait les deux, on ne saurait plus combien de groupes chaque `::` représente. La règle consiste à compresser la suite la plus longue (ici la seconde) : `2001:0:0:1::1`.
+{: .callout .callout-attention}
 
 Dans une URL, l'adresse se met entre crochets, car les `:` prêteraient à confusion avec le séparateur de port : `http://[2001:db8::1]/`.
 
@@ -90,7 +91,8 @@ Voici comment lire une adresse avec un site doté d'un `/48` :
 
 Comme un chiffre hexadécimal vaut 4 bits, la lecture est directe : un `/48` correspond à 12 chiffres, soit exactement 3 groupes ; un `/64` correspond à 4 groupes. Le découpage en sous-réseaux se fait alors en choisissant la valeur du quatrième groupe : `2001:db8:acad:1::/64`, `2001:db8:acad:2::/64`, `2001:db8:acad:3::/64`, etc. Un `/48` offre 65 536 réseaux de ce type, un `/56` en offre 256.
 
-💡 **Point clé** : la taille `/64` n'est pas une convention esthétique. SLAAC, le mécanisme d'autoconfiguration vu plus bas, suppose un identifiant d'interface de 64 bits. Un LAN configuré en `/80` ou `/120` casse l'autoconfiguration sur les machines qui l'utilisent.
+> 💡 **Point clé** : la taille `/64` n'est pas une convention esthétique. SLAAC, le mécanisme d'autoconfiguration vu plus bas, suppose un identifiant d'interface de 64 bits. Un LAN configuré en `/80` ou `/120` casse l'autoconfiguration sur les machines qui l'utilisent.
+{: .callout .callout-important}
 
 ## Les familles d'adresses
 
@@ -130,7 +132,8 @@ Autre différence : une NS n'est pas diffusée à tout le monde. Elle est envoy�
 
 Avant d'utiliser une adresse, un poste effectue aussi une DAD (Duplicate Address Detection) : il envoie une NS pour sa propre adresse. Si quelqu'un répond, l'adresse est déjà prise et il ne l'utilise pas. S'il n'y a pas de réponse, l'adresse est libre.
 
-⚠️ **Piège réseau classique** : filtrer tout ICMPv6 sur un pare-feu « par prudence » casse IPv6. Les messages NDP cessent de passer et l'autoconfiguration échoue. Même dans le cas des paquets qui traversent le réseau, le message « Packet Too Big » est indispensable : les routeurs ne fragmentent plus, c'est la source qui adapte la taille de ses paquets grâce à ce message. S'il est bloqué, certaines connexions se figent sur les gros transferts, sans erreur claire.
+> ⚠️ **Piège réseau classique** : filtrer tout ICMPv6 sur un pare-feu « par prudence » casse IPv6. Les messages NDP cessent de passer et l'autoconfiguration échoue. Même dans le cas des paquets qui traversent le réseau, le message « Packet Too Big » est indispensable : les routeurs ne fragmentent plus, c'est la source qui adapte la taille de ses paquets grâce à ce message. S'il est bloqué, certaines connexions se figent sur les gros transferts, sans erreur claire.
+{: .callout .callout-attention}
 
 ## Obtenir une configuration : RA, SLAAC et DHCPv6
 
@@ -166,7 +169,8 @@ Si l'organisation veut garder la main sur les adresses distribuées, ou fournir 
 | 0 | 1 | Adresse par SLAAC, autres informations (DNS, domaine) par DHCPv6 sans état |
 | 1 | – | Adresse obtenue via DHCPv6 avec état, le serveur garde la trace des attributions |
 
-💡 **Point clé** : DHCPv6 ne fournit pas la passerelle par défaut. La route par défaut vient uniquement du RA. Un serveur DHCPv6 parfaitement configuré ne suffit donc pas si le routeur n'annonce rien. De plus, certains systèmes, notamment Android, n'utilisent pas DHCPv6 pour obtenir leur adresse. Pour un parc hétérogène, SLAAC reste la base et DHCPv6 est un complément.
+> 💡 **Point clé** : DHCPv6 ne fournit pas la passerelle par défaut. La route par défaut vient uniquement du RA. Un serveur DHCPv6 parfaitement configuré ne suffit donc pas si le routeur n'annonce rien. De plus, certains systèmes, notamment Android, n'utilisent pas DHCPv6 pour obtenir leur adresse. Pour un parc hétérogène, SLAAC reste la base et DHCPv6 est un complément.
+{: .callout .callout-important}
 
 ## Faire cohabiter IPv4 et IPv6
 
@@ -253,7 +257,8 @@ Le type 134 correspond aux annonces de routeur. Si rien n'apparaît après une m
 
 ## Sécurité réseau liée
 
-⚠️ **IPv6 ne garantit pas automatiquement une meilleure sécurité.** L'idée circule parce qu'IPsec (Internet Protocol Security) était prévu comme obligatoire dans la spécification d'origine. Ce n'est plus le cas aujourd'hui : il est disponible, comme en IPv4, mais pas imposé. Et surtout, un protocole plus récent n'apporte aucune protection si personne ne le contrôle.
+> ⚠️ **IPv6 ne garantit pas automatiquement une meilleure sécurité.** L'idée circule parce qu'IPsec (Internet Protocol Security) était prévu comme obligatoire dans la spécification d'origine. Ce n'est plus le cas aujourd'hui : il est disponible, comme en IPv4, mais pas imposé. Et surtout, un protocole plus récent n'apporte aucune protection si personne ne le contrôle.
+{: .callout .callout-attention}
 
 Les risques concrets viennent plutôt de ce qui est mal compris :
 

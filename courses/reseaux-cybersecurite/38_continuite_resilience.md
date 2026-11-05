@@ -60,7 +60,8 @@ Le BIA est l'exercice qui alimente les deux. Il part des activités métier et n
 2. Quelle quantité de données le métier accepte-t-il de perdre ou de ressaisir ? C'est le RPO.
 3. Sur quels systèmes, personnes et fournisseurs l'activité repose-t-elle ?
 
-🧠 **Concept clé** : le RTO est un engagement de la DSI, la MTD est une limite du métier. On exige RTO < MTD avec de la marge, car la MTD inclut le temps de décision, de qualification de l'incident et de validation après restauration, pas seulement la restauration.
+> 🧠 **Concept clé** : le RTO est un engagement de la DSI, la MTD est une limite du métier. On exige RTO < MTD avec de la marge, car la MTD inclut le temps de décision, de qualification de l'incident et de validation après restauration, pas seulement la restauration.
+{: .callout .callout-important}
 
 Extrait de BIA (valeurs illustratives) :
 
@@ -87,7 +88,8 @@ On calcule aussi le débit. Les données critiques de Valmont pèsent 8 To. Sur 
 
 Le RTO de 4 h du WMS est donc inatteignable avec une restauration complète. Il faut alors réduire le périmètre restauré, utiliser une relecture directe depuis le dépôt (*instant recovery*, au prix de performances dégradées) ou prévoir du stockage plus rapide pour la reprise. Le débit réellement mesuré est souvent inférieur de moitié au débit théorique du lien, à cause des petits fichiers, de la déduplication, du chiffrement ou du dépôt partagé avec d'autres jobs.
 
-💡 **Astuce** : consignez chaque service dans un catalogue lisible par machine, versionné hors du SI de production. Il sert de base au BIA, aux exercices et à l'ordre de reprise.
+> 💡 **Astuce** : consignez chaque service dans un catalogue lisible par machine, versionné hors du SI de production. Il sert de base au BIA, aux exercices et à l'ordre de reprise.
+{: .callout .callout-astuce}
 
 ```yaml
 service: wms-expedition
@@ -151,7 +153,8 @@ bcdedit /set {default} bootstatuspolicy ignoreallfailures
 
 5. Déployer le chiffrement à un moment où personne ne regarde (vendredi soir, veille de jour férié), via GPO, PsExec ou directement sur l'hyperviseur.
 
-🔴 **Vecteur d'attaque** : ce n'est pas le chiffrement qui compromet la reprise, c'est l'étape 3. Un opérateur qui a supprimé les sauvegardes avant de chiffrer rend le rapport de job « 100 % réussi » sans valeur.
+> 🔴 **Vecteur d'attaque** : ce n'est pas le chiffrement qui compromet la reprise, c'est l'étape 3. Un opérateur qui a supprimé les sauvegardes avant de chiffrer rend le rapport de job « 100 % réussi » sans valeur.
+{: .callout .callout-danger}
 
 Un autre point change les décisions de restauration : la date de compromission précède souvent la date de chiffrement de plusieurs jours, voire de plusieurs semaines. Restaurer le point de la veille peut réinstaller le malware et ses comptes de persistance. La rétention doit donc dépasser le dwell time observé dans votre secteur, et chaque point candidat doit être analysé (antivirus, YARA) dans un environnement isolé avant remise en production.
 
@@ -191,7 +194,8 @@ aws s3api put-object-lock-configuration --bucket <BUCKET> \
   '{"ObjectLockEnabled":"Enabled","Rule":{"DefaultRetention":{"Mode":"COMPLIANCE","Days":35}}}'
 ```
 
-⚠️ **Erreur fréquente** : choisir le mode `GOVERNANCE` « pour pouvoir corriger une erreur ». Tout compte disposant de `s3:BypassGovernanceRetention` peut supprimer les objets. Un attaquant avec des clés d'administration cloud aura ce droit. Seul `COMPLIANCE` résiste, y compris au compte racine, avec la contrepartie qu'on ne peut plus purger même par erreur.
+> ⚠️ **Erreur fréquente** : choisir le mode `GOVERNANCE` « pour pouvoir corriger une erreur ». Tout compte disposant de `s3:BypassGovernanceRetention` peut supprimer les objets. Un attaquant avec des clés d'administration cloud aura ce droit. Seul `COMPLIANCE` résiste, y compris au compte racine, avec la contrepartie qu'on ne peut plus purger même par erreur.
+{: .callout .callout-attention}
 
 Pour un dépôt auto-hébergé, `restic` avec `rest-server --append-only --path <REPERTOIRE>` empêche un client compromis de supprimer ou d'écraser les snapshots existants. La purge se fait alors depuis une machine d'administration distincte, avec d'autres identifiants.
 
@@ -210,7 +214,8 @@ Pour un dépôt auto-hébergé, `restic` avec `rest-server --append-only --path 
 | Environnement de reprise isolé | VLAN ou tenant dédié, capacité réservée | Coût de calcul inutilisé 99 % du temps |
 | Runbooks | Version imprimée et copie sur un support indépendant du SI | Mise à jour à chaque changement d'architecture |
 
-🔒 **Contrôle de sécurité** : retirer la console de sauvegarde du domaine coupe la voie la plus courante (compromission AD → destruction des sauvegardes), et ne coûte qu'un peu de confort d'administration.
+> 🔒 **Contrôle de sécurité** : retirer la console de sauvegarde du domaine coupe la voie la plus courante (compromission AD → destruction des sauvegardes), et ne coûte qu'un peu de confort d'administration.
+{: .callout .callout-securite}
 
 ## Appliquer le moindre privilège au plan de reprise
 
@@ -225,7 +230,8 @@ La limite : plus on sépare les rôles, plus la restauration d'urgence demande d
 
 ## Les tests de récupération : le point qui fait la différence
 
-⚠️ **Piège central du module** : une sauvegarde qui existe mais n'a jamais été restaurée n'est pas une garantie de reprise. Le statut « réussi » signifie que le job a écrit des données, pas que ces données sont complètes, déchiffrables, cohérentes pour l'application et restaurables dans le temps imparti.
+> ⚠️ **Piège central du module** : une sauvegarde qui existe mais n'a jamais été restaurée n'est pas une garantie de reprise. Le statut « réussi » signifie que le job a écrit des données, pas que ces données sont complètes, déchiffrables, cohérentes pour l'application et restaurables dans le temps imparti.
+{: .callout .callout-attention}
 
 Les échecs observés en restauration appartiennent à quelques familles : sauvegarde crash-consistent d'une base (impossible à relancer sans réparation), clé de chiffrement perdue, catalogue corrompu, dépôt dont la lecture est trop lente pour le RTO, licence ou clé d'activation manquante, dépendance non sauvegardée (secrets d'application, certificats, fichiers de configuration hors VM).
 
@@ -304,7 +310,8 @@ Cette règle détecte un comportement très répandu. Elle est contournable (app
 - une explosion de la taille des sauvegardes incrémentielles et un effondrement du taux de déduplication. Des fichiers chiffrés ne se dédupliquent plus et changent entièrement d'un jour à l'autre, ce qui est un indicateur de chiffrement en cours ;
 - l'échec simultané des jobs sur plusieurs machines.
 
-💡 **Astuce** : mesurez l'incrément quotidien normal de chaque job pendant un mois et alertez au-delà de 3 fois la médiane. C'est peu coûteux et souvent plus fiable qu'une signature.
+> 💡 **Astuce** : mesurez l'incrément quotidien normal de chaque job pendant un mois et alertez au-delà de 3 fois la médiane. C'est peu coûteux et souvent plus fiable qu'une signature.
+{: .callout .callout-astuce}
 
 ## Scénarios d'indisponibilité : réseau, système, fournisseur
 
@@ -384,7 +391,8 @@ Un exercice qui ne trouve aucun défaut est un exercice trop facile. L'objectif 
 
 Les ordres de grandeur sont indicatifs et dépendent des produits et des architectures.
 
-🧠 **Concept clé** : la réplication protège contre la panne de site, la sauvegarde immuable protège contre la corruption et la suppression. Ce sont deux contrôles différents. Remplacer l'un par l'autre revient à acheter un coffre-fort pour se protéger d'une inondation.
+> 🧠 **Concept clé** : la réplication protège contre la panne de site, la sauvegarde immuable protège contre la corruption et la suppression. Ce sont deux contrôles différents. Remplacer l'un par l'autre revient à acheter un coffre-fort pour se protéger d'une inondation.
+{: .callout .callout-important}
 
 Quelques critères pour trancher :
 
@@ -428,35 +436,47 @@ La norme ISO 22301 structure un système de management de la continuité d'activ
 
 ## Erreurs fréquentes
 
-⚠️ **Console de sauvegarde jointe au domaine.**
-- Conséquence : la compromission d'un compte administrateur AD donne accès à la suppression des points de restauration.
-- Correction : serveur en workgroup, comptes locaux nominatifs et MFA, accès depuis un poste dédié.
-- Détection : `(Get-CimInstance Win32_ComputerSystem).PartOfDomain` sur le serveur de sauvegarde doit renvoyer `False`.
+> ⚠️ **Console de sauvegarde jointe au domaine.**
+>
+> - Conséquence : la compromission d'un compte administrateur AD donne accès à la suppression des points de restauration.
+> - Correction : serveur en workgroup, comptes locaux nominatifs et MFA, accès depuis un poste dédié.
+> - Détection : `(Get-CimInstance Win32_ComputerSystem).PartOfDomain` sur le serveur de sauvegarde doit renvoyer `False`.
+{: .callout .callout-attention}
 
-⚠️ **Immuabilité en mode Governance.**
-- Conséquence : un compte avec `s3:BypassGovernanceRetention` supprime les sauvegardes, donc un attaquant qui a volé des clés d'administration cloud aussi.
-- Correction : mode `COMPLIANCE` pour la copie de dernier recours, avec une rétention supérieure au dwell time.
-- Détection : `aws s3api get-object-lock-configuration --bucket <BUCKET>` et un test réel de suppression.
+> ⚠️ **Immuabilité en mode Governance.**
+>
+> - Conséquence : un compte avec `s3:BypassGovernanceRetention` supprime les sauvegardes, donc un attaquant qui a volé des clés d'administration cloud aussi.
+> - Correction : mode `COMPLIANCE` pour la copie de dernier recours, avec une rétention supérieure au dwell time.
+> - Détection : `aws s3api get-object-lock-configuration --bucket <BUCKET>` et un test réel de suppression.
+{: .callout .callout-attention}
 
-⚠️ **Réplication prise pour une sauvegarde.**
-- Conséquence : un chiffrement ou une suppression est répliqué en quelques minutes, et le site de secours ne contient plus de version saine.
-- Correction : ajouter une copie à points de restauration multiples, immuable, indépendante de la réplication.
-- Détection : demander « peut-on restaurer l'état d'il y a 7 jours depuis le site de secours ? ». Si non, la copie n'est pas une sauvegarde.
+> ⚠️ **Réplication prise pour une sauvegarde.**
+>
+> - Conséquence : un chiffrement ou une suppression est répliqué en quelques minutes, et le site de secours ne contient plus de version saine.
+> - Correction : ajouter une copie à points de restauration multiples, immuable, indépendante de la réplication.
+> - Détection : demander « peut-on restaurer l'état d'il y a 7 jours depuis le site de secours ? ». Si non, la copie n'est pas une sauvegarde.
+{: .callout .callout-attention}
 
-⚠️ **Secrets de reprise dans le SI à restaurer.**
-- Conséquence : clé de chiffrement des sauvegardes, DSRM ou clés BitLocker dans un coffre hébergé sur la production. Les données sont là mais illisibles.
-- Correction : copie hors SI, scellée, accès à deux personnes, vérification lors de chaque exercice.
-- Détection : lors d'un exercice, couper l'accès au coffre et tenter la reprise.
+> ⚠️ **Secrets de reprise dans le SI à restaurer.**
+>
+> - Conséquence : clé de chiffrement des sauvegardes, DSRM ou clés BitLocker dans un coffre hébergé sur la production. Les données sont là mais illisibles.
+> - Correction : copie hors SI, scellée, accès à deux personnes, vérification lors de chaque exercice.
+> - Détection : lors d'un exercice, couper l'accès au coffre et tenter la reprise.
+{: .callout .callout-attention}
 
-⚠️ **Plan et annuaire de crise hébergés sur le SI.**
-- Conséquence : l'équipe ne trouve ni la procédure ni les numéros de téléphone.
-- Correction : version imprimée, copie sur support indépendant, canal de crise alternatif validé.
-- Détection : exercice sur table sans accès au SI.
+> ⚠️ **Plan et annuaire de crise hébergés sur le SI.**
+>
+> - Conséquence : l'équipe ne trouve ni la procédure ni les numéros de téléphone.
+> - Correction : version imprimée, copie sur support indépendant, canal de crise alternatif validé.
+> - Détection : exercice sur table sans accès au SI.
+{: .callout .callout-attention}
 
-⚠️ **Restauration du dernier point sans analyse.**
-- Conséquence : réinstallation du malware ou de la persistance, nouvelle compromission quelques heures après la reprise.
-- Correction : sélectionner un point antérieur à la compromission estimée, l'analyser (antivirus, YARA) dans un environnement isolé, puis reprendre.
-- Détection : le runbook de reprise doit contenir une étape explicite « choix et validation du point de restauration ».
+> ⚠️ **Restauration du dernier point sans analyse.**
+>
+> - Conséquence : réinstallation du malware ou de la persistance, nouvelle compromission quelques heures après la reprise.
+> - Correction : sélectionner un point antérieur à la compromission estimée, l'analyser (antivirus, YARA) dans un environnement isolé, puis reprendre.
+> - Détection : le runbook de reprise doit contenir une étape explicite « choix et validation du point de restauration ».
+{: .callout .callout-attention}
 
 ## Résumé
 

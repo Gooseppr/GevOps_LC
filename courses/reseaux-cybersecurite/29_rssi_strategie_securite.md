@@ -57,7 +57,8 @@ Un attaquant n'attaque pas votre politique de sécurité, il exploite ce qu'elle
 | Indicateurs cosmétiques | Taux de couverture de l'EDR affiché, taux de remédiation réel ignoré | Fausse assurance de la direction |
 | Chaîne d'approvisionnement logicielle | Mises à jour d'éditeurs, composants open source, MSP (Managed Service Provider) | Compromission en cascade, hors de votre contrôle direct |
 
-🧠 **Concept clé** : en gouvernance, un risque sans propriétaire nommé, sans date de revue et sans indicateur n'est pas géré. Il est seulement connu.
+> 🧠 **Concept clé** : en gouvernance, un risque sans propriétaire nommé, sans date de revue et sans indicateur n'est pas géré. Il est seulement connu.
+{: .callout .callout-important}
 
 ## Qui fait quoi : RSSI, DSI et direction générale
 
@@ -72,11 +73,12 @@ Le RSSI (l'équivalent français du CISO, Chief Information Security Officer) a 
 
 Cette répartition se formalise souvent avec une matrice RACI (Responsible, Accountable, Consulted, Informed). Sa valeur tient à une règle simple : une seule personne *Accountable* par décision.
 
-⚠️ **Erreur fréquente : la fonction RSSI réduite à l'administration des outils.** Quand le RSSI passe ses semaines à régler le proxy, gérer les règles du pare-feu et trier les alertes de l'antivirus, la fonction devient un poste d'exploitation avec un titre de direction. Trois conséquences se cumulent :
-
-- plus personne ne regarde le risque d'ensemble ;
-- le contrôle est assuré par la personne qui a configuré ce qu'elle contrôle ;
-- le jour de l'incident, le RSSI est submergé par l'opérationnel au moment où la direction attend un arbitrage.
+> ⚠️ **Erreur fréquente : la fonction RSSI réduite à l'administration des outils.** Quand le RSSI passe ses semaines à régler le proxy, gérer les règles du pare-feu et trier les alertes de l'antivirus, la fonction devient un poste d'exploitation avec un titre de direction. Trois conséquences se cumulent :
+>
+> - plus personne ne regarde le risque d'ensemble ;
+> - le contrôle est assuré par la personne qui a configuré ce qu'elle contrôle ;
+> - le jour de l'incident, le RSSI est submergé par l'opérationnel au moment où la direction attend un arbitrage.
+{: .callout .callout-attention}
 
 La correction passe par un partage explicite. Le RSSI **définit et contrôle**, les équipes IT et le SOC (Security Operations Center) **exécutent**. Dans une petite structure où le cumul est inévitable, on compense par une revue externe annuelle des contrôles que le RSSI a lui-même mis en place.
 
@@ -106,7 +108,8 @@ flowchart LR
     G --> C
 ```
 
-💡 **Astuce** : testez votre stratégie avec la question suivante : « si la direction coupe 30 % du budget, quels objectifs de sécurité abandonne-t-on, et quel risque devient explicitement accepté ? » Si vous ne pouvez pas répondre, la stratégie n'est pas encore priorisée.
+> 💡 **Astuce** : testez votre stratégie avec la question suivante : « si la direction coupe 30 % du budget, quels objectifs de sécurité abandonne-t-on, et quel risque devient explicitement accepté ? » Si vous ne pouvez pas répondre, la stratégie n'est pas encore priorisée.
+{: .callout .callout-astuce}
 
 La stratégie doit aussi tenir compte de la contrainte réelle. Une PME avec deux personnes dédiées ne déploie pas le même programme qu'un groupe bancaire. La maturité cible se choisit selon le risque et les moyens, et l'ISO 27001 sert ici de cadre pour un ISMS (Information Security Management System) : on y justifie les mesures retenues par rapport aux risques, au lieu de viser une couverture maximale.
 
@@ -133,7 +136,8 @@ flowchart TB
 
 Les décisions comptent plus que la forme. Un comité qui « prend acte » sans rien décider n'a aucun effet. Chaque séance doit sortir avec des décisions écrites, un propriétaire et une échéance. Le point le plus négligé reste l'acceptation de risque : elle est signée par le **propriétaire du processus concerné**, avec la durée de validité de l'acceptation.
 
-🔒 **Contrôle de sécurité** : le registre des exceptions. Chaque dérogation à la politique y figure avec un identifiant, le périmètre, le risque, le propriétaire, la mesure compensatoire et une **date d'expiration**. Sans échéance, une dérogation devient une règle.
+> 🔒 **Contrôle de sécurité** : le registre des exceptions. Chaque dérogation à la politique y figure avec un identifiant, le périmètre, le risque, le propriétaire, la mesure compensatoire et une **date d'expiration**. Sans échéance, une dérogation devient une règle.
+{: .callout .callout-securite}
 
 ## Politique de sécurité et déclinaison opérationnelle
 
@@ -211,7 +215,8 @@ sort open_cves.txt | comm -12 - kev.txt
 
 `open_cves.txt` contient un identifiant CVE par ligne, exporté du scanner. L'URL du flux peut évoluer, vérifiez-la dans la documentation de la CISA.
 
-⚠️ **Erreur fréquente : les indicateurs cosmétiques.** « 98 % des postes équipés d'un EDR » rassure, mais ne dit pas si les 2 % restants sont les serveurs de production. Mesurez la couverture sur les actifs critiques, pas sur la moyenne. Un tableau de bord de 40 indicateurs est illisible : au comité stratégique, huit à douze suffisent, chacun relié à une décision possible.
+> ⚠️ **Erreur fréquente : les indicateurs cosmétiques.** « 98 % des postes équipés d'un EDR » rassure, mais ne dit pas si les 2 % restants sont les serveurs de production. Mesurez la couverture sur les actifs critiques, pas sur la moyenne. Un tableau de bord de 40 indicateurs est illisible : au comité stratégique, huit à douze suffisent, chacun relié à une décision possible.
+{: .callout .callout-attention}
 
 ## Pilotage de la feuille de route
 
@@ -233,7 +238,8 @@ Pour les obligations réglementaires comme NIS2 ou DORA (Digital Operational Res
 
 ## Gestion des tiers, fournisseurs et risques contractuels
 
-🔴 **Vecteur d'attaque** : l'attaquant cible le maillon que vous ne maîtrisez pas. En 2020, la compromission de la chaîne de mise à jour de SolarWinds Orion a touché ses clients en cascade. En 2021, l'attaque sur le logiciel Kaseya VSA, utilisé par des prestataires d'infogérance, a propagé un ransomware vers leurs clients. Fin mai 2023, l'exploitation de CVE-2023-34362 dans MOVEit Transfer a permis des vols de données massifs chez de nombreux utilisateurs du produit. Dans les trois cas, les victimes finales avaient un périmètre interne correct, mais une dépendance qu'elles ne pilotaient pas.
+> 🔴 **Vecteur d'attaque** : l'attaquant cible le maillon que vous ne maîtrisez pas. En 2020, la compromission de la chaîne de mise à jour de SolarWinds Orion a touché ses clients en cascade. En 2021, l'attaque sur le logiciel Kaseya VSA, utilisé par des prestataires d'infogérance, a propagé un ransomware vers leurs clients. Fin mai 2023, l'exploitation de CVE-2023-34362 dans MOVEit Transfer a permis des vols de données massifs chez de nombreux utilisateurs du produit. Dans les trois cas, les victimes finales avaient un périmètre interne correct, mais une dépendance qu'elles ne pilotaient pas.
+{: .callout .callout-danger}
 
 On ne peut pas auditer chaque fournisseur à fond. La gestion devient praticable avec un **tiering** :
 
@@ -300,13 +306,17 @@ La leçon : l'incident technique avait des causes organisationnelles. Les outils
 
 ## Erreurs fréquentes
 
-⚠️ **Acceptation de risque signée par le RSSI ou le DSI.**
-- *Conséquence* : en cas d'incident ou de contrôle, personne de légitime n'a décidé, et la direction découvre le risque après coup.
-- *Correction* : le propriétaire du processus signe, avec une durée de validité. Le RSSI consigne et conseille.
+> ⚠️ **Acceptation de risque signée par le RSSI ou le DSI.**
+>
+> - *Conséquence* : en cas d'incident ou de contrôle, personne de légitime n'a décidé, et la direction découvre le risque après coup.
+> - *Correction* : le propriétaire du processus signe, avec une durée de validité. Le RSSI consigne et conseille.
+{: .callout .callout-attention}
 
-⚠️ **Exceptions sans date d'expiration.**
-- *Conséquence* : les dérogations s'accumulent, la politique n'est plus appliquée nulle part de façon cohérente.
-- *Détection* :
+> ⚠️ **Exceptions sans date d'expiration.**
+>
+> - *Conséquence* : les dérogations s'accumulent, la politique n'est plus appliquée nulle part de façon cohérente.
+> - *Détection* :
+{: .callout .callout-attention}
 
 ```bash
 awk -F, -v d="$(date +%F)" 'NR>1 && $5<d {print $1, $2, $5}' exceptions.csv
@@ -315,17 +325,23 @@ awk -F, -v d="$(date +%F)" 'NR>1 && $5<d {print $1, $2, $5}' exceptions.csv
 Ici, le fichier est un CSV simple (aucune virgule à l'intérieur des champs) dont la colonne 5 est la date d'expiration au format ISO (AAAA-MM-JJ). Toute ligne affichée est une exception expirée, ou sans date d'expiration (champ vide), à traiter.
 - *Correction* : l'échéance est obligatoire, une exception expirée sans décision est supprimée.
 
-⚠️ **Tableau de bord sans seuils.**
-- *Conséquence* : les indicateurs sont présentés, commentés, puis oubliés ; aucune décision n'en découle.
-- *Correction* : chaque indicateur porte un seuil et une décision associée. Sans cela, on le retire.
+> ⚠️ **Tableau de bord sans seuils.**
+>
+> - *Conséquence* : les indicateurs sont présentés, commentés, puis oubliés ; aucune décision n'en découle.
+> - *Correction* : chaque indicateur porte un seuil et une décision associée. Sans cela, on le retire.
+{: .callout .callout-attention}
 
-⚠️ **Feuille de route = liste d'achats.**
-- *Conséquence* : les outils arrivent, mais les capacités attendues (détecter, contenir, restaurer) restent absentes.
-- *Correction* : formuler les objectifs en capacités mesurables, puis choisir les moyens.
+> ⚠️ **Feuille de route = liste d'achats.**
+>
+> - *Conséquence* : les outils arrivent, mais les capacités attendues (détecter, contenir, restaurer) restent absentes.
+> - *Correction* : formuler les objectifs en capacités mesurables, puis choisir les moyens.
+{: .callout .callout-attention}
 
-⚠️ **Diligence fournisseurs uniforme.**
-- *Conséquence* : le temps est dépensé sur des fournisseurs sans accès, alors que les prestataires critiques restent mal couverts.
-- *Correction* : le tiering décide de la profondeur de revue.
+> ⚠️ **Diligence fournisseurs uniforme.**
+>
+> - *Conséquence* : le temps est dépensé sur des fournisseurs sans accès, alors que les prestataires critiques restent mal couverts.
+> - *Correction* : le tiering décide de la profondeur de revue.
+{: .callout .callout-attention}
 
 ## Ce que vous pouvez tester dès maintenant
 

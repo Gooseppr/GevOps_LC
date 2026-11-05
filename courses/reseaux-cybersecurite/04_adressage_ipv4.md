@@ -48,7 +48,8 @@ Le **masque** de sous-réseau indique où s'arrête la rue et où commence le nu
 
 ## Anatomie d'une adresse IPv4
 
-🧠 **Concept fondamental** : une adresse IPv4 est un nombre de 32 bits. La notation « décimale pointée » (`192.168.10.37`) n'est qu'une façon lisible de l'écrire. Les 32 bits sont regroupés en 4 octets de 8 bits, chacun converti en décimal, d'où des valeurs de 0 à 255.
+> 🧠 **Concept fondamental** : une adresse IPv4 est un nombre de 32 bits. La notation « décimale pointée » (`192.168.10.37`) n'est qu'une façon lisible de l'écrire. Les 32 bits sont regroupés en 4 octets de 8 bits, chacun converti en décimal, d'où des valeurs de 0 à 255.
+{: .callout .callout-important}
 
 Voici `192.168.10.37` en binaire :
 
@@ -76,7 +77,8 @@ Toutes les adresses ne sont pas utilisables de la même façon. Les adresses **p
 | `255.255.255.255` | Broadcast limité | Ne franchit jamais un routeur |
 | `192.0.2.0/24` | Documentation | Adresses des exemples, jamais routées |
 
-⚠️ **Piège classique** : la plage privée du milieu s'arrête à `172.31.255.255`. Une adresse en `172.32.x.x` ou en `172.15.x.x` est publique, même si elle ressemble à une adresse privée.
+> ⚠️ **Piège classique** : la plage privée du milieu s'arrête à `172.31.255.255`. Une adresse en `172.32.x.x` ou en `172.15.x.x` est publique, même si elle ressemble à une adresse privée.
+{: .callout .callout-attention}
 
 ## Masque, CIDR et préfixe
 
@@ -123,7 +125,8 @@ Prenons `172.16.45.200/20`. Le masque est `255.255.240.0`, et l'octet mixte est 
 
 Même mécanique pour `192.168.10.37/26` : pas de 64 sur le quatrième octet, 37 tombe dans le bloc 0–63, donc réseau `192.168.10.0`, broadcast `192.168.10.63`, hôtes de `.1` à `.62`.
 
-⚠️ **Piège : une adresse qui finit par .0 n'est pas forcément une adresse réseau, et une adresse qui finit par .255 n'est pas forcément un broadcast.** L'adresse réseau est celle dont tous les bits hôte valent 0, ce qui n'a rien à voir avec la façon dont elle se termine en décimal. Dans `192.168.10.0/23` (pas de 2 sur le troisième octet), le bloc s'étend de `192.168.10.0` à `192.168.11.255`. L'adresse `192.168.11.0` y est donc un hôte parfaitement valide, alors que `192.168.10.64/26` est bien une adresse réseau malgré son « .64 ». Avant d'attribuer une adresse à une machine, calculez toujours son bloc. La conséquence typique d'une erreur : une machine configurée avec l'adresse réseau ou avec le broadcast de son propre sous-réseau, ce qui produit des comportements incohérents plutôt qu'une erreur claire.
+> ⚠️ **Piège : une adresse qui finit par .0 n'est pas forcément une adresse réseau, et une adresse qui finit par .255 n'est pas forcément un broadcast.** L'adresse réseau est celle dont tous les bits hôte valent 0, ce qui n'a rien à voir avec la façon dont elle se termine en décimal. Dans `192.168.10.0/23` (pas de 2 sur le troisième octet), le bloc s'étend de `192.168.10.0` à `192.168.11.255`. L'adresse `192.168.11.0` y est donc un hôte parfaitement valide, alors que `192.168.10.64/26` est bien une adresse réseau malgré son « .64 ». Avant d'attribuer une adresse à une machine, calculez toujours son bloc. La conséquence typique d'une erreur : une machine configurée avec l'adresse réseau ou avec le broadcast de son propre sous-réseau, ce qui produit des comportements incohérents plutôt qu'une erreur claire.
+{: .callout .callout-attention}
 
 ## Découper un bloc en sous-réseaux
 
@@ -153,7 +156,8 @@ flowchart TD
     E --> F["Le routeur prend le relais"]
 ```
 
-💡 **Point clé** : la passerelle doit impérativement se trouver dans le même sous-réseau que la machine. C'est logique : pour lui remettre un paquet, la machine doit pouvoir la joindre directement. Selon le système, une passerelle hors du sous-réseau est refusée (Linux, sauf option spécifique) ou acceptée avec un simple avertissement (Windows) : dans tous les cas, c'est une erreur de configuration.
+> 💡 **Point clé** : la passerelle doit impérativement se trouver dans le même sous-réseau que la machine. C'est logique : pour lui remettre un paquet, la machine doit pouvoir la joindre directement. Selon le système, une passerelle hors du sous-réseau est refusée (Linux, sauf option spécifique) ou acceptée avec un simple avertissement (Windows) : dans tous les cas, c'est une erreur de configuration.
+{: .callout .callout-important}
 
 Par convention, on donne à la passerelle la première ou la dernière adresse utilisable du sous-réseau (`.1` ou `.254` dans un `/24`). L'important est de choisir une règle et de s'y tenir sur tout le réseau, pour que n'importe quel technicien devine la passerelle sans ouvrir de documentation.
 
@@ -224,7 +228,8 @@ Hosts/Net: 62
 
 La présentation exacte dépend de la version et de la distribution. Entraînez-vous toutefois à calculer à la main d'abord, puis à vérifier avec l'outil : en entretien comme en audit, on vous demandera rarement de sortir un `ipcalc`.
 
-⚠️ **Adresse en `169.254.x.x` sur un poste** : c'est le signe que la machine n'a obtenu aucune configuration automatique et s'est attribué une adresse de secours. Il faut chercher du côté du service DHCP ou de la liaison, pas retoucher le masque.
+> ⚠️ **Adresse en `169.254.x.x` sur un poste** : c'est le signe que la machine n'a obtenu aucune configuration automatique et s'est attribué une adresse de secours. Il faut chercher du côté du service DHCP ou de la liaison, pas retoucher le masque.
+{: .callout .callout-attention}
 
 Pour tester, procédez du plus proche au plus lointain : `ping` de sa propre adresse, puis de la passerelle, puis d'une machine d'un autre sous-réseau, puis d'une adresse Internet. Le premier échec indique la zone à examiner.
 

@@ -61,7 +61,8 @@ C'est comme un colis qui passe par plusieurs relais : s'il n'arrive pas, il faut
 - **La connexion vers la Data Source** : réseau, DNS, authentification, TLS (Transport Layer Security).
 - **Le backend** : le service ne répond plus, ne contient pas les données, ou met trop de temps à calculer.
 
-🧠 **Concept clé** : l'URL d'une Data Source est utilisée par le **serveur** Grafana, pas par votre navigateur (en mode d'accès `Server`, le mode courant). Tester l'URL depuis votre poste ne prouve donc rien : le test valable se fait depuis la machine ou le conteneur qui héberge Grafana.
+> 🧠 **Concept clé** : l'URL d'une Data Source est utilisée par le **serveur** Grafana, pas par votre navigateur (en mode d'accès `Server`, le mode courant). Tester l'URL depuis votre poste ne prouve donc rien : le test valable se fait depuis la machine ou le conteneur qui héberge Grafana.
+{: .callout .callout-important}
 
 Voici la méthode que nous allons dérouler, en détail, dans les sections suivantes :
 
@@ -98,7 +99,8 @@ Si même la métrique brute ne renvoie rien, vous avez un vrai problème de donn
 
 Beaucoup de dashboards vides sont dus à une variable. Une variable `$instance` qui vaut une instance supprimée, une valeur `All` mal gérée dans une regex, ou une variable restée vide après un changement de label : le panel est correctement construit, mais il filtre sur du vide. Regardez en haut du dashboard, avant de toucher à quoi que ce soit : changez la valeur de la variable et observez si les données reviennent.
 
-💡 **Astuce** : dans l'éditeur de panel, passez la souris sur la requête ou utilisez Query Inspector (plus bas) pour voir la requête **après** substitution des variables. Ce que vous lisez dans l'éditeur contient `$instance`, mais ce que Prometheus reçoit contient la valeur réelle, et c'est celle-là qu'il faut juger.
+> 💡 **Astuce** : dans l'éditeur de panel, passez la souris sur la requête ou utilisez Query Inspector (plus bas) pour voir la requête **après** substitution des variables. Ce que vous lisez dans l'éditeur contient `$instance`, mais ce que Prometheus reçoit contient la valeur réelle, et c'est celle-là qu'il faut juger.
+{: .callout .callout-astuce}
 
 ### Panel de type « sans message »
 
@@ -114,7 +116,8 @@ Ces messages ne sont pas interchangeables. Chacun raconte une histoire différen
 | `Error` (parse, 4xx, 5xx) | La requête n'a pas abouti : syntaxe invalide, accès refusé ou backend en erreur | Texte exact de l'erreur dans Query Inspector |
 | `Timeout` | La requête a démarré, mais la réponse n'est pas arrivée à temps | Requête trop lourde ou backend saturé |
 
-🧠 **Concept clé** : `No data` signifie que la chaîne de communication fonctionne. Prometheus, Loki ou Tempo ont répondu, simplement par un résultat vide. C'est un indice précieux : il écarte d'un coup toute une série de pannes réseau ou d'authentification.
+> 🧠 **Concept clé** : `No data` signifie que la chaîne de communication fonctionne. Prometheus, Loki ou Tempo ont répondu, simplement par un résultat vide. C'est un indice précieux : il écarte d'un coup toute une série de pannes réseau ou d'authentification.
+{: .callout .callout-important}
 
 ### `No data` : ce n'est pas toujours une panne
 
@@ -125,7 +128,8 @@ Il y a quelques causes classiques, plus subtiles qu'une simple absence de donné
 - Une fonction comme `rate()` utilise une fenêtre trop petite par rapport à l'intervalle de collecte : si Prometheus collecte toutes les 15 secondes, `rate(x[15s])` ne contient qu'un point par fenêtre et ne peut rien calculer.
 - Une métrique de type compteur n'existe qu'après le premier événement. Un `http_errors_total` n'apparaît pas tant qu'aucune erreur n'a été comptée, selon la façon dont l'application est instrumentée.
 
-⚠️ **Erreur fréquente** : utiliser une fenêtre `rate()` trop courte.
+> ⚠️ **Erreur fréquente** : utiliser une fenêtre `rate()` trop courte.
+{: .callout .callout-attention}
 
 - **Piège** : `rate(http_requests_total[15s])` avec un scrape toutes les 15 secondes.
 - **Conséquence** : panel vide alors que les données existent.
@@ -163,7 +167,8 @@ docker exec <CONTENEUR_GRAFANA> wget -qO- http://<HOTE>:<PORT>/-/healthy
 
 Avec Prometheus, `/-/healthy` retourne un court message si le service est en vie. Selon l'image utilisée, `wget` ou `curl` peut ne pas être présent ; adaptez alors le test ou lancez-le depuis une autre machine du même réseau.
 
-⚠️ **Erreur fréquente** : mettre `localhost` dans l'URL de la Data Source.
+> ⚠️ **Erreur fréquente** : mettre `localhost` dans l'URL de la Data Source.
+{: .callout .callout-attention}
 
 - **Piège** : sur votre poste, `http://localhost:9090` fonctionne dans le navigateur.
 - **Conséquence** : Grafana tourne dans un conteneur, où `localhost` désigne le conteneur lui-même. Résultat : `connection refused`.
@@ -198,7 +203,8 @@ Le sélecteur en haut à droite définit la fenêtre de temps pour tous les pane
 - **Période absolue** (de 08:00 à 10:00) : elle reste figée. Le refresh recharge les données, mais sur la même fenêtre, donc rien de nouveau n'apparaît. C'est un classique après avoir zoomé sur un incident.
 - **Période trop courte** : `Last 1 minute` avec un point collecté toutes les 30 secondes, le résultat est instable, voire vide.
 
-⚠️ **Erreur fréquente** : croire que le refresh est cassé.
+> ⚠️ **Erreur fréquente** : croire que le refresh est cassé.
+{: .callout .callout-attention}
 
 - **Piège** : le dashboard est resté sur une période absolue après un zoom sur un incident.
 - **Conséquence** : les courbes ne bougent plus, même avec l'auto-refresh à 10 s.
@@ -210,7 +216,8 @@ Prometheus, Loki et Tempo stockent des horodatages indépendants de tout fuseau 
 
 Le décalage apparaît quand vos sources de vérité ne parlent pas la même heure : un log applicatif en heure locale, un dashboard en UTC, un collègue dont le navigateur est réglé autrement. Vous cherchez un événement à 14 h 05 et vous ne le voyez pas, alors qu'il est affiché à 12 h 05.
 
-💡 **Astuce** : en incident, mettez le dashboard en UTC et demandez aux autres de faire de même. Une seule référence de temps évite beaucoup de confusion dans les échanges avec les équipes.
+> 💡 **Astuce** : en incident, mettez le dashboard en UTC et demandez aux autres de faire de même. Une seule référence de temps évite beaucoup de confusion dans les échanges avec les équipes.
+{: .callout .callout-astuce}
 
 ### Le refresh
 
@@ -243,7 +250,8 @@ sum by (status) (rate(http_requests_total[5m]))
 
 On passe ainsi de milliers de séries à une poignée (une par code de statut). Le panel est plus lisible, et surtout beaucoup plus rapide.
 
-💡 **Astuce** : testez d'abord la requête dans Explore avec une période courte (15 minutes). Si elle est lente même là, le problème est dans la requête. Si elle devient lente seulement sur 7 jours, c'est la volumétrie.
+> 💡 **Astuce** : testez d'abord la requête dans Explore avec une période courte (15 minutes). Si elle est lente même là, le problème est dans la requête. Si elle devient lente seulement sur 7 jours, c'est la volumétrie.
+{: .callout .callout-astuce}
 
 \* La cardinalité désigne le nombre de combinaisons uniques de labels d'une métrique ; plus elle est élevée, plus la requête et le stockage sont coûteux.
 
@@ -261,7 +269,8 @@ On l'ouvre depuis le menu du panel → **Inspect → Query**, ou en survolant le
 
 Un exemple de lecture : vous ouvrez Query, vous cliquez sur Refresh, et vous obtenez un statut 400 avec un message de parse. Vous venez d'apprendre en dix secondes que la requête est fausse, et que ce n'est ni le réseau ni le backend. À l'inverse, un statut 200 avec un tableau de résultats vide confirme que la chaîne fonctionne et que la question posée n'a pas de réponse.
 
-⚠️ **Erreur fréquente** : ne regarder que la requête saisie dans l'éditeur.
+> ⚠️ **Erreur fréquente** : ne regarder que la requête saisie dans l'éditeur.
+{: .callout .callout-attention}
 
 - **Piège** : l'éditeur affiche `$instance` et `$__rate_interval`.
 - **Conséquence** : vous testez ailleurs une requête qui n'est pas celle que Prometheus a réellement reçue.
@@ -303,7 +312,8 @@ docker logs --since 10m <CONTENEUR_BACKEND> 2>&1 | tail -n 50
 
 On y trouve les causes qu'un 502 ne dit pas : manque de mémoire, requête annulée, limite de volume dépassée, stockage corrompu ou plein. Pour Prometheus, la page `/targets` complète cette lecture en montrant quelles cibles ne sont plus collectées et pourquoi.
 
-💡 **Astuce** : alignez les horodatages. Notez l'heure exacte de l'erreur dans Grafana (en UTC), puis cherchez la même minute dans les logs du backend. Les deux récits se recoupent presque toujours.
+> 💡 **Astuce** : alignez les horodatages. Notez l'heure exacte de l'erreur dans Grafana (en UTC), puis cherchez la même minute dans les logs du backend. Les deux récits se recoupent presque toujours.
+{: .callout .callout-astuce}
 
 ## Commandes essentielles de diagnostic
 

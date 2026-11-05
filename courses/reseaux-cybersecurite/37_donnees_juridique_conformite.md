@@ -68,7 +68,8 @@ La première erreur est de se limiter au schéma d'architecture officiel. Les do
 | Stockage objet cloud | Politiques d'accès mal posées | Listing public, indexation par des moteurs spécialisés |
 | Outils SaaS tiers (CRM, ticketing) | Contrats et localisation mal connus | Transferts hors UE non maîtrisés |
 
-🧠 **Concept clé** : chaque copie de donnée est une surface d'attaque *et* une ligne à justifier juridiquement. Une copie hors registre n'est pas seulement un risque technique, c'est un traitement non documenté.
+> 🧠 **Concept clé** : chaque copie de donnée est une surface d'attaque *et* une ligne à justifier juridiquement. Une copie hors registre n'est pas seulement un risque technique, c'est un traitement non documenté.
+{: .callout .callout-important}
 
 ---
 
@@ -102,7 +103,8 @@ Le trafic sort en HTTPS vers un fournisseur cloud grand public. Un filtrage par 
 
 **4. Monétisation.** Dans la double extorsion, les données sont volées *avant* le chiffrement des systèmes. Le chantage ne porte plus sur la restauration mais sur la publication. Certains groupes exploitent aussi le levier réglementaire : ils savent que l'entreprise a une obligation de notification, et que la divulgation publique déclenche des demandes de clients.
 
-💡 **Astuce** : ce que vous n'avez plus ne peut pas fuiter. Sur un export de 8 ans dont seuls 3 ans étaient justifiés, la durée de conservation excessive multiplie le volume exfiltré, et donc le nombre de personnes à notifier. La purge est un contrôle de sécurité, au même titre qu'un correctif.
+> 💡 **Astuce** : ce que vous n'avez plus ne peut pas fuiter. Sur un export de 8 ans dont seuls 3 ans étaient justifiés, la durée de conservation excessive multiplie le volume exfiltré, et donc le nombre de personnes à notifier. La purge est un contrôle de sécurité, au même titre qu'un correctif.
+{: .callout .callout-astuce}
 
 ### Modèle de menace, version données
 
@@ -213,7 +215,8 @@ L'AIPD* (Data Protection Impact Assessment) est exigée quand un traitement est 
 
 **Ce que l'équipe sécurité apporte.** La méthode de la CNIL raisonne sur trois événements redoutés : **accès illégitime** aux données, **modification non désirée**, **disparition**. Pour chacun, on décrit les sources de risque, les menaces, les impacts sur les personnes, puis on évalue gravité et vraisemblance. Vous fournissez les scénarios de menace et la partie « mesures ». Si le risque résiduel reste élevé après mesures, une **consultation préalable** de l'autorité est obligatoire (art. 36).
 
-⚠️ **Erreur fréquente** : l'AIPD « de façade », rédigée après la mise en production, qui décrit l'architecture existante au lieu de la faire évoluer. Une AIPD utile change au moins une décision de conception : durée réduite, pseudonymisation, suppression d'un champ, cloisonnement. Si l'AIPD n'a rien modifié, elle a probablement été faite trop tard.
+> ⚠️ **Erreur fréquente** : l'AIPD « de façade », rédigée après la mise en production, qui décrit l'architecture existante au lieu de la faire évoluer. Une AIPD utile change au moins une décision de conception : durée réduite, pseudonymisation, suppression d'un champ, cloisonnement. Si l'AIPD n'a rien modifié, elle a probablement été faite trop tard.
+{: .callout .callout-attention}
 
 ---
 
@@ -228,7 +231,8 @@ Le RBAC (Role-Based Access Control) n'est pas détaillé ici. On se concentre su
 - L'accès aux données de production par les développeurs et les prestataires passe par une élévation à durée limitée.
 - Les environnements de test reçoivent des données pseudonymisées ou synthétiques, jamais une copie brute.
 
-🔒 **Contrôle de sécurité** : retirer l'export CSV du profil support et le remplacer par une recherche unitaire aurait, dans notre scénario, limité la fuite à quelques dizaines de fiches.
+> 🔒 **Contrôle de sécurité** : retirer l'export CSV du profil support et le remplacer par une recherche unitaire aurait, dans notre scénario, limité la fuite à quelques dizaines de fiches.
+{: .callout .callout-securite}
 
 ### Chiffrement : quelle couche contre quel scénario
 
@@ -245,7 +249,8 @@ La gestion des clés fait ou défait la couche. Une clé stockée à côté des 
 
 La pseudonymisation remplace les identifiants directs par un pseudonyme, mais la donnée reste personnelle tant qu'une clé permet de la ré-identifier. Elle réduit le risque, elle ne supprime pas l'obligation. L'anonymisation, elle, rend la ré-identification impossible *de manière raisonnable*, et le seuil est strict.
 
-⚠️ **Erreur fréquente** : « anonymiser » des e-mails avec un simple SHA-256. Le résultat est **déterministe** et un dictionnaire d'e-mails permet de l'inverser.
+> ⚠️ **Erreur fréquente** : « anonymiser » des e-mails avec un simple SHA-256. Le résultat est **déterministe** et un dictionnaire d'e-mails permet de l'inverser.
+{: .callout .callout-attention}
 
 ```bash
 # Même entrée, même sortie : trivial à recouper
@@ -324,7 +329,8 @@ flowchart TD
 
 **Autres expositions.** L'action civile des personnes (art. 82), les recours contractuels de clients B2B, les clauses de déclaration de votre assureur cyber (souvent des délais courts, à relire avant l'incident) et les suites pénales selon le droit national.
 
-💡 **Astuce** : ce qui s'écrit pendant la crise sera lu plus tard par l'autorité. Écrivez des faits datés, pas des qualifications prématurées. « Nous nous sommes fait hacker par un groupe étatique » dans un canal Slack devient une pièce.
+> 💡 **Astuce** : ce qui s'écrit pendant la crise sera lu plus tard par l'autorité. Écrivez des faits datés, pas des qualifications prématurées. « Nous nous sommes fait hacker par un groupe étatique » dans un canal Slack devient une pièce.
+{: .callout .callout-astuce}
 
 ---
 
@@ -445,17 +451,23 @@ Les leçons tiennent en un tableau :
 
 ## Erreurs fréquentes
 
-⚠️ **Copie de production dans les environnements de test.** Les développeurs et les prestataires de recette accèdent à des données réelles, hors registre. Détection : regex sur les bases de test (`grep` sur e-mails, IBAN) ou outil de découverte de données. Correction : pipeline de pseudonymisation à la copie, ou jeu synthétique.
+> ⚠️ **Copie de production dans les environnements de test.** Les développeurs et les prestataires de recette accèdent à des données réelles, hors registre. Détection : regex sur les bases de test (`grep` sur e-mails, IBAN) ou outil de découverte de données. Correction : pipeline de pseudonymisation à la copie, ou jeu synthétique.
+{: .callout .callout-attention}
 
-⚠️ **DPO et RSSI confondus, ou DPO sans accès aux projets.** Le conflit d'intérêts affaiblit les deux fonctions, et un DPO consulté après coup ne peut pas conseiller. Correction : rôles séparés, DPO invité aux revues d'architecture et à l'escalade incident.
+> ⚠️ **DPO et RSSI confondus, ou DPO sans accès aux projets.** Le conflit d'intérêts affaiblit les deux fonctions, et un DPO consulté après coup ne peut pas conseiller. Correction : rôles séparés, DPO invité aux revues d'architecture et à l'escalade incident.
+{: .callout .callout-attention}
 
-⚠️ **Contrat sous-traitant signé sans délai de notification ni droit d'audit.** En incident, vous découvrez que le prestataire vous prévient quand il veut. Correction : avenant avec délai court, liste des sous-traitants ultérieurs, demande annuelle d'attestation.
+> ⚠️ **Contrat sous-traitant signé sans délai de notification ni droit d'audit.** En incident, vous découvrez que le prestataire vous prévient quand il veut. Correction : avenant avec délai court, liste des sous-traitants ultérieurs, demande annuelle d'attestation.
+{: .callout .callout-attention}
 
-⚠️ **Logs en DEBUG avec payloads complets.** E-mails, tokens et données de formulaire apparaissent en clair dans un outil lisible par tout le monde. Détection : `grep -iE '@[a-z0-9.-]+\.[a-z]{2,}' <LOG>`. Correction : filtrage dans le middleware de logging avant écriture, rétention bornée.
+> ⚠️ **Logs en DEBUG avec payloads complets.** E-mails, tokens et données de formulaire apparaissent en clair dans un outil lisible par tout le monde. Détection : `grep -iE '@[a-z0-9.-]+\.[a-z]{2,}' <LOG>`. Correction : filtrage dans le middleware de logging avant écriture, rétention bornée.
+{: .callout .callout-attention}
 
-⚠️ **Registre figé.** Rempli lors d'un projet de mise en conformité, jamais mis à jour. Correction : lier la mise à jour au processus de changement. Une nouvelle application ou un nouveau SaaS ne passe pas en production sans une ligne dans le registre.
+> ⚠️ **Registre figé.** Rempli lors d'un projet de mise en conformité, jamais mis à jour. Correction : lier la mise à jour au processus de changement. Une nouvelle application ou un nouveau SaaS ne passe pas en production sans une ligne dans le registre.
+{: .callout .callout-attention}
 
-⚠️ **Hash simple pris pour de l'anonymisation.** Voir plus haut : réversible par dictionnaire. Correction : HMAC avec clé séparée, et traiter le résultat comme une donnée personnelle pseudonymisée.
+> ⚠️ **Hash simple pris pour de l'anonymisation.** Voir plus haut : réversible par dictionnaire. Correction : HMAC avec clé séparée, et traiter le résultat comme une donnée personnelle pseudonymisée.
+{: .callout .callout-attention}
 
 ---
 

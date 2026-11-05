@@ -98,7 +98,8 @@ flowchart LR
     PV --> G
 ```
 
-🧠 **Concept clé** : dans ce projet, **Git est la source de vérité**. L'interface de Grafana sert à explorer et à prototyper, pas à stocker. Une modification qui n'est pas passée par le dépôt est une dette, parce qu'elle disparaîtra à la prochaine reconstruction ou, pire, entrera en conflit avec elle.
+> 🧠 **Concept clé** : dans ce projet, **Git est la source de vérité**. L'interface de Grafana sert à explorer et à prototyper, pas à stocker. Une modification qui n'est pas passée par le dépôt est une dette, parce qu'elle disparaîtra à la prochaine reconstruction ou, pire, entrera en conflit avec elle.
+{: .callout .callout-important}
 
 ## Construction progressive
 
@@ -182,7 +183,8 @@ providers:
       foldersFromFilesStructure: true
 ```
 
-⚠️ **Erreur fréquente** : un collègue ouvre un dashboard provisionné, le modifie, clique sur « Save » et obtient « Cannot save provisioned dashboard ». Ce n'est pas un bug, c'est le verrou qui fait son travail. La correction n'est pas de passer `allowUiUpdates` à `true`, mais d'exporter le JSON depuis l'interface, de le déposer dans le dépôt et de passer par la revue. Expliquez-le dans la documentation d'exploitation, sinon la règle sera perçue comme une panne.
+> ⚠️ **Erreur fréquente** : un collègue ouvre un dashboard provisionné, le modifie, clique sur « Save » et obtient « Cannot save provisioned dashboard ». Ce n'est pas un bug, c'est le verrou qui fait son travail. La correction n'est pas de passer `allowUiUpdates` à `true`, mais d'exporter le JSON depuis l'interface, de le déposer dans le dépôt et de passer par la revue. Expliquez-le dans la documentation d'exploitation, sinon la règle sera perçue comme une panne.
+{: .callout .callout-attention}
 
 Côté Terraform, un compte de service dédié, avec un rôle limité et un jeton à durée de vie courte, remplace le compte admin. Voici le cœur du routage :
 
@@ -249,7 +251,8 @@ La v3 ne rajoute pas de fonctionnalités de supervision. Elle retire les points 
     basicAuthPassword: ${PROM_PASSWORD}
 ```
 
-💡 **Astuce** : Grafana ne cloisonne pas les données à lui seul. Si la Data Source Loki se connecte avec un seul tenant partagé, tous les utilisateurs autorisés à l'interroger voient les logs de toutes les équipes. Pour une vraie séparation, il faut un tenant par périmètre côté Loki et une Data Source par tenant, avec les permissions de Data Source alignées.
+> 💡 **Astuce** : Grafana ne cloisonne pas les données à lui seul. Si la Data Source Loki se connecte avec un seul tenant partagé, tous les utilisateurs autorisés à l'interroger voient les logs de toutes les équipes. Pour une vraie séparation, il faut un tenant par périmètre côté Loki et une Data Source par tenant, avec les permissions de Data Source alignées.
+{: .callout .callout-astuce}
 
 ## Sécurisation et sauvegardes
 
@@ -270,7 +273,8 @@ Pour les sauvegardes, il faut distinguer ce qui se reconstruit de ce qui se perd
 pg_dump -Fc -h <HOST> -U grafana -d grafana -f grafana-$(date +%F).dump
 ```
 
-⚠️ **Erreur fréquente** : considérer qu'une sauvegarde qui s'exécute est une sauvegarde qui fonctionne. Une archive jamais restaurée n'est qu'une hypothèse. Le rapport de validation doit contenir une **restauration réelle** dans un environnement vierge, avec la durée mesurée et un contrôle du résultat (utilisateurs présents, silences présents, dashboards identiques à Git).
+> ⚠️ **Erreur fréquente** : considérer qu'une sauvegarde qui s'exécute est une sauvegarde qui fonctionne. Une archive jamais restaurée n'est qu'une hypothèse. Le rapport de validation doit contenir une **restauration réelle** dans un environnement vierge, avec la durée mesurée et un contrôle du résultat (utilisateurs présents, silences présents, dashboards identiques à Git).
+{: .callout .callout-attention}
 
 ## Dashboards : trois niveaux, un chemin
 
@@ -334,7 +338,8 @@ C'est le cœur de la validation. Chaque scénario a la même structure : on inje
 | Coupure réseau | `docker network disconnect <RESEAU> <CONTENEUR_ALLOY>` | Trous dans les courbes, métrique `up` absente | Alerte sur l'absence de données, pas sur un zéro apparent |
 | Data Source en échec | `docker compose pause prometheus`, ou mauvais mot de passe injecté | Panneaux en erreur, règles en état `Error` | Alerte sur l'état d'erreur (`DatasourceError`) ; arrêt du heartbeat seulement si la règle Watchdog interroge Prometheus |
 
-⚠️ **Erreur fréquente** : valider uniquement que « quelque chose s'affiche en rouge ». Le critère n'est pas visuel. Il porte sur quatre mesures : le délai entre l'injection et la première notification, la justesse du routage, la capacité d'une personne extérieure à diagnostiquer à partir du seul dashboard, et le temps de retour à la normale après réparation.
+> ⚠️ **Erreur fréquente** : valider uniquement que « quelque chose s'affiche en rouge ». Le critère n'est pas visuel. Il porte sur quatre mesures : le délai entre l'injection et la première notification, la justesse du routage, la capacité d'une personne extérieure à diagnostiquer à partir du seul dashboard, et le temps de retour à la normale après réparation.
+{: .callout .callout-attention}
 
 Quelques subtilités à surveiller particulièrement :
 

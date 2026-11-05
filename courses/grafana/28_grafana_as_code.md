@@ -68,7 +68,8 @@ flowchart LR
 | Édition dans l'UI | Bloquée par défaut pour les ressources provisionnées | Libre pour les dashboards ; alerting verrouillé par provenance | Libre pour les dashboards, d'où la dérive ; alerting verrouillé par provenance par défaut | Possible, avec proposition de changement vers Git |
 | Pré-requis | Accès au système de fichiers de l'instance | Un token | Un état (state) + un token | Version récente de Grafana, dépôt connecté |
 
-🧠 **Concept clé** : ces outils ne se distinguent pas par ce qu'ils savent créer, mais par **qui détient la vérité**. Avec le provisioning fichier, c'est le disque de Grafana. Avec Terraform, c'est le fichier d'état plus votre dépôt. Avec Git Sync, c'est le dépôt, et Grafana le reflète. Tant que chaque ressource a un seul propriétaire, tout va bien. Les ennuis commencent quand deux outils se croient chacun propriétaires.
+> 🧠 **Concept clé** : ces outils ne se distinguent pas par ce qu'ils savent créer, mais par **qui détient la vérité**. Avec le provisioning fichier, c'est le disque de Grafana. Avec Terraform, c'est le fichier d'état plus votre dépôt. Avec Git Sync, c'est le dépôt, et Grafana le reflète. Tant que chaque ressource a un seul propriétaire, tout va bien. Les ennuis commencent quand deux outils se croient chacun propriétaires.
+{: .callout .callout-important}
 
 Le provisioning fichier est le plus ancien et le plus éprouvé. Il convient très bien à ce qui doit exister dès le démarrage : sources de données et providers de dashboards. Terraform convient quand vous voulez un cycle `plan` puis `apply` avec revue, et que vos ressources dépassent les dashboards. Git Sync est plus récent et sa couverture évolue d'une version à l'autre. Son intérêt est de laisser les équipes éditer dans l'interface tout en gardant Git comme référence. Vérifiez la documentation de votre version pour savoir ce qu'il synchronise, et si des feature toggles sont à activer. Ne remplacez pas un provisioning qui marche par Git Sync sans avoir testé les limites sur un environnement de test.
 
@@ -225,7 +226,8 @@ resource "grafana_rule_group" "api" {
 }
 ```
 
-💡 **Astuce** : le bloc `model` est la partie la plus pénible à écrire à la main, et sa forme exacte dépend de la version. Créez la règle dans l'interface sur une instance de test, utilisez la fonction d'export de la règle (le format HCL est proposé), puis adaptez la sortie. C'est bien plus rapide que de deviner la structure.
+> 💡 **Astuce** : le bloc `model` est la partie la plus pénible à écrire à la main, et sa forme exacte dépend de la version. Créez la règle dans l'interface sur une instance de test, utilisez la fonction d'export de la règle (le format HCL est proposé), puis adaptez la sortie. C'est bien plus rapide que de deviner la structure.
+{: .callout .callout-astuce}
 
 Remarquez que `no_data_state` et `exec_err_state` sont explicites. Ce sont les réglages qui décident ce qui se passe quand la métrique disparaît ou que la requête échoue : exactement les pannes silencieuses du fil rouge du parcours. Une revue de code doit toujours les voir.
 
@@ -345,7 +347,8 @@ Le rollback le plus fiable est un `git revert` du commit fautif, suivi du pipeli
 
 Il y a des limites à connaître. Si le commit fautif a **supprimé** une ressource, le revert la recrée, mais l'historique de versions du dashboard, ses annotations ou l'historique d'état des alertes ne reviennent pas. Si la défaillance vient d'une montée de version du provider ou de Grafana, le revert du code ne suffit pas.
 
-⚠️ **Erreur fréquente** : supprimer un dossier dans le code. Terraform le détruit, et Grafana supprime avec lui les dashboards et règles d'alerte qu'il contient, y compris ceux créés à la main par une équipe qui ne savait pas que Terraform gérait ce dossier. Correction : relire attentivement tout `plan` qui contient `destroy` sur un `grafana_folder`, et protéger les dossiers critiques avec `lifecycle { prevent_destroy = true }`.
+> ⚠️ **Erreur fréquente** : supprimer un dossier dans le code. Terraform le détruit, et Grafana supprime avec lui les dashboards et règles d'alerte qu'il contient, y compris ceux créés à la main par une équipe qui ne savait pas que Terraform gérait ce dossier. Correction : relire attentivement tout `plan` qui contient `destroy` sur un `grafana_folder`, et protéger les dossiers critiques avec `lifecycle { prevent_destroy = true }`.
+{: .callout .callout-attention}
 
 ## Organisation des dépôts et revue de code
 
@@ -388,7 +391,8 @@ datasources:
       basicAuthPassword: ${PROMETHEUS_PASSWORD}
 ```
 
-⚠️ **Erreur fréquente** : exporter un dashboard ou une source de données depuis l'interface pour le commiter, sans relire. Selon ce qui a été configuré, le JSON peut contenir des URL internes, des noms d'utilisateurs ou des jetons dans des liens. Relisez toujours un export avant le premier commit, parce qu'un secret qui a été dans l'historique Git est à considérer comme compromis même après suppression.
+> ⚠️ **Erreur fréquente** : exporter un dashboard ou une source de données depuis l'interface pour le commiter, sans relire. Selon ce qui a été configuré, le JSON peut contenir des URL internes, des noms d'utilisateurs ou des jetons dans des liens. Relisez toujours un export avant le premier commit, parce qu'un secret qui a été dans l'historique Git est à considérer comme compromis même après suppression.
+{: .callout .callout-attention}
 
 ## Le piège central : plusieurs outils sur la même ressource
 
@@ -418,7 +422,8 @@ Comment détecter qu'une ressource est mal possédée ?
 - Dans l'interface, un message du type "Cannot save provisioned dashboard" indique que la ressource est verrouillée par un provisioning fichier. Pour l'alerting, Grafana enregistre l'origine (provenance) des ressources créées via l'API de provisioning et les verrouille dans l'interface par défaut.
 - Le diagnostic à froid : lister les ressources via l'API, comparer à `terraform state list`, et identifier celles qui n'ont pas de propriétaire connu.
 
-💡 **Astuce** : décidez dès le départ ce que vous faites des modifications faites dans l'interface sur une ressource gérée. Deux politiques tiennent la route. La première : **interdire** (droits en lecture seule pour les éditeurs sur ces dossiers, dashboards provisionnés avec `allowUiUpdates: false`). La seconde : **autoriser et réconcilier**, avec une boucle claire (Git Sync, ou un export périodique et une PR). Ce qui ne marche pas, c'est de ne pas décider.
+> 💡 **Astuce** : décidez dès le départ ce que vous faites des modifications faites dans l'interface sur une ressource gérée. Deux politiques tiennent la route. La première : **interdire** (droits en lecture seule pour les éditeurs sur ces dossiers, dashboards provisionnés avec `allowUiUpdates: false`). La seconde : **autoriser et réconcilier**, avec une boucle claire (Git Sync, ou un export périodique et une PR). Ce qui ne marche pas, c'est de ne pas décider.
+{: .callout .callout-astuce}
 
 ## Commandes essentielles
 

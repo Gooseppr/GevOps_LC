@@ -53,7 +53,8 @@ Les indicateurs étaient périmés avant d'arriver, et la défense reposait sur 
 
 ## Trois niveaux de renseignement, trois destinataires
 
-🧠 **Concept clé** : la CTI n'est pas un flux de données. C'est une réponse à une question posée par quelqu'un qui doit décider. Sans question, il n'y a que de la collecte.
+> 🧠 **Concept clé** : la CTI n'est pas un flux de données. C'est une réponse à une question posée par quelqu'un qui doit décider. Sans question, il n'y a que de la collecte.
+{: .callout .callout-important}
 
 | Niveau | Question posée | Destinataire | Durée de vie | Exemple de livrable |
 |--------|----------------|--------------|--------------|---------------------|
@@ -76,7 +77,8 @@ flowchart LR
   style A fill:#1f6feb,color:#fff
 ```
 
-⚠️ **Erreur fréquente** : mesurer une équipe CTI au nombre d'indicateurs ingérés. La bonne mesure est le nombre de décisions modifiées : un correctif priorisé, une règle de détection créée, une exception levée, un budget MFA débloqué.
+> ⚠️ **Erreur fréquente** : mesurer une équipe CTI au nombre d'indicateurs ingérés. La bonne mesure est le nombre de décisions modifiées : un correctif priorisé, une règle de détection créée, une exception levée, un budget MFA débloqué.
+{: .callout .callout-attention}
 
 ## Acteurs de menace : motivations et modes opératoires
 
@@ -111,7 +113,8 @@ Avant de lancer une campagne, l'attaquant cartographie sa cible avec des sources
 | Dépôts et paste publics | Clés d'API, chaînes de connexion, `.env` committés | Accès cloud ou base de données |
 | Profils professionnels | LinkedIn, organigrammes, offres d'emploi (stack technique) | Pretexting, appel au help desk, phishing ciblé |
 
-🔴 **Vecteur d'attaque** : un attaquant exécute un `shodan search` filtré sur le nom de l'organisation ou sur un certificat, repère un portail non patché, puis vérifie sa version avec un `curl` sur un fichier statique. Il n'a rien envoyé d'agressif, et aucune règle de détection ne s'est déclenchée.
+> 🔴 **Vecteur d'attaque** : un attaquant exécute un `shodan search` filtré sur le nom de l'organisation ou sur un certificat, repère un portail non patché, puis vérifie sa version avec un `curl` sur un fichier statique. Il n'a rien envoyé d'agressif, et aucune règle de détection ne s'est déclenchée.
+{: .callout .callout-danger}
 
 Les deux commandes ci-dessous reproduisent cette reconnaissance sur *votre* périmètre :
 
@@ -136,9 +139,11 @@ Un pivot consiste à partir d'un élément connu pour en trouver d'autres qui pa
 
 Les outils habituels sont VirusTotal, urlscan.io, les services abuse.ch (URLhaus, MalwareBazaar, ThreatFox), AlienVault OTX et `whois`. Aucun ne garantit la vérité : chaque source a son niveau de fiabilité. Le système **Admiralty (OTAN)** note la fiabilité de la source de A à F et la crédibilité de l'information de 1 à 6. Une information « B2 » (source généralement fiable, information probablement vraie) ne pèse pas comme une « F6 » (fiabilité inconnue, crédibilité non évaluable).
 
-⚠️ **Erreur fréquente** : envoyer sur VirusTotal un fichier trouvé sur un poste compromis. Les échantillons soumis sont accessibles à d'autres utilisateurs de la plateforme, ce qui expose les données internes qu'il contient et signale à l'attaquant qu'on l'a détecté. Pour un fichier suspect, interrogez d'abord son hash (`sha256sum`), qui ne divulgue rien.
+> ⚠️ **Erreur fréquente** : envoyer sur VirusTotal un fichier trouvé sur un poste compromis. Les échantillons soumis sont accessibles à d'autres utilisateurs de la plateforme, ce qui expose les données internes qu'il contient et signale à l'attaquant qu'on l'a détecté. Pour un fichier suspect, interrogez d'abord son hash (`sha256sum`), qui ne divulgue rien.
+{: .callout .callout-attention}
 
-💡 **Astuce** : visitez une infrastructure suspecte depuis une VM isolée et un sortant dédié, pas depuis le réseau d'entreprise. Une IP d'entreprise qui consulte le C2 laisse une trace chez l'attaquant.
+> 💡 **Astuce** : visitez une infrastructure suspecte depuis une VM isolée et un sortant dédié, pas depuis le réseau d'entreprise. Une IP d'entreprise qui consulte le C2 laisse une trace chez l'attaquant.
+{: .callout .callout-astuce}
 
 ## IoC, TTP et la pyramide de la douleur
 
@@ -168,11 +173,12 @@ Côté attaquant, voici ce que coûte réellement un changement :
 
 ### Valeur de détection et durée de vie des IoC
 
-⚠️ **Piège principal du module** : un indicateur ancien ou isolé n'a pas nécessairement une valeur de détection élevée. Trois raisons concrètes :
-
-- **L'âge.** Une IP de C2 vue il y a quatre mois est peut-être revenue chez un hébergeur qui l'a réattribuée à un client légitime. La bloquer produit un faux positif, pas une protection.
-- **L'infrastructure partagée.** Les IP de CDN, de cloud public ou de plateformes de partage de fichiers hébergent aussi bien du légitime que du malveillant. Un match IoC dessus n'a aucune signification sans contexte.
-- **L'isolement.** Une seule IP dans un journal de pare-feu peut être un scan de masse, un test d'un chercheur ou un faux positif du flux. Sans autre signal (processus parent, authentification anormale, volume sortant), l'indicateur seul ne prouve rien.
+> ⚠️ **Piège principal du module** : un indicateur ancien ou isolé n'a pas nécessairement une valeur de détection élevée. Trois raisons concrètes :
+>
+> - **L'âge.** Une IP de C2 vue il y a quatre mois est peut-être revenue chez un hébergeur qui l'a réattribuée à un client légitime. La bloquer produit un faux positif, pas une protection.
+> - **L'infrastructure partagée.** Les IP de CDN, de cloud public ou de plateformes de partage de fichiers hébergent aussi bien du légitime que du malveillant. Un match IoC dessus n'a aucune signification sans contexte.
+> - **L'isolement.** Une seule IP dans un journal de pare-feu peut être un scan de masse, un test d'un chercheur ou un faux positif du flux. Sans autre signal (processus parent, authentification anormale, volume sortant), l'indicateur seul ne prouve rien.
+{: .callout .callout-attention}
 
 En revanche, un IoC vieux garde deux usages utiles :
 
@@ -184,7 +190,8 @@ En revanche, un IoC vieux garde deux usages utiles :
 zgrep -H -F -f <IOC_FILE> /var/log/<LOG_DIR>/*.log*
 ```
 
-🔒 **Contrôle de sécurité** : appliquer une durée de vie par type d'IoC et la faire respecter par le SIEM ou la plateforme CTI. Valeurs de départ à ajuster selon vos faux positifs :
+> 🔒 **Contrôle de sécurité** : appliquer une durée de vie par type d'IoC et la faire respecter par le SIEM ou la plateforme CTI. Valeurs de départ à ajuster selon vos faux positifs :
+{: .callout .callout-securite}
 
 | Type | Durée de vie de départ | Usage |
 |------|------------------------|-------|
@@ -220,7 +227,8 @@ Cette règle a ses limites : elle repose sur des chaînes de la ligne de command
 
 ## TTP et MITRE ATT&CK : cartographier la menace
 
-🧠 **Concept clé** : MITRE ATT&CK (Adversarial Tactics, Techniques, and Common Knowledge) est un catalogue du comportement observé, pas une checklist. Le vocabulaire de base :
+> 🧠 **Concept clé** : MITRE ATT&CK (Adversarial Tactics, Techniques, and Common Knowledge) est un catalogue du comportement observé, pas une checklist. Le vocabulaire de base :
+{: .callout .callout-important}
 
 | Terme | Signification | Exemple |
 |-------|---------------|---------|
@@ -269,7 +277,8 @@ jq -r --arg g "<GROUP_NAME>" '
   | [.external_references[0].external_id, .name] | @tsv' enterprise-attack.json
 ```
 
-⚠️ **Erreur fréquente** : colorer une technique en vert parce qu'une règle y est rattachée. Avoir une règle taguée T1003 ne prouve pas qu'elle détecte la variante `comsvcs.dll`. Configuration dangereuse : couverture déclarée par étiquette. Conséquence : fausse assurance, chaîne d'attaque invisible. Correction : exécuter la technique en laboratoire et noter ce que l'alerte a effectivement produit.
+> ⚠️ **Erreur fréquente** : colorer une technique en vert parce qu'une règle y est rattachée. Avoir une règle taguée T1003 ne prouve pas qu'elle détecte la variante `comsvcs.dll`. Configuration dangereuse : couverture déclarée par étiquette. Conséquence : fausse assurance, chaîne d'attaque invisible. Correction : exécuter la technique en laboratoire et noter ce que l'alerte a effectivement produit.
+{: .callout .callout-attention}
 
 ```powershell
 # Test unitaire d'une détection sur un hôte de laboratoire (Atomic Red Team installé)

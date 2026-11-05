@@ -56,7 +56,8 @@ Les trois termes circulent comme des synonymes, mais ils ne cadrent pas le même
 | Sécurité des systèmes d'information | Le système d'information entier : technique, mais aussi données, procédures, rôles, prestataires, supports papier | Qui peut valider un virement, et comment le prouve-t-on ? |
 | Cybersécurité | La protection de ce qui dépend du numérique et des interconnexions, y compris l'angle menace : attaquants, cybercriminalité, défense | Qui nous cible, par quels chemins, avec quelle résilience ? |
 
-🧠 **Concept clé** : un système d'information est l'ensemble des ressources (matériel, logiciels, données, personnes, procédures) qui permettent à une organisation de collecter, traiter, stocker et diffuser de l'information. Un attaquant n'a pas à respecter cette frontière : il passe par le maillon le plus faible, qu'il soit technique, humain ou organisationnel.
+> 🧠 **Concept clé** : un système d'information est l'ensemble des ressources (matériel, logiciels, données, personnes, procédures) qui permettent à une organisation de collecter, traiter, stocker et diffuser de l'information. Un attaquant n'a pas à respecter cette frontière : il passe par le maillon le plus faible, qu'il soit technique, humain ou organisationnel.
+{: .callout .callout-important}
 
 Les objectifs de sécurité se décrivent par trois propriétés, souvent appelées CIA (Confidentiality, Integrity, Availability), auxquelles on ajoute fréquemment la traçabilité (pouvoir prouver qui a fait quoi) :
 
@@ -81,7 +82,8 @@ On ne protège pas « le réseau », on protège ce dont le métier ne peut pas 
 
 Les éléments en gras sont ceux qu'un inventaire « serveurs et postes » oublie. Or ce sont souvent eux que l'attaquant utilise. Dans la mise en situation, l'actif décisif était un script oublié dans un partage.
 
-💡 **Astuce** : partez toujours d'un processus métier et remontez la chaîne de dépendances (« qu'est-ce qui doit marcher pour que la facturation tourne ? »). Un tableur à quatre colonnes (processus, actif, propriétaire, sensibilité) suffit pour commencer. Un outil d'inventaire n'apporte rien si personne n'a décidé de ce qui compte.
+> 💡 **Astuce** : partez toujours d'un processus métier et remontez la chaîne de dépendances (« qu'est-ce qui doit marcher pour que la facturation tourne ? »). Un tableur à quatre colonnes (processus, actif, propriétaire, sensibilité) suffit pour commencer. Un outil d'inventaire n'apporte rien si personne n'a décidé de ce qui compte.
+{: .callout .callout-astuce}
 
 ## Surface d'attaque
 
@@ -96,7 +98,8 @@ La surface d'attaque est l'ensemble des points par lesquels un attaquant peut in
 | Prestataires et accès tiers | Télémaintenance, VPN fournisseur, intégrations | Contournement de votre périmètre via un maillon que vous ne contrôlez pas |
 | Utilisateurs eux-mêmes | Pièces jointes, faux support, demandes de virement | Fraude, installation de logiciel malveillant |
 
-🔴 **Vecteur d'attaque** : côté attaquant, la reconnaissance est peu coûteuse. Un `nmap -sV --top-ports 1000 <HOST>` donne les services visibles et leurs versions. Un moteur comme Shodan donne la même chose sans envoyer un paquet à la cible. Si votre inventaire est moins complet que celui d'un attaquant, vous avez déjà un retard.
+> 🔴 **Vecteur d'attaque** : côté attaquant, la reconnaissance est peu coûteuse. Un `nmap -sV --top-ports 1000 <HOST>` donne les services visibles et leurs versions. Un moteur comme Shodan donne la même chose sans envoyer un paquet à la cible. Si votre inventaire est moins complet que celui d'un attaquant, vous avez déjà un retard.
+{: .callout .callout-danger}
 
 ## Mécanisme d'attaque : de la menace au risque
 
@@ -119,7 +122,8 @@ flowchart LR
 - **Impact** : la conséquence sur l'actif et donc sur le métier.
 - **Risque** : la combinaison de la vraisemblance de l'exploitation et de la gravité de l'impact, dans un contexte donné.
 
-🧠 **Concept clé** : une vulnérabilité n'est pas un risque. Le risque n'existe que si une menace crédible peut l'atteindre et que l'actif concerné compte.
+> 🧠 **Concept clé** : une vulnérabilité n'est pas un risque. Le risque n'existe que si une menace crédible peut l'atteindre et que l'actif concerné compte.
+{: .callout .callout-important}
 
 ### Exemple : Log4Shell, même CVE, risques différents
 
@@ -143,7 +147,8 @@ Le risque n'était pourtant pas identique partout :
 
 Le score CVSS est identique pour les trois, alors que la priorité de correction ne l'est pas. Le score mesure la gravité intrinsèque de la faille, pas votre risque.
 
-💡 **Astuce** : pour prioriser une CVE, posez trois questions avant de regarder le score : le composant est-il joignable depuis une source non fiable ? Existe-t-il un exploit public ? L'actif concerné porte-t-il un processus critique ?
+> 💡 **Astuce** : pour prioriser une CVE, posez trois questions avant de regarder le score : le composant est-il joignable depuis une source non fiable ? Existe-t-il un exploit public ? L'actif concerné porte-t-il un processus critique ?
+{: .callout .callout-astuce}
 
 ### Le chemin d'un attaquant réel
 
@@ -202,7 +207,8 @@ Une mesure de sécurité a un rôle précis dans le temps de l'incident : avant,
 
 Les organisations investissent en général beaucoup dans le préventif, un peu dans le correctif, et très peu dans le détectif. Un SIEM qui collecte des journaux sans règle ni astreinte n'est pas un contrôle de détection : c'est un coût de stockage.
 
-🔒 **Contrôle de sécurité** : pour chaque mesure préventive importante, demandez-vous ce qui la remplace quand elle échoue. Si la réponse est « rien », il manque une mesure détective ou corrective. Dans le scénario d'ouverture, la détection d'un compte comptable se connectant à 22 h depuis une adresse inhabituelle aurait donné un jour d'avance.
+> 🔒 **Contrôle de sécurité** : pour chaque mesure préventive importante, demandez-vous ce qui la remplace quand elle échoue. Si la réponse est « rien », il manque une mesure détective ou corrective. Dans le scénario d'ouverture, la détection d'un compte comptable se connectant à 22 h depuis une adresse inhabituelle aurait donné un jour d'avance.
+{: .callout .callout-securite}
 
 ## Défense en profondeur et moindre privilège
 
@@ -223,7 +229,8 @@ flowchart LR
     DO -.-> S["Sauvegardes<br/>isolées"]
 ```
 
-⚠️ **Erreur fréquente** : confondre empilement et profondeur. Deux contrôles qui partagent la même faiblesse ne s'additionnent pas. Un VPN et une application qui s'appuient tous deux sur le même annuaire sans second facteur tombent avec un seul mot de passe volé. Une sauvegarde sur un partage accessible par le compte administrateur du domaine tombe avec le domaine.
+> ⚠️ **Erreur fréquente** : confondre empilement et profondeur. Deux contrôles qui partagent la même faiblesse ne s'additionnent pas. Un VPN et une application qui s'appuient tous deux sur le même annuaire sans second facteur tombent avec un seul mot de passe volé. Une sauvegarde sur un partage accessible par le compte administrateur du domaine tombe avec le domaine.
+{: .callout .callout-attention}
 
 Le critère à vérifier est l'**indépendance** : qu'est-ce qui doit être compromis pour contourner chaque couche, et est-ce la même chose ?
 
@@ -284,7 +291,8 @@ Les contraintes sont réelles : applications historiques qui supposent un résea
 2. Une séparation des comptes d'administration et des comptes de bureautique.
 3. Un inventaire des actifs et des flux qui permet de décider quoi isoler.
 
-⚠️ **Erreur fréquente** : acheter une solution « Zero Trust » sans avoir fait l'inventaire ni nettoyé les droits. Le produit applique des règles ; sans inventaire, il n'a pas de bonnes règles à appliquer.
+> ⚠️ **Erreur fréquente** : acheter une solution « Zero Trust » sans avoir fait l'inventaire ni nettoyé les droits. Le produit applique des règles ; sans inventaire, il n'a pas de bonnes règles à appliquer.
+{: .callout .callout-attention}
 
 ## Responsabilité individuelle, organisationnelle et réglementaire
 
@@ -301,7 +309,8 @@ Deux exemples côté réglementaire, à vérifier sur les textes en vigueur au m
 - Le RGPD (GDPR, General Data Protection Regulation) impose, en cas de violation de données personnelles susceptible d'engendrer un risque pour les personnes, une notification à l'autorité de contrôle dans un délai de 72 heures après en avoir pris connaissance (article 33). Cela suppose de savoir détecter et qualifier un incident, ce qui renvoie à la sécurité détective.
 - La directive européenne NIS2 (Network and Information Security 2, directive (UE) 2022/2555) renforce les obligations de gestion des risques et de notification pour de nombreuses entités. Il faut distinguer la directive, sa transposition en droit national et les obligations qui s'appliquent réellement à une organisation donnée. L'état de la transposition en France évolue : à vérifier à la date de lecture plutôt qu'à tenir pour acquis.
 
-🧠 **Concept clé** : la conformité n'est pas la sécurité. Un système conforme peut rester vulnérable, et un système bien protégé peut manquer de documentation. Un auditeur doit pouvoir expliquer l'écart entre les deux.
+> 🧠 **Concept clé** : la conformité n'est pas la sécurité. Un système conforme peut rester vulnérable, et un système bien protégé peut manquer de documentation. Un auditeur doit pouvoir expliquer l'écart entre les deux.
+{: .callout .callout-important}
 
 ## Ce que vous pouvez tester dès la fin du module
 
@@ -333,30 +342,40 @@ La leçon dépasse ce scénario : on commence par rendre le chemin le plus proba
 
 ## Erreurs fréquentes
 
-⚠️ **Compte de service avec des droits d'administrateur de domaine**
-- *Configuration dangereuse* : un outil de sauvegarde, de supervision ou d'inventaire tourne avec un compte administrateur « pour que ça marche ».
-- *Conséquence* : la compromission du script, du serveur ou du partage où se trouve le secret donne tout le domaine.
-- *Correction* : définir les droits strictement nécessaires, stocker le secret dans un coffre plutôt que dans un script, auditer régulièrement les membres des groupes privilégiés (voir la section sur ce que vous pouvez tester).
+> ⚠️ **Compte de service avec des droits d'administrateur de domaine**
+>
+> - *Configuration dangereuse* : un outil de sauvegarde, de supervision ou d'inventaire tourne avec un compte administrateur « pour que ça marche ».
+> - *Conséquence* : la compromission du script, du serveur ou du partage où se trouve le secret donne tout le domaine.
+> - *Correction* : définir les droits strictement nécessaires, stocker le secret dans un coffre plutôt que dans un script, auditer régulièrement les membres des groupes privilégiés (voir la section sur ce que vous pouvez tester).
+{: .callout .callout-attention}
 
-⚠️ **Sauvegardes dans le même domaine de confiance que la production**
-- *Configuration dangereuse* : les serveurs de sauvegarde sont joints au domaine et accessibles en écriture avec les mêmes comptes.
-- *Conséquence* : un attaquant qui obtient des privilèges élevés supprime aussi les sauvegardes avant de chiffrer.
-- *Correction* : une copie hors domaine ou non modifiable, avec des identifiants distincts, et un test de restauration planifié.
+> ⚠️ **Sauvegardes dans le même domaine de confiance que la production**
+>
+> - *Configuration dangereuse* : les serveurs de sauvegarde sont joints au domaine et accessibles en écriture avec les mêmes comptes.
+> - *Conséquence* : un attaquant qui obtient des privilèges élevés supprime aussi les sauvegardes avant de chiffrer.
+> - *Correction* : une copie hors domaine ou non modifiable, avec des identifiants distincts, et un test de restauration planifié.
+{: .callout .callout-attention}
 
-⚠️ **Accès distant protégé par un seul mot de passe**
-- *Configuration dangereuse* : VPN, webmail ou portail d'administration accessibles depuis Internet avec identifiant et mot de passe seulement.
-- *Conséquence* : un hameçonnage ou une fuite de mots de passe suffit pour entrer.
-- *Correction* : second facteur obligatoire. Pour les administrateurs, préférer une clé de sécurité (FIDO2) à un code par SMS ou à une application de codes, car ces derniers peuvent être interceptés par un proxy d'hameçonnage de type Evilginx.
+> ⚠️ **Accès distant protégé par un seul mot de passe**
+>
+> - *Configuration dangereuse* : VPN, webmail ou portail d'administration accessibles depuis Internet avec identifiant et mot de passe seulement.
+> - *Conséquence* : un hameçonnage ou une fuite de mots de passe suffit pour entrer.
+> - *Correction* : second facteur obligatoire. Pour les administrateurs, préférer une clé de sécurité (FIDO2) à un code par SMS ou à une application de codes, car ces derniers peuvent être interceptés par un proxy d'hameçonnage de type Evilginx.
+{: .callout .callout-attention}
 
-⚠️ **Priorisation par le seul score CVSS**
-- *Configuration dangereuse* : le tableau de correctifs est trié par score décroissant, sans tenir compte de l'exposition.
-- *Conséquence* : une CVE de score 9,8 sur un serveur isolé est traitée avant une CVE de score 7 sur un service exposé avec un exploit public.
-- *Correction* : prioriser selon l'exposition, la disponibilité d'un exploit et la criticité de l'actif (voir l'exemple Log4Shell).
+> ⚠️ **Priorisation par le seul score CVSS**
+>
+> - *Configuration dangereuse* : le tableau de correctifs est trié par score décroissant, sans tenir compte de l'exposition.
+> - *Conséquence* : une CVE de score 9,8 sur un serveur isolé est traitée avant une CVE de score 7 sur un service exposé avec un exploit public.
+> - *Correction* : prioriser selon l'exposition, la disponibilité d'un exploit et la criticité de l'actif (voir l'exemple Log4Shell).
+{: .callout .callout-attention}
 
-⚠️ **« On est derrière un pare-feu »**
-- *Configuration dangereuse* : on suppose que tout ce qui est à l'intérieur est de confiance.
-- *Conséquence* : dès qu'un compte ou un poste est compromis, l'attaquant circule librement.
-- *Correction* : traiter l'intérieur comme un réseau non fiable pour les actifs importants (journalisation, droits minimaux, accès contrôlé), ce qui rejoint les principes Zero Trust.
+> ⚠️ **« On est derrière un pare-feu »**
+>
+> - *Configuration dangereuse* : on suppose que tout ce qui est à l'intérieur est de confiance.
+> - *Conséquence* : dès qu'un compte ou un poste est compromis, l'attaquant circule librement.
+> - *Correction* : traiter l'intérieur comme un réseau non fiable pour les actifs importants (journalisation, droits minimaux, accès contrôlé), ce qui rejoint les principes Zero Trust.
+{: .callout .callout-attention}
 
 ## Résumé
 

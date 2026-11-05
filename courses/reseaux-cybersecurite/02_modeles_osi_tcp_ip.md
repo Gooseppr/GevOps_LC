@@ -42,14 +42,18 @@ Vous venez d'arriver dans une PME de 40 postes. Un collègue vous appelle : « I
 
 Faire communiquer deux machines est un problème énorme. Il faut représenter des bits sur un support physique, décider qui parle et quand, acheminer les données à travers des dizaines de réseaux intermédiaires, vérifier qu'elles arrivent complètes, puis les présenter à la bonne application. Un seul bloc de code qui ferait tout serait impossible à écrire, à faire évoluer et à faire cohabiter entre constructeurs.
 
-La réponse consiste à **découper en couches**. Chaque couche résout un seul sous-problème, offre un service à la couche du dessus et s'appuie sur celle du dessous, sans se soucier de la façon dont elles fonctionnent. C'est comme l'envoi d'un colis : l'expéditeur emballe et écrit l'adresse, la poste trie et route, le transporteur roule. L'expéditeur ne sait pas quelles routes seront empruntées, et le chauffeur ignore ce que contient le colis.
+La réponse consiste à **découper en couches**. Chaque couche résout un seul sous-problème, offre un service à la couche du dessus et s'appuie sur celle du dessous, sans se soucier de la façon dont elles fonctionnent.
+
+> 📦 **Analogie : l'envoi d'un colis.** L'expéditeur emballe et écrit l'adresse, la poste trie et route, le transporteur roule. L'expéditeur ne sait pas quelles routes seront empruntées, et le chauffeur ignore ce que contient le colis. Chacun fait son travail sans connaître celui des autres : c'est exactement le principe des couches.
+{: .callout .callout-analogie}
 
 Deux modèles décrivent ce découpage :
 
 - Le **modèle OSI (Open Systems Interconnection)**, en sept couches, sert de référence théorique et de langage commun.
 - Le **modèle TCP/IP (Transmission Control Protocol / Internet Protocol)**, en quatre couches, décrit la pile de protocoles réellement utilisée sur Internet.
 
-🧠 **Concept fondamental** : ces modèles sont des **outils de raisonnement**. Ils ne dictent pas le code des équipements. Vous les utilisez pour comprendre, communiquer et diagnostiquer.
+> 🧠 **Concept fondamental** : ces modèles sont des **outils de raisonnement**. Ils ne dictent pas le code des équipements. Vous les utilisez pour comprendre, communiquer et diagnostiquer.
+{: .callout .callout-important}
 
 ## Les sept couches OSI
 
@@ -67,6 +71,11 @@ On les numérote de bas en haut, et les professionnels parlent de « couche 2 »
 
 *TLS est l'un des protocoles où la frontière entre couches est floue : il s'insère entre l'application et le transport, et on le range tantôt en couche 6, tantôt en couche 5 ou 7.
 
+> 🔑 **Moyen mnémotechnique, de la couche 1 à la couche 7 :** **P**ierre **L**ance **R**égulièrement **T**rois **S**erveurs **P**our **A**pprendre.
+>
+> **P**hysique, **L**iaison, **R**éseau, **T**ransport, **S**ession, **P**résentation, **A**pplication.
+{: .callout .callout-memo}
+
 ### Du bas vers le haut
 
 **Couche 1, physique.** Elle ne connaît que des signaux : tensions, impulsions lumineuses, ondes. Un bit n'a pas de sens à ce niveau, il s'agit simplement d'un état du support. C'est aussi la première chose à vérifier en cas de panne : un câble débranché est une panne de couche 1.
@@ -79,7 +88,8 @@ On les numérote de bas en haut, et les professionnels parlent de « couche 2 »
 
 **Couches 5, 6, 7.** Dans la théorie OSI, la session gère le dialogue, la présentation s'occupe du format et du chiffrement, et l'application offre le service final. En pratique, une même bibliothèque ou un même protocole couvre souvent les trois. Quand un technicien dit « problème applicatif », il pense généralement à tout ce bloc.
 
-💡 **Point clé** : « couche 7 » désigne les protocoles qui servent directement l'application (HTTP, DNS...), pas l'application elle-même. Votre navigateur est un logiciel qui *utilise* HTTP.
+> 💡 **Point clé** : « couche 7 » désigne les protocoles qui servent directement l'application (HTTP, DNS...), pas l'application elle-même. Votre navigateur est un logiciel qui *utilise* HTTP.
+{: .callout .callout-important}
 
 ## Le modèle TCP/IP et sa correspondance avec OSI
 
@@ -120,13 +130,18 @@ flowchart LR
 
 Vous croiserez aussi un modèle TCP/IP « à cinq couches », qui sépare physique et liaison. Ce n'est pas une contradiction, simplement une autre manière d'enseigner. Les deux versions existent dans les manuels, et ce qui compte est de s'entendre sur la lecture utilisée.
 
-En pratique, on mélange les deux : la pile de protocoles est celle de TCP/IP, mais on emploie la numérotation OSI pour parler. Quand quelqu'un évoque « un switch de couche 2 » ou « un pare-feu de couche 7 », il parle bien d'OSI.
+> 📝 **Note :** en pratique, on mélange les deux. La pile de protocoles est celle de TCP/IP, mais on emploie la numérotation OSI pour parler. Quand quelqu'un évoque « un switch de couche 2 » ou « un pare-feu de couche 7 », il parle bien d'OSI.
+{: .callout .callout-note}
 
 ## Encapsulation et désencapsulation
 
-Votre navigateur veut envoyer une requête web. Il remet les données à la couche inférieure, qui ajoute **son propre en-tête**, puis passe le tout à la suivante, qui ajoute à son tour le sien. Chaque couche traite ce qu'elle reçoit comme une boîte opaque, dont elle ne lit pas le contenu : c'est l'**encapsulation**. À l'arrivée, le mécanisme inverse, la **désencapsulation**, retire les en-têtes un par un, chaque couche ne lisant que le sien.
+> 📖 **Définitions.** **Encapsulation :** à l'émission, chaque couche ajoute son propre en-tête autour de ce qu'elle reçoit. **Désencapsulation :** à l'arrivée, chaque couche retire et lit uniquement son en-tête.
+{: .callout .callout-definition}
 
-L'image des poupées russes ou des enveloppes imbriquées est parlante : une enveloppe pour le routage local, qui contient une enveloppe pour le routage global, qui contient une enveloppe pour l'application destinataire, qui contient enfin la lettre.
+Votre navigateur veut envoyer une requête web. Il remet les données à la couche inférieure, qui ajoute son en-tête, puis passe le tout à la suivante, qui ajoute le sien. Chaque couche traite ce qu'elle reçoit comme une boîte opaque, dont elle ne lit pas le contenu.
+
+> 🪆 **Analogie : les poupées russes.** Une enveloppe pour le trajet local contient une enveloppe pour le trajet global, qui contient une enveloppe pour l'application destinataire, qui contient enfin la lettre.
+{: .callout .callout-analogie}
 
 ```mermaid
 flowchart TD
@@ -138,7 +153,10 @@ flowchart TD
 
 ### Le PDU, ou comment nommer ce qui circule
 
-Le **PDU (Protocol Data Unit)** désigne l'unité de données telle qu'elle existe à une couche donnée. Chaque couche donne un nom différent à ce qu'elle manipule :
+> 📖 **Définition.** Le **PDU (Protocol Data Unit)** désigne l'unité de données telle qu'elle existe à une couche donnée.
+{: .callout .callout-definition}
+
+Chaque couche donne un nom différent à ce qu'elle manipule :
 
 | Couche | Nom du PDU | Ce qu'il contient |
 |--------|-----------|-------------------|
@@ -150,7 +168,8 @@ Le **PDU (Protocol Data Unit)** désigne l'unité de données telle qu'elle exis
 
 Dans la vie courante, on dit « paquet » pour tout, et personne ne vous en tiendra rigueur. Mais pour décrire précisément un échange, ce vocabulaire évite les ambiguïtés : « la trame est rejetée » (couche 2) et « le paquet est abandonné » (couche 3) ne désignent pas la même panne.
 
-💡 **Point clé** : l'encapsulation a un coût. Un segment TCP porte au minimum 20 octets d'en-tête, un paquet IPv4 en ajoute au moins 20, et la trame Ethernet encore 18 (14 octets d'en-tête et 4 octets de contrôle de fin). Sur une trame de 1 500 octets de charge utile, il reste donc au plus 1 460 octets pour les données applicatives. Pour les très petits messages, l'en-tête pèse parfois plus que le message.
+> 💡 **Point clé** : l'encapsulation a un coût. Un segment TCP porte au minimum 20 octets d'en-tête, un paquet IPv4 en ajoute au moins 20, et la trame Ethernet encore 18 (14 octets d'en-tête et 4 octets de contrôle de fin). Sur une trame de 1 500 octets de charge utile, il reste donc au plus 1 460 octets pour les données applicatives. Pour les très petits messages, l'en-tête pèse parfois plus que le message.
+{: .callout .callout-important}
 
 ## Parcours d'une requête web à travers les couches
 
@@ -168,7 +187,8 @@ Voyons concrètement ce qui se passe quand vous tapez `https://www.example.org/`
 
 **Couche 1, physique.** La trame devient des bits, puis un signal électrique, lumineux ou radio.
 
-⚠️ **Comportement contre-intuitif** : au fil du voyage, **les adresses MAC changent à chaque saut, mais les adresses IP restent les mêmes** (hors traduction d'adresses comme le NAT — Network Address Translation, vu au module 08). L'adresse IP indique la destination finale, tandis que la MAC indique seulement le prochain voisin. À chaque routeur, la trame est désencapsulée jusqu'au paquet, le routeur décide du prochain saut, puis il réencapsule dans une nouvelle trame.
+> ⚠️ **Comportement contre-intuitif** : au fil du voyage, **les adresses MAC changent à chaque saut, mais les adresses IP restent les mêmes** (hors traduction d'adresses comme le NAT — Network Address Translation, vu au module 08). L'adresse IP indique la destination finale, tandis que la MAC indique seulement le prochain voisin. À chaque routeur, la trame est désencapsulée jusqu'au paquet, le routeur décide du prochain saut, puis il réencapsule dans une nouvelle trame.
+{: .callout .callout-attention}
 
 ```mermaid
 flowchart LR
@@ -183,13 +203,14 @@ Sur le chemin, un switch ne regarde que la trame (couche 2) et un routeur le paq
 
 ## Quand les modèles ne collent pas à la réalité
 
-⚠️ **Piège classique** : OSI et TCP/IP sont des **modèles**, pas des descriptions exactes. Les protocoles réels débordent souvent des cases :
-
-- **TLS** chiffre des données applicatives (couche 6 ?) en établissant une session (couche 5 ?), au-dessus de TCP (couche 4). Aucune couche ne le revendique clairement.
-- **ARP** résout une adresse IP (couche 3) en adresse MAC (couche 2). Il dépend des deux sans appartenir franchement à aucune.
-- Les **VPN et tunnels** placent un paquet IP à l'intérieur d'un autre paquet IP, ou dans des données applicatives. La « pile » se replie sur elle-même.
-- **QUIC**, utilisé par HTTP/3, fournit transport fiable et chiffrement en un seul protocole, au-dessus d'UDP. Il mélange les couches 4 à 6.
-- Les **étiquettes VLAN** (vues ensuite avec Ethernet) s'insèrent dans la trame de couche 2 mais servent à segmenter logiquement le réseau, ce qu'on associerait plutôt à la couche 3.
+> ⚠️ **Piège classique** : OSI et TCP/IP sont des **modèles**, pas des descriptions exactes. Les protocoles réels débordent souvent des cases :
+>
+> - **TLS** chiffre des données applicatives (couche 6 ?) en établissant une session (couche 5 ?), au-dessus de TCP (couche 4). Aucune couche ne le revendique clairement.
+> - **ARP** résout une adresse IP (couche 3) en adresse MAC (couche 2). Il dépend des deux sans appartenir franchement à aucune.
+> - Les **VPN et tunnels** placent un paquet IP à l'intérieur d'un autre paquet IP, ou dans des données applicatives. La « pile » se replie sur elle-même.
+> - **QUIC**, utilisé par HTTP/3, fournit transport fiable et chiffrement en un seul protocole, au-dessus d'UDP. Il mélange les couches 4 à 6.
+> - Les **étiquettes VLAN** (vues ensuite avec Ethernet) s'insèrent dans la trame de couche 2 mais servent à segmenter logiquement le réseau, ce qu'on associerait plutôt à la couche 3.
+{: .callout .callout-attention}
 
 La conséquence pratique est simple : ne cherchez pas à tout prix « la » bonne couche d'un protocole. Dans une discussion ou une certification, on vous demandera parfois la réponse « officielle ». Dans un dépannage, le plus utile est de savoir *ce que fait le protocole* et *à quel moment il intervient dans la communication*.
 
@@ -197,7 +218,10 @@ Il faut aussi relativiser la place d'OSI. Les protocoles de la pile OSI d'origin
 
 ## Raisonner par couche pour diagnostiquer
 
-La grille OSI devient très concrète dès que l'on part d'une panne. La règle : **partir du bas et monter**, en s'arrêtant à la première couche qui échoue. Pas besoin de maîtriser les outils en détail ici (le module 09 leur est consacré), mais voici un aperçu de ce qu'on interroge à chaque étage sous Linux :
+> 💡 **À retenir :** pour diagnostiquer, **partez du bas et montez**, et arrêtez-vous à la première couche qui échoue.
+{: .callout .callout-important}
+
+La grille OSI devient très concrète dès que l'on part d'une panne. Pas besoin de maîtriser les outils en détail ici (le module 09 leur est consacré), mais voici un aperçu de ce qu'on interroge à chaque étage sous Linux :
 
 | Question | Couche | Commande |
 |----------|--------|----------|
@@ -233,7 +257,8 @@ curl -v https://www.example.org
 
 Dans la sortie, des lignes préfixées par `*` montrent la résolution DNS, la connexion TCP et la négociation TLS. Les lignes `>` sont les en-têtes de la requête HTTP envoyée, et les lignes `<` ceux de la réponse. En une commande, vous voyez les couches 7, 6, 4 et 3 à l'œuvre l'une après l'autre.
 
-💡 **Point clé** : quand l'outil de la couche N fonctionne, les couches inférieures sont forcément saines. Un `ping` réussi vers l'IP du serveur prouve que les couches 1 à 3 fonctionnent, ce qui concentre la recherche sur la couche 4 et au-delà. L'inverse n'est pas vrai : un ping sans réponse peut aussi venir d'un filtrage ICMP.
+> 💡 **Point clé** : quand l'outil de la couche N fonctionne, les couches inférieures sont forcément saines. Un `ping` réussi vers l'IP du serveur prouve que les couches 1 à 3 fonctionnent, ce qui concentre la recherche sur la couche 4 et au-delà. L'inverse n'est pas vrai : un ping sans réponse peut aussi venir d'un filtrage ICMP.
+{: .callout .callout-important}
 
 ## Cas concret : « le site est introuvable »
 
@@ -278,6 +303,19 @@ En cinq commandes, sans toucher au câblage et sans redémarrer quoi que ce soit
 | Diagnostic par couche | Localiser une panne méthodiquement | Partir du bas, s'arrêter à la première couche défaillante |
 
 Vous avez maintenant la carte du territoire. La suite consiste à descendre vers les couches basses : le module suivant explore ce qui se passe sur le câble et dans les réseaux Ethernet, là où votre trame devient réellement un signal. Gardez en tête le trajet de la requête web, car vous le retrouverez tout au long du parcours, de l'adressage au pare-feu, jusqu'à l'analyse de trafic avec Wireshark.
+
+<!-- snippet
+id: osi_moyen_mnemotechnique
+type: tip
+tech: reseau
+level: beginner
+importance: high
+format: knowledge
+tags: osi,couches,memorisation
+title: Retenir les 7 couches OSI
+content: Pierre Lance Régulièrement Trois Serveurs Pour Apprendre : Physique, Liaison, Réseau, Transport, Session, Présentation, Application, de la couche 1 à la couche 7.
+description: Une phrase pour retrouver l'ordre des couches, de bas en haut.
+-->
 
 <!-- snippet
 id: reseau_osi_sept_couches

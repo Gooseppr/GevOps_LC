@@ -44,7 +44,8 @@ La défense naïve était « avoir la certification et les procédures ». L'aud
 
 ## Trois audits, trois questions
 
-🧠 **Concept clé** : on ne choisit pas un type d'audit par habitude, mais parce qu'il répond à une question précise.
+> 🧠 **Concept clé** : on ne choisit pas un type d'audit par habitude, mais parce qu'il répond à une question précise.
+{: .callout .callout-important}
 
 | Type | Question posée | Critère de référence | Livrable typique |
 |------|----------------|----------------------|------------------|
@@ -69,7 +70,8 @@ En audit organisationnel, la surface d'attaque est l'ensemble des zones où ce q
 | Tiers | « Clauses de sécurité dans les contrats » | Prestataire avec accès VPN permanent et sans MFA (Multi-Factor Authentication) | Rebond via la chaîne d'approvisionnement |
 | Preuves | « Les sauvegardes sont testées » | Aucune restauration réelle depuis 18 mois | Récupération impossible après chiffrement |
 
-🔴 **Vecteur d'attaque** : un opérateur de rançongiciel commence par la cartographie externe (Shodan, Censys, `nmap`), puis cherche les comptes mal gérés avec BloodHound sur l'Active Directory. Il exploite rarement une faille inconnue : il vise les équipements d'accès distant exposés (par exemple CVE-2024-3400 sur GlobalProtect de Palo Alto, ou CVE-2023-46805 et CVE-2024-21887 sur Ivanti Connect Secure) et les comptes jamais revus. L'audit organisationnel doit reproduire ce raisonnement avec les moyens de l'auditeur : documents, exports et entretiens.
+> 🔴 **Vecteur d'attaque** : un opérateur de rançongiciel commence par la cartographie externe (Shodan, Censys, `nmap`), puis cherche les comptes mal gérés avec BloodHound sur l'Active Directory. Il exploite rarement une faille inconnue : il vise les équipements d'accès distant exposés (par exemple CVE-2024-3400 sur GlobalProtect de Palo Alto, ou CVE-2023-46805 et CVE-2024-21887 sur Ivanti Connect Secure) et les comptes jamais revus. L'audit organisationnel doit reproduire ce raisonnement avec les moyens de l'auditeur : documents, exports et entretiens.
+{: .callout .callout-danger}
 
 ## ISMS, ISO/IEC 27001 et 27002 : ce que l'auditeur utilise comme critère
 
@@ -89,7 +91,8 @@ Trois éléments décident de la valeur d'un audit ISO 27001 :
 
 Les contrôles les plus souvent testés en pratique : A.5.9 (inventaire des actifs), A.5.15 et A.5.18 (contrôle d'accès, droits d'accès), A.8.2 (accès privilégiés), A.8.5 (authentification sécurisée), A.8.8 (gestion des vulnérabilités techniques), A.8.13 (sauvegarde), A.8.15 (journalisation), A.5.19 (sécurité dans les relations avec les fournisseurs).
 
-💡 **Astuce** : demandez la SoA et le périmètre dès le premier échange. Un écart entre le périmètre du certificat et le périmètre réel de l'entreprise explique souvent d'avance les constats les plus graves.
+> 💡 **Astuce** : demandez la SoA et le périmètre dès le premier échange. Un écart entre le périmètre du certificat et le périmètre réel de l'entreprise explique souvent d'avance les constats les plus graves.
+{: .callout .callout-astuce}
 
 ## RGPD, NIS2 et DORA : qui est concerné, et comment l'audit s'en sert
 
@@ -126,7 +129,8 @@ Un document peut être bien écrit et inutile. Trois contrôles révèlent ce d�
 - **Mesurabilité.** « Les mots de passe doivent être robustes » ne se vérifie pas, alors que « 14 caractères minimum, MFA obligatoire sur les accès administrateur » se vérifie par une commande.
 - **Traces.** Une procédure sans enregistrements n'a pas de preuve d'application. « Revue trimestrielle des accès » exige quatre comptes rendus datés sur l'année.
 
-⚠️ **Erreur fréquente** : valider une PSSI parce qu'elle « couvre tous les chapitres » de la norme. Elle peut être complète et ne contenir aucune exigence vérifiable. Cherchez les verbes sans critère (« veiller à », « s'assurer que ») et demandez comment l'équipe le prouve.
+> ⚠️ **Erreur fréquente** : valider une PSSI parce qu'elle « couvre tous les chapitres » de la norme. Elle peut être complète et ne contenir aucune exigence vérifiable. Cherchez les verbes sans critère (« veiller à », « s'assurer que ») et demandez comment l'équipe le prouve.
+{: .callout .callout-attention}
 
 ## Conduire la mission : preuves, entretiens, analyse documentaire
 
@@ -196,7 +200,8 @@ sha256sum <FICHIER_PREUVE> >> preuves.sha256
 sha256sum -c preuves.sha256
 ```
 
-🔒 **Contrôle de sécurité** : les preuves sont archivées dans un dossier chiffré avec accès restreint à l'équipe d'audit. Un export AD contient des identifiants, des dates de dernière connexion et parfois des attributs sensibles, c'est-à-dire exactement ce que cherche un attaquant. À la fin de la mission, ils sont restitués ou détruits selon le contrat.
+> 🔒 **Contrôle de sécurité** : les preuves sont archivées dans un dossier chiffré avec accès restreint à l'équipe d'audit. Un export AD contient des identifiants, des dates de dernière connexion et parfois des attributs sensibles, c'est-à-dire exactement ce que cherche un attaquant. À la fin de la mission, ils sont restitués ou détruits selon le contrat.
+{: .callout .callout-securite}
 
 L'interface de chaque outil et la sortie de ces commandes varient selon la version et le contexte. Testez-les sur un environnement de laboratoire avant de les utiliser chez un client.
 
@@ -247,7 +252,8 @@ Quand une action n'est pas réalisable, l'organisation peut **accepter le risque
 
 ## Conformité ne signifie pas sécurité
 
-⚠️ **Piège à traiter explicitement.** Être conforme à un référentiel prouve que des contrôles sont définis, appliqués sur un périmètre donné et revus. Cela ne prouve pas l'absence de vulnérabilités.
+> ⚠️ **Piège à traiter explicitement.** Être conforme à un référentiel prouve que des contrôles sont définis, appliqués sur un périmètre donné et revus. Cela ne prouve pas l'absence de vulnérabilités.
+{: .callout .callout-attention}
 
 Quatre raisons expliquent cet écart :
 
@@ -276,35 +282,47 @@ Trois leçons à retenir :
 
 ## Erreurs fréquentes
 
-⚠️ **Valider sur la foi des documents seuls**
-- Configuration dangereuse : conclure à la conformité parce que la procédure existe et est signée.
-- Conséquence : les dérogations, comptes orphelins et systèmes non inventoriés ne sont jamais vus.
-- Correction : pour chaque exigence critique, ajouter au moins une preuve produite par le système (export AD, `sshd -T`, comparaison inventaire et Nmap).
+> ⚠️ **Valider sur la foi des documents seuls**
+>
+> - Configuration dangereuse : conclure à la conformité parce que la procédure existe et est signée.
+> - Conséquence : les dérogations, comptes orphelins et systèmes non inventoriés ne sont jamais vus.
+> - Correction : pour chaque exigence critique, ajouter au moins une preuve produite par le système (export AD, `sshd -T`, comparaison inventaire et Nmap).
+{: .callout .callout-attention}
 
-⚠️ **Laisser l'audité choisir ses échantillons**
-- Configuration dangereuse : l'audité sélectionne les serveurs, les tickets ou les comptes présentés.
-- Conséquence : l'échantillon est représentatif de ce que l'équipe veut montrer, pas de la réalité.
-- Correction : l'auditeur tire lui-même l'échantillon à partir d'un export complet, en consignant la méthode dans le cadrage.
+> ⚠️ **Laisser l'audité choisir ses échantillons**
+>
+> - Configuration dangereuse : l'audité sélectionne les serveurs, les tickets ou les comptes présentés.
+> - Conséquence : l'échantillon est représentatif de ce que l'équipe veut montrer, pas de la réalité.
+> - Correction : l'auditeur tire lui-même l'échantillon à partir d'un export complet, en consignant la méthode dans le cadrage.
+{: .callout .callout-attention}
 
-⚠️ **Écrire un écart sans critère ni cause**
-- Configuration dangereuse : « La gestion des correctifs est insuffisante. »
-- Conséquence : l'audité conteste, personne ne sait comment clôturer, et la même recommandation revient à l'audit suivant.
-- Correction : appliquer la structure critère, constat, cause, conséquence, avec les preuves rattachées.
+> ⚠️ **Écrire un écart sans critère ni cause**
+>
+> - Configuration dangereuse : « La gestion des correctifs est insuffisante. »
+> - Conséquence : l'audité conteste, personne ne sait comment clôturer, et la même recommandation revient à l'audit suivant.
+> - Correction : appliquer la structure critère, constat, cause, conséquence, avec les preuves rattachées.
+{: .callout .callout-attention}
 
-⚠️ **Plan de remédiation sans critère de clôture**
-- Configuration dangereuse : « Renforcer le contrôle des accès. »
-- Conséquence : l'action est déclarée terminée sans qu'on puisse le vérifier.
-- Correction : écrire la condition de clôture sous forme observable (« export AD sans compte orphelin dans Domain Admins »).
+> ⚠️ **Plan de remédiation sans critère de clôture**
+>
+> - Configuration dangereuse : « Renforcer le contrôle des accès. »
+> - Conséquence : l'action est déclarée terminée sans qu'on puisse le vérifier.
+> - Correction : écrire la condition de clôture sous forme observable (« export AD sans compte orphelin dans Domain Admins »).
+{: .callout .callout-attention}
 
-⚠️ **Confondre dérogation et acceptation du risque**
-- Configuration dangereuse : une exception décidée par l'équipe technique, sans date ni signataire.
-- Conséquence : elle devient permanente, comme le compte de sauvegarde du scénario d'ouverture.
-- Correction : exiger un propriétaire, un risque documenté, une signature d'un décideur et une date de réexamen.
+> ⚠️ **Confondre dérogation et acceptation du risque**
+>
+> - Configuration dangereuse : une exception décidée par l'équipe technique, sans date ni signataire.
+> - Conséquence : elle devient permanente, comme le compte de sauvegarde du scénario d'ouverture.
+> - Correction : exiger un propriétaire, un risque documenté, une signature d'un décideur et une date de réexamen.
+{: .callout .callout-attention}
 
-⚠️ **Oublier le périmètre dans la conclusion**
-- Configuration dangereuse : un rapport qui conclut « l'organisation est conforme ».
-- Conséquence : le client lit une garantie de sécurité globale que l'audit ne donne pas.
-- Correction : borner chaque conclusion au périmètre, à la période et à la méthode.
+> ⚠️ **Oublier le périmètre dans la conclusion**
+>
+> - Configuration dangereuse : un rapport qui conclut « l'organisation est conforme ».
+> - Conséquence : le client lit une garantie de sécurité globale que l'audit ne donne pas.
+> - Correction : borner chaque conclusion au périmètre, à la période et à la méthode.
+{: .callout .callout-attention}
 
 ## Résumé
 

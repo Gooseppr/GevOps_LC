@@ -50,7 +50,8 @@ Ce schéma (SSRF, métadonnées d'instance, rôle trop large, stockage objet) es
 
 ## Responsabilité partagée : le contrat réel
 
-🧠 **Concept clé** — Le fournisseur sécurise **le cloud** (datacenters, hyperviseur, plan de contrôle). Vous sécurisez **ce que vous y mettez et comment vous le configurez**. La frontière se déplace selon le modèle de service, mais elle ne disparaît jamais.
+> 🧠 **Concept clé** — Le fournisseur sécurise **le cloud** (datacenters, hyperviseur, plan de contrôle). Vous sécurisez **ce que vous y mettez et comment vous le configurez**. La frontière se déplace selon le modèle de service, mais elle ne disparaît jamais.
+{: .callout .callout-important}
 
 | Couche | IaaS (Infrastructure as a Service) | PaaS (Platform as a Service) | SaaS (Software as a Service) |
 |--------|------|------|------|
@@ -62,7 +63,8 @@ Ce schéma (SSRF, métadonnées d'instance, rôle trop large, stockage objet) es
 | Données, chiffrement, partage | **Vous** | **Vous** | **Vous** |
 | Application | **Vous** | **Vous** | Fournisseur |
 
-⚠️ **Erreur fréquente** — « C'est du RDS managé, le fournisseur s'en occupe. » Il patche le moteur de base, mais ne décide pas à votre place que l'instance ne doit pas être joignable depuis Internet, que `rds_superuser` ne doit pas être donné à l'application, ou que les snapshots ne doivent pas être partagés publiquement. Même en SaaS, un lien de partage « tous les utilisateurs » ou un compte administrateur sans MFA relève de votre périmètre.
+> ⚠️ **Erreur fréquente** — « C'est du RDS managé, le fournisseur s'en occupe. » Il patche le moteur de base, mais ne décide pas à votre place que l'instance ne doit pas être joignable depuis Internet, que `rds_superuser` ne doit pas être donné à l'application, ou que les snapshots ne doivent pas être partagés publiquement. Même en SaaS, un lien de partage « tous les utilisateurs » ou un compte administrateur sans MFA relève de votre périmètre.
+{: .callout .callout-attention}
 
 Une règle de lecture utile : **plus vous montez vers le SaaS, moins vous avez de réseau à configurer et plus l'identité et la donnée concentrent le risque.**
 
@@ -82,7 +84,8 @@ Une règle de lecture utile : **plus vous montez vers le SaaS, moins vous avez d
 
 \*IMDS : service HTTP local, joignable à l'adresse `169.254.169.254` depuis l'instance, qui fournit ses métadonnées et les identifiants temporaires du rôle associé.
 
-🔴 **Vecteur d'attaque** — Les attaquants n'ont pas besoin de chercher longtemps. Des moteurs comme Shodan, Censys ou des scans massifs sur les plages publiques des fournisseurs indexent en continu les ports ouverts. Une base Elasticsearch ou MongoDB sans authentification, exposée sur une IP cloud, est typiquement découverte en quelques heures, pas en quelques semaines.
+> 🔴 **Vecteur d'attaque** — Les attaquants n'ont pas besoin de chercher longtemps. Des moteurs comme Shodan, Censys ou des scans massifs sur les plages publiques des fournisseurs indexent en continu les ports ouverts. Une base Elasticsearch ou MongoDB sans authentification, exposée sur une IP cloud, est typiquement découverte en quelques heures, pas en quelques semaines.
+{: .callout .callout-danger}
 
 ---
 
@@ -116,7 +119,8 @@ flowchart LR
 
 Une IP publique attachée à une VM n'est pas « du réseau » mais une décision d'exposition. Dans une architecture saine, seuls les load balancers et les passerelles en ont. Le NAT cloud ne sert qu'à la **sortie** : il n'accepte aucune connexion entrante initiée de l'extérieur, ce qui en fait un contrôle utile contre l'exposition accidentelle, mais pas contre l'exfiltration.
 
-💡 **Astuce** — Une VM sans IP publique mais dans un sous-réseau avec route vers l'Internet Gateway n'est pas joignable de l'extérieur. Dès que quelqu'un lui associe une IP élastique, elle l'est. Pour bloquer le cas à la source, interdisez par politique (SCP* ou Azure Policy) l'attribution d'IP publique hors des comptes ou sous-réseaux dédiés.
+> 💡 **Astuce** — Une VM sans IP publique mais dans un sous-réseau avec route vers l'Internet Gateway n'est pas joignable de l'extérieur. Dès que quelqu'un lui associe une IP élastique, elle l'est. Pour bloquer le cas à la source, interdisez par politique (SCP* ou Azure Policy) l'attribution d'IP publique hors des comptes ou sous-réseaux dédiés.
+{: .callout .callout-astuce}
 
 \*SCP (Service Control Policy) : politique AWS Organizations qui plafonne les actions autorisées dans un compte, quels que soient les droits IAM locaux.
 
@@ -205,7 +209,8 @@ resource "aws_security_group_rule" "app_egress_https" {
 
 Le filtrage sortant est celui qu'on oublie, alors qu'il conditionne l'exfiltration, les connexions de reverse shell et les canaux de commande et contrôle. Le restreindre à 443 est un compromis modeste. L'étape suivante, filtrer par FQDN avec un firewall managé, coûte cher et demande de maintenir une liste blanche : à réserver aux charges sensibles.
 
-🔒 **Contrôle de sécurité** — Les NACL sont utiles comme garde-fou grossier (blocage de plages hostiles connues, interdiction de SSH depuis Internet au niveau du sous-réseau) mais deviennent vite illisibles à cause de leur nature stateless : il faut ouvrir les ports éphémères en retour. Ne les utilisez pas pour du filtrage applicatif fin.
+> 🔒 **Contrôle de sécurité** — Les NACL sont utiles comme garde-fou grossier (blocage de plages hostiles connues, interdiction de SSH depuis Internet au niveau du sous-réseau) mais deviennent vite illisibles à cause de leur nature stateless : il faut ouvrir les ports éphémères en retour. Ne les utilisez pas pour du filtrage applicatif fin.
+{: .callout .callout-securite}
 
 ---
 
@@ -283,7 +288,8 @@ gcloud compute ssh <VM_NAME> --tunnel-through-iap
 
 Pour les services managés, la base ne devrait avoir aucune IP publique. Si un développeur a besoin d'y accéder, il passe par un tunnel (port-forward via Session Manager ou bastion), pas par une règle ouverte. Les endpoints privés (PrivateLink, Private Endpoint) évitent que le trafic vers le service managé traverse Internet.
 
-⚠️ **Erreur fréquente** — Le stockage objet, les files de messages et les clés de chiffrement ont leurs propres policies de ressource, indépendantes des Security Groups. Un VPC parfaitement segmenté n'empêche pas un bucket d'être public : ce sont deux plans de contrôle distincts.
+> ⚠️ **Erreur fréquente** — Le stockage objet, les files de messages et les clés de chiffrement ont leurs propres policies de ressource, indépendantes des Security Groups. Un VPC parfaitement segmenté n'empêche pas un bucket d'être public : ce sont deux plans de contrôle distincts.
+{: .callout .callout-attention}
 
 ---
 
@@ -306,7 +312,8 @@ aws ec2 create-flow-logs \
   --log-destination arn:aws:s3:::<LOG_BUCKET>
 ```
 
-🔒 **Contrôle de sécurité** — Envoyez les journaux vers un **compte séparé**, avec un bucket en écriture seule pour les comptes sources et la suppression restreinte. Un attaquant qui obtient des droits administrateur dans le compte de production commence souvent par chercher à arrêter la journalisation.
+> 🔒 **Contrôle de sécurité** — Envoyez les journaux vers un **compte séparé**, avec un bucket en écriture seule pour les comptes sources et la suppression restreinte. Un attaquant qui obtient des droits administrateur dans le compte de production commence souvent par chercher à arrêter la journalisation.
+{: .callout .callout-securite}
 
 ### Ce qu'il faut surveiller
 
@@ -349,7 +356,8 @@ prowler aws
 
 **ScoutSuite** et **Prowler** produisent un état des lieux selon les CIS Benchmarks du fournisseur. Ils sont adaptés à un audit ponctuel ou à une exécution planifiée en CI. Pour une surveillance continue, les services natifs (AWS Security Hub, Microsoft Defender for Cloud) ou une solution CSPM (Cloud Security Posture Management) automatisent cette vérification, en échange d'un coût et d'un bruit de fond à trier.
 
-💡 **Astuce** — Après chaque changement de réseau, relancez `nmap` **depuis un poste externe à votre infrastructure**. Un scan depuis une VM du même VPC passe les Security Groups internes et ne prouve rien sur l'exposition réelle.
+> 💡 **Astuce** — Après chaque changement de réseau, relancez `nmap` **depuis un poste externe à votre infrastructure**. Un scan depuis une VM du même VPC passe les Security Groups internes et ne prouve rien sur l'exposition réelle.
+{: .callout .callout-astuce}
 
 ---
 
@@ -381,27 +389,37 @@ Une société de services de taille moyenne héberge un portail client en IaaS. 
 
 ## Erreurs fréquentes
 
-⚠️ **Bucket public par commodité**
+> ⚠️ **Bucket public par commodité**
+{: .callout .callout-attention}
+
 Configuration : policy avec `"Principal": "*"` ou ACL `public-read`, souvent posée pour servir un fichier à un partenaire.
 Conséquence : lecture anonyme de tout le contenu, découvrable par des outils de recherche de buckets.
 Correction : activer Block Public Access au niveau du **compte** (pas seulement du bucket), partager via URL présignée à durée limitée ou CloudFront. Détection : `aws s3 ls s3://<BUCKET> --no-sign-request`, Prowler, Access Analyzer.
 
-⚠️ **Base managée avec accès public**
+> ⚠️ **Base managée avec accès public**
+{: .callout .callout-attention}
+
 Configuration : option « Publicly accessible = yes » plus un Security Group qui accepte `0.0.0.0/0` sur 5432.
 Conséquence : scan, brute force et exploitation de vulnérabilités du moteur, sans passer par l'application.
 Correction : sous-réseau isolé, SG limité au SG applicatif, accès humain par tunnel. Détection : `aws rds describe-db-instances --query 'DBInstances[?PubliclyAccessible]'`.
 
-⚠️ **Clés d'accès dans le code ou l'image**
+> ⚠️ **Clés d'accès dans le code ou l'image**
+{: .callout .callout-attention}
+
 Configuration : `AWS_ACCESS_KEY_ID` en dur dans un dépôt, un `.env` committé ou une couche d'image Docker.
 Conséquence : des bots scrutent les dépôts publics et exploitent une clé en quelques minutes. Le coût se mesure souvent d'abord en minage de cryptomonnaie facturé.
 Correction : rôles attachés, rotation immédiate de toute clé exposée (la supprimer du dépôt ne suffit pas, l'historique Git la contient), `gitleaks` en pre-commit et en CI.
 
-⚠️ **Journalisation dans le compte compromis**
+> ⚠️ **Journalisation dans le compte compromis**
+{: .callout .callout-attention}
+
 Configuration : trail et bucket de logs dans le même compte que la production, sans protection contre la suppression.
 Conséquence : l'attaquant avec des droits admin appelle `StopLogging` puis efface les logs : aucune reconstitution possible.
 Correction : compte de journalisation séparé, bucket verrouillé (Object Lock ou politique de rétention), alerte sur `StopLogging`.
 
-⚠️ **Confiance excessive dans le sous-réseau « privé »**
+> ⚠️ **Confiance excessive dans le sous-réseau « privé »**
+{: .callout .callout-attention}
+
 Configuration : SG internes très permissifs (« tout le VPC peut parler à tout le VPC »).
 Conséquence : une VM compromise (SSRF, dépendance vulnérable) sert de pivot vers les bases et les services internes.
 Correction : règles SG par rôle (source = SG précis), filtrage sortant, surveillance des flux inhabituels dans les Flow Logs.

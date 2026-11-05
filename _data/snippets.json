@@ -42452,6 +42452,24 @@
     "source_file": "courses/reseaux-cybersecurite/01_introduction_reseaux.md"
   },
   {
+    "id": "osi_moyen_mnemotechnique",
+    "type": "tip",
+    "tech": "reseau",
+    "level": "beginner",
+    "importance": "high",
+    "format": "knowledge",
+    "tags": [
+      "osi",
+      "couches",
+      "memorisation"
+    ],
+    "title": "Retenir les 7 couches OSI",
+    "content": "Pierre Lance Régulièrement Trois Serveurs Pour Apprendre : Physique, Liaison, Réseau, Transport, Session, Présentation, Application, de la couche 1 à la couche 7.",
+    "description": "Une phrase pour retrouver l'ordre des couches, de bas en haut.",
+    "context": "",
+    "source_file": "courses/reseaux-cybersecurite/02_modeles_osi_tcp_ip.md"
+  },
+  {
     "id": "reseau_osi_sept_couches",
     "type": "concept",
     "tech": "reseau",

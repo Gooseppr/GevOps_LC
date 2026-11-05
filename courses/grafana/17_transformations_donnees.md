@@ -53,7 +53,8 @@ flowchart LR
 
 Les requêtes partent vers les sources de données. Les expressions, si vous en utilisez, s'exécutent sur le serveur Grafana. Les transformations s'exécutent dans le navigateur de la personne qui regarde le dashboard, puis les options de champs (unités, seuils, overrides) sont appliquées sur le résultat, et enfin la visualisation dessine.
 
-🧠 **Concept clé** : les transformations travaillent sur des data frames, c'est-à-dire des tables avec des colonnes typées (temps, texte, nombre). Une requête Prometheus de type range renvoie une série par combinaison de labels. Une requête de type instant en format Table renvoie une seule ligne par série. Quand on sait quelle forme on a en entrée et quelle forme on veut en sortie, le choix de la transformation devient presque mécanique.
+> 🧠 **Concept clé** : les transformations travaillent sur des data frames, c'est-à-dire des tables avec des colonnes typées (temps, texte, nombre). Une requête Prometheus de type range renvoie une série par combinaison de labels. Une requête de type instant en format Table renvoie une seule ligne par série. Quand on sait quelle forme on a en entrée et quelle forme on veut en sortie, le choix de la transformation devient presque mécanique.
+{: .callout .callout-important}
 
 ## Mise en place : où trouver les transformations
 
@@ -63,7 +64,8 @@ Dans un panel : **Edit → onglet Transformations → Add transformation**. Vous
 
 Pour voir ce que produit réellement le pipeline : **Panel → Inspect → Data**, avec l'option « Apply panel transformations » cochée ou non. Vous comparez ainsi avant et après sans toucher à rien.
 
-💡 **Astuce** : passez temporairement la visualisation en **Table** quand vous construisez un pipeline, même si le rendu final doit être un bar gauge ou un stat. Voir les colonnes et leurs noms exacts évite la moitié des erreurs. Vous rebasculez ensuite vers la visualisation voulue.
+> 💡 **Astuce** : passez temporairement la visualisation en **Table** quand vous construisez un pipeline, même si le rendu final doit être un bar gauge ou un stat. Voir les colonnes et leurs noms exacts évite la moitié des erreurs. Vous rebasculez ensuite vers la visualisation voulue.
+{: .callout .callout-astuce}
 
 ## Les transformations qui font le travail
 
@@ -91,7 +93,8 @@ Reduce a deux modes. En **Series to rows**, chaque série devient une ligne, ave
 
 Les calculs les plus utiles en exploitation sont Last (valeur actuelle), Max (pic sur la période), Mean (niveau habituel), et Last * (dernière valeur non nulle, précieux quand une série a un trou récent).
 
-💡 **Astuce** : pour un panel Stat ou Gauge, ne cherchez pas de transformation Reduce. L'option **Value options → Calculation** du panel fait déjà ce travail. Reduce devient pertinent quand on veut plusieurs calculs en colonnes (Last, Max et Mean côte à côte), ce que le panel seul ne permet pas.
+> 💡 **Astuce** : pour un panel Stat ou Gauge, ne cherchez pas de transformation Reduce. L'option **Value options → Calculation** du panel fait déjà ce travail. Reduce devient pertinent quand on veut plusieurs calculs en colonnes (Last, Max et Mean côte à côte), ce que le panel seul ne permet pas.
+{: .callout .callout-astuce}
 
 ### Merge ou Join : empiler ou coller
 
@@ -104,13 +107,15 @@ Join by field demande de choisir le champ commun (souvent `instance`, ou `Time` 
 - **INNER** ne garde que les lignes présentes dans tous les résultats. Une machine absente d'une des requêtes disparaît de la table.
 - **OUTER** garde toutes les lignes et remplit de vide ce qui manque. Une machine qui n'a pas de métrique disque apparaîtra quand même, avec une cellule vide.
 
-⚠️ **Erreur fréquente** : choisir INNER par réflexe. Pour du monitoring, ce choix masque justement les machines qui ne remontent plus une des métriques, donc potentiellement celles qui ont un problème. Préférez OUTER, et assumez les cellules vides.
+> ⚠️ **Erreur fréquente** : choisir INNER par réflexe. Pour du monitoring, ce choix masque justement les machines qui ne remontent plus une des métriques, donc potentiellement celles qui ont un problème. Préférez OUTER, et assumez les cellules vides.
+{: .callout .callout-attention}
 
 ### Organize fields : la mise en forme finale
 
 Organize fields by name permet de renommer (`Value #A` devient `CPU %`), de réordonner les colonnes par glisser-déposer et de masquer ce qui ne sert à rien (les colonnes `Time`, `job` dupliquées après une jointure).
 
-⚠️ **Erreur fréquente** : renommer dans Organize puis définir un override de champ qui cible l'ancien nom. Les transformations s'exécutent avant les options de champs. Au moment où l'override cherche `Value #A`, la colonne s'appelle déjà `CPU %`, et rien ne se passe. Un override doit toujours cibler le nom **après** transformation.
+> ⚠️ **Erreur fréquente** : renommer dans Organize puis définir un override de champ qui cible l'ancien nom. Les transformations s'exécutent avant les options de champs. Au moment où l'override cherche `Value #A`, la colonne s'appelle déjà `CPU %`, et rien ne se passe. Un override doit toujours cibler le nom **après** transformation.
+{: .callout .callout-attention}
 
 ## Calculs et champs dérivés
 
@@ -211,7 +216,8 @@ Les autres types (Classic condition, Threshold) sont conçus pour les règles d'
 
 Une expression de type Math a un comportement qu'il faut connaître : elle associe les opérandes par **labels** : deux séries sont appariées si leurs jeux de labels sont identiques ou si l'un est inclus dans l'autre. Si `$A` renvoie une série `{instance="web-01"}` et `$B` une série `{instance="web-01:9100"}`, rien n'est associé, et le résultat est vide. C'est le même problème que la jointure sur `instance`, mais avec un message encore moins parlant.
 
-⚠️ **Erreur fréquente** : utiliser une expression Math pour calculer un ratio entre deux métriques de la même source. Le calcul fonctionne, mais il tire deux séries brutes vers Grafana pour faire une division que Prometheus fait en une ligne de PromQL, avec moins de données transférées. Gardez les expressions pour les cas où les deux opérandes ne peuvent pas être calculés au même endroit.
+> ⚠️ **Erreur fréquente** : utiliser une expression Math pour calculer un ratio entre deux métriques de la même source. Le calcul fonctionne, mais il tire deux séries brutes vers Grafana pour faire une division que Prometheus fait en une ligne de PromQL, avec moins de données transférées. Gardez les expressions pour les cas où les deux opérandes ne peuvent pas être calculés au même endroit.
+{: .callout .callout-attention}
 
 Autre limite : les expressions ne travaillent que sur les sources de données dites « backend ». Les plugins purement frontend ne peuvent pas être référencés. Les expressions ne remodelent pas non plus des tables (pas de join, pas de renommage, pas de tri). Pour mettre en forme, on revient aux transformations. La disponibilité exacte des types et leur comportement avec une source Mixed peuvent varier selon la version : vérifiez dans l'interface de votre instance.
 
@@ -239,7 +245,8 @@ Concrètement, voici ce que ça donne dans trois situations typiques :
 
 La règle pratique : **tout ce qui réduit le volume ou change la sémantique de la donnée appartient à la requête**. Les transformations servent à la **mise en forme** : assembler, renommer, masquer, trier. Quand une transformation sert à compenser une requête mal posée, c'est un signal pour corriger la requête.
 
-⚠️ **Erreur fréquente** : croire que les transformations d'un panel sont réutilisables ailleurs. Elles n'existent que dans le panel et sont exécutées par le navigateur. Un moteur qui évalue une requête en arrière-plan (comme le fera une règle d'alerte, voir le module suivant) ne voit pas votre pipeline : il ne reçoit que la requête et ses expressions. Une condition « CPU > 80 % » construite avec une transformation dans un panel ne peut pas simplement être recopiée dans une alerte.
+> ⚠️ **Erreur fréquente** : croire que les transformations d'un panel sont réutilisables ailleurs. Elles n'existent que dans le panel et sont exécutées par le navigateur. Un moteur qui évalue une requête en arrière-plan (comme le fera une règle d'alerte, voir le module suivant) ne voit pas votre pipeline : il ne reçoit que la requête et ses expressions. Une condition « CPU > 80 % » construite avec une transformation dans un panel ne peut pas simplement être recopiée dans une alerte.
+{: .callout .callout-attention}
 
 ## Diagnostic : symptômes fréquents
 

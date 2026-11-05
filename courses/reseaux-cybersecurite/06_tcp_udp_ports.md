@@ -265,7 +265,8 @@ flowchart TD
 
 Le refus est souvent une bonne nouvelle : **quelqu'un a répondu**, donc le chemin fonctionne au moins jusqu'à l'équipement qui a répondu.
 
-⚠️ **Piège :** un refus n'innocente pas totalement le pare-feu. Une règle en `REJECT` peut renvoyer elle-même un RST ou un message ICMP, et produire le même symptôme. Seul `ss` sur le serveur permet de trancher.
+> ⚠️ **Piège :** un refus n'innocente pas totalement le pare-feu. Une règle en `REJECT` peut renvoyer elle-même un RST ou un message ICMP, et produire le même symptôme. Seul `ss` sur le serveur permet de trancher.
+{: .callout .callout-attention}
 
 ### Et UDP ?
 
@@ -304,7 +305,8 @@ sudo ss -tlnp                   # on élargit à tous les ports
 
 L'application écoute sur le mauvais port et en local uniquement.
 
-⚠️ **Piège :** `ss -tlnp | grep 443` aurait aussi affiché `8443`. Utilisez le filtre `sport = :443`, ou `grep ':443 '`.
+> ⚠️ **Piège :** `ss -tlnp | grep 443` aurait aussi affiché `8443`. Utilisez le filtre `sport = :443`, ou `grep ':443 '`.
+{: .callout .callout-attention}
 
 **Étape 3, choisir la correction :**
 

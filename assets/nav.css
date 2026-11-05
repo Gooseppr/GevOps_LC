@@ -1489,3 +1489,30 @@ code[class*="language-"] {
 .highlight .gd  { color: #b31d28; background: #ffeef0; }
 .highlight .gi  { color: #22863a; background: #e6ffec; }
 .highlight .err { color: inherit; background: transparent; }
+
+/* ── Encarts de cours ─────────────────────────────────────────── */
+blockquote.callout {
+  margin: 1.25rem 0;
+  padding: .8rem 1rem;
+  border: 1px solid var(--callout-border);
+  border-left: 4px solid var(--callout-accent);
+  border-radius: 8px;
+  background: var(--callout-bg);
+  color: #1f2937;
+  font-size: .97em;
+  font-style: normal;
+  letter-spacing: normal;
+}
+blockquote.callout > :first-child { margin-top: 0; }
+blockquote.callout > :last-child  { margin-bottom: 0; }
+blockquote.callout ul { margin: .5rem 0 0 1.1rem; }
+blockquote.callout code { background: rgba(255, 255, 255, .7); }
+.callout-definition { --callout-accent: #2563eb; --callout-border: #bfdbfe; --callout-bg: #eff6ff; }
+.callout-important  { --callout-accent: #7c3aed; --callout-border: #ddd6fe; --callout-bg: #f5f3ff; }
+.callout-attention  { --callout-accent: #d97706; --callout-border: #fde68a; --callout-bg: #fffbeb; }
+.callout-danger     { --callout-accent: #dc2626; --callout-border: #fecaca; --callout-bg: #fef2f2; }
+.callout-astuce     { --callout-accent: #16a34a; --callout-border: #bbf7d0; --callout-bg: #f0fdf4; }
+.callout-securite   { --callout-accent: #0f766e; --callout-border: #99f6e4; --callout-bg: #f0fdfa; }
+.callout-analogie   { --callout-accent: #db2777; --callout-border: #fbcfe8; --callout-bg: #fdf2f8; }
+.callout-memo       { --callout-accent: #ca8a04; --callout-border: #fef08a; --callout-bg: #fefce8; }
+.callout-note       { --callout-accent: #64748b; --callout-border: #e2e8f0; --callout-bg: #f8fafc; }

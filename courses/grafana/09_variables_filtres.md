@@ -43,7 +43,8 @@ Les variables résolvent ce problème : un seul dashboard, des menus déroulants
 
 Pensez à un modèle de courrier avec des champs de fusion : « Bonjour `{prénom}` ». Un dashboard avec variables fonctionne pareil. Vous écrivez une requête avec des emplacements (`$env`, `$instance`), et Grafana remplace ces emplacements par la sélection courante avant d'envoyer la requête.
 
-🧠 **Concept clé** — Grafana fait de la **substitution de texte**, rien de plus. Il ne comprend pas votre requête PromQL. Il remplace `$instance` par une chaîne de caractères, puis envoie le résultat à Prometheus. Presque tous les comportements surprenants viennent de là : si le texte substitué n'a pas la forme attendue par la source, la requête échoue ou, pire, retourne autre chose que ce que vous pensiez.
+> 🧠 **Concept clé** — Grafana fait de la **substitution de texte**, rien de plus. Il ne comprend pas votre requête PromQL. Il remplace `$instance` par une chaîne de caractères, puis envoie le résultat à Prometheus. Presque tous les comportements surprenants viennent de là : si le texte substitué n'a pas la forme attendue par la source, la requête échoue ou, pire, retourne autre chose que ce que vous pensiez.
+{: .callout .callout-important}
 
 La substitution ne se limite pas aux requêtes : elle s'applique aussi aux titres de panels, aux liens, aux noms de rows et aux descriptions. Un titre comme `Latence — $service` s'adapte tout seul.
 
@@ -68,7 +69,8 @@ label_values(node_uname_info, env)
 
 Cette variable `env` lit les valeurs du label `env` sur la métrique `node_uname_info`, qui existe une fois par hôte avec `node_exporter`. Selon la version de Grafana, vous saisissez cette expression telle quelle (mode « classic query ») ou vous remplissez deux champs, *Label* et *Metric*. C'est équivalent.
 
-💡 **Astuce** — Donnez toujours une métrique à `label_values`. La forme `label_values(env)` demande les valeurs du label `env` sur toutes les séries, sans restriction à une métrique : sur un Prometheus un peu gros, le menu peut mettre du temps à s'ouvrir et pèse inutilement sur le serveur.
+> 💡 **Astuce** — Donnez toujours une métrique à `label_values`. La forme `label_values(env)` demande les valeurs du label `env` sur toutes les séries, sans restriction à une métrique : sur un Prometheus un peu gros, le menu peut mettre du temps à s'ouvrir et pèse inutilement sur le serveur.
+{: .callout .callout-astuce}
 
 Réglages à connaître sur une variable Query :
 
@@ -134,7 +136,8 @@ Quand le défaut ne convient pas, on impose le format avec la syntaxe `${variabl
 
 La liste complète est dans la documentation officielle, et certains formats varient légèrement selon la version.
 
-💡 **Astuce** — Pour voir ce qui part vraiment vers la source, ouvrez le panel, puis l'inspecteur (`Inspect → Query`) et rafraîchissez. Vous y lisez la requête déjà interpolée. Quand un graphique est vide, c'est le premier geste à faire, avant de soupçonner la source de données.
+> 💡 **Astuce** — Pour voir ce qui part vraiment vers la source, ouvrez le panel, puis l'inspecteur (`Inspect → Query`) et rafraîchissez. Vous y lisez la requête déjà interpolée. Quand un graphique est vide, c'est le premier geste à faire, avant de soupçonner la source de données.
+{: .callout .callout-astuce}
 
 ## Construction progressive : de un menu à une navigation complète
 
@@ -193,7 +196,8 @@ Le panel CPU devient :
 ) * 100
 ```
 
-⚠️ **Erreur fréquente** — Placez toujours une variable *en dessous* de celles qu'elle référence. Les versions récentes de Grafana détectent les dépendances entre variables, mais l'ordre de la liste reste celui de l'affichage et, selon la version, de l'évaluation initiale : une variable placée avant sa dépendance peut alors être évaluée trop tôt. Si votre menu `instance` reste vide ou affiche des valeurs d'un autre environnement, vérifiez d'abord l'ordre et les références des variables.
+> ⚠️ **Erreur fréquente** — Placez toujours une variable *en dessous* de celles qu'elle référence. Les versions récentes de Grafana détectent les dépendances entre variables, mais l'ordre de la liste reste celui de l'affichage et, selon la version, de l'évaluation initiale : une variable placée avant sa dépendance peut alors être évaluée trop tôt. Si votre menu `instance` reste vide ou affiche des valeurs d'un autre environnement, vérifiez d'abord l'ordre et les références des variables.
+{: .callout .callout-attention}
 
 Le même principe s'applique à un dashboard orienté service : `service` dépend de `env` (et éventuellement de `region`), et lit ses valeurs sur une métrique applicative comme `http_requests_total`.
 
@@ -222,7 +226,8 @@ Quelques règles de survie :
 - On modifie toujours le panel (ou la row) **d'origine**. Les copies sont générées, elles ne se retouchent pas individuellement.
 - Chaque copie exécute ses propres requêtes. Répéter un panel lourd sur 80 instances revient à lancer 80 fois la requête.
 
-⚠️ **Erreur fréquente** — Répéter par une variable avec All sur une centaine de valeurs. Le dashboard devient interminable à charger et à faire défiler. Limitez la répétition à une poignée de valeurs (une dizaine est un ordre de grandeur raisonnable), et gardez All sur une vue agrégée.
+> ⚠️ **Erreur fréquente** — Répéter par une variable avec All sur une centaine de valeurs. Le dashboard devient interminable à charger et à faire défiler. Limitez la répétition à une poignée de valeurs (une dizaine est un ordre de grandeur raisonnable), et gardez All sur une vue agrégée.
+{: .callout .callout-attention}
 
 ## Data links et Dashboard links : naviguer sans perdre le fil
 
@@ -250,7 +255,8 @@ Les Dashboard links se définissent au niveau du dashboard (paramètres → **Li
 - **Include current time range** : le dashboard cible s'ouvre sur la même période.
 - **Include current template variable values** : les valeurs des filtres sont transmises.
 
-🧠 **Concept clé** — Le transfert de variables ne fonctionne que si le dashboard cible a une variable **portant le même nom**. Un `env` d'un côté et un `environment` de l'autre, et la valeur se perd silencieusement. La convention de nommage des variables entre dashboards est donc une vraie décision d'équipe, pas un détail.
+> 🧠 **Concept clé** — Le transfert de variables ne fonctionne que si le dashboard cible a une variable **portant le même nom**. Un `env` d'un côté et un `environment` de l'autre, et la valeur se perd silencieusement. La convention de nommage des variables entre dashboards est donc une vraie décision d'équipe, pas un détail.
+{: .callout .callout-important}
 
 ## Quand les filtres mentent : diagnostic des pièges
 
@@ -265,7 +271,8 @@ Les Dashboard links se définissent au niveau du dashboard (paramètres → **Li
 | Le lien vers un autre dashboard ouvre un filtre vide | Variable absente ou nommée différemment sur la cible | Aligner les noms de variables entre dashboards |
 | Un hôte retiré depuis longtemps figure encore dans le menu | La variable lit une période large, ou n'est pas rafraîchie | Passer le refresh sur *On time range change* et filtrer la requête par un job actif |
 
-⚠️ **Variables non échappées — le piège principal.** Substituer du texte sans précaution, c'est faire confiance à celui qui le tape. En SQL, une Text box branchée dans `WHERE name = '$search'` permet à un utilisateur de casser la requête, voire d'y glisser des instructions. Le format `sqlstring` échappe les guillemets et résout ce cas. Même logique pour une regex : un `.` ou un `(` tapé dans une recherche de logs change le sens du filtre. Sans accès direct à la base ni à Loki, le risque est souvent de la requête fausse plutôt que du vol de données, mais le principe reste le même : jamais de saisie brute dans une requête.
+> ⚠️ **Variables non échappées — le piège principal.** Substituer du texte sans précaution, c'est faire confiance à celui qui le tape. En SQL, une Text box branchée dans `WHERE name = '$search'` permet à un utilisateur de casser la requête, voire d'y glisser des instructions. Le format `sqlstring` échappe les guillemets et résout ce cas. Même logique pour une regex : un `.` ou un `(` tapé dans une recherche de logs change le sens du filtre. Sans accès direct à la base ni à Loki, le risque est souvent de la requête fausse plutôt que du vol de données, mais le principe reste le même : jamais de saisie brute dans une requête.
+{: .callout .callout-attention}
 
 Les caractères spéciaux concernent aussi les valeurs issues d'une source, comme les points de `10.0.0.1:9100`, qui en regex signifient « n'importe quel caractère ». Pour une variable Query en multi-value ou All, la source Prometheus échappe déjà ces caractères lors de l'interpolation. Le risque porte surtout sur la Custom all value et sur les Text box. Si vous avez un doute, regardez la requête interpolée dans l'inspecteur plutôt que de raisonner de tête.
 

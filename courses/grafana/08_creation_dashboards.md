@@ -56,7 +56,8 @@ flowchart TD
 
 Le dossier sert surtout à regrouper les dashboards et à poser des permissions, ce qu'on verra au module d'administration. Les rows sont des sections repliables : elles servent à structurer la lecture, pas à décorer.
 
-🧠 **Concept clé** — Le dashboard n'est pas lié à une métrique, il est lié à une **question**. « Ce serveur est-il en bonne santé ? » est un bon dashboard. « Toutes les métriques de node_exporter » est un catalogue.
+> 🧠 **Concept clé** — Le dashboard n'est pas lié à une métrique, il est lié à une **question**. « Ce serveur est-il en bonne santé ? » est un bon dashboard. « Toutes les métriques de node_exporter » est un catalogue.
+{: .callout .callout-important}
 
 ## Mise en place : créer le premier dashboard
 
@@ -121,7 +122,8 @@ Le Bar chart ne montre pas le temps, il compare des catégories (points de monta
 topk(5, 100 * (1 - node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"}))
 ```
 
-⚠️ **Erreur fréquente** — Bar chart vide ou illisible. Cause : requête laissée en Range et format Time series, donc Grafana reçoit des courbes et non des catégories. Correction : Instant + Format Table, puis sélection du champ texte pour l'axe X. Selon les versions, le panel peut aussi proposer de lui-même une transformation : lisez le message d'avertissement dans le panel.
+> ⚠️ **Erreur fréquente** — Bar chart vide ou illisible. Cause : requête laissée en Range et format Time series, donc Grafana reçoit des courbes et non des catégories. Correction : Instant + Format Table, puis sélection du champ texte pour l'axe X. Selon les versions, le panel peut aussi proposer de lui-même une transformation : lisez le message d'avertissement dans le panel.
+{: .callout .callout-attention}
 
 ## Le query editor et ses options
 
@@ -143,13 +145,15 @@ C'est la partie qui sépare un graphique lisible d'un graphique qui trompe. Tout
 
 Un chiffre sans unité est une énigme. Pour de la mémoire ou des octets, choisissez la variante binaire (base 1024) de *bytes* dans la catégorie Data : Grafana affichera automatiquement `3.2 GiB` plutôt que `3435973836`. Pour une durée, utilisez la catégorie Time (par exemple *duration (s)*, qui convertit une valeur en secondes en jours, heures, etc.).
 
-⚠️ **Erreur fréquente** — Une jauge de CPU affiche « 0.73 % » alors que la machine est à 73 %. Cause : l'unité *Percent (0-100)* est appliquée à une valeur comprise entre 0 et 1. Correction : soit multiplier la requête par 100 et garder *Percent (0-100)*, soit garder la requête brute et utiliser *Percent (0.0-1.0)*.
+> ⚠️ **Erreur fréquente** — Une jauge de CPU affiche « 0.73 % » alors que la machine est à 73 %. Cause : l'unité *Percent (0-100)* est appliquée à une valeur comprise entre 0 et 1. Correction : soit multiplier la requête par 100 et garder *Percent (0-100)*, soit garder la requête brute et utiliser *Percent (0.0-1.0)*.
+{: .callout .callout-attention}
 
 ### Thresholds et couleurs
 
 Les thresholds sont des paliers de valeurs, chacun associé à une couleur. La couleur **Base** couvre tout ce qui est en dessous du premier palier. Un classique pour un disque : Base verte, orange à 80, rouge à 90. Pour que la couleur s'applique réellement, vérifiez que **Color scheme** est sur *From thresholds* (c'est le défaut pour Stat et Gauge). Sur une Time series, activez *Show thresholds* en lignes pour voir la limite sur le graphique.
 
-💡 **Astuce** — Les seuils doivent venir d'une décision, pas d'une intuition. 80 % de disque, c'est « on agit avant la fin de semaine » ; 90 %, c'est « on agit aujourd'hui ». Si personne ne réagit à l'orange, supprimez-le : une couleur sans action est du bruit visuel.
+> 💡 **Astuce** — Les seuils doivent venir d'une décision, pas d'une intuition. 80 % de disque, c'est « on agit avant la fin de semaine » ; 90 %, c'est « on agit aujourd'hui ». Si personne ne réagit à l'orange, supprimez-le : une couleur sans action est du bruit visuel.
+{: .callout .callout-astuce}
 
 ### Légendes et axes
 
@@ -239,7 +243,8 @@ On ajoute un Table des disques (Instant, Format Table), un Bar chart du top 5 de
 
 ## Un dashboard joli n'est pas un dashboard utile
 
-⚠️ **Erreur fréquente** — Empiler des panels spectaculaires. Conséquence : en incident, le dashboard demande plus d'efforts de lecture que de réflexion, et l'équipe retourne à Explore. Correction : appliquer un test simple avant de partager.
+> ⚠️ **Erreur fréquente** — Empiler des panels spectaculaires. Conséquence : en incident, le dashboard demande plus d'efforts de lecture que de réflexion, et l'équipe retourne à Explore. Correction : appliquer un test simple avant de partager.
+{: .callout .callout-attention}
 
 Posez-vous ces questions devant le dashboard, comme le ferait quelqu'un réveillé à 3 h du matin :
 

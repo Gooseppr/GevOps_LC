@@ -56,7 +56,8 @@ flowchart TD
     E --> F[Diagnostic reproductible]
 ```
 
-🧠 **Concept clé** — Une hypothèse utile est **réfutable**. « Il y a un problème de base de données » n'est pas testable. « Le pool de connexions de `inventory` est saturé depuis 14:02 » l'est : une requête suffit à dire oui ou non. Quand vous formulez une hypothèse, demandez-vous quelle courbe ou quel log vous prouverait que vous avez tort.
+> 🧠 **Concept clé** — Une hypothèse utile est **réfutable**. « Il y a un problème de base de données » n'est pas testable. « Le pool de connexions de `inventory` est saturé depuis 14:02 » l'est : une requête suffit à dire oui ou non. Quand vous formulez une hypothèse, demandez-vous quelle courbe ou quel log vous prouverait que vous avez tort.
+{: .callout .callout-important}
 
 Chaque étape a un rôle précis :
 
@@ -79,7 +80,8 @@ L'alerte se déclenche après la période d'évaluation. Si la règle exige « >
 
 Une plage relative comme « Last 1 hour » glisse pendant que vous travaillez : ce que vous voyez à 14:20 n'est plus ce que vous regardiez à 14:10. Dès que vous avez identifié la zone utile, passez en plage absolue (sélecteur de temps → *Absolute time range*, ou sélection à la souris sur un graphique). Notez aussi le fuseau horaire : un dashboard en heure du navigateur et des logs lus en UTC produisent des décalages d'une ou deux heures, et des corrélations qui n'existent pas.
 
-💡 **Astuce** — Dans les réglages du dashboard, passez *Graph tooltip* en *Shared crosshair* (ou *Shared tooltip*). En survolant un panel, un curseur vertical apparaît au même instant sur tous les autres. Vous voyez immédiatement quelle courbe bouge en premier.
+> 💡 **Astuce** — Dans les réglages du dashboard, passez *Graph tooltip* en *Shared crosshair* (ou *Shared tooltip*). En survolant un panel, un curseur vertical apparaît au même instant sur tous les autres. Vous voyez immédiatement quelle courbe bouge en premier.
+{: .callout .callout-astuce}
 
 ### Comparer avec un état normal
 
@@ -115,7 +117,8 @@ Quelques mécanismes font gagner un temps précieux :
 - **Data links** : un lien configuré dans un panel peut ouvrir Explore ou un autre dashboard en transmettant des variables comme `${__field.labels.service}` ou la plage `${__url_time_range}`. C'est ce qui vous évite de recopier un nom de pod à la main.
 - **Liens entre sources** : depuis un log, un *derived field* sur Loki ouvre la trace correspondante dans Tempo à partir du `trace_id`. Depuis une trace, le lien *trace to logs* ouvre les logs de la même période. Et si les applications émettent des exemplars, un point sur la courbe de latence mène directement à une trace représentative. Tout cela se configure dans les data sources ; l'emplacement des options dépend de la version.
 
-⚠️ **Erreur fréquente** — Ces liens ne fonctionnent que si les noms de labels sont cohérents. Si Prometheus étiquette `service="checkout"` et que Loki étiquette `app="checkout"`, le pivot ne trouve rien, et on conclut à tort « pas de logs ». Corrigez le nom du label dans la configuration du lien ou, mieux, harmonisez les labels à la source.
+> ⚠️ **Erreur fréquente** — Ces liens ne fonctionnent que si les noms de labels sont cohérents. Si Prometheus étiquette `service="checkout"` et que Loki étiquette `app="checkout"`, le pivot ne trouve rien, et on conclut à tort « pas de logs ». Corrigez le nom du label dans la configuration du lien ou, mieux, harmonisez les labels à la source.
+{: .callout .callout-attention}
 
 ## Corréler métriques, logs et traces
 
@@ -177,7 +180,8 @@ Si deux versions coexistent dans la fenêtre, c'est un déploiement progressif, 
 
 ## Composant dégradé ou cause racine ?
 
-🧠 **Concept clé** — Le composant où le symptôme *apparaît* n'est presque jamais celui où il *naît*. Dans une architecture distribuée, la lenteur se propage : un service lent à l'aval fait attendre tous ceux qui l'appellent, ce qui sature leurs threads, puis leurs files, puis leurs propres appelants.
+> 🧠 **Concept clé** — Le composant où le symptôme *apparaît* n'est presque jamais celui où il *naît*. Dans une architecture distribuée, la lenteur se propage : un service lent à l'aval fait attendre tous ceux qui l'appellent, ce qui sature leurs threads, puis leurs files, puis leurs propres appelants.
+{: .callout .callout-important}
 
 Pensez à une file de caisses dans un supermarché. Si la cliente à la caisse 3 met dix minutes à payer, ce n'est pas la caisse 3 qui est cassée, c'est peut-être son terminal de carte. Quand toute la file se plaint, vous regardez la file, pas la cause.
 

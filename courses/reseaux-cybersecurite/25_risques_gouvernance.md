@@ -61,7 +61,8 @@ Ici la surface d'attaque n'est pas qu'un port ou un endpoint. Ce sont aussi des 
 | Registre des risques inexistant ou périmé | Les décisions reposent sur la mémoire de quelques personnes | Incohérence entre ce que la direction croit couvert et ce qui l'est |
 | Fournisseur critique non évalué | Dépendance sans visibilité sur son niveau de sécurité | Compromission indirecte, indisponibilité du service |
 
-🧠 **Concept clé** : un risque n'existe qu'à l'intersection d'un **actif de valeur**, d'une **source de menace** et d'une **faiblesse exploitable**. Une vulnérabilité seule est un constat technique, pas un risque.
+> 🧠 **Concept clé** : un risque n'existe qu'à l'intersection d'un **actif de valeur**, d'une **source de menace** et d'une **faiblesse exploitable**. Une vulnérabilité seule est un constat technique, pas un risque.
+{: .callout .callout-important}
 
 ## Comment un attaquant fabrique un risque métier
 
@@ -78,7 +79,8 @@ flowchart LR
     style G fill:#c0392b,color:#fff
 ```
 
-🔴 **Vecteur d'attaque** : dans ce schéma, aucune étape ne demande d'exploit sophistiqué. Mimikatz, BloodHound et des outils d'exfiltration comme Rclone sont publics. Les groupes de ransomware visent aussi les sauvegardes : la vulnérabilité CVE-2023-27532 de Veeam Backup & Replication a été utilisée pour récupérer les identifiants stockés avant le chiffrement.
+> 🔴 **Vecteur d'attaque** : dans ce schéma, aucune étape ne demande d'exploit sophistiqué. Mimikatz, BloodHound et des outils d'exfiltration comme Rclone sont publics. Les groupes de ransomware visent aussi les sauvegardes : la vulnérabilité CVE-2023-27532 de Veeam Backup & Replication a été utilisée pour récupérer les identifiants stockés avant le chiffrement.
+{: .callout .callout-danger}
 
 Cette lecture « chaîne d'attaque » est la matière première de l'analyse de risque. Elle explique la différence entre trois énoncés :
 
@@ -88,7 +90,8 @@ Cette lecture « chaîne d'attaque » est la matière première de l'analyse de 
 | « Compromission de l'ERP » | Événement trop vague | Partiellement, la gravité reste floue |
 | « Un groupe ransomware, entré par un compte prestataire, chiffre l'ERP et les sauvegardes en ligne ; expédition arrêtée plus d'une semaine » | Scénario de risque métier | Oui : source, chemin, actif et impact sont visibles |
 
-⚠️ **Erreur fréquente** : remplir le registre avec des constats d'audit recopiés (« mots de passe faibles », « OS obsolète »). Correction : chaque ligne doit nommer une source de menace, un actif de valeur et une conséquence métier chiffrable ou au moins comparable.
+> ⚠️ **Erreur fréquente** : remplir le registre avec des constats d'audit recopiés (« mots de passe faibles », « OS obsolète »). Correction : chaque ligne doit nommer une source de menace, un actif de valeur et une conséquence métier chiffrable ou au moins comparable.
+{: .callout .callout-attention}
 
 ## Identifier, analyser, évaluer
 
@@ -135,11 +138,13 @@ Une échelle exploitable ancre chaque niveau dans une réalité mesurable, pas d
 
 En approche quantitative, on utilise l'ALE (Annualized Loss Expectancy) = SLE (Single Loss Expectancy) × ARO (Annualized Rate of Occurrence). Avec des chiffres illustratifs : une attaque coûtant 400 000 € par occurrence, avec une occurrence tous les cinq ans (ARO = 0,2), donne un ALE de 80 000 € par an. Une mesure à 30 000 € par an qui ramène l'ARO à 0,05 laisse un ALE de 20 000 €, soit un gain net de 30 000 €.
 
-💡 **Astuce** : refaites le calcul avec un ARO deux fois plus élevé et deux fois plus bas. Si la décision change, vos données sont trop fragiles pour trancher sur le seul calcul, et la discussion doit porter sur les hypothèses plutôt que sur le résultat.
+> 💡 **Astuce** : refaites le calcul avec un ARO deux fois plus élevé et deux fois plus bas. Si la décision change, vos données sont trop fragiles pour trancher sur le seul calcul, et la discussion doit porter sur les hypothèses plutôt que sur le résultat.
+{: .callout .callout-astuce}
 
 **Évaluation.** On compare chaque risque aux critères d'acceptation définis avant l'analyse, jamais après. Définir le seuil une fois les résultats connus revient à ajuster la règle au résultat voulu.
 
-⚠️ **Piège de la matrice** : une matrice 4×4 écrase les écarts. Deux risques classés « orange » peuvent différer d'un facteur 20 en perte attendue. Gardez la matrice comme support de discussion, pas comme arbitre.
+> ⚠️ **Piège de la matrice** : une matrice 4×4 écrase les écarts. Deux risques classés « orange » peuvent différer d'un facteur 20 en perte attendue. Gardez la matrice comme support de discussion, pas comme arbitre.
+{: .callout .callout-attention}
 
 ## EBIOS Risk Manager : une méthode qui part de l'attaquant
 
@@ -155,7 +160,8 @@ EBIOS Risk Manager est la méthode d'appréciation des risques publiée par l'AN
 
 Reprenons le scénario : le prestataire de maintenance est une partie prenante de l'écosystème. L'atelier 3 fait émerger le chemin « compromission du prestataire → accès à l'ERP ». L'atelier 4 le décline en techniques d'attaque, ce qu'un scan de vulnérabilités ne produit pas.
 
-💡 **Astuce** : pour un premier exercice, lancez-vous sur un seul événement redouté (par exemple « arrêt de la production plus de 3 jours ») et déroulez les cinq ateliers dessus. Un périmètre complet dès le départ produit en général un document que personne ne maintient.
+> 💡 **Astuce** : pour un premier exercice, lancez-vous sur un seul événement redouté (par exemple « arrêt de la production plus de 3 jours ») et déroulez les cinq ateliers dessus. Un périmètre complet dès le départ produit en général un document que personne ne maintient.
+{: .callout .callout-astuce}
 
 ## ISO/IEC 27005 : le cadre de gestion des risques
 
@@ -196,7 +202,8 @@ Voici un exemple de répartition en RACI (Responsible, Accountable, Consulted, I
 | Mettre en œuvre une mesure | I | C | I | R |
 | Tenir le registre et le suivi | I | **A/R** | C | C |
 
-🧠 **Concept clé** : le RSSI conseille et pilote le processus, mais **c'est le propriétaire du risque, celui qui subira la perte métier et dispose du budget, qui accepte**. Un RSSI qui accepte seul les risques est exposé et la direction a perdu le contrôle. Contrainte réelle : dans une PME sans RSSI à temps plein, le rôle est souvent endossé par le DSI. Il faut alors qu'une personne côté direction ou métier signe réellement les acceptations.
+> 🧠 **Concept clé** : le RSSI conseille et pilote le processus, mais **c'est le propriétaire du risque, celui qui subira la perte métier et dispose du budget, qui accepte**. Un RSSI qui accepte seul les risques est exposé et la direction a perdu le contrôle. Contrainte réelle : dans une PME sans RSSI à temps plein, le rôle est souvent endossé par le DSI. Il faut alors qu'une personne côté direction ou métier signe réellement les acceptations.
+{: .callout .callout-important}
 
 ## Traiter le risque : réduire, éviter, transférer, accepter
 
@@ -207,11 +214,13 @@ Voici un exemple de répartition en RACI (Responsible, Accountable, Consulted, I
 | Transférer | Partager la charge financière | Cyber-assurance, clause contractuelle prestataire | Ne transfère ni la responsabilité réglementaire, ni l'atteinte à l'image |
 | Accepter | Décider de vivre avec le risque résiduel | Garder l'ERP 18 mois avec mesures compensatoires | Valable uniquement si décidé, documenté et daté |
 
-⚠️ **Erreur fréquente sur le transfert** : croire que l'assurance couvre tout. Les polices imposent souvent des conditions (MFA, EDR [Endpoint Detection and Response], sauvegardes hors ligne) et comportent des exclusions. Un incident sur un contrôle prétendument en place mais absent peut remettre la prise en charge en cause. Correction : faire relire la police par le juridique et croiser ses exigences avec l'état réel des contrôles.
+> ⚠️ **Erreur fréquente sur le transfert** : croire que l'assurance couvre tout. Les polices imposent souvent des conditions (MFA, EDR [Endpoint Detection and Response], sauvegardes hors ligne) et comportent des exclusions. Un incident sur un contrôle prétendument en place mais absent peut remettre la prise en charge en cause. Correction : faire relire la police par le juridique et croiser ses exigences avec l'état réel des contrôles.
+{: .callout .callout-attention}
 
 ### Accepter n'est pas corriger
 
-⚠️ Le point central du module : **un risque peut être accepté après évaluation sans que la vulnérabilité disparaisse.** L'acceptation est une décision de gouvernance valable à un instant donné, pour un niveau d'exposition donné. L'attaquant, lui, ne lit pas le registre : il exploite ce qui est exploitable.
+> ⚠️ Le point central du module : **un risque peut être accepté après évaluation sans que la vulnérabilité disparaisse.** L'acceptation est une décision de gouvernance valable à un instant donné, pour un niveau d'exposition donné. L'attaquant, lui, ne lit pas le registre : il exploite ce qui est exploitable.
+{: .callout .callout-attention}
 
 Cela entraîne cinq conséquences opérationnelles pour toute acceptation :
 
@@ -300,7 +309,8 @@ nmap -Pn -p 135,445,3389 <IP_ERP>
 
 Si `3389/open` répond depuis le VLAN utilisateurs, la segmentation annoncée dans le registre est fausse.
 
-💡 **Astuce** : comparez un export de scan de ports ou de flux réseau avec ce que dit le registre. Les écarts entre les deux sont presque toujours instructifs.
+> 💡 **Astuce** : comparez un export de scan de ports ou de flux réseau avec ce que dit le registre. Les écarts entre les deux sont presque toujours instructifs.
+{: .callout .callout-astuce}
 
 ## Rejouer le scénario avec une gouvernance en place
 
@@ -318,17 +328,23 @@ La leçon : le gain ne vient pas d'un meilleur outil, mais du fait que chaque d�
 
 ## Erreurs fréquentes
 
-⚠️ **Acceptation orale ou par omission** → en cas d'incident, personne ne sait qui a décidé ni sur quelle base ; l'organisation perd à la fois en défense et en responsabilité. *Correction* : formulaire d'acceptation signé, avec propriétaire, mesures compensatoires et date d'expiration, enregistré au registre.
+> ⚠️ **Acceptation orale ou par omission** → en cas d'incident, personne ne sait qui a décidé ni sur quelle base ; l'organisation perd à la fois en défense et en responsabilité. *Correction* : formulaire d'acceptation signé, avec propriétaire, mesures compensatoires et date d'expiration, enregistré au registre.
+{: .callout .callout-attention}
 
-⚠️ **Tous les risques « moyens »** → les échelles ne sont pas calibrées et les décisions deviennent arbitraires. *Correction* : relier chaque niveau de gravité à des repères en euros, en jours d'arrêt ou en volume de données, comme dans le tableau plus haut. Une relecture croisée par les métiers fait vite apparaître les incohérences.
+> ⚠️ **Tous les risques « moyens »** → les échelles ne sont pas calibrées et les décisions deviennent arbitraires. *Correction* : relier chaque niveau de gravité à des repères en euros, en jours d'arrêt ou en volume de données, comme dans le tableau plus haut. Une relecture croisée par les métiers fait vite apparaître les incohérences.
+{: .callout .callout-attention}
 
-⚠️ **Registre figé après l'analyse initiale** → il décrit un SI qui n'existe plus. *Correction* : brancher les déclencheurs de réexamen (KEV, incident, changement d'architecture) et mesurer le nombre d'acceptations expirées.
+> ⚠️ **Registre figé après l'analyse initiale** → il décrit un SI qui n'existe plus. *Correction* : brancher les déclencheurs de réexamen (KEV, incident, changement d'architecture) et mesurer le nombre d'acceptations expirées.
+{: .callout .callout-attention}
 
-⚠️ **Mesures compensatoires déclaratives** → « le serveur est isolé » alors que le pare-feu autorise du RDP depuis le LAN. *Correction* : tester la mesure (`nmap` depuis la zone concernée, revue des règles de flux) avant de signer l'acceptation et à chaque revue.
+> ⚠️ **Mesures compensatoires déclaratives** → « le serveur est isolé » alors que le pare-feu autorise du RDP depuis le LAN. *Correction* : tester la mesure (`nmap` depuis la zone concernée, revue des règles de flux) avant de signer l'acceptation et à chaque revue.
+{: .callout .callout-attention}
 
-⚠️ **Confondre transfert et disparition du risque** → l'assurance rembourse en partie des pertes, pas l'arrêt d'activité de neuf jours ni la perte de confiance des clients. *Correction* : traiter le transfert comme un complément, jamais comme l'unique traitement des risques de gravité 4.
+> ⚠️ **Confondre transfert et disparition du risque** → l'assurance rembourse en partie des pertes, pas l'arrêt d'activité de neuf jours ni la perte de confiance des clients. *Correction* : traiter le transfert comme un complément, jamais comme l'unique traitement des risques de gravité 4.
+{: .callout .callout-attention}
 
-⚠️ **Appliquer une méthode complète à tout le SI** → épuisement des équipes, aucun suivi. *Correction* : démarrer par les 3 à 5 événements redoutés les plus graves, puis élargir.
+> ⚠️ **Appliquer une méthode complète à tout le SI** → épuisement des équipes, aucun suivi. *Correction* : démarrer par les 3 à 5 événements redoutés les plus graves, puis élargir.
+{: .callout .callout-attention}
 
 ## Résumé
 

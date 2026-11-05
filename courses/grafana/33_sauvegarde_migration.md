@@ -78,7 +78,8 @@ Le tableau ci-dessous est celui à garder en tête quand on vous dit « on a des
 | Plugins installés | Disque (`/var/lib/grafana/plugins`) | Non |
 | `secret_key` | `grafana.ini` ou secret manager | Non |
 
-⚠️ **Erreur fréquente** : considérer un export JSON comme une sauvegarde. Un export de dashboards est une copie de contenu, utile et à conserver, mais il ne contient ni les utilisateurs, ni l'alerting, ni les identifiants des sources de données. La sauvegarde complète, c'est la base + les fichiers + la clé de chiffrement, prises de façon cohérente.
+> ⚠️ **Erreur fréquente** : considérer un export JSON comme une sauvegarde. Un export de dashboards est une copie de contenu, utile et à conserver, mais il ne contient ni les utilisateurs, ni l'alerting, ni les identifiants des sources de données. La sauvegarde complète, c'est la base + les fichiers + la clé de chiffrement, prises de façon cohérente.
+{: .callout .callout-attention}
 
 Un dernier point de périmètre : restaurer Grafana ne ramène **pas** les métriques de Prometheus ni les logs de Loki. Leur sauvegarde dépend de chaque backend et relève de parcours distincts. Ici, on protège le plan de contrôle et de visualisation.
 
@@ -136,7 +137,8 @@ grafana cli plugins ls > /backup/plugins-$(date +%F).txt
 
 **La `secret_key`.** C'est l'élément qui fait la différence entre une restauration qui marche et une qui fait semblant. Grafana chiffre en base les mots de passe, tokens et autres champs sensibles des Data Sources et des contact points. La clé racine de ce chiffrement dérive de `secret_key` (ou d'un KMS, Key Management Service, si vous l'avez branché). Restaurer la base avec une autre clé donne une instance où les Data Sources existent mais ne peuvent plus s'authentifier.
 
-🧠 **Concept clé** : une sauvegarde de base sans la `secret_key` correspondante est incomplète. Conservez la clé **séparément** de la base (secret manager, coffre), jamais dans le même fichier de sauvegarde, sinon le chiffrement ne protège plus rien. Puis testez : restaurez et vérifiez qu'une Data Source authentifiée répond.
+> 🧠 **Concept clé** : une sauvegarde de base sans la `secret_key` correspondante est incomplète. Conservez la clé **séparément** de la base (secret manager, coffre), jamais dans le même fichier de sauvegarde, sinon le chiffrement ne protège plus rien. Puis testez : restaurez et vérifiez qu'une Data Source authentifiée répond.
+{: .callout .callout-important}
 
 ## Exporter et restaurer des dashboards
 
@@ -166,7 +168,8 @@ curl -sf -H "Authorization: Bearer $GRAFANA_TOKEN" \
 
 La réponse de `/api/dashboards/uid/<UID>` contient deux blocs : `dashboard` (le modèle) et `meta` (dossier, permissions, dates). Gardez les deux : `meta.folderUid` vous dit où replacer le dashboard à la restauration.
 
-💡 **Astuce** : l'interface propose aussi un export JSON avec une option « Export for sharing externally ». Cette option remplace les références de Data Sources par des variables `${DS_...}` demandées à l'import. C'est parfait pour partager un dashboard avec une autre équipe, mais c'est le **mauvais** format pour une sauvegarde : vous perdez les UIDs réels. L'intitulé exact de l'option varie selon la version de l'interface.
+> 💡 **Astuce** : l'interface propose aussi un export JSON avec une option « Export for sharing externally ». Cette option remplace les références de Data Sources par des variables `${DS_...}` demandées à l'import. C'est parfait pour partager un dashboard avec une autre équipe, mais c'est le **mauvais** format pour une sauvegarde : vous perdez les UIDs réels. L'intitulé exact de l'option varie selon la version de l'interface.
+{: .callout .callout-astuce}
 
 ### Réimport
 
@@ -186,7 +189,8 @@ Le dossier cible doit exister avant l'import. Il faut donc restaurer ou provisio
 
 Revenons à notre scénario d'ouverture : pourquoi les dashboards affichaient-ils « Datasource not found » ? Parce qu'un panel ne référence pas sa source par son nom, mais par un **UID** (identifiant unique en chaîne de caractères). Dans le JSON, on trouve par exemple `"datasource": {"type": "prometheus", "uid": "P1809F7CD0C75ACF3"}`. Si vous recréez la Data Source à la main, Grafana génère un nouvel UID aléatoire, et tous les dashboards pointent dans le vide.
 
-🧠 **Concept clé** : l'UID est le contrat entre un dashboard et sa Data Source. Ce qui doit rester stable entre environnements, ce n'est pas le nom affiché mais l'UID. En fixant `uid: prometheus-main` dans le provisioning de chaque environnement (dev, recette, prod), le même JSON de dashboard fonctionne partout, sans réécriture.
+> 🧠 **Concept clé** : l'UID est le contrat entre un dashboard et sa Data Source. Ce qui doit rester stable entre environnements, ce n'est pas le nom affiché mais l'UID. En fixant `uid: prometheus-main` dans le provisioning de chaque environnement (dev, recette, prod), le même JSON de dashboard fonctionne partout, sans réécriture.
+{: .callout .callout-important}
 
 ```yaml
 # provisioning/datasources/prometheus.yaml
@@ -202,7 +206,8 @@ datasources:
 
 Le même raisonnement s'applique aux UIDs de dashboards (stables, donc les liens entre dashboards et les URLs partagées survivent) et aux UIDs de dossiers (utilisés par l'import et par les permissions).
 
-⚠️ **Erreur fréquente** : déployer des Data Sources sans UID fixe, puis constater en migration que les UIDs diffèrent entre dev et prod. Si c'est déjà fait, deux issues : fixer rétroactivement l'UID dans le provisioning (l'ancien UID doit alors être repris tel quel), ou réécrire en masse les références dans les JSON avec `jq` avant import. La première est plus propre, la seconde dépanne.
+> ⚠️ **Erreur fréquente** : déployer des Data Sources sans UID fixe, puis constater en migration que les UIDs diffèrent entre dev et prod. Si c'est déjà fait, deux issues : fixer rétroactivement l'UID dans le provisioning (l'ancien UID doit alors être repris tel quel), ou réécrire en masse les références dans les JSON avec `jq` avant import. La première est plus propre, la seconde dépanne.
+{: .callout .callout-attention}
 
 ## Migrer : deux situations à ne pas mélanger
 

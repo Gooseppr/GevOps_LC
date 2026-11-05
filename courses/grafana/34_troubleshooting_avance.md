@@ -58,7 +58,8 @@ flowchart LR
 
 Une requête de panel suit la chaîne du navigateur jusqu'au backend. Une évaluation d'alerte part du scheduler, passe par le même plugin, puis finit chez un contact point. Chaque flèche peut échouer avec sa propre signature.
 
-🧠 **Concept clé** — Trois questions suffisent pour situer une erreur. Qui a répondu (le proxy, Grafana ou le backend) ? À quel saut la chaîne s'est-elle rompue ? Quel est le message d'origine, avant que Grafana ne l'habille ? Dans une version récente, ce message se trouve presque toujours dans le champ `error=` des logs.
+> 🧠 **Concept clé** — Trois questions suffisent pour situer une erreur. Qui a répondu (le proxy, Grafana ou le backend) ? À quel saut la chaîne s'est-elle rompue ? Quel est le message d'origine, avant que Grafana ne l'habille ? Dans une version récente, ce message se trouve presque toujours dans le champ `error=` des logs.
+{: .callout .callout-important}
 
 Le tableau ci-dessous sert de table de lecture rapide. Les messages exacts varient un peu selon les versions et les backends, mais les familles restent stables.
 
@@ -76,7 +77,8 @@ Le tableau ci-dessous sert de table de lecture rapide. Les messages exacts varie
 | `plugin unavailable`, `plugin not registered` | Grafana : plugin absent ou en échec | Logs `plugin` et `grafana cli plugins ls` |
 | `database is locked` | Base de données de Grafana | Logs et type de base (SQLite ?) |
 
-⚠️ **Erreur fréquente** — Un panel qui affiche *Bad Gateway* ne signifie pas que Grafana est tombé. Sur les data sources en mode serveur, Grafana relaie la requête, donc il joue le rôle de proxy. Un 502 dans un panel veut généralement dire « mon backend ne m'a pas répondu correctement ». Si vous cherchez dans Grafana, vous cherchez au mauvais endroit : le message d'origine, dans les logs, désigne le vrai coupable.
+> ⚠️ **Erreur fréquente** — Un panel qui affiche *Bad Gateway* ne signifie pas que Grafana est tombé. Sur les data sources en mode serveur, Grafana relaie la requête, donc il joue le rôle de proxy. Un 502 dans un panel veut généralement dire « mon backend ne m'a pas répondu correctement ». Si vous cherchez dans Grafana, vous cherchez au mauvais endroit : le message d'origine, dans les logs, désigne le vrai coupable.
+{: .callout .callout-attention}
 
 La distinction 401 / 403 mérite un arrêt, car elle oriente tout le diagnostic. Un **401** signifie que l'identité n'est pas reconnue : token expiré ou révoqué, session perdue, mauvais mot de passe. Un **403** signifie que l'identité est reconnue mais n'a pas le droit. Corriger un 403 en régénérant un token ne changera rien, et corriger un 401 en ajoutant des permissions non plus. Il faut aussi savoir qui parle : le JSON `{"message": ...}` vient de Grafana, alors qu'un texte brut ou un format typique d'un autre produit vient du backend, relayé tel quel.
 
@@ -114,7 +116,8 @@ GF_LOG_FILTERS="ngalert:debug oauth:debug"
 GF_SERVER_ROUTER_LOGGING=true
 ```
 
-💡 **Astuce** — Collectez les logs avant de redémarrer quoi que ce soit. Un redémarrage efface l'état en mémoire et, sur Kubernetes, un pod recréé n'a plus les logs de l'instance précédente. Si le conteneur a déjà redémarré, `kubectl logs <POD> --previous` récupère ceux de l'instance qui a planté.
+> 💡 **Astuce** — Collectez les logs avant de redémarrer quoi que ce soit. Un redémarrage efface l'état en mémoire et, sur Kubernetes, un pod recréé n'a plus les logs de l'instance précédente. Si le conteneur a déjà redémarré, `kubectl logs <POD> --previous` récupère ceux de l'instance qui a planté.
+{: .callout .callout-astuce}
 
 ### Lire une réponse d'API sans se tromper
 
@@ -128,7 +131,8 @@ curl -sS http://<HOST>:3000/api/health
 curl -i -H "Authorization: Bearer <TOKEN>" http://<HOST>:3000/api/datasources
 ```
 
-⚠️ **Erreur fréquente** — `/api/health` répond `ok` quand le serveur HTTP tourne et que la base de données répond. Il ne dit rien des data sources, du scheduler d'alertes ni des contact points. Un contrôle de santé vert n'est donc jamais une réponse à la question « est-ce que mes alertes fonctionnent ? ».
+> ⚠️ **Erreur fréquente** — `/api/health` répond `ok` quand le serveur HTTP tourne et que la base de données répond. Il ne dit rien des data sources, du scheduler d'alertes ni des contact points. Un contrôle de santé vert n'est donc jamais une réponse à la question « est-ce que mes alertes fonctionnent ? ».
+{: .callout .callout-attention}
 
 ## Reproduire hors de Grafana : l'arbre de décision
 
@@ -183,7 +187,8 @@ Le bouton *Save & test* donne un faux sentiment de sécurité : il exécute un t
 
 ### La chaîne de timeouts
 
-🧠 **Concept clé** — Entre le navigateur et le moteur de stockage, plusieurs couches ont chacune leur délai maximum, et c'est la plus courte qui coupe en premier. À titre indicatif, car les valeurs par défaut varient selon version et configuration :
+> 🧠 **Concept clé** — Entre le navigateur et le moteur de stockage, plusieurs couches ont chacune leur délai maximum, et c'est la plus courte qui coupe en premier. À titre indicatif, car les valeurs par défaut varient selon version et configuration :
+{: .callout .callout-important}
 
 | Couche | Réglage typique | Valeur courante |
 |---|---|---|
@@ -211,7 +216,8 @@ Une panne intermittente a presque toujours un motif, et chercher ce motif est pl
 
 ### Le piège : l'interface répond, les alertes peuvent être à l'arrêt
 
-⚠️ **Erreur fréquente** — Une page Grafana accessible ne garantit pas le bon fonctionnement des alertes. L'interface web et le moteur d'alertes sont deux métiers dans le même processus. C'est un restaurant dont la salle est ouverte alors que la cuisine est éteinte : les clients peuvent entrer, personne ne prépare les plats. Le scheduler évalue les règles de son côté, avec ses propres dépendances : la base pour lire les règles, les data sources pour les interroger, puis le routage et les contact points pour notifier. Chaque maillon peut tomber sans que l'interface le laisse paraître. Corriger ce biais demande de ne jamais conclure « les alertes marchent » parce qu'on voit la page.
+> ⚠️ **Erreur fréquente** — Une page Grafana accessible ne garantit pas le bon fonctionnement des alertes. L'interface web et le moteur d'alertes sont deux métiers dans le même processus. C'est un restaurant dont la salle est ouverte alors que la cuisine est éteinte : les clients peuvent entrer, personne ne prépare les plats. Le scheduler évalue les règles de son côté, avec ses propres dépendances : la base pour lire les règles, les data sources pour les interroger, puis le routage et les contact points pour notifier. Chaque maillon peut tomber sans que l'interface le laisse paraître. Corriger ce biais demande de ne jamais conclure « les alertes marchent » parce qu'on voit la page.
+{: .callout .callout-attention}
 
 ### Remonter la chaîne d'une alerte, étape par étape
 
@@ -235,7 +241,8 @@ curl -sS -H "Authorization: Bearer <TOKEN>" \
 
 Si une règle en erreur est détectée, regardez aussi l'alerte spéciale générée par Grafana (`DatasourceError` pour une erreur d'exécution, `DatasourceNoData` pour une absence de données). Elle n'est utile que si une politique de notification la route vers quelqu'un qui la lit.
 
-💡 **Astuce** — Pour tester la chaîne complète de bout en bout, créez une règle volontairement toujours vraie (par exemple `vector(1)` avec un seuil `> 0` sur une data source Prometheus), avec un label dédié comme `team=diag-test`, routée vers un contact point de test. Si la notification arrive, planification, évaluation, routage et livraison fonctionnent. Supprimez la règle ensuite. Le bouton *Test* d'un contact point, lui, ne valide que la dernière étape.
+> 💡 **Astuce** — Pour tester la chaîne complète de bout en bout, créez une règle volontairement toujours vraie (par exemple `vector(1)` avec un seuil `> 0` sur une data source Prometheus), avec un label dédié comme `team=diag-test`, routée vers un contact point de test. Si la notification arrive, planification, évaluation, routage et livraison fonctionnent. Supprimez la règle ensuite. Le bouton *Test* d'un contact point, lui, ne valide que la dernière étape.
+{: .callout .callout-astuce}
 
 ### Les causes classiques
 

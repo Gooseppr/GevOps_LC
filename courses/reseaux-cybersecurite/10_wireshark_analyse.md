@@ -44,7 +44,8 @@ Les outils du module précédent donnent des verdicts : ça répond, ça ne rép
 
 Il ne fait pas de miracle pour autant. Il affiche ce que la carte réseau a vu, à l'endroit où vous l'avez placé et pendant le temps où elle écoutait. Une grande partie du métier consiste à savoir ce que la capture ne montre pas. C'est le piège principal de ce module, on y revient plus bas.
 
-🧠 **Concept fondamental** : une capture n'est pas le réseau, c'est un point de vue sur le réseau. Deux captures prises à deux endroits sur le même flux peuvent raconter deux histoires différentes, et les deux peuvent être exactes.
+> 🧠 **Concept fondamental** : une capture n'est pas le réseau, c'est un point de vue sur le réseau. Deux captures prises à deux endroits sur le même flux peuvent raconter deux histoires différentes, et les deux peuvent être exactes.
+{: .callout .callout-important}
 
 ## Capturer sans se tromper
 
@@ -88,7 +89,8 @@ Le dernier est un classique : si vous capturez sur un serveur en y étant connec
 
 La barre de filtre d'affichage se colore : **verte** si la syntaxe est valide, **rouge** si elle est invalide, **jaune** si elle est valide mais ambiguë. Appuyez sur Entrée seulement quand elle est verte.
 
-💡 **Point clé** : en cas de doute, capturez large puis filtrez à l'affichage. Un filtre de capture trop restrictif ne se rattrape pas, alors qu'un filtre d'affichage se change à volonté.
+> 💡 **Point clé** : en cas de doute, capturez large puis filtrez à l'affichage. Un filtre de capture trop restrictif ne se rattrape pas, alors qu'un filtre d'affichage se change à volonté.
+{: .callout .callout-important}
 
 ### ⚠️ Une capture incomplète conduit à une mauvaise conclusion
 
@@ -121,7 +123,8 @@ Pour lire une conversation plutôt qu'un paquet isolé, trois outils sont à con
 
 L'affichage par défaut du temps est en secondes depuis le début de la capture. Pour mesurer un délai entre deux paquets d'une même conversation, le plus rapide est d'ajouter la colonne « temps depuis le paquet précédent affiché », ou de lire les écarts à la main.
 
-🧠 **Concept fondamental** : Wireshark ne se contente pas de décoder, il interprète. Des mentions comme `TCP Retransmission` ou `TCP Previous segment not captured` ne sont pas dans le paquet, elles sont déduites par Wireshark en comparant ce qu'il a vu avant. Ces déductions dépendent donc entièrement de la qualité de la capture.
+> 🧠 **Concept fondamental** : Wireshark ne se contente pas de décoder, il interprète. Des mentions comme `TCP Retransmission` ou `TCP Previous segment not captured` ne sont pas dans le paquet, elles sont déduites par Wireshark en comparant ce qu'il a vu avant. Ces déductions dépendent donc entièrement de la qualité de la capture.
+{: .callout .callout-important}
 
 ## Les protocoles du quotidien dans une capture
 
@@ -139,7 +142,8 @@ Deux remarques pratiques :
 - **ARP est local.** Si un poste n'obtient aucune réponse ARP pour sa passerelle, le problème est au niveau 2, et aucun diagnostic de niveau supérieur n'a de sens.
 - **DNS précède presque tout.** Quand une application « ne se connecte pas », regardez d'abord si le nom a été résolu. Une capture où le premier paquet est déjà un SYN vers une IP peut cacher un cache DNS ou un fichier `hosts`.
 
-⚠️ **Comportement contre-intuitif** : HTTP en clair est lisible en entier, y compris les identifiants envoyés dans un formulaire. C'est utile en laboratoire pour comprendre, et c'est aussi la raison pour laquelle il ne faut plus l'utiliser pour des échanges sensibles. Si vous capturez du trafic réel, traitez le fichier comme un document confidentiel.
+> ⚠️ **Comportement contre-intuitif** : HTTP en clair est lisible en entier, y compris les identifiants envoyés dans un formulaire. C'est utile en laboratoire pour comprendre, et c'est aussi la raison pour laquelle il ne faut plus l'utiliser pour des échanges sensibles. Si vous capturez du trafic réel, traitez le fichier comme un document confidentiel.
+{: .callout .callout-attention}
 
 ## TCP sous la loupe
 
@@ -172,7 +176,8 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0
 
 Dans le détail de chaque paquet, regardez aussi les options TCP : la taille maximale de segment (MSS) et la taille de fenêtre y sont annoncées.
 
-💡 **Point clé** : sur une capture côté client, l'écart entre le SYN et le SYN ACK donne une bonne estimation du RTT (Round-Trip Time), le temps d'un aller-retour réseau entre les deux machines. Côté serveur, cet écart reflète le traitement local : lisez plutôt l'écart entre le SYN ACK et le ACK. Vous obtenez une mesure de latence sans outil dédié.
+> 💡 **Point clé** : sur une capture côté client, l'écart entre le SYN et le SYN ACK donne une bonne estimation du RTT (Round-Trip Time), le temps d'un aller-retour réseau entre les deux machines. Côté serveur, cet écart reflète le traitement local : lisez plutôt l'écart entre le SYN ACK et le ACK. Vous obtenez une mesure de latence sans outil dédié.
+{: .callout .callout-important}
 
 ### Silence ou RST : deux échecs, deux causes
 
@@ -199,7 +204,8 @@ tcp.analysis.flags && !tcp.analysis.window_update
 
 Quelques retransmissions sont normales sur un lien Wi-Fi ou un lien chargé. Ce qui doit alerter, c'est leur proportion, leur regroupement dans le temps, et leur concentration sur un seul flux.
 
-⚠️ **Comportement contre-intuitif** : le même incident s'étiquette différemment selon l'endroit de capture. Si un paquet est perdu *avant* le point de capture, Wireshark verra un `Previous segment not captured` puis l'arrivée tardive d'une retransmission. S'il est perdu *après*, il verra la retransmission de l'émetteur sans comprendre pourquoi.
+> ⚠️ **Comportement contre-intuitif** : le même incident s'étiquette différemment selon l'endroit de capture. Si un paquet est perdu *avant* le point de capture, Wireshark verra un `Previous segment not captured` puis l'arrivée tardive d'une retransmission. S'il est perdu *après*, il verra la retransmission de l'émetteur sans comprendre pourquoi.
+{: .callout .callout-attention}
 
 Pour les RST, la question à se poser est : qui l'envoie, et à quel moment ?
 
@@ -207,7 +213,8 @@ Pour les RST, la question à se poser est : qui l'envoie, et à quel moment ?
 - Au milieu d'un échange : application plantée, délai d'inactivité dépassé ou équipement intermédiaire qui coupe la session.
 - À la place d'un FIN : certaines applications ferment brutalement, ce qui n'est pas forcément une anomalie.
 
-💡 **Point clé** : un RST dont le TTL IP diffère de celui des autres paquets du même serveur suggère qu'il vient d'un équipement intermédiaire plutôt que du serveur lui-même.
+> 💡 **Point clé** : un RST dont le TTL IP diffère de celui des autres paquets du même serveur suggère qu'il vient d'un équipement intermédiaire plutôt que du serveur lui-même.
+{: .callout .callout-important}
 
 Voici la démarche complète d'un diagnostic avec Wireshark :
 
@@ -238,7 +245,8 @@ Le serveur répond avec un **Server Hello**, qui fixe la version et la suite ret
 
 En cas d'échec, cherchez les alertes avec `tls.alert_message`. Un `handshake_failure` ou une alerte liée au certificat indique où la négociation s'est cassée, sans qu'on ait besoin de déchiffrer quoi que ce soit.
 
-⚠️ **Comportement contre-intuitif** : le SNI est lisible parce qu'il est envoyé avant que le chiffrement soit en place. Une capture réseau permet donc de savoir quels sites ont été contactés, même en HTTPS. Certaines évolutions (comme ECH, Encrypted Client Hello) visent à le masquer, mais leur déploiement reste partiel.
+> ⚠️ **Comportement contre-intuitif** : le SNI est lisible parce qu'il est envoyé avant que le chiffrement soit en place. Une capture réseau permet donc de savoir quels sites ont été contactés, même en HTTPS. Certaines évolutions (comme ECH, Encrypted Client Hello) visent à le masquer, mais leur déploiement reste partiel.
+{: .callout .callout-attention}
 
 Pour lire le contenu d'une session TLS, il faut les clés de session, que certains navigateurs peuvent exporter dans un fichier via la variable `SSLKEYLOGFILE`. C'est un outil de laboratoire à réserver à vos propres tests.
 
@@ -284,7 +292,8 @@ Il arrive qu'une capture doive être partagée avec un collègue, un prestataire
 
 Wireshark ne propose pas d'anonymisation complète en natif. Il faut passer par des outils tiers dédiés (par exemple TraceWrangler) ou réécrire les paquets avec les utilitaires de la suite tcpreplay, puis **rouvrir le résultat et vérifier**.
 
-⚠️ **Piège** : une capture « anonymisée » mais où le nom du serveur reste visible dans le SNI ou le DNS permet encore d'identifier l'organisation. Relisez toujours le fichier produit avant de l'envoyer.
+> ⚠️ **Piège** : une capture « anonymisée » mais où le nom du serveur reste visible dans le SNI ou le DNS permet encore d'identifier l'organisation. Relisez toujours le fichier produit avant de l'envoyer.
+{: .callout .callout-attention}
 
 Enfin, les adresses IP peuvent constituer des données personnelles, et capturer le trafic d'autres personnes suppose une autorisation. Capturez uniquement sur des réseaux dont vous avez la responsabilité ou pour lesquels vous avez un accord écrit.
 
