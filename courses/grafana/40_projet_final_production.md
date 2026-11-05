@@ -337,9 +337,9 @@ Pour chaque règle, décidez explicitement ce que signifie l'absence de données
 
 C'est le seul moyen de savoir que **Grafana lui-même** ne notifie plus : un système de supervision ne peut pas s'alerter de sa propre mort.
 
-> 🚆 **Analogie : le dispositif de l'homme mort**
+> 🏛️ **Analogie : la ronde du gardien**
 >
-> Dans un train, le conducteur doit actionner régulièrement une commande. S'il cesse, le train freine automatiquement. Ici aussi, c'est l'absence de signal qui déclenche la réaction, pas un message d'erreur. Limite de l'image : le service externe se contente de prévenir, il n'arrête ni ne répare rien.
+> Le gardien signale sa ronde à heure fixe. Si le signal cesse, on envoie quelqu'un : c'est l'absence de signal qui déclenche la réaction, pas un message d'erreur. Limite de l'image : le service externe se contente de prévenir, il ne répare rien.
 {: .callout .callout-analogie}
 
 **Le routage.** Il s'appuie sur les labels portés par les règles : `severity` et `service` au minimum. Les alertes critiques vont vers l'astreinte, les autres vers le canal d'équipe, avec regroupement par service pour éviter vingt messages pour une seule panne.

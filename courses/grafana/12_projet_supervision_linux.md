@@ -310,10 +310,10 @@ node_load1{instance=~"$instance"} / on(instance) count by (instance) (node_cpu_s
 
 Un load average brut ne veut rien dire sans le nombre de cœurs : 4 est normal sur 8 cœurs et catastrophique sur 1. Divisé par le nombre de cœurs, une valeur durablement supérieure à 1 signale que des processus font la queue pour le processeur.
 
-> 🛒 **Analogie : les caisses d'un supermarché**
+> 💡 **À retenir**
 >
-> Le load average compte les clients en caisse ou dans la file. Huit clients pour huit caisses, tout va bien. Huit clients pour une seule caisse, la file s'allonge. Limite : sous Linux, le load compte aussi les processus bloqués en attente du disque, qui ne réclament pas le processeur.
-{: .callout .callout-analogie}
+> Le load average compte les processus en cours d'exécution ou en attente. Une charge de 8 reste normale sur 8 cœurs, mais signale une file d'attente sur un seul. Sous Linux, il compte aussi les processus bloqués en attente du disque, qui ne réclament pas le processeur.
+{: .callout .callout-important}
 
 ## Rendre le dashboard réutilisable avec une variable
 

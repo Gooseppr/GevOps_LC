@@ -47,9 +47,9 @@ La duplication ne tient plus. Chaque nouveau cluster multiplie le travail de mai
 
 Sur un seul cluster, `http_requests_total{service="checkout"}` suffit pour identifier une série. Dès qu'il y a plusieurs clusters, la même métrique existe plusieurs fois, avec les mêmes noms de service et les mêmes valeurs possibles de `status`. La seule chose qui les distingue est la réponse à la question « où ? ».
 
-> 📮 **Analogie : l'adresse postale**
+> 🏛️ **Analogie : l'adresse d'un bureau**
 >
-> « 12 rue de la Paix » ne dit rien tant qu'on n'a pas la ville et le pays. Les labels `environment`, `cluster` et `region` jouent ce rôle pour vos séries temporelles. Sans eux, soit vous confondez des données qui n'ont rien à voir, soit vous êtes incapable de les retrouver.
+> « Bureau 12 » ne dit rien tant qu'on ignore le bâtiment et la ville. Les labels `environment`, `cluster` et `region` jouent ce rôle pour vos séries temporelles. Sans eux, soit vous confondez des données qui n'ont rien à voir, soit vous êtes incapable de les retrouver.
 {: .callout .callout-analogie}
 
 Ce module repose donc sur une idée simple : **les dimensions d'infrastructure sont un contrat**, posé à la collecte et respecté par tous les signaux. Les dashboards, les alertes et les permissions s'appuient ensuite dessus. Si le contrat est flou, rien ne marche correctement, quelle que soit la qualité des dashboards.

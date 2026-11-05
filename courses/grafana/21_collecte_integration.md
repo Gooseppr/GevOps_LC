@@ -167,10 +167,20 @@ Avec huit machines, installer Node Exporter, Promtail ou un équivalent pour les
 
 Sa logique repose sur des **composants** que l'on chaîne entre eux. Chaque composant a une entrée et une sortie, et on connecte les sorties aux entrées avec `forward_to`.
 
-> 🔧 **Analogie : un jeu de tuyaux**
->
-> Une source, éventuellement des filtres au milieu, puis un puits ; `forward_to` joue le rôle du raccord. Limite de l'image : `forward_to` accepte une liste, donc une sortie peut alimenter plusieurs destinations à la fois.
-{: .callout .callout-analogie}
+```mermaid
+flowchart LR
+    S["Source<br/>prometheus.exporter.unix"] --> C["Collecte<br/>prometheus.scrape"]
+    C -->|forward_to| R["Sortie<br/>prometheus.remote_write"]
+    C -.->|forward_to accepte une liste| D["Autre sortie, si besoin"]
+    classDef source fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef traitement fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef stockage fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    class S source
+    class C traitement
+    class R,D stockage
+```
+
+Chaque composant reçoit d'un autre et transmet au suivant : `forward_to` est le raccord entre eux, et la configuration ci-dessous décrit exactement cette chaîne.
 
 ```alloy
 // Métriques de l'hôte, sans installer Node Exporter séparément

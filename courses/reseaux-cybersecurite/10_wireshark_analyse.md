@@ -72,9 +72,9 @@ Capturer ailleurs est plus délicat. Sur un réseau commuté, une machine ne re�
 
 Ces deux filtres ne se ressemblent ni par la syntaxe ni par la portée.
 
-> 🎥 **Analogie : le tournage et le montage**
+> 📮 **Analogie : la photocopie du courrier**
 >
-> Le filtre de capture, c'est le cadrage au tournage : ce qui reste hors champ n'est jamais filmé. Le filtre d'affichage, c'est le montage : vous choisissez ce que vous montrez, mais les rushes restent intacts.
+> Un filtre de capture, c'est ne photocopier que le courrier pour Lyon : le reste n'est jamais conservé. Un filtre d'affichage, c'est tout photocopier, puis ne sortir du classeur que les lettres pour Lyon : le reste reste disponible.
 {: .callout .callout-analogie}
 
 | | Filtre de capture | Filtre d'affichage |
@@ -169,11 +169,6 @@ Deux remarques pratiques :
 ### Le three-way handshake
 
 Avant d'échanger des données, un client et un serveur TCP se mettent d'accord en trois paquets.
-
-> 📞 **Analogie : le début d'un appel**
->
-> « Vous m'entendez ? » (SYN), « Oui, et vous, vous m'entendez ? » (SYN ACK), « Oui » (ACK) : la conversation peut commencer. Limite de l'image : chaque côté annonce aussi son numéro de séquence initial, ce que l'appel ne montre pas.
-{: .callout .callout-analogie}
 
 Les indicateurs (flags) de l'en-tête TCP les identifient :
 

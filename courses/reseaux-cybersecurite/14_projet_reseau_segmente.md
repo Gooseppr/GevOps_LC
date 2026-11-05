@@ -48,11 +48,6 @@ Le projet synthétise tout le niveau 1 : adressage, VLAN, routage, services de b
 
 Avant de toucher une machine, traduisez le besoin en décisions. La demande de la direction se découpe naturellement en quatre populations qui n'ont pas les mêmes droits : le personnel, le serveur, les visiteurs et les administrateurs. Quatre populations, quatre segments.
 
-> 🏢 **Analogie : le VLAN comme étage d'immeuble**
->
-> Tout le monde sur le palier se croise librement, mais pour changer d'étage il faut passer par un point de contrôle, ici le routeur-pare-feu. Limite : ce qui se passe sur le palier échappe à ce point de contrôle.
-{: .callout .callout-analogie}
-
 Voici le plan retenu :
 
 | VLAN | Nom | Réseau | Passerelle | Adressage | Usage |

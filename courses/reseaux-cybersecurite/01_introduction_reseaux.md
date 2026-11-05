@@ -108,9 +108,9 @@ Voici les acteurs du réseau de l'agence, du plus simple au plus structurant.
 
 La confusion la plus courante concerne le commutateur et le routeur.
 
-> 🏢 **Analogie : l'immeuble et la rue**
+> 📮 **Analogie : le facteur et le centre de tri**
 >
-> Le commutateur est le **standard téléphonique d'un immeuble**, qui met en relation les gens à l'intérieur. Le routeur est la **sortie vers la rue**, qui sait vers quelle ville orienter chaque courrier. L'un fait communiquer les machines d'un même réseau, l'autre fait communiquer des réseaux entre eux.
+> Le commutateur est le facteur du quartier : il distribue le courrier entre les maisons d'un même quartier. Le routeur est le centre de tri : il oriente le courrier vers les autres villes. L'un fait communiquer les machines d'un même réseau, l'autre fait communiquer des réseaux entre eux.
 {: .callout .callout-analogie}
 
 Nous préciserons la mécanique dans les modules sur l'adressage et le routage.

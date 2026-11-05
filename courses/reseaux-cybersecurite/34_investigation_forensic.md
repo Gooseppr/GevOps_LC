@@ -87,9 +87,9 @@ Qu'est-ce qui donne de la valeur à une preuve numérique ? Il faut pouvoir dém
 - elle est **intègre** : elle n'a pas changé depuis la collecte ;
 - elle est **traçable** : on sait qui l'a eue, quand, et pourquoi.
 
-> 📦 **Analogie : le colis recommandé**
+> 🔍 **Analogie : le scellé**
 >
-> Chaque remise du colis est signée et datée, ce qui retrace tout son parcours. Limite : la signature ne dit rien du contenu. En forensic, c'est le hash revérifié à chaque transfert qui prouve que la preuve n'a pas changé.
+> Chaque remise d'un scellé est signée et datée, ce qui retrace tout son parcours. Limite de l'image : la signature ne dit rien du contenu. En forensic, c'est le hash revérifié à chaque transfert qui prouve que la preuve n'a pas changé.
 {: .callout .callout-analogie}
 
 Les cadres de référence sont la RFC 3227 (collecte et archivage des preuves), la norme ISO/IEC 27037 (identification, collecte, acquisition, préservation) et le NIST SP 800-86 (intégration du forensic dans la réponse à incident).
@@ -131,9 +131,9 @@ transfers:
 
 Les données ne disparaissent pas toutes à la même vitesse.
 
-> ❄️ **Analogie : la scène de crime sous la neige**
+> 🔍 **Analogie : la scène de crime sous la pluie**
 >
-> Un enquêteur photographie d'abord les empreintes de pas qui fondent, avant de relever les objets qui ne bougeront pas. Ici, la RAM est la neige et le disque l'objet. Limite : contrairement à l'objet, le disque peut être modifié par chaque geste de l'enquêteur.
+> L'enquêteur relève d'abord les empreintes que la pluie va effacer, avant les objets qui ne bougeront pas. Ici, la RAM joue le rôle des empreintes et le disque celui des objets. Limite de l'image : contrairement à un objet, le disque peut être modifié par chaque geste de l'enquêteur.
 {: .callout .callout-analogie}
 
 La RFC 3227 propose donc de collecter dans l'ordre décroissant de volatilité :

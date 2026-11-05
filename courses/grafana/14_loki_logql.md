@@ -303,10 +303,10 @@ count_over_time({service="demo-api"} | json | level="error" [5m])
 rate({service="demo-api"} | json | level="error" [5m])
 ```
 
-> 🚗 **Analogie : compteur et vitesse**
+> 📝 **Note**
 >
-> `count_over_time` fonctionne comme un compteur de passages : il donne un total pour la fenêtre. `rate` fonctionne comme une vitesse : il divise ce total par la durée en secondes.
-{: .callout .callout-analogie}
+> `count_over_time` donne un total pour la fenêtre. `rate` divise ce total par la durée de la fenêtre en secondes.
+{: .callout .callout-note}
 
 Pour un dashboard où l'on veut comparer des périodes de longueur différente, `rate` est plus stable. Pour un message « il y a eu 37 erreurs en 5 minutes », `count_over_time` est plus parlant.
 

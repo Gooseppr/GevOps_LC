@@ -120,11 +120,6 @@ Chaque côté tire son numéro de départ au hasard, ce qui complique l'injectio
 
 Chaque octet est numéroté. Le récepteur annonce le prochain numéro attendu, ce qui confirme tout ce qui précède.
 
-> 📚 **Analogie : les pages numérotées**
->
-> Dire « j'attends la page 21 », c'est confirmer d'un coup la réception des pages 1 à 20. Limite de l'image : TCP numérote des octets, pas des messages entiers.
-{: .callout .callout-analogie}
-
 ```mermaid
 sequenceDiagram
     participant E as Émetteur

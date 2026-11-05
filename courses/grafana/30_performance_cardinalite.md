@@ -250,9 +250,9 @@ Attention, `labeldrop` peut fusionner deux séries qui ne différaient que par c
 
 Quand une requête est coûteuse et consultée à répétition (par un dashboard, plusieurs utilisateurs, des alertes), il vaut mieux que Prometheus la calcule à intervalle régulier et stocke le résultat comme une nouvelle série. Les panels lisent alors cette série, légère, au lieu de réévaluer l'expression.
 
-> 🍳 **Analogie : la mise en place en cuisine**
+> 🏛️ **Analogie : la fiche préparée aux archives**
 >
-> Un restaurant prépare ses sauces avant le service au lieu de les refaire à chaque commande. La recording rule fait de même : le calcul est fait à l'avance, et la lecture devient immédiate. La limite de l'image : une préparation faite d'avance ne s'adapte plus à chaque demande, comme le précise le compromis décrit plus bas.
+> Les archivistes préparent à l'avance la fiche la plus demandée au lieu de refaire la recherche à chaque visite. La recording rule fait de même : le calcul est fait à l'avance, et la lecture devient immédiate. Limite de l'image : une fiche préparée ne s'adapte plus à chaque demande, comme le précise le compromis décrit plus bas.
 {: .callout .callout-analogie}
 
 ```yaml

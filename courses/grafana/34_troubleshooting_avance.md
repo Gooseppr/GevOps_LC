@@ -44,9 +44,9 @@ Comment la trouver ? Il faut une méthode : savoir quelle couche répond, laquel
 
 ## Une requête, plusieurs endroits où elle peut casser
 
-> ☎️ **Analogie : le standardiste**
+> 🏛️ **Analogie : le guichet, le couloir et les archives**
 >
-> Grafana joue le rôle d'un standardiste. Quand la communication est mauvaise, il faut savoir si le problème vient de lui, de la ligne (le réseau) ou de l'interlocuteur (le backend). Beaucoup de tickets « Grafana est cassé » sont en réalité des problèmes de ligne ou d'interlocuteur. Limite de l'image : ce standardiste a aussi ses propres tâches, comme les alertes ou sa base, qui peuvent tomber sans couper la ligne.
+> Grafana est le guichet. Quand la réponse est mauvaise, il faut savoir si le problème vient du guichet, du couloir (le réseau) ou des archives (le backend). Beaucoup de tickets « Grafana est cassé » viennent en réalité du couloir ou des archives. Limite de l'image : ce guichet a aussi ses propres tâches, comme les alertes ou sa base, qui peuvent tomber sans couper le couloir.
 {: .callout .callout-analogie}
 
 ```mermaid

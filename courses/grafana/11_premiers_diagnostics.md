@@ -62,11 +62,6 @@ flowchart LR
     B --> E[Panel affiché]
 ```
 
-> 📦 **Analogie : le colis et ses relais**
->
-> Une requête voyage comme un colis qui passe par plusieurs relais : s'il n'arrive pas, il faut savoir à quel relais il s'est arrêté. Limite : la réponse refait le chemin en sens inverse, et la panne peut survenir à l'aller comme au retour.
-{: .callout .callout-analogie}
-
 Cette chaîne donne quatre zones de panne possibles :
 
 - **Le navigateur / l'interface** : mauvaise période, variable mal positionnée, fuseau horaire.

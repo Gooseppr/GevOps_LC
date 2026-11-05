@@ -96,9 +96,9 @@ Le **duplex** décrit la façon d'utiliser le lien :
 
 *\*CSMA/CD : avant d'émettre, une station écoute le câble, et si deux stations parlent en même temps, elles détectent la collision, s'arrêtent et réessaient après un délai aléatoire.*
 
-> 📞 **Analogie : téléphone et talkie-walkie**
+> 🚚 **Analogie : les camions postaux sur la route**
 >
-> Le full duplex ressemble à un appel téléphonique : les deux interlocuteurs peuvent parler en même temps. Le half duplex ressemble à un talkie-walkie : un seul parle à la fois, et si les deux appuient ensemble, les messages se brouillent, comme lors d'une collision.
+> Le full duplex ressemble à une route à deux voies : les camions se croisent sans se gêner. Le half duplex ressemble à un pont à voie unique : un seul sens à la fois, et si deux camions s'y engagent ensemble, c'est la collision.
 {: .callout .callout-analogie}
 
 Avec des switches modernes et des liens full duplex, les collisions n'existent plus en pratique. Le half duplex ne subsiste que dans les mauvaises configurations, et on verra plus bas ce que cela donne.

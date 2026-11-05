@@ -44,11 +44,6 @@ Chaque équipe regarde son service et celui-ci va bien. Le problème se trouve e
 
 Dans un monolithe, un appel lent se voit dans un profil ou dans un log unique. Dans une architecture distribuée, c'est moins simple.
 
-> 🏃 **Analogie : la course de relais**
->
-> Une requête utilisateur est un relais : le gateway passe le témoin à checkout, qui le passe à payments, qui le passe à un prestataire externe. Le temps total est la somme des relais, plus les temps de passage de témoin. Chaque coureur peut avoir d'excellentes statistiques pendant que l'équipe perd la course dans les transmissions. Limite de l'image : ici, un coureur attend souvent le retour du suivant, et certains appels partent en parallèle.
-{: .callout .callout-analogie}
-
 ```mermaid
 flowchart LR
     C[Client] --> GW[Gateway]

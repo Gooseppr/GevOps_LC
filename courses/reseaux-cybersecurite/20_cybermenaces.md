@@ -144,11 +144,6 @@ L'ARP spoofing se produit sur un réseau local, entre l'attaquant et sa cible. L
 
 L'ARP (Address Resolution Protocol) n'a aucun mécanisme d'authentification. Sur un réseau local, n'importe quel hôte peut envoyer une réponse ARP non sollicitée (`ARP reply`) annonçant que l'IP de la passerelle correspond à sa propre adresse MAC. Les machines voisines mettent à jour leur cache ARP sans vérification.
 
-> 📮 **Analogie : la fausse étiquette**
->
-> C'est comme si quelqu'un collait sur la boîte aux lettres de la passerelle une étiquette « courrier à déposer chez moi ». Les voisins le croient sur parole. Limite : cette tromperie ne fonctionne que sur le réseau local, là où circulent les messages ARP.
-{: .callout .callout-analogie}
-
 Résultat : tout le trafic destiné à la passerelle passe désormais par l'attaquant. Outil typique : **arpspoof** (dsniff), **Ettercap**, **Bettercap**.
 
 ```

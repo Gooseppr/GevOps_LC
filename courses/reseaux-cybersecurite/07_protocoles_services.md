@@ -58,11 +58,6 @@ Un détail utile pour la suite : le choix du transport n'est pas anodin. DNS et 
 
 Les humains retiennent `www.example.com`, les machines n'acheminent que des adresses IP. DNS fait la traduction, par délégation.
 
-> 📒 **Analogie : un annuaire en plusieurs volumes**
->
-> Imaginez un annuaire d'entreprise qui n'existerait pas en un seul volume. Un standard renvoie vers le bon site, le site renvoie vers le bon service, et le service connaît le numéro du collègue.
-{: .callout .callout-analogie}
-
 Un nom se lit de droite à gauche. Dans `www.example.com.`, le point final représente la racine, `com` est le domaine de premier niveau, `example` est le domaine de l'organisation et `www` désigne une machine de ce domaine. À chaque niveau correspond un ensemble de serveurs qui ne connaissent que leur niveau et savent vers qui renvoyer.
 
 Un poste ne fait presque jamais ce parcours lui-même. Il interroge un **résolveur récursif** (celui du fournisseur d'accès, de l'entreprise ou un service public), qui fait le travail à sa place :

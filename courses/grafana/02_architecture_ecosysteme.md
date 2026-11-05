@@ -40,13 +40,13 @@ Trois semaines plus tard, un lundi matin, l'écran est vide. Le premier réflexe
 
 Ces trois questions ont la même racine : personne dans l'équipe n'a de représentation claire de ce qui vit où. Tant qu'on traite Grafana comme une boîte noire qui « fait du monitoring », on cherche les pannes au mauvais endroit, on sauvegarde la mauvaise chose et on dimensionne au hasard. Ce module construit la carte mentale qui manquait.
 
-## Grafana est un navigateur de télémétrie, pas un entrepôt
+## Grafana est un tableau de bord, pas un entrepôt
 
-Voici l'analogie qui sert pour tout le reste du parcours.
+Voici l'image qui revient dans les fondations de ce parcours.
 
-> 🌐 **Analogie : le navigateur Web**
+> 🚗 **Analogie : le tableau de bord d'une voiture**
 >
-> Un navigateur Web n'héberge aucun site : il va chercher des pages chez des serveurs, les met en forme et vous les présente. Si un site est en panne, vous ne dites pas que Firefox est cassé. Grafana tient exactement ce rôle vis-à-vis de vos métriques, logs et traces : il interroge des systèmes qui détiennent les données et en fait quelque chose de lisible. Limite de l'image : Grafana évalue aussi lui-même des règles d'alerte, côté serveur.
+> Le tableau de bord ne produit ni la vitesse ni la température : il affiche ce que mesurent les capteurs. Si un capteur lâche, le tableau de bord n'y est pour rien. Grafana tient ce rôle pour vos métriques, logs et traces : il interroge les systèmes qui détiennent les données et les rend lisibles. Limite de l'image : Grafana évalue aussi lui-même des règles d'alerte, côté serveur.
 {: .callout .callout-analogie}
 
 > 🧠 **Concept clé**

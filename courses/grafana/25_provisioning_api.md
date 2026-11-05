@@ -223,10 +223,10 @@ Un dashboard exporté fait vite plusieurs milliers de lignes, mais seuls quelque
 - **`version`** est un compteur que Grafana incrémente à chaque sauvegarde dans sa base. Il sert à détecter les modifications concurrentes (nous y reviendrons avec l'API). Dans un fichier provisionné, Git est votre historique ; ne cherchez pas à tenir ce champ à jour à la main.
 - **`schemaVersion`** indique le format du JSON. Grafana migre automatiquement les anciens schémas à l'ouverture. Les versions récentes introduisent aussi de nouveaux formats de dashboard ; le détail varie selon la version installée.
 
-> 🪪 **Analogie : ticket d'attente et numéro de passeport**
+> 💡 **À retenir**
 >
-> L'`id` ressemble à un ticket d'attente : il n'a de sens qu'au guichet qui l'a émis. L'`uid` ressemble à un numéro de passeport : il vous suit d'une instance à l'autre. Limite : contrairement à un passeport, c'est vous qui choisissez l'UID. Rien n'empêche de le changer, mais cela casse tous les liens qui pointaient vers l'ancien.
-{: .callout .callout-analogie}
+> L'`id` n'a de sens que dans l'instance qui l'a créé. L'`uid` suit le dashboard d'une instance à l'autre : c'est vous qui le choisissez, et le changer casse tous les liens qui pointaient vers l'ancien.
+{: .callout .callout-important}
 
 > ⚠️ **Erreur fréquente**
 >

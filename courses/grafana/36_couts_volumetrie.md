@@ -79,11 +79,6 @@ Le nombre total de séries est le **produit** du nombre de valeurs possibles de 
 > Une série temporelle, c'est une métrique + une combinaison unique de labels.
 {: .callout .callout-definition}
 
-> 📒 **Analogie : l'annuaire**
->
-> Ajouter un critère de classement ne rajoute pas quelques pages, il multiplie le nombre de rubriques.
-{: .callout .callout-analogie}
-
 Prenons un histogramme de latence HTTP typique :
 
 - 12 buckets + `_sum` + `_count` = 14 séries par combinaison

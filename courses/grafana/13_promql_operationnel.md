@@ -159,10 +159,19 @@ L'opérateur `or` garde toutes les séries de gauche, puis ajoute celles de droi
 
 Quand vous écrivez `A / B`, `A * B` ou `A > B` avec deux vecteurs, quelle série de gauche rencontre quelle série de droite ? C'est à Prometheus de le décider.
 
-> 📇 **Analogie : fusionner deux annuaires**
->
-> Pour fusionner deux listes de personnes, il faut un critère de rapprochement, sinon on ne sait pas qui apparier. Pour les séries, ce critère, ce sont les labels.
-{: .callout .callout-analogie}
+```mermaid
+flowchart LR
+    A["Gauche : erreurs, instance=web-01"] --> T{"Mêmes labels ?"}
+    B["Droite : total, instance=web-01"] --> T
+    T -->|oui| R["Résultat : une série web-01"]
+    C["Droite : total, instance=web-02"] -.->|aucun partenaire à gauche| X["Absente du résultat"]
+    classDef traitement fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef alerte fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class R traitement
+    class X alerte
+```
+
+Ce schéma montre le point clé : une série sans partenaire exact ne produit aucune erreur, elle disparaît simplement du résultat.
 
 **La règle par défaut** : deux séries se correspondent si elles ont **exactement les mêmes labels**, le nom de métrique étant ignoré. C'est une correspondance one-to-one. Elle fonctionne quand les deux côtés ont la même forme, comme `node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes`.
 

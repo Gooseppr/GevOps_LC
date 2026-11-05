@@ -151,9 +151,9 @@ Sous la requête, trois options reviennent tout le temps :
 - **Min step** : intervalle minimum entre deux points. Si vous forcez 5 s alors que Prometheus scrape toutes les 30 s, vous demandez des points qui n'existent pas.
 - **Type** : Range pour les courbes, Instant pour les valeurs courantes (tables, bar charts), Both pour les deux.
 
-> 🎞️ **Analogie : le film et la photo**
+> 🚗 **Analogie : le compteur et l'enregistreur de trajet**
 >
-> Une requête Range est un film : une suite de points sur la plage de temps, faite pour une courbe. Une requête Instant est une photo : une seule valeur par série, faite pour un tableau ou un classement. Limite de l'image : la « photo » reprend la dernière valeur disponible dans les minutes précédentes, pas forcément une mesure prise à la seconde exacte.
+> Une requête Instant lit le compteur : une seule valeur par série, faite pour un tableau ou un classement. Une requête Range consulte l'enregistreur de trajet : une suite de points sur la plage de temps, faite pour une courbe. Limite de l'image : la lecture Instant reprend la dernière valeur disponible dans les minutes précédentes, pas forcément une mesure prise à la seconde exacte.
 {: .callout .callout-analogie}
 
 Un panel peut contenir plusieurs requêtes (A, B, C…). C'est utile pour superposer, par exemple, le trafic entrant et sortant sur le même graphique.

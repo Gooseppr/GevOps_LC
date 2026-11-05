@@ -42,11 +42,6 @@ Vous avez devant vous une dizaine de causes possibles : câble débranché, pass
 
 Le diagnostic réseau fonctionne pareil. Chaque outil de ce module répond à une question précise :
 
-> 🩺 **Analogie : le médecin**
->
-> Un médecin ne prescrit pas un scanner à chaque patient. Il part des symptômes, fait des examens simples et élimine les hypothèses jusqu'à isoler la cause.
-{: .callout .callout-analogie}
-
 | Question | Outil principal |
 |---|---|
 | Ma machine a-t-elle une adresse et une route valides ? | `ip addr`, `ip route` |

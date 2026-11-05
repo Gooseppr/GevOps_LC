@@ -205,11 +205,6 @@ Si deux versions coexistent dans la fenêtre, c'est un déploiement progressif, 
 > Le composant où le symptôme *apparaît* n'est presque jamais celui où il *naît*. Dans une architecture distribuée, la lenteur se propage : un service lent à l'aval fait attendre tous ceux qui l'appellent, ce qui sature leurs threads, puis leurs files, puis leurs propres appelants.
 {: .callout .callout-important}
 
-> 🛒 **Analogie : la file d'attente au supermarché**
->
-> Toute la file de la caisse 3 se plaint : c'est le symptôme. La cause peut être ailleurs, par exemple un service de paiement qui met une minute à valider chaque carte. Regarder la file montre où ça coince, pas pourquoi.
-{: .callout .callout-analogie}
-
 La méthode pratique est de **descendre la chaîne des dépendances** :
 
 1. `checkout` est lent. Ses ressources (CPU, mémoire) sont-elles saturées ? Si non, il attend probablement quelqu'un.

@@ -234,11 +234,6 @@ Une fois connecté, vous arrivez sur la page d'accueil, vide pour l'instant. L'e
 
 Grafana lit sa configuration depuis plusieurs endroits, et c'est la superposition qui déroute les débutants. Les valeurs par défaut sont embarquées dans le programme. Votre `grafana.ini` ne contient que ce que vous voulez changer. Les variables d'environnement `GF_*` passent par-dessus tout.
 
-> 🗂️ **Analogie : des calques superposés**
->
-> Imaginez trois calques transparents : les valeurs par défaut au fond, `grafana.ini` au milieu, les variables `GF_*` au-dessus. Là où un calque est vide, on voit la valeur du dessous. Là où il porte une valeur, il masque celle des calques inférieurs, clé par clé.
-{: .callout .callout-analogie}
-
 ```mermaid
 flowchart LR
     A[Valeurs par défaut<br/>embarquées] --> B[grafana.ini<br/>votre fichier]

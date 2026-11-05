@@ -323,10 +323,10 @@ Voici les correctifs selon l'emplacement de la cible :
 
 Attention aussi à l'écoute côté hôte : si Prometheus n'écoute que sur `127.0.0.1`, le conteneur ne pourra pas l'atteindre via l'adresse de l'hôte. Il faut alors que le service écoute sur une interface accessible.
 
-> 📞 **Analogie : un appel téléphonique**
+> 📝 **Note**
 >
-> `no such host`, c'est un numéro introuvable dans l'annuaire. `connection refused`, c'est un « pas d'abonné à ce numéro » immédiat. Le timeout, c'est une sonnerie dans le vide. Limite de l'image : un pare-feu configuré pour rejeter activement produit lui aussi un refus immédiat.
-{: .callout .callout-analogie}
+> Un pare-feu configuré pour rejeter activement produit lui aussi un refus immédiat, comme un service absent.
+{: .callout .callout-note}
 
 ### Symptôme : `connection refused`
 

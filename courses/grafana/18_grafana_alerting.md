@@ -221,11 +221,6 @@ C'est un choix à assumer. Pour détecter plus vite, raccourcissez la fenêtre d
 
 Tous deux sont des paires clé/valeur, mais leur rôle diffère.
 
-> 📦 **Analogie : l'adresse et la lettre d'un colis**
->
-> Les labels sont l'adresse : ils servent à trier et à acheminer, donc ils ne doivent pas changer en route. Les annotations sont la lettre à l'intérieur : elles informent le destinataire et peuvent varier. Limite : les labels forment aussi l'identité de l'instance d'alerte.
-{: .callout .callout-analogie}
-
 | | Labels | Annotations |
 |---|---|---|
 | **Rôle** | Identifier l'instance et router l'alerte | Informer la personne qui reçoit l'alerte |

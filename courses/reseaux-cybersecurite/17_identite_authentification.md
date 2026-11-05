@@ -177,11 +177,6 @@ Kerberos est le protocole d'authentification par défaut dans un domaine AD. Son
 
 Les tickets sont émis par le KDC*, qui tourne sur les contrôleurs de domaine.
 
-> 🎡 **Analogie : le bracelet de parc d'attractions**
->
-> Le TGT ressemble au bracelet remis à l'entrée : il prouve que vous avez passé le contrôle. Pour chaque attraction, vous le présentez au guichet et recevez un billet valable pour celle-ci seulement, c'est le ticket de service. Limite de l'image : le guichet (le KDC) ne vérifie pas que vous avez le droit de monter, c'est l'attraction (le service) qui décide.
-{: .callout .callout-analogie}
-
 ```mermaid
 sequenceDiagram
     participant C as Client
@@ -230,9 +225,9 @@ Le SSO (Single Sign-On) évite de se reconnecter à chaque application : l'utili
 
 OAuth 2.0 (RFC 6749) règle une seule question : comment une application obtient, avec le consentement de l'utilisateur, un **access token** pour appeler une API avec des droits limités (les *scopes*). Ce jeton dit : « le porteur peut appeler l'API X avec le scope Y ». Il ne dit pas qui est l'utilisateur, ni qu'il vient de s'authentifier, ni pour quelle application la connexion a eu lieu. L'application cliente n'a même pas à pouvoir lire son contenu : il est destiné à l'API.
 
-> 🏨 **Analogie : la carte d'hôtel**
+> 🎫 **Analogie : le badge visiteur**
 >
-> Un access token fonctionne comme une carte magnétique d'hôtel. Elle ouvre certaines portes pendant une durée limitée, mais elle n'indique pas qui la tient. Limite de l'image : rien n'empêche de présenter à une application un jeton remis à une autre, si elle ne vérifie pas à qui il était destiné.
+> Un access token fonctionne comme un badge visiteur. Il ouvre certaines portes pendant une durée limitée, mais il n'indique pas qui le tient. Limite de l'image : rien n'empêche de présenter à une application un jeton remis à une autre, si elle ne vérifie pas à qui il était destiné.
 {: .callout .callout-analogie}
 
 L'erreur classique ressemble à ceci. Un site propose « Se connecter avec <IDP> », reçoit un access token côté navigateur et, pour savoir qui se connecte, appelle l'endpoint profil avec ce jeton. Or un jeton obtenu par une autre application, que l'utilisateur a autorisée avec le même IdP, est tout aussi valide pour l'IdP. Un attaquant qui contrôle cette autre application peut rejouer le jeton auprès du site naïf et s'y connecter comme la victime. L'absence d'audience, de lien avec le client et de nonce rend la confusion possible.

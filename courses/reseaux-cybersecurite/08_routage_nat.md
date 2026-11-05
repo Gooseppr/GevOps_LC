@@ -63,9 +63,9 @@ flowchart LR
 
 Un routeur ne connaît pas le chemin complet vers la destination. Il sait seulement **à qui confier le paquet ensuite**.
 
-> 🚦 **Analogie : le carrefour**
+> 📮 **Analogie : le centre de tri**
 >
-> Un panneau indique « Lyon : à droite », sans vous accompagner jusqu'à Lyon. À chaque carrefour, une nouvelle décision locale est prise, et le paquet finit par arriver parce que chaque saut fait un bon choix.
+> Un centre de tri lit le code postal et envoie le sac au centre suivant, sans connaître tout le trajet. À chaque étape, une nouvelle décision locale est prise, et le paquet finit par arriver parce que chaque saut fait un bon choix.
 {: .callout .callout-analogie}
 
 > 🧠 **Concept fondamental**

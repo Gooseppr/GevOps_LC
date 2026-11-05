@@ -75,11 +75,6 @@ Ces trois approches ne sont pas des niveaux successifs. Elles répondent à des 
 
 La différence avec le pentest du module 31 porte sur l'objectif. Un pentest cherche des vulnérabilités à périmètre borné. Un Red Team cherche à atteindre un objectif métier en évitant d'être détecté. Un exercice Purple cherche à mesurer la détection, pas à l'éviter.
 
-> 🥊 **Analogie : le match et l'entraînement**
->
-> Un Red Team ressemble à un match officiel. Vous ignorez le jeu adverse et découvrez le score à la fin. Un exercice Purple ressemble à une séance d'entraînement filmée : chaque action est rejouée au ralenti et le placement est corrigé aussitôt. Limite de l'image : l'entraînement ne reproduit ni le réalisme de l'enchaînement ni la pression du match.
-{: .callout .callout-analogie}
-
 ## Surface d'attaque : ce que l'exercice met réellement en jeu
 
 Un exercice ne teste pas « le SI ». Il teste quelques chemins précis, et il crée aussi sa propre surface de risque.

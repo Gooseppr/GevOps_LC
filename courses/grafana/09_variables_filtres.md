@@ -41,11 +41,6 @@ Les variables résolvent ce problème : un seul dashboard, des menus déroulants
 
 ## Le principe : un dashboard à trous
 
-> ✉️ **Analogie : le publipostage**
->
-> Pensez à un modèle de courrier avec des champs de fusion : « Bonjour `{prénom}` ». Un dashboard avec variables fonctionne pareil. Vous écrivez une requête avec des emplacements (`$env`, `$instance`), et Grafana les remplace par la sélection courante avant d'envoyer la requête.
-{: .callout .callout-analogie}
-
 > 🧠 **Concept clé**
 >
 > Grafana fait de la **substitution de texte**, rien de plus. Il ne comprend pas votre requête PromQL. Il remplace `$instance` par une chaîne de caractères, puis envoie le résultat à Prometheus. Presque tous les comportements surprenants viennent de là : si le texte substitué n'a pas la forme attendue par la source, la requête échoue ou, pire, retourne autre chose que ce que vous pensiez.

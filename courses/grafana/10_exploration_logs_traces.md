@@ -107,11 +107,6 @@ Ouvrez **Explore** (menu de gauche), choisissez la data source Loki. Dans l'édi
 
 Loki n'indexe pas le contenu des lignes. Il n'indexe que les **labels** attachés à un flux : `app`, `env`, `host`, `namespace`, etc. Un flux est l'ensemble des lignes partageant exactement la même combinaison de labels.
 
-> 📚 **Analogie : la bibliothèque**
->
-> Imaginez une bibliothèque où seuls les rayons sont étiquetés, pas les pages des livres. Choisir le bon rayon est instantané. Chercher un mot dans toute la bibliothèque, c'est lire les pages.
-{: .callout .callout-analogie}
-
 D'où la règle de travail de Loki : **d'abord réduire par les labels, ensuite filtrer le texte**.
 
 Conséquence pratique, visible tout de suite : une requête Loki doit commencer par un sélecteur de flux avec au moins un critère non vide. `{}` est refusé.

@@ -84,11 +84,6 @@ flowchart TD
 - **Le dashboard** est une page composée de panels, avec ses propres réglages (période, actualisation, fuseau, variables).
 - **Le panel** est une visualisation individuelle : un graphique, une jauge, un tableau, un panneau de logs.
 
-> 🏢 **Analogie : l'immeuble**
->
-> L'instance est l'immeuble, chaque organisation un appartement fermé à clé : ce qui s'y trouve reste invisible des voisins. Les dossiers en sont les pièces, chacune avec sa propre serrure (les permissions). Limite : un même utilisateur peut détenir les clés de plusieurs appartements, avec un rôle différent dans chacun.
-{: .callout .callout-analogie}
-
 Dans une instance fraîchement installée, vous êtes très probablement seul dans l'organisation par défaut (« Main Org. »). C'est suffisant pour ce parcours ; le multi-organisation est surtout utile pour séparer des clients ou des équipes qui ne doivent rien partager.
 
 > 📖 **Définition**

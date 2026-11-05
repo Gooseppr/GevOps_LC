@@ -47,11 +47,6 @@ Ce module répond à ces deux questions : comment faire pour qu'une panne ne se 
 > Un point de défaillance unique (SPOF, Single Point of Failure) est un élément dont la panne arrête à elle seule un service entier. Ce peut être un switch, un routeur, un câble, une alimentation, un serveur, ou même une personne qui est la seule à connaître un mot de passe.
 {: .callout .callout-important}
 
-> 🌉 **Analogie : les ponts d'une ville**
->
-> Si votre ville n'a qu'un seul pont sur le fleuve, sa fermeture isole un quartier. Avec deux ponts, la fermeture de l'un ne bloque personne. En revanche, si les deux ponts sont accessibles par la même avenue, vous n'avez pas gagné grand-chose.
-{: .callout .callout-analogie}
-
 Les chiffres aident à ressentir l'effet. La disponibilité se mesure en pourcentage de temps de service sur une année :
 
 | Disponibilité | Arrêt maximum par an |
@@ -209,9 +204,9 @@ Un **load balancer L7** comprend le protocole applicatif, le plus souvent HTTP. 
 
 Il peut aussi terminer la connexion HTTPS à la place des serveurs. En contrepartie, il consomme plus de ressources et ne traite que les protocoles qu'il comprend.
 
-> ☎️ **Analogie : le standardiste et le réceptionniste**
+> 📮 **Analogie : l'enveloppe et la lettre**
 >
-> Le L4 est un standardiste qui renvoie les appels d'après le numéro appelé. Le L7 est un réceptionniste qui écoute la demande et oriente vers le bon service.
+> Un répartiteur L4 lit seulement l'enveloppe (adresse et port) pour orienter le courrier. Un répartiteur L7 ouvre la lettre et oriente selon la demande.
 {: .callout .callout-analogie}
 
 ### Algorithmes

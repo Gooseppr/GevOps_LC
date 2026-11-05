@@ -126,9 +126,9 @@ Elle sert de socle à tout le reste :
 
 Comme la même adresse `fe80::1` peut exister sur chaque interface, on précise l'interface avec un suffixe : `fe80::1%eth0` (Linux) ou `fe80::1%12` (Windows, numéro d'interface).
 
-> ☎️ **Analogie : le numéro de poste interne**
+> 📮 **Analogie : le casier interne**
 >
-> Une adresse link-local ressemble au numéro court d'un téléphone de bureau. Il fonctionne dans le bâtiment, mais personne ne peut le composer depuis l'extérieur. Si vous êtes relié à plusieurs bâtiments, le poste « 1 » peut exister dans chacun : il faut préciser lequel, d'où le suffixe `%interface`. Limite : aucun standardiste n'attribue ce numéro, la machine le fabrique seule.
+> Une adresse link-local ressemble au casier interne d'un immeuble de bureaux : « casier 1 » a un sens à l'intérieur, mais la poste ne sait pas y livrer depuis l'extérieur. Si vous êtes relié à plusieurs immeubles, « casier 1 » peut exister dans chacun : il faut préciser lequel, d'où le suffixe `%interface`. Limite de l'image : personne n'attribue ce casier, la machine se l'attribue seule.
 {: .callout .callout-analogie}
 
 Les **ULA** servent à avoir un adressage interne qui ne change pas, même si l'opérateur modifie le préfixe public. L'organisation tire au hasard 40 bits pour former un préfixe `fdxx:xxxx:xxxx::/48`, ce qui limite le risque de collision lors d'une fusion de réseaux. Elles ne sont pas routées sur Internet. Elles complètent les adresses globales et ne les remplacent pas.

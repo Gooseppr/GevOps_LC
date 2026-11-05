@@ -185,11 +185,6 @@ curl -s -H "Authorization: Bearer <TOKEN>" \
 
 ## Les quatre réglages qui font la différence entre une alerte et du bruit
 
-> 🍽️ **Analogie : le serveur de restaurant**
->
-> Un serveur n'apporte pas chaque assiette dès qu'elle sort de la cuisine. Il attend un court instant que le reste de la table soit prêt (`group_wait`). Il ramène ensuite les retardataires par vagues (`group_interval`). Si quelqu'un n'a toujours pas mangé une heure plus tard, il revient lui demander (`repeat_interval`). Le `group_by`, c'est la décision de ce qui forme une « table ». Limite de l'image : Grafana ne sait pas si le message a été lu. Il rappelle tant que le groupe reste en `Firing`.
-{: .callout .callout-analogie}
-
 ### group_by : ce qui forme un groupe
 
 Les alertes qui partagent les mêmes valeurs pour les labels de `group_by` sont envoyées dans **une seule notification**. Par défaut Grafana regroupe sur `grafana_folder` et `alertname`.
@@ -218,13 +213,22 @@ Les alertes qui partagent les mêmes valeurs pour les labels de `group_by` sont 
 
 Sur une ligne de temps, avec les valeurs par défaut :
 
-```text
-t = 0       alerte A passe en Firing → le groupe est créé, on attend
-t = 30 s    notification n°1 (A)
-t = 2 min   alerte B rejoint le groupe → elle attend la prochaine fenêtre
-t = 5 min 30  notification n°2 (A + B)
-t = 4 h 05 min 30  si rien n'a changé depuis 5 min 30 → rappel (repeat_interval de 4 h après le dernier envoi)
+```mermaid
+sequenceDiagram
+    participant R as Règles
+    participant A as Alertmanager
+    participant E as Équipe
+    R->>A: t = 0, alerte A en Firing, le groupe est créé
+    Note over A: group_wait, 30 s
+    A->>E: t = 30 s, notification 1 avec A
+    R->>A: t = 2 min, alerte B rejoint le groupe
+    Note over A: B attend la fin de group_interval, 5 min
+    A->>E: t = 5 min 30, notification 2 avec A et B
+    Note over A: repeat_interval, 4 h, si rien ne change
+    A->>E: t = 4 h 05 min 30, rappel
 ```
+
+Ce schéma montre que chaque délai agit à un moment différent : `group_wait` retient le premier envoi, `group_interval` regroupe les changements et `repeat_interval` espace les rappels.
 
 Quelle valeur choisir pour `group_wait` ? C'est le compromis le plus facile à rater. Trop long, vous retardez une vraie alerte critique de plusieurs minutes. Trop court, vous envoyez une première notification avec une seule alerte, puis une deuxième cinq minutes plus tard avec les trente autres. Pour une politique critique, 10 à 30 s reste raisonnable ; pour du `warning`, vous pouvez monter à 1–2 min sans douleur.
 

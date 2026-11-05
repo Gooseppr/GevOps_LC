@@ -212,10 +212,10 @@ Pour compromettre les données, l'attaquant doit obtenir l'accès au KMS et non 
 
 Le chiffrement asymétrique résout un problème et en crée un autre : comment savoir que la clé publique reçue appartient bien à `banque.example` et pas à un attaquant ? La réponse est le certificat X.509 : un document qui lie une identité à une clé publique, signé par un tiers de confiance, l'autorité de certification (CA — Certificate Authority).
 
-> 🪪 **Analogie : le passeport**
+> 💡 **À retenir**
 >
-> Un certificat joue le rôle d'un passeport : il associe un nom à un élément vérifiable, la clé publique, comme le passeport associe un nom à une photo. Vous l'acceptez parce que vous faites confiance à l'émetteur, ici la CA. Limite : contrairement à un passeport, un certificat se copie librement. Il ne prouve rien tant que le serveur ne démontre pas qu'il détient la clé privée correspondante.
-{: .callout .callout-analogie}
+> Un certificat associe un nom à une clé publique, et vous l'acceptez parce que vous faites confiance à la CA qui l'a émis. Il se copie librement : il ne prouve rien tant que le serveur ne démontre pas qu'il détient la clé privée correspondante.
+{: .callout .callout-important}
 
 Un certificat contient notamment :
 

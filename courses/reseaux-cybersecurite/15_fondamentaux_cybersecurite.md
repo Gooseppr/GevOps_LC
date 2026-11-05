@@ -247,9 +247,9 @@ Les organisations investissent en général beaucoup dans le préventif, un peu 
 
 Le principe : empiler des contrôles indépendants pour que l'échec d'un seul ne suffise pas à l'attaquant.
 
-> 🏰 **Analogie : le château fort**
+> 🏢 **Analogie : le siège d'une entreprise**
 >
-> Douves, rempart, donjon : l'assaillant doit franchir chaque obstacle. Mais si toutes les portes s'ouvrent avec la même clé, le château n'a en réalité qu'une seule protection. Limite : un système d'information a de nombreuses entrées, et un attaquant peut arriver directement à l'intérieur, par exemple avec un identifiant valide.
+> Accueil, badge, porte de service, coffre : l'intrus doit franchir chaque obstacle. Mais si toutes les portes s'ouvrent avec le même badge, le bâtiment n'a en réalité qu'une seule protection. Limite de l'image : un système d'information a de nombreuses entrées, et un attaquant peut arriver directement à l'intérieur, par exemple avec un identifiant valide.
 {: .callout .callout-analogie}
 
 ```mermaid

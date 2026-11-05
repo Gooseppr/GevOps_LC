@@ -318,11 +318,6 @@ sequenceDiagram
     Note over G2: Attend 15 s, voit l'entrée, n'envoie rien
 ```
 
-> 📞 **Analogie : la permanence téléphonique**
->
-> Plusieurs collègues entendent la même sonnerie. Le premier de la liste décroche aussitôt et le note au cahier ; le deuxième attend un instant, lit le cahier et ne rappelle que si rien n'y figure. Limite de l'image : il n'y a pas de cahier central, chaque instance tient sa propre copie du journal, synchronisée par gossip.
-{: .callout .callout-analogie}
-
 La même mécanique détermine votre comportement en cas de panne : si l'instance de position 0 meurt, la suivante enverra **avec ~15 s de retard**, pas avant. Ce retard est le coût de la déduplication, et il s'ajoute à `group_wait` et à l'intervalle d'évaluation dans votre budget de délai.
 
 > ⚠️ **Erreur fréquente**

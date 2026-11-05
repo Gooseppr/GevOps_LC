@@ -277,10 +277,10 @@ C'est le piège principal du module, et il touche aussi bien la performance que 
 
 Une transformation s'exécute **après** la requête. Tout ce que la source de données a renvoyé a déjà transité sur le réseau et se trouve déjà dans la mémoire du navigateur. Filtrer 38 machines sur 40 avec Filter data by values ne fait pas gagner un seul octet de transfert : Prometheus a calculé et renvoyé les 40.
 
-> 📦 **Analogie : le colis trié à l'arrivée**
+> 💡 **À retenir**
 >
-> Filtrer avec une transformation, c'est se faire livrer tout le stock puis jeter ce dont on n'a pas besoin : le transport est déjà payé. Filtrer en PromQL, c'est ne commander que le nécessaire. Limite de l'image : le coût ne se limite pas au transport, car Prometheus a aussi déjà calculé les séries inutiles.
-{: .callout .callout-analogie}
+> Une transformation filtre ce qui a déjà été calculé et transporté. Un filtre en PromQL ne demande que le nécessaire : c'est donc lui qu'il faut préférer quand c'est possible.
+{: .callout .callout-important}
 
 Concrètement, voici ce que ça donne dans trois situations typiques :
 

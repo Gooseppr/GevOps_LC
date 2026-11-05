@@ -47,12 +47,18 @@ Le tracing apporte exactement ce qui manque : un enregistrement par requête, qu
 
 ### 🧠 Trace ID, Span ID, parent-enfant
 
-Concrètement, une requête de paiement donne ceci :
+Une trace rassemble toutes les étapes d'une même requête, et trois identifiants permettent de les relier.
 
-> 📦 **Analogie : le colis et ses centres de tri**
+> 📖 **Définitions**
 >
-> Le **Trace ID** est le numéro de suivi imprimé sur l'étiquette ; il ne change jamais, du départ à la livraison. Chaque passage dans un centre est un **span** : il a son propre identifiant (**Span ID**), une heure de début, une durée, et il sait quel passage précédent l'a déclenché (**parent span ID**). Limite de l'image : un colis suit un seul chemin, alors qu'une requête peut se ramifier vers plusieurs services en parallèle.
-{: .callout .callout-analogie}
+> **Trace ID :** identifiant commun à toute la requête, qui ne change jamais du début à la fin.
+>
+> **Span :** une étape de la requête, avec son identifiant (**Span ID**), une heure de début et une durée.
+>
+> **Parent span ID :** l'identifiant de l'étape qui a déclenché celle-ci.
+{: .callout .callout-definition}
+
+Concrètement, une requête de paiement donne ceci :
 
 ```
 Trace 4bf92f3577b34da6a3ce929d0e0e4736

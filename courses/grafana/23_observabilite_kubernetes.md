@@ -172,10 +172,10 @@ sum(kube_node_status_allocatable{resource="cpu"})
 
 Le second ratio mesure la **réservation**, pas l'usage. Un cluster peut être réservé à 90 % tout en ne consommant que 20 % du CPU : le scheduler refusera de placer de nouveaux pods alors que les machines sont presque au repos. Ce n'est pas un bug, c'est ce que les `requests` sont censées garantir, mais ça surprend les équipes.
 
-> 🍽️ **Analogie : le restaurant complet**
+> 📝 **Note**
 >
-> Un restaurant dont toutes les tables sont réservées refuse de nouveaux clients, même si la salle est à moitié vide. Les `requests` jouent le rôle de ces réservations. Limite de l'image : contrairement à une table vide, le CPU réservé mais inutilisé peut être utilisé par les autres pods du nœud.
-{: .callout .callout-analogie}
+> Le CPU réservé mais inutilisé n'est pas perdu : les autres pods du nœud peuvent s'en servir. En revanche, le scheduler le compte comme pris pour placer de nouveaux pods.
+{: .callout .callout-note}
 
 ### Les pods et conteneurs
 

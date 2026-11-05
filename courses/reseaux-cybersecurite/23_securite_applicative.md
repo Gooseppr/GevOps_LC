@@ -315,11 +315,6 @@ La validation transforme « tout ce que le client peut envoyer » en « ce que l
 
 Que garantit HTTPS, exactement ? Trois propriétés entre le navigateur et le serveur : confidentialité, intégrité du transport et authenticité du serveur. Il ne dit rien sur ce que l'utilisateur authentifié envoie *dans* le tunnel.
 
-> 🚚 **Analogie : le fourgon blindé**
->
-> HTTPS est un fourgon blindé : personne ne peut lire ni modifier le colis en route, et vous savez à quelle adresse il est livré. Mais le fourgon transporte fidèlement ce que l'expéditeur y a mis, y compris une commande à 0,01 €.
-{: .callout .callout-analogie}
-
 Burp Suite se place comme proxy local avec son propre certificat que l'auditeur installe volontairement. Il voit chaque requête en clair, la modifie et la rejoue. Le serveur reçoit une requête TLS parfaitement valide, qu'il ne peut pas distinguer d'une requête du vrai navigateur.
 
 Exemples de failles totalement invisibles pour HTTPS, le WAF ou le scanner :

@@ -99,9 +99,9 @@ Un port « unfiltered » (RST reçu) prouve que le paquet ACK a traversé le fil
 
 Un filtre **stateful** mémorise chaque flux dans une table (`conntrack`*). Une réponse n'est acceptée que si elle correspond à une connexion initiée dans le bon sens.
 
-> 🛂 **Analogie : le contrôle à la frontière**
+> 🏢 **Analogie : le registre de l'accueil**
 >
-> Un filtre stateless ressemble à un douanier qui laisse entrer quiconque affirme « je rentre de voyage », sans rien vérifier. Un filtre stateful tient un registre des sorties et ne laisse rentrer que ceux qu'il a vus partir. Limite : sous Linux, ce registre n'est pas toujours appliqué strictement, comme le montre la suite.
+> Un filtre stateless ressemble à un agent d'accueil qui laisse entrer quiconque affirme « je reviens de pause », sans rien vérifier. Un filtre stateful tient un registre des sorties et ne laisse rentrer que ceux qu'il a vus partir. Limite de l'image : sous Linux, ce registre n'est pas toujours appliqué strictement, comme le montre la suite.
 {: .callout .callout-analogie}
 
 Que devient alors un ACK isolé ? Il ne correspond à aucune connexion connue. Pourtant, sous Linux, il n'est classé `INVALID` et jeté que si `net.netfilter.nf_conntrack_tcp_loose` vaut 0, ou si une règle exige le flag SYN pour toute nouvelle connexion. Avec la valeur par défaut (1), il est classé `NEW` et accepté par une règle d'ouverture qui ne vérifie pas l'état, comme `tcp dport { 80, 443 } accept` ci-dessous.
