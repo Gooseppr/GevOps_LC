@@ -255,7 +255,10 @@ Les flèches en pointillés représentent des règles réseau explicites (Networ
 
 ## Cycle de vie des plugins
 
-Un plugin backend est un exécutable lancé par le processus Grafana, avec les droits de ce processus. Un plugin front tourne dans le navigateur de chaque utilisateur qui ouvre un dashboard. > 📦 **Analogie : une dépendance en production.** Un plugin non signé a une portée comparable à celle d'une dépendance applicative exécutée en production. Vous ne l'installeriez pas sans en vérifier l'origine et la version.
+Un plugin backend est un exécutable lancé par le processus Grafana, avec les droits de ce processus. Un plugin front tourne dans le navigateur de chaque utilisateur qui ouvre un dashboard.
+
+> 📦 **Analogie : une dépendance en production.** Un plugin non signé a une portée comparable à celle d'une dépendance applicative exécutée en production. Vous ne l'installeriez pas sans en vérifier l'origine et la version.
+{: .callout .callout-analogie}
 
 Pratiques applicables sans outillage lourd :
 
