@@ -30,12 +30,44 @@
         div.setAttribute('data-mermaid-source', code.textContent);
         pre.replaceWith(div);
       });
+      {% if page.course == "grafana" or page.course == "reseaux-cybersecurite" %}
+      // Attendre la police : Mermaid mesure les textes pour dimensionner les nœuds
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        fontFamily: '"Manrope", "Segoe UI", Arial, sans-serif',
+        themeVariables: {
+          fontFamily: '"Manrope", "Segoe UI", Arial, sans-serif',
+          fontSize: '15px',
+          primaryColor: '#f1f5f9',
+          primaryTextColor: '#1f2937',
+          primaryBorderColor: '#94a3b8',
+          lineColor: '#475569',
+          secondaryColor: '#e2e8f0',
+          tertiaryColor: '#f8fafc',
+          clusterBkg: '#f8fafc',
+          clusterBorder: '#cbd5e1',
+          edgeLabelBackground: '#ffffff',
+          noteBkgColor: '#fef3c7',
+          noteBorderColor: '#d97706',
+          noteTextColor: '#78350f'
+        },
+        flowchart: { useMaxWidth: true },
+        sequence: { useMaxWidth: true, wrap: true, mirrorActors: false },
+        er: { useMaxWidth: true, fontSize: 14 },
+        state: { useMaxWidth: true }
+      });
+      (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
+        mermaid.run();
+      });
+      {% else %}
       mermaid.initialize({
         startOnLoad: true,
         theme: 'default',
         flowchart: { useMaxWidth: true },
         sequence: { useMaxWidth: true }
       });
+      {% endif %}
     });
   </script>
 

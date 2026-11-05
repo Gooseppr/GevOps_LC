@@ -111,6 +111,15 @@ flowchart LR
 - Pas de schéma dans une citation ni un encart : le site repère les blocs `pre > code.language-mermaid`, et ce cas n'a pas été vérifié.
 - Une phrase, juste après le schéma, dit ce qu'il faut y lire, sauf si le texte voisin le fait déjà.
 
+### Configuration du site
+
+Les réglages communs sont dans `_includes/head.html`, et ne s'appliquent pour l'instant qu'aux cours Grafana et Réseaux : thème `base` (le seul personnalisable, en couleurs hexadécimales), police Manrope, couleurs neutres, notes ambre, `sequence.wrap`, `sequence.mirrorActors: false`, `er.fontSize`.
+
+- Change-les là, plutôt que de répéter une configuration dans chaque schéma. Une configuration propre à un schéma reste une exception justifiée.
+- Vérifie toute option dans `scripts/node_modules/mermaid/dist/config.type.d.ts` : la documentation en ligne décrit la dernière version, et `look` ou `layout` n'existent pas en Mermaid 10.
+- Une modification de ces réglages touche tous les schémas de ces cours : annonce-la et fais-la vérifier à l'écran.
+- `autonumber` se met au cas par cas dans un `sequenceDiagram`, quand le texte renvoie à des étapes numérotées.
+
 ## 5. Vérifier sans rendu
 
 Depuis la racine du projet :
@@ -175,4 +184,5 @@ Syntaxe validée avec Mermaid 10. Rendu à l'écran non vérifié.
 |---|---|---|---|
 | 1.0 | 2026-11-05 | Création | Revue des 138 schémas de Grafana et Réseaux, skills Mermaid étudiés |
 | 1.2 | 2026-11-05 | Choix étendu aux types compatibles avec Mermaid 10, types récents exclus | Demande de l'utilisateur |
+| 1.3 | 2026-11-05 | Configuration du site documentée, options vérifiées sur Mermaid 10 | Page de configuration étudiée |
 | 1.1 | 2026-11-05 | Erreurs de syntaxe observées sur le site : transitions, quadrants, subgraph, chemins | Correction de 8 schémas invalides |
