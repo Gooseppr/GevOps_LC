@@ -113,7 +113,6 @@ Hydra, Medusa, et CrackMapExec sont les outils courants. CrackMapExec permet de 
 ### Credential stuffing
 
 Après chaque fuite de données publique (Collection #1-5, par exemple), des milliards de paires email/mot de passe circulent. > 📖 **Définition.** Le credential stuffing consiste à tester ces paires email/mot de passe sur d'autres services, en pariant sur la réutilisation des mots de passe par les utilisateurs.
-{: .callout .callout-definition}
 
 > ⚠️ **Erreur fréquente** — Une application peut ne jamais avoir été compromise et pourtant présenter des connexions suspectes légitimes depuis ces bases. Les logs montrent des connexions réussies — pas d'alerte, pas d'anomalie. Seul un contrôle sur la détection d'anomalies comportementales (géolocalisation inhabituelle, appareil inconnu) permet de distinguer l'utilisateur légitime de l'attaquant.
 {: .callout .callout-attention}

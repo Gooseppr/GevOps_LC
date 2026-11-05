@@ -305,7 +305,9 @@ Quelques décisions concrètes :
 Prenez un chiffre illustratif : 25 personnes ont le dashboard ouvert, il contient 40 requêtes, et il se rafraîchit toutes les 10 secondes. Cela fait 25 × 40 / 10 = 100 requêtes par seconde sur les data sources, en continu, y compris pour les onglets oubliés derrière une autre fenêtre. Passez à 5 secondes et vous doublez ce flux.
 
 > 💡 **À retenir** — L'intervalle de rafraîchissement ne devrait pas descendre sous l'intervalle de collecte. Il doit aussi être cohérent avec la décision qu'il permet de prendre.
-{: .callout .callout-important} Pendant une investigation, 30 secondes suffisent largement. Un écran mural n'a pas besoin de mieux qu'une minute.
+{: .callout .callout-important}
+
+Pendant une investigation, 30 secondes suffisent largement. Un écran mural n'a pas besoin de mieux qu'une minute.
 
 Pour empêcher les dérives, un administrateur peut fixer un plancher dans `grafana.ini` :
 
