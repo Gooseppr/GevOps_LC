@@ -57,13 +57,13 @@ flowchart LR
     NAV["NAVIGATEUR"] --> RP["REVERSE PROXY<br/>ET WAF"]
     RP --> APP["APPLICATION WEB"]
     APP --> API["API INTERNE"]
-    APP --> DB[("BASE DE DONNEES")]
+    APP --> DB[("BASE DE DONNÉES")]
     API --> DB
     APP --> TIERS["SERVICES TIERS"]
     APP --> SEC["GESTIONNAIRE<br/>DE SECRETS"]
     BKP["SAUVEGARDES"] --> DB
-    style NAV fill:#fdd
-    style DB fill:#ffd
+    style NAV fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style DB fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
 
 | Vecteur | Exposition | Impact potentiel |
@@ -416,7 +416,7 @@ Les sauvegardes sont souvent moins bien protégées que la base elle-même, alor
 Chaque outil a un coût (temps, faux positifs, maintenance). La règle de décision est de placer chaque contrôle le plus tôt possible, là où il coûte le moins cher à corriger, et de ne bloquer le build que sur les constats de gravité élevée.
 
 ```mermaid
-flowchart LR
+flowchart TD
     C["COMMIT"] --> PC["gitleaks<br/>pre-commit"]
     PC --> PR["PULL REQUEST"]
     PR --> SAST["SAST Semgrep"]

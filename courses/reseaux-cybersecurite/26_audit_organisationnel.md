@@ -160,12 +160,12 @@ Le déroulement suit une logique d'entonnoir : le papier, puis les personnes, pu
 flowchart TD
     A[CADRAGE] --> B[ANALYSE DOCUMENTAIRE]
     B --> C[ENTRETIENS]
-    C --> D[VERIFICATION SUR SYSTEME]
+    C --> D[VÉRIFICATION SUR SYSTEME]
     D --> E[CONSTATS ET PREUVES]
     E --> F[RESTITUTION]
-    F --> G[PLAN DE REMEDIATION]
-    G --> H[VERIFICATION DE CLOTURE]
-    D -.->|ecart avec le papier| C
+    F --> G[PLAN DE RÉMÉDIATION]
+    G --> H[VÉRIFICATION DE CLÔTURE]
+    D -.->|écart avec le papier| C
 ```
 
 **Cadrage.** Faites écrire noir sur blanc le périmètre, les critères, la période, les limites et l'autorisation. Sans autorisation écrite, aucune vérification technique ne doit être lancée, y compris un simple balayage Nmap. Le cadrage fixe aussi la méthode d'échantillonnage : c'est l'auditeur qui choisit les échantillons, pas l'audité.

@@ -246,7 +246,7 @@ flowchart TD
     G2 --> M2["Backends client B"]
     G1 -.->|"deny"| M2
     G2 -.->|"deny"| M1
-    ADM["Equipe plateforme"] --> P
+    ADM["Équipe plateforme"] --> P
     ADM --> GIT["Git + provisioning"]
     GIT --> G1
     GIT --> G2

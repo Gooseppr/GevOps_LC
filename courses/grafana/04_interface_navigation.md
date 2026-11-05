@@ -76,7 +76,7 @@ flowchart TD
     F1 --> D1[Dashboard API]
     F1 --> D2[Dashboard Base de données]
     D1 --> P1[Panel Latence]
-    D1 --> P2[Panel Taux d erreurs]
+    D1 --> P2[Panel Taux d'erreurs]
 ```
 
 - **L'organisation** est le niveau le plus étanche. Dashboards, sources de données, équipes et règles d'alerte appartiennent à une organisation et n'apparaissent pas dans les autres. Un utilisateur peut appartenir à plusieurs organisations avec un rôle différent dans chacune ; le sélecteur d'organisation (page de profil ou en haut du menu selon la version) permet de passer de l'une à l'autre.

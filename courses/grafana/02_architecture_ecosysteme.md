@@ -132,18 +132,23 @@ Les backends récents savent souvent recevoir de l'OTLP directement. Passer par 
 Voici l'ensemble de la chaîne :
 
 ```mermaid
-flowchart LR
-    A[Applications et hotes] --> B[Exporters et SDK OpenTelemetry]
+flowchart TD
+    A[Applications et hôtes] --> B[Exporters et SDK OpenTelemetry]
     B --> C[Grafana Alloy]
-    C -->|metriques| P[Prometheus]
-    C -->|logs| L[Loki]
-    C -->|traces| T[Tempo]
+    subgraph BACK["Backends : ils détiennent les données"]
+        P[Prometheus]
+        L[Loki]
+        T[Tempo]
+    end
+    C -->|métriques| P
+    C -->|logs| L
+    C -->|traces| T
     P --> G[GRAFANA SERVER]
     L --> G
     T --> G
-    G --> D[Base interne]
+    G --> D[Base interne : dashboards, utilisateurs]
     G --> U[Navigateur et alertes]
-    style G fill:#f46800,color:#fff
+    style G fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
 ```
 
 Le schéma est volontairement simplifié. Prometheus peut aussi aller chercher lui-même les métriques chez les exporters, sans Alloy. Les deux modes existent et se combinent, ce qui est une source classique de confusion : quand vous voyez une métrique, demandez-vous toujours qui l'a collectée et par quel chemin.
@@ -176,11 +181,11 @@ sequenceDiagram
     N->>S: ouvre le dashboard
     S-->>N: JSON du dashboard
     N->>S: POST api ds query
-    S->>P: requete et Data Source
+    S->>P: requête et Data Source
     P->>B: GET api v1 query_range
-    B-->>P: series temporelles
+    B-->>P: séries temporelles
     P-->>S: data frames
-    S-->>N: resultats
+    S-->>N: résultats
     Note over N: transformations puis rendu
 ```
 

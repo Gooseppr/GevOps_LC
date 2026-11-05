@@ -61,10 +61,10 @@ Une requête LogQL (Log Query Language) se lit toujours dans le même sens, de g
 
 ```mermaid
 flowchart LR
-    S[SELECTEUR DE STREAMS] --> F[FILTRE SUR LE TEXTE]
+    S[SÉLECTEUR DE STREAMS] --> F[FILTRE SUR LE TEXTE]
     F --> P[PARSER]
     P --> L[FILTRE SUR LES CHAMPS]
-    L --> M[AFFICHAGE OU METRIQUE]
+    L --> M[AFFICHAGE OU MÉTRIQUE]
 ```
 
 Le sélecteur réduit les streams grâce à l'index. Tout ce qui suit est du travail de lecture sur les chunks retenus. Plus le sélecteur est précis, moins il y a de données à lire, et plus la requête est rapide.

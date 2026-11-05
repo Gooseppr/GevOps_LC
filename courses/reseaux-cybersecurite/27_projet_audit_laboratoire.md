@@ -51,15 +51,15 @@ Ce scénario cumule trois défaillances qu'aucun outil ne corrige :
 Ce module reprend la démarche dans l'ordre : cadrer, inventorier, revoir les configurations, scanner, trier, prioriser, corriger, vérifier, rapporter. Le module précédent a traité l'audit documentaire et la conformité. Ici, tout est technique et chaque conclusion doit pouvoir être rejouée.
 
 ```mermaid
-flowchart LR
-  A["CADRAGE ECRIT"] --> B["INVENTAIRE<br/>ET FLUX"]
+flowchart TD
+  A["CADRAGE ÉCRIT"] --> B["INVENTAIRE<br/>ET FLUX"]
   B --> C["REVUE DE<br/>CONFIGURATION"]
-  C --> D["SCAN DE<br/>VULNERABILITES"]
+  C --> D["SCAN DE<br/>VULNÉRABILITÉS"]
   D --> E["TRI DES<br/>FAUX POSITIFS"]
   E --> F["PRIORISATION<br/>ET RISQUES"]
-  F --> G["REMEDIATION"]
+  F --> G["RÉMÉDIATION"]
   G --> H["RETEST"]
-  H -->|"echec"| G
+  H -->|"échec"| G
   H --> I["RAPPORT<br/>ET PREUVES"]
 ```
 
@@ -69,7 +69,7 @@ Le projet utilise un laboratoire de référence que vous pouvez monter en machin
 
 ```mermaid
 flowchart LR
-  NET["Reseau amont<br/>HORS PERIMETRE"] --> FW["FIREWALL<br/>10.10.0.1"]
+  NET["Réseau amont<br/>HORS PÉRIMÈTRE"] --> FW["FIREWALL<br/>10.10.0.1"]
   AUD["Poste auditeur<br/>10.10.99.10"] --> FW
   FW --> LAN["LAN utilisateurs<br/>10.10.10.0/24"]
   FW --> SRV["Serveurs<br/>10.10.20.0/24"]

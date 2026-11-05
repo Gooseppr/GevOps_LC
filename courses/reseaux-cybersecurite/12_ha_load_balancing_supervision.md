@@ -73,8 +73,8 @@ Voici l'architecture que nous allons construire pas à pas. Les couches réseau 
 flowchart TB
   NET[Internet] --- RA[Routeur A<br/>MASTER VRRP]
   NET --- RB[Routeur B<br/>BACKUP VRRP]
-  RA --- SW1[Switch coeur 1]
-  RB --- SW2[Switch coeur 2]
+  RA --- SW1[Switch cœur 1]
+  RB --- SW2[Switch cœur 2]
   SW1 ---|LACP| SW2
   SW1 --- LB1[Load balancer 1]
   SW2 --- LB2[Load balancer 2]

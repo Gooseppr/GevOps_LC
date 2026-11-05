@@ -69,21 +69,27 @@ Le fil rouge du parcours (applications → télémétrie → backends → Grafan
 | Contact points | Réception des alertes | Messagerie d'équipe + service d'astreinte + heartbeat externe |
 
 ```mermaid
-flowchart LR
-    W[web] --> A[api]
-    A --> K[worker]
-    A --> PG[postgres]
-    A --> RD[redis]
+flowchart TD
+    subgraph APP["Application"]
+        W[web] --> A[api]
+        A --> K[worker]
+        A --> PG[postgres]
+        A --> RD[redis]
+    end
     AL[Alloy] -.->|scrape et logs| A
-    AL --> P[Prometheus]
-    AL --> L[Loki]
-    AL --> T[Tempo]
+    subgraph BACK["Backends"]
+        P[Prometheus]
+        L[Loki]
+        T[Tempo]
+    end
+    AL --> P
+    AL --> L
+    AL --> T
     L --> M[MinIO]
     T --> M
-    P --> G[Grafana]
-    L --> G
-    T --> G
+    BACK --> G[Grafana]
     G --> N[Contact points]
+    style G fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
 ```
 
 Schéma simplifié : les flux de scrape, de push et d'interrogation sont regroupés pour rester lisibles.

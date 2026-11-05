@@ -198,7 +198,7 @@ Elles se recoupent largement avec les Golden Signals :
 Une donnée d'observabilité traverse cinq étapes avant de vous servir.
 
 ```mermaid
-flowchart LR
+flowchart TD
     S[Systèmes et applications] --> C[1 Collecte]
     C --> ST[2 Stockage]
     ST --> I[3 Interrogation]

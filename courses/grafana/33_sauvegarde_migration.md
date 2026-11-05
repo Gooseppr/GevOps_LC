@@ -46,19 +46,10 @@ Où vit chaque information ? C'est la question à se poser avant de choisir un o
 
 ```mermaid
 flowchart TD
-    G[GRAFANA]
-    G --> DB[Base de données]
-    G --> F[Fichiers]
-    G --> S[Secrets]
-    DB --> D1[Dashboards, dossiers]
-    DB --> D2[Users, teams, orgs, permissions]
-    DB --> D3[Alert rules, contact points, silences]
-    DB --> D4[Data Sources config + secrets chiffrés]
-    F --> F1[grafana.ini]
-    F --> F2[provisioning]
-    F --> F3[plugins]
-    S --> S1[secret_key]
-    S --> S2[Tokens, certificats, OAuth]
+    G[GRAFANA] --> DB["BASE DE DONNÉES<br/>dashboards et dossiers<br/>utilisateurs, équipes, permissions<br/>règles d'alerte, contact points, silences<br/>Data Sources et secrets chiffrés"]
+    G --> F["FICHIERS<br/>grafana.ini<br/>provisioning<br/>plugins"]
+    G --> S["SECRETS<br/>secret_key<br/>tokens, certificats, OAuth"]
+    style S fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
 ```
 
 Le tableau ci-dessous est celui à garder en tête quand on vous dit « on a des sauvegardes » :

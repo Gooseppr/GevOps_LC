@@ -378,14 +378,14 @@ Tous ces outils ne servent à rien sans un ordre d'emploi. Le principe : avancer
 
 ```mermaid
 flowchart TD
-    A["SYMPTOME SIGNALE"] --> B["ip addr : adresse valide ?"]
+    A["SYMPTÔME SIGNALÉ"] --> B["ip addr : adresse valide ?"]
     B -->|non| B1["Couches 1-2 : câble, Wi-Fi, DHCP, VLAN"]
     B -->|oui| C["ping passerelle"]
-    C -->|echec| C1["ip neigh : voisin joignable ?"]
+    C -->|échec| C1["ip neigh : voisin joignable ?"]
     C -->|ok| D["ping IP distante"]
-    D -->|echec| D1["ICMP filtré ? Croiser avec dig et nc, sinon ip route get, traceroute, mtr"]
+    D -->|échec| D1["ICMP filtré ? Croiser avec dig et nc<br/>Sinon : ip route get, traceroute, mtr"]
     D -->|ok| E["dig du nom"]
-    E -->|echec| E1["DNS : resolveur, zone, hosts"]
+    E -->|échec| E1["DNS : résolveur, zone, hosts"]
     E -->|ok| F["nc vers le port"]
     F -->|refused ou timeout| F1["Service ou pare-feu"]
     F -->|ok| G["curl : test applicatif"]

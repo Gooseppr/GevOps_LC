@@ -65,14 +65,14 @@ Un poste ne fait presque jamais ce parcours lui-même. Il interroge un **résolv
 ```mermaid
 sequenceDiagram
     participant P as Poste
-    participant R as Resolveur
+    participant R as Résolveur
     participant Rac as Serveur racine
     participant T as Serveur du TLD com
     participant A as Serveur autoritaire
-    P->>R: Quelle est l adresse de www.example.com ?
-    R->>Rac: Qui gere com ?
+    P->>R: Quelle est l'adresse de www.example.com ?
+    R->>Rac: Qui gère com ?
     Rac-->>R: Voici les serveurs du TLD com
-    R->>T: Qui gere example.com ?
+    R->>T: Qui gère example.com ?
     T-->>R: Voici les serveurs autoritaires
     R->>A: Adresse de www.example.com ?
     A-->>R: 203.0.113.10 pour 3600 s
@@ -125,9 +125,9 @@ sequenceDiagram
     participant C as Client sans adresse
     participant S as Serveur DHCP
     C->>S: Discover en broadcast
-    S-->>C: Offer avec une adresse proposee
+    S-->>C: Offer avec une adresse proposée
     C->>S: Request pour cette adresse
-    S-->>C: Acknowledge avec bail et parametres
+    S-->>C: Acknowledge avec bail et paramètres
 ```
 
 Le client n'a pas encore d'adresse IP, il ne peut donc pas adresser le serveur directement. Il crie dans la pièce (broadcast) depuis le port UDP 68, et le serveur répond sur le port UDP 67. Le *Request* diffuse aussi le choix du client, au cas où plusieurs serveurs auraient fait une offre.
@@ -328,9 +328,9 @@ Ces protocoles ont été conçus à une époque où le réseau était un cercle 
 
 ```mermaid
 flowchart TD
-    A["Connexion a un service"] --> B["Le canal est-il CHIFFRE ?"]
-    A --> C["Le serveur est-il AUTHENTIFIE ?"]
-    A --> D["Le client est-il AUTHENTIFIE ?"]
+    A["Connexion à un service"] --> B["Le canal est-il CHIFFRÉ ?"]
+    A --> C["Le serveur est-il AUTHENTIFIÉ ?"]
+    A --> D["Le client est-il AUTHENTIFIÉ ?"]
     B --> E["Un tiers ne peut pas lire"]
     C --> F["Je parle bien au bon serveur"]
     D --> G["Le serveur sait qui je suis"]
@@ -370,14 +370,14 @@ Reprenons les trois tickets du lundi matin. Les valeurs ci-dessous sont illustra
 
 ```mermaid
 flowchart TD
-    A["Poste sans acces"] --> B["Adresse IP valide ?"]
-    B -->|169.254| C["Probleme DHCP"]
+    A["Poste sans accès"] --> B["Adresse IP valide ?"]
+    B -->|169.254| C["Problème DHCP"]
     B -->|oui| D["ping IP de la passerelle OK ?"]
-    D -->|non| E["Probleme local ou lien"]
+    D -->|non| E["Problème local ou lien"]
     D -->|oui| F["ping par nom OK ?"]
-    F -->|non| G["Probleme DNS"]
+    F -->|non| G["Problème DNS"]
     F -->|oui| H["curl ou ssh sur le service"]
-    H --> I["Probleme applicatif ou TLS"]
+    H --> I["Problème applicatif ou TLS"]
 ```
 
 **Ticket 1 — Karim, rien ne s'ouvre.**

@@ -201,7 +201,7 @@ On ajoute un champ calculé et on enchaîne :
 Côté options de champs (donc hors transformations), on applique des seuils de couleur sur les trois colonnes de pourcentage, avec un affichage de cellule coloré. Le technicien lit la table en trois secondes.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Requête A CPU] --> J[Join by field<br/>instance]
     B[Requête B Mémoire] --> J
     C[Requête C Disque] --> J

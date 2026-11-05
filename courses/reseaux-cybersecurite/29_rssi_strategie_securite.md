@@ -116,10 +116,10 @@ La démarche reste la même quel que soit le secteur :
 6. **Indicateurs** : ce qui prouve que l'objectif avance.
 
 ```mermaid
-flowchart LR
-    A["ENJEUX METIER"] --> B["Processus et actifs critiques"]
-    B --> C["Scenarios de risque"]
-    C --> D["Objectifs de securite"]
+flowchart TD
+    A["ENJEUX MÉTIER"] --> B["Processus et actifs critiques"]
+    B --> C["Scénarios de risque"]
+    C --> D["Objectifs de sécurité"]
     D --> E["Programmes et chantiers"]
     E --> F["KRI et KPI"]
     F --> G["Revue en comite"]
@@ -139,11 +139,11 @@ La gouvernance sert à produire des décisions traçables au bon niveau. Trois i
 
 ```mermaid
 flowchart TB
-    DG["DIRECTION GENERALE"] --> CS["Comite strategique cyber<br/>trimestriel"]
+    DG["DIRECTION GÉNÉRALE"] --> CS["Comité strategique cyber<br/>trimestriel"]
     CS --> RSSI["RSSI"]
-    RSSI --> CO["Comite operationnel<br/>mensuel"]
+    RSSI --> CO["Comité operationnel<br/>mensuel"]
     CO --> DSI["DSI et equipes IT"]
-    CO --> MET["Proprietaires metier"]
+    CO --> MET["Propriétaires métier"]
     RSSI --> CC["Cellule de crise<br/>sur incident"]
     CC --> DG
 ```

@@ -49,7 +49,7 @@ La défense naïve (« on a scanné, on a livré ») échoue pour trois raisons 
 Ce module porte sur ce qui sépare un exécutant d'outils d'un consultant capable de conduire une mission de bout en bout.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Besoin exprimé] --> B[Cadrage et RoE]
     B --> C[Choix de méthode]
     C --> D[Collecte et tests]
@@ -58,8 +58,8 @@ flowchart LR
     F --> G[Restitution]
     G --> H[Suivi et retest]
     H -.-> B
-    style B fill:#1f6feb,color:#fff
-    style E fill:#1f6feb,color:#fff
+    style B fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    style E fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
 ```
 
 ## Surface d'attaque d'une mission
@@ -130,7 +130,7 @@ flowchart TD
     Q -->|Sommes-nous conformes| A1[Audit de conformité]
     Q -->|Que risquons-nous| A2[Analyse de risque]
     Q -->|Peut-on nous compromettre| A3[Pentest]
-    Q -->|Ce design tient-il| A4[Revue d architecture]
+    Q -->|Ce design tient-il| A4[Revue d'architecture]
     Q -->|Cette configuration est-elle saine| A5[Audit de configuration]
 ```
 

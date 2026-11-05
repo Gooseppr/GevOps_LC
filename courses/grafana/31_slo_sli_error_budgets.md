@@ -212,10 +212,10 @@ Une seule fenêtre pose problème : trop courte, elle est bruyante ; trop longue
 
 ```mermaid
 flowchart LR
-    A[Taux d erreur fenetre longue] --> C{Les deux depassent le seuil}
-    B[Taux d erreur fenetre courte] --> C
-    C -->|Oui| D[Alerte envoyee]
-    C -->|Non| E[Pas d alerte]
+    A[Taux d'erreur fenêtre longue] --> C{Les deux dépassent le seuil}
+    B[Taux d'erreur fenêtre courte] --> C
+    C -->|Oui| D[Alerte envoyée]
+    C -->|Non| E[Pas d'alerte]
 ```
 
 La configuration suivante, inspirée du Google SRE Workbook, convient bien pour un SLO de 99,9 % sur 30 jours :

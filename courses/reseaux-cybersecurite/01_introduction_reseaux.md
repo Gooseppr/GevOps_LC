@@ -125,8 +125,8 @@ flowchart TD
     SW --- PRT[Imprimante]
     AP -.- L1[Portable]
     AP -.- L2[Téléphone]
-    style SW fill:#dbeafe,stroke:#1d4ed8
-    style R fill:#fef3c7,stroke:#b45309
+    style SW fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    style R fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
 
 Les traits pleins représentent des câbles et les traits pointillés des liaisons Wi-Fi. Ce schéma simplifié montre le réseau interne de l'agence, sans le Wi-Fi invité ni la liaison vers le second bureau.

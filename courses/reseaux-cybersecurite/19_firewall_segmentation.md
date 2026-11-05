@@ -202,13 +202,13 @@ L'ACL du VLAN 30 sert aux réponses de la base. Le `established` fonctionne ici 
 Un VLAN (Virtual Local Area Network) sépare des domaines de diffusion. Il ne protège rien tant que le trafic entre VLAN ne passe pas par un point de filtrage. Une DMZ (Demilitarized Zone) est un segment qui héberge ce qui parle à Internet, avec l'hypothèse qu'il sera compromis un jour.
 
 ```mermaid
-flowchart LR
-    NET[INTERNET] -->|443| FW1[PARE-FEU PERIMETRE]
+flowchart TD
+    NET[INTERNET] -->|443| FW1[PARE-FEU PÉRIMÈTRE]
     FW1 --> RP[DMZ<br/>REVERSE PROXY + WAF]
     RP -->|8443| FW2[PARE-FEU INTERNE]
     FW2 --> APP[VLAN APPLICATION]
     APP -->|5432| FW2
-    FW2 --> DB[VLAN DONNEES]
+    FW2 --> DB[VLAN DONNÉES]
     ADM[ADMIN] -->|VPN + MFA| FW1
     FW1 --> BAS[BASTION]
     BAS -->|SSH| FW2

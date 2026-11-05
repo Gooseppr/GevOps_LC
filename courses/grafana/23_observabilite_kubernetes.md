@@ -54,8 +54,8 @@ Une erreur courante chez les débutants consiste à croire qu'il existe « les m
 
 ```mermaid
 flowchart LR
-    API[API Kubernetes] -->|etat des objets| KSM[kube-state-metrics]
-    subgraph NODE[Noeud]
+    API[API Kubernetes] -->|état des objets| KSM[kube-state-metrics]
+    subgraph NODE[Nœud]
         KUB[kubelet et cAdvisor]
         NE[node-exporter]
     end
@@ -344,10 +344,10 @@ flowchart TD
     A[Pod instable] --> B{Restarts en hausse ?}
     B -->|Non| C[Regarder throttling et latence]
     B -->|Oui| D{Raison de terminaison}
-    D -->|OOMKilled| E[Working set vs limit memoire]
+    D -->|OOMKilled| E[Working set vs limit mémoire]
     D -->|Error ou exit 1| F[Logs avec previous]
-    D -->|Probe en echec| G[Verifier readiness et liveness]
-    E --> H[Hypothese puis test]
+    D -->|Probe en échec| G[Vérifier readiness et liveness]
+    E --> H[Hypothèse puis test]
     F --> H
     G --> H
 ```

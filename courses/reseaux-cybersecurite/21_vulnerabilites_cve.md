@@ -255,7 +255,7 @@ flowchart TD
     H --> K
     I --> K
     J --> K
-    style G fill:#c0392b,color:#ffffff
+    style G fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
 ```
 
 Les délais ci-dessus sont des exemples de politique, à adapter à votre organisation.

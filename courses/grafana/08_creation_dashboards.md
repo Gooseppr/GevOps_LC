@@ -58,7 +58,7 @@ flowchart TD
     D --> R1[Row Vue d'ensemble]
     D --> R2[Row Détail ressources]
     R1 --> P1[Panel Stat]
-    R2 --> P2[Panel Time series]
+    R2 --> P2[Panel Time séries]
     P2 --> Q[Requête PromQL]
     Q --> S[Data source Prometheus]
 ```

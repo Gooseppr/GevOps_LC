@@ -156,7 +156,7 @@ mission:
 Le cadre juridique et l'autorisation d'intervention ont été traités dans les modules d'audit ; ici, retenez que le cadrage est la première ligne de défense du consultant contre la dérive de périmètre.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Demande client] --> B[Cadrage]
     B --> C[Contexte et documents]
     C --> D[Entretiens]

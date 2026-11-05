@@ -88,7 +88,7 @@ traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 Côté B, la bibliothèque d'instrumentation lit cet en-tête, crée un nouveau span dont le parent est `00f067aa0ba902b7`, et réutilise le même Trace ID. Si cet en-tête disparaît quelque part (un proxy qui le filtre, un client HTTP non instrumenté, un message de file qui ne porte pas le contexte), B démarre une **nouvelle** trace. Vous vous retrouvez avec deux demi-traces non reliées, et c'est l'un des problèmes les plus fréquents en pratique.
 
 ```mermaid
-flowchart LR
+flowchart TD
     C[Client] --> GW[Passerelle]
     GW -->|traceparent| PAN[Panier]
     GW -->|traceparent| PAY[Paiement]

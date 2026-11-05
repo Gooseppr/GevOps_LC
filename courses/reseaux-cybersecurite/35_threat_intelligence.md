@@ -74,14 +74,14 @@ Le travail suit un cycle dont le point d'entrée est la **direction**, c'est-à-
 {: .callout .callout-definition}
 
 ```mermaid
-flowchart LR
+flowchart TD
   A[DIRECTION<br/>questions prioritaires] --> B[COLLECTE<br/>flux, OSINT, incidents]
   B --> C[TRAITEMENT<br/>normalisation, dédoublonnage]
   C --> D[ANALYSE<br/>contexte et confiance]
   D --> E[DIFFUSION<br/>rapport, règles, alertes]
   E --> F[RETOUR<br/>qu'est-ce qui a servi ?]
   F --> A
-  style A fill:#1f6feb,color:#fff
+  style A fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
 ```
 
 > ⚠️ **Erreur fréquente**
@@ -180,8 +180,8 @@ flowchart TB
   V --> W[NOMS DE DOMAINE]
   W --> X[ADRESSES IP]
   X --> Y[HASHES<br/>trivial à changer]
-  style T fill:#c0392b,color:#fff
-  style Y fill:#27ae60,color:#fff
+  style T fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+  style Y fill:#dcfce7,stroke:#16a34a,color:#14532d
 ```
 
 Côté attaquant, voici ce que coûte réellement un changement :

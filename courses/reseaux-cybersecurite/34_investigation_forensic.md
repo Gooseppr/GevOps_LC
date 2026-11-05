@@ -159,7 +159,7 @@ flowchart TD
     F --> G["Hash et fiche de conservation"]
     G --> H["Décision: extinction ou remise en service"]
     B -.-> I["Cloud: snapshot du volume avant toute action"]
-    style C fill:#f4b183
+    style C fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
 
 ### Le coût de la collecte à chaud

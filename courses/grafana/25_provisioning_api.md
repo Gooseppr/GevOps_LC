@@ -432,7 +432,7 @@ Vous croiserez aussi des outils qui génèrent le JSON à partir de code (Jsonne
 Le but est d'avoir **le même contenu** à chaque étape, et seulement ce qui change réellement (URLs, secrets, durées de rétention) injecté de l'extérieur. Grafana rend cela facile grâce à deux choix déjà faits : UID fixes pour les Data Sources, et interpolation de variables d'environnement dans les fichiers.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Dépôt Git] --> B[Pull Request]
     B --> C[Pipeline CI]
     C -->|validation JSON et YAML| D[Merge sur main]

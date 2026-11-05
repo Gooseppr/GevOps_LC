@@ -247,12 +247,12 @@ Voici la démarche complète d'un diagnostic avec Wireshark :
 
 ```mermaid
 flowchart TD
-    A[Symptome observe] --> B[Choisir le point de capture]
+    A[Symptôme observé] --> B[Choisir le point de capture]
     B --> C[Capturer avec un filtre large]
     C --> D[Isoler la conversation]
     D --> E{Handshake complet ?}
-    E -->|Non| F[SYN sans reponse ou RST]
-    E -->|Oui| G[Retransmissions et delais]
+    E -->|Non| F[SYN sans réponse ou RST]
+    E -->|Oui| G[Retransmissions et délais]
     G --> H[DNS HTTP TLS]
     F --> I[Conclure et documenter]
     H --> I

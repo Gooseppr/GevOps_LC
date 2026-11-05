@@ -130,7 +130,7 @@ Cinq mots sont souvent confondus. Les distinguer est la base de tout rapport d'a
 ```mermaid
 flowchart LR
     M["MENACE<br/>acteur motivé"] --> E["EXPLOITATION"]
-    V["VULNERABILITE<br/>faiblesse exploitable"] --> E
+    V["VULNÉRABILITÉ<br/>faiblesse exploitable"] --> E
     E --> I["IMPACT<br/>sur l'actif"]
     A["ACTIF<br/>valeur pour le métier"] --> I
     I --> R["RISQUE<br/>vraisemblance x impact"]
@@ -253,7 +253,7 @@ Le principe : empiler des contrôles indépendants pour que l'échec d'un seul n
 {: .callout .callout-analogie}
 
 ```mermaid
-flowchart LR
+flowchart TD
     N["Internet"] --> P["Filtrage<br/>périmètre"]
     P --> AU["Authentification<br/>forte"]
     AU --> AP["Application<br/>durcie"]

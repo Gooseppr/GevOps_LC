@@ -48,9 +48,9 @@ Un bon diagnostic est une petite démonstration que quelqu'un d'autre peut véri
 
 ```mermaid
 flowchart TD
-    A[SYMPTOME<br/>ce que voit l alerte ou l utilisateur] --> B[FENETRE<br/>debut et fin de la dégradation]
-    B --> C[HYPOTHESE<br/>une cause précise et réfutable]
-    C --> D[PREUVE<br/>une requête qui peut contredire l hypothèse]
+    A[SYMPTÔME<br/>ce que voit l'alerte ou l'utilisateur] --> B[FENÊTRE<br/>début et fin de la dégradation]
+    B --> C[HYPOTHÈSE<br/>une cause précise et réfutable]
+    C --> D[PREUVE<br/>une requête qui peut contredire l'hypothèse]
     D -->|Réfutée| C
     D -->|Tient le coup| E[CONCLUSION<br/>cause, niveau de confiance, limites]
     E --> F[Diagnostic reproductible]
@@ -108,7 +108,7 @@ Affichez les deux dans le même panel : la première en trait plein, la seconde 
 Un dashboard répond bien à la question « où ça ne va pas ? », car il est construit à l'avance pour ça. Explore sert à la question suivante, que personne n'avait prévue : « pourquoi ? ». Le bon réflexe consiste à pivoter de l'un à l'autre sans repartir de zéro.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Alerte] --> B[Dashboard RED du service]
     B -->|Menu du panel puis Explore| C[Explore métriques]
     C --> D[Traces lentes dans Tempo]

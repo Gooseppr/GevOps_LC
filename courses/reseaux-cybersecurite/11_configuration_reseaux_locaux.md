@@ -320,7 +320,7 @@ interface GigabitEthernet0/0.30
 Chaque adresse `.1` est la passerelle de son VLAN. L'encapsulation `dot1Q` suivie de l'identifiant dit au routeur quelle étiquette lire et écrire. Voici le trajet d'un paquet entre un PC du VLAN 10 et un serveur du VLAN 20 :
 
 ```mermaid
-flowchart LR
+flowchart TD
   A["PC VLAN 10<br/>192.168.10.50"] --> B["SWITCH<br/>port access 10"]
   B -->|"trame taguée 10"| C["ROUTEUR<br/>sous-interface .10"]
   C -->|"routage"| D["ROUTEUR<br/>sous-interface .20"]

@@ -195,7 +195,7 @@ Appeler le KMS pour chaque enregistrement serait lent et coûteux. Le schéma st
 
 ```mermaid
 flowchart TD
-    A[DONNEES] -->|chiffrées par| B[DEK<br/>clé de données]
+    A[DONNÉES] -->|chiffrées par| B[DEK<br/>clé de données]
     B -->|chiffrée par| C[KEK<br/>dans KMS ou HSM]
     B -.->|stockée chiffrée<br/>à côté des données| A
     C -->|appel API journalisé| D[Journal d'audit]
@@ -232,7 +232,7 @@ Un certificat contient notamment :
 
 ```mermaid
 flowchart TD
-    R[AC RACINE<br/>dans le magasin de confiance] -->|signe| I[AC INTERMEDIAIRE]
+    R[AC RACINE<br/>dans le magasin de confiance] -->|signe| I[AC INTERMÉDIAIRE]
     I -->|signe| L[CERTIFICAT FEUILLE<br/>www.example.org]
     L -->|présenté par le serveur| C[Client TLS]
     R -.->|ancre de confiance locale| C

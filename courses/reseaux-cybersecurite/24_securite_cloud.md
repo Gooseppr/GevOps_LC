@@ -111,7 +111,7 @@ Qu'est-ce qui rend un sous-réseau « public » ? Pas son nom, mais **une route 
 On construit en pratique trois couches :
 
 ```mermaid
-flowchart LR
+flowchart TD
     NET["INTERNET"] --> IGW["Internet Gateway"]
     IGW --> ALB["Load balancer<br/>sous-réseau public"]
     ALB --> APP["VM applicatives<br/>sous-réseau privé"]
@@ -241,7 +241,7 @@ Le filtrage sortant est celui qu'on oublie, alors qu'il conditionne l'exfiltrati
 ### Mécanisme d'attaque : de la SSRF au compte cloud
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["Attaquant"] --> B["SSRF sur l'application"]
     B --> C["Requête vers 169.254.169.254"]
     C --> D["Credentials temporaires du rôle"]

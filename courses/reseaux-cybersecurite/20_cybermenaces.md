@@ -245,7 +245,7 @@ Ces deux frameworks ne décrivent pas les mêmes choses. Les comprendre ensemble
 La Kill Chain décompose une attaque en 7 phases séquentielles :
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[1. Reconnaissance] --> B[2. Weaponization]
     B --> C[3. Delivery]
     C --> D[4. Exploitation]

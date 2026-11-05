@@ -261,7 +261,7 @@ Quand l'alerte tombe ou qu'un utilisateur se plaint, un ordre de lecture évite 
 
 ```mermaid
 flowchart TD
-    A[SYMPTOME: API lente ou en erreur] --> B{Le trafic a-t-il changé}
+    A[SYMPTÔME: API lente ou en erreur] --> B{Le trafic a-t-il changé}
     B -->|Oui| C[Pic de volume, retries ou boucle client]
     B -->|Non| D{Quelles routes sont touchées}
     D -->|Une seule| E[Code ou requête propre à cette route]

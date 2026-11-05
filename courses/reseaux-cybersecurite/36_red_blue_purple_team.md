@@ -269,17 +269,17 @@ Quel que soit le mode, la coordination repose sur trois pratiques :
 
 ```mermaid
 flowchart TD
-  A["MODELE DE MENACE"] --> B["Hypothese testable"]
-  B --> C["Red execute la technique"]
-  C --> D["Blue observe la telemetrie"]
-  D --> E{"Niveau de detection ?"}
-  E -->|"0 a 2"| F["Corriger collecte ou regle"]
-  E -->|"3"| G["Regler le triage"]
+  A["MODÈLE DE MENACE"] --> B["Hypothèse testable"]
+  B --> C["Red exécute la technique"]
+  C --> D["Blue observé la télémétrie"]
+  D --> E{"Niveau de détection ?"}
+  E -->|"0 a 2"| F["Corriger collecte ou règle"]
+  E -->|"3"| G["Régler le triage"]
   E -->|"4"| H["Documenter"]
   F --> I["Rejouer le test"]
   G --> I
   I --> E
-  H --> J["Test de regression planifie"]
+  H --> J["Test de régression planifie"]
 ```
 
 ## Mesure des lacunes et amélioration continue
@@ -325,12 +325,12 @@ Il n'existe pas de bon exercice dans l'absolu, seulement un exercice adapté à 
 
 ```mermaid
 flowchart TD
-  Q1{"Telemetrie de base en place ?"} -->|"Non"| R1["Durcir la collecte d'abord"]
-  Q1 -->|"Oui"| Q2{"Regles de detection testees ?"}
+  Q1{"Télémétrie de base en place ?"} -->|"Non"| R1["Durcir la collecte d'abord"]
+  Q1 -->|"Oui"| Q2{"Règles de détection testées ?"}
   Q2 -->|"Non"| R2["PURPLE TEAM sur techniques prioritaires"]
   Q2 -->|"Oui"| Q3{"Besoin de tester triage et crise ?"}
   Q3 -->|"Oui"| R3["RED TEAM en mode aveugle ou informe"]
-  Q3 -->|"Non"| R4["Tests Atomic automatises mensuels"]
+  Q3 -->|"Non"| R4["Tests Atomic automatisés mensuels"]
 ```
 
 Quelques situations typiques :

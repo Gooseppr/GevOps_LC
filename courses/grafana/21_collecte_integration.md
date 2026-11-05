@@ -59,7 +59,7 @@ flowchart LR
     W["Sonde externe<br/>Blackbox Exporter"] --> C
     F["Fichiers de logs"] --> C
     O["SDK OpenTelemetry"] --> C
-    C -->|metriques| P["Prometheus"]
+    C -->|métriques| P["Prometheus"]
     C -->|logs| L["Loki"]
     C -->|traces| T["Tempo"]
     P --> G["Grafana"]

@@ -370,9 +370,9 @@ flowchart LR
     G --> L[Loki monolithique]
     G --> N[Contact point Slack]
     P --> S[Disque local]
-    style P fill:#f99
-    style L fill:#f99
-    style S fill:#f99
+    style P fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style L fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style S fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
 ```
 
 Grafana n'est que la **fenêtre**. Si Prometheus meurt, vos trois instances affichent trois fois la même erreur. Et l'alerting en HA évalue très bien… des requêtes qui ne répondent plus.

@@ -69,7 +69,7 @@ La chaîne de transformation typique ressemble à ceci :
 
 ```mermaid
 flowchart LR
-    A[Sélecteur de séries<br/>INSTANT VECTOR] -->|ajout d une fenêtre| B[RANGE VECTOR]
+    A[Sélecteur de séries<br/>INSTANT VECTOR] -->|ajout d'une fenêtre| B[RANGE VECTOR]
     B -->|rate ou increase| C[INSTANT VECTOR<br/>une valeur par série]
     C -->|sum avg max| D[INSTANT VECTOR<br/>une valeur par groupe]
     D -->|multiplier par un nombre| E[Résultat final]

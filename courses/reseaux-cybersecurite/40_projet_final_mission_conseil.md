@@ -79,16 +79,16 @@ La fiche de cadrage tient sur deux pages et contient :
 Le déroulé standard d'une mission de dix jours (durées illustratives) :
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[CADRAGE ET RoE] --> B[Cartographie des actifs]
     B --> C[Analyse de risques]
-    C --> D[Controles techniques labo]
+    C --> D[Contrôles techniques labo]
     C --> E[Revue organisationnelle]
-    D --> F[Exercice detection et reponse]
+    D --> F[Exercice détection et réponse]
     E --> F
     F --> G[Test de restauration]
-    G --> H[Plan priorise et chiffre]
-    H --> I[Rapport et synthese]
+    G --> H[Plan priorisé et chiffre]
+    H --> I[Rapport et synthèse]
     I --> J[RESTITUTION DIRECTION]
     F -.-> C
 ```

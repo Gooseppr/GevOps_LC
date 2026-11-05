@@ -73,14 +73,14 @@ Ici la surface d'attaque n'est pas qu'un port ou un endpoint. Ce sont aussi des 
 Avant de défendre, comprenons le raisonnement de l'attaquant. Il ne cherche pas « la CVE la mieux notée ». Il cherche le chemin le moins coûteux vers un objectif qui rapporte : chiffrer, voler, perturber.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Compte VPN tiers sans MFA] --> B[RDP vers serveur ERP]
-    B --> C[Vol d identifiants Mimikatz]
+    B --> C[Vol d'identifiants Mimikatz]
     C --> D[Cartographie AD BloodHound]
     D --> E[Suppression des sauvegardes]
     E --> F[Chiffrement et exfiltration]
-    F --> G[ARRET D EXPEDITION]
-    style G fill:#c0392b,color:#fff
+    F --> G[ARRET D'EXPÉDITION]
+    style G fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
 ```
 
 > 🔴 **Vecteur d'attaque**
@@ -107,13 +107,13 @@ La démarche tient en trois temps, dans le cadre d'un contexte défini au préal
 
 ```mermaid
 flowchart TD
-    A[Contexte et criteres d acceptation] --> B[Identification des scenarios]
-    B --> C[Analyse vraisemblance et gravite]
-    C --> D[Evaluation face aux criteres]
+    A[Contexte et critères d'acceptation] --> B[Identification des scénarios]
+    B --> C[Analyse vraisemblance et gravité]
+    C --> D[Évaluation face aux critères]
     D --> E{Niveau acceptable}
-    E -- Oui --> F[Acceptation documentee]
+    E -- Oui --> F[Acceptation documentée]
     E -- Non --> G[Traitement du risque]
-    G --> H[Risque residuel]
+    G --> H[Risque résiduel]
     H --> D
     F --> I[Registre et suivi]
     G --> I

@@ -225,10 +225,10 @@ sequenceDiagram
     participant R as R1 routeur
     participant W as Serveur 198.51.100.20
     P->>R: source 192.168.10.25 port 51514 vers 198.51.100.20 port 443
-    Note over R: crée l entrée de translation<br/>source devient 203.0.113.10 port 40001
+    Note over R: crée l'entrée de translation<br/>source devient 203.0.113.10 port 40001
     R->>W: source 203.0.113.10 port 40001 vers 198.51.100.20 port 443
     W->>R: réponse vers 203.0.113.10 port 40001
-    Note over R: retrouve l entrée<br/>destination redevient 192.168.10.25 port 51514
+    Note over R: retrouve l'entrée<br/>destination redevient 192.168.10.25 port 51514
     R->>P: réponse vers 192.168.10.25 port 51514
 ```
 

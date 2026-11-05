@@ -91,7 +91,7 @@ Pour un ensemble de dashboards, la structure la plus robuste est un entonnoir à
 flowchart TD
     O[OVERVIEW - Santé de la plateforme] --> S1[SERVICE - Checkout]
     O --> S2[SERVICE - Catalogue]
-    S1 --> R1[RESOURCE - Pods et noeuds]
+    S1 --> R1[RESOURCE - Pods et nœuds]
     S1 --> R2[RESOURCE - Base de données]
     S2 --> R1
     S1 --> L[Explore Loki - logs filtrés]

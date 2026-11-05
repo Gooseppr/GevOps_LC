@@ -85,7 +85,7 @@ La dernière ligne est contre-intuitive : un équipement de sécurité ajouté �
 Reprenons la chaîne du scénario. Elle ressemble à ce que décrivent les rapports d'incidents sur les rançongiciels de type NotPetya, qui combinait l'exploit EternalBlue (MS17-010) et le vol d'identifiants avec exécution distante :
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["Poste compromis"] -->|"hash local réutilisé"| B["Serveur de fichiers"]
     B -->|"jeton admin en mémoire"| C["Serveur d'administration"]
     C -->|"compte Tier 0"| D["Contrôleur de domaine"]
@@ -95,10 +95,10 @@ flowchart LR
     S2["Mots de passe locaux uniques"] -.->|"bloque"| B
     S3["Administration par tiers"] -.->|"bloque"| C
     S4["Sauvegardes isolées et immuables"] -.->|"protège"| F
-    style S1 fill:#2d6a4f,color:#fff
-    style S2 fill:#2d6a4f,color:#fff
-    style S3 fill:#2d6a4f,color:#fff
-    style S4 fill:#2d6a4f,color:#fff
+    style S1 fill:#dcfce7,stroke:#16a34a,color:#14532d
+    style S2 fill:#dcfce7,stroke:#16a34a,color:#14532d
+    style S3 fill:#dcfce7,stroke:#16a34a,color:#14532d
+    style S4 fill:#dcfce7,stroke:#16a34a,color:#14532d
 ```
 
 Chaque flèche est une occasion d'arrêter l'attaquant. Elle n'existe que si le contrôle correspondant a été conçu avant l'incident, pas déployé après.
@@ -149,8 +149,8 @@ flowchart TB
     DB -->|"écriture seule"| BKP
     APP -.->|"egress filtré"| PX["Proxy sortant"]
     PX --> NET
-    style ADM fill:#8d5a00,color:#fff
-    style BKP fill:#2d6a4f,color:#fff
+    style ADM fill:#fef3c7,stroke:#d97706,color:#78350f
+    style BKP fill:#dcfce7,stroke:#16a34a,color:#14532d
 ```
 
 Comment découper ? Pas selon l'organigramme, mais selon deux critères : la **sensibilité** de ce qui est dans la zone et le **plan de contrôle** (qui administre quoi). Dans l'ordre :

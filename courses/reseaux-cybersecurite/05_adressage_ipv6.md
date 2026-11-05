@@ -189,10 +189,10 @@ sequenceDiagram
     participant R as Routeur
     participant L as Lien local
     H->>R: RS - y a-t-il un routeur ici
-    R->>H: RA - prefixe, passerelle, indicateurs
-    H->>H: Construit adresse = prefixe + identifiant
+    R->>H: RA - préfixe, passerelle, indicateurs
+    H->>H: Construit adresse = préfixe + identifiant
     H->>L: NS - test de doublon DAD
-    Note over H: Pas de reponse, adresse utilisable
+    Note over H: Pas de réponse, adresse utilisable
 ```
 
 Pour l'identifiant d'interface, les anciens systèmes utilisaient EUI-64 (Extended Unique Identifier, 64 bits), dérivé de l'adresse MAC. Ce mécanisme pose un problème de vie privée : l'identifiant suit la carte réseau d'un réseau à l'autre. Les systèmes actuels utilisent des identifiants stables mais opaques, et génèrent en plus des adresses temporaires qui changent régulièrement pour les connexions sortantes. C'est pour cela qu'un même poste affiche parfois plusieurs adresses globales.

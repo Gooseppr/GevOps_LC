@@ -72,14 +72,14 @@ Le détecteur d'une panne ne doit pas partager son sort avec ce qu'il détecte. 
 
 ```mermaid
 flowchart LR
-    subgraph PROD["PLATEFORME OBSERVEE"]
+    subgraph PROD["PLATEFORME OBSERVÉE"]
         G[Grafana]
         P[Prometheus]
         L[Loki]
         T[Tempo]
         C[Collecteurs]
     end
-    subgraph CTRL["PLAN DE CONTROLE INDEPENDANT"]
+    subgraph CTRL["PLAN DE CONTRÔLE INDÉPENDANT"]
         M[Prometheus meta]
         AM[Alertmanager meta]
         BB[Blackbox exporter]

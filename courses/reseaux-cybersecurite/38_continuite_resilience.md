@@ -206,9 +206,9 @@ flowchart LR
     R1 -->|copie périodique| R3["Support hors ligne<br/>Tier 0 et clés"]
     S["Secrets de reprise<br/>coffre hors SI"] -.-> B
     D["Runbooks imprimés<br/>et copie hors SI"] -.-> B
-    style B fill:#ffd9a8
-    style R2 fill:#c8e6c9
-    style R3 fill:#c8e6c9
+    style B fill:#fef3c7,stroke:#d97706,color:#78350f
+    style R2 fill:#dcfce7,stroke:#16a34a,color:#14532d
+    style R3 fill:#dcfce7,stroke:#16a34a,color:#14532d
 ```
 
 Trois éléments portent la résilience : le serveur de sauvegarde n'appartient pas au domaine, au moins une copie est immuable, et les secrets de reprise existent en dehors du SI qu'ils servent à reconstruire.
@@ -393,9 +393,9 @@ flowchart TD
     DB --> E["ERP facturation"]
     I --> M["Messagerie"]
     W --> U["Postes entrepôts"]
-    style N fill:#ffcdd2
-    style I fill:#ffcdd2
-    style W fill:#c8e6c9
+    style N fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style I fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style W fill:#dcfce7,stroke:#16a34a,color:#14532d
 ```
 
 Trois règles pratiques en découlent :

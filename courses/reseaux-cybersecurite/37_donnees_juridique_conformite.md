@@ -352,15 +352,15 @@ Une violation de données au sens du RGPD est toute atteinte à la **confidentia
 
 ```mermaid
 flowchart TD
-    A[INCIDENT DETECTE] --> B{Donnees personnelles touchees ?}
+    A[INCIDENT DÉTECTÉ] --> B{Données personnelles touchées ?}
     B -->|Non| C[Traiter comme incident technique<br/>et consigner]
-    B -->|Oui| D[Qualifier la violation<br/>confidentialite, integrite, disponibilite]
+    B -->|Oui| D[Qualifier la violation<br/>confidentialité, intégrité, disponibilité]
     D --> E{Risque pour les personnes ?}
     E -->|Improbable| F[Pas de notification<br/>inscrire au registre des violations]
     E -->|Probable| G[Notifier l'autorite<br/>dans les 72 h]
-    G --> H{Risque eleve ?}
+    G --> H{Risque élevé ?}
     H -->|Oui| I[Informer les personnes]
-    H -->|Non| J[Documenter la decision]
+    H -->|Non| J[Documenter la décision]
     I --> J
     F --> J
 ```

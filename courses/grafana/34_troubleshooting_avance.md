@@ -50,7 +50,7 @@ Comment la trouver ? Il faut une méthode : savoir quelle couche répond, laquel
 {: .callout .callout-analogie}
 
 ```mermaid
-flowchart LR
+flowchart TD
     U["Navigateur ou client API"] --> R["Reverse proxy ou load balancer"]
     R --> G["Grafana : serveur HTTP et authentification"]
     G --> DB[("Base de données Grafana")]
@@ -165,15 +165,16 @@ Comment séparer Grafana de ce qui se trouve derrière ?
 
 ```mermaid
 flowchart TD
-    A["Erreur ou donnée absente"] --> B{"api/health répond ok ?"}
-    B -->|"non"| C["Pas de réponse : proxy, pod, processus<br/>Réponse avec database en échec : base Grafana"]
-    B -->|"oui"| D{"Requête directe au backend<br/>depuis le contexte Grafana"}
+    A["Erreur ou donnée absente"] --> B{"api/health répond ?"}
+    B -->|"pas de réponse"| C["Proxy, pod ou processus"]
+    B -->|"database en échec"| C2["Base Grafana"]
+    B -->|"ok"| D{"Requête directe au backend<br/>depuis le contexte Grafana"}
     D -->|"échec réseau"| E["Réseau : DNS, port, pare-feu, TLS"]
     D -->|"401 ou 403"| F["Authentification du backend"]
     D -->|"OK mais lent ou 5xx"| G["Backend : requête, charge, limites"]
     D -->|"OK et rapide"| H{"Même requête via api/ds/query"}
     H -->|"401 ou 403 Grafana"| I["Authentification ou permissions Grafana"]
-    H -->|"erreur plugin ou 5xx Grafana"| J["Grafana : logs, plugin, ressources"]
+    H -->|"erreur plugin ou 5xx"| J["Grafana : logs, plugin, ressources"]
     H -->|"OK"| K["Navigateur, proxy ou dashboard"]
 ```
 

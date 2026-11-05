@@ -50,7 +50,7 @@ Trois composants, chacun avec un rôle étroit :
 - **Grafana** ne collecte rien : il pose des questions à Prometheus et dessine les réponses.
 
 ```mermaid
-flowchart LR
+flowchart TD
     H[SERVEUR LINUX<br/>noyau /proc /sys] --> N[Node Exporter<br/>port 9100]
     N -->|scrape toutes les 15s| P[Prometheus<br/>port 9090]
     P -->|requêtes PromQL| G[Grafana<br/>port 3000]

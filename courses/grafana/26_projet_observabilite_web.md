@@ -45,23 +45,32 @@ La solution naïve (« on ajoute un dashboard CPU/RAM ») ne suffit plus. Le CPU
 Avant de taper la moindre ligne, il faut voir la stack comme un tout. Grafana n'y stocke rien : il interroge trois backends et envoie des mails quand une règle bascule. Chaque signal a son circuit de collecte.
 
 ```mermaid
-flowchart LR
-    LG[Générateur de charge] --> API[shop-api]
-    API --> DB[(PostgreSQL)]
-    PGX[postgres-exporter] --> DB
-    BB[blackbox] -->|sonde health| API
-    PR[Prometheus] -->|scrape| API
-    PR -->|scrape| PGX
-    PR -->|scrape| CAD[cAdvisor]
-    PR -->|scrape| BB
+flowchart TD
+    subgraph APP["Application"]
+        LG[Générateur de charge] --> API[shop-api]
+        API --> DB[(PostgreSQL)]
+    end
+    subgraph EXP["Exporters et sondes"]
+        PGX[postgres-exporter]
+        CAD[cAdvisor]
+        BB[blackbox]
+    end
+    subgraph BACK["Backends"]
+        PR[Prometheus]
+        LO[Loki]
+        TE[Tempo]
+    end
+    PGX --> DB
+    BB -->|sonde health| API
+    PR -->|scrape| API
+    PR -->|scrape| EXP
     API -->|traces OTLP| AL[Alloy]
     AL -.->|lit les logs Docker| API
-    AL --> LO[Loki]
-    AL --> TE[Tempo]
-    GR[Grafana] -->|requêtes| PR
-    GR --> LO
-    GR --> TE
+    AL --> LO
+    AL --> TE
+    GR[Grafana] -->|requêtes| BACK
     GR -->|alertes| ML[Mailpit]
+    style GR fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
 ```
 
 | Composant | Rôle | Pourquoi lui |

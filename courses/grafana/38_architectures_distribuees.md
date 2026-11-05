@@ -45,7 +45,7 @@ Chaque équipe regarde son service et celui-ci va bien. Le problème se trouve e
 Dans un monolithe, un appel lent se voit dans un profil ou dans un log unique. Dans une architecture distribuée, c'est moins simple.
 
 ```mermaid
-flowchart LR
+flowchart TD
     C[Client] --> GW[Gateway]
     GW --> CO[Checkout]
     CO -->|sync| PAY[Payments]

@@ -171,18 +171,18 @@ Ses briques principales :
 
 ```mermaid
 flowchart TD
-    F["FORET"] --> D["DOMAINE corp.local"]
-    D --> DC["Controleurs de domaine<br/>annuaire + SYSVOL"]
+    F["FORÊT"] --> D["DOMAINE corp.local"]
+    D --> DC["Contrôleurs de domaine<br/>annuaire + SYSVOL"]
     D --> OU1["OU Serveurs"]
     D --> OU2["OU Postes"]
     D --> OU3["OU Comptes admin"]
-    G1["GPO Baseline"] -.->|liee| D
-    G2["GPO Durcissement serveurs"] -.->|liee| OU1
-    G3["GPO Postes utilisateurs"] -.->|liee| OU2
+    G1["GPO Baseline"] -.->|liée| D
+    G2["GPO Durcissement serveurs"] -.->|liée| OU1
+    G3["GPO Postes utilisateurs"] -.->|liée| OU2
     OU1 -.->|les machines lisent les GPO| DC
     OU2 -.->|les machines lisent les GPO| DC
-    style DC fill:#fdd
-    style OU3 fill:#ffd
+    style DC fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style OU3 fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
 
 Trois conséquences pratiques :

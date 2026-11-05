@@ -55,7 +55,7 @@ Un SOC fait trois choses, et la troisième est celle qu'on oublie :
 Le SOC s'arrête à la qualification et à l'escalade. La conduite de l'incident (confinement, éradication, gestion de crise) relève du module suivant.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["Sources: postes, réseau, identité, applications, cloud"] --> B["Collecte: agents, syslog, API"]
     B --> C["Normalisation et enrichissement"]
     C --> D["Stockage et index"]

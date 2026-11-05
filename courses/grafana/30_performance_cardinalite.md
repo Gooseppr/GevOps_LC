@@ -50,8 +50,8 @@ flowchart LR
     D --> C
     C --> B
     B --> E[Rendu dans le navigateur]
-    style D fill:#fde68a
-    style E fill:#fde68a
+    style D fill:#fef3c7,stroke:#d97706,color:#78350f
+    style E fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
 
 Le backend évalue la requête (c'est là que se joue le coût de PromQL ou LogQL). Le trajet retour transporte un volume de données. Enfin le navigateur dessine des séries et des points. Un panel qui retourne 400 000 lignes peut avoir une évaluation rapide côté Prometheus et pourtant geler l'onglet pendant plusieurs secondes.
