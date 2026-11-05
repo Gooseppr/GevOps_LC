@@ -42,7 +42,9 @@ Le problème n'est pas un manque de dashboards. Personne ne surveillait la super
 
 ## Le problème de fond : qui surveille le surveillant ?
 
-Un système de supervision est un service de production comme les autres. Il consomme du CPU, remplit des disques, dépend d'une base de données, d'un réseau et de certificats qui expirent. La différence tient à ses échecs : quand une API tombe, la supervision le dit. Quand la supervision tombe, **rien ne le dit**. Le silence ressemble alors à un « tout va bien ».
+Un système de supervision est un service de production comme les autres. Il consomme du CPU, remplit des disques, dépend d'une base de données, d'un réseau et de certificats qui expirent.
+
+La différence tient à ses échecs. Quand une API tombe, la supervision le dit. Quand la supervision tombe, **rien ne le dit**. Le silence ressemble alors à un « tout va bien ».
 
 > 🧠 **Concept clé — Le silence n'est pas un signal de santé.** Une plateforme d'observabilité ne peut pas prouver qu'elle fonctionne par l'absence d'alertes. Il faut un signal positif, émis en continu, dont l'*absence* déclenche une réaction depuis un point extérieur.
 {: .callout .callout-important}
@@ -59,7 +61,10 @@ La troisième question est la plus négligée. Un Grafana qui répond en HTTP 20
 
 ### Le principe d'indépendance
 
-Le détecteur d'une panne ne doit pas partager son sort avec ce qu'il détecte. Concrètement, on sépare deux plans : la **plateforme observée** (celle qui sert les équipes) et un **plan de contrôle minimal** (qui ne fait que la surveiller). Le second est volontairement petit, sobre et sans dépendance vis-à-vis du premier.
+Le détecteur d'une panne ne doit pas partager son sort avec ce qu'il détecte. Concrètement, on sépare deux plans : la **plateforme observée**, celle qui sert les équipes, et un **plan de contrôle minimal**.
+
+> 📖 **Définition.** Le *plan de contrôle* est une supervision réduite qui ne fait que surveiller la plateforme observée. Il est volontairement petit, sobre et sans dépendance vis-à-vis d'elle.
+{: .callout .callout-definition}
 
 ```mermaid
 flowchart LR
@@ -122,7 +127,10 @@ scrape_configs:
 curl -s http://<GRAFANA_HOST>:3000/api/health
 ```
 
-Les noms exacts des métriques évoluent d'une version à l'autre. Avant d'écrire une règle, vérifiez le nom et les labels réels avec un `curl` sur `/metrics` de *votre* instance. Les familles les plus utiles sont :
+> 📝 **Note.** Les noms exacts des métriques évoluent d'une version à l'autre. Avant d'écrire une règle, vérifiez le nom et les labels réels avec un `curl` sur `/metrics` de *votre* instance.
+{: .callout .callout-note}
+
+Les familles les plus utiles sont :
 
 - les requêtes HTTP (`grafana_http_request_duration_seconds`), pour la latence de l'interface et de l'API ;
 - les requêtes vers les Data Sources (`grafana_datasource_request_*`), pour savoir quelle source dégrade l'expérience ;
@@ -181,14 +189,16 @@ Pour les évaluations, surveillez trois choses :
 sum(rate(grafana_alerting_rule_evaluation_failures_total[5m])) > 0
 ```
 
-Pour les notifications, le compteur d'échecs de l'Alertmanager (`alertmanager_notifications_failed_total` côté Alertmanager autonome, famille `grafana_alerting_*` côté Alertmanager interne, noms à confirmer sur votre version) est le signal principal. Un webhook dont le certificat a expiré, un token Slack révoqué ou un serveur SMTP qui refuse la connexion se manifestent ici, mais seulement lorsqu'un envoi est tenté. Tant qu'aucune alerte ne part, le compteur reste à zéro, d'où l'intérêt de tester chaque contact point.
+Pour les notifications, le compteur d'échecs de l'Alertmanager (`alertmanager_notifications_failed_total` côté Alertmanager autonome, famille `grafana_alerting_*` côté Alertmanager interne, noms à confirmer sur votre version) est le signal principal. Un webhook dont le certificat a expiré, un token Slack révoqué ou un serveur SMTP qui refuse la connexion se manifestent ici.
+
+Mais seulement lorsqu'un envoi est tenté : tant qu'aucune alerte ne part, le compteur reste à zéro. D'où l'intérêt de tester chaque contact point.
 
 > 🧠 **Concept clé — Évaluer n'est pas notifier.** Une règle peut être à l'état Firing, parfaitement visible dans l'interface, tout en échouant à envoyer quoi que ce soit. Deux jeux de métriques, deux alertes distinctes.
 {: .callout .callout-important}
 
 ### Dashboards de capacité et de fiabilité
 
-Il vaut mieux séparer deux dashboards que de les fusionner, car ils servent des moments différents. Le dashboard de **fiabilité** sert pendant un incident : est-ce que la plateforme répond, est-ce que les alertes circulent ? Celui de **capacité** sert en revue hebdomadaire ou mensuelle : vers quoi allons-nous ?
+Pourquoi deux dashboards plutôt qu'un seul ? Parce qu'ils servent des moments différents. Le dashboard de **fiabilité** sert pendant un incident : est-ce que la plateforme répond, est-ce que les alertes circulent ? Celui de **capacité** sert en revue hebdomadaire ou mensuelle : vers quoi allons-nous ?
 
 | Question posée | Panel utile |
 |---|---|
@@ -217,7 +227,11 @@ Deux mécanismes complémentaires, tous les deux nécessaires.
 
 ### Le Watchdog (dead man's switch)
 
-L'idée est de renverser la logique : au lieu d'attendre qu'une alerte apparaisse, on émet en permanence une alerte qui est **toujours** active. Un service externe reçoit ce battement et déclenche l'astreinte s'il ne l'entend plus. Imaginez un détecteur de présence au poste de garde : si la personne cesse de signaler qu'elle est là, on envoie quelqu'un, sans attendre qu'elle appelle à l'aide.
+> 📖 **Définition.** Un *Watchdog* renverse la logique d'alerte : au lieu d'attendre qu'une alerte apparaisse, on émet en permanence une alerte **toujours** active. Un service externe reçoit ce battement et déclenche l'astreinte s'il ne l'entend plus.
+{: .callout .callout-definition}
+
+> 💂 **Analogie : le poste de garde.** Imaginez un détecteur de présence au poste de garde : si la personne cesse de signaler qu'elle est là, on envoie quelqu'un, sans attendre qu'elle appelle à l'aide.
+{: .callout .callout-analogie}
 
 Dans Prometheus, c'est une règle qui vaut toujours vrai :
 
@@ -277,7 +291,9 @@ La sonde teste l'URL publique, avec le DNS, le certificat TLS et le reverse prox
 
 ### v1 — Le minimum qui évite la catastrophe
 
-Un seul Prometheus, celui de la plateforme, qui scrape Grafana, lui-même, Loki et Tempo. Deux règles : `up == 0` sur chaque composant et la projection de remplissage du disque. Une sonde Blackbox hébergée ailleurs vérifie l'URL publique de Grafana. C'est suffisant pour la plupart des pannes franches, mais la sonde, même hébergée ailleurs, est scrapée et évaluée par ce même Prometheus. Si la machine entière tombe, aucune alerte ne part. C'est déjà beaucoup mieux que rien, et c'est précisément ce que corrige la v2.
+Un seul Prometheus, celui de la plateforme, qui scrape Grafana, lui-même, Loki et Tempo. Deux règles : `up == 0` sur chaque composant et la projection de remplissage du disque. Une sonde Blackbox hébergée ailleurs vérifie l'URL publique de Grafana. C'est suffisant pour la plupart des pannes franches.
+
+La faiblesse ? La sonde, même hébergée ailleurs, est scrapée et évaluée par ce même Prometheus. Si la machine entière tombe, aucune alerte ne part. C'est déjà beaucoup mieux que rien, et c'est précisément ce que corrige la v2.
 
 ### v2 — Un plan de contrôle séparé et un Watchdog
 
@@ -331,7 +347,11 @@ Pour une petite équipe, le meilleur rapport efficacité/effort est presque touj
 
 Reprenons l'équipe de douze personnes de la mise en situation. Les chiffres ci-dessous sont fictifs, choisis pour montrer l'effet d'une démarche.
 
-Après l'incident du week-end, l'équipe procède en trois temps. D'abord, une sonde Blackbox, déployée chez un autre hébergeur, interroge `/api/health` et la page de login toutes les 30 secondes. Ensuite, un petit Prometheus meta, sur une machine séparée, scrape Grafana, Prometheus, Loki et le collecteur. Il porte quatre règles : cible injoignable ou absente, projection de remplissage de disque, échecs d'évaluation Grafana et échecs de notification. Enfin, un Watchdog est branché sur un service de heartbeat avec une tolérance de 5 minutes, relié à l'astreinte par SMS.
+Après l'incident du week-end, l'équipe procède en trois temps :
+
+1. Une sonde Blackbox, déployée chez un autre hébergeur, interroge `/api/health` et la page de login toutes les 30 secondes.
+2. Un petit Prometheus meta, sur une machine séparée, scrape Grafana, Prometheus, Loki et le collecteur. Il porte quatre règles : cible injoignable ou absente, projection de remplissage de disque, échecs d'évaluation Grafana et échecs de notification.
+3. Un Watchdog est branché sur un service de heartbeat avec une tolérance de 5 minutes, relié à l'astreinte par SMS.
 
 Lors du test de réception, ils coupent volontairement le Prometheus principal, puis l'Alertmanager du plan de contrôle meta. Dans le premier cas, la règle de cible injoignable se déclenche en moins de 3 minutes. Dans le second, c'est le heartbeat qui sonne au bout de 5 minutes. Un troisième exercice révèle un défaut inattendu : le webhook Slack utilisait un token expiré depuis des semaines. Le compteur d'échec de notification était à zéro simplement parce qu'aucune alerte ne s'était déclenchée entre-temps, et l'exercice l'a fait apparaître.
 
@@ -350,7 +370,9 @@ Dans ce scénario, le temps de détection d'une panne de supervision passe de «
 
 ## Résumé
 
-Une plateforme d'observabilité est un service de production, et sa panne est la plus difficile à voir : elle ne génère aucun message, seulement du silence. Le meta-monitoring consiste à surveiller trois choses distinctes : la vivacité des composants, la fraîcheur et la complétude des données, et le bon fonctionnement de bout en bout du chemin d'alerte, de l'évaluation à la notification. On y répond avec les métriques internes de Grafana et de ses backends, des endpoints de santé, des règles d'absence et de projection de capacité. Le point décisif reste l'indépendance : un plan de contrôle séparé, un Watchdog vers un service externe et une sonde HTTP extérieure cassent la dépendance circulaire. Une fois la plateforme capable de signaler qu'elle va mal, la question suivante devient celle de ce qu'elle coûte à mesure que la volumétrie grandit.
+Une plateforme d'observabilité est un service de production, et sa panne est la plus difficile à voir : elle ne génère aucun message, seulement du silence. Le meta-monitoring consiste à surveiller trois choses distinctes : la vivacité des composants, la fraîcheur et la complétude des données, et le bon fonctionnement de bout en bout du chemin d'alerte, de l'évaluation à la notification. On y répond avec les métriques internes de Grafana et de ses backends, des endpoints de santé, des règles d'absence et de projection de capacité.
+
+Le point décisif reste l'indépendance : un plan de contrôle séparé, un Watchdog vers un service externe et une sonde HTTP extérieure cassent la dépendance circulaire. Une fois la plateforme capable de signaler qu'elle va mal, la question suivante devient celle de ce qu'elle coûte à mesure que la volumétrie grandit.
 
 <!-- snippet
 id: grafana_meta_health_endpoint

@@ -37,7 +37,12 @@ next_module_title: "Haute disponibilité et résilience"
 
 Imaginez une plateforme avec trois instances Grafana (dev, staging, prod), six personnes dans l'équipe plateforme et quatre équipes produit qui s'en servent. Il y a environ 120 dashboards, tous créés à la main dans l'interface.
 
-Un vendredi soir, pendant un incident, quelqu'un abaisse le seuil d'une règle d'alerte directement en prod pour "arrêter le bruit". Personne ne le remet en place. Trois semaines plus tard, une vraie dégradation passe sous le seuil sans alerter. Au même moment, un dashboard de staging ne ressemble plus à celui de prod, et personne ne sait lequel est le bon. Le dossier d'une équipe a été supprimé par erreur, avec tout son contenu.
+Un vendredi soir, pendant un incident, quelqu'un abaisse le seuil d'une règle d'alerte directement en prod pour "arrêter le bruit". Personne ne le remet en place. Trois semaines plus tard, une vraie dégradation passe sous le seuil sans alerter.
+
+Au même moment, d'autres problèmes apparaissent :
+
+- un dashboard de staging ne ressemble plus à celui de prod, et personne ne sait lequel est le bon ;
+- le dossier d'une équipe a été supprimé par erreur, avec tout son contenu.
 
 Exporter les dashboards en JSON de temps en temps ne règle rien. Vous obtenez des copies, pas une source de vérité. Ce qu'il vous faut, c'est que **l'état voulu de Grafana vive dans Git**, que les changements passent par une revue, et que l'instance soit une conséquence du dépôt, pas l'inverse.
 
@@ -71,7 +76,13 @@ flowchart LR
 > 🧠 **Concept clé** : ces outils ne se distinguent pas par ce qu'ils savent créer, mais par **qui détient la vérité**. Avec le provisioning fichier, c'est le disque de Grafana. Avec Terraform, c'est le fichier d'état plus votre dépôt. Avec Git Sync, c'est le dépôt, et Grafana le reflète. Tant que chaque ressource a un seul propriétaire, tout va bien. Les ennuis commencent quand deux outils se croient chacun propriétaires.
 {: .callout .callout-important}
 
-Le provisioning fichier est le plus ancien et le plus éprouvé. Il convient très bien à ce qui doit exister dès le démarrage : sources de données et providers de dashboards. Terraform convient quand vous voulez un cycle `plan` puis `apply` avec revue, et que vos ressources dépassent les dashboards. Git Sync est plus récent et sa couverture évolue d'une version à l'autre. Son intérêt est de laisser les équipes éditer dans l'interface tout en gardant Git comme référence. Vérifiez la documentation de votre version pour savoir ce qu'il synchronise, et si des feature toggles sont à activer. Ne remplacez pas un provisioning qui marche par Git Sync sans avoir testé les limites sur un environnement de test.
+Chaque mécanisme a son terrain de prédilection :
+
+- **Provisioning fichier** : le plus ancien et le plus éprouvé. Il convient très bien à ce qui doit exister dès le démarrage, c'est-à-dire les sources de données et les providers de dashboards.
+- **Terraform** : à utiliser quand vous voulez un cycle `plan` puis `apply` avec revue, et que vos ressources dépassent les dashboards.
+- **Git Sync** : plus récent, sa couverture évolue d'une version à l'autre. Son intérêt est de laisser les équipes éditer dans l'interface tout en gardant Git comme référence.
+
+Pour Git Sync, vérifiez la documentation de votre version pour savoir ce qu'il synchronise, et si des feature toggles sont à activer. Ne remplacez pas un provisioning qui marche par Git Sync sans avoir testé ses limites sur un environnement de test.
 
 Il y a aussi la génération de code. Le Foundation SDK de Grafana fournit des builders dans plusieurs langages (Go, TypeScript, Python, entre autres) qui produisent le JSON d'un dashboard. Grafonnet fait la même chose avec Jsonnet. Ils règlent le problème du JSON de 3 000 lignes impossible à relire en pull request : vous écrivez 40 lignes de code, vous générez le JSON en CI, et vous le fournissez à Terraform ou au provisioning. Ces outils ne sont pas un mode de déploiement, mais une façon d'**écrire** la ressource.
 
@@ -108,7 +119,8 @@ terraform {
 provider "grafana" {}   # URL et token viennent des variables d'environnement
 ```
 
-Un mot sur la syntaxe : Terraform utilise HCL (HashiCorp Configuration Language), un format déclaratif où vous décrivez l'état souhaité sans écrire les étapes.
+> 📖 **Définition.** **HCL** (HashiCorp Configuration Language) est le langage de Terraform. C'est un format déclaratif : vous décrivez l'état souhaité sans écrire les étapes.
+{: .callout .callout-definition}
 
 Vérifiez que la connexion marche avant d'aller plus loin :
 
@@ -139,7 +151,10 @@ resource "grafana_dashboard" "api_latency" {
 
 Deux détails comptent plus que le reste. D'abord, **fixez toujours le `uid`** du dossier et du dashboard. Si Grafana le génère, il change entre environnements, et vos liens, vos alertes et votre promotion deviennent fragiles. Ensuite, dans le JSON exporté depuis l'interface, supprimez le champ `id` (numérique, propre à chaque instance) et ne versionnez pas `version`. Gardez `uid`, qui est la vraie identité stable.
 
-Voici ce que fait l'idempotence ici : relancer `terraform apply` sans changement ne produit aucun effet. Terraform compare l'état déclaré, l'état enregistré et l'état réel (via un refresh), et ne touche que ce qui diffère. C'est ce qui rend l'outil sûr à lancer en boucle dans un pipeline. Avec un script `curl` impératif, il faudrait gérer vous-même les cas "existe déjà".
+> 📖 **Définition.** Une opération est **idempotente** quand la relancer sans changement ne produit aucun effet supplémentaire. C'est le cas de `terraform apply`.
+{: .callout .callout-definition}
+
+Terraform compare l'état déclaré, l'état enregistré et l'état réel (via un refresh), et ne touche que ce qui diffère. C'est ce qui rend l'outil sûr à lancer en boucle dans un pipeline. Avec un script `curl` impératif, il faudrait gérer vous-même les cas "existe déjà".
 
 ### v2 : factoriser, ajouter des alertes et des sources de données
 
@@ -233,7 +248,7 @@ Remarquez que `no_data_state` et `exec_err_state` sont explicites. Ce sont les r
 
 ### Reprendre l'existant sans tout recréer
 
-Vous avez déjà 120 dashboards en prod. Ne les recrée pas : importe-les. Avec Terraform 1.5 ou plus, un bloc `import` est relisable en revue :
+Vous avez déjà 120 dashboards en prod. Ne les recréez pas : importez-les. Avec Terraform 1.5 ou plus, un bloc `import` est relisable en revue :
 
 ```hcl
 import {
@@ -339,7 +354,10 @@ Un dashboard ne se teste pas comme une fonction, mais vous pouvez vérifier l'es
 
 ### Promouvoir
 
-La promotion n'est pas un copier-coller de JSON entre instances. C'est **le même commit**, appliqué avec les variables de l'environnement suivant. C'est ce que rend possible l'`uid` identique des sources de données. Si votre dashboard prod contient des URL ou des uid en dur, la promotion casse, et le défaut est à corriger dans le JSON, pas dans le pipeline.
+> 💡 **À retenir.** Promouvoir, ce n'est pas copier-coller du JSON entre instances. C'est appliquer **le même commit** avec les variables de l'environnement suivant.
+{: .callout .callout-important}
+
+C'est ce que rend possible l'`uid` identique des sources de données. Si votre dashboard prod contient des URL ou des uid en dur, la promotion casse, et le défaut est à corriger dans le JSON, pas dans le pipeline.
 
 ### Revenir en arrière
 
@@ -396,7 +414,10 @@ datasources:
 
 ## Le piège central : plusieurs outils sur la même ressource
 
-C'est le sujet qui fait le plus de dégâts en pratique, donc voyons concrètement à quoi il ressemble.
+C'est le sujet qui fait le plus de dégâts en pratique. À quoi ressemble-t-il concrètement ?
+
+> 🌡️ **Analogie : deux thermostats dans la même pièce.** Chacun corrige ce que l'autre vient de régler, et la température ne se stabilise jamais. Limite de l'image : Terraform n'agit qu'au moment d'un `apply`, donc la dérive peut aussi rester silencieuse pendant des semaines.
+{: .callout .callout-analogie}
 
 **Scénario 1, Terraform + édition manuelle.** Terraform déploie un dashboard. Quelqu'un le modifie dans l'interface (c'est possible, car un dashboard créé par l'API n'est pas verrouillé, contrairement aux ressources d'alerting). Le prochain `apply` écrase la modification, souvent à l'insu de son auteur. Ou, plus pernicieux : personne ne relance `apply` pendant des semaines, et l'instance dérive silencieusement.
 

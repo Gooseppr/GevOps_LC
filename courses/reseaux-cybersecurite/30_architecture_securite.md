@@ -49,13 +49,17 @@ Voici la suite, étape par étape :
 3. Le serveur de sauvegarde est joint au même domaine et accepte les mêmes comptes. Les dépôts sont supprimés en premier.
 4. Une stratégie de groupe déploie le chiffreur sur 400 machines.
 
-Le délai entre le clic et le chiffrement est d'environ 31 heures. Aucun composant n'était mal configuré pris isolément. La défense naïve consiste à ajouter un outil. Le vrai défaut est ailleurs : tous les contrôles étaient en périphérie ou sur l'hôte, et aucun ne limitait le rayon d'explosion une fois un poste compromis. C'est le problème que l'architecture doit résoudre.
+Le délai entre le clic et le chiffrement est d'environ 31 heures. Aucun composant n'était mal configuré pris isolément. Faut-il ajouter un outil ? C'est la défense naïve. Le vrai défaut est ailleurs : tous les contrôles étaient en périphérie ou sur l'hôte.
+
+> 💡 **À retenir** : aucun contrôle ne limitait le rayon d'explosion, c'est-à-dire tout ce que l'attaquant peut atteindre une fois un poste compromis. C'est le problème que l'architecture doit résoudre.
+{: .callout .callout-important}
 
 ---
 
 ## Surface d'attaque : relations de confiance plutôt que ports
 
-Pour un attaquant déjà à l'intérieur, la surface d'attaque est le graphe des relations de confiance : qui peut parler à qui, avec quel compte, et avec quel secret. Les ports ouverts n'en sont qu'une partie.
+> 📖 **Définition.** Pour un attaquant déjà à l'intérieur, la surface d'attaque est le graphe des relations de confiance : qui peut parler à qui, avec quel compte, et avec quel secret. Les ports ouverts n'en sont qu'une partie.
+{: .callout .callout-definition}
 
 | Vecteur | Exposition | Impact potentiel |
 |---|---|---|
@@ -143,7 +147,7 @@ flowchart TB
     style BKP fill:#2d6a4f,color:#fff
 ```
 
-La règle de découpage n'est pas l'organigramme. On sépare selon deux critères : la **sensibilité** de ce qui est dans la zone et le **plan de contrôle** (qui administre quoi). Dans l'ordre :
+Comment découper ? Pas selon l'organigramme, mais selon deux critères : la **sensibilité** de ce qui est dans la zone et le **plan de contrôle** (qui administre quoi). Dans l'ordre :
 
 1. Isoler d'abord ce qui donne le contrôle de tout le reste : annuaire, hyperviseurs, sauvegardes, IdP, CI/CD.
 2. Séparer ensuite les données sensibles du reste de la production.
@@ -189,7 +193,9 @@ table inet filter {
 }
 ```
 
-Chaque règle `accept` correspond à une ligne de la matrice de flux (voir plus bas). Le journal, limité en débit, enregistre les paquets que la politique va rejeter. Pendant la phase d'observation, chargez la même chaîne en `policy accept` : la règle `log` révèle alors les flux oubliés sans les bloquer, avant le passage en `policy drop`.
+Chaque règle `accept` correspond à une ligne de la matrice de flux (voir plus bas). Le journal, limité en débit, enregistre les paquets que la politique va rejeter.
+
+Pendant la phase d'observation, chargez la même chaîne en `policy accept` : la règle `log` révèle alors les flux oubliés sans les bloquer, avant le passage en `policy drop`.
 
 Sous Kubernetes, le même principe s'écrit ainsi :
 
@@ -233,6 +239,9 @@ Un serveur de base de données qui obtient un `200` vers Internet est un canal C
 ### Pourquoi le VPN ne suffit pas
 
 Un VPN transforme « être authentifié une fois » en « être sur le réseau ». Un attaquant qui vole une session par AiTM (Adversary-in-the-Middle, avec Evilginx par exemple) contourne le second facteur et hérite d'un accès réseau large. Le même principe vaut à l'intérieur : être dans la zone applicative ne prouve rien.
+
+> 🏢 **Analogie : le badge d'immeuble.** Un VPN ressemble à un badge qui ouvre la porte d'entrée : une fois à l'intérieur, on circule partout. Zero Trust vérifie le badge à chaque porte, en tenant compte de la personne, de son appareil et du contexte. Limite de l'image : un badge volé passe aussi chaque porte si les signaux de contexte ne trahissent pas le vol.
+{: .callout .callout-analogie}
 
 Zero Trust, tel que décrit dans NIST SP 800-207, repose sur une idée : chaque requête vers une ressource est évaluée sur l'identité, l'état de l'appareil et le contexte, et non sur l'emplacement réseau. Techniquement, un PDP* (Policy Decision Point) décide, et un PEP (Policy Enforcement Point) applique, par exemple un proxy d'accès, un bastion ou un sidecar de service mesh.
 
@@ -337,7 +346,8 @@ C'est le livrable le plus utile. Chaque ligne justifie une règle de pare-feu :
 |---|---|---|---|---|---|
 | `<APP_SUBNET>` | `<DB_HOST>` | 5432/TCP | Compte `svc_pay`, TLS | Lecture et écriture des transactions | Équipe paiement |
 
-Une règle sans propriétaire ni justification est une règle qu'on ne pourra jamais supprimer.
+> 💡 **À retenir** : une règle sans propriétaire ni justification est une règle qu'on ne pourra jamais supprimer.
+{: .callout .callout-important}
 
 ---
 
@@ -357,7 +367,9 @@ Avant de chiffrer, les opérateurs de rançongiciels détruisent la capacité de
 | RTO — Recovery Time Objective | Combien de temps peut-on rester arrêté ? | Détermine actif-actif, actif-passif ou restauration depuis sauvegarde |
 | RPO — Recovery Point Objective | Combien de données peut-on perdre ? | Détermine réplication synchrone, asynchrone ou sauvegarde périodique |
 
-Un RTO de quelques minutes exige au minimum un actif-passif chaud avec bascule automatique, voire de l'actif-actif, qui coûte généralement le double en infrastructure et ajoute de la complexité (cohérence des données, tests de bascule). Un RTO de 24 h tolère une restauration. Classez les applications en trois ou quatre niveaux ; aucune organisation ne peut payer le niveau le plus exigeant pour tout.
+Un RTO de quelques minutes exige au minimum un actif-passif chaud avec bascule automatique, voire de l'actif-actif. Ce dernier coûte généralement le double en infrastructure et ajoute de la complexité (cohérence des données, tests de bascule). Un RTO de 24 h, lui, tolère une restauration.
+
+Classez donc les applications en trois ou quatre niveaux : aucune organisation ne peut payer le niveau le plus exigeant pour tout.
 
 ### Les sauvegardes qui survivent à une compromission
 

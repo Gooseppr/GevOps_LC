@@ -46,7 +46,10 @@ Le projet synthétise tout le niveau 1 : adressage, VLAN, routage, services de b
 
 ## De la demande au plan d'adressage
 
-Avant de toucher une machine, traduisez le besoin en décisions. La demande de la direction se découpe naturellement en quatre populations qui n'ont pas les mêmes droits : le personnel, le serveur, les visiteurs et les administrateurs. Quatre populations, quatre segments. Un VLAN fonctionne comme un étage d'immeuble : tout le monde sur le palier se croise librement, mais pour changer d'étage il faut passer par un point de contrôle, ici le routeur-pare-feu.
+Avant de toucher une machine, traduisez le besoin en décisions. La demande de la direction se découpe naturellement en quatre populations qui n'ont pas les mêmes droits : le personnel, le serveur, les visiteurs et les administrateurs. Quatre populations, quatre segments.
+
+> 🏢 **Analogie : le VLAN comme étage d'immeuble.** Tout le monde sur le palier se croise librement, mais pour changer d'étage il faut passer par un point de contrôle, ici le routeur-pare-feu. Limite : ce qui se passe sur le palier échappe à ce point de contrôle.
+{: .callout .callout-analogie}
 
 Voici le plan retenu :
 
@@ -190,7 +193,12 @@ La dernière ligne reproduit un port d'accès VLAN 10. Répétez les deux lignes
 
 ### Étape 2 : le routeur, sous-interfaces et routage inter-VLAN
 
-Ici, FW1 reçoit un seul câble (le trunk) et y présente quatre interfaces logiques, une par VLAN. On appelle ce montage « router-on-a-stick » : un routeur au bout d'un seul fil, qui fait entrer et sortir les paquets par la même porte physique. Grâce à la convention de nommage, une seule boucle suffit :
+Ici, FW1 reçoit un seul câble (le trunk) et y présente quatre interfaces logiques, une par VLAN.
+
+> 📖 **Définition.** Le « router-on-a-stick » est un routeur au bout d'un seul fil : il fait entrer et sortir les paquets de tous les VLAN par la même porte physique.
+{: .callout .callout-definition}
+
+Grâce à la convention de nommage, une seule boucle suffit :
 
 ```
 sudo ip link set eth1 up
@@ -202,7 +210,9 @@ done
 sudo sysctl -w net.ipv4.ip_forward=1
 ```
 
-La dernière ligne est celle qu'on oublie le plus souvent. Sans `ip_forward`, FW1 répond à ses voisins directs mais se refuse à transmettre un paquet qui ne lui est pas destiné. Pour que le réglage survive au redémarrage, ajoutez `net.ipv4.ip_forward=1` dans `/etc/sysctl.d/99-router.conf`. La persistance des sous-interfaces dépend de la distribution (Netplan, NetworkManager, fichiers `interfaces`) : choisissez la méthode de votre système et ne laissez pas le projet reposer sur des commandes tapées à la main.
+La dernière ligne est celle qu'on oublie le plus souvent. Sans `ip_forward`, FW1 répond à ses voisins directs mais se refuse à transmettre un paquet qui ne lui est pas destiné.
+
+Pour que le réglage survive au redémarrage, ajoutez `net.ipv4.ip_forward=1` dans `/etc/sysctl.d/99-router.conf`. La persistance des sous-interfaces dépend de la distribution (Netplan, NetworkManager, fichiers `interfaces`) : choisissez la méthode de votre système et ne laissez pas le projet reposer sur des commandes tapées à la main.
 
 Validation de l'étape : `ip -br addr` sur FW1 affiche les quatre interfaces avec leurs adresses en `.1`, et un ping depuis chaque client vers sa passerelle répond.
 
@@ -229,7 +239,9 @@ dhcp-authoritative
 log-dhcp
 ```
 
-dnsmasq annonce par défaut sa propre adresse sur l'interface concernée, à la fois comme passerelle et comme serveur DNS : les clients du VLAN 10 reçoivent donc 10.20.10.1 pour les deux. Le domaine `.test` est réservé aux essais et ne risque pas d'entrer en conflit avec un vrai nom. Quant à `log-dhcp`, il écrit chaque échange DHCP dans le journal système, ce qui sera très utile à l'étape 5.
+dnsmasq annonce par défaut sa propre adresse sur l'interface concernée, à la fois comme passerelle et comme serveur DNS : les clients du VLAN 10 reçoivent donc 10.20.10.1 pour les deux.
+
+Le domaine `.test` est réservé aux essais et ne risque pas d'entrer en conflit avec un vrai nom. Quant à `log-dhcp`, il écrit chaque échange DHCP dans le journal système, ce qui sera très utile à l'étape 5.
 
 Sur un client, demandez un nouveau bail et lisez le résultat :
 
@@ -302,7 +314,13 @@ table ip nat {
 }
 ```
 
-Lisons cela dans l'ordre où le noyau l'évalue. Les paquets des connexions déjà établies passent d'abord : on ne vérifie les règles qu'à l'ouverture d'un échange, pas à chaque paquet de la réponse. Ensuite viennent les autorisations explicites, de la plus fréquente à la plus rare. Un paquet qui n'a rien déclenché atteint la ligne `log`, puis la politique `drop` qui le supprime. Le `limit rate 5/minute` évite de noyer les journaux sous un flux répétitif. Quant à la ligne `udp dport 514` du VLAN 99, elle autorise le switch à envoyer ses journaux vers le serveur.
+Lisons cela dans l'ordre où le noyau l'évalue :
+
+1. Les paquets des connexions déjà établies passent d'abord : on ne vérifie les règles qu'à l'ouverture d'un échange, pas à chaque paquet de la réponse.
+2. Ensuite viennent les autorisations explicites, de la plus fréquente à la plus rare.
+3. Un paquet qui n'a rien déclenché atteint la ligne `log`, puis la politique `drop` qui le supprime.
+
+Le `limit rate 5/minute` évite de noyer les journaux sous un flux répétitif. Quant à la ligne `udp dport 514` du VLAN 99, elle autorise le switch à envoyer ses journaux vers le serveur.
 
 Avant de recharger, validez la syntaxe avec `sudo nft -c -f /etc/nftables.conf`, puis chargez avec `sudo nft -f /etc/nftables.conf`. En laboratoire, la console de l'hyperviseur vous sauve si vous vous coupez de FW1 ; sur du matériel distant, on prévoit toujours un retour arrière automatique avant d'appliquer.
 
@@ -352,7 +370,12 @@ chk nc -z -w2 10.20.20.10 80
 chk sh -c 'dig +short +time=1 +tries=1 @10.20.20.1 srv.corp.test | grep -q 10.20.20.10'
 ```
 
-Les quatre tests couvrent la passerelle des utilisateurs, le switch, l'intranet et le DNS. Retenez ce qu'on surveille : une panne se détecte plus vite quand on teste le service rendu (« le nom se résout-il ? ») que le composant (« le processus tourne-t-il ? »). Dès que le réseau grossit, des outils comme Zabbix, Nagios ou LibreNMS prendront le relais avec des graphiques et des alertes ; le principe reste identique.
+Les quatre tests couvrent la passerelle des utilisateurs, le switch, l'intranet et le DNS.
+
+> 💡 **À retenir.** Une panne se détecte plus vite quand on teste le service rendu (« le nom se résout-il ? ») que le composant (« le processus tourne-t-il ? »).
+{: .callout .callout-important}
+
+Dès que le réseau grossit, des outils comme Zabbix, Nagios ou LibreNMS prendront le relais avec des graphiques et des alertes ; le principe reste identique.
 
 ### Recette : prouver que le réseau fait ce qu'on a promis
 
@@ -405,7 +428,9 @@ Voici les six pannes du laboratoire, avec ce que l'utilisateur ressent et la com
 | Route par défaut erronée sur SRV | « L'intranet ne répond plus » (délai dépassé) | 3 | `ip neigh` sur SRV : l'entrée de la fausse passerelle reste en FAILED |
 | `systemctl stop dnsmasq` sur FW1 | « Internet est en panne » | 7 | `ping 1.1.1.1` répond, `dig @10.20.10.1 srv.corp.test` ne répond pas |
 
-La quatrième panne montre l'intérêt de la méthode : les adresses sont bonnes, la route aussi, le ping vers la passerelle répond, et pourtant rien ne circule. Seul le test « hôte distant » du schéma révèle le problème. La cinquième est plus vicieuse : le symptôme ressemble exactement à un blocage de pare-feu, mais les règles ne sont pas en cause. Le SYN arrive bien sur SRV, qui tente de répondre vers une passerelle qui n'existe pas. Seul `ip neigh` (et une capture côté serveur) vous le montre.
+La quatrième panne montre l'intérêt de la méthode : les adresses sont bonnes, la route aussi, le ping vers la passerelle répond, et pourtant rien ne circule. Seul le test « hôte distant » du schéma révèle le problème.
+
+La cinquième est plus vicieuse : le symptôme ressemble exactement à un blocage de pare-feu, mais les règles ne sont pas en cause. Le SYN arrive bien sur SRV, qui tente de répondre vers une passerelle qui n'existe pas. Seul `ip neigh` (et une capture côté serveur) vous le montre.
 
 Quelques commandes font l'essentiel du travail. `ip route get` montre le chemin que Linux choisirait réellement, sans émettre le moindre paquet :
 

@@ -34,7 +34,9 @@ next_module_title: "Interface et navigation Grafana"
 
 Vous rejoignez une équipe de quatre personnes qui exploite une quarantaine de VM et quelques services web. La supervision actuelle se limite à des scripts qui envoient un e-mail quand un disque dépasse 90 %. Quelqu'un a lancé un jour un Grafana de test sur son poste avec un simple `docker run`. Le tableau de bord a plu, et on vous demande de le « mettre sur un serveur pour que tout le monde y accède ».
 
-Le piège est là. Le `docker run` du poste de dev a tourné dix jours sans problème. Au premier `docker rm` suivi d'une mise à jour de l'image, les dashboards, les utilisateurs et les connexions aux sources ont disparu, et le compte `admin` avait toujours son mot de passe `admin`. Une instance qui démarre n'est pas encore une instance exploitable. L'écart entre les deux fait l'objet de ce module : où Grafana range ses données, comment on le configure sans bricolage, et comment on sait qu'il va bien.
+Le piège est là. Le `docker run` du poste de dev a tourné dix jours sans problème. Au premier `docker rm` suivi d'une mise à jour de l'image, les dashboards, les utilisateurs et les connexions aux sources ont disparu, et le compte `admin` avait toujours son mot de passe `admin`.
+
+Une instance qui démarre n'est pas encore une instance exploitable. L'écart entre les deux fait l'objet de ce module : où Grafana range ses données, comment on le configure sans bricolage, et comment on sait qu'il va bien.
 
 Ici, on installe Grafana seul. Il n'a encore aucune donnée à afficher, et le branchement des sources vient au module 5.
 
@@ -57,7 +59,7 @@ Ce module développe Docker Compose, qui sert de fil rouge pour le reste du parc
 
 ### Ce que Grafana écrit sur le disque
 
-Avant de choisir où poser les volumes, il faut savoir ce qui doit survivre. Dans l'image officielle, Grafana utilise quelques chemins :
+Que doit-on faire survivre ? Avant de choisir où poser les volumes, regardez les chemins qu'utilise Grafana dans l'image officielle :
 
 | Chemin dans le conteneur | Contenu | À persister ? |
 |---|---|---|
@@ -111,7 +113,15 @@ GRAFANA_ADMIN_PASSWORD=<MOT_DE_PASSE_LONG_ET_UNIQUE>
 
 Pensez aussi à `echo ".env" >> .gitignore` dès maintenant.
 
-Chaque ligne règle un problème de la v1. Le tag fixe rend le déploiement reproductible, et vous décidez du moment où vous montez de version. Le volume nommé `grafana-data` survit aux `docker compose down` et aux recréations de conteneur. Il est géré par Docker, avec les bons droits d'office. `restart: unless-stopped` relance Grafana après un redémarrage du serveur. La syntaxe `${VAR:?message}` fait échouer `docker compose up` avec un message clair si le mot de passe n'est pas défini, au lieu de démarrer avec une valeur vide ou par défaut.
+Chaque ligne règle un problème de la v1 :
+
+- **Le tag fixe** rend le déploiement reproductible : vous décidez du moment où vous montez de version.
+- **Le volume nommé `grafana-data`** survit aux `docker compose down` et aux recréations de conteneur.
+- **`restart: unless-stopped`** relance Grafana après un redémarrage du serveur.
+- **La syntaxe `${VAR:?message}`** fait échouer `docker compose up` avec un message clair si le mot de passe n'est pas défini, au lieu de démarrer avec une valeur vide ou par défaut.
+
+> 📖 **Définition.** Un volume nommé est un espace de stockage créé et géré par Docker, désigné par un nom (ici `grafana-data`) et indépendant du conteneur. Contrairement à un dossier de l'hôte monté directement (bind mount), il reçoit les bons droits d'office.
+{: .callout .callout-definition}
 
 Démarrage et contrôle :
 
@@ -155,7 +165,11 @@ volumes:
   grafana-data:
 ```
 
-Créez `grafana.ini` (exemple plus bas) avant le `docker compose up` : si le fichier est absent, Docker crée un répertoire à sa place et le montage échoue. Le préfixe `127.0.0.1:` sur le port publié évite d'exposer Grafana sur le réseau tant que vous n'avez pas posé de reverse proxy avec HTTPS (sujet des modules sécurité). Le `healthcheck` utilise `wget`, présent dans les variantes Alpine ; selon l'image ou la version, un autre outil peut être nécessaire. Si le contrôle échoue alors que Grafana répond bien depuis l'hôte, vérifiez d'abord que la commande existe dans l'image.
+Trois points de vigilance :
+
+- Créez `grafana.ini` (exemple plus bas) avant le `docker compose up` : si le fichier est absent, Docker crée un répertoire à sa place et le montage échoue.
+- Le préfixe `127.0.0.1:` sur le port publié évite d'exposer Grafana sur le réseau tant que vous n'avez pas posé de reverse proxy avec HTTPS (sujet des modules sécurité).
+- Le `healthcheck` utilise `wget`, présent dans les variantes Alpine ; selon l'image ou la version, un autre outil peut être nécessaire. Si le contrôle échoue alors que Grafana répond bien depuis l'hôte, vérifiez d'abord que la commande existe dans l'image.
 
 > 💡 **Astuce** : `docker compose config` affiche le fichier après interpolation des variables. C'est le moyen le plus rapide de vérifier que `.env` est bien pris en compte, sans démarrer quoi que ce soit.
 {: .callout .callout-astuce}
@@ -209,6 +223,9 @@ Une fois connecté, vous arrivez sur la page d'accueil, vide pour l'instant. L'e
 ## Configurer : `grafana.ini` et variables `GF_*`
 
 Grafana lit sa configuration depuis plusieurs endroits, et c'est la superposition qui déroute les débutants. Les valeurs par défaut sont embarquées dans le programme. Votre `grafana.ini` ne contient que ce que vous voulez changer. Les variables d'environnement `GF_*` passent par-dessus tout.
+
+> 🗂️ **Analogie : des calques superposés.** Imaginez trois calques transparents : les valeurs par défaut au fond, `grafana.ini` au milieu, les variables `GF_*` au-dessus. Là où un calque est vide, on voit la valeur du dessous. Là où il porte une valeur, il masque celle des calques inférieurs, clé par clé.
+{: .callout .callout-analogie}
 
 ```mermaid
 flowchart LR
@@ -265,7 +282,10 @@ Grafana expose un point de contrôle sans authentification :
 curl -s http://localhost:3000/api/health
 ```
 
-Une instance saine répond en JSON avec, en substance, `"database": "ok"` et la version du logiciel (les champs exacts peuvent varier selon la version). La réponse confirme deux choses : le serveur HTTP répond et la base est joignable. Elle ne dit rien sur la qualité des dashboards ni sur la disponibilité des sources de données. Ces contrôles viendront avec le meta-monitoring.
+Une instance saine répond en JSON avec, en substance, `"database": "ok"` et la version du logiciel (les champs exacts peuvent varier selon la version).
+
+> 💡 **À retenir** : `/api/health` confirme seulement deux choses : le serveur HTTP répond et la base est joignable. Il ne dit rien sur la qualité des dashboards ni sur la disponibilité des sources de données. Ces contrôles viendront avec le meta-monitoring.
+{: .callout .callout-important}
 
 C'est l'endpoint à brancher sur un load balancer, un healthcheck Docker ou une sonde de supervision externe. Pour un script, ajoutez `-f` pour que `curl` retourne un code d'erreur si le statut HTTP n'est pas 2xx.
 
@@ -316,7 +336,13 @@ Prenons un scénario illustratif (les chiffres sont indicatifs). Une équipe sup
 
 Le premier déploiement est un `docker run` lancé à la main. Trois semaines plus tard, la VM redémarre après un correctif de sécurité. Le conteneur n'a pas de politique de redémarrage et reste arrêté pendant une matinée. En le relançant, on recrée aussi le conteneur : tout l'état, qui contenait une dizaine de dashboards, a disparu. Le compte `admin` n'avait jamais changé de mot de passe.
 
-L'équipe reprend alors le déploiement sous Compose, en suivant la v3 de ce module : image à tag fixe, volume nommé, `.env` hors Git, `grafana.ini` versionné dans le dépôt de l'équipe, port limité à `127.0.0.1` derrière un proxy, sonde externe sur `/api/health`. Résultat attendu dans ce scénario : un redémarrage de la VM ramène Grafana en moins d'une minute sans perte, la reconstruction complète d'une instance de test prend le temps d'un `docker compose up -d`, et une montée de version consiste à modifier une ligne et à relire les logs de démarrage. Il reste à ajouter une sauvegarde régulière de `grafana-data`, traitée dans un module ultérieur.
+L'équipe reprend alors le déploiement sous Compose, en suivant la v3 de ce module : image à tag fixe, volume nommé, `.env` hors Git, `grafana.ini` versionné dans le dépôt de l'équipe, port limité à `127.0.0.1` derrière un proxy, sonde externe sur `/api/health`. Résultat attendu dans ce scénario :
+
+- un redémarrage de la VM ramène Grafana en moins d'une minute sans perte ;
+- la reconstruction complète d'une instance de test prend le temps d'un `docker compose up -d` ;
+- une montée de version consiste à modifier une ligne et à relire les logs de démarrage.
+
+Il reste à ajouter une sauvegarde régulière de `grafana-data`, traitée dans un module ultérieur.
 
 ## Bonnes pratiques
 
@@ -330,7 +356,9 @@ L'équipe reprend alors le déploiement sous Compose, en suivant la v3 de ce mod
 
 ## Résumé
 
-Installer Grafana consiste à poser un service qui répond sur le port 3000, avec un état à protéger dans `/var/lib/grafana`. Docker Compose, avec un volume nommé, une version figée et des secrets dans `.env`, est la voie la plus reproductible. Le paquet Linux ou Grafana Cloud conviennent quand les contraintes d'hébergement l'imposent. La configuration se superpose : valeurs par défaut, puis `grafana.ini`, puis variables `GF_*` qui l'emportent. Le point `/api/health` et les logs de démarrage donnent l'état du service et la piste de l'erreur. Avec une instance saine, persistante et sécurisée au minimum, vous pouvez maintenant explorer l'interface pour comprendre comment elle s'organise.
+Installer Grafana consiste à poser un service qui répond sur le port 3000, avec un état à protéger dans `/var/lib/grafana`. Docker Compose, avec un volume nommé, une version figée et des secrets dans `.env`, est la voie la plus reproductible. Le paquet Linux ou Grafana Cloud conviennent quand les contraintes d'hébergement l'imposent.
+
+La configuration se superpose : valeurs par défaut, puis `grafana.ini`, puis variables `GF_*` qui l'emportent. Le point `/api/health` et les logs de démarrage donnent l'état du service et la piste de l'erreur. Avec une instance saine, persistante et sécurisée au minimum, vous pouvez maintenant explorer l'interface pour comprendre comment elle s'organise.
 
 <!-- snippet
 id: grafana_compose_start

@@ -41,14 +41,15 @@ Les variables résolvent ce problème : un seul dashboard, des menus déroulants
 
 ## Le principe : un dashboard à trous
 
-Pensez à un modèle de courrier avec des champs de fusion : « Bonjour `{prénom}` ». Un dashboard avec variables fonctionne pareil. Vous écrivez une requête avec des emplacements (`$env`, `$instance`), et Grafana remplace ces emplacements par la sélection courante avant d'envoyer la requête.
+> ✉️ **Analogie : le publipostage.** Pensez à un modèle de courrier avec des champs de fusion : « Bonjour `{prénom}` ». Un dashboard avec variables fonctionne pareil. Vous écrivez une requête avec des emplacements (`$env`, `$instance`), et Grafana les remplace par la sélection courante avant d'envoyer la requête.
+{: .callout .callout-analogie}
 
 > 🧠 **Concept clé** — Grafana fait de la **substitution de texte**, rien de plus. Il ne comprend pas votre requête PromQL. Il remplace `$instance` par une chaîne de caractères, puis envoie le résultat à Prometheus. Presque tous les comportements surprenants viennent de là : si le texte substitué n'a pas la forme attendue par la source, la requête échoue ou, pire, retourne autre chose que ce que vous pensiez.
 {: .callout .callout-important}
 
 La substitution ne se limite pas aux requêtes : elle s'applique aussi aux titres de panels, aux liens, aux noms de rows et aux descriptions. Un titre comme `Latence — $service` s'adapte tout seul.
 
-Les variables se gèrent dans les paramètres du dashboard, rubrique **Variables**. L'éditeur de dashboards a pas mal évolué entre les versions récentes, donc les libellés exacts des boutons peuvent différer chez vous, mais le principe reste identique.
+Les variables se gèrent dans les paramètres du dashboard, rubrique **Variables**. L'éditeur de dashboards a beaucoup évolué ces dernières versions : les libellés exacts des boutons peuvent différer chez vous, mais le principe reste identique.
 
 ## Les quatre types de variables du quotidien
 
@@ -98,7 +99,7 @@ Trois autres types existent : *Data source* (choisir la source elle-même, très
 
 Une variable simple donne une seule valeur à la fois. Cocher **Multi-value** permet d'en sélectionner plusieurs ; cocher **Include All option** ajoute une entrée « All » qui les sélectionne toutes d'un coup.
 
-Pour que la requête suive, il faut passer de l'égalité à la **regex** (expression régulière) :
+Comment la requête suit-elle ? En passant de l'égalité à la **regex** (expression régulière) :
 
 ```promql
 # Une seule valeur possible
@@ -108,13 +109,19 @@ up{env="$env"}
 up{region=~"$region"}
 ```
 
-Quand `region` contient `eu-west` et `eu-north`, Grafana substitue `(eu-west|eu-north)` et Prometheus reçoit `up{region=~"(eu-west|eu-north)"}`. C'est le cœur du sujet : avec `=` au lieu de `=~`, la requête devient `region="(eu-west|eu-north)"`, qui ne correspond à aucune série. Pas d'erreur, juste « No data ».
+Quand `region` contient `eu-west` et `eu-north`, Grafana substitue `(eu-west|eu-north)` et Prometheus reçoit `up{region=~"(eu-west|eu-north)"}`.
+
+> 💡 **À retenir** — C'est le cœur du sujet : avec `=` au lieu de `=~`, la requête devient `region="(eu-west|eu-north)"`, qui ne correspond à aucune série. Pas d'erreur, juste « No data ». Multi-value ou All : toujours `=~`.
+{: .callout .callout-important}
 
 ### Que devient « All » ?
 
 Par défaut, Grafana remplace All par **la liste complète des valeurs**. Avec 300 instances, la requête transporte 300 alternatives. Elle devient lourde, parfois lente, et le texte de la requête devient illisible dans l'inspecteur.
 
-Le champ **Custom all value** permet de forcer ce qui sera substitué. Pour Prometheus, on y met typiquement `.*`. La requête devient alors courte, et surtout elle ne dépend plus de la liste des valeurs connues. Un détail à garder en tête : `region=~".*"` accepte aussi les séries qui n'ont pas du tout le label `region`. C'est souvent ce qu'on veut, parfois non. Cette valeur personnalisée est spécifique à la source : `.*` n'a aucun sens pour une requête SQL.
+Le champ **Custom all value** permet de forcer ce qui sera substitué. Pour Prometheus, on y met typiquement `.*`. La requête devient alors courte, et surtout elle ne dépend plus de la liste des valeurs connues.
+
+> 📝 **Note** — `region=~".*"` accepte aussi les séries qui n'ont pas du tout le label `region`. C'est souvent ce qu'on veut, parfois non. Cette valeur personnalisée est aussi spécifique à la source : `.*` n'a aucun sens pour une requête SQL.
+{: .callout .callout-note}
 
 ## Interpolation : le même choix, du texte différent selon la source
 
@@ -212,13 +219,16 @@ Une fois la chaîne en place, quelques réglages font la différence entre un da
 - Passer en *Hide → Variable* les variables purement techniques, comme une Constant.
 - Savoir que l'URL porte l'état des filtres : `?var-env=prod&var-region=eu-west&var-instance=web-01&from=now-6h&to=now`. Copier cette URL dans un ticket, c'est partager exactement la vue que vous regardez.
 
-**Ad hoc filters** : ce type de variable ajoute des filtres `label = valeur` à la volée, sans les prévoir dans les requêtes. C'est pratique pour explorer, mais le filtre s'applique à **toutes** les requêtes du dashboard qui utilisent cette source de données. Si un panel interroge une métrique qui n'a pas le label concerné, il peut se retrouver vide. Gardez-les pour des dashboards d'exploration, pas pour des vues d'astreinte où chaque panel doit se comporter de façon prévisible.
+**Ad hoc filters** : ce type de variable ajoute des filtres `label = valeur` à la volée, sans les prévoir dans les requêtes.
+
+C'est pratique pour explorer. Mais le filtre s'applique à **toutes** les requêtes du dashboard qui utilisent cette source de données. Si un panel interroge une métrique qui n'a pas le label concerné, il peut se retrouver vide. Gardez-les pour des dashboards d'exploration, pas pour des vues d'astreinte où chaque panel doit se comporter de façon prévisible.
 
 ## Répétition de panels et de rows
 
 Quand l'utilisateur sélectionne plusieurs valeurs, deux approches s'offrent à lui : tout agréger dans un seul graphique avec une courbe par valeur, ou **générer un panel par valeur**. La seconde donne une vue plus lisible quand chaque instance mérite son propre graphique.
 
-Pour un panel : dans l'éditeur, section **Repeat options**, on choisit la variable, la direction (horizontale ou verticale) et le nombre maximum de panels par ligne. Pour une row entière : dans les options de la row, **Repeat for**, puis la variable. La row complète, avec tous les panels qu'elle contient, est dupliquée par valeur. Mettez `$instance` dans le titre de la row pour savoir laquelle est laquelle.
+- **Pour un panel** : dans l'éditeur, section **Repeat options**, choisissez la variable, la direction (horizontale ou verticale) et le nombre maximum de panels par ligne.
+- **Pour une row entière** : dans les options de la row, **Repeat for**, puis la variable. La row complète, avec tous les panels qu'elle contient, est dupliquée par valeur. Mettez `$instance` dans le titre de la row pour savoir laquelle est laquelle.
 
 Quelques règles de survie :
 
@@ -235,7 +245,10 @@ Un dashboard utile pendant un incident permet de passer de « quelque chose cloc
 
 ### Data links : un lien au niveau de la donnée
 
-Un Data link est attaché à un panel et s'appuie sur la donnée cliquée. Vous le configurez dans l'éditeur du panel, section **Data links** (parfois renommée *Data links and actions* selon la version). Exemple : un tableau listant les hôtes avec leur charge, où cliquer sur un hôte ouvre le dashboard de détail filtré sur celui-ci.
+> 📖 **Définition.** Un Data link est un lien attaché à un panel, qui s'appuie sur la donnée cliquée.
+{: .callout .callout-definition}
+
+Vous le configurez dans l'éditeur du panel, section **Data links** (parfois renommée *Data links and actions* selon la version). Exemple : un tableau listant les hôtes avec leur charge, où cliquer sur un hôte ouvre le dashboard de détail filtré sur celui-ci.
 
 ```text
 /d/<UID>/node-detail?var-instance=${__data.fields.instance}&${env:queryparam}&${__url_time_range}

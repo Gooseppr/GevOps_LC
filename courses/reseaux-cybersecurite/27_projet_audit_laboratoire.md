@@ -34,7 +34,11 @@ next_module_title: "Métier de consultant en cybersécurité"
 
 ## Mise en situation
 
-*Scénario illustratif.* Un technicien réseau reçoit une consigne : « Audite le labo avant qu'on le réutilise pour la formation. » Il lance un scanner de vulnérabilités sur `10.10.0.0/16`, puisque c'est un labo. Ce que personne n'a vérifié : le routeur du labo est relié au VLAN bureautique pour donner accès à Internet, et une partie de la plage `10.10.x.x` y est utilisée. Le scan atteint un NAS de sauvegarde et deux imprimantes réseau. Un vieux contrôleur d'imprimante plante, le NAS devient lent pendant une heure et l'audit est interrompu par la direction informatique.
+*Scénario illustratif.* Un technicien réseau reçoit une consigne : « Audite le labo avant qu'on le réutilise pour la formation. » Il lance un scanner de vulnérabilités sur `10.10.0.0/16`, puisque c'est un labo.
+
+Ce que personne n'a vérifié : le routeur du labo est relié au VLAN bureautique pour donner accès à Internet, et une partie de la plage `10.10.x.x` y est utilisée.
+
+Le scan atteint un NAS de sauvegarde et deux imprimantes réseau. Un vieux contrôleur d'imprimante plante, le NAS devient lent pendant une heure et l'audit est interrompu par la direction informatique.
 
 Le rapport PDF exporté du scanner aligne 214 lignes. Personne ne sait lesquelles sont réelles ni par où commencer. Certaines concernent des machines qui n'appartiennent pas au labo.
 
@@ -91,7 +95,10 @@ La dernière ligne est souvent oubliée. Pendant l'audit, vous détenez l'inform
 
 ## Phase 0 : cadrage écrit du périmètre et des règles d'engagement
 
-Les RoE (Rules of Engagement) sont le document qui sépare un audit d'une intrusion. Vous les rédigez avant le premier paquet, et le commanditaire les signe. Voici un squelette utilisable tel quel :
+> 📖 **Définition.** Les RoE (Rules of Engagement, règles d'engagement) sont le document qui sépare un audit d'une intrusion. Vous les rédigez avant le premier paquet, et le commanditaire les signe.
+{: .callout .callout-definition}
+
+Voici un squelette utilisable tel quel :
 
 ```yaml
 # cadrage-audit-lab.yml
@@ -161,6 +168,9 @@ Le résultat tient dans une matrice de flux. Les lignes sans justification sont 
 | WEB01 (DMZ) | DC01 | 389 | Aucune | Oui |
 
 La dernière ligne est la plus parlante. Un serveur exposé en DMZ qui interroge l'annuaire interne est la brèche qu'une DMZ est censée empêcher. Une compromission de WEB01 donne alors à l'attaquant un chemin direct vers l'AD.
+
+> 🏢 **Analogie : la DMZ comme hall d'accueil.** On reçoit les visiteurs dans le hall, pas dans les bureaux. Si l'agent d'accueil peut ouvrir la salle des archives, quiconque prend sa place y entre aussi. Limite de l'image : un hall n'est séparé du reste que par ses portes, et une DMZ ne l'est que par les règles du pare-feu qui l'entourent.
+{: .callout .callout-analogie}
 
 ## Phase 2 : revue de configuration
 
@@ -244,11 +254,15 @@ curl -sI "http://<HOTE>/" | grep -i '^server:'
 
 Si les RoE autorisent une preuve active, utilisez un test éprouvé et non destructif, par exemple le modèle Nuclei dédié (`nuclei -u http://<HOTE> -id CVE-2021-41773`). Sans cette autorisation écrite, arrêtez-vous à la version et à la configuration. 🧠 Une preuve se construit au niveau le plus bas qui suffit à convaincre.
 
-Pour justifier un faux positif, notez la commande et sa sortie. Écrire « faux positif » sans preuve revient à lui faire perdre sa valeur le jour où quelqu'un conteste.
+> 💡 **À retenir.** Un faux positif se justifie comme un constat : notez la commande et sa sortie. Sans cette preuve, votre « faux positif » ne tient plus le jour où quelqu'un le conteste.
+{: .callout .callout-important}
 
 ## Phase 4 : priorisation et analyse de risques simplifiée
 
-Le score CVSS mesure la gravité technique d'une faille dans l'absolu, pas ce qu'elle coûte chez vous. Une priorité se déduit de quatre éléments :
+> 📖 **Définition.** Le score CVSS (Common Vulnerability Scoring System), noté de 0 à 10, mesure la gravité technique d'une faille dans l'absolu, pas ce qu'elle coûte chez vous.
+{: .callout .callout-definition}
+
+Une priorité se déduit plutôt de quatre éléments :
 
 - **L'exposition** : qui peut atteindre le service (Internet, LAN entier, un seul poste) ?
 - **L'impact métier** : que perd-on si la machine tombe ou si la donnée fuit ?

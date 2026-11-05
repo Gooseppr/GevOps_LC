@@ -35,13 +35,20 @@ next_module_title: "Variables, filtres et navigation dynamique"
 
 ## Mise en situation
 
-Vous venez de rejoindre l'équipe support Cloud d'une PME : quatre personnes, une vingtaine de serveurs Linux et un Prometheus qui collecte `node_exporter` depuis six mois. Les données sont là, et vous savez les interroger depuis le module précédent. Mais pendant les incidents, tout le monde ouvre Explore, retape les mêmes requêtes de mémoire et se les échange par messagerie. Un collègue a bien fait un dashboard « pour la démo » avec 35 panels, des jauges partout et des couleurs vives. Personne ne l'ouvre en incident, parce qu'on n'y trouve pas la réponse à « est-ce que ce serveur va mal ? ».
+Vous venez de rejoindre l'équipe support Cloud d'une PME : quatre personnes, une vingtaine de serveurs Linux et un Prometheus qui collecte `node_exporter` depuis six mois. Les données sont là, et vous savez les interroger depuis le module précédent.
+
+Mais pendant les incidents, tout le monde ouvre Explore, retape les mêmes requêtes de mémoire et se les échange par messagerie.
+
+Un collègue a bien fait un dashboard « pour la démo » avec 35 panels, des jauges partout et des couleurs vives. Personne ne l'ouvre en incident, parce qu'on n'y trouve pas la réponse à « est-ce que ce serveur va mal ? ».
 
 Une requête PromQL ne vaut que par ce qu'on en fait. Un dashboard fige une question utile, avec la bonne unité, les bons seuils et la bonne place dans la page. C'est ce qu'on construit ici, en commençant petit.
 
 ## Comment un dashboard est organisé
 
-Avant de cliquer, il faut savoir ce qu'on manipule. Un dashboard est un document JSON stocké par Grafana, qui contient des panels, et chaque panel contient une ou plusieurs requêtes vers une source de données.
+Que manipule-t-on exactement avant de cliquer ?
+
+> 📖 **Définition.** Un dashboard est un document JSON stocké par Grafana. Il contient des panels, et chaque panel contient une ou plusieurs requêtes vers une source de données.
+{: .callout .callout-definition}
 
 ```mermaid
 flowchart TD
@@ -94,7 +101,10 @@ Le type de panel se choisit en fonction de la question posée, jamais par goût.
 
 ### Time series : le cheval de trait
 
-C'est le panel qui répond à « que s'est-il passé ? ». Il est indispensable pour voir une tendance, un pic ou une corrélation entre deux courbes. Deux réglages valent le détour dès le départ : **Tooltip mode = All** avec tri décroissant (on voit toutes les séries au survol, la plus haute en premier), et un **Fill opacity** faible, pour que les courbes qui se croisent restent lisibles.
+C'est le panel qui répond à « que s'est-il passé ? ». Il est indispensable pour voir une tendance, un pic ou une corrélation entre deux courbes. Deux réglages valent le détour dès le départ :
+
+- **Tooltip mode = All** avec tri décroissant : on voit toutes les séries au survol, la plus haute en premier.
+- Un **Fill opacity** faible, pour que les courbes qui se croisent restent lisibles.
 
 ### Stat : un chiffre, une couleur
 
@@ -135,6 +145,9 @@ Sous la requête, trois options reviennent tout le temps :
 - **Min step** : intervalle minimum entre deux points. Si vous forcez 5 s alors que Prometheus scrape toutes les 30 s, vous demandez des points qui n'existent pas.
 - **Type** : Range pour les courbes, Instant pour les valeurs courantes (tables, bar charts), Both pour les deux.
 
+> 🎞️ **Analogie : le film et la photo.** Une requête Range est un film : une suite de points sur la plage de temps, faite pour une courbe. Une requête Instant est une photo : une seule valeur par série, faite pour un tableau ou un classement. Limite de l'image : la « photo » reprend la dernière valeur disponible dans les minutes précédentes, pas forcément une mesure prise à la seconde exacte.
+{: .callout .callout-analogie}
+
 Un panel peut contenir plusieurs requêtes (A, B, C…). C'est utile pour superposer, par exemple, le trafic entrant et sortant sur le même graphique.
 
 ## Unités, seuils, couleurs et axes
@@ -150,7 +163,10 @@ Un chiffre sans unité est une énigme. Pour de la mémoire ou des octets, chois
 
 ### Thresholds et couleurs
 
-Les thresholds sont des paliers de valeurs, chacun associé à une couleur. La couleur **Base** couvre tout ce qui est en dessous du premier palier. Un classique pour un disque : Base verte, orange à 80, rouge à 90. Pour que la couleur s'applique réellement, vérifiez que **Color scheme** est sur *From thresholds* (c'est le défaut pour Stat et Gauge). Sur une Time series, activez *Show thresholds* en lignes pour voir la limite sur le graphique.
+> 📖 **Définition.** Les thresholds sont des paliers de valeurs, chacun associé à une couleur. La couleur **Base** couvre tout ce qui est en dessous du premier palier.
+{: .callout .callout-definition}
+
+Un classique pour un disque : Base verte, orange à 80, rouge à 90. Pour que la couleur s'applique réellement, vérifiez que **Color scheme** est sur *From thresholds* (c'est le défaut pour Stat et Gauge). Sur une Time series, activez *Show thresholds* en lignes pour voir la limite sur le graphique.
 
 > 💡 **Astuce** — Les seuils doivent venir d'une décision, pas d'une intuition. 80 % de disque, c'est « on agit avant la fin de semaine » ; 90 %, c'est « on agit aujourd'hui ». Si personne ne réagit à l'orange, supprimez-le : une couleur sans action est du bruit visuel.
 {: .callout .callout-astuce}
@@ -173,7 +189,10 @@ Trois types de liens à connaître :
 - **Data links** : lien contextuel sur un point de donnée (vers un dashboard de détail, avec des valeurs transmises).
 - **Dashboard links** (Settings → Links) : barre de navigation entre dashboards liés.
 
-Côté disposition, la règle est simple : **le plus important en haut à gauche**. Une première rangée de Stat pour l'état global (up, CPU, mémoire, disque), puis dessous les courbes de détail, puis éventuellement une row repliée pour les cas rares. Un lecteur pressé lit le haut, et ne descend que s'il a une raison.
+> 💡 **À retenir.** Le plus important se place en haut à gauche : un lecteur pressé lit le haut, et ne descend que s'il a une raison.
+{: .callout .callout-important}
+
+Côté disposition, cela donne une première rangée de Stat pour l'état global (up, CPU, mémoire, disque), puis dessous les courbes de détail, puis éventuellement une row repliée pour les cas rares.
 
 ## Sauvegarde, duplication, JSON
 
@@ -274,7 +293,11 @@ Sur les panels critiques, pensez aussi à l'option **No value** (Standard option
 
 Reprenons l'équipe support de la mise en situation et son dashboard « pour la démo » de 35 panels : 12 jauges, 8 courbes empilées, quelques tableaux jamais lus. Lors d'un incident, il faut en moyenne plusieurs minutes pour dire quel serveur va mal et quelle ressource sature, parce qu'on cherche la bonne vignette.
 
-L'équipe procède à une refonte en trois passes, sur une demi-journée. D'abord, elle note pour chaque panel « quelle décision prend-on avec ça ? » ; une vingtaine n'en justifient aucune. Ensuite, elle regroupe le reste en une rangée de quatre Stat (disponibilité, CPU, mémoire, disque), quatre Time series (CPU, mémoire, trafic réseau, disque par serveur) et un Table du détail par serveur. Elle ajoute enfin des thresholds validés avec l'astreinte et une description avec un lien vers le runbook sur chaque panel.
+L'équipe procède à une refonte en trois passes, sur une demi-journée :
+
+1. Elle note pour chaque panel « quelle décision prend-on avec ça ? » ; une vingtaine n'en justifient aucune.
+2. Elle regroupe le reste en une rangée de quatre Stat (disponibilité, CPU, mémoire, disque), quatre Time series (CPU, mémoire, trafic réseau, disque par serveur) et un Table du détail par serveur.
+3. Elle ajoute des thresholds validés avec l'astreinte et une description avec un lien vers le runbook sur chaque panel.
 
 Les chiffres sont illustratifs, mais l'ordre de grandeur est réaliste : le temps de première localisation passe d'environ cinq minutes à moins d'une minute, et deux faux positifs liés à une mauvaise unité disparaissent. Le dashboard est exporté en JSON dans un dépôt Git, avec un message de commit par modification.
 
@@ -291,7 +314,9 @@ Les chiffres sont illustratifs, mais l'ordre de grandeur est réaliste : le temp
 
 ## Résumé
 
-Un dashboard fige une question opérationnelle sous forme de panels : Time series pour les tendances, Stat pour l'état courant, Gauge pour un niveau borné, Table et Bar chart pour comparer des séries. Le query editor, les unités, les thresholds, les légendes et les axes déterminent si un chiffre est lisible ou trompeur. Les titres, descriptions et liens rendent le dashboard compréhensible par quelqu'un qui ne l'a pas construit. La sauvegarde, les versions et l'export JSON le rendent récupérable et partageable. Un dashboard n'est pas bon parce qu'il est joli, mais parce qu'il permet de décider vite. Le module suivant l'enrichit avec des variables et des filtres, pour qu'un seul dashboard serve à tous les serveurs.
+Un dashboard fige une question opérationnelle sous forme de panels : Time series pour les tendances, Stat pour l'état courant, Gauge pour un niveau borné, Table et Bar chart pour comparer des séries. Le query editor, les unités, les thresholds, les légendes et les axes déterminent si un chiffre est lisible ou trompeur. Les titres, descriptions et liens rendent le dashboard compréhensible par quelqu'un qui ne l'a pas construit. La sauvegarde, les versions et l'export JSON le rendent récupérable et partageable.
+
+Un dashboard n'est pas bon parce qu'il est joli, mais parce qu'il permet de décider vite. Le module suivant l'enrichit avec des variables et des filtres, pour qu'un seul dashboard serve à tous les serveurs.
 
 <!-- snippet
 id: grafana_stat_calculation_reduce

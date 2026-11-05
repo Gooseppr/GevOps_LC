@@ -76,7 +76,8 @@ flowchart LR
     class I1 alerte
 ```
 
-À retenir sur ce schéma : **une série renvoyée par la requête donne une instance d'alerte**, avec son propre état.
+> 💡 **À retenir.** Une série renvoyée par la requête donne une instance d'alerte, avec son propre état.
+{: .callout .callout-important}
 
 Le seuil compare un nombre, pas une courbe. Le type de requête décide donc de ce qu'il vous faut :
 
@@ -98,7 +99,8 @@ Choisissez Instant quand la requête calcule déjà ce que vous voulez tester. G
 | Réglage de No Data et Error | Oui, par règle | Non |
 | Recovery threshold | Oui | Non |
 
-**Règle de choix :** prenez Grafana-managed par défaut. Gardez Data source-managed pour les règles qui vivent déjà avec le backend, ou pour un très gros volume à évaluer au plus près des données. Les deux familles peuvent cohabiter.
+> 💡 **À retenir.** Prenez Grafana-managed par défaut. Gardez Data source-managed pour les règles qui vivent déjà avec le backend, ou pour un très gros volume à évaluer au plus près des données. Les deux familles peuvent cohabiter.
+{: .callout .callout-important}
 
 ## 3. Le lab
 
@@ -188,7 +190,7 @@ Commencez par la pending period. Ajoutez le recovery threshold si la valeur osci
 
 ### Compter le temps de la pending period
 
-Avec un intervalle de `1m` et une pending period de `5m`, le déclenchement a lieu à la **sixième** évaluation vraie, car le compteur démarre à la première :
+Combien d'évaluations faut-il pour déclencher ? Avec un intervalle de `1m` et une pending period de `5m`, c'est la **sixième** évaluation vraie qui déclenche, car le compteur démarre à la première :
 
 | Temps | Condition | État |
 |---|---|---|
@@ -214,6 +216,9 @@ C'est un choix à assumer. Pour détecter plus vite, raccourcissez la fenêtre d
 ## 6. Labels et annotations
 
 Tous deux sont des paires clé/valeur, mais leur rôle diffère.
+
+> 📦 **Analogie : l'adresse et la lettre d'un colis.** Les labels sont l'adresse : ils servent à trier et à acheminer, donc ils ne doivent pas changer en route. Les annotations sont la lettre à l'intérieur : elles informent le destinataire et peuvent varier. Limite : les labels forment aussi l'identité de l'instance d'alerte.
+{: .callout .callout-analogie}
 
 | | Labels | Annotations |
 |---|---|---|
@@ -309,7 +314,8 @@ Voici ce que donnent les deux écritures dans le lab, une fois l'exporteur arrê
 
 ### Construire la règle de disponibilité
 
-`up` vaut 1 si le dernier scrape a réussi et 0 sinon, tant que la cible reste configurée.
+> 📖 **Définition.** `up` vaut 1 si le dernier scrape a réussi et 0 sinon, tant que la cible reste configurée.
+{: .callout .callout-definition}
 
 1. **Nom :** `Cible injoignable`. **Requête A**, Instant : `up{job="node"}`.
 2. **Expression C**, Threshold sur A : `IS BELOW 1`, définie comme condition.

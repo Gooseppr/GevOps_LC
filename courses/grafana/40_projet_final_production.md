@@ -32,7 +32,9 @@ prev_module_title: "Exploitation collaborative et amélioration continue"
 
 ## Mise en situation
 
-Prenons une PME de e-commerce fictive : huit développeurs, un seul profil SRE (vous), six services (web, api, worker, base PostgreSQL, Redis, passerelle de paiement simulée) répartis sur trois machines virtuelles. Il existe déjà un Grafana, installé à la main il y a deux ans. Les dashboards ont été modifiés dans l'interface par une dizaine de personnes, personne ne sait lesquels comptent vraiment, et les alertes partent par e-mail dans une boîte que plus personne ne lit. Le dernier incident a été signalé par un client, pas par la supervision.
+Prenons une PME de e-commerce fictive : huit développeurs, un seul profil SRE (vous), six services (web, api, worker, base PostgreSQL, Redis, passerelle de paiement simulée) répartis sur trois machines virtuelles.
+
+Il existe déjà un Grafana, installé à la main il y a deux ans. Les dashboards ont été modifiés dans l'interface par une dizaine de personnes, personne ne sait lesquels comptent vraiment, et les alertes partent par e-mail dans une boîte que plus personne ne lit. Le dernier incident a été signalé par un client, pas par la supervision.
 
 La tentation est de réinstaller Grafana proprement et d'importer les anciens dashboards. Ça ne résout rien : la nouvelle installation serait tout aussi impossible à reconstruire si la VM disparaissait, personne ne saurait prouver que les alertes fonctionnent, et le jour où Prometheus tombe, la supervision se tairait sans que personne s'en aperçoive.
 
@@ -256,7 +258,13 @@ La v3 ne rajoute pas de fonctionnalités de supervision. Elle retire les points 
 
 ## Sécurisation et sauvegardes
 
-La sécurité de la plateforme se vérifie par des tests, pas par une liste cochée. Cinq vérifications concrètes à inscrire au rapport : le port de Prometheus n'est pas joignable depuis l'extérieur du réseau interne, l'accès anonyme est désactivé, un utilisateur de l'équipe A ne voit pas les dossiers de l'équipe B, le jeton Terraform ne permet pas de gérer les utilisateurs, et aucun secret n'apparaît dans `git log -p`.
+La sécurité de la plateforme se vérifie par des tests, pas par une liste cochée. Cinq vérifications concrètes à inscrire au rapport :
+
+- le port de Prometheus n'est pas joignable depuis l'extérieur du réseau interne ;
+- l'accès anonyme est désactivé ;
+- un utilisateur de l'équipe A ne voit pas les dossiers de l'équipe B ;
+- le jeton Terraform ne permet pas de gérer les utilisateurs ;
+- aucun secret n'apparaît dans `git log -p`.
 
 Pour les sauvegardes, il faut distinguer ce qui se reconstruit de ce qui se perd :
 
@@ -301,11 +309,24 @@ Une alerte qui ne mène à aucune action est du bruit. La conception part donc d
 ) / 0.005 > 14.4
 ```
 
+> 📖 **Définition.** Le taux de consommation (*burn rate*) est le ratio d'erreurs observé divisé par le ratio d'erreurs toléré par l'objectif, soit 0,005 pour 99,5 %. C'est exactement ce que calcule la requête ci-dessus.
+{: .callout .callout-definition}
+
 Un taux de consommation de 14,4 épuise environ 2 % du budget mensuel en une heure. C'est le seuil classique pour une alerte qui réveille quelqu'un, généralement combinée avec une fenêtre plus longue pour éviter les faux positifs. Les noms de métriques sont ceux de l'application de démonstration, adaptez-les à vos propres instruments.
 
-**Les états `No Data` et `Error`.** C'est là que se cachent les pannes silencieuses. Par défaut, Grafana fait passer une règle sans données ou en erreur dans les états `No Data` et `Error`, qui génèrent des alertes `DatasourceNoData` et `DatasourceError` ; le risque apparaît quand ces états sont remappés vers « normal ». Pour chaque règle, décidez explicitement ce que signifie l'absence de données (service arrêté, collecte coupée, ou état normal) et configurez les deux états en conséquence. Une règle de disponibilité qui passe silencieusement en « normal » quand Prometheus est injoignable est pire que l'absence de règle, car elle donne une fausse sécurité.
+**Les états `No Data` et `Error`.** C'est là que se cachent les pannes silencieuses. Par défaut, Grafana fait passer une règle sans données ou en erreur dans les états `No Data` et `Error`, qui génèrent des alertes `DatasourceNoData` et `DatasourceError`. Le risque apparaît quand ces états sont remappés vers « normal ».
 
-**Le heartbeat.** Une alerte « Watchdog » toujours active est renvoyée à intervalle court, via une politique de notification dédiée dont `group_interval` et `repeat_interval` sont courts (la politique racine, à 4h, ne convient pas), vers un service externe à la plateforme, qui déclenche une alerte si les battements s'arrêtent. C'est le seul moyen de savoir que **Grafana lui-même** ne notifie plus : un système de supervision ne peut pas s'alerter de sa propre mort.
+Pour chaque règle, décidez explicitement ce que signifie l'absence de données (service arrêté, collecte coupée, ou état normal) et configurez les deux états en conséquence.
+
+> 💡 **À retenir.** Une règle de disponibilité qui passe silencieusement en « normal » quand Prometheus est injoignable est pire que l'absence de règle, car elle donne une fausse sécurité.
+{: .callout .callout-important}
+
+**Le heartbeat.** Une alerte « Watchdog » toujours active est renvoyée à intervalle court vers un service externe à la plateforme. Ce service déclenche une alerte si les battements s'arrêtent. L'envoi passe par une politique de notification dédiée dont `group_interval` et `repeat_interval` sont courts : la politique racine, à 4h, ne convient pas.
+
+C'est le seul moyen de savoir que **Grafana lui-même** ne notifie plus : un système de supervision ne peut pas s'alerter de sa propre mort.
+
+> 🚆 **Analogie : le dispositif de l'homme mort.** Dans un train, le conducteur doit actionner régulièrement une commande. S'il cesse, le train freine automatiquement. Ici aussi, c'est l'absence de signal qui déclenche la réaction, pas un message d'erreur. Limite de l'image : le service externe se contente de prévenir, il n'arrête ni ne répare rien.
+{: .callout .callout-analogie}
 
 **Le routage.** Il s'appuie sur les labels portés par les règles : `severity` et `service` au minimum. Les alertes critiques vont vers l'astreinte, les autres vers le canal d'équipe, avec regroupement par service pour éviter vingt messages pour une seule panne.
 

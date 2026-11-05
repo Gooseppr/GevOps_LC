@@ -36,13 +36,21 @@ next_module_title: "Projet pratique — Supervision d'un serveur Linux"
 
 Lundi, 9 h 10. Vous êtes technicien support Cloud dans une équipe de six personnes qui exploite une vingtaine de services. Un développeur vous écrit : « Le dashboard de l'API Commandes est vide, je ne vois rien depuis ce matin. »
 
-Votre premier réflexe est probablement de répondre « le service est tombé ». Parfois c'est vrai. Mais un dashboard vide peut aussi signifier que Prometheus ne répond plus, que quelqu'un a renommé un label, que la période affichée est trop courte, que le fuseau horaire décale les courbes de deux heures, ou que Grafana ne joint plus sa source depuis une mise à jour du réseau Docker.
+Votre premier réflexe est probablement de répondre « le service est tombé ». Parfois c'est vrai. Mais un dashboard vide peut aussi signifier que :
 
-Le piège est là : les symptômes se ressemblent tous, et deviner coûte du temps. Si vous accusez le service alors que le monitoring est en panne, l'équipe applicative perd une heure. Si vous accusez le monitoring alors que le service est réellement mort, vous retardez la remise en route. Ce module vous donne une méthode : poser les questions dans le bon ordre pour que chaque test élimine une famille entière de causes.
+- Prometheus ne répond plus ;
+- quelqu'un a renommé un label ;
+- la période affichée est trop courte ;
+- le fuseau horaire décale les courbes de deux heures ;
+- Grafana ne joint plus sa source depuis une mise à jour du réseau Docker.
+
+Le piège est là : les symptômes se ressemblent tous, et deviner coûte du temps. Si vous accusez le service alors que le monitoring est en panne, l'équipe applicative perd une heure. Si vous accusez le monitoring alors que le service est réellement mort, vous retardez la remise en route.
+
+Ce module vous donne une méthode : poser les questions dans le bon ordre pour que chaque test élimine une famille entière de causes.
 
 ## Le chemin d'une requête : là où ça peut casser
 
-Quand un panel s'affiche, il se passe plus de choses qu'on ne le croit. Le navigateur ne parle pas directement à Prometheus : il envoie la requête au serveur Grafana, qui la transmet à la Data Source, qui interroge son stockage et renvoie une réponse que Grafana met en forme.
+Que se passe-t-il quand un panel s'affiche ? Plus de choses qu'on ne le croit. Le navigateur ne parle pas directement à Prometheus : il envoie la requête au serveur Grafana, qui la transmet à la Data Source, qui interroge son stockage et renvoie une réponse que Grafana met en forme.
 
 ```mermaid
 flowchart LR
@@ -54,7 +62,10 @@ flowchart LR
     B --> E[Panel affiché]
 ```
 
-C'est comme un colis qui passe par plusieurs relais : s'il n'arrive pas, il faut savoir à quel relais il s'est arrêté. Cela donne quatre zones de panne possibles :
+> 📦 **Analogie : le colis et ses relais.** Une requête voyage comme un colis qui passe par plusieurs relais : s'il n'arrive pas, il faut savoir à quel relais il s'est arrêté. Limite : la réponse refait le chemin en sens inverse, et la panne peut survenir à l'aller comme au retour.
+{: .callout .callout-analogie}
+
+Cette chaîne donne quatre zones de panne possibles :
 
 - **Le navigateur / l'interface** : mauvaise période, variable mal positionnée, fuseau horaire.
 - **Grafana** : droits, configuration, erreur interne, délai dépassé.
@@ -97,7 +108,13 @@ Si même la métrique brute ne renvoie rien, vous avez un vrai problème de donn
 
 ### Les variables, coupables silencieux
 
-Beaucoup de dashboards vides sont dus à une variable. Une variable `$instance` qui vaut une instance supprimée, une valeur `All` mal gérée dans une regex, ou une variable restée vide après un changement de label : le panel est correctement construit, mais il filtre sur du vide. Regardez en haut du dashboard, avant de toucher à quoi que ce soit : changez la valeur de la variable et observez si les données reviennent.
+Beaucoup de dashboards vides sont dus à une variable :
+
+- une variable `$instance` qui vaut une instance supprimée ;
+- une valeur `All` mal gérée dans une regex ;
+- une variable restée vide après un changement de label.
+
+Le panel est correctement construit, mais il filtre sur du vide. Avant de toucher à quoi que ce soit, regardez en haut du dashboard : changez la valeur de la variable et observez si les données reviennent.
 
 > 💡 **Astuce** : dans l'éditeur de panel, passez la souris sur la requête ou utilisez Query Inspector (plus bas) pour voir la requête **après** substitution des variables. Ce que vous lisez dans l'éditeur contient `$instance`, mais ce que Prometheus reçoit contient la valeur réelle, et c'est celle-là qu'il faut juger.
 {: .callout .callout-astuce}
@@ -149,7 +166,10 @@ Le triangle rouge d'un panel cache un message précis, visible au survol ou dans
 
 Un timeout (parfois visible sous la forme `context deadline exceeded`) indique que quelque part, un délai maximum a expiré. Ce délai peut se trouver dans Grafana, dans la configuration de la Data Source, dans un reverse proxy intermédiaire ou dans le backend lui-même (Prometheus a le sien).
 
-Avant d'augmenter les délais, demandez-vous pourquoi la requête est lente : allonger un timeout ne répare rien, ça retarde seulement l'échec. Les causes de lenteur sont traitées plus bas.
+Avant d'augmenter les délais, demandez-vous pourquoi la requête est lente. Les causes de lenteur sont traitées plus bas.
+
+> 💡 **À retenir.** Allonger un timeout ne répare rien : cela retarde seulement l'échec.
+{: .callout .callout-important}
 
 ## Quand c'est la Data Source qui est en cause
 
@@ -230,7 +250,10 @@ L'auto-refresh (menu à côté du sélecteur de période) relance les requêtes 
 
 Un panel lent n'est pas encore une panne, mais c'est souvent son prélude. Il faut chercher ce qui rend la requête coûteuse, et il y a généralement trois suspects.
 
-**Trop de séries.** Chaque combinaison de labels crée une série distincte. On parle de cardinalité*. Une requête sans agrégation sur une métrique avec un label `pod` ou `user_id` peut retourner des milliers de lignes que Grafana doit transférer, convertir puis dessiner.
+**Trop de séries.** Chaque combinaison de labels crée une série distincte. Une requête sans agrégation sur une métrique avec un label `pod` ou `user_id` peut retourner des milliers de lignes que Grafana doit transférer, convertir puis dessiner.
+
+> 📖 **Définition.** La **cardinalité** désigne le nombre de combinaisons uniques de labels d'une métrique ; plus elle est élevée, plus la requête et le stockage sont coûteux.
+{: .callout .callout-definition}
 
 **Une fenêtre de temps trop large.** Demander trente jours de données à haute résolution pour afficher quelques points est coûteux. Grafana limite le nombre de points avec `Max data points` et `Min interval` (options de la requête), mais le backend doit tout de même lire les données.
 
@@ -252,8 +275,6 @@ On passe ainsi de milliers de séries à une poignée (une par code de statut). 
 
 > 💡 **Astuce** : testez d'abord la requête dans Explore avec une période courte (15 minutes). Si elle est lente même là, le problème est dans la requête. Si elle devient lente seulement sur 7 jours, c'est la volumétrie.
 {: .callout .callout-astuce}
-
-\* La cardinalité désigne le nombre de combinaisons uniques de labels d'une métrique ; plus elle est élevée, plus la requête et le stockage sont coûteux.
 
 ## Query Inspector : voir ce que Grafana envoie vraiment
 
@@ -380,7 +401,11 @@ Résultat : le service n'a jamais été en panne. En trente minutes, on a identi
 
 ## Résumé
 
-Un panel qui ne montre rien n'est jamais un diagnostic en soi. Il faut d'abord déterminer ce que Grafana a reçu : une réponse vide (`No data`), une erreur (`Error`) ou rien dans le délai imparti (`Timeout`). La chaîne navigateur → Grafana → Data Source → backend permet de localiser la panne : période, variable et fuseau côté interface ; URL, réseau et authentification côté connexion ; volume et cardinalité côté performance. Explore, Query Inspector et les logs de Grafana puis du backend sont les trois outils qui tranchent quand le doute persiste. Cette méthode évite de confondre un problème de monitoring et un problème de service. Elle sera mise en pratique dans le prochain module, où vous construirez une supervision complète d'un serveur Linux, avec ses dashboards et ses points de contrôle.
+Un panel qui ne montre rien n'est jamais un diagnostic en soi. Il faut d'abord déterminer ce que Grafana a reçu : une réponse vide (`No data`), une erreur (`Error`) ou rien dans le délai imparti (`Timeout`).
+
+La chaîne navigateur → Grafana → Data Source → backend permet de localiser la panne : période, variable et fuseau côté interface ; URL, réseau et authentification côté connexion ; volume et cardinalité côté performance. Explore, Query Inspector et les logs de Grafana puis du backend sont les trois outils qui tranchent quand le doute persiste.
+
+Cette méthode évite de confondre un problème de monitoring et un problème de service. Elle sera mise en pratique dans le prochain module, où vous construirez une supervision complète d'un serveur Linux, avec ses dashboards et ses points de contrôle.
 
 <!-- snippet
 id: grafana_diag_no_data_vs_error

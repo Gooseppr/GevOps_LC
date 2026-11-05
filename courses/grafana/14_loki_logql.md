@@ -37,7 +37,9 @@ next_module_title: "Tracing distribué et Tempo"
 
 Vous rejoignez une équipe de cinq personnes qui exploite une API de commande en ligne. Elle tourne sur une douzaine de services, répartis entre trois environnements. Jusqu'ici, le diagnostic passait par `ssh` et `grep` sur les machines, ou par `kubectl logs` quand la plateforme est conteneurisée. Cela marche tant qu'il y a un seul serveur.
 
-Un vendredi, des clients se plaignent de paiements qui échouent. Les dashboards de métriques du module précédent montrent un taux de 5xx qui monte sur la passerelle. Ils ne disent pas pourquoi. La réponse est dans une ligne de log quelque part parmi des millions, répartie sur quatre services et sur des pods qui ont déjà été recréés deux fois depuis le début de l'incident. Un `grep` par machine ne fonctionne plus : il faudrait savoir quelle machine interroger, et les logs de celles qui ont disparu sont perdus.
+Un vendredi, des clients se plaignent de paiements qui échouent. Les dashboards de métriques du module précédent montrent un taux de 5xx qui monte sur la passerelle. Ils ne disent pas pourquoi.
+
+La réponse est dans une ligne de log quelque part parmi des millions, répartie sur quatre services et sur des pods qui ont déjà été recréés deux fois depuis le début de l'incident. Un `grep` par machine ne fonctionne plus : il faudrait savoir quelle machine interroger, et les logs de celles qui ont disparu sont perdus.
 
 Il faut un endroit central où chercher dans tous les logs, filtrer par service et par environnement, compter les erreurs dans le temps et les rapprocher de ce que montrent les métriques. C'est le rôle de Loki.
 
@@ -45,7 +47,8 @@ Il faut un endroit central où chercher dans tous les logs, filtrer par service 
 
 Les moteurs de logs classiques indexent le texte des lignes, ce qui rend la recherche rapide et le stockage cher. Loki fait le choix inverse. Il n'indexe que les **labels** attachés à un flux de logs, et stocke le contenu des lignes compressé en blocs (des *chunks*), sans index sur les mots.
 
-Pensez à une bibliothèque où seules les étiquettes des rayons sont cataloguées, sans index des mots de chaque livre. Pour retrouver une phrase, on va vite au bon rayon grâce à l'étiquette, puis on feuillette. C'est peu coûteux à maintenir, mais cela suppose que les étiquettes soient bien choisies.
+> 📚 **Analogie : la bibliothèque.** Imaginez une bibliothèque où seules les étiquettes des rayons sont cataloguées, sans index des mots de chaque livre. Pour retrouver une phrase, vous allez vite au bon rayon grâce à l'étiquette, puis vous feuilletez. C'est peu coûteux à maintenir, à condition que les étiquettes soient bien choisies.
+{: .callout .callout-analogie}
 
 > 🧠 **Concept clé** — Un *stream* est l'ensemble des lignes qui partagent exactement la même combinaison de labels. `{service="api", env="prod"}` est un stream. Si vous ajoutez `pod="api-7f9c"`, vous obtenez un stream par pod. Chaque stream a ses propres chunks. Le nombre de streams actifs est donc la grandeur qui pilote le coût et les performances de Loki, bien plus que le volume brut de logs.
 {: .callout .callout-important}
@@ -290,7 +293,10 @@ count_over_time({service="demo-api"} | json | level="error" [5m])
 rate({service="demo-api"} | json | level="error" [5m])
 ```
 
-La différence est la même qu'entre un compteur de passages et une vitesse : `count_over_time` donne un total pour la fenêtre, `rate` le divise par la durée en secondes. Pour un dashboard où l'on veut comparer des périodes de longueur différente, `rate` est plus stable. Pour un message « il y a eu 37 erreurs en 5 minutes », `count_over_time` est plus parlant.
+> 🚗 **Analogie : compteur et vitesse.** `count_over_time` fonctionne comme un compteur de passages : il donne un total pour la fenêtre. `rate` fonctionne comme une vitesse : il divise ce total par la durée en secondes.
+{: .callout .callout-analogie}
+
+Pour un dashboard où l'on veut comparer des périodes de longueur différente, `rate` est plus stable. Pour un message « il y a eu 37 erreurs en 5 minutes », `count_over_time` est plus parlant.
 
 > 🧠 **Concept clé** — Contrairement à `rate()` en PromQL, il n'y a ici aucun compteur ni gestion de reset : Loki compte simplement les lignes présentes dans la fenêtre. Une ligne par événement, donc un événement égale une ligne.
 {: .callout .callout-important}
@@ -329,9 +335,17 @@ C'est le point qui fait la différence entre un Loki agréable et un Loki qui s'
 > ⚠️ **Erreur fréquente** — Transformer un champ à forte cardinalité en label : `user_id`, `request_id`, `trace_id`, adresse IP cliente, URL complète avec identifiants. Chaque valeur distincte crée un nouveau stream. Avec 10 services, 3 environnements et 20 pods, vous avez déjà 600 streams. Ajoutez 50 000 `user_id` et vous visez des millions. Conséquences : index qui gonfle, chunks minuscules vidés en permanence, requêtes lentes parce qu'il faut ouvrir des milliers de petits blocs, et, tôt ou tard, rejet à l'ingestion avec `maximum active stream limit exceeded`. **Correction** : laissez ces valeurs dans le texte ou dans les métadonnées structurées, et filtrez-les à la lecture.
 {: .callout .callout-attention}
 
-Un label doit donc avoir peu de valeurs, des valeurs stables, et servir à restreindre la recherche : `service`, `env`, `cluster`, `namespace`. La sévérité (`level`, quatre à six valeurs) est un cas limite. C'est acceptable si tous vos logs sont normalisés, mais cela multiplie les streams par service. Si vous hésitez, parsez à la lecture.
+> 💡 **À retenir** — Un bon label a peu de valeurs, des valeurs stables, et sert à restreindre la recherche : `service`, `env`, `cluster`, `namespace`.
+{: .callout .callout-important}
 
-Entre « label indexé » et « champ parsé à chaque requête », Loki 3 apporte un troisième niveau : les **métadonnées structurées**. Ce sont des paires clé/valeur attachées à chaque ligne, stockées avec elle mais **non indexées** et sans effet sur le nombre de streams. Elles sont faites pour `request_id`, `trace_id`, `pod`, `user_id`. Elles se filtrent comme des labels, sans parser :
+La sévérité (`level`, quatre à six valeurs) est un cas limite. C'est acceptable si tous vos logs sont normalisés, mais cela multiplie les streams par service. Si vous hésitez, parsez à la lecture.
+
+Entre « label indexé » et « champ parsé à chaque requête », Loki 3 apporte un troisième niveau : les **métadonnées structurées**.
+
+> 📖 **Définition.** Une métadonnée structurée est une paire clé/valeur attachée à chaque ligne. Elle est stockée avec la ligne, mais **non indexée**, et n'a aucun effet sur le nombre de streams. Elle convient à `request_id`, `trace_id`, `pod` ou `user_id`.
+{: .callout .callout-definition}
+
+Elles se filtrent comme des labels, sans parser :
 
 ```logql
 {service="demo-api"} | request_id="req-4821"

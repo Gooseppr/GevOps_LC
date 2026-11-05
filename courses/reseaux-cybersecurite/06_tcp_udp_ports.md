@@ -36,11 +36,12 @@ next_module_title: "Protocoles et services essentiels"
 
 *Scénario illustratif.* Un développeur déploie une application interne et vous dit : « Le serveur répond au ping, mais le navigateur n'ouvre pas la page. »
 
-Le ping prouve que les paquets atteignent la machine, mais il ne dit rien du programme qui doit répondre. Ce module vous donne de quoi trancher en deux commandes.
+Le ping prouve que les paquets atteignent la machine. Mais le programme qui doit répondre est-il bien là ? Le ping n'en dit rien. Ce module vous donne de quoi trancher en deux commandes.
 
 ## 1. Du bâtiment à l'appartement
 
-L'adresse IP désigne une machine, comme l'adresse d'un immeuble. Mais plusieurs programmes y partagent la même adresse, et c'est le **port** qui indique l'appartement.
+> 🏢 **Analogie : l'immeuble et ses appartements.** L'adresse IP désigne une machine, comme l'adresse d'un immeuble. Plusieurs programmes y partagent la même adresse, et c'est le **port** qui indique l'appartement. Limite de l'image : côté client, l'« appartement » n'est attribué que temporairement, le temps d'une connexion.
+{: .callout .callout-analogie}
 
 ```mermaid
 flowchart LR
@@ -84,7 +85,8 @@ IP livre de machine à machine ; le transport fait dialoguer deux programmes. Un
 | Une perte provoque | Un retard, le temps de retransmettre | Une donnée manquante |
 | Exemples | Web, SSH, transfert de fichiers | DNS, voix, vidéo, HTTP/3 |
 
-**Règle de choix :** prenez TCP lorsqu'une donnée manquante est inacceptable. Prenez UDP lorsqu'une donnée arrivée en retard ne sert plus, comme une image de visioconférence vieille de deux secondes, ou pour un petit échange que l'application peut simplement rejouer.
+> 💡 **À retenir.** Prenez TCP lorsqu'une donnée manquante est inacceptable. Prenez UDP lorsqu'une donnée arrivée en retard ne sert plus, comme une image de visioconférence vieille de deux secondes. Prenez-le aussi pour un petit échange que l'application peut simplement rejouer.
+{: .callout .callout-important}
 
 UDP n'est pas un TCP défectueux. HTTP/3, par exemple, reconstruit sa propre fiabilité au-dessus d'UDP.
 
@@ -114,6 +116,9 @@ Chaque côté tire son numéro de départ au hasard, ce qui complique l'injectio
 
 Chaque octet est numéroté. Le récepteur annonce le prochain numéro attendu, ce qui confirme tout ce qui précède.
 
+> 📚 **Analogie : les pages numérotées.** Dire « j'attends la page 21 », c'est confirmer d'un coup la réception des pages 1 à 20. Limite de l'image : TCP numérote des octets, pas des messages entiers.
+{: .callout .callout-analogie}
+
 ```mermaid
 sequenceDiagram
     participant E as Émetteur
@@ -141,7 +146,8 @@ Ce schéma montre qu'un trou dans la numérotation se voit vite : l'émetteur re
 | **Signal** | La fenêtre annoncée par le récepteur | Pertes et délais observés |
 | **Effet** | Limite les octets envoyés sans acquittement | Réduit le débit d'émission |
 
-La **fenêtre** indique l'espace libre dans le tampon du récepteur. Si elle tombe à zéro, l'émetteur attend.
+> 📖 **Définition.** La **fenêtre** indique l'espace libre dans le tampon du récepteur. Si elle tombe à zéro, l'émetteur attend.
+{: .callout .callout-definition}
 
 ### Fermer : FIN, ou RST en urgence
 

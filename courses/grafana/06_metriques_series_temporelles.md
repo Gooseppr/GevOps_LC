@@ -44,11 +44,12 @@ Ces deux malentendus ont la même origine : la donnée affichée n'est pas celle
 
 Une métrique est une mesure numérique d'un comportement du système : le nombre de requêtes reçues, la mémoire utilisée, la durée d'un traitement. Une seule mesure ne dit presque rien. Ce qui est utile, c'est son évolution : est-ce que ça monte, est-ce que ça oscille, est-ce que ça a changé juste après le déploiement de 14 h ?
 
-C'est pour cela qu'on stocke les métriques sous forme de **séries temporelles** : une suite de valeurs numériques horodatées, enregistrées à intervalles réguliers. Pensez à un électrocardiogramme : un battement isolé ne raconte rien, c'est le tracé qui permet de diagnostiquer. Les systèmes comme Prometheus utilisent pour cela une base spécialisée, une TSDB (Time Series Database)*, optimisée pour écrire en continu et lire de grandes plages de temps.
+C'est pour cela qu'on stocke les métriques sous forme de **séries temporelles** : une suite de valeurs numériques horodatées, enregistrées à intervalles réguliers. Pensez à un électrocardiogramme : un battement isolé ne raconte rien, c'est le tracé qui permet de diagnostiquer. Les systèmes comme Prometheus utilisent pour cela une base spécialisée, une TSDB (Time Series Database), optimisée pour écrire en continu et lire de grandes plages de temps.
 
-*Une TSDB est une base de données conçue pour stocker et interroger efficacement des valeurs indexées par le temps.
+> 📖 **Définition.** Une TSDB est une base de données conçue pour stocker et interroger efficacement des valeurs indexées par le temps.
+{: .callout .callout-definition}
 
-Grafana, dans tout ça, ne stocke rien. Il interroge la source de données (vue au module précédent) et dessine ce qu'on lui renvoie. Si la donnée est mal comprise à la source, aucun joli panel ne la rattrapera.
+Et Grafana dans tout ça ? Il ne stocke rien. Il interroge la source de données (vue au module précédent) et dessine ce qu'on lui renvoie. Si la donnée est mal comprise à la source, aucun joli panel ne la rattrapera.
 
 ### Anatomie d'une série
 
@@ -90,7 +91,8 @@ Le type n'est pas un détail de présentation : il dicte la façon de lire la va
 
 ### Counter : on ne regarde jamais sa valeur brute
 
-Un Counter, c'est le compteur kilométrique d'une voiture. Savoir qu'il affiche 182 340 km ne dit pas si vous roulez vite. Ce qui vous intéresse, c'est la différence entre deux relevés : 600 km en 6 heures, soit 100 km/h.
+> 🚗 **Analogie : le compteur kilométrique.** Un Counter, c'est le compteur kilométrique d'une voiture. Savoir qu'il affiche 182 340 km ne dit pas si vous roulez vite. Ce qui vous intéresse, c'est la différence entre deux relevés : 600 km en 6 heures, soit 100 km/h.
+{: .callout .callout-analogie}
 
 Même raisonnement pour un Counter applicatif. Si `http_requests_total` vaut 1000 à une minute donnée et 1600 une minute plus tard, l'application a traité 600 requêtes en 60 secondes, soit **10 requêtes par seconde**. C'est cette vitesse qu'on veut afficher, pas le total.
 
@@ -140,7 +142,9 @@ Trois notions se mélangent facilement, alors séparons-les :
 - **Résolution des données** : l'espacement réel entre les points stockés. Il est égal à l'intervalle de collecte, sauf si un traitement de réduction (*downsampling*) intervient.
 - **Résolution d'affichage** : le pas que Grafana demande pour dessiner le panel. Il dépend de la largeur du panel et du nombre maximum de points autorisé. Dans les options de requête, vous trouverez des réglages comme *Min interval* et *Max data points* (l'interface peut varier selon la version).
 
-Conséquence concrète : si vous regardez 30 jours dans un panel de 800 pixels, Grafana ne va pas dessiner des centaines de milliers de points. Il demande un pas plus large, par exemple une valeur toutes les 30 minutes, et les détails fins disparaissent. Un pic de 2 minutes visible sur « 1 heure » peut être invisible sur « 30 jours ». Quand une courbe vous semble trop calme, changez l'échelle de temps avant de conclure.
+Conséquence concrète : si vous regardez 30 jours dans un panel de 800 pixels, Grafana ne va pas dessiner des centaines de milliers de points. Il demande un pas plus large, par exemple une valeur toutes les 30 minutes, et les détails fins disparaissent. Un pic de 2 minutes visible sur « 1 heure » peut être invisible sur « 30 jours ».
+
+Quand une courbe vous semble trop calme, changez l'échelle de temps avant de conclure.
 
 > ⚠️ **Erreur fréquente** : croire qu'une absence de pic sur le graphique prouve l'absence de problème. Avec une collecte toutes les 60 s, un pic de CPU de 10 secondes peut tomber entièrement entre deux relevés. Si un phénomène est plus court que l'intervalle, il faut soit raccourcir l'intervalle, soit exposer une métrique qui l'agrège (un Counter ou un Histogram, qui n'oublient rien entre deux collectes).
 {: .callout .callout-attention}
@@ -149,7 +153,10 @@ Conséquence concrète : si vous regardez 30 jours dans un panel de 800 pixels, 
 
 Les valeurs brutes servent rarement telles quelles. On les transforme presque toujours pour répondre à une question. Les quatre opérations ci-dessous couvrent l'essentiel, et on verra dans le module suivant comment les exprimer dans une requête.
 
-**Le taux (rate)** : une vitesse de variation par seconde. C'est l'opération de base pour un Counter. Sur notre exemple, passer de 1000 à 1600 en 60 s donne 10 req/s. On calcule le taux sur une *fenêtre* de temps, qui doit contenir plusieurs échantillons : avec une collecte toutes les 15 s, une fenêtre de 15 s ne contient qu'un point et ne permet aucun calcul. On retient en règle générale une fenêtre d'au moins quatre fois l'intervalle de collecte.
+**Le taux (rate)** : une vitesse de variation par seconde. C'est l'opération de base pour un Counter. Sur notre exemple, passer de 1000 à 1600 en 60 s donne 10 req/s. On calcule le taux sur une *fenêtre* de temps, qui doit contenir plusieurs échantillons : avec une collecte toutes les 15 s, une fenêtre de 15 s ne contient qu'un point et ne permet aucun calcul.
+
+> 💡 **À retenir.** En règle générale, la fenêtre de calcul d'un taux fait au moins quatre fois l'intervalle de collecte.
+{: .callout .callout-important}
 
 **La variation** : combien la valeur a changé sur une période, sans la ramener à la seconde. « 3 600 erreurs sur la dernière heure » parle plus à un humain que « 1 erreur/s ». Même source, autre lecture : on choisit selon l'usage (suivre une tendance ou compter un volume).
 
@@ -164,7 +171,10 @@ Les valeurs brutes servent rarement telles quelles. On les transforme presque to
 
 Les labels sont la richesse des métriques : ils permettent de filtrer, de regrouper, de comparer. Ils ont aussi un coût, et c'est une des causes les plus courantes de plateformes de supervision qui s'essoufflent.
 
-La **cardinalité** est le nombre de séries distinctes qu'une métrique produit. Elle se calcule en multipliant le nombre de valeurs possibles de chaque label. Prenons un scénario :
+> 📖 **Définition.** La **cardinalité** est le nombre de séries distinctes qu'une métrique produit. Elle se calcule en multipliant le nombre de valeurs possibles de chaque label.
+{: .callout .callout-definition}
+
+Prenons un scénario :
 
 - 50 instances × 20 endpoints × 5 codes de statut = **5 000 séries**. C'est gérable.
 - On ajoute un label `user_id` avec 100 000 utilisateurs possibles : on passe à **500 millions de séries potentielles**. Le stockage, la mémoire et les requêtes s'effondrent.
@@ -184,7 +194,9 @@ Un panel vide ou une courbe qui s'arrête ne veut pas dire la même chose selon 
 
 **Une absence de données.** La série n'existe pas à cet instant : plus aucun échantillon n'arrive. Causes possibles : l'application est arrêtée, la collecte échoue, le réseau est coupé, le label a changé. Ici, il n'y a pas de zéro, il n'y a *rien*, et c'est un signal très différent. Grafana l'affiche généralement comme un trou dans la courbe ou un message « No data ».
 
-**Une série obsolète (stale).** Quand une cible disparaît (pod supprimé, instance remplacée) ou qu'une série n'apparaît plus lors d'une collecte, Prometheus pose un marqueur d'obsolescence (*staleness marker*) : la série cesse immédiatement d'être prise en compte par les requêtes. En l'absence de marqueur (par exemple après un redémarrage de Prometheus ou avec des timestamps explicites), une valeur n'est plus utilisée si le dernier échantillon date de plus de 5 minutes (valeur par défaut). C'est ce qui évite de voir pour toujours la dernière valeur d'un serveur disparu.
+**Une série obsolète (stale).** Quand une cible disparaît (pod supprimé, instance remplacée) ou qu'une série n'apparaît plus lors d'une collecte, Prometheus pose un marqueur d'obsolescence (*staleness marker*) : la série cesse immédiatement d'être prise en compte par les requêtes.
+
+En l'absence de marqueur (par exemple après un redémarrage de Prometheus ou avec des timestamps explicites), une valeur n'est plus utilisée si le dernier échantillon date de plus de 5 minutes (valeur par défaut). C'est ce qui évite de voir pour toujours la dernière valeur d'un serveur disparu.
 
 > ⚠️ **Erreur fréquente** : confondre « pas d'erreurs » et « plus de métriques ». Si un service plante, son compteur d'erreurs ne passe pas à zéro : il disparaît. Une alerte « erreurs > 0 » restera muette pendant que tout est cassé. Surveillez donc aussi l'*absence* de données, et prévoyez dans vos alertes un comportement explicite pour les états *No Data* et *Error* (on y reviendra dans les modules sur l'alerting).
 {: .callout .callout-attention}
@@ -215,7 +227,11 @@ Ce que ce scénario illustre : une même source, lue avec la bonne opération, c
 - **Ne calculez jamais de moyenne de percentiles.** Agrégez les buckets, puis calculez le percentile.
 - **Nommez et documentez clairement.** Une unité dans le nom (`_seconds`, `_bytes`) et le suffixe `_total` pour les Counters évitent beaucoup d'erreurs de lecture. Une métrique mal nommée reste trompeuse même avec un bon panel.
 
-Une façon simple de vérifier que vous avez compris : face à n'importe quel graphique, soyez capable de répondre à trois questions. De quel type de métrique vient-il ? Sur quelle fenêtre et quelle résolution est-il calculé ? Que verrait-on s'il n'y avait plus aucune donnée ?
+Une façon simple de vérifier que vous avez compris : face à n'importe quel graphique, soyez capable de répondre à trois questions :
+
+- De quel type de métrique vient-il ?
+- Sur quelle fenêtre et quelle résolution est-il calculé ?
+- Que verrait-on s'il n'y avait plus aucune donnée ?
 
 ## Résumé
 

@@ -70,7 +70,7 @@ Une hypothèse réfutée n'est pas un échec : elle élimine une piste et vous r
 
 ## Délimiter la fenêtre temporelle
 
-Avant toute hypothèse, il faut savoir *quand*. Le début de la dégradation est l'information la plus précieuse de l'enquête, car elle vous dit quels événements peuvent en être la cause : ceux qui l'ont précédée.
+Avant toute hypothèse, une question : *quand* le problème a-t-il commencé ? Ce début est l'information la plus précieuse de l'enquête. Il vous dit quels événements peuvent en être la cause : ceux qui l'ont précédé.
 
 ### Ne pas confondre l'heure de l'alerte et le début du problème
 
@@ -78,7 +78,9 @@ L'alerte se déclenche après la période d'évaluation. Si la règle exige « >
 
 ### Verrouiller la plage
 
-Une plage relative comme « Last 1 hour » glisse pendant que vous travaillez : ce que vous voyez à 14:20 n'est plus ce que vous regardiez à 14:10. Dès que vous avez identifié la zone utile, passez en plage absolue (sélecteur de temps → *Absolute time range*, ou sélection à la souris sur un graphique). Notez aussi le fuseau horaire : un dashboard en heure du navigateur et des logs lus en UTC produisent des décalages d'une ou deux heures, et des corrélations qui n'existent pas.
+Une plage relative comme « Last 1 hour » glisse pendant que vous travaillez : ce que vous voyez à 14:20 n'est plus ce que vous regardiez à 14:10. Dès que vous avez identifié la zone utile, passez en plage absolue (sélecteur de temps → *Absolute time range*, ou sélection à la souris sur un graphique).
+
+Notez aussi le fuseau horaire. Un dashboard en heure du navigateur et des logs lus en UTC produisent des décalages d'une ou deux heures, et des corrélations qui n'existent pas.
 
 > 💡 **Astuce** — Dans les réglages du dashboard, passez *Graph tooltip* en *Shared crosshair* (ou *Shared tooltip*). En survolant un panel, un curseur vertical apparaît au même instant sur tous les autres. Vous voyez immédiatement quelle courbe bouge en premier.
 {: .callout .callout-astuce}
@@ -130,7 +132,10 @@ Les trois signaux répondent à des questions différentes, et c'est leur combin
 | Traces | Où le temps est-il passé pour *une* requête ? | Tempo, via exemplar ou recherche |
 | Logs | Que dit le composant précisément ? | Loki, filtré par service, par trace ou par période |
 
-RED (Rate, Errors, Duration) est un bon point de départ pour un service : débit, taux d'erreur, durée. Les deux requêtes ci-dessous couvrent le débit et le taux d'erreur ; pour la durée, reprenez la requête p95 vue plus haut. Toutes sont à adapter à vos noms de métriques et de labels, qui dépendent de l'instrumentation de vos applications.
+> 🔑 **Moyen mnémotechnique** : RED se lit **R**ate (débit), **E**rrors (taux d'erreur), **D**uration (durée). Ces trois signaux sont un bon point de départ pour examiner un service.
+{: .callout .callout-memo}
+
+Les deux requêtes ci-dessous couvrent le débit et le taux d'erreur ; pour la durée, reprenez la requête p95 vue plus haut. Toutes sont à adapter à vos noms de métriques et de labels, qui dépendent de l'instrumentation de vos applications.
 
 ```promql
 sum(rate(http_requests_total{service="checkout"}[5m]))
@@ -160,7 +165,12 @@ Si une nouvelle valeur de `error_type` apparaît à 14:02 et que tout était cal
 
 La plupart des incidents en production commencent par un changement : déploiement, modification de configuration, montée de version, pic de trafic, expiration de certificat. Dans votre fenêtre, la question devient : *qu'est-ce qui a bougé juste avant ?*
 
-La meilleure réponse est de **rendre les changements visibles dans Grafana**. Les annotations affichent un trait vertical avec un texte sur tous les panels. Votre pipeline de déploiement peut en créer une avec l'API :
+La meilleure réponse est de **rendre les changements visibles dans Grafana**.
+
+> 📖 **Définition.** Une annotation est un repère daté : un trait vertical accompagné d'un texte, affiché sur tous les panels.
+{: .callout .callout-definition}
+
+Votre pipeline de déploiement peut en créer une avec l'API :
 
 ```bash
 curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" \
@@ -183,7 +193,8 @@ Si deux versions coexistent dans la fenêtre, c'est un déploiement progressif, 
 > 🧠 **Concept clé** — Le composant où le symptôme *apparaît* n'est presque jamais celui où il *naît*. Dans une architecture distribuée, la lenteur se propage : un service lent à l'aval fait attendre tous ceux qui l'appellent, ce qui sature leurs threads, puis leurs files, puis leurs propres appelants.
 {: .callout .callout-important}
 
-Pensez à une file de caisses dans un supermarché. Si la cliente à la caisse 3 met dix minutes à payer, ce n'est pas la caisse 3 qui est cassée, c'est peut-être son terminal de carte. Quand toute la file se plaint, vous regardez la file, pas la cause.
+> 🛒 **Analogie : la file d'attente au supermarché.** Si la cliente à la caisse 3 met dix minutes à payer, ce n'est pas la caisse 3 qui est cassée : c'est peut-être son terminal de carte. Quand toute la file se plaint, vous regardez la file, pas la cause.
+{: .callout .callout-analogie}
 
 La méthode pratique est de **descendre la chaîne des dépendances** :
 

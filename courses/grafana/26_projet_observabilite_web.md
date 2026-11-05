@@ -195,6 +195,9 @@ Quelques détails de ce code méritent qu'on s'y arrête, parce qu'ils condition
 
 `/health` fait un vrai `SELECT 1`. Un health check qui répond « ok » sans toucher la base vous dira que le processus tourne, pas que le service rend service. À vous de choisir la profondeur ; ici, on veut que la panne de la base fasse tomber la sonde.
 
+> 🏪 **Analogie : la vitrine allumée.** Un health check superficiel vérifie que la vitrine est éclairée. Un `SELECT 1` vérifie qu'une vente peut aboutir. Limite : même ce test ne garantit pas que chaque route fonctionne, seulement que l'API joint la base.
+{: .callout .callout-analogie}
+
 `/metrics` et `/health` sont exclus de l'enregistrement. Sinon, les sondes toutes les 15 secondes dilueraient vos percentiles de latence avec des requêtes sans intérêt.
 
 L'endpoint `/debug/fault` est notre interrupteur de panne. Il n'a évidemment rien à faire dans une vraie application exposée.
@@ -447,7 +450,10 @@ Les délais courts (`group_wait: 30s`) servent le lab ; en exploitation, vous le
 
 Un dashboard qui répond à « qu'est-ce que je peux afficher ? » finit en mur de graphiques. Ici, chaque dashboard part d'une question d'exploitation.
 
-**Dashboard « Shop — Application »** répond à : *l'API rend-elle le service attendu, et si non, où ça casse ?* C'est la méthode RED (Rate, Errors, Duration) appliquée par route.
+**Dashboard « Shop — Application »** répond à : *l'API rend-elle le service attendu, et si non, où ça casse ?*
+
+> 📖 **Définition.** La méthode RED surveille un service par trois signaux, ici appliqués par route : Rate (débit des requêtes), Errors (taux d'erreurs) et Duration (latence).
+{: .callout .callout-definition}
 
 | Panel | Requête |
 |---|---|
@@ -491,7 +497,8 @@ La dernière colonne est celle qu'on oublie, et qui fait toute la différence. R
 - Pour la disponibilité, si `probe_success` disparaît, c'est que blackbox ou Prometheus est cassé, ou que la cible n'est plus configurée. On ne peut plus affirmer que le service va bien : on alerte.
 - Pour les erreurs et la latence, une absence de données signifie souvent « aucune requête dans la fenêtre » (le ratio ou le percentile n'est alors pas calculable). Pour le ratio d'erreurs, elle signifie aussi « aucune 5xx encore émise » : la série du numérateur n'existe pas tant qu'aucune erreur n'a été comptée, d'où l'intérêt d'un `or vector(0)` sur le numérateur. Alerter à chaque période creuse noierait l'équipe, et la disponibilité couvre déjà le cas d'une API réellement morte.
 
-Cette asymétrie est un choix, pas une règle universelle. L'important, c'est qu'il soit fait *explicitement*, et non laissé au défaut de l'outil.
+> 💡 **À retenir** — Cette asymétrie est un choix, pas une règle universelle. L'important, c'est qu'il soit fait *explicitement*, et non laissé au défaut de l'outil.
+{: .callout .callout-important}
 
 Voici la règle de latence en provisioning. Dans la pratique, créez-la d'abord dans l'UI puis exportez-la pour obtenir la forme exacte de votre version ; ce YAML vous montre la structure à reconnaître.
 
@@ -599,7 +606,9 @@ Ce script ajoute 1,5 s d'attente SQL sur `/orders` uniquement. L'API continue de
 
 **La conclusion**, rédigée comme dans un ticket : « Latence sur `GET /orders` due au temps passé dans l'appel SQL (≈ 99 % de la durée du span). Aucune erreur, CPU API et base normaux. L'origine est côté requête ou attente en base, pas côté code applicatif ni ressources de l'hôte. »
 
-Remarquez ce que cette phrase ne dit pas : elle ne prétend pas connaître la cause racine. Dans ce lab, vous savez qu'il s'agit d'un `pg_sleep` injecté, mais dans la vraie vie, la trace vous a seulement dit *où* regarder. Plan d'exécution, verrou, volumétrie : c'est l'étape suivante, et elle commence avec une hypothèse déjà réduite à un seul composant. C'est la différence entre confondre le symptôme (« l'API est lente ») et le localiser.
+Remarquez ce que cette phrase ne dit pas : elle ne prétend pas connaître la cause racine. Dans ce lab, vous savez qu'il s'agit d'un `pg_sleep` injecté, mais dans la vraie vie, la trace vous a seulement dit *où* regarder.
+
+Plan d'exécution, verrou, volumétrie : c'est l'étape suivante, et elle commence avec une hypothèse déjà réduite à un seul composant. C'est la différence entre confondre le symptôme (« l'API est lente ») et le localiser.
 
 Pour remettre la stack d'aplomb :
 
@@ -672,7 +681,14 @@ Le `-v` supprime les volumes, donc toute modification faite « à la main » et 
 | Mailpit ne reçoit rien | Variables SMTP absentes ou point de contact non rattaché à la politique | Vérifier `GF_SMTP_*` et utiliser « Test » sur le point de contact |
 | Valeurs de compteur qui sautent | Plusieurs workers Gunicorn | Un seul worker avec des threads |
 
-Quand rien de tout ça ne colle, remontez la chaîne dans l'ordre naturel de la donnée : l'application produit-elle le signal ? le collecteur le reçoit-il ? le backend le stocke-t-il ? Grafana l'interroge-t-il avec la bonne datasource ? Un seul de ces maillons est en cause, et les interfaces de Prometheus (`/targets`) et d'Alloy permettent de trancher en quelques minutes.
+Quand rien de tout ça ne colle, remontez la chaîne dans l'ordre naturel de la donnée :
+
+1. L'application produit-elle le signal ?
+2. Le collecteur le reçoit-il ?
+3. Le backend le stocke-t-il ?
+4. Grafana l'interroge-t-il avec la bonne datasource ?
+
+Un seul de ces maillons est en cause, et les interfaces de Prometheus (`/targets`) et d'Alloy permettent de trancher en quelques minutes.
 
 ## Jusqu'où cette stack tient
 
@@ -682,7 +698,9 @@ Cette architecture est volontairement minimale : un hôte, un conteneur par comp
 
 Voici un scénario illustratif (les chiffres sont fictifs, choisis pour la lisibilité). Une équipe de cinq personnes exploite une API de réservation avec une base PostgreSQL. Avant la mise en place de la stack, les incidents de lenteur sont traités par redémarrage : une dizaine de minutes pour constater, autant pour redémarrer, et aucune trace de la cause.
 
-Après adoption de la mini-stack, le même type de lenteur se déroule autrement. L'alerte de latence arrive avant la plainte client. Le développeur de garde suit le runbook, repère que seule une route est touchée, ouvre une trace, voit qu'un appel SQL concentre l'essentiel du temps, et transmet au propriétaire de la base avec l'identifiant de trace. Le diagnostic passe de « on ne sait pas » à une localisation en quelques minutes, et le redémarrage cesse d'être le réflexe par défaut. Le gain n'est pas le dashboard : c'est la réduction de l'espace de recherche à chaque étape.
+Après adoption de la mini-stack, le même type de lenteur se déroule autrement. L'alerte de latence arrive avant la plainte client. Le développeur de garde suit le runbook, repère que seule une route est touchée, ouvre une trace, voit qu'un appel SQL concentre l'essentiel du temps, et transmet au propriétaire de la base avec l'identifiant de trace. Le diagnostic passe de « on ne sait pas » à une localisation en quelques minutes, et le redémarrage cesse d'être le réflexe par défaut.
+
+Le gain n'est pas le dashboard : c'est la réduction de l'espace de recherche à chaque étape.
 
 ## Bonnes pratiques
 

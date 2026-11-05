@@ -59,13 +59,17 @@ Capturer ailleurs est plus délicat. Sur un réseau commuté, une machine ne re�
 - un TAP (Test Access Point), petit boîtier placé physiquement sur le câble ;
 - ou une capture sur un équipement qui voit déjà le flux (pare-feu, routeur, serveur).
 
-Le mode promiscuous, qui accepte les trames destinées à d'autres adresses MAC, ne change donc presque rien sur un réseau commuté : le switch n'envoie pas ces trames à votre port.
+> 📖 **Définition.** Le mode promiscuous permet à la carte réseau d'accepter les trames destinées à d'autres adresses MAC. Sur un réseau commuté, il ne change donc presque rien : le switch n'envoie pas ces trames à votre port.
+{: .callout .callout-definition}
 
 *SPAN (Switched Port Analyzer) : fonction d'un switch qui recopie le trafic d'un ou plusieurs ports vers un port de supervision.*
 
 ### Filtre de capture et filtre d'affichage : deux outils différents
 
 Ces deux filtres ne se ressemblent ni par la syntaxe ni par la portée.
+
+> 🎥 **Analogie : le tournage et le montage.** Le filtre de capture, c'est le cadrage au tournage : ce qui reste hors champ n'est jamais filmé. Le filtre d'affichage, c'est le montage : vous choisissez ce que vous montrez, mais les rushes restent intacts.
+{: .callout .callout-analogie}
 
 | | Filtre de capture | Filtre d'affichage |
 |---|---|---|
@@ -105,7 +109,8 @@ C'est le piège principal du module. Une capture peut être incomplète de plusi
 
 Un autre piège, plus discret : si vous capturez sur la machine qui **envoie** les paquets, Wireshark peut signaler des sommes de contrôle (checksum) incorrectes. Ce n'est pas un défaut du réseau. La carte réseau calcule souvent cette somme *après* que Wireshark a vu le paquet (c'est l'offload), donc il lit une valeur pas encore remplie.
 
-Avant de conclure, posez-vous trois questions : où est placée la capture, quand a-t-elle commencé, quels paquets ont pu être exclus ?
+> 🔑 **Moyen mnémotechnique** : avant de conclure, pensez **Où, Quand, Quoi**. Où est placée la capture ? Quand a-t-elle commencé ? Quels paquets ont pu être exclus ?
+{: .callout .callout-memo}
 
 ## Lire l'interface et une conversation
 
@@ -149,7 +154,12 @@ Deux remarques pratiques :
 
 ### Le three-way handshake
 
-Avant d'échanger des données, un client et un serveur TCP se mettent d'accord en trois paquets. Les indicateurs (flags) de l'en-tête TCP les identifient :
+Avant d'échanger des données, un client et un serveur TCP se mettent d'accord en trois paquets.
+
+> 📞 **Analogie : le début d'un appel.** « Vous m'entendez ? » (SYN), « Oui, et vous, vous m'entendez ? » (SYN ACK), « Oui » (ACK) : la conversation peut commencer. Limite de l'image : chaque côté annonce aussi son numéro de séquence initial, ce que l'appel ne montre pas.
+{: .callout .callout-analogie}
+
+Les indicateurs (flags) de l'en-tête TCP les identifient :
 
 | Indicateur | Rôle |
 |---|---|
@@ -312,7 +322,7 @@ On reprend la situation de départ : le poste `10.10.0.42` n'arrive pas à joind
 4   7.015480  10.10.0.42 → 10.20.0.15  TCP 74 [TCP Retransmission] 51522 → 8443 [SYN]
 ```
 
-Le poste envoie bien sa demande, et la réémet à intervalles qui doublent. Il n'y a ni SYN ACK, ni RST. Le filtre de capture ne retient que TCP/8443 : un éventuel message ICMP n'apparaîtrait pas ici, cette capture ne permet donc pas de l'exclure. Ce n'est donc pas un port fermé (on aurait un RST), et ce n'est pas un défaut du poste.
+Le poste envoie bien sa demande, et la réémet à intervalles qui doublent. Il n'y a ni SYN ACK, ni RST. Le filtre de capture ne retient que TCP/8443 : un éventuel message ICMP n'apparaîtrait pas ici, cette capture ne permet pas de l'exclure. En revanche, ce n'est ni un port fermé (on aurait un RST), ni un défaut du poste.
 
 **Étape 2 : ne pas conclure trop vite.** Un collègue a déjà capturé côté serveur et ne voit rien. Il en déduit que « le client n'envoie rien ». Ce raisonnement est incorrect : la capture serveur montre seulement que rien n'arrive, pas que rien ne part. Les deux captures ensemble racontent la scène complète : le SYN part du client et n'arrive jamais au serveur.
 

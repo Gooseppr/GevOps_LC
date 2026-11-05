@@ -36,7 +36,9 @@ Vous êtes au support Cloud d'une plateforme de commande en ligne. Un lundi à 1
 
 Pourtant, des clients n'arrivent pas à payer.
 
-Le problème n'est pas l'absence d'outil, c'est l'absence de bonnes questions posées aux bons signaux. Le tableau vous dit que les machines vont bien. Il ne dit rien de l'expérience réelle d'une requête de paiement : combien de temps elle prend, où elle ralentit, ce qui a changé depuis ce matin. Ce module donne le vocabulaire et les repères pour poser ces questions. Grafana viendra ensuite, comme outil pour y répondre.
+Le problème n'est pas l'absence d'outil, c'est l'absence de bonnes questions posées aux bons signaux.
+
+Le tableau vous dit que les machines vont bien. Il ne dit rien de l'expérience réelle d'une requête de paiement : combien de temps elle prend, où elle ralentit, ce qui a changé depuis ce matin. Ce module donne le vocabulaire et les repères pour poser ces questions. Grafana viendra ensuite, comme outil pour y répondre.
 
 ## Monitoring, supervision, observabilité : trois mots, trois questions
 
@@ -53,7 +55,8 @@ Le monitoring suppose que vous connaissez à l'avance les pannes possibles : vou
 > 🧠 **Concept clé** : l'observabilité n'est pas un produit qu'on installe, c'est une propriété du système. Elle dépend de la richesse et de la qualité des signaux émis, et de la capacité à les croiser. Un outil de visualisation ne la crée pas à lui seul.
 {: .callout .callout-important}
 
-Une analogie aide ici. La supervision, c'est le voyant « moteur » du tableau de bord d'une voiture : allumé ou éteint. Le monitoring, ce sont les jauges avec des zones rouges. L'observabilité, c'est la valise de diagnostic du garagiste : elle lit assez de données internes pour expliquer une panne que le constructeur n'avait pas prévue.
+> 🚗 **Analogie : le tableau de bord d'une voiture.** La supervision, c'est le voyant « moteur » : allumé ou éteint. Le monitoring, ce sont les jauges avec des zones rouges. L'observabilité, c'est la valise de diagnostic du garagiste : elle lit assez de données internes pour expliquer une panne que le constructeur n'avait pas prévue.
+{: .callout .callout-analogie}
 
 Les trois ne s'opposent pas. Vous gardez des vérifications simples et des seuils, qui sont rapides et fiables, et vous ajoutez la capacité d'investigation par-dessus.
 
@@ -77,7 +80,10 @@ Il porte le détail qu'une métrique a écrasé : un identifiant de commande, un
 
 ### Les traces : le « par où est passée la requête »
 
-Dans une architecture à plusieurs services, une action utilisateur traverse souvent cinq ou dix composants. Une trace suit une requête de bout en bout. Elle est découpée en *spans*, un par étape, avec la durée de chacun.
+Dans une architecture à plusieurs services, une action utilisateur traverse souvent cinq ou dix composants.
+
+> 📖 **Définition.** Une trace suit une requête de bout en bout. Elle est découpée en *spans*, un par étape, avec la durée de chacun.
+{: .callout .callout-definition}
 
 ```text
 POST /checkout                       1 840 ms
@@ -104,7 +110,8 @@ C'est l'un des signaux les plus rentables en incident. Une grande partie des pan
 | Trace | Où le temps a-t-il été perdu ? | Vue de bout en bout | Demande une instrumentation, souvent échantillonnée |
 | Événement | Qu'est-ce qui a changé ? | Corrèle cause et effet | Ne dit rien de l'impact seul |
 
-En pratique, l'enquête suit presque toujours le même chemin. La métrique détecte, la trace localise, le log explique, l'événement donne le déclencheur.
+> 💡 **À retenir** : en pratique, l'enquête suit presque toujours le même chemin. La métrique détecte, la trace localise, le log explique, l'événement donne le déclencheur.
+{: .callout .callout-important}
 
 > 💡 **Astuce** : ce chemin ne fonctionne que si vous pouvez passer d'un signal à l'autre. Une même heure, un même nom de service ou un identifiant de requête (`trace_id`) présent dans les logs et les traces suffisent à les relier. Sans ce fil commun, vous avez trois silos.
 {: .callout .callout-astuce}
@@ -133,7 +140,7 @@ Dans notre scénario, le service paiement peut être lent parce que la base rép
 
 ## Savoir quoi mesurer : Golden Signals, RED et USE
 
-Face à des centaines de métriques disponibles, la tentation est de tout afficher. C'est la meilleure façon de ne rien voir. Trois grilles de lecture évitent ça.
+Que mettre à l'écran parmi des centaines de métriques disponibles ? La tentation est de tout afficher. C'est la meilleure façon de ne rien voir. Trois grilles de lecture évitent ça.
 
 ### Les quatre Golden Signals
 
@@ -164,7 +171,8 @@ Elles se recoupent largement avec les Golden Signals :
 | Saturation | — | Saturation | Une ressource |
 | — | — | Utilization | Une ressource |
 
-La règle d'usage est simple : RED pour décrire ce que vivent les utilisateurs d'un service, USE pour comprendre pourquoi une ressource est un goulot. Vous commencez par RED (le symptôme), puis vous descendez en USE (la cause possible).
+> 💡 **À retenir** : RED pour décrire ce que vivent les utilisateurs d'un service, USE pour comprendre pourquoi une ressource est un goulot. Vous commencez par RED (le symptôme), puis vous descendez en USE (la cause possible).
+{: .callout .callout-important}
 
 > 🧠 **Concept clé** : l'indicateur de santé le plus utile est celui qui reflète l'expérience de l'utilisateur, pas celui qui reflète l'état d'une machine. Un CPU à 90 % qui n'affecte personne n'est pas un incident. Un CPU à 30 % avec 10 % de paiements en erreur en est un.
 {: .callout .callout-important}
@@ -250,7 +258,13 @@ Le trafic est stable, donc ce n'est pas une surcharge de demande. Les erreurs on
 
 ## Résumé
 
-L'observabilité est la capacité à comprendre l'état interne d'un système à partir de ses signaux de sortie, y compris pour des pannes imprévues. La supervision vérifie qu'un composant tourne, le monitoring compare des mesures à des seuils prévus, l'observabilité permet d'enquêter. Quatre familles de signaux se complètent : les métriques détectent, les traces localisent, les logs expliquent, les événements donnent le déclencheur. Les Golden Signals, RED et USE disent quoi mesurer pour refléter l'expérience réelle plutôt que l'état des machines. La donnée passe par la collecte, le stockage, l'interrogation, la visualisation et l'alerting. Grafana intervient aux étapes d'interrogation et d'affichage, et évalue aussi des règles d'alerte, sur des données stockées ailleurs. Reste à comprendre comment il s'articule avec ses sources, ce que le prochain module détaille.
+L'observabilité est la capacité à comprendre l'état interne d'un système à partir de ses signaux de sortie, y compris pour des pannes imprévues. La supervision vérifie qu'un composant tourne, le monitoring compare des mesures à des seuils prévus, l'observabilité permet d'enquêter.
+
+Quatre familles de signaux se complètent : les métriques détectent, les traces localisent, les logs expliquent, les événements donnent le déclencheur. Les Golden Signals, RED et USE disent quoi mesurer pour refléter l'expérience réelle plutôt que l'état des machines.
+
+La donnée passe par la collecte, le stockage, l'interrogation, la visualisation et l'alerting. Grafana intervient aux étapes d'interrogation et d'affichage, et évalue aussi des règles d'alerte, sur des données stockées ailleurs.
+
+Reste à comprendre comment il s'articule avec ses sources, ce que le prochain module détaille.
 
 <!-- snippet
 id: grafana_observabilite_monitoring_vs_observabilite

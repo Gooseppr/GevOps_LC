@@ -42,7 +42,12 @@ Prometheus est pourtant bien là, et l'URL fonctionne depuis la VM. Le problème
 
 ## Comment Grafana parle à ses sources
 
-Grafana ne stocke pas vos métriques, vos logs ni vos traces. Il possède une **Data Source** pour chaque système à interroger : un nom, un type (`prometheus`, `loki`, `tempo`, `postgres`…), une adresse et éventuellement des identifiants. Quand vous ouvrez un panel ou Explore, Grafana envoie la requête à cette adresse et affiche la réponse.
+Grafana ne stocke pas vos métriques, vos logs ni vos traces. Il les demande aux systèmes qui les détiennent.
+
+> 📖 **Définition.** Une **Data Source** est la fiche de connexion d'un système à interroger : un nom, un type (`prometheus`, `loki`, `tempo`, `postgres`…), une adresse et éventuellement des identifiants.
+{: .callout .callout-definition}
+
+Quand vous ouvrez un panel ou Explore, Grafana envoie la requête à cette adresse et affiche la réponse.
 
 > 🧠 **Concept clé** : avec le mode d'accès par défaut, appelé **Server** (ou `proxy` dans les fichiers), les requêtes ne partent pas de votre navigateur. Elles partent du **processus Grafana**. L'URL d'une source doit donc être joignable *depuis la machine ou le conteneur où tourne Grafana*, pas depuis votre poste.
 {: .callout .callout-important}
@@ -128,13 +133,18 @@ Dans Grafana, le chemin habituel est **Connections → Data sources → Add data
 - **Name** : `Prometheus`. Ce nom apparaîtra dans les sélecteurs de panels, soyez explicite si vous en avez plusieurs (`prometheus-prod`, `prometheus-staging`).
 - **URL** : `http://prometheus:9090`.
 
-Le nom `prometheus` n'est pas magique : c'est le nom du service dans le fichier Compose. Docker Compose place tous les services sur un même réseau et fournit un DNS (Domain Name System) interne qui résout ces noms. C'est la règle à retenir dans ce lab : depuis le conteneur Grafana, on désigne un autre conteneur par son nom de service, jamais par `localhost`. Pour Léa, dont Prometheus tourne sur l'hôte en service système, la solution est `host.docker.internal`, détaillée dans la section de diagnostic.
+Pourquoi `prometheus` et pas `localhost` ? Ce nom n'est pas magique : c'est le nom du service dans le fichier Compose. Docker Compose place tous les services sur un même réseau et fournit un DNS (Domain Name System) interne qui résout ces noms.
+
+> 💡 **À retenir.** Dans ce lab, depuis le conteneur Grafana, on désigne un autre conteneur par son nom de service, jamais par `localhost`.
+{: .callout .callout-important}
+
+Pour Léa, dont Prometheus tourne sur l'hôte en service système, la solution est `host.docker.internal`, détaillée dans la section de diagnostic.
 
 Descendez ensuite en bas de page et cliquez sur **Save & test**. Si tout va bien, un message vert du type « Successfully queried the Prometheus API » apparaît. Le texte exact dépend de la version.
 
 ### Les paramètres HTTP qui comptent
 
-Quelques réglages méritent d'être compris, sans qu'il faille tous les modifier.
+Faut-il tout modifier ? Non, mais quelques réglages méritent d'être compris.
 
 | Paramètre | Rôle | Quand y toucher |
 |-----------|------|-----------------|
@@ -187,7 +197,9 @@ docker compose exec grafana wget -qO- -T 5 http://loki:3100/ready
 
 Loki met parfois quelques secondes à démarrer et renvoie `ready` seulement une fois initialisé. Une erreur immédiate après `docker compose up` peut donc n'être qu'une question de patience. Sans agent de collecte, Loki restera vide : l'exploration réelle des logs viendra dans les modules dédiés, ici on valide la connexion.
 
-Pour **Tempo**, le principe est le même, avec un point d'attention : c'est l'**API HTTP** qu'il faut viser, pas le port de réception des traces. Une URL courante est `http://tempo:3200`. Tempo demande un fichier de configuration non trivial, nous ne le déployons pas dans ce lab. Dans un environnement existant, après connexion, Explore permet de rechercher une trace par son identifiant ou de parcourir des résultats ; les paramètres « Traces to logs » et « Traces to metrics » relient ensuite chaque span aux sources voisines. Ce lien entre sources est un réglage de la Data Source, ce qui explique pourquoi la configuration des connexions précède l'investigation.
+Pour **Tempo**, le principe est le même, avec un point d'attention : c'est l'**API HTTP** qu'il faut viser, pas le port de réception des traces. Une URL courante est `http://tempo:3200`. Tempo demande un fichier de configuration non trivial, nous ne le déployons pas dans ce lab.
+
+Dans un environnement existant, après connexion, Explore permet de rechercher une trace par son identifiant ou de parcourir des résultats ; les paramètres « Traces to logs » et « Traces to metrics » relient ensuite chaque span aux sources voisines. Ce lien entre sources est un réglage de la Data Source, ce qui explique pourquoi la configuration des connexions précède l'investigation.
 
 ## Au-delà de Prometheus : SQL et plugins
 
@@ -248,7 +260,9 @@ datasources:
     url: http://loki:3100
 ```
 
-Le saut est important : on passe d'une configuration qui vit dans la base interne de Grafana à une configuration décrite dans un fichier, versionnable dans Git et reproductible. L'`uid` fixe compte beaucoup : les dashboards référencent la source par cet identifiant, et un `uid` stable permet de déplacer un dashboard d'une instance à l'autre sans casser ses panels. Le provisioning en détail sera revu dans le module qui lui est consacré.
+Le saut est important : on passe d'une configuration qui vit dans la base interne de Grafana à une configuration décrite dans un fichier, versionnable dans Git et reproductible.
+
+L'`uid` fixe compte beaucoup : les dashboards référencent la source par cet identifiant, et un `uid` stable permet de déplacer un dashboard d'une instance à l'autre sans casser ses panels. Le provisioning en détail sera revu dans le module qui lui est consacré.
 
 Par défaut, une source provisionnée apparaît en lecture seule dans l'interface. C'est voulu : la vérité est dans le fichier.
 
@@ -294,6 +308,9 @@ Voici les correctifs selon l'emplacement de la cible :
 ```
 
 Attention aussi à l'écoute côté hôte : si Prometheus n'écoute que sur `127.0.0.1`, le conteneur ne pourra pas l'atteindre via l'adresse de l'hôte. Il faut alors que le service écoute sur une interface accessible.
+
+> 📞 **Analogie : un appel téléphonique.** `no such host`, c'est un numéro introuvable dans l'annuaire. `connection refused`, c'est un « pas d'abonné à ce numéro » immédiat. Le timeout, c'est une sonnerie dans le vide. Limite de l'image : un pare-feu configuré pour rejeter activement produit lui aussi un refus immédiat.
+{: .callout .callout-analogie}
 
 ### Symptôme : `connection refused`
 

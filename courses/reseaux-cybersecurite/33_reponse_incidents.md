@@ -38,7 +38,13 @@ next_module_title: "Investigation numérique et forensic"
 
 Vendredi, 18h40. Une société de logistique de 1 200 postes constate que le serveur de fichiers de l'entrepôt affiche des fichiers en `.locked`. L'administrateur d'astreinte fait ce que dicte le réflexe : il redémarre le serveur, le voit repartir en erreur, le restaure depuis la sauvegarde de la veille, puis réinitialise le mot de passe du compte qui a lancé le chiffrement.
 
-Lundi matin, tout est chiffré, y compris la sauvegarde. L'enquête révèle que l'attaquant était présent depuis onze jours. L'entrée s'était faite par une session VPN détournée sur une passerelle Citrix NetScaler vulnérable à CVE-2023-4966 (« Citrix Bleed »). L'attaquant avait ensuite posé deux autres accès persistants, dont un compte de service créé le jour 3. Le redémarrage du vendredi a effacé la mémoire du serveur, donc les processus et les connexions réseau qui auraient permis de dater et de cadrer l'intrusion. La restauration a remis en ligne un serveur déjà compromis. Le changement de mot de passe d'un seul compte a prévenu l'attaquant qu'il était repéré, et il a accéléré.
+Lundi matin, tout est chiffré, y compris la sauvegarde. L'enquête révèle que l'attaquant était présent depuis onze jours. L'entrée s'était faite par une session VPN détournée sur une passerelle Citrix NetScaler vulnérable à CVE-2023-4966 (« Citrix Bleed »). L'attaquant avait ensuite posé deux autres accès persistants, dont un compte de service créé le jour 3.
+
+Chacun des trois réflexes du vendredi a aggravé la situation :
+
+- **Le redémarrage** a effacé la mémoire du serveur, donc les processus et les connexions réseau qui auraient permis de dater et de cadrer l'intrusion.
+- **La restauration** a remis en ligne un serveur déjà compromis.
+- **Le changement de mot de passe d'un seul compte** a prévenu l'attaquant qu'il était repéré, et il a accéléré.
 
 La défense naïve (« on remet en route, on change le mot de passe ») traite le symptôme visible et ignore tout ce qui est invisible. Elle détruit aussi la preuve qui aurait permis de savoir ce qui est invisible.
 
@@ -89,7 +95,7 @@ Le répondant n'a pas à lister les ports ouverts. Il doit connaître ce que l'a
 
 ## Ce que l'attaquant a fait avant que vous le voyiez
 
-Pour savoir quoi chercher, il faut connaître la séquence typique d'une intrusion à but d'extorsion.
+Que faut-il chercher ? Pour le savoir, connaissez d'abord la séquence typique d'une intrusion à but d'extorsion.
 
 1. **Accès initial** : exploitation d'une passerelle (Citrix Bleed), d'un VPN sans MFA avec identifiants volés, ou d'un phishing menant à un chargeur.
 2. **Reconnaissance et élévation** : `BloodHound`/`SharpHound` pour cartographier les chemins vers domain admin, Kerberoasting (`GetUserSPNs.py`), `Mimikatz` ou dump LSASS.
@@ -108,6 +114,9 @@ Autre comportement à anticiper : un attaquant qui se sait détecté accélère.
 Préparation, identification, confinement, éradication, récupération, retour d'expérience. Ces six phases (modèle SANS, proche de NIST SP 800-61) ne sont pas séquentielles : on revient en identification dès qu'un confinement révèle un nouveau poste compromis.
 
 \* PICERL : acronyme anglais des six phases (Preparation, Identification, Containment, Eradication, Recovery, Lessons learned) du modèle de réponse aux incidents de SANS.
+
+> 🔑 **Moyen mnémotechnique** : l'acronyme se lit aussi en français pour les cinq premières lettres : **P**réparation, **I**dentification, **C**onfinement, **É**radication, **R**écupération. Seul le **L** (*Lessons learned*) se traduit par « retour d'expérience ».
+{: .callout .callout-memo}
 
 ### Préparation : ce qu'il faut avoir avant
 
@@ -190,6 +199,9 @@ C'est le point central du module. Chaque réflexe de remédiation a un coût d'e
 
 Ordre de volatilité (RFC 3227) : on capture d'abord ce qui disparaît le plus vite, c'est-à-dire la mémoire, puis les connexions et processus, puis le disque.
 
+> 🔍 **Analogie : la scène de crime sous la pluie.** L'enquêteur relève d'abord les empreintes de pas dans la boue, puis les objets, qui peuvent attendre. La RAM joue le rôle des empreintes : une fois effacée, elle ne revient pas. Limite : ici, ce n'est pas la pluie qui efface, mais souvent le répondant lui-même, quand il éteint la machine.
+{: .callout .callout-analogie}
+
 ```mermaid
 flowchart TD
 A["Poste suspect identifié"] --> B["Capturer la RAM"]
@@ -260,7 +272,14 @@ Le journal des décisions répond à la question de l'audit, de l'assureur et du
 | 2025-01-17 19:10 | Isolement du serveur FS01 | Responsable SOC | Chiffrement en cours, source inconnue | Limiter la propagation | Chiffrement stoppé sur FS01 |
 | 2025-01-17 19:40 | Coupure du VPN | RSSI | Passerelle suspectée | Priorité à la fermeture de l'entrée | Accès externes interrompus |
 
-(Dates d'exemple.) Principes : horodatage en UTC, une ligne par décision, la décision est consignée avant ou immédiatement après l'action, jamais reconstruite plus tard. Pour les preuves, la chaîne de traçabilité contient : qui a collecté, quand, depuis quelle machine, avec quel outil, l'empreinte du fichier, qui l'a manipulé ensuite.
+(Dates d'exemple.) Principes :
+
+- horodatage en UTC ;
+- une ligne par décision ;
+- la décision est consignée avant ou immédiatement après l'action, jamais reconstruite plus tard.
+
+> 📖 **Définition.** La **chaîne de traçabilité** d'une preuve indique qui l'a collectée, quand, depuis quelle machine, avec quel outil, son empreinte, et qui l'a manipulée ensuite.
+{: .callout .callout-definition}
 
 ## Éradication et récupération
 
@@ -290,7 +309,14 @@ Le journal des décisions répond à la question de l'audit, de l'assureur et du
 
 **CSIRT/CERT.** Un CSIRT (Computer Security Incident Response Team) ou un CERT (Computer Emergency Response Team) est une équipe de réponse aux incidents, interne à une organisation, sectorielle, régionale ou nationale. Le CERT-FR de l'ANSSI traite les incidents des administrations et des opérateurs réglementés, publie des alertes et des avis, et sert de point de contact. Pour les petites structures, il faut prévoir les dispositifs d'assistance territoriaux ou nationaux.
 
-Le partage d'informations entre CSIRT utilise des marquages comme le **TLP (Traffic Light Protocol)** : TLP:RED pour les destinataires nommés seulement, TLP:AMBER pour l'organisation et ses clients (TLP:AMBER+STRICT pour l'organisation seule), TLP:GREEN pour la communauté, TLP:CLEAR pour le public. Ne pas publier un indicateur marqué restreint.
+Le partage d'informations entre CSIRT utilise des marquages comme le **TLP (Traffic Light Protocol)** :
+
+- **TLP:RED** : destinataires nommés seulement ;
+- **TLP:AMBER** : l'organisation et ses clients (**TLP:AMBER+STRICT** : l'organisation seule) ;
+- **TLP:GREEN** : la communauté ;
+- **TLP:CLEAR** : le public.
+
+Ne publiez pas un indicateur marqué restreint.
 
 > 🧠 **Concept clé** : le coordinateur technique ne mène pas l'investigation et ne prend pas les décisions de direction. Dès qu'une personne cumule les trois rôles, la crise se désorganise en quelques heures.
 {: .callout .callout-important}
@@ -387,7 +413,11 @@ Questions utiles : qu'est-ce qui nous a ralentis ? Quelle information nous a man
 
 ## Résumé
 
-La réponse aux incidents consiste à reprendre le contrôle d'un système compromis sans perdre ce qui permet de comprendre l'intrusion. Le cycle (préparation, identification, confinement, éradication, récupération, retour d'expérience) sert de squelette, mais la décision clé est la qualification : incident technique, incident de sécurité ou crise, avec les obligations qui en découlent. Les erreurs les plus coûteuses viennent de la précipitation : éteindre, réinstaller, réinitialiser un seul compte ou restaurer sans validation. Le confinement coordonné, la capture préalable des éléments volatils, le journal des décisions et un canal hors bande limitent les dégâts. À surveiller après la crise : la réintroduction par l'accès initial non fermé, les persistances oubliées (MFA, OAuth, règles de messagerie), et le calendrier de notification réglementaire dont l'état de transposition doit être vérifié.
+La réponse aux incidents consiste à reprendre le contrôle d'un système compromis sans perdre ce qui permet de comprendre l'intrusion. Le cycle (préparation, identification, confinement, éradication, récupération, retour d'expérience) sert de squelette, mais la décision clé est la qualification : incident technique, incident de sécurité ou crise, avec les obligations qui en découlent.
+
+Les erreurs les plus coûteuses viennent de la précipitation : éteindre, réinstaller, réinitialiser un seul compte ou restaurer sans validation. Le confinement coordonné, la capture préalable des éléments volatils, le journal des décisions et un canal hors bande limitent les dégâts.
+
+À surveiller après la crise : la réintroduction par l'accès initial non fermé, les persistances oubliées (MFA, OAuth, règles de messagerie), et le calendrier de notification réglementaire dont l'état de transposition doit être vérifié.
 
 <!-- snippet
 id: ir_picerl_cycle_phases

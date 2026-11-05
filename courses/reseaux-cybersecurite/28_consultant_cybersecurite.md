@@ -46,7 +46,10 @@ En annexe, ligne 143, figure un constat classé « Moyen » : le compte de servi
 
 Quatre mois plus tard, un attaquant exécute un Kerberoasting contre ce compte, casse le mot de passe hors ligne, prend le contrôle du domaine, supprime les sauvegardes avec ce même compte et déploie un rançongiciel.
 
-La défense naïve était d'avoir fait l'audit. Elle ne suffit pas parce que le client n'achète pas une liste de défauts. Il achète une décision éclairée : quoi corriger en premier, pourquoi, avec quels moyens, et qu'est-ce que cela change pour l'activité. Un scanner produit des constats. Un consultant produit une priorisation compréhensible, validée avec le client et exécutable.
+Avoir fait l'audit ne suffisait-il pas ? Non, parce que le client n'achète pas une liste de défauts. Il achète une décision éclairée : quoi corriger en premier, pourquoi, avec quels moyens, et qu'est-ce que cela change pour l'activité.
+
+> 💡 **À retenir** : un scanner produit des constats. Un consultant produit une priorisation compréhensible, validée avec le client et exécutable.
+{: .callout .callout-important}
 
 ---
 
@@ -70,7 +73,10 @@ Dans la pratique, les missions mélangent ces familles. Une analyse d'écarts IS
 
 ## Surface d'attaque d'une mission de conseil
 
-Un cabinet de conseil détient des cartographies d'infrastructure, des listes de vulnérabilités non corrigées et parfois des accès privilégiés chez plusieurs clients. C'est une cible rentable. Les campagnes publiques contre des prestataires de services managés (par exemple celles attribuées à APT10, dite « Cloud Hopper ») reposent sur ce raisonnement : compromettre un prestataire pour atteindre ses clients.
+Un cabinet de conseil détient des cartographies d'infrastructure, des listes de vulnérabilités non corrigées et parfois des accès privilégiés chez plusieurs clients. C'est une cible rentable. Les campagnes publiques contre des prestataires de services managés (par exemple celles attribuées à APT10, dite « Cloud Hopper ») reposent sur ce raisonnement.
+
+> 🗝️ **Analogie : le trousseau du serrurier.** Plutôt que de forcer chaque porte, l'attaquant vole le trousseau de celui qui détient les doubles : il compromet un prestataire pour atteindre ses clients. Limite de l'image : le butin n'est pas seulement une clé, ce sont aussi des sessions déjà ouvertes et des informations (cartographies, vulnérabilités non corrigées).
+{: .callout .callout-analogie}
 
 | Vecteur | Exposition | Impact potentiel |
 |---|---|---|
@@ -256,7 +262,10 @@ impacket-GetUserSPNs <DOMAINE>/<UTILISATEUR> -dc-ip <IP_DC> -request -outputfile
 hashcat -m 13100 hashes.txt <WORDLIST>
 ```
 
-Le premier appel est une opération Kerberos légitime : tout compte authentifié peut demander un ticket pour n'importe quel service. L'essentiel du travail, le craquage, se fait hors ligne, sans générer de tentative d'authentification échouée visible dans les journaux. Si le mot de passe date de 2014 et provient d'un schéma prévisible (nom de société + année), il tombe en minutes ou en heures, selon la puissance de calcul disponible.
+> 📖 **Définition.** Le Kerberoasting détourne une opération Kerberos légitime : tout compte authentifié peut demander un ticket pour n'importe quel service. L'essentiel du travail, le craquage, se fait ensuite hors ligne, sans générer de tentative d'authentification échouée visible dans les journaux.
+{: .callout .callout-definition}
+
+Si le mot de passe date de 2014 et provient d'un schéma prévisible (nom de société + année), il tombe en minutes ou en heures, selon la puissance de calcul disponible.
 
 Ce compte est membre de `Domain Admins` et sert aux sauvegardes. L'attaquant obtient donc le contrôle du domaine **et** la capacité de supprimer les sauvegardes. C'est précisément la combinaison que les opérateurs de rançongiciel recherchent avant de déclencher le chiffrement.
 
@@ -520,7 +529,13 @@ Ce qui a fait la différence : le précâblage a transformé un administrateur p
 
 ## Résumé
 
-Le consultant en cybersécurité vend de la décision, pas des constats : il cadre une question, vérifie les faits au-delà du déclaré et traduit les écarts en conséquences que l'organisation comprend. La menace couverte est double : le client qui subit un incident évitable parce que son rapport n'a rien priorisé, et le cabinet lui-même, dont les accès et les livrables intéressent les attaquants. Le mécanisme de défense repose sur un cadrage écrit, trois niveaux de preuve, des recommandations avec porteur, effort et critère de succès, et un durcissement de la mission (comptes nominatifs, preuves chiffrées, livraison contrôlée). Restent à surveiller la dérive de périmètre, les écarts entre déclaré et vérifié, les chiffres d'impact non sourcés et les accès de mission non révoqués. Ce module ne remplace pas la spécialisation technique : sans elle, la traduction métier reste approximative.
+Le consultant en cybersécurité vend de la décision, pas des constats : il cadre une question, vérifie les faits au-delà du déclaré et traduit les écarts en conséquences que l'organisation comprend.
+
+- **La menace couverte est double** : le client qui subit un incident évitable parce que son rapport n'a rien priorisé, et le cabinet lui-même, dont les accès et les livrables intéressent les attaquants.
+- **Le mécanisme de défense** repose sur un cadrage écrit, trois niveaux de preuve, des recommandations avec porteur, effort et critère de succès, et un durcissement de la mission (comptes nominatifs, preuves chiffrées, livraison contrôlée).
+- **Restent à surveiller** la dérive de périmètre, les écarts entre déclaré et vérifié, les chiffres d'impact non sourcés et les accès de mission non révoqués.
+
+Ce module ne remplace pas la spécialisation technique : sans elle, la traduction métier reste approximative.
 
 <!-- snippet
 id: conseil_cyber_trois_familles_mission

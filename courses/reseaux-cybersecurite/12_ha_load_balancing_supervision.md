@@ -45,7 +45,8 @@ Ce module répond à ces deux questions : comment faire pour qu'une panne ne se 
 > 🧠 **Concept fondamental.** Un point de défaillance unique (SPOF, Single Point of Failure) est un élément dont la panne arrête à elle seule un service entier. Ce peut être un switch, un routeur, un câble, une alimentation, un serveur, ou même une personne qui est la seule à connaître un mot de passe.
 {: .callout .callout-important}
 
-L'image la plus parlante est celle d'un pont. Si votre ville n'a qu'un seul pont sur le fleuve, sa fermeture isole un quartier. Avec deux ponts, la fermeture de l'un ne bloque personne. En revanche, si les deux ponts sont accessibles par la même avenue, vous n'avez pas gagné grand-chose.
+> 🌉 **Analogie : les ponts d'une ville.** Si votre ville n'a qu'un seul pont sur le fleuve, sa fermeture isole un quartier. Avec deux ponts, la fermeture de l'un ne bloque personne. En revanche, si les deux ponts sont accessibles par la même avenue, vous n'avez pas gagné grand-chose.
+{: .callout .callout-analogie}
 
 Les chiffres aident à ressentir l'effet. La disponibilité se mesure en pourcentage de temps de service sur une année :
 
@@ -55,7 +56,12 @@ Les chiffres aident à ressentir l'effet. La disponibilité se mesure en pourcen
 | 99,9 % | environ 8 h 45 |
 | 99,99 % | environ 52 minutes |
 
-Deux équipements placés **l'un après l'autre** (en série) font baisser le total : deux éléments à 99,9 % donnent environ 99,8 %. Deux équipements placés **côte à côte** (en parallèle) le font monter : la probabilité que les deux tombent en même temps devient infime, de l'ordre de 99,9999 % si leurs pannes sont indépendantes. Ce dernier point est la clé. Une redondance n'est utile que si les deux chemins ne partagent pas la même cause de panne : même prise électrique, même goulotte, même fournisseur d'accès, même mise à jour appliquée en même temps.
+Comment se combinent deux équipements ?
+
+- **L'un après l'autre** (en série), ils font baisser le total : deux éléments à 99,9 % donnent environ 99,8 %.
+- **Côte à côte** (en parallèle), ils le font monter : la probabilité que les deux tombent en même temps devient infime, de l'ordre de 99,9999 % si leurs pannes sont indépendantes.
+
+Ce dernier point est la clé. Une redondance n'est utile que si les deux chemins ne partagent pas la même cause de panne : même prise électrique, même goulotte, même fournisseur d'accès, même mise à jour appliquée en même temps.
 
 > 💡 **Point clé.** La haute disponibilité ne supprime pas les pannes, elle les rend invisibles pour les utilisateurs. La durée d'interruption vue par les utilisateurs passe alors de « trois heures » à « quelques secondes », car la bascule est automatique. La réparation de l'élément en panne (MTTR, Mean Time To Repair) reste à faire, mais sans urgence.
 {: .callout .callout-important}
@@ -181,13 +187,20 @@ Deux serveurs web valent mieux qu'un, à condition que quelqu'un décide à qui 
 
 ### Couche 4 ou couche 7
 
-La décision est la plus structurante du sujet.
+Quelle couche choisir ? C'est la décision la plus structurante du sujet.
 
 Un **load balancer L4** raisonne sur ce qu'il voit au niveau transport : adresses IP, ports, protocole TCP ou UDP. Il ne lit pas le contenu. C'est rapide, simple, et ça marche pour n'importe quel protocole (base de données, messagerie, DNS, jeu en ligne).
 
-Un **load balancer L7** comprend le protocole applicatif, le plus souvent HTTP. Il peut lire l'URL, l'en-tête `Host`, un cookie, et décider en conséquence : `/api` part vers un groupe de serveurs, `/images` vers un autre, la session d'un utilisateur reste sur le même serveur. Il peut aussi terminer la connexion HTTPS à la place des serveurs. En contrepartie, il consomme plus de ressources et ne traite que les protocoles qu'il comprend.
+Un **load balancer L7** comprend le protocole applicatif, le plus souvent HTTP. Il peut lire l'URL, l'en-tête `Host`, un cookie, et décider en conséquence :
 
-L'analogie : le L4 est un standardiste qui renvoie les appels d'après le numéro appelé. Le L7 est un réceptionniste qui écoute la demande et oriente vers le bon service.
+- `/api` part vers un groupe de serveurs ;
+- `/images` part vers un autre ;
+- la session d'un utilisateur reste sur le même serveur.
+
+Il peut aussi terminer la connexion HTTPS à la place des serveurs. En contrepartie, il consomme plus de ressources et ne traite que les protocoles qu'il comprend.
+
+> ☎️ **Analogie : le standardiste et le réceptionniste.** Le L4 est un standardiste qui renvoie les appels d'après le numéro appelé. Le L7 est un réceptionniste qui écoute la demande et oriente vers le bon service.
+{: .callout .callout-analogie}
 
 ### Algorithmes
 
@@ -206,7 +219,13 @@ Un load balancer qui envoie du trafic vers un serveur mort ne sert à rien. Il t
 
 Un test TCP vérifie seulement que le port accepte une connexion. Il est insuffisant : un serveur web peut avoir son port ouvert et renvoyer des erreurs 500 sur toutes les pages. Un test HTTP interroge une URL dédiée (par exemple `/health`) et attend un code 200. Mieux vaut que cette page vérifie réellement les dépendances essentielles de l'application, comme la base de données.
 
-Trois paramètres comptent : l'intervalle entre deux tests, le nombre d'échecs consécutifs avant de retirer le serveur (*fall*) et le nombre de succès avant de le réintégrer (*rise*). Avec un test toutes les 3 s et 3 échecs, la détection prend environ 9 secondes. Des valeurs trop agressives créent des allers-retours inutiles au moindre ralentissement ; trop lâches, elles laissent des utilisateurs sur un serveur mort.
+Trois paramètres comptent :
+
+- l'intervalle entre deux tests ;
+- le nombre d'échecs consécutifs avant de retirer le serveur (*fall*) ;
+- le nombre de succès avant de le réintégrer (*rise*).
+
+Avec un test toutes les 3 s et 3 échecs, la détection prend environ 9 secondes. Des valeurs trop agressives créent des allers-retours inutiles au moindre ralentissement ; trop lâches, elles laissent des utilisateurs sur un serveur mort.
 
 Exemple minimal avec HAProxy :
 
@@ -247,9 +266,10 @@ Les erreurs d'interface sont sous-estimées. Un lien peut être « up » et pour
 
 ### SNMP : interroger les équipements
 
-SNMP (Simple Network Management Protocol) permet à un serveur de supervision d'interroger un équipement. Celui-ci expose ses compteurs sous forme d'objets identifiés par un OID (Object Identifier), décrits dans une MIB\* (Management Information Base). Le superviseur interroge en UDP 161 ; l'équipement peut aussi envoyer spontanément une alerte, un *trap*, en UDP 162.
+SNMP (Simple Network Management Protocol) permet à un serveur de supervision d'interroger un équipement. Celui-ci expose ses compteurs sous forme d'objets identifiés par un OID (Object Identifier), décrits dans une MIB (Management Information Base). Le superviseur interroge en UDP 161 ; l'équipement peut aussi envoyer spontanément une alerte, un *trap*, en UDP 162.
 
-\* Une MIB est le dictionnaire qui associe chaque OID à un nom lisible et à une signification, par exemple `ifInErrors` pour les erreurs entrantes d'une interface.
+> 📖 **Définition.** Une MIB est le dictionnaire qui associe chaque OID à un nom lisible et à une signification, par exemple `ifInErrors` pour les erreurs entrantes d'une interface.
+{: .callout .callout-definition}
 
 Pour tester à la main :
 
@@ -263,13 +283,20 @@ La version 3 de SNMP ajoute authentification et chiffrement, alors que les versi
 
 ### NetFlow : savoir qui consomme
 
-SNMP dit que le lien est à 90 %. Il ne dit pas **pourquoi**. NetFlow (et son équivalent normalisé IPFIX) répond à cette question. L'équipement résume le trafic en « flux » (IP source, IP destination, ports, protocole, nombre d'octets), puis les exporte vers un collecteur qui permet de voir, par exemple, qu'une sauvegarde nocturne déplacée à 9 h écrase la bande passante du site. On ne lit pas le contenu des paquets, seulement leur description. C'est l'outil de choix pour diagnostiquer une saturation ou repérer un trafic inhabituel.
+SNMP dit que le lien est à 90 %. Mais pourquoi ? NetFlow (et son équivalent normalisé IPFIX) répond à cette question.
+
+L'équipement résume le trafic en « flux » (IP source, IP destination, ports, protocole, nombre d'octets), puis les exporte vers un collecteur. Celui-ci permet de voir, par exemple, qu'une sauvegarde nocturne déplacée à 9 h écrase la bande passante du site. On ne lit pas le contenu des paquets, seulement leur description. C'est l'outil de choix pour diagnostiquer une saturation ou repérer un trafic inhabituel.
 
 ### Syslog : centraliser les journaux
 
 Chaque équipement génère des messages : lien tombé, bascule VRRP, changement de root STP, échec de connexion. Gardés localement, ils disparaissent au redémarrage, souvent au pire moment. Syslog envoie ces messages vers un serveur central, en UDP 514 traditionnellement, ou en TCP quand on veut limiter les pertes.
 
-Chaque message porte un niveau de gravité de 0 (urgence) à 7 (debug). On choisit un seuil d'envoi : en général, `warning` (4) et au-dessus. Exemple côté équipement Cisco-like :
+Chaque message porte un niveau de gravité de 0 (urgence) à 7 (debug).
+
+> 🔑 **Moyen mnémotechnique** : les huit niveaux, de 0 à 7, sont emergency, alert, critical, error, warning, notice, informational et debug. Une phrase anglaise classique aide à les retenir dans l'ordre : « **E**very **A**wesome **C**isco **E**ngineer **W**ill **N**eed **I**ce cream **D**aily ».
+{: .callout .callout-memo}
+
+On choisit un seuil d'envoi : en général, `warning` (4) et au-dessus. Exemple côté équipement Cisco-like :
 
 ```text
 logging host 10.10.99.10

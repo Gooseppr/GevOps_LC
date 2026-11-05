@@ -34,7 +34,15 @@ prev_module_title: "Méthodologie de mission et projet professionnel cybersécur
 
 ## Mise en situation
 
-**Transvia Pièces** est une organisation fictive : un distributeur de pièces détachées de 180 personnes, deux sites (siège et entrepôt), un ERP (Enterprise Resource Planning) développé en interne sur Debian, un domaine Active Directory, un VPN pour 25 commerciaux nomades et un portail de commande B2B exposé sur Internet. La DSI compte deux personnes, plus un prestataire d'infogérance.
+**Transvia Pièces** est une organisation fictive : un distributeur de pièces détachées de 180 personnes. Elle dispose de :
+
+- deux sites (siège et entrepôt) ;
+- un ERP (Enterprise Resource Planning) développé en interne sur Debian ;
+- un domaine Active Directory ;
+- un VPN pour 25 commerciaux nomades ;
+- un portail de commande B2B exposé sur Internet.
+
+La DSI compte deux personnes, plus un prestataire d'infogérance.
 
 Deux événements arrivent la même semaine. Un client grand compte envoie un questionnaire de sécurité de 120 questions. L'assureur cyber demande un état des lieux avant le renouvellement. La DSI lance un scanner de vulnérabilités et obtient un export de 1 400 lignes (chiffre illustratif). La direction pose alors une question simple : **« Qu'est-ce qu'on fait en premier, combien ça coûte, et qu'est-ce qui se passe si on ne le fait pas ? »**
 
@@ -49,7 +57,7 @@ Votre mission : transformer ces 1 400 lignes en une dizaine de décisions défen
 
 ## Cadrer la mission : ce qui se décide avant la première commande
 
-Une mission dérape presque toujours par le cadrage, rarement par la technique. Le périmètre flou, les attentes implicites et l'autorisation orale sont les trois causes classiques.
+Pourquoi une mission dérape-t-elle ? Presque toujours à cause du cadrage, rarement à cause de la technique. Le périmètre flou, les attentes implicites et l'autorisation orale sont les trois causes classiques.
 
 La fiche de cadrage tient sur deux pages et contient :
 
@@ -110,7 +118,10 @@ Puis constituez le tableau de la surface d'attaque, avec l'impact exprimé en co
 
 ### Du constat au risque métier
 
-Un scénario de risque s'écrit en une phrase avec une cause, un événement et une conséquence mesurable. « Mot de passe faible » n'est pas un risque. « Un compte de service au mot de passe craquable permet à un utilisateur compromis de devenir administrateur du domaine et de chiffrer l'ERP et les sauvegardes, ce qui arrête l'entrepôt plusieurs jours » en est un.
+> 📖 **Définition.** Un scénario de risque s'écrit en une phrase avec une cause, un événement et une conséquence mesurable.
+{: .callout .callout-definition}
+
+« Mot de passe faible » n'est pas un risque. « Un compte de service au mot de passe craquable permet à un utilisateur compromis de devenir administrateur du domaine et de chiffrer l'ERP et les sauvegardes, ce qui arrête l'entrepôt plusieurs jours » en est un.
 
 Registre de risques de Transvia (échelles 1 à 5, valeurs illustratives, que vous justifiez en entretien avec les métiers) :
 
@@ -251,7 +262,10 @@ detection:
 level: medium
 ```
 
-La règle seule génère du bruit, parce que d'anciens services légitimes utilisent RC4. Dans le SIEM, on ajoute une agrégation : un même compte demandant des tickets pour plus de cinq services différents en quelques minutes passe en priorité haute. Dans une PME où les contrôleurs de domaine n'envoient pas leurs journaux à un collecteur, cette règle est inutile. Le premier constat de détection est alors « on ne voit rien », et la première action est la centralisation des journaux des contrôleurs de domaine.
+La règle seule génère du bruit, parce que d'anciens services légitimes utilisent RC4. Dans le SIEM, on ajoute donc une agrégation : un même compte demandant des tickets pour plus de cinq services différents en quelques minutes passe en priorité haute.
+
+> 💡 **À retenir.** Sans journaux collectés, aucune règle ne détecte rien. Dans une PME où les contrôleurs de domaine n'envoient pas leurs journaux à un collecteur, cette règle est inutile. Le premier constat de détection est alors « on ne voit rien », et la première action est la centralisation des journaux des contrôleurs de domaine.
+{: .callout .callout-important}
 
 Ce que vous mesurez pendant l'exercice :
 
@@ -268,6 +282,9 @@ Ce que vous mesurez pendant l'exercice :
 ## Restauration et continuité : prouver plutôt que déclarer
 
 Un job de sauvegarde « terminé avec succès » ne prouve rien. Les opérateurs de ransomware ciblent explicitement les systèmes de sauvegarde : des vulnérabilités comme CVE-2023-27532 dans Veeam Backup & Replication ont été exploitées pour récupérer des identifiants, et un serveur de sauvegarde joint au domaine tombe avec lui dès que l'administrateur du domaine est compromis.
+
+> 🏠 **Analogie : le double des clés rangé dans la maison.** Une sauvegarde jointe au domaine ressemble à un double des clés gardé à l'intérieur : le cambrioleur qui entre le récupère aussi. Limite de l'image : ce n'est pas l'emplacement qui crée le lien, mais le partage d'identité. Un serveur sorti du domaine reste donc exposé s'il garde les mêmes comptes administrateurs.
+{: .callout .callout-analogie}
 
 Votre vérification se fait en trois temps. D'abord l'isolation : le dépôt de sauvegarde est-il accessible en écriture avec un compte du domaine ? Ensuite l'intégrité :
 
@@ -434,7 +451,13 @@ Leçons à retenir :
 
 ## Résumé
 
-Une mission de conseil transforme un volume de constats techniques en décisions. Vous cadrez le périmètre et les règles d'engagement par écrit, vous cartographiez la surface d'attaque, puis vous exprimez chaque risque comme un scénario avec un impact métier. Les contrôles en laboratoire (SMB, Kerberoasting, secrets, durcissement des serveurs) prouvent ou infirment ces scénarios. L'exercice de détection mesure ce que l'organisation voit et la vitesse de sa réponse, et le test de restauration confronte les objectifs de temps déclarés à la réalité mesurée. Le plan se priorise par réduction de risque rapportée à l'effort, avec ses hypothèses et ses risques acceptés. Ce qui reste à surveiller après la mission : la correction effective des actions 1 à 4, la fréquence réelle des tests de restauration, la couverture de la journalisation et l'évolution des obligations réglementaires applicables.
+Une mission de conseil transforme un volume de constats techniques en décisions.
+
+Vous cadrez le périmètre et les règles d'engagement par écrit, vous cartographiez la surface d'attaque, puis vous exprimez chaque risque comme un scénario avec un impact métier. Les contrôles en laboratoire (SMB, Kerberoasting, secrets, durcissement des serveurs) prouvent ou infirment ces scénarios. L'exercice de détection mesure ce que l'organisation voit et la vitesse de sa réponse. Le test de restauration confronte les objectifs de temps déclarés à la réalité mesurée.
+
+Le plan se priorise par réduction de risque rapportée à l'effort, avec ses hypothèses et ses risques acceptés.
+
+Ce qui reste à surveiller après la mission : la correction effective des actions 1 à 4, la fréquence réelle des tests de restauration, la couverture de la journalisation et l'évolution des obligations réglementaires applicables.
 
 <!-- snippet
 id: conseil_roe_autorisation_ecrite

@@ -38,7 +38,9 @@ next_module_title: "Audit organisationnel, conformité et documentation de sécu
 
 Un industriel de 450 salariés fait tourner son ERP (Enterprise Resource Planning) sur un Windows Server 2012 R2. Le support étendu de cet OS s'est terminé en octobre 2023, et l'éditeur de l'ERP ne certifie pas la version suivante. Le sujet remonte en comité informatique. Le DSI dit : « On accepte le risque, on migrera l'an prochain. » Rien n'est écrit, aucun responsable n'est nommé, aucune date de réexamen n'est fixée.
 
-Dix-huit mois plus tard, un groupe de ransomware entre par un compte VPN d'un prestataire de maintenance, sans MFA (Multi-Factor Authentication). Le réseau est à plat : le compte atteint l'ERP en RDP. Un dump de mémoire LSASS avec Mimikatz donne un compte administrateur de domaine, BloodHound cartographie le reste, et les sauvegardes en ligne sont supprimées avant le chiffrement. L'expédition est à l'arrêt neuf jours.
+Dix-huit mois plus tard, un groupe de ransomware entre par un compte VPN d'un prestataire de maintenance, sans MFA (Multi-Factor Authentication). Le réseau est à plat : le compte atteint l'ERP en RDP.
+
+Un dump de mémoire LSASS avec Mimikatz donne un compte administrateur de domaine, BloodHound cartographie le reste, et les sauvegardes en ligne sont supprimées avant le chiffrement. L'expédition est à l'arrêt neuf jours.
 
 Aucune des défenses « naïves » n'aurait suffi :
 
@@ -136,19 +138,31 @@ Une échelle exploitable ancre chaque niveau dans une réalité mesurable, pas d
 | 3 — Grave | Une semaine d'arrêt d'une activité clé ou fuite de données clients |
 | 4 — Critique | Plus d'une semaine, perte supérieure à 500 k€ ou menace sur la survie de l'activité |
 
-En approche quantitative, on utilise l'ALE (Annualized Loss Expectancy) = SLE (Single Loss Expectancy) × ARO (Annualized Rate of Occurrence). Avec des chiffres illustratifs : une attaque coûtant 400 000 € par occurrence, avec une occurrence tous les cinq ans (ARO = 0,2), donne un ALE de 80 000 € par an. Une mesure à 30 000 € par an qui ramène l'ARO à 0,05 laisse un ALE de 20 000 €, soit un gain net de 30 000 €.
+> 📖 **Définition.** En approche quantitative, on calcule l'ALE (Annualized Loss Expectancy, perte annuelle attendue) : ALE = SLE (Single Loss Expectancy, coût d'une occurrence) × ARO (Annualized Rate of Occurrence, nombre d'occurrences par an).
+{: .callout .callout-definition}
+
+Avec des chiffres illustratifs : une attaque coûtant 400 000 € par occurrence, avec une occurrence tous les cinq ans (ARO = 0,2), donne un ALE de 80 000 € par an. Une mesure à 30 000 € par an qui ramène l'ARO à 0,05 laisse un ALE de 20 000 €, soit un gain net de 30 000 €.
 
 > 💡 **Astuce** : refaites le calcul avec un ARO deux fois plus élevé et deux fois plus bas. Si la décision change, vos données sont trop fragiles pour trancher sur le seul calcul, et la discussion doit porter sur les hypothèses plutôt que sur le résultat.
 {: .callout .callout-astuce}
 
-**Évaluation.** On compare chaque risque aux critères d'acceptation définis avant l'analyse, jamais après. Définir le seuil une fois les résultats connus revient à ajuster la règle au résultat voulu.
+**Évaluation.** On compare chaque risque aux critères d'acceptation définis avant l'analyse, jamais après.
+
+> 🎯 **Analogie : la cible dessinée après le tir.** Définir le seuil une fois les résultats connus, c'est tirer la flèche puis dessiner la cible autour : on « touche » à chaque fois, mais la règle a été ajustée au résultat voulu.
+{: .callout .callout-analogie}
 
 > ⚠️ **Piège de la matrice** : une matrice 4×4 écrase les écarts. Deux risques classés « orange » peuvent différer d'un facteur 20 en perte attendue. Gardez la matrice comme support de discussion, pas comme arbitre.
 {: .callout .callout-attention}
 
 ## EBIOS Risk Manager : une méthode qui part de l'attaquant
 
-EBIOS Risk Manager est la méthode d'appréciation des risques publiée par l'ANSSI. Sa logique inverse celle d'un inventaire d'actifs : elle part de ce que l'organisation doit protéger, puis de qui voudrait l'atteindre, et seulement ensuite des moyens techniques. La méthode se déroule en cinq ateliers. L'ANSSI met à jour sa documentation : vérifiez la version en vigueur et les supports officiels avant de démarrer une mission.
+EBIOS Risk Manager est la méthode d'appréciation des risques publiée par l'ANSSI. Sa logique inverse celle d'un inventaire d'actifs. Elle part :
+
+1. de ce que l'organisation doit protéger ;
+2. puis de qui voudrait l'atteindre ;
+3. et seulement ensuite des moyens techniques.
+
+La méthode se déroule en cinq ateliers. L'ANSSI met à jour sa documentation : vérifiez la version en vigueur et les supports officiels avant de démarrer une mission.
 
 | Atelier | Question traitée | Production |
 |---|---|---|
@@ -165,7 +179,7 @@ Reprenons le scénario : le prestataire de maintenance est une partie prenante d
 
 ## ISO/IEC 27005 : le cadre de gestion des risques
 
-ISO/IEC 27005 est la norme de lignes directrices pour gérer les risques liés à la sécurité de l'information. Elle n'est pas certifiable : c'est ISO/IEC 27001 qui l'est. Cette dernière exige un processus de gestion des risques (appréciation, traitement, plan de traitement approuvé par les responsables des risques) et la 27005 explique comment le mettre en œuvre.
+ISO/IEC 27005 est la norme de lignes directrices pour gérer les risques liés à la sécurité de l'information. Elle n'est pas certifiable : c'est ISO/IEC 27001 qui l'est. Quel lien entre les deux ? La 27001 exige un processus de gestion des risques (appréciation, traitement, plan de traitement approuvé par les responsables des risques), et la 27005 explique comment le mettre en œuvre.
 
 Dans l'édition 2022, la norme décrit deux approches complémentaires : par **événement** (on part de scénarios de menace) et par **actif** (on part de l'inventaire et on identifie menaces et vulnérabilités sur chaque actif). Son processus enchaîne le contexte, l'appréciation (identification, analyse, évaluation), le traitement, la communication et la surveillance.
 
@@ -206,6 +220,9 @@ Voici un exemple de répartition en RACI (Responsible, Accountable, Consulted, I
 {: .callout .callout-important}
 
 ## Traiter le risque : réduire, éviter, transférer, accepter
+
+> 🔑 **Moyen mnémotechnique** : les « 4 T » anglo-saxons. **T**reat (réduire), **T**erminate (éviter), **T**ransfer (transférer), **T**olerate (accepter).
+{: .callout .callout-memo}
 
 | Option | Principe | Exemple (scénario ERP) | Coût / limite |
 |---|---|---|---|
@@ -342,7 +359,13 @@ La leçon : le gain ne vient pas d'un meilleur outil, mais du fait que chaque d�
 
 ## Résumé
 
-La gestion des risques relie une chaîne d'attaque réaliste (source, chemin, actif) à une conséquence métier évaluée sur une échelle ancrée dans des repères mesurables. EBIOS Risk Manager structure cette démarche à partir des valeurs métier et des sources de risque, et ISO/IEC 27005 fournit le cadre de processus compatible avec une certification ISO/IEC 27001. Le traitement (réduire, éviter, transférer, accepter) est une décision de gouvernance qui revient au propriétaire du risque, pas au seul RSSI. Accepter un risque ne supprime pas la vulnérabilité : l'acceptation doit être datée, conditionnée par des mesures vérifiées et réexaminée dès qu'un déclencheur apparaît (exploit public, ajout au catalogue KEV). Le registre est vivant : il se contrôle avec des tests concrets, et ce qu'il faut surveiller en continu, ce sont les acceptations expirées et les mesures compensatoires qui n'existent que sur le papier.
+La gestion des risques relie une chaîne d'attaque réaliste (source, chemin, actif) à une conséquence métier évaluée sur une échelle ancrée dans des repères mesurables. EBIOS Risk Manager structure cette démarche à partir des valeurs métier et des sources de risque, et ISO/IEC 27005 fournit le cadre de processus compatible avec une certification ISO/IEC 27001.
+
+Le traitement (réduire, éviter, transférer, accepter) est une décision de gouvernance qui revient au propriétaire du risque, pas au seul RSSI.
+
+Accepter un risque ne supprime pas la vulnérabilité : l'acceptation doit être datée, conditionnée par des mesures vérifiées et réexaminée dès qu'un déclencheur apparaît (exploit public, ajout au catalogue KEV).
+
+Le registre est vivant : il se contrôle avec des tests concrets, et ce qu'il faut surveiller en continu, ce sont les acceptations expirées et les mesures compensatoires qui n'existent que sur le papier.
 
 <!-- snippet
 id: risque_vraisemblance_gravite_notions

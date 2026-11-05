@@ -64,7 +64,10 @@ Les indicateurs étaient périmés avant d'arriver, et la défense reposait sur 
 
 On ajoute souvent un niveau « technique » pour les IoC bruts consommés par les machines. Cette distinction est utile à condition de ne pas la confondre avec la tactique : les IoC sont l'extrait le plus périssable de la CTI.
 
-Le travail suit un cycle dont le point d'entrée est la **direction**, c'est-à-dire les PIR (Priority Intelligence Requirements) : les quelques questions auxquelles l'organisation a besoin de répondre. Sans elles, on collecte tout et on exploite peu.
+Le travail suit un cycle dont le point d'entrée est la **direction**, c'est-à-dire les PIR.
+
+> 📖 **Définition.** Les PIR (Priority Intelligence Requirements) sont les quelques questions auxquelles l'organisation a besoin de répondre. Sans elles, on collecte tout et on exploite peu.
+{: .callout .callout-definition}
 
 ```mermaid
 flowchart LR
@@ -82,7 +85,7 @@ flowchart LR
 
 ## Acteurs de menace : motivations et modes opératoires
 
-L'analyse commence par les motivations, car elles prédisent les TTP mieux que le nom du groupe. Un acteur motivé par l'argent veut être rapide et rentable. Un acteur motivé par l'espionnage accepte de rester discret pendant des mois.
+Par où commencer l'analyse ? Par les motivations, car elles prédisent les TTP mieux que le nom du groupe. Un acteur motivé par l'argent veut être rapide et rentable. Un acteur motivé par l'espionnage accepte de rester discret pendant des mois.
 
 | Catégorie | Motivation | Mode opératoire typique | Exemples publics |
 |-----------|-----------|-------------------------|------------------|
@@ -130,14 +133,19 @@ Une recherche OSINT passive ne touche pas la cible : on interroge des tiers qui 
 
 ### Pivoter : de l'artefact à l'infrastructure
 
-Un pivot consiste à partir d'un élément connu pour en trouver d'autres qui partagent une caractéristique. Exemple de raisonnement sur des valeurs illustratives :
+> 📖 **Définition.** Un pivot consiste à partir d'un élément connu pour en trouver d'autres qui partagent une caractéristique.
+{: .callout .callout-definition}
+
+Exemple de raisonnement sur des valeurs illustratives :
 
 1. Un hash de fichier suspect est analysé sur VirusTotal : le sandbox montre une connexion vers `update-check.example.net`.
 2. Le passive DNS donne l'IP `203.0.113.10` pour ce domaine, vue du 10 au 17 janvier.
 3. Le certificat TLS servi par cette IP (empreinte SHA-256) apparaît aussi sur `cdn-sync.example.org`.
 4. Ce second domaine, enregistré 4 jours avant la campagne, est absent de tous les flux. Il rejoint l'enquête.
 
-Les outils habituels sont VirusTotal, urlscan.io, les services abuse.ch (URLhaus, MalwareBazaar, ThreatFox), AlienVault OTX et `whois`. Aucun ne garantit la vérité : chaque source a son niveau de fiabilité. Le système **Admiralty (OTAN)** note la fiabilité de la source de A à F et la crédibilité de l'information de 1 à 6. Une information « B2 » (source généralement fiable, information probablement vraie) ne pèse pas comme une « F6 » (fiabilité inconnue, crédibilité non évaluable).
+Les outils habituels sont VirusTotal, urlscan.io, les services abuse.ch (URLhaus, MalwareBazaar, ThreatFox), AlienVault OTX et `whois`. Aucun ne garantit la vérité : chaque source a son niveau de fiabilité.
+
+Le système **Admiralty (OTAN)** note la fiabilité de la source de A à F et la crédibilité de l'information de 1 à 6. Une information « B2 » (source généralement fiable, information probablement vraie) ne pèse pas comme une « F6 » (fiabilité inconnue, crédibilité non évaluable).
 
 > ⚠️ **Erreur fréquente** : envoyer sur VirusTotal un fichier trouvé sur un poste compromis. Les échantillons soumis sont accessibles à d'autres utilisateurs de la plateforme, ce qui expose les données internes qu'il contient et signale à l'attaquant qu'on l'a détecté. Pour un fichier suspect, interrogez d'abord son hash (`sha256sum`), qui ne divulgue rien.
 {: .callout .callout-attention}
@@ -301,9 +309,10 @@ Les trois acteurs dominants donnent trois priorités concrètes : MFA, isolement
 
 ## STIX et TAXII : structurer et partager le renseignement
 
-STIX* est le format, TAXII (Trusted Automated eXchange of Intelligence Information) est le protocole de transport. STIX 2.1 décrit des **objets** (indicator, malware, intrusion-set, attack-pattern, campaign, report) reliés par des **relations** (`uses`, `indicates`, `attributed-to`).
+STIX (Structured Threat Information Expression) est le format, TAXII (Trusted Automated eXchange of Intelligence Information) est le protocole de transport. STIX 2.1 décrit des **objets** (indicator, malware, intrusion-set, attack-pattern, campaign, report) reliés par des **relations** (`uses`, `indicates`, `attributed-to`).
 
-\* STIX (Structured Threat Information Expression) est un modèle de données JSON qui décrit *quoi* partager, tandis que TAXII décrit *comment* le transporter sur HTTPS.
+> 📮 **Analogie : la lettre et la poste.** STIX est la lettre, rédigée dans une langue commune : un modèle de données JSON qui décrit *quoi* partager. TAXII est le service postal qui l'achemine sur HTTPS : il décrit *comment* la transporter. Limite de l'image : un serveur TAXII ne fait pas que livrer, il range les objets dans des collections que le client vient interroger.
+{: .callout .callout-analogie}
 
 Exemple d'indicateur, avec les champs qui évitent l'accumulation d'IoC périmés :
 
@@ -357,7 +366,10 @@ Exemple de traduction d'un rapport fictif décrivant l'exploitation de Citrix Bl
 
 Une **chasse** (« threat hunting ») démarre par une hypothèse testable : « Si l'attaquant a obtenu un jeton de session, nous verrons le même identifiant de session depuis deux adresses IP sources en moins d'une heure. » Si la requête ne retourne rien, la valeur est double : on a une preuve d'absence sur la période, et une règle réutilisable.
 
-Si vous rédigez vous-même un produit CTI, appliquez la règle « **Qui ? Quoi ? Et alors ? Que faire ?** ». Qualifiez le niveau de confiance explicitement (faible, modérée, élevée) et séparez les faits de l'évaluation.
+Si vous rédigez vous-même un produit CTI, qualifiez le niveau de confiance explicitement (faible, modérée, élevée) et séparez les faits de l'évaluation.
+
+> 🔑 **Moyen mnémotechnique** : pour structurer un produit CTI, suivez l'ordre « **Qui ? Quoi ? Et alors ? Que faire ?** »
+{: .callout .callout-memo}
 
 ## Cas réel en entreprise (scénario illustratif)
 

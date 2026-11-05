@@ -52,7 +52,13 @@ La défense naïve consistait à avoir des sauvegardes et une réplication. Tout
 
 ### Ce que chaque acronyme engage vraiment
 
-PCA (Business Continuity Plan) et PRA (Disaster Recovery Plan) sont souvent confondus. Le PCA répond à la question : comment le métier continue-t-il à fonctionner, même mal, pendant que le SI est indisponible ? Il s'agit de procédures manuelles, de sites de repli et de priorités métier. Le PRA répond à : comment remet-on le SI en état de marche ? C'est un plan technique, avec des runbooks, un ordre de reprise et des responsables. Un PRA excellent sans PCA laisse les entrepôts à l'arrêt pendant que les équipes IT restaurent. Un PCA sans PRA ne tient que quelques jours.
+PCA (Business Continuity Plan) et PRA (Disaster Recovery Plan) sont souvent confondus. Chacun répond à une question différente :
+
+- **PCA** : comment le métier continue-t-il à fonctionner, même mal, pendant que le SI est indisponible ? Il s'agit de procédures manuelles, de sites de repli et de priorités métier.
+- **PRA** : comment remet-on le SI en état de marche ? C'est un plan technique, avec des runbooks, un ordre de reprise et des responsables.
+
+> 🚗 **Analogie : la roue de secours et le garage.** Le PCA est la roue de secours : elle permet de continuer à rouler, moins vite, mais pas indéfiniment. Le PRA est la réparation au garage, qui remet la voiture en état. Un PRA excellent sans PCA laisse les entrepôts à l'arrêt pendant que les équipes IT restaurent. Un PCA sans PRA ne tient que quelques jours.
+{: .callout .callout-analogie}
 
 Le BIA est l'exercice qui alimente les deux. Il part des activités métier et non des serveurs, et pour chacune il pose trois questions :
 
@@ -79,14 +85,20 @@ Un RPO de 15 minutes impose une réplication ou des sauvegardes de journaux de t
 
 Le RTO effectif d'un service est le plus long des RTO de ses dépendances, plus son propre temps de restauration. Le WMS à 4 h dépend de sa base SQL, de l'identité (AD, DNS), du réseau des entrepôts et de la virtualisation. Si l'identité met 3 heures à revenir, il reste une heure pour tout le reste.
 
-On calcule aussi le débit. Les données critiques de Valmont pèsent 8 To. Sur un dépôt de sauvegarde qui restitue 250 Mo/s en pratique :
+Reste le débit : combien de temps faut-il pour relire les données ? Les données critiques de Valmont pèsent 8 To. Sur un dépôt de sauvegarde qui restitue 250 Mo/s en pratique :
 
 ```
 8 To = 8 000 000 Mo
 8 000 000 / 250 = 32 000 s ≈ 8,9 h
 ```
 
-Le RTO de 4 h du WMS est donc inatteignable avec une restauration complète. Il faut alors réduire le périmètre restauré, utiliser une relecture directe depuis le dépôt (*instant recovery*, au prix de performances dégradées) ou prévoir du stockage plus rapide pour la reprise. Le débit réellement mesuré est souvent inférieur de moitié au débit théorique du lien, à cause des petits fichiers, de la déduplication, du chiffrement ou du dépôt partagé avec d'autres jobs.
+Le RTO de 4 h du WMS est donc inatteignable avec une restauration complète. Trois options s'offrent alors :
+
+- réduire le périmètre restauré ;
+- utiliser une relecture directe depuis le dépôt (*instant recovery*, au prix de performances dégradées) ;
+- prévoir du stockage plus rapide pour la reprise.
+
+Le débit réellement mesuré est souvent inférieur de moitié au débit théorique du lien. En cause : les petits fichiers, la déduplication, le chiffrement ou le dépôt partagé avec d'autres jobs.
 
 > 💡 **Astuce** : consignez chaque service dans un catalogue lisible par machine, versionné hors du SI de production. Il sert de base au BIA, aux exercices et à l'ordre de reprise.
 {: .callout .callout-astuce}
@@ -137,7 +149,12 @@ Les actifs à protéger sont, dans l'ordre : l'identité (sans elle, rien ne red
 
 ### Séquence typique d'un opérateur de ransomware
 
-L'opération se déroule rarement en une seule étape. Entre l'accès initial et le chiffrement, il peut s'écouler plusieurs jours (dwell time). L'attaquant fait notamment :
+L'opération se déroule rarement en une seule étape. Entre l'accès initial et le chiffrement, il peut s'écouler plusieurs jours.
+
+> 📖 **Définition.** Le *dwell time* est la durée pendant laquelle l'attaquant est présent dans le SI sans être détecté, depuis l'accès initial jusqu'à sa détection, souvent au moment du chiffrement.
+{: .callout .callout-definition}
+
+Pendant ce temps, l'attaquant procède notamment ainsi :
 
 1. Prendre le contrôle de l'AD (Kerberoasting, DCSync, mimikatz sur un serveur d'administration).
 2. Énumérer l'infrastructure de sauvegarde : recherche des processus ou services du logiciel de sauvegarde, des partages de dépôts, des consoles.
@@ -162,7 +179,12 @@ Un autre point change les décisions de restauration : la date de compromission 
 
 ### Le principe : aucune copie ne doit dépendre des identifiants de production
 
-La règle 3-2-1-1-0 en donne le squelette : 3 copies, sur 2 supports différents, dont 1 hors site, dont 1 hors ligne ou immuable, et 0 erreur après vérification de restauration. Le dernier « 0 » est celui qu'on oublie, et c'est le sujet de la section sur les tests.
+La règle 3-2-1-1-0 en donne le squelette.
+
+> 🔑 **Moyen mnémotechnique** : chaque chiffre est une exigence, à lire dans l'ordre. **3** copies, sur **2** supports différents, dont **1** hors site, dont **1** hors ligne ou immuable, et **0** erreur après vérification de restauration.
+{: .callout .callout-memo}
+
+Le dernier « 0 » est celui qu'on oublie, et c'est le sujet de la section sur les tests.
 
 ```mermaid
 flowchart LR
@@ -233,7 +255,14 @@ La limite : plus on sépare les rôles, plus la restauration d'urgence demande d
 > ⚠️ **Piège central du module** : une sauvegarde qui existe mais n'a jamais été restaurée n'est pas une garantie de reprise. Le statut « réussi » signifie que le job a écrit des données, pas que ces données sont complètes, déchiffrables, cohérentes pour l'application et restaurables dans le temps imparti.
 {: .callout .callout-attention}
 
-Les échecs observés en restauration appartiennent à quelques familles : sauvegarde crash-consistent d'une base (impossible à relancer sans réparation), clé de chiffrement perdue, catalogue corrompu, dépôt dont la lecture est trop lente pour le RTO, licence ou clé d'activation manquante, dépendance non sauvegardée (secrets d'application, certificats, fichiers de configuration hors VM).
+Les échecs observés en restauration appartiennent à quelques familles :
+
+- sauvegarde crash-consistent d'une base (impossible à relancer sans réparation) ;
+- clé de chiffrement perdue ;
+- catalogue corrompu ;
+- dépôt dont la lecture est trop lente pour le RTO ;
+- licence ou clé d'activation manquante ;
+- dépendance non sauvegardée (secrets d'application, certificats, fichiers de configuration hors VM).
 
 On teste à quatre niveaux de profondeur, avec des fréquences différentes :
 
@@ -361,7 +390,12 @@ Le métier arbitre cette priorisation avant la crise, avec la DSI. Le mauvais mo
 
 ### Ce que le plan de crise ajoute
 
-Un plan de crise définit qui décide, de quoi, avec quelle information, et comment l'équipe communique. Ce n'est pas un doublon du plan de réponse aux incidents : ce dernier traite le confinement et l'éradication techniques, tandis que le plan de crise porte les décisions de continuité (activer le mode dégradé, prévenir les clients, informer les autorités, arbitrer l'ordre de reprise). Les deux se coordonnent avec une cellule de crise, un journal de décisions et un point de situation régulier.
+Un plan de crise définit qui décide, de quoi, avec quelle information, et comment l'équipe communique. Ce n'est pas un doublon du plan de réponse aux incidents :
+
+- le plan de réponse aux incidents traite le confinement et l'éradication techniques ;
+- le plan de crise porte les décisions de continuité : activer le mode dégradé, prévenir les clients, informer les autorités, arbitrer l'ordre de reprise.
+
+Les deux se coordonnent avec une cellule de crise, un journal de décisions et un point de situation régulier.
 
 Le point sensible est le canal de communication hors bande. Si la messagerie et l'annuaire sont à l'arrêt, comment convoque-t-on la cellule ? Il faut une liste papier ou sur un support indépendant, avec des numéros personnels, et un canal de messagerie alternatif préalablement validé par les participants.
 

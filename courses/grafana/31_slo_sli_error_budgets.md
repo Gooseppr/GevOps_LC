@@ -48,12 +48,16 @@ Un **SLI (Service Level Indicator)** est une mesure : la proportion d'événemen
 
 Un **SLO (Service Level Objective)** est la cible que l'on se fixe sur ce SLI, sur une fenêtre donnée : « 99,9 % des requêtes réussissent, sur 30 jours glissants ».
 
+> 🔑 **Moyen mnémotechnique.** La dernière lettre donne le rôle : SLI, **I** comme *Indicateur* (ce que l'on mesure) ; SLO, **O** comme *Objectif* (ce que l'on vise). Vous croiserez plus loin le SLA, **A** comme *Agreement* (ce que l'on promet par contrat).
+{: .callout .callout-memo}
+
 L'**error budget** est le complément : 100 % − SLO. C'est la quantité d'échecs que l'on s'autorise. Ce n'est pas une tolérance honteuse, c'est une ressource que l'on dépense en déployant, en migrant, en prenant des risques.
 
 > 🧠 **Concept clé** : un SLI se ramène toujours à une fraction `événements_bons / événements_valides`. Cette forme unique, comprise entre 0 et 1, rend tous les SLI comparables, et permet de calculer budgets et burn rates avec les mêmes formules, quel que soit le service.
 {: .callout .callout-important}
 
-Pour l'intuition, pensez à un budget mensuel de dépenses : le SLO, c'est le plafond que vous vous fixez, l'error budget ce qu'il vous reste à dépenser, et le burn rate la vitesse à laquelle vous le videz. Dépenser 80 % du budget en trois jours revient à le vider environ huit fois trop vite (burn rate ≈ 8) : c'est un rythme qui impose d'agir sans attendre.
+> 💰 **Analogie : le budget mensuel.** Le SLO, c'est le plafond de dépenses que vous vous fixez, l'error budget ce qu'il vous reste à dépenser, et le burn rate la vitesse à laquelle vous le videz. Dépenser 80 % du budget en trois jours revient à le vider environ huit fois trop vite (burn rate ≈ 8) : ce rythme impose d'agir sans attendre. Limite de l'image : ce budget ne s'épargne pas. Sur une fenêtre glissante, les échecs anciens sortent du calcul, et le budget se reconstitue de lui-même.
+{: .callout .callout-analogie}
 
 ## Choisir des SLI qui reflètent l'expérience utilisateur
 
@@ -82,7 +86,12 @@ Le SLO devient alors « 95 % des requêtes répondent en moins de 300 ms ».
 > ⚠️ **Erreur fréquente** : la valeur de `le` doit correspondre exactement à une borne de bucket de l'histogramme. Avec des buckets à 0.25 et 0.5, `le="0.3"` ne renvoie rien. Si vous voulez un seuil à 300 ms, il faut l'ajouter à l'instrumentation, ce qui est plus simple à faire avant d'écrire le SLO qu'après.
 {: .callout .callout-attention}
 
-**Disponibilité.** Deux approches coexistent. La première est basée sur le trafic réel : le taux de succès ci-dessus fait office de disponibilité. La seconde utilise des sondes synthétiques (par exemple le blackbox exporter) qui interrogent un parcours toutes les 30 secondes, et la disponibilité est la proportion de sondes réussies. Les sondes sont indispensables quand le trafic est faible ou nul la nuit : sans requêtes, un SLI basé sur le trafic ne dit rien.
+**Disponibilité.** Deux approches coexistent :
+
+- **le trafic réel** : le taux de succès ci-dessus fait office de disponibilité ;
+- **les sondes synthétiques** (par exemple le blackbox exporter) : elles interrogent un parcours toutes les 30 secondes, et la disponibilité est la proportion de sondes réussies.
+
+Les sondes sont indispensables quand le trafic est faible ou nul la nuit : sans requêtes, un SLI basé sur le trafic ne dit rien.
 
 ### Disponibilité infrastructure ≠ disponibilité fonctionnelle
 
@@ -133,7 +142,7 @@ Dernier choix : la fenêtre. Une fenêtre glissante de 28 ou 30 jours est la plu
 
 ## Error budget : calcul et interprétation
 
-Le calcul se fait de deux façons, équivalentes mais utiles dans des contextes différents.
+Comment calculer ce budget ? De deux façons, équivalentes mais utiles dans des contextes différents.
 
 **En temps** (pour parler en réunion) : à 99,9 % sur 30 jours, vous disposez de 43,2 minutes d'indisponibilité complète.
 
@@ -230,7 +239,10 @@ Dans Grafana Alerting, créez une règle gérée par Grafana avec deux requêtes
 
 Répétez avec les paliers 6 h/30 min (seuil 0.006) et 3 j/6 h (seuil 0.001). Les libellés exacts de l'interface varient selon la version de Grafana, mais le principe reste le même : deux séries, une condition booléenne qui exige que les deux soient vraies.
 
-Deux points d'attention propres aux SLO. D'abord le comportement `No Data` : si le service ne reçoit aucune requête, le ratio est indéfini. Décidez explicitement si c'est un état sain (service de nuit) ou une panne à signaler ; un service qui n'a plus de trafic parce que le DNS est cassé est un cas réel. Ensuite, joignez à l'alerte un lien vers le dashboard du service et une description de l'action attendue, sinon l'alerte indique que le budget brûle, sans dire où regarder.
+Deux points d'attention sont propres aux SLO :
+
+- **le comportement `No Data`** : si le service ne reçoit aucune requête, le ratio est indéfini. Décidez explicitement si c'est un état sain (service de nuit) ou une panne à signaler. Un service qui n'a plus de trafic parce que le DNS est cassé est un cas réel ;
+- **le contexte de l'alerte** : joignez-y un lien vers le dashboard du service et une description de l'action attendue. Sinon, l'alerte indique que le budget brûle, sans dire où regarder.
 
 Si vous ne souhaitez pas écrire ces règles à la main, des générateurs open source comme Sloth ou Pyrra produisent recording rules et alertes à partir d'une définition de SLO. Grafana Cloud propose aussi une application SLO intégrée. Dans les deux cas, comprenez d'abord ce qui est généré : en cas de comportement inattendu, c'est cette logique que vous devrez déboguer.
 
@@ -249,7 +261,8 @@ Utilisez une variable de dashboard pour le service, afin qu'un même modèle ser
 
 Le **SLA (Service Level Agreement)** est un engagement contractuel envers un client, avec des conséquences en cas de manquement : crédits de service, pénalités, voire résiliation. Le SLO est un objectif interne, sans sanction juridique, destiné à piloter le travail de l'équipe.
 
-La règle qui en découle : **le SLO est plus strict que le SLA**. Si le contrat promet 99,5 %, l'équipe vise 99,9 % en interne. L'écart est un coussin : quand le SLO est violé, il reste une marge avant d'enfreindre le contrat. Le dashboard doit afficher les deux seuils.
+> 💡 **À retenir.** Le SLO est plus strict que le SLA. Si le contrat promet 99,5 %, l'équipe vise 99,9 % en interne. L'écart sert de coussin : quand le SLO est violé, il reste une marge avant d'enfreindre le contrat. Affichez les deux seuils sur le dashboard.
+{: .callout .callout-important}
 
 Deux nuances méritent d'être connues. Le SLA est souvent mesuré de façon plus restrictive ou plus simple que le SLO (exclusion des maintenances planifiées, mesure mensuelle calendaire, périmètre limité à certains endpoints), donc ne copiez pas sa définition dans votre SLI. Et le texte du contrat relève du juridique et du commercial : l'ingénierie fournit les chiffres et ce qui est techniquement mesurable, mais ne les fixe pas seule.
 

@@ -40,7 +40,10 @@ Vous avez devant vous une dizaine de causes possibles : câble débranché, pass
 
 ## Diagnostiquer, c'est éliminer
 
-Un médecin ne prescrit pas un scanner à chaque patient. Il part des symptômes, fait des examens simples et élimine les hypothèses jusqu'à isoler la cause. Le diagnostic réseau fonctionne pareil, et chaque outil de ce module répond à une question précise :
+> 🩺 **Analogie : le médecin.** Un médecin ne prescrit pas un scanner à chaque patient. Il part des symptômes, fait des examens simples et élimine les hypothèses jusqu'à isoler la cause.
+{: .callout .callout-analogie}
+
+Le diagnostic réseau fonctionne pareil. Chaque outil de ce module répond à une question précise :
 
 | Question | Outil principal |
 |---|---|
@@ -86,7 +89,11 @@ Trois informations comptent dans cette sortie :
 
 Deux options servent régulièrement. `-s <taille>` change la taille des paquets, pratique pour tester une MTU (la taille maximale d'un paquet sur le lien) douteuse. Sous Linux, `-M do` interdit la fragmentation, alors que Windows utilise `-f -l <taille>`.
 
-Les messages d'erreur disent aussi où chercher. « Destination Host Unreachable » venant de **votre propre adresse** signifie que votre machine n'a pas réussi à joindre la cible sur son segment (souvent un échec de résolution ARP). Venant de **l'adresse d'un routeur**, c'est ce routeur qui n'a pas de route vers la destination. Une absence totale de réponse (timeout) est la situation la plus ambiguë.
+Les messages d'erreur disent aussi où chercher :
+
+- « Destination Host Unreachable » venant de **votre propre adresse** : votre machine n'a pas réussi à joindre la cible sur son segment (souvent un échec de résolution ARP).
+- Le même message venant de **l'adresse d'un routeur** : ce routeur n'a pas de route vers la destination.
+- Une absence totale de réponse (timeout) : c'est la situation la plus ambiguë.
 
 > ⚠️ **Un ping qui échoue ne prouve pas que le serveur est hors ligne.** Beaucoup d'équipements filtrent ICMP : pare-feu d'entreprise, règles par défaut de Windows Server, groupes de sécurité cloud qui n'autorisent pas ICMP tant qu'on ne l'a pas demandé. Le serveur peut très bien servir des milliers de requêtes web pendant que `ping` affiche 100 % de perte. Le raisonnement inverse est tout aussi dangereux : un ping qui réussit prouve seulement que le chemin ICMP fonctionne, pas que votre application est joignable. Ping vous dit « quelqu'un répond à ce niveau », jamais « le service est en bonne santé ».
 {: .callout .callout-attention}
@@ -96,7 +103,10 @@ Les messages d'erreur disent aussi où chercher. « Destination Host Unreachable
 
 ## traceroute et mtr : suivre le colis
 
-Si `ping` vous dit si ça arrive, `traceroute` vous dit par où ça passe. Il envoie des paquets avec un TTL de 1, puis 2, puis 3. Chaque routeur qui reçoit un paquet dont le TTL tombe à zéro le détruit et renvoie un message d'erreur, ce qui révèle son adresse. C'est comme suivre un colis en demandant à chaque étape de se signaler.
+Si `ping` vous dit si ça arrive, `traceroute` vous dit par où ça passe. Il envoie des paquets avec un TTL de 1, puis 2, puis 3. Chaque routeur qui reçoit un paquet dont le TTL tombe à zéro le détruit et renvoie un message d'erreur, ce qui révèle son adresse.
+
+> 📦 **Analogie : le suivi de colis.** C'est comme suivre un colis en demandant à chaque étape de se signaler. Limite de l'image : certains relais refusent de se signaler sans que le colis soit perdu, d'où les étoiles ci-dessous.
+{: .callout .callout-analogie}
 
 ```bash
 traceroute -n 10.30.0.20       # Linux, -n évite la résolution DNS des sauts
@@ -113,7 +123,12 @@ tracert -d 10.30.0.20          # Windows, -d fait la même chose
 
 Le saut 3 affiche `* * *`, et pourtant le chemin atteint sa destination. Ce routeur ne répond tout simplement pas à ces sondes, parce qu'il est configuré ainsi ou parce qu'il limite le débit des messages d'erreur. Les étoiles ne deviennent un vrai problème que si **tous les sauts suivants** restent muets jusqu'à la fin.
 
-Différence de comportement à connaître : le `traceroute` Linux envoie par défaut des paquets UDP, `tracert` Windows envoie de l'ICMP. Un pare-feu qui filtre l'un et pas l'autre donnera donc des résultats différents pour le même chemin. Sous Linux, `traceroute -I` force ICMP, et `traceroute -T -p 443` utilise des segments TCP vers le port 443, utile quand seul le trafic web passe (ce mode demande souvent les droits root).
+Attention à une différence de comportement : le `traceroute` Linux envoie par défaut des paquets UDP, `tracert` Windows envoie de l'ICMP. Un pare-feu qui filtre l'un et pas l'autre donnera donc des résultats différents pour le même chemin.
+
+Sous Linux, deux options changent le type de sonde :
+
+- `traceroute -I` force ICMP.
+- `traceroute -T -p 443` utilise des segments TCP vers le port 443, utile quand seul le trafic web passe (ce mode demande souvent les droits root).
 
 `mtr` combine `ping` et `traceroute` en continu. Plutôt qu'une photo, vous obtenez un film : perte et latence mesurées sur chaque saut, sur des dizaines de passages.
 
@@ -172,7 +187,10 @@ ip route get 10.20.0.15
 
 Plutôt que de lire toute la table de routage en la simulant dans votre tête, vous demandez directement au noyau : « Par où passeriez-vous pour cette destination ? » La réponse donne la passerelle (`via`), l'interface (`dev`) et l'adresse source choisie (`src`). Si la ligne annonce une mauvaise interface ou une mauvaise passerelle, vous tenez votre cause.
 
-`ip neigh` montre le cache des voisins de niveau 2, c'est-à-dire les correspondances adresse IP → adresse MAC apprises récemment :
+> 📖 **Définition.** Le cache des voisins de niveau 2 regroupe les correspondances adresse IP → adresse MAC apprises récemment.
+{: .callout .callout-definition}
+
+`ip neigh` affiche ce cache :
 
 ```text
 10.10.0.1 dev eth0 lladdr 00:1a:2b:3c:4d:5e REACHABLE
@@ -240,7 +258,12 @@ tcp   LISTEN  0      128    0.0.0.0:22          0.0.0.0:*         users:(("sshd"
 udp   UNCONN  0      0      127.0.0.53:53       0.0.0.0:*         users:(("systemd-resolve",pid=540,fd=13))
 ```
 
-La colonne qui décide de tout est **Local Address**. `0.0.0.0` (ou `[::]` en IPv6) signifie « j'écoute sur toutes les interfaces ». `127.0.0.1` signifie « j'écoute uniquement pour les connexions venant de cette machine ». Dans l'exemple, `nginx` écoute sur `127.0.0.1:443` : le service est bien en marche, mais **personne d'autre que le serveur lui-même ne peut le joindre**. On retrouvera ce piège dans le cas pratique.
+La colonne qui décide de tout est **Local Address**.
+
+> 💡 **À retenir.** `0.0.0.0` (ou `[::]` en IPv6) signifie « j'écoute sur toutes les interfaces ». `127.0.0.1` signifie « j'écoute uniquement pour les connexions venant de cette machine ».
+{: .callout .callout-important}
+
+Dans l'exemple, `nginx` écoute sur `127.0.0.1:443` : le service est bien en marche, mais **personne d'autre que le serveur lui-même ne peut le joindre**. On retrouvera ce piège dans le cas pratique.
 
 Sous Windows, l'équivalent est `netstat -ano`, où `-o` affiche l'identifiant du processus (à rapprocher du Gestionnaire des tâches). Sous Linux, `netstat` existe encore mais il est considéré comme historique, et `ss` l'a remplacé.
 
@@ -406,7 +429,11 @@ nc -zv 10.20.0.15 443
 ```text
 nc: connect to 10.20.0.15 port 443 (tcp) failed: Connection refused
 ```
-Voilà l'indice décisif. Un refus, pas un timeout : quelque chose a répondu activement. C'est le plus souvent le serveur lui-même, **allumé et joignable**, mais un pare-feu en REJECT produirait le même message, d'où la vérification côté serveur qui suit. Le ping échouait donc probablement à cause d'un filtrage ICMP, ce qui est cohérent avec une politique de pare-feu stricte sur le VLAN serveurs. Le problème est que rien n'accepte les connexions sur ce port pour nous.
+Voilà l'indice décisif. Un refus, pas un timeout : quelque chose a répondu activement.
+
+C'est le plus souvent le serveur lui-même, **allumé et joignable**. Un pare-feu en REJECT produirait toutefois le même message, d'où la vérification côté serveur qui suit.
+
+Le ping échouait donc probablement à cause d'un filtrage ICMP, ce qui est cohérent avec une politique de pare-feu stricte sur le VLAN serveurs. Reste le vrai problème : rien n'accepte les connexions sur ce port pour nous.
 
 **6. Que se passe-t-il côté serveur ?** Connecté en SSH :
 

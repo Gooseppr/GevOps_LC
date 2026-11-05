@@ -38,11 +38,17 @@ next_module_title: "Systèmes d'exploitation et sécurité des postes et serveur
 
 Une PME de distribution de 220 personnes a un pare-feu, un antivirus sur tous les postes et des sauvegardes quotidiennes. Le réseau a été segmenté avec soin : serveurs d'un côté, postes de l'autre, une DMZ pour le web.
 
-Un jeudi, une assistante comptable reçoit un faux message de « portail fournisseur ». Elle saisit ses identifiants. L'attaquant les rejoue le soir même sur le VPN, qui n'exige qu'un mot de passe. Le compte comptable n'a pas de privilèges particuliers, mais il atteint un partage de fichiers où traîne un script de sauvegarde. Ce script contient les identifiants du compte de service de l'outil de backup, et ce compte est administrateur du domaine.
+Un jeudi, une assistante comptable reçoit un faux message de « portail fournisseur ». Elle saisit ses identifiants. L'attaquant les rejoue le soir même sur le VPN, qui n'exige qu'un mot de passe.
+
+Le compte comptable n'a pas de privilèges particuliers, mais il atteint un partage de fichiers où traîne un script de sauvegarde. Ce script contient les identifiants du compte de service de l'outil de backup, et ce compte est administrateur du domaine.
 
 Samedi, à 3 h du matin, l'attaquant chiffre les serveurs. Il supprime d'abord les sauvegardes, car le compte de service y avait accès en écriture.
 
-Chaque brique « de sécurité » existait, et aucune n'a servi. Le pare-feu n'a rien bloqué, parce que l'attaquant est entré par une porte légitime avec un identifiant valide. L'antivirus n'a rien vu tant que l'attaquant n'a utilisé que des outils d'administration normaux. Les sauvegardes étaient bien faites, mais elles se trouvaient dans le même domaine de confiance que ce qu'elles devaient protéger.
+Chaque brique « de sécurité » existait, et aucune n'a servi :
+
+- **Le pare-feu** n'a rien bloqué, parce que l'attaquant est entré par une porte légitime avec un identifiant valide.
+- **L'antivirus** n'a rien vu tant que l'attaquant n'a utilisé que des outils d'administration normaux.
+- **Les sauvegardes** étaient bien faites, mais elles se trouvaient dans le même domaine de confiance que ce qu'elles devaient protéger.
 
 Ce module donne le vocabulaire et le raisonnement pour analyser ce type d'incident avant qu'il arrive : quoi protéger, contre qui, par quels chemins, et avec quelles mesures qui ne tombent pas toutes en même temps.
 
@@ -64,6 +70,9 @@ Les objectifs de sécurité se décrivent par trois propriétés, souvent appel�
 - **Confidentialité** : seules les personnes autorisées accèdent à l'information.
 - **Intégrité** : l'information n'est pas modifiée sans autorisation, et on peut le vérifier.
 - **Disponibilité** : le service ou la donnée est accessible quand le métier en a besoin.
+
+> 🔑 **Moyen mnémotechnique** : en français, on retient ces propriétés sous l'acronyme **DIC** (Disponibilité, Intégrité, Confidentialité), ou **DICT** lorsqu'on y ajoute la Traçabilité. C'est l'équivalent du CIA anglais.
+{: .callout .callout-memo}
 
 Un rançongiciel moderne attaque en général deux propriétés à la fois. Il rend les données indisponibles en les chiffrant, et il en exfiltre une copie pour menacer de les publier, ce qui touche la confidentialité. Raisonner uniquement en « confidentialité », comme beaucoup de débutants, conduit à sous-estimer la disponibilité, qui est souvent ce qui coûte le plus cher à l'entreprise.
 
@@ -87,7 +96,8 @@ Les éléments en gras sont ceux qu'un inventaire « serveurs et postes » oubli
 
 ## Surface d'attaque
 
-La surface d'attaque est l'ensemble des points par lesquels un attaquant peut interagir avec le système. Elle dépasse les ports ouverts.
+> 📖 **Définition.** La surface d'attaque est l'ensemble des points par lesquels un attaquant peut interagir avec le système. Elle dépasse les ports ouverts : identifiants, dépendances, prestataires et utilisateurs en font partie.
+{: .callout .callout-definition}
 
 | Vecteur | Exposition typique | Impact potentiel |
 |---------|-------------------|------------------|
@@ -127,7 +137,10 @@ flowchart LR
 
 ### Exemple : Log4Shell, même CVE, risques différents
 
-CVE (Common Vulnerabilities and Exposures) est l'identifiant public d'une vulnérabilité connue. La CVE-2021-44228, dite Log4Shell, touche la bibliothèque de journalisation Java Log4j 2. Elle a reçu un score CVSS (Common Vulnerability Scoring System) de 10.0, le maximum.
+> 📖 **Définition.** Une CVE (Common Vulnerabilities and Exposures) est l'identifiant public d'une vulnérabilité connue. Le score CVSS (Common Vulnerability Scoring System) en mesure la gravité intrinsèque, sur une échelle de 0 à 10.
+{: .callout .callout-definition}
+
+La CVE-2021-44228, dite Log4Shell, touche la bibliothèque de journalisation Java Log4j 2. Elle a reçu un score CVSS de 10.0, le maximum.
 
 Le mécanisme est simple. Log4j interprète certaines expressions dans les messages qu'il journalise. Un attaquant envoie une chaîne comme celle-ci dans un champ que l'application journalise (en-tête `User-Agent`, nom d'utilisateur, champ de formulaire) :
 
@@ -216,6 +229,9 @@ Les organisations investissent en général beaucoup dans le préventif, un peu 
 
 Le principe : empiler des contrôles indépendants pour que l'échec d'un seul ne suffise pas à l'attaquant.
 
+> 🏰 **Analogie : le château fort.** Douves, rempart, donjon : l'assaillant doit franchir chaque obstacle. Mais si toutes les portes s'ouvrent avec la même clé, le château n'a en réalité qu'une seule protection. Limite : un système d'information a de nombreuses entrées, et un attaquant peut arriver directement à l'intérieur, par exemple avec un identifiant valide.
+{: .callout .callout-analogie}
+
 ```mermaid
 flowchart LR
     N["Internet"] --> P["Filtrage<br/>périmètre"]
@@ -257,7 +273,9 @@ GRANT SELECT, INSERT, UPDATE ON orders, order_lines TO app_orders;
 GRANT SELECT ON customers TO app_orders;
 ```
 
-La même vulnérabilité d'application a désormais un impact borné : l'attaquant lit et modifie les commandes, mais ne peut pas exécuter de code sur le serveur de base de données. Il ne peut pas non plus supprimer des tables, à condition qu'elles appartiennent à un autre rôle que app_orders : dans PostgreSQL, le propriétaire d'une table garde toujours le droit de la supprimer, quel que soit le REVOKE.
+La même vulnérabilité d'application a désormais un impact borné : l'attaquant lit et modifie les commandes, mais ne peut pas exécuter de code sur le serveur de base de données.
+
+Il ne peut pas non plus supprimer des tables, à condition qu'elles appartiennent à un autre rôle que app_orders : dans PostgreSQL, le propriétaire d'une table garde toujours le droit de la supprimer, quel que soit le REVOKE.
 
 Le moindre privilège se heurte à la dérive : les droits s'accumulent (arrivée sur un projet, dépannage « temporaire »), et personne ne les retire. Il suppose donc des revues périodiques de droits, pas seulement une bonne configuration initiale.
 

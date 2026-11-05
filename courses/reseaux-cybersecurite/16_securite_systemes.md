@@ -36,7 +36,9 @@ next_module_title: "Identité, authentification et contrôle d'accès"
 
 Voici un scénario illustratif, assemblé à partir de schémas d'attaque courants. Les chiffres sont inventés.
 
-Une entreprise de 300 postes exploite un serveur de fichiers Windows. Il traîne depuis quatre mois sans plusieurs correctifs de sécurité : le redémarrage « tomberait mal » en période de clôture comptable. Un attaquant obtient un premier accès par un poste utilisateur (pièce jointe piégée) et trouve une vulnérabilité d'élévation de privilèges locale sur ce serveur. Il devient administrateur local, puis lit la mémoire du processus LSASS* pendant qu'une session du compte `svc-backup` est ouverte. Ce compte de service a été ajouté à **Domain Admins** « pour que la sauvegarde ne rate plus jamais un dossier ».
+Une entreprise de 300 postes exploite un serveur de fichiers Windows. Il traîne depuis quatre mois sans plusieurs correctifs de sécurité : le redémarrage « tomberait mal » en période de clôture comptable.
+
+Un attaquant obtient un premier accès par un poste utilisateur (pièce jointe piégée) et trouve une vulnérabilité d'élévation de privilèges locale sur ce serveur. Il devient administrateur local, puis lit la mémoire du processus LSASS* pendant qu'une session du compte `svc-backup` est ouverte. Ce compte de service a été ajouté à **Domain Admins** « pour que la sauvegarde ne rate plus jamais un dossier ».
 
 Avec ce compte, l'attaquant :
 
@@ -81,6 +83,9 @@ Les deux familles partagent le même modèle de base : un noyau en mode privilé
 > 🧠 **Concept clé** : sous Windows, le droit d'agir ne dépend pas seulement de l'appartenance à un groupe, mais aussi des **privilèges** présents dans le jeton du processus. Un compte non administrateur qui possède `SeImpersonatePrivilege` peut souvent atteindre SYSTEM. Auditer les groupes ne suffit donc pas.
 {: .callout .callout-important}
 
+> 🎫 **Analogie : le jeton d'accès, un badge d'entreprise.** Chaque processus Windows porte un badge qui indique qui il est (SID du compte et des groupes) et ce qu'il peut faire (privilèges). Le système lit le badge, pas l'intention de celui qui le porte. Limite de l'image : un vrai badge se prête difficilement, alors qu'un processus qui détient `SeImpersonatePrivilege` peut emprunter le jeton d'un autre.
+{: .callout .callout-analogie}
+
 ## Comptes, groupes et privilèges : de l'accès local à l'administration complète
 
 ### Côté attaquant
@@ -94,7 +99,9 @@ find / -perm -4000 -type f 2>/dev/null
 getcap -r / 2>/dev/null
 ```
 
-Si `sudo -l` répond `(ALL) NOPASSWD: /usr/bin/vim`, l'attaquant lance `sudo vim` puis tape `:!sh`. Il obtient un shell root sans exploiter aucune vulnérabilité. Le site GTFOBins recense ce type de détournement pour des centaines de binaires légitimes. Sur le noyau, des failles comme Dirty Pipe (CVE-2022-0847, noyau Linux 5.8 et suivants avant correctif) ou PwnKit font passer un compte quelconque à root, mais seulement si le correctif manque.
+Si `sudo -l` répond `(ALL) NOPASSWD: /usr/bin/vim`, l'attaquant lance `sudo vim` puis tape `:!sh`. Il obtient un shell root sans exploiter aucune vulnérabilité. Le site GTFOBins recense ce type de détournement pour des centaines de binaires légitimes.
+
+Sur le noyau, des failles comme Dirty Pipe (CVE-2022-0847, noyau Linux 5.8 et suivants avant correctif) ou PwnKit font passer un compte quelconque à root, mais seulement si le correctif manque.
 
 Sur Windows, l'équivalent est :
 
@@ -139,7 +146,14 @@ sudo visudo -cf /etc/sudoers.d/ops-nginx
 
 ## Active Directory : domaine, annuaire et GPO
 
-Active Directory (AD) est le service d'annuaire de Microsoft. Il centralise les comptes, les groupes, les machines et les politiques de configuration d'un parc. Un **domaine** est le périmètre administratif ; les **contrôleurs de domaine** (DC, Domain Controller) hébergent l'annuaire et se répliquent entre eux. Les objets sont rangés dans des **unités d'organisation** (OU, Organizational Unit), sur lesquelles on délègue l'administration et on applique des GPO (Group Policy Object)*.
+> 📖 **Définition.** Active Directory (AD) est le service d'annuaire de Microsoft. Il centralise les comptes, les groupes, les machines et les politiques de configuration d'un parc.
+{: .callout .callout-definition}
+
+Ses briques principales :
+
+- le **domaine** est le périmètre administratif ;
+- les **contrôleurs de domaine** (DC, Domain Controller) hébergent l'annuaire et se répliquent entre eux ;
+- les **unités d'organisation** (OU, Organizational Unit) rangent les objets : on y délègue l'administration et on y applique des GPO (Group Policy Object)*.
 
 ```mermaid
 flowchart TD
@@ -259,7 +273,9 @@ sudo ausearch -k identity -ts today
 
 ### Pourquoi le retard coûte cher
 
-WannaCry (mai 2017) a exploité la vulnérabilité SMB MS17-010, dont le correctif existait depuis mars 2017. Les machines atteintes n'étaient pas victimes d'une attaque inconnue, mais d'un retard d'application. Le même schéma revient avec PrintNightmare (CVE-2021-34527), Zerologon (CVE-2020-1472) ou, sur Linux, sudo (Baron Samedit, CVE-2021-3156). La contrainte réelle n'est pas l'ignorance : c'est le redémarrage, le risque de régression et l'accord du métier.
+WannaCry (mai 2017) a exploité la vulnérabilité SMB MS17-010, dont le correctif existait depuis mars 2017. Les machines atteintes n'étaient pas victimes d'une attaque inconnue, mais d'un retard d'application. Le même schéma revient avec PrintNightmare (CVE-2021-34527), Zerologon (CVE-2020-1472) ou, sur Linux, sudo (Baron Samedit, CVE-2021-3156).
+
+Pourquoi ces retards ? Pas par ignorance : la contrainte réelle, c'est le redémarrage, le risque de régression et l'accord du métier.
 
 ### Appliquer des correctifs sans casser la production
 
@@ -282,7 +298,15 @@ Sur Linux, activer les mises à jour de sécurité automatiques (`unattended-upg
 
 ### Durcir : réduire ce qui existe
 
-Le durcissement consiste à retirer ou verrouiller ce qui n'est pas nécessaire. Les référentiels de départ sont les **CIS Benchmarks** (Center for Internet Security) et les Security Baselines de Microsoft. Les benchmarks CIS proposent des profils Level 1 (peu d'impact fonctionnel) et Level 2 (plus strict, risque de casser des applications). Appliquer Level 2 d'un coup sur un parc existant est la façon la plus sûre de provoquer un incident auto-infligé : on teste sur un échantillon, on déploie par anneaux, on documente les exceptions.
+> 📖 **Définition.** Le durcissement consiste à retirer ou verrouiller ce qui n'est pas nécessaire.
+{: .callout .callout-definition}
+
+Les référentiels de départ sont les **CIS Benchmarks** (Center for Internet Security) et les Security Baselines de Microsoft. Les benchmarks CIS proposent deux profils :
+
+- **Level 1** : peu d'impact fonctionnel ;
+- **Level 2** : plus strict, avec un risque de casser des applications.
+
+Appliquer Level 2 d'un coup sur un parc existant est la façon la plus sûre de provoquer un incident auto-infligé : on teste sur un échantillon, on déploie par anneaux, on documente les exceptions.
 
 **Windows** (via GPO ou Intune, l'interface varie selon la version) :
 
@@ -325,7 +349,13 @@ Le coût : un service qui écrit ailleurs que prévu échouera. Il faut tester, 
 
 ## Sauvegardes et restauration : ce qui reste quand le reste est chiffré
 
-Les opérateurs de ransomware ne s'en tiennent plus aux fichiers de production : ils cherchent les sauvegardes. Les commandes classiques sont `vssadmin delete shadows /all /quiet` pour supprimer les copies shadow Windows, `wbadmin delete catalog -quiet` pour effacer le catalogue de sauvegarde Windows, et l'arrêt ou la suppression des jobs de la console de sauvegarde. Si la console se connecte avec un compte du domaine compromis, l'attaquant dispose de tout ce qu'il faut.
+Les opérateurs de ransomware ne s'en tiennent plus aux fichiers de production : ils cherchent les sauvegardes. Leurs gestes classiques :
+
+- `vssadmin delete shadows /all /quiet` pour supprimer les copies shadow Windows ;
+- `wbadmin delete catalog -quiet` pour effacer le catalogue de sauvegarde Windows ;
+- l'arrêt ou la suppression des jobs de la console de sauvegarde.
+
+Si la console se connecte avec un compte du domaine compromis, l'attaquant dispose de tout ce qu'il faut.
 
 Une sauvegarde utile répond à quatre exigences :
 
@@ -333,6 +363,9 @@ Une sauvegarde utile répond à quatre exigences :
 2. **Complète pour ce qui compte.** Données, mais aussi configuration du système et, pour AD, au moins deux DC sauvegardés (état du système). Restaurer un domaine est une procédure à part entière, avec ses pièges (restauration faisant autorité ou non) ; elle se répète en laboratoire avant le jour où elle sert.
 3. **Dimensionnée par des objectifs.** Le RPO (Recovery Point Objective) est la quantité de données qu'on accepte de perdre. Le RTO (Recovery Time Objective) est le temps maximal de remise en service. Ces valeurs viennent du métier, pas de l'équipe technique : restaurer 20 To depuis un stockage froid peut prendre plusieurs jours.
 4. **Testée.** Une sauvegarde jamais restaurée est une hypothèse.
+
+> 🔑 **Moyen mnémotechnique** : le RPO regarde en arrière, vers le dernier **P**oint de sauvegarde (les données perdues). Le RTO regarde en avant, vers le **T**emps nécessaire pour repartir.
+{: .callout .callout-memo}
 
 Exemple avec `restic` sur Linux (principe identique avec d'autres outils) :
 

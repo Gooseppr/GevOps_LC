@@ -65,7 +65,12 @@ flowchart LR
 
 ## Instant query et range query
 
-Le vocabulaire prête à confusion, car `[5m]` dans `rate(x[5m])` n'a rien à voir avec une range query. Ce `[5m]` est un **sélecteur de plage** : la fenêtre de données que la fonction lit à *un* instant donné.
+Attention au vocabulaire : `[5m]` dans `rate(x[5m])` n'a rien à voir avec une range query.
+
+> 📖 **Définition.** Un **sélecteur de plage**, comme `[5m]`, désigne la fenêtre de données que la fonction lit à *un* instant donné.
+{: .callout .callout-definition}
+
+Les deux modes de requête, eux, se distinguent ainsi :
 
 - Une **instant query** évalue l'expression à un seul timestamp et renvoie une valeur par série.
 - Une **range query** évalue la même expression à chaque pas (`step`) entre un début et une fin, et renvoie une suite de points par série.
@@ -95,7 +100,7 @@ Dans Grafana, un panel **Time series** envoie une range query. Un panel **Stat**
 
 ## Construire un taux d'erreurs fiable
 
-Un taux d'erreurs semble simple à écrire. En pratique il se construit en trois versions.
+Un taux d'erreurs, c'est simple à écrire ? En pratique, il se construit en trois versions.
 
 **v1 : global et naïf**
 
@@ -119,7 +124,10 @@ sum by (service) (rate(http_requests_total[5m]))
 
 Les deux côtés portent exactement le même label (`service`), donc la correspondance se fait toute seule.
 
-Le piège vient des services sans erreur. Quand `catalog` n'a aucune 5xx, la série du numérateur n'existe tout simplement pas, car `rate()` sur une série absente ne renvoie rien. Le résultat de la division pour `catalog` est alors **absent**, et non 0 %. Un panel qui devrait afficher « 0 % » reste vide, et une alerte construite dessus ne se déclenche jamais, ce qui est pire.
+Où est le piège ? Dans les services sans erreur. Quand `catalog` n'a aucune 5xx, la série du numérateur n'existe tout simplement pas : `rate()` sur une série absente ne renvoie rien. Le résultat de la division pour `catalog` est alors **absent**, et non 0 %. Deux conséquences :
+
+- un panel qui devrait afficher « 0 % » reste vide ;
+- pire, une alerte construite dessus ne se déclenche jamais.
 
 **v3 : robuste**
 
@@ -141,7 +149,10 @@ L'opérateur `or` garde toutes les séries de gauche, puis ajoute celles de droi
 
 ## Vector matching : faire se rencontrer deux séries
 
-Dès que vous écrivez `A / B`, `A * B` ou `A > B` avec deux vecteurs, Prometheus doit décider quelle série de gauche rencontre quelle série de droite. Pensez à un annuaire : pour fusionner deux listes de personnes, il faut un critère de rapprochement, sinon on ne sait pas qui apparier.
+Quand vous écrivez `A / B`, `A * B` ou `A > B` avec deux vecteurs, quelle série de gauche rencontre quelle série de droite ? C'est à Prometheus de le décider.
+
+> 📇 **Analogie : fusionner deux annuaires.** Pour fusionner deux listes de personnes, il faut un critère de rapprochement, sinon on ne sait pas qui apparier. Pour les séries, ce critère, ce sont les labels.
+{: .callout .callout-analogie}
 
 **La règle par défaut** : deux séries se correspondent si elles ont **exactement les mêmes labels**, le nom de métrique étant ignoré. C'est une correspondance one-to-one. Elle fonctionne quand les deux côtés ont la même forme, comme `node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes`.
 
@@ -169,7 +180,12 @@ Sans `group_left`, Prometheus refuse : à gauche, plusieurs séries partageraien
 
 ### Enrichir une série avec des labels : le pattern « info »
 
-Le second usage de `group_left` est le plus courant en exploitation. Certaines métriques valent toujours 1 et ne servent qu'à porter des labels descriptifs. `node_uname_info` fait partie de cette famille : elle contient `nodename`, `release`, etc. On multiplie par 1, donc la valeur ne change pas, et on recopie les labels voulus :
+Le second usage de `group_left` est le plus courant en exploitation. Il s'appuie sur des métriques « info ».
+
+> 📖 **Définition.** Une métrique **« info »** vaut toujours 1 et ne sert qu'à porter des labels descriptifs.
+{: .callout .callout-definition}
+
+`node_uname_info` fait partie de cette famille : elle contient `nodename`, `release`, etc. On multiplie par 1, donc la valeur ne change pas, et on recopie les labels voulus :
 
 ```promql
 # Charge CPU par machine, avec le nom lisible de l'hôte
@@ -265,6 +281,9 @@ Le coût est caché : l'expression interne est évaluée 60 fois (1 h ÷ 1 min) 
 ## Percentiles issus des histogrammes
 
 Un histogramme Prometheus ne stocke pas de latences individuelles. Il compte, pour chaque seuil `le` (« less than or equal »), le nombre de requêtes plus rapides que ce seuil. Les buckets sont **cumulatifs** : `le="0.5"` inclut tout ce qui est dans `le="0.1"`.
+
+> ⏱️ **Analogie : une course chronométrée par tranches.** Imaginez qu'on note seulement combien de coureurs ont fini en moins de 10 min, de 20 min, de 30 min. Chaque compteur inclut les précédents. Limite : sans les temps individuels, on ne peut qu'estimer le temps sous lequel 95 % des coureurs sont passés. C'est le rôle de l'interpolation de `histogram_quantile`.
+{: .callout .callout-analogie}
 
 Pour estimer le p95 :
 

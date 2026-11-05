@@ -45,7 +45,8 @@ L'adresse IP indique où le paquet veut aller. Elle ne dit rien sur la façon de
 - la **couche physique** transforme des bits en phénomène physique (tension, lumière, onde radio) ;
 - la **couche liaison**, qui est Ethernet dans la grande majorité des réseaux filaires, organise ces bits en trames, les adresse à un voisin direct et en contrôle l'intégrité.
 
-Une image aide : l'IP est l'adresse postale complète, l'Ethernet est le facteur qui doit savoir quelle porte de l'immeuble pousser. Si la porte est murée (câble), si le facteur ne connaît pas le nom sur la sonnette (adresse MAC), la lettre ne sera pas distribuée, aussi bien rédigée soit son adresse.
+> 📮 **Analogie : le facteur et la sonnette.** L'IP est l'adresse postale complète, l'Ethernet est le facteur qui doit savoir quelle porte de l'immeuble pousser. Si la porte est murée (câble), si le facteur ne connaît pas le nom sur la sonnette (adresse MAC), la lettre ne sera pas distribuée, aussi bien rédigée soit son adresse.
+{: .callout .callout-analogie}
 
 > 🧠 **Concept fondamental** : Ethernet ne vise jamais la destination finale, seulement le **prochain équipement sur le même lien local**. Chaque saut recrée une trame neuve avec de nouvelles adresses MAC, alors que l'adresse IP voyage de bout en bout.
 {: .callout .callout-important}
@@ -71,11 +72,16 @@ Le Wi-Fi est un cas à part : le support est l'air, partagé par tous les appare
 
 ### Du bit au signal
 
-Pour la couche physique, un bit n'est ni un 0 ni un 1 abstrait. C'est une variation de tension sur le cuivre, une impulsion lumineuse en fibre, une modulation de l'onde en radio. Le récepteur échantillonne ce signal et reconstitue les bits. Si le signal arrive trop affaibli (atténuation) ou parasité par la paire voisine (diaphonie), le récepteur se trompe de bits. L'erreur sera détectée plus haut, par la trame, mais la cause est ici.
+Pour la couche physique, un bit n'est ni un 0 ni un 1 abstrait. C'est une variation de tension sur le cuivre, une impulsion lumineuse en fibre, une modulation de l'onde en radio. Le récepteur échantillonne ce signal et reconstitue les bits.
+
+Si le signal arrive trop affaibli (atténuation) ou parasité par la paire voisine (diaphonie), le récepteur se trompe de bits. L'erreur sera détectée plus haut, par la trame, mais la cause est ici.
 
 ### Négociation du lien
 
-Deux équipements en cuivre qui se branchent n'ont pas été configurés ensemble : ils **négocient**. Chacun annonce ce qu'il sait faire (100 Mbit/s, 1 Gbit/s, duplex complet ou non) et ils retiennent la meilleure combinaison commune. C'est l'auto-négociation.
+Deux équipements en cuivre qui se branchent n'ont pas été configurés ensemble. Comment s'accordent-ils ? Ils **négocient**.
+
+> 📖 **Définition.** L'**auto-négociation** est l'échange par lequel chaque équipement annonce ce qu'il sait faire (100 Mbit/s, 1 Gbit/s, duplex complet ou non), pour que les deux retiennent la meilleure combinaison commune.
+{: .callout .callout-definition}
 
 Le **duplex** décrit la façon d'utiliser le lien :
 
@@ -83,6 +89,9 @@ Le **duplex** décrit la façon d'utiliser le lien :
 - en **half duplex**, un seul sens à la fois, avec risque de collision. Les anciens hubs, qui répétaient chaque signal sur tous les ports, fonctionnaient ainsi et s'appuyaient sur CSMA/CD (Carrier Sense Multiple Access with Collision Detection)* pour gérer les collisions.
 
 *\*CSMA/CD : avant d'émettre, une station écoute le câble, et si deux stations parlent en même temps, elles détectent la collision, s'arrêtent et réessaient après un délai aléatoire.*
+
+> 📞 **Analogie : téléphone et talkie-walkie.** Le full duplex ressemble à un appel téléphonique : les deux interlocuteurs peuvent parler en même temps. Le half duplex ressemble à un talkie-walkie : un seul parle à la fois, et si les deux appuient ensemble, les messages se brouillent, comme lors d'une collision.
+{: .callout .callout-analogie}
 
 Avec des switches modernes et des liens full duplex, les collisions n'existent plus en pratique. Le half duplex ne subsiste que dans les mauvaises configurations, et on verra plus bas ce que cela donne.
 
@@ -155,7 +164,7 @@ La table MAC du switch (MAC → port) n'a rien à voir avec le cache ARP d'un po
 
 ## ARP : retrouver la MAC d'un voisin IPv4
 
-Lorsque votre poste veut parler à `192.168.1.20`, il sait à qui il veut s'adresser par l'IP, mais la trame exige une adresse MAC de destination. C'est le rôle d'ARP (Address Resolution Protocol) de faire le lien : il pose la question à tout le segment, et le propriétaire de l'IP répond.
+Votre poste veut parler à `192.168.1.20`. Il connaît son IP, mais la trame exige une adresse MAC de destination : comment la trouver ? C'est le rôle d'ARP (Address Resolution Protocol) de faire le lien : il pose la question à tout le segment, et le propriétaire de l'IP répond.
 
 ```mermaid
 sequenceDiagram

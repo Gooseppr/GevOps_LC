@@ -56,7 +56,8 @@ Le menu de gauche (ou le bouton hamburger en haut à gauche si le menu est repli
 
 Vous verrez aussi **Connections** (là où se branchent les sources de données, sujet du prochain module) et, selon la version, d'autres entrées comme Drilldown. Ignorez-les pour l'instant.
 
-Une règle simple pour choisir : **Dashboards pour surveiller ce qu'on connaît, Explore pour enquêter sur ce qu'on ne connaît pas.** Un dashboard répond à une question que quelqu'un a posée avant vous. Explore sert quand la question est nouvelle.
+> 💡 **À retenir.** **Dashboards pour surveiller ce qu'on connaît, Explore pour enquêter sur ce qu'on ne connaît pas.** Un dashboard répond à une question que quelqu'un a posée avant vous. Explore sert quand la question est nouvelle.
+{: .callout .callout-important}
 
 L'entrée Administration n'est visible que si votre rôle le permet. Sur un compte en lecture seule, elle disparaît, ce qui n'est pas un bug.
 
@@ -76,14 +77,18 @@ flowchart TD
     D1 --> P2[Panel Taux d erreurs]
 ```
 
-- **L'organisation** est le niveau le plus étanche. Dashboards, sources de données, équipes et règles d'alerte appartiennent à une organisation et n'apparaissent pas dans les autres. Pensez à des locataires dans un même immeuble. Un utilisateur peut appartenir à plusieurs organisations avec un rôle différent dans chacune ; le sélecteur d'organisation (page de profil ou en haut du menu selon la version) permet de passer de l'une à l'autre.
+- **L'organisation** est le niveau le plus étanche. Dashboards, sources de données, équipes et règles d'alerte appartiennent à une organisation et n'apparaissent pas dans les autres. Un utilisateur peut appartenir à plusieurs organisations avec un rôle différent dans chacune ; le sélecteur d'organisation (page de profil ou en haut du menu selon la version) permet de passer de l'une à l'autre.
 - **Le dossier** sert à ranger, mais aussi à protéger : c'est le niveau où l'on pose généralement les permissions. Donner à l'équipe réseau le droit d'éditer le dossier « Réseau » est bien plus maintenable que de régler dashboard par dashboard.
 - **Le dashboard** est une page composée de panels, avec ses propres réglages (période, actualisation, fuseau, variables).
 - **Le panel** est une visualisation individuelle : un graphique, une jauge, un tableau, un panneau de logs.
 
+> 🏢 **Analogie : l'immeuble.** L'instance est l'immeuble, chaque organisation un appartement fermé à clé : ce qui s'y trouve reste invisible des voisins. Les dossiers en sont les pièces, chacune avec sa propre serrure (les permissions). Limite : un même utilisateur peut détenir les clés de plusieurs appartements, avec un rôle différent dans chacun.
+{: .callout .callout-analogie}
+
 Dans une instance fraîchement installée, vous êtes très probablement seul dans l'organisation par défaut (« Main Org. »). C'est suffisant pour ce parcours ; le multi-organisation est surtout utile pour séparer des clients ou des équipes qui ne doivent rien partager.
 
-Chaque dashboard possède un identifiant unique, l'UID (Unique Identifier), visible dans l'URL : `/d/<UID>/<nom-lisible>`. Le nom peut changer, l'UID reste stable. Quand vous partagez un lien ou que vous automatisez quelque chose plus tard, c'est lui qui compte.
+> 📖 **Définition.** L'UID (Unique Identifier) est l'identifiant unique d'un dashboard, visible dans l'URL : `/d/<UID>/<nom-lisible>`. Le nom peut changer, l'UID reste stable : c'est lui qui compte quand vous partagez un lien ou que vous automatisez quelque chose plus tard.
+{: .callout .callout-definition}
 
 ## Le sélecteur temporel : le réglage qui change tout
 
@@ -103,7 +108,11 @@ Il y a aussi les boutons de zoom à côté : la loupe pour dézoomer, les flèch
 
 ### L'actualisation
 
-À côté de la période se trouve le menu d'auto-refresh (Off, 5s, 10s, 30s, 1m, etc.). Il relance périodiquement les requêtes. Une valeur trop basse sur un dashboard chargé met la source de données sous pression sans rien apporter : une métrique collectée toutes les 15 secondes n'a aucune raison d'être rafraîchie toutes les 5. L'administrateur peut d'ailleurs fixer un plancher (paramètre `min_refresh_interval` dans la section `[dashboards]` de la configuration serveur).
+À côté de la période se trouve le menu d'auto-refresh (Off, 5s, 10s, 30s, 1m, etc.). Il relance périodiquement les requêtes.
+
+Attention à une valeur trop basse sur un dashboard chargé : elle met la source de données sous pression sans rien apporter. Une métrique collectée toutes les 15 secondes n'a aucune raison d'être rafraîchie toutes les 5.
+
+L'administrateur peut d'ailleurs fixer un plancher (paramètre `min_refresh_interval` dans la section `[dashboards]` de la configuration serveur).
 
 > 💡 **Astuce** — Le bouton de rafraîchissement manuel (la flèche circulaire) fonctionne même quand l'auto-refresh est sur Off. En investigation, laissez l'auto-refresh éteint : une page qui bouge pendant que vous analysez est plus gênante qu'utile.
 {: .callout .callout-astuce}
@@ -158,7 +167,7 @@ Le mode kiosque est apprécié pour les écrans muraux d'une salle d'astreinte, 
 
 Quand vous ouvrez un dashboard, vous êtes en mode **View** : vous pouvez changer la période, filtrer, zoomer, regarder en détail un panel. Le mode **Edit** (bouton en haut à droite, ou touche `e` sur un panel survolé) permet de modifier les panels, leur disposition et les réglages du dashboard. Les modifications ne sont enregistrées qu'à la sauvegarde ; sinon, vous pouvez les abandonner.
 
-Si vous ne voyez pas le bouton, ce n'est pas un bug d'affichage, c'est une question de droits. Trois couches s'additionnent :
+Pas de bouton Edit ? Ce n'est pas un bug d'affichage, c'est une question de droits. Trois couches s'additionnent :
 
 - **le rôle dans l'organisation** : Viewer (lecture), Editor (peut créer et modifier), Admin (gère aussi l'organisation et ses sources de données) ;
 - **les permissions du dossier ou du dashboard**, qui peuvent restreindre ou étendre le rôle ;
@@ -206,7 +215,8 @@ Une fois importé, vérifiez trois choses avant de lui faire confiance :
 | Pas de bouton Edit | rôle Viewer ou permission de dossier restrictive | demander le rôle Editor, ou la permission sur le dossier concerné |
 | Un dashboard importé affiche « No data » partout | source de données non sélectionnée ou métriques différentes de celles attendues | rouvrir les réglages du panel, choisir la bonne source, adapter la requête |
 
-Quand un panel affiche « No data », ne concluez jamais « il n'y a pas de problème ». Cela signifie seulement que la requête n'a rien renvoyé. Est-ce parce que la période est mauvaise, parce que le service est tombé, ou parce que la requête est incorrecte ? C'est à vous de le déterminer. Ce réflexe se renforcera au fil du parcours.
+> 💡 **À retenir.** « No data » ne veut jamais dire « il n'y a pas de problème ». Cela signifie seulement que la requête n'a rien renvoyé. La période est-elle mauvaise, le service est-il tombé, la requête est-elle incorrecte ? C'est à vous de le déterminer. Ce réflexe se renforcera au fil du parcours.
+{: .callout .callout-important}
 
 ## Cas réel : l'incident du samedi soir (scénario illustratif)
 

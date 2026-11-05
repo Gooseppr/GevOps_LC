@@ -71,7 +71,17 @@ Le RSSI (l'équivalent français du CISO, Chief Information Security Officer) a 
 | RSSI | Définit la stratégie et le cadre, mesure l'écart, challenge, remonte les risques, pilote les programmes | Administrer les outils au quotidien, valider ses propres contrôles |
 | Propriétaires métier | Possèdent les risques liés à leurs processus et données | Se désintéresser de la sécurité parce que « c'est un sujet IT » |
 
-Cette répartition se formalise souvent avec une matrice RACI (Responsible, Accountable, Consulted, Informed). Sa valeur tient à une règle simple : une seule personne *Accountable* par décision.
+Cette répartition se formalise souvent avec une matrice RACI.
+
+> 📖 **Définition.** Une matrice RACI attribue quatre rôles pour chaque décision ou activité :
+>
+> - *Responsible* : la personne qui réalise ;
+> - *Accountable* : la personne qui répond du résultat et tranche ;
+> - *Consulted* : la personne qui donne son avis avant ;
+> - *Informed* : la personne tenue au courant après.
+>
+> Sa valeur tient à une règle simple : une seule personne *Accountable* par décision.
+{: .callout .callout-definition}
 
 > ⚠️ **Erreur fréquente : la fonction RSSI réduite à l'administration des outils.** Quand le RSSI passe ses semaines à régler le proxy, gérer les règles du pare-feu et trier les alertes de l'antivirus, la fonction devient un poste d'exploitation avec un titre de direction. Trois conséquences se cumulent :
 >
@@ -82,7 +92,9 @@ Cette répartition se formalise souvent avec une matrice RACI (Responsible, Acco
 
 La correction passe par un partage explicite. Le RSSI **définit et contrôle**, les équipes IT et le SOC (Security Operations Center) **exécutent**. Dans une petite structure où le cumul est inévitable, on compense par une revue externe annuelle des contrôles que le RSSI a lui-même mis en place.
 
-Le rattachement pèse tout autant. Un RSSI rattaché au DSI arbitre sous pression des délais et du budget IT, alors que son rôle consiste précisément à contredire parfois le DSI. Un rattachement direct à la direction générale, ou à défaut un droit d'alerte formel vers le comité de direction, change la nature de la fonction. Cela a un coût : un RSSI près du pouvoir doit y consacrer du temps et de la crédibilité politique, et il peut s'éloigner du terrain.
+À qui le RSSI rend-il compte ? La question pèse autant que la répartition des rôles. Un RSSI rattaché au DSI arbitre sous pression des délais et du budget IT, alors que son rôle consiste précisément à contredire parfois le DSI.
+
+Un rattachement direct à la direction générale, ou à défaut un droit d'alerte formel vers le comité de direction, change la nature de la fonction. Cela a un coût : un RSSI près du pouvoir doit y consacrer du temps et de la crédibilité politique, et il peut s'éloigner du terrain.
 
 ## Une stratégie cyber alignée sur les enjeux de l'organisation ⭐
 
@@ -148,7 +160,8 @@ La politique de sécurité de 60 pages que personne n'a lue reste le piège clas
 - **Procédures et guides** : comment on applique concrètement chaque standard.
 - **Contrôles techniques** : les paramètres des systèmes qui l'imposent ou la mesurent.
 
-Un standard n'a de valeur que s'il est testable. Si l'on ne peut pas écrire la commande ou la requête qui vérifie la règle, la règle est trop vague.
+> 💡 **À retenir** : un standard n'a de valeur que s'il est testable. Si l'on ne peut pas écrire la commande ou la requête qui vérifie la règle, la règle est trop vague.
+{: .callout .callout-important}
 
 Exemple : le standard « MFA obligatoire pour les comptes disposant d'un accès console » se vérifie sur AWS (les commandes équivalentes existent chez les autres fournisseurs) :
 
@@ -174,7 +187,10 @@ Une approche simple pour classer les initiatives :
 priorité ≈ (réduction de risque × couverture) / (coût + charge d'exploitation + effort de conduite du changement)
 ```
 
-Le terme souvent oublié est la **charge d'exploitation**. Un outil acheté crée un coût récurrent : licences, réglages, et surtout quelqu'un pour traiter ce qu'il remonte. Un EDR sans équipe pour répondre aux alertes ne réduit pas le risque proportionnellement à son prix.
+Le terme souvent oublié est la **charge d'exploitation**. Un outil acheté crée un coût récurrent : licences, réglages, et surtout quelqu'un pour traiter ce qu'il remonte.
+
+> 🚨 **Analogie : l'alarme sans gardien.** Un EDR sans équipe pour répondre aux alertes ressemble à une alarme que personne ne vient vérifier quand elle sonne : il ne réduit pas le risque proportionnellement à son prix. Limite de l'image : un EDR peut bloquer seul certaines menaces, mais l'investigation et la réponse restent humaines.
+{: .callout .callout-analogie}
 
 Exemple illustratif pour l'industriel du scénario, avec des chiffres fictifs :
 
@@ -192,7 +208,10 @@ Côté ressources, la question n'est pas seulement « combien de personnes » ma
 
 ## Indicateurs : KRI et KPI
 
-Les KRI (Key Risk Indicator) mesurent l'exposition au risque, ce qui peut mal tourner. Les KPI (Key Performance Indicator) mesurent la performance des actions menées, ce qui avance ou non. Un indicateur n'a de valeur que s'il déclenche une décision quand il franchit un seuil.
+> 📖 **Définition.** Un KRI (Key Risk Indicator) mesure l'exposition au risque : ce qui peut mal tourner. Un KPI (Key Performance Indicator) mesure la performance des actions menées : ce qui avance ou non.
+{: .callout .callout-definition}
+
+Un indicateur n'a de valeur que s'il déclenche une décision quand il franchit un seuil.
 
 | Indicateur | Type | Source | Seuil d'alerte | Décision déclenchée |
 |---|---|---|---|---|

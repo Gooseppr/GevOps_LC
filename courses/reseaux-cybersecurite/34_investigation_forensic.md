@@ -53,7 +53,9 @@ Trois jours plus tard, l'équipe d'investigation arrive. Voici ce qu'il reste :
 - **La copie n'a aucune valeur probante.** Ni hash ni métadonnées d'origine. Les dates de création de la copie sont celles de lundi matin.
 - **Le disque a été modifié.** Les outils installés par l'administrateur ont écrit sur le même volume et potentiellement écrasé des fichiers supprimés récupérables.
 
-Le serveur est compromis, mais aucune conclusion ne peut être défendue. On ne sait ni quand, ni comment, ni jusqu'où l'attaquant est allé. La défense naïve (« nettoyer vite ») détruit exactement ce qui permet de répondre à ces questions. Le module précédent a posé la décision d'isolement ; celui-ci traite ce que cette décision coûte en preuves et comment les préserver malgré tout.
+Le serveur est compromis, mais aucune conclusion ne peut être défendue. On ne sait ni quand, ni comment, ni jusqu'où l'attaquant est allé. La défense naïve (« nettoyer vite ») détruit exactement ce qui permet de répondre à ces questions.
+
+Le module précédent a posé la décision d'isolement. Celui-ci traite ce que cette décision coûte en preuves, et comment les préserver malgré tout.
 
 ---
 
@@ -77,7 +79,16 @@ Un attaquant qui agit sur un système écrit à plusieurs endroits, qu'il le veu
 
 ## Principes de preuve et chaîne de conservation ⭐
 
-Une preuve numérique n'a de valeur que si l'on peut démontrer trois choses : elle est **authentique** (elle vient bien de ce système), **intègre** (elle n'a pas changé depuis la collecte) et **traçable** (on sait qui l'a eue, quand, et pourquoi). Les cadres de référence sont la RFC 3227 (collecte et archivage des preuves), la norme ISO/IEC 27037 (identification, collecte, acquisition, préservation) et le NIST SP 800-86 (intégration du forensic dans la réponse à incident).
+Qu'est-ce qui donne de la valeur à une preuve numérique ? Il faut pouvoir démontrer trois choses :
+
+- elle est **authentique** : elle vient bien de ce système ;
+- elle est **intègre** : elle n'a pas changé depuis la collecte ;
+- elle est **traçable** : on sait qui l'a eue, quand, et pourquoi.
+
+> 📦 **Analogie : le colis recommandé.** Chaque remise du colis est signée et datée, ce qui retrace tout son parcours. Limite : la signature ne dit rien du contenu. En forensic, c'est le hash revérifié à chaque transfert qui prouve que la preuve n'a pas changé.
+{: .callout .callout-analogie}
+
+Les cadres de référence sont la RFC 3227 (collecte et archivage des preuves), la norme ISO/IEC 27037 (identification, collecte, acquisition, préservation) et le NIST SP 800-86 (intégration du forensic dans la réponse à incident).
 
 ### Ce qui rend une preuve exploitable
 
@@ -112,7 +123,12 @@ transfers:
 
 ## Volatilité et ordre de collecte
 
-Les données ne disparaissent pas toutes à la même vitesse. La RFC 3227 propose de collecter dans l'ordre décroissant de volatilité :
+Les données ne disparaissent pas toutes à la même vitesse.
+
+> ❄️ **Analogie : la scène de crime sous la neige.** Un enquêteur photographie d'abord les empreintes de pas qui fondent, avant de relever les objets qui ne bougeront pas. Ici, la RAM est la neige et le disque l'objet. Limite : contrairement à l'objet, le disque peut être modifié par chaque geste de l'enquêteur.
+{: .callout .callout-analogie}
+
+La RFC 3227 propose donc de collecter dans l'ordre décroissant de volatilité :
 
 | Priorité | Donnée | Durée de vie typique |
 |---|---|---|
@@ -256,11 +272,24 @@ Pour un parc de postes, un collecteur de triage comme KAPE (`kape.exe --tsource 
 
 **Effacement des journaux** (MITRE ATT&CK T1070.001) : `wevtutil cl Security` vide le journal. Cette action génère elle-même l'événement **1102** (journal Security effacé) ou **104** (autre journal, source Eventlog). Leur présence suffit à signaler l'intervention, même si le contenu est perdu. Sous Linux, `history -c`, `unset HISTFILE` ou `ln -sf /dev/null ~/.bash_history` empêchent l'écriture de l'historique, mais pas l'audit système (`auditd`) ni les journaux distants.
 
-**Timestomping** (T1070.006) : modification des dates d'un fichier pour qu'il se fonde dans le décor. Sous NTFS, les horodatages sont stockés à deux endroits dans la MFT (Master File Table)* : `$STANDARD_INFORMATION` (modifiable par les API Windows, donc par l'attaquant) et `$FILE_NAME` (mis à jour par le noyau, difficile à falsifier). Un fichier dont la date `$STANDARD_INFORMATION` est **antérieure** à celle de `$FILE_NAME` est un candidat sérieux. Un outil comme MFTECmd ou Autopsy expose les deux.
+**Timestomping** (T1070.006) : modification des dates d'un fichier pour qu'il se fonde dans le décor.
+
+Sous NTFS, les horodatages sont stockés à deux endroits dans la MFT (Master File Table)* :
+
+- `$STANDARD_INFORMATION` : modifiable par les API Windows, donc par l'attaquant ;
+- `$FILE_NAME` : mis à jour par le noyau, difficile à falsifier.
+
+Un fichier dont la date `$STANDARD_INFORMATION` est **antérieure** à celle de `$FILE_NAME` est un candidat sérieux. Un outil comme MFTECmd ou Autopsy expose les deux.
 
 **Exécution sans fichier** : injection de code dans un processus légitime, ou chargement de binaire directement en mémoire. Rien sur disque, mais la RAM contient des régions exécutables sans fichier support, que `malfind` repère.
 
-**Vol d'identifiants** (T1003.001) : copie de la mémoire du processus LSASS, par exemple avec `procdump -ma lsass.exe` ou `rundll32 comsvcs.dll, MiniDump <PID> <FICHIER> full`. Côté investigation : Sysmon événement ID 10 (accès au processus lsass.exe), fichiers `.dmp` ou sans extension de plusieurs dizaines de Mo dans un répertoire temporaire, et l'événement 4688 avec la ligne de commande.
+**Vol d'identifiants** (T1003.001) : copie de la mémoire du processus LSASS, par exemple avec `procdump -ma lsass.exe` ou `rundll32 comsvcs.dll, MiniDump <PID> <FICHIER> full`.
+
+Côté investigation, trois traces à chercher :
+
+- Sysmon événement ID 10 (accès au processus lsass.exe) ;
+- des fichiers `.dmp` ou sans extension de plusieurs dizaines de Mo dans un répertoire temporaire ;
+- l'événement 4688 avec la ligne de commande.
 
 **Persistance** : service (événements 4697 dans Security, 7045 dans System), tâche planifiée (4698), clés `Run` du registre, unité systemd, entrée `cron`, clé dans `~/.ssh/authorized_keys`. Ces traces survivent au redémarrage et sont presque toujours présentes.
 
@@ -324,7 +353,10 @@ Chaque ligne vient d'une source différente. Si l'attaquant a effacé le journal
 
 ## Recherche d'indicateurs de compromission
 
-Un IoC (Indicator of Compromise) est une observation technique associée à une activité malveillante : hash de fichier, adresse IP, domaine, nom de tâche, clé de registre, mutex, chaîne caractéristique. Dans une investigation, on cherche les IoC de deux façons : ceux que l'on **découvre** pendant l'analyse pour les propager au reste du parc, et ceux fournis par des sources externes (sujet du module suivant).
+> 📖 **Définition.** Un IoC (Indicator of Compromise) est une observation technique associée à une activité malveillante : hash de fichier, adresse IP, domaine, nom de tâche, clé de registre, mutex, chaîne caractéristique.
+{: .callout .callout-definition}
+
+Dans une investigation, on cherche les IoC de deux façons : ceux que l'on **découvre** pendant l'analyse pour les propager au reste du parc, et ceux fournis par des sources externes (sujet du module suivant).
 
 ```bash
 # Rechercher une règle YARA sur un montage de l'image
@@ -592,7 +624,16 @@ Une alerte EDR signale un accès à `lsass.exe` sur le poste d'un comptable un j
 
 ## Résumé
 
-Une investigation numérique transforme des traces fragiles en conclusions défendables, à condition de ne pas les détruire en les collectant. La menace couverte est double : l'attaquant qui efface ses traces (journaux, horodatages, absence de fichier) et l'enquêteur qui altère la preuve par un redémarrage, un montage en écriture ou une copie sans hash. Le mécanisme de défense repose sur l'ordre de volatilité (RAM avant disque), la chaîne de conservation (hash, fiche, copie de travail) et la corrélation de sources indépendantes (journaux distants, Sysmon, MFT, mémoire, réseau). Volatility 3, Plaso et les outils de triage accélèrent le travail, mais n'établissent rien sans interprétation. Restent à surveiller : la rétention des journaux, la préparation des outils et symboles avant l'incident, le chiffrement des disques, et la tentation d'écrire des conclusions plus fortes que les preuves.
+Une investigation numérique transforme des traces fragiles en conclusions défendables, à condition de ne pas les détruire en les collectant.
+
+La menace couverte est double :
+
+- l'attaquant qui efface ses traces (journaux, horodatages, absence de fichier) ;
+- l'enquêteur qui altère la preuve par un redémarrage, un montage en écriture ou une copie sans hash.
+
+La défense repose sur l'ordre de volatilité (RAM avant disque), la chaîne de conservation (hash, fiche, copie de travail) et la corrélation de sources indépendantes (journaux distants, Sysmon, MFT, mémoire, réseau).
+
+Volatility 3, Plaso et les outils de triage accélèrent le travail, mais n'établissent rien sans interprétation. Restent à surveiller : la rétention des journaux, la préparation des outils et symboles avant l'incident, le chiffrement des disques, et la tentation d'écrire des conclusions plus fortes que les preuves.
 
 <!-- snippet
 id: forensic_chain_custody_hash

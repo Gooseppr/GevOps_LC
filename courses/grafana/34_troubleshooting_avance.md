@@ -38,11 +38,14 @@ Votre équipe plateforme (4 personnes) exploite un Grafana OSS sur Kubernetes, a
 
 Lundi, 09 h 10 : un ticket arrive, « Grafana ne marche pas ». Le même jour, l'équipe d'une API de paiement apprend par ses clients que le service est dégradé depuis environ 40 minutes. Aucune alerte n'a été reçue. Pourtant, Grafana s'ouvre normalement, le login fonctionne, les dashboards s'affichent et le pod est `Running`.
 
-Redémarrer le pod, le premier réflexe, ne servirait à rien ici. Le problème n'est pas que l'interface soit tombée, mais qu'une partie de la plateforme est cassée sans que cela se voie. Pour la trouver, il faut une méthode : savoir quelle couche répond, laquelle se tait, et ne rien conclure sans une preuve que quelqu'un d'autre pourrait rejouer. C'est l'objet de ce module. Nous reprendrons ce scénario dans le cas pratique, avec des chiffres illustratifs.
+Redémarrer le pod, le premier réflexe, ne servirait à rien ici. Le problème n'est pas que l'interface soit tombée, mais qu'une partie de la plateforme est cassée sans que cela se voie.
+
+Comment la trouver ? Il faut une méthode : savoir quelle couche répond, laquelle se tait, et ne rien conclure sans une preuve que quelqu'un d'autre pourrait rejouer. C'est l'objet de ce module. Nous reprendrons ce scénario dans le cas pratique, avec des chiffres illustratifs.
 
 ## Une requête, plusieurs endroits où elle peut casser
 
-Grafana joue le rôle d'un standardiste. Quand la communication est mauvaise, il faut savoir si le problème vient de lui, de la ligne ou de l'interlocuteur. Beaucoup de tickets « Grafana est cassé » sont en réalité des problèmes de ligne ou d'interlocuteur.
+> ☎️ **Analogie : le standardiste.** Grafana joue le rôle d'un standardiste. Quand la communication est mauvaise, il faut savoir si le problème vient de lui, de la ligne (le réseau) ou de l'interlocuteur (le backend). Beaucoup de tickets « Grafana est cassé » sont en réalité des problèmes de ligne ou d'interlocuteur. Limite de l'image : ce standardiste a aussi ses propres tâches, comme les alertes ou sa base, qui peuvent tomber sans couper la ligne.
+{: .callout .callout-analogie}
 
 ```mermaid
 flowchart LR
@@ -80,7 +83,12 @@ Le tableau ci-dessous sert de table de lecture rapide. Les messages exacts varie
 > ⚠️ **Erreur fréquente** — Un panel qui affiche *Bad Gateway* ne signifie pas que Grafana est tombé. Sur les data sources en mode serveur, Grafana relaie la requête, donc il joue le rôle de proxy. Un 502 dans un panel veut généralement dire « mon backend ne m'a pas répondu correctement ». Si vous cherchez dans Grafana, vous cherchez au mauvais endroit : le message d'origine, dans les logs, désigne le vrai coupable.
 {: .callout .callout-attention}
 
-La distinction 401 / 403 mérite un arrêt, car elle oriente tout le diagnostic. Un **401** signifie que l'identité n'est pas reconnue : token expiré ou révoqué, session perdue, mauvais mot de passe. Un **403** signifie que l'identité est reconnue mais n'a pas le droit. Corriger un 403 en régénérant un token ne changera rien, et corriger un 401 en ajoutant des permissions non plus. Il faut aussi savoir qui parle : le JSON `{"message": ...}` vient de Grafana, alors qu'un texte brut ou un format typique d'un autre produit vient du backend, relayé tel quel.
+Pourquoi s'arrêter sur la distinction 401 / 403 ? Parce qu'elle oriente tout le diagnostic.
+
+> 💡 **À retenir.** Un **401** signifie que l'identité n'est pas reconnue : token expiré ou révoqué, session perdue, mauvais mot de passe. Un **403** signifie que l'identité est reconnue mais n'a pas le droit. Corriger un 403 en régénérant un token ne changera rien, et corriger un 401 en ajoutant des permissions non plus.
+{: .callout .callout-important}
+
+Il faut aussi savoir qui parle : le JSON `{"message": ...}` vient de Grafana, alors qu'un texte brut ou un format typique d'un autre produit vient du backend, relayé tel quel.
 
 ## Lire les logs Grafana et les erreurs API
 
@@ -136,7 +144,10 @@ curl -i -H "Authorization: Bearer <TOKEN>" http://<HOST>:3000/api/datasources
 
 ## Reproduire hors de Grafana : l'arbre de décision
 
-Pour séparer Grafana de ce qui se trouve derrière, une règle simple : **rejouer la même requête par un chemin plus court**. Si elle passe en direct mais échoue via Grafana, le problème est entre les deux. Si elle échoue aussi en direct, Grafana est hors de cause.
+Comment séparer Grafana de ce qui se trouve derrière ?
+
+> 💡 **À retenir.** Rejouez la même requête **par un chemin plus court**. Si elle passe en direct mais échoue via Grafana, le problème est entre les deux. Si elle échoue aussi en direct, Grafana est hors de cause.
+{: .callout .callout-important}
 
 ```mermaid
 flowchart TD
@@ -171,7 +182,13 @@ Pour savoir où le temps passe, `curl` sait décomposer une requête :
 curl -sS -o /dev/null -w 'http=%{http_code} dns=%{time_namelookup}s connect=%{time_connect}s tls=%{time_appconnect}s ttfb=%{time_starttransfer}s total=%{time_total}s\n' <URL>
 ```
 
-La lecture est simple. Un `dns` élevé désigne la résolution de noms. Un `connect` élevé désigne le réseau. En HTTPS, un écart notable entre `connect` et `tls` pointe la négociation TLS, et un grand écart entre `tls` et `ttfb` signifie que le backend réfléchit longtemps. En HTTP simple, `tls` vaut 0 : lisez alors directement l'écart entre `connect` et `ttfb`. Enfin, un `total` très supérieur au `ttfb` indique une réponse volumineuse.
+La lecture est simple :
+
+- un `dns` élevé désigne la résolution de noms ;
+- un `connect` élevé désigne le réseau ;
+- en HTTPS, un écart notable entre `connect` et `tls` pointe la négociation TLS, et un grand écart entre `tls` et `ttfb` signifie que le backend réfléchit longtemps ;
+- en HTTP simple, `tls` vaut 0 : lisez alors directement l'écart entre `connect` et `ttfb` ;
+- un `total` très supérieur au `ttfb` indique une réponse volumineuse.
 
 Pour rejouer une requête de panel côté Grafana, utilisez l'endpoint de requête de l'API. Le corps exact dépend du plugin, donc le plus fiable est de copier celui de l'onglet *Query* de l'Inspector :
 
@@ -259,7 +276,9 @@ Si une règle en erreur est détectée, regardez aussi l'alerte spéciale géné
 
 Ces trois sujets ont un point commun : ils se manifestent surtout **au démarrage**. Les logs de démarrage sont donc votre meilleure source, avant toute autre piste.
 
-**Provisioning.** Quand une data source provisionnée est invalide (YAML cassé, champ inconnu, variable d'environnement absente), Grafana peut refuser de démarrer : le pod boucle en `CrashLoopBackOff` et la dernière ligne du log indique le fichier fautif. À l'inverse, un dashboard invalide est généralement journalisé sans empêcher Grafana de démarrer : il reste simplement absent ou obsolète. Pensez aussi à la substitution de variables : un `$` dans un mot de passe provisionné doit être écrit `$$`, sinon il est interprété comme une variable et le secret est tronqué. La conséquence, un 401 côté backend, ressemble à tort à une panne d'authentification.
+**Provisioning.** Quand une data source provisionnée est invalide (YAML cassé, champ inconnu, variable d'environnement absente), Grafana peut refuser de démarrer : le pod boucle en `CrashLoopBackOff` et la dernière ligne du log indique le fichier fautif. À l'inverse, un dashboard invalide est généralement journalisé sans empêcher Grafana de démarrer : il reste simplement absent ou obsolète.
+
+Pensez aussi à la substitution de variables : un `$` dans un mot de passe provisionné doit être écrit `$$`, sinon il est interprété comme une variable et le secret est tronqué. La conséquence, un 401 côté backend, ressemble à tort à une panne d'authentification.
 
 | Symptôme | Cause | Correction |
 |---|---|---|
@@ -306,7 +325,10 @@ Le dernier recours est le profilage Go intégré (`[diagnostics] profiling_enabl
 
 ## Escalader avec des preuves reproductibles
 
-Escalader n'est pas se débarrasser du problème : c'est le transmettre en réduisant le temps que l'autre équipe passera à le comprendre. Un dossier est reproductible si une autre personne peut rejouer la même commande et obtenir la même erreur. Une capture d'écran seule ne l'est pas. Une commande avec son résultat, un horodatage et un contexte, si.
+Escalader n'est pas se débarrasser du problème : c'est le transmettre en réduisant le temps que l'autre équipe passera à le comprendre.
+
+> 📖 **Définition.** Un dossier est **reproductible** si une autre personne peut rejouer la même commande et obtenir la même erreur. Une capture d'écran seule ne l'est pas. Une commande avec son résultat, un horodatage et un contexte, si.
+{: .callout .callout-definition}
 
 Un bon dossier tient sur une page :
 
@@ -322,7 +344,15 @@ Hypothèse : <ce que vous pensez, et ce qui la confirmerait ou l'infirmerait>
 Déjà tenté : <actions réalisées, une à la fois>
 ```
 
-Quelques règles de rigueur : horodatez en UTC, masquez les tokens et mots de passe avant d'envoyer des logs, changez une seule chose à la fois, notez ce que vous avez modifié, et n'écrivez « cause » que pour ce que vous avez prouvé. L'orientation du dossier suit l'arbre de décision : problème réseau ou backend, vers l'équipe concernée avec la preuve du test direct ; problème d'authentification ou de permissions, vers les responsables de l'identité ; comportement de Grafana lui-même (régression, bug), vers le support ou l'issue amont, avec version, logs et reproduction minimale. Selon l'édition et la version, un *support bundle* peut aussi regrouper les informations utiles.
+Quelques règles de rigueur : horodatez en UTC, masquez les tokens et mots de passe avant d'envoyer des logs, changez une seule chose à la fois, notez ce que vous avez modifié, et n'écrivez « cause » que pour ce que vous avez prouvé.
+
+L'orientation du dossier suit l'arbre de décision :
+
+- problème réseau ou backend : vers l'équipe concernée, avec la preuve du test direct ;
+- problème d'authentification ou de permissions : vers les responsables de l'identité ;
+- comportement de Grafana lui-même (régression, bug) : vers le support ou l'issue amont, avec version, logs et reproduction minimale.
+
+Selon l'édition et la version, un *support bundle* peut aussi regrouper les informations utiles.
 
 ## Cas pratique : l'alerte qui n'est jamais arrivée
 

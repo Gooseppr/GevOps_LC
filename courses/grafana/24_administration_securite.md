@@ -45,7 +45,12 @@ curl --path-as-is -s "http://<HOST>:3000/public/plugins/alertlist/../../../../..
 curl --path-as-is -s "http://<HOST>:3000/public/plugins/alertlist/../../../../../../../../etc/grafana/grafana.ini"
 ```
 
-`grafana.db` est la base SQLite : elle contient les utilisateurs, les hashes de mots de passe et la table `data_source`, dont les champs sensibles sont chiffrés. `grafana.ini` contient la `secret_key` qui sert à les chiffrer. Si elle est restée à sa valeur historique par défaut, ou si elle est lisible par le même vecteur, l'attaquant déchiffre hors ligne les mots de passe et tokens de toutes les Data Sources. Il se retrouve alors avec des accès directs à Prometheus, Loki, aux bases SQL et aux API cloud, sans repasser par Grafana.
+Pourquoi ces deux fichiers ?
+
+- `grafana.db` est la base SQLite : elle contient les utilisateurs, les hashes de mots de passe et la table `data_source`, dont les champs sensibles sont chiffrés.
+- `grafana.ini` contient la `secret_key` qui sert à les chiffrer.
+
+Si cette clé est restée à sa valeur historique par défaut, ou si elle est lisible par le même vecteur, l'attaquant déchiffre hors ligne les mots de passe et tokens de toutes les Data Sources. Il se retrouve alors avec des accès directs à Prometheus, Loki, aux bases SQL et aux API cloud, sans repasser par Grafana.
 
 Pourquoi la défense naïve ne suffit pas :
 
@@ -101,7 +106,10 @@ Les rôles de base d'une organisation sont `Admin`, `Editor`, `Viewer` et `None`
 
 ### RBAC et capacités selon l'édition
 
-RBAC (Role-Based Access Control) est le mécanisme de Grafana qui décompose les droits en permissions fines (`dashboards:write`, `datasources:query`, `alert.rules:read`…) regroupées en rôles. Ce qui est disponible dépend de l'édition ; vérifiez dans la documentation de votre version, car cette répartition évolue.
+> 📖 **Définition.** RBAC (Role-Based Access Control) est le mécanisme de Grafana qui décompose les droits en permissions fines (`dashboards:write`, `datasources:query`, `alert.rules:read`…) regroupées en rôles.
+{: .callout .callout-definition}
+
+Ce qui est disponible dépend de l'édition. Vérifiez dans la documentation de votre version, car cette répartition évolue.
 
 | Capacité | OSS | Enterprise / Cloud |
 |---|---|---|
@@ -118,7 +126,10 @@ Le coût d'Enterprise est réel, mais le coût inverse l'est aussi : sans permis
 
 ### ⚠️ Les permissions de dashboard ne garantissent pas l'isolation des données
 
-Un Viewer limité au dossier `Team-A` ne peut pas ouvrir les dashboards de `Team-B`. Mais en OSS, il garde le droit d'interroger les Data Sources de l'organisation. L'UI n'est qu'un client de l'API ; masquer Explore n'est donc pas une protection.
+Un Viewer limité au dossier `Team-A` ne peut pas ouvrir les dashboards de `Team-B`. Mais en OSS, il garde le droit d'interroger les Data Sources de l'organisation. L'UI n'est qu'un client de l'API : masquer Explore n'est donc pas une protection.
+
+> 🚪 **Analogie : effacer une porte du plan.** Masquer un dashboard ou Explore revient à retirer une porte du plan de l'immeuble sans la verrouiller : qui sait où elle se trouve entre quand même. Seul un verrou côté backend ou une organisation séparée ferme réellement l'accès.
+{: .callout .callout-analogie}
 
 > 🔴 **Vecteur d'attaque** : un compte Viewer appelle directement `/api/ds/query`. L'`uid` de la Data Source apparaît dans le JSON de n'importe quel dashboard lisible.
 {: .callout .callout-danger}
@@ -165,7 +176,14 @@ datasources:
 
 **Authentification locale.** Utile pour le premier démarrage et pour un compte de secours. Elle repose sur des mots de passe stockés dans `grafana.db`, avec une protection contre la force brute activée par défaut (verrouillage temporaire après plusieurs échecs). Elle n'offre ni MFA ni révocation centralisée.
 
-**SSO (Single Sign-On) via OAuth ou OpenID Connect.** Grafana délègue l'authentification à un fournisseur d'identité (IdP, Identity Provider) et lui demande l'identité plus des attributs (email, groupes). Variantes courantes : GitHub, GitLab, Google, Azure AD/Entra ID, Okta, Generic OAuth. SAML (Security Assertion Markup Language) est réservé à Enterprise/Cloud ; LDAP (Lightweight Directory Access Protocol) reste disponible en OSS. Le SSO n'est rentable que si le mapping de rôles est correctement fait : un SSO sans mapping donne à tout le monde le rôle par défaut.
+**SSO (Single Sign-On) via OAuth ou OpenID Connect.** Grafana délègue l'authentification à un fournisseur d'identité (IdP, Identity Provider) et lui demande l'identité plus des attributs (email, groupes).
+
+- Variantes courantes : GitHub, GitLab, Google, Azure AD/Entra ID, Okta, Generic OAuth.
+- SAML (Security Assertion Markup Language) est réservé à Enterprise/Cloud.
+- LDAP (Lightweight Directory Access Protocol) reste disponible en OSS.
+
+> 💡 **À retenir** : le SSO n'est rentable que si le mapping de rôles est correctement fait. Un SSO sans mapping donne à tout le monde le rôle par défaut.
+{: .callout .callout-important}
 
 Configuration avec refus par défaut :
 
@@ -368,7 +386,10 @@ grafana cli plugins ls
 grafana cli plugins update-all
 ```
 
-Les commandes sont `grafana-cli` sur les anciennes versions. En conteneur, évitez `update-all` en production : reconstruisez l'image avec les plugins versionnés (variable de préinstallation de l'image officielle, dont le nom dépend de la version : `GF_INSTALL_PLUGINS`, déprécié au profit de `GF_PLUGINS_PREINSTALL` ; ou Dockerfile), scannez-la, puis déployez. Les plugins non signés (`allow_loading_unsigned_plugins`) sont réservés au développement ; en production, chaque exception doit être listée par identifiant, jamais jokerisée.
+Les commandes sont `grafana-cli` sur les anciennes versions.
+
+- En conteneur, évitez `update-all` en production : reconstruisez l'image avec les plugins versionnés (variable de préinstallation de l'image officielle, dont le nom dépend de la version : `GF_INSTALL_PLUGINS`, déprécié au profit de `GF_PLUGINS_PREINSTALL` ; ou Dockerfile), scannez-la, puis déployez.
+- Les plugins non signés (`allow_loading_unsigned_plugins`) sont réservés au développement. En production, chaque exception doit être listée par identifiant, jamais jokerisée.
 
 Pour les mises à jour :
 
@@ -473,7 +494,10 @@ Actions, dans l'ordre :
 4. **Nettoyer** : masquer les emails dans les logs à la source (pipeline de collecte), et invalider les sessions loguées.
 5. **Vérifier** : un compte de test par équipe rejoue la requête directe contre les autres tenants et doit obtenir un résultat vide ou un refus.
 
-Leçon : la discussion « qui voit quel dashboard » a masqué la vraie question, « qui peut lire quelle donnée ». Le coût final a été le multiplicateur de Data Sources et d'organisations, bien inférieur à celui d'un incident de données clients.
+> 💡 **À retenir** : la discussion « qui voit quel dashboard » a masqué la vraie question, « qui peut lire quelle donnée ».
+{: .callout .callout-important}
+
+Le coût final a été le multiplicateur de Data Sources et d'organisations, bien inférieur à celui d'un incident de données clients.
 
 ## Erreurs fréquentes
 

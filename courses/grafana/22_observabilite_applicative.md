@@ -80,7 +80,10 @@ Affichez-le avec l'unité `Percent (0.0-1.0)`. Quand le trafic est nul, la divis
 
 Imaginez 100 requêtes : 98 répondent en 50 ms, 2 prennent 5 secondes. La moyenne vaut (98 × 0,05 + 2 × 5) / 100, soit environ 150 ms, un chiffre qui ne choque personne. Pourtant, deux utilisateurs sur cent ont attendu cinq secondes, et ce sont probablement ceux qui passaient une commande.
 
-Un percentile répond à une question plus utile : « quel temps 95 % (ou 99 %) des requêtes ne dépassent-elles pas ? ». Sur l'exemple, le p95 vaut 50 ms (il ne voit pas encore le problème) et le p99 vaut 5 s (il le voit). Les deux n'ont donc pas le même rôle : le p95 décrit l'expérience courante, le p99 la queue de distribution, où se cachent les incidents naissants.
+> 📖 **Définition.** Un percentile répond à une question plus utile que la moyenne : « quel temps 95 % (p95) ou 99 % (p99) des requêtes ne dépassent-elles pas ? ».
+{: .callout .callout-definition}
+
+Sur l'exemple, le p95 vaut 50 ms (il ne voit pas encore le problème) et le p99 vaut 5 s (il le voit). Les deux n'ont donc pas le même rôle : le p95 décrit l'expérience courante, le p99 la queue de distribution, où se cachent les incidents naissants.
 
 ```promql
 histogram_quantile(0.99,
@@ -115,7 +118,12 @@ Regardez les valeurs de `le` : elles doivent encadrer vos seuils réels (par exe
 
 ## Découper par route, méthode et statut
 
-Un taux d'erreur global est une moyenne de plus. Une route qui échoue à 40 % sur 1 % du trafic ne le fait pas bouger. Le découpage par `route`, `method` et `status` donne la carte de l'API, à condition de respecter une règle : le label `route` doit contenir le **modèle** de la route (`/orders/:id`), pas le chemin brut (`/orders/84217`). Sinon, chaque identifiant crée une nouvelle série et la cardinalité explose, ce qui coûte cher en mémoire et en temps de requête.
+Un taux d'erreur global n'est qu'une moyenne de plus : une route qui échoue à 40 % sur 1 % du trafic ne le fait pas bouger. Le découpage par `route`, `method` et `status` donne la carte de l'API.
+
+Ce découpage impose une règle : le label `route` doit contenir le **modèle** de la route (`/orders/:id`), pas le chemin brut (`/orders/84217`). Sinon, chaque identifiant crée une nouvelle série et la cardinalité explose, ce qui coûte cher en mémoire et en temps de requête.
+
+> 📖 **Définition.** La cardinalité d'une métrique est le nombre de séries distinctes qu'elle produit, c'est-à-dire le nombre de combinaisons de valeurs de ses labels.
+{: .callout .callout-definition}
 
 Vérifiez-le dans Explore :
 
@@ -125,7 +133,10 @@ count(count by (route) (http_requests_total{service="orders-api"}))
 
 Une dizaine ou une centaine de valeurs, c'est normal. Plusieurs milliers signalent que l'instrumentation utilise le chemin brut. La correction se fait dans l'application ou son middleware, pas dans Grafana.
 
-Deux filtres rendent les panels bien plus lisibles. Excluez d'abord les routes techniques : les sondes `/healthz` et `/metrics` représentent souvent une grande part du trafic, avec des réponses ultra rapides qui diluent la latence et le taux d'erreur. Ajoutez `route!~"/healthz|/metrics"` à vos requêtes. Pensez ensuite à une variable de dashboard `$route` (voir le module sur les variables) pour passer de la vue globale à une route précise sans dupliquer les panels.
+Deux filtres rendent les panels bien plus lisibles :
+
+- **Exclure les routes techniques.** Les sondes `/healthz` et `/metrics` représentent souvent une grande part du trafic, avec des réponses ultra rapides qui diluent la latence et le taux d'erreur. Ajoutez `route!~"/healthz|/metrics"` à vos requêtes.
+- **Ajouter une variable de dashboard `$route`** (voir le module sur les variables) pour passer de la vue globale à une route précise sans dupliquer les panels.
 
 ## 4xx et 5xx : deux histoires différentes
 
@@ -139,7 +150,8 @@ Les deux familles ne se lisent pas de la même façon, et les regrouper dans un 
 | 404 | Ressource ou route inexistante | Hausse après déploiement = route renommée ou client non mis à jour |
 | 429 | Limitation de débit | Un client légitime est-il bloqué ? Une boucle de retry s'est-elle déclenchée ? |
 
-Une règle simple : alertez sur les 5xx, surveillez les 4xx. Les 4xx sont majoritairement causés par le client, mais une variation soudaine reste un excellent indicateur de changement. Un 401 massif juste après une mise en production n'est pas « la faute des clients ».
+> 💡 **À retenir.** Alertez sur les 5xx, surveillez les 4xx. Les 4xx sont majoritairement causés par le client, mais une variation soudaine reste un excellent indicateur de changement. Un 401 massif juste après une mise en production n'est pas « la faute des clients ».
+{: .callout .callout-important}
 
 Pour un panel de 4xx, découpez par code :
 
@@ -153,6 +165,9 @@ sum by (status) (rate(http_requests_total{service="$service", status=~"4.."}[$__
 ## Saturation : ce qui retient les requêtes
 
 Une API qui ralentit sans erreur est presque toujours en train d'attendre quelque chose : une connexion de base de données, un thread de travail, une place dans une file, la réponse d'un service tiers. On parle de saturation, la deuxième lettre de la méthode USE (Utilization, Saturation, Errors), qui s'applique aux ressources comme la méthode RED s'applique aux requêtes.
+
+> 🛒 **Analogie : les caisses d'un magasin.** Un pool de connexions fonctionne comme un nombre fixe de caisses. Quand toutes sont occupées, personne n'est refusé tout de suite : les clients font la queue et l'attente s'allonge. Limite de l'image : côté logiciel, l'attente a un plafond, le timeout, au-delà duquel la requête échoue.
+{: .callout .callout-analogie}
 
 > 🧠 **Concept clé** — La saturation se manifeste **avant** les erreurs. Un pool de connexions à 100 % ne produit pas d'erreur tout de suite : les requêtes attendent, la latence monte, puis les timeouts arrivent. Observer l'occupation des ressources vous donne quelques minutes d'avance sur les 5xx.
 {: .callout .callout-important}
@@ -285,7 +300,9 @@ Reprenons `orders-api`. Tous les chiffres qui suivent sont illustratifs.
 
 ## Résumé
 
-Une API se supervise d'abord avec trois signaux : débit, taux d'erreur et latence, lus en p95 et p99 plutôt qu'en moyenne, car la moyenne masque les requêtes lentes. Découper par route, méthode et statut donne la carte précise des dégradations, à condition de maîtriser les labels, tandis que la séparation des 4xx (souvent le client, parfois un changement) et des 5xx (votre responsabilité) clarifie les décisions. La saturation des pools, files et dépendances prévient les erreurs avant leur apparition, et les annotations de déploiement transforment « quelque chose a changé » en information visible. Ces bases préparent le terrain pour le module suivant, où les mêmes signaux seront exploités dans un environnement de conteneurs et de Kubernetes.
+Une API se supervise d'abord avec trois signaux : débit, taux d'erreur et latence, lus en p95 et p99 plutôt qu'en moyenne, car la moyenne masque les requêtes lentes. Découper par route, méthode et statut donne la carte précise des dégradations, à condition de maîtriser les labels. Séparer les 4xx (souvent le client, parfois un changement) des 5xx (votre responsabilité) clarifie les décisions.
+
+La saturation des pools, files et dépendances prévient les erreurs avant leur apparition, et les annotations de déploiement transforment « quelque chose a changé » en information visible. Ces bases préparent le terrain pour le module suivant, où les mêmes signaux seront exploités dans un environnement de conteneurs et de Kubernetes.
 
 <!-- snippet
 id: grafana_api_p99_par_route

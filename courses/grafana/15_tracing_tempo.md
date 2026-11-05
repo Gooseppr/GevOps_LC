@@ -37,7 +37,9 @@ next_module_title: "Conception de dashboards professionnels"
 
 Vous rejoignez l'équipe plateforme d'une boutique en ligne : six développeurs, une douzaine de services (passerelle, panier, paiement, stock, notifications), tout tourne sur Kubernetes. Depuis deux jours, le support reçoit des plaintes : « le paiement met parfois une éternité ».
 
-Vous avez déjà de quoi enquêter. Prometheus vous montre que la latence p95 de la passerelle est passée de 400 ms à 3 s. Loki vous donne des milliers de lignes de logs par minute. Mais aucun de ces outils ne répond à la vraie question : **dans cette requête précise, où sont passées les 3 secondes ?** Les métriques sont agrégées, donc elles vous disent *que* c'est lent, pas *où*. Les logs sont dispersés dans douze services, et rien ne garantit que vous retrouvez les lignes qui concernent la même requête.
+Vous avez déjà de quoi enquêter. Prometheus vous montre que la latence p95 de la passerelle est passée de 400 ms à 3 s. Loki vous donne des milliers de lignes de logs par minute. Mais aucun de ces outils ne répond à la vraie question : **dans cette requête précise, où sont passées les 3 secondes ?**
+
+Les métriques sont agrégées, donc elles vous disent *que* c'est lent, pas *où*. Les logs sont dispersés dans douze services, et rien ne garantit que vous retrouvez les lignes qui concernent la même requête.
 
 Le tracing apporte exactement ce qui manque : un enregistrement par requête, qui suit celle-ci de service en service avec le temps passé à chaque étape. Tempo est le backend de Grafana qui stocke ces traces, et Grafana est l'endroit où vous les lisez.
 
@@ -45,7 +47,8 @@ Le tracing apporte exactement ce qui manque : un enregistrement par requête, qu
 
 ### 🧠 Trace ID, Span ID, parent-enfant
 
-Une analogie : un colis qui traverse plusieurs centres de tri. Le **Trace ID** est le numéro de suivi imprimé sur l'étiquette ; il ne change jamais, du départ à la livraison. Chaque passage dans un centre est un **span** : il a son propre identifiant (**Span ID**), une heure de début, une durée, et il sait quel passage précédent l'a déclenché (**parent span ID**).
+> 📦 **Analogie : le colis et ses centres de tri.** Le **Trace ID** est le numéro de suivi imprimé sur l'étiquette ; il ne change jamais, du départ à la livraison. Chaque passage dans un centre est un **span** : il a son propre identifiant (**Span ID**), une heure de début, une durée, et il sait quel passage précédent l'a déclenché (**parent span ID**). Limite de l'image : un colis suit un seul chemin, alors qu'une requête peut se ramifier vers plusieurs services en parallèle.
+{: .callout .callout-analogie}
 
 Concrètement, une requête de paiement donne ceci :
 
@@ -96,7 +99,10 @@ Les flèches pleines sont les appels métier qui transportent le contexte. Les f
 
 OTel (OpenTelemetry) est le standard qui sépare deux choses : produire les spans dans l'application (SDK et bibliothèques d'instrumentation) et les transporter vers un backend (protocole OTLP, OpenTelemetry Protocol). L'application n'a pas besoin de connaître Tempo ; elle parle OTLP à un Collector ou directement à Tempo, qui accepte OTLP sur les ports 4317 (gRPC) et 4318 (HTTP).
 
-Il existe deux niveaux d'instrumentation. L'**auto-instrumentation** (agent Java, `opentelemetry-instrument` en Python, etc.) crée des spans pour les serveurs HTTP, clients HTTP et pilotes de base de données sans toucher au code. Elle suffit pour obtenir la cascade des appels. L'**instrumentation manuelle** ajoute des spans autour d'une étape métier (« calcul du score de fraude ») quand l'automatique ne voit qu'un gros trou opaque.
+Il existe deux niveaux d'instrumentation :
+
+- L'**auto-instrumentation** (agent Java, `opentelemetry-instrument` en Python, etc.) crée des spans pour les serveurs HTTP, clients HTTP et pilotes de base de données sans toucher au code. Elle suffit pour obtenir la cascade des appels.
+- L'**instrumentation manuelle** ajoute des spans autour d'une étape métier (« calcul du score de fraude ») quand l'automatique ne voit qu'un gros trou opaque.
 
 Pour une application déjà packagée, la configuration passe le plus souvent par des variables d'environnement :
 
@@ -198,7 +204,12 @@ Les préfixes précisent où chercher : `resource.` pour les attributs de ressou
 { span.db.system = "postgresql" && duration > 200ms }
 ```
 
-Pour exprimer une relation entre services, on enchaîne deux filtres avec un opérateur structurel. `>>` veut dire « descendant de » (à n'importe quelle profondeur) et `>` « enfant direct » :
+Pour exprimer une relation entre services, on enchaîne deux filtres avec un opérateur structurel.
+
+> 🔑 **Moyen mnémotechnique** — `>` (un chevron) veut dire « enfant direct » : un seul niveau. `>>` (deux chevrons) veut dire « descendant de » : à n'importe quelle profondeur. Un chevron, un niveau ; deux chevrons, autant de niveaux que nécessaire.
+{: .callout .callout-memo}
+
+Par exemple :
 
 ```
 { resource.service.name = "passerelle" } >> { resource.service.name = "fraude" && duration > 2s }
@@ -268,9 +279,14 @@ C'est le cœur diagnostique de ce module. Quand une trace manque, les causes se 
 
 **Symptôme** : vous avez un Trace ID dans un log, mais Tempo répond « trace not found » même plusieurs minutes plus tard. D'autres traces du même service existent.
 
-**Cause** : l'échantillonnage. Avec `parentbased_traceidratio` à `0.1`, seule une requête sur dix est enregistrée, et c'est décidé au tout début (*head sampling*), avant de savoir si la requête serait lente ou en erreur. Les requêtes problématiques sont donc perdues dans les mêmes proportions que les saines. Pire : le Trace ID est quand même généré et écrit dans les logs, ce qui donne l'illusion qu'une trace existe.
+**Cause** : l'échantillonnage. Avec `parentbased_traceidratio` à `0.1`, seule une requête sur dix est enregistrée, et c'est décidé au tout début (*head sampling*), avant de savoir si la requête serait lente ou en erreur. Les requêtes problématiques sont donc perdues dans les mêmes proportions que les saines.
 
-**Correction** : deux leviers. Pour les environnements à volume modeste, montez le ratio (ou passez à `always_on` en préproduction). Pour la production, utilisez le *tail sampling* dans le Collector (processeur `tail_sampling`), qui attend la fin de la trace avant de décider, et conserve par exemple toutes les traces en erreur, toutes celles de plus de 1 s, plus un pourcentage du reste. Le prix : le Collector doit garder les spans en mémoire le temps de la décision, et toutes les parties d'une même trace doivent arriver sur la même instance de Collector.
+> 💡 **À retenir** — Le Trace ID est généré et écrit dans les logs même quand la trace n'est pas échantillonnée. Sa présence dans un log ne prouve donc pas que la trace existe dans Tempo.
+{: .callout .callout-important}
+
+**Correction** : deux leviers. Pour les environnements à volume modeste, montez le ratio (ou passez à `always_on` en préproduction). Pour la production, utilisez le *tail sampling* dans le Collector (processeur `tail_sampling`), qui attend la fin de la trace avant de décider, et conserve par exemple toutes les traces en erreur, toutes celles de plus de 1 s, plus un pourcentage du reste.
+
+Le prix : le Collector doit garder les spans en mémoire le temps de la décision, et toutes les parties d'une même trace doivent arriver sur la même instance de Collector.
 
 ### Propagation cassée : deux demi-traces
 

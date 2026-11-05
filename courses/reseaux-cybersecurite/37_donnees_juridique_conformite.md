@@ -38,7 +38,9 @@ next_module_title: "Continuité d'activité et résilience cyber"
 
 *Scénario illustratif : l'enseigne, les volumes et les délais sont fictifs, les mécanismes sont réels.*
 
-Une enseigne de e-commerce de 400 salariés externalise le support de niveau 2. Un technicien du prestataire installe un cracked installer sur son poste personnel, qui sert aussi à se connecter au back-office du client. Le malware est un infostealer de la famille RedLine. Il aspire les mots de passe enregistrés et les cookies de session du navigateur. Le lot de logs est revendu sur un marché criminel.
+Une enseigne de e-commerce de 400 salariés externalise le support de niveau 2. Un technicien du prestataire installe un cracked installer sur son poste personnel, qui sert aussi à se connecter au back-office du client.
+
+Le malware est un infostealer de la famille RedLine. Il aspire les mots de passe enregistrés et les cookies de session du navigateur. Le lot de logs est revendu sur un marché criminel.
 
 L'acheteur se connecte au back-office avec le compte du technicien. Ce compte n'a pas de MFA (authentification multifacteur), car « c'est un prestataire, on n'a pas la main sur ses postes ». Le back-office propose une fonction **Export clients (CSV)**, ouverte au support pour les litiges. L'attaquant lance l'export une seule fois. Il récupère 1,2 million de lignes : identité, adresse, e-mail, téléphone, historique de commandes, et IBAN pour les clients en prélèvement. L'historique remonte à 8 ans.
 
@@ -49,13 +51,18 @@ Côté défense, la direction se rassure : les disques sont chiffrés en LUKS, t
 - Le contrat du prestataire ne prévoit aucun délai de notification.
 - La moitié des clients exportés n'avaient pas commandé depuis plus de 5 ans. Aucune purge n'existait.
 
-Le chiffrement au repos protège contre le vol d'un disque ou d'un snapshot. Ici, l'attaquant est passé par l'application avec un identifiant valide, et l'application a déchiffré les données pour lui, comme pour n'importe quel utilisateur légitime. Le chiffrement n'a pas été contourné, il n'a simplement jamais été sollicité. Le reste du module reprend chaque défaillance de ce scénario.
+Le chiffrement au repos protège contre le vol d'un disque ou d'un snapshot. Ici, l'attaquant est passé par l'application avec un identifiant valide, et l'application a déchiffré les données pour lui, comme pour n'importe quel utilisateur légitime. Le chiffrement n'a pas été contourné, il n'a simplement jamais été sollicité.
+
+> 🏦 **Analogie : le coffre et le guichet.** Le chiffrement au repos ressemble à un coffre-fort. Il résiste à celui qui emporte le coffre, pas à celui qui se présente au guichet avec un badge valide, car le guichetier ouvre alors le coffre lui-même. Limite de l'image : le « guichetier » n'est pas une personne qu'on pourrait tromper ou alerter. C'est l'application, qui déchiffre automatiquement pour toute session authentifiée.
+{: .callout .callout-analogie}
+
+Le reste du module reprend chaque défaillance de ce scénario.
 
 ---
 
 ## Surface d'attaque : où sont vraiment les données
 
-La première erreur est de se limiter au schéma d'architecture officiel. Les données personnelles vivent surtout dans les endroits que personne n'a inscrits au registre.
+Où vivent vraiment vos données personnelles ? La première erreur est de se limiter au schéma d'architecture officiel. Les données personnelles vivent surtout dans les endroits que personne n'a inscrits au registre.
 
 | Vecteur | Exposition | Impact potentiel |
 |---|---|---|
@@ -138,7 +145,13 @@ Un fichier de prospects n'est pas « secret » côté métier, mais il est soumi
 
 ### La conservation comme contrôle
 
-Le principe de limitation de la conservation (art. 5 du RGPD) se traduit par un cycle en trois phases : **base active** (usage courant), **archivage intermédiaire** (accès restreint, obligation légale ou contentieux potentiel), puis **suppression** ou archivage définitif. Les durées dépendent de la finalité et parfois de textes précis. Les pièces comptables sont en général conservées dix ans. Pour la prospection commerciale, les référentiels de la CNIL évoquent trois ans après le dernier contact. À confirmer avec le juridique pour votre contexte.
+Le principe de limitation de la conservation (art. 5 du RGPD) se traduit par un cycle en trois phases :
+
+1. **Base active** : usage courant.
+2. **Archivage intermédiaire** : accès restreint, obligation légale ou contentieux potentiel.
+3. **Suppression** ou archivage définitif.
+
+Les durées dépendent de la finalité et parfois de textes précis. Les pièces comptables sont en général conservées dix ans. Pour la prospection commerciale, les référentiels de la CNIL évoquent trois ans après le dernier contact. À confirmer avec le juridique pour votre contexte.
 
 Côté technique, c'est la mise en œuvre qui échoue :
 
@@ -199,7 +212,9 @@ Un SaaS américain hébergeant vos données implique un mécanisme de transfert 
 
 Le DPO **conseille et contrôle**, il ne porte pas la conformité à la place du responsable de traitement. Le RSSI **définit et met en œuvre** les mesures de sécurité.
 
-L'art. 38.6 autorise le DPO à exercer d'autres missions à condition qu'elles n'entraînent pas de conflit d'intérêts. Les lignes directrices de l'EDPB et la doctrine de la CNIL considèrent le poste de RSSI comme typiquement incompatible : celui qui choisit les moyens ne peut pas être celui qui les contrôle. Le conflit se voit dans le quotidien : le RSSI veut garder les logs 12 mois pour la détection, le DPO conteste au nom de la minimisation. Ce désaccord est sain. L'arbitrage appartient à la direction, et la décision doit être écrite.
+L'art. 38.6 autorise le DPO à exercer d'autres missions à condition qu'elles n'entraînent pas de conflit d'intérêts. Les lignes directrices de l'EDPB et la doctrine de la CNIL considèrent le poste de RSSI comme typiquement incompatible : celui qui choisit les moyens ne peut pas être celui qui les contrôle.
+
+Le conflit se voit au quotidien : le RSSI veut garder les logs 12 mois pour la détection, le DPO conteste au nom de la minimisation. Ce désaccord est sain. L'arbitrage appartient à la direction, et la décision doit être écrite.
 
 Côté exploitation, la coordination se règle sur un point simple : **le DPO doit être dans la boucle d'escalade dès la qualification d'un incident impliquant des données personnelles**. Dans notre scénario, il l'a appris par la direction commerciale, ce qui a coûté des heures sur les 72 disponibles.
 
@@ -207,13 +222,23 @@ Côté exploitation, la coordination se règle sur un point simple : **le DPO do
 
 ## AIPD : décider avant de construire
 
-L'AIPD* (Data Protection Impact Assessment) est exigée quand un traitement est susceptible d'engendrer un **risque élevé pour les droits et libertés des personnes** (art. 35). Le critère est le risque pour les *personnes*, pas pour l'entreprise. C'est la nuance que les équipes sécurité manquent le plus souvent.
+L'AIPD (Data Protection Impact Assessment) est exigée quand un traitement est susceptible d'engendrer un **risque élevé pour les droits et libertés des personnes** (art. 35). Le critère est le risque pour les *personnes*, pas pour l'entreprise. C'est la nuance que les équipes sécurité manquent le plus souvent.
 
-*\*Analyse formalisée qui décrit le traitement, juge sa nécessité et sa proportionnalité, évalue les risques pour les personnes et définit les mesures qui les réduisent.*
+> 📖 **Définition.** L'AIPD est une analyse formalisée qui décrit le traitement, juge sa nécessité et sa proportionnalité, évalue les risques pour les personnes et définit les mesures qui les réduisent.
+{: .callout .callout-definition}
 
-**Quand en faire une.** L'article 35.3 cite l'évaluation systématique à grande échelle fondée sur un traitement automatisé (profilage), les catégories particulières à grande échelle, et la surveillance systématique d'un lieu public. Le comité européen de protection des données (EDPB) a décliné neuf critères : scoring, décision automatisée à effet, surveillance systématique, données sensibles, grande échelle, croisement de jeux de données, personnes vulnérables, usage innovant, exclusion du bénéfice d'un droit. Deux critères réunis rendent l'AIPD généralement nécessaire. La CNIL publie en outre des listes de traitements qui exigent une AIPD ou en sont dispensés. Elle a aussi publié un outil PIA gratuit pour la conduire.
+**Quand en faire une.** L'article 35.3 cite l'évaluation systématique à grande échelle fondée sur un traitement automatisé (profilage), les catégories particulières à grande échelle, et la surveillance systématique d'un lieu public.
 
-**Ce que l'équipe sécurité apporte.** La méthode de la CNIL raisonne sur trois événements redoutés : **accès illégitime** aux données, **modification non désirée**, **disparition**. Pour chacun, on décrit les sources de risque, les menaces, les impacts sur les personnes, puis on évalue gravité et vraisemblance. Vous fournissez les scénarios de menace et la partie « mesures ». Si le risque résiduel reste élevé après mesures, une **consultation préalable** de l'autorité est obligatoire (art. 36).
+Le comité européen de protection des données (EDPB) a décliné neuf critères : scoring, décision automatisée à effet, surveillance systématique, données sensibles, grande échelle, croisement de jeux de données, personnes vulnérables, usage innovant, exclusion du bénéfice d'un droit. Deux critères réunis rendent l'AIPD généralement nécessaire.
+
+La CNIL publie en outre des listes de traitements qui exigent une AIPD ou en sont dispensés. Elle a aussi publié un outil PIA gratuit pour la conduire.
+
+**Ce que l'équipe sécurité apporte.** La méthode de la CNIL raisonne sur trois événements redoutés : **accès illégitime** aux données, **modification non désirée**, **disparition**.
+
+> 🔑 **Moyen mnémotechnique** : pensez **CID**. Accès illégitime → **C**onfidentialité, modification non désirée → **I**ntégrité, disparition → **D**isponibilité. Ce sont les trois mêmes atteintes qui définissent une violation de données.
+{: .callout .callout-memo}
+
+Pour chacun, on décrit les sources de risque, les menaces, les impacts sur les personnes, puis on évalue gravité et vraisemblance. Vous fournissez les scénarios de menace et la partie « mesures ». Si le risque résiduel reste élevé après mesures, une **consultation préalable** de l'autorité est obligatoire (art. 36).
 
 > ⚠️ **Erreur fréquente** : l'AIPD « de façade », rédigée après la mise en production, qui décrit l'architecture existante au lieu de la faire évoluer. Une AIPD utile change au moins une décision de conception : durée réduite, pseudonymisation, suppression d'un champ, cloisonnement. Si l'AIPD n'a rien modifié, elle a probablement été faite trop tard.
 {: .callout .callout-attention}
@@ -247,7 +272,8 @@ La gestion des clés fait ou défait la couche. Une clé stockée à côté des 
 
 ### Pseudonymisation : ce qu'elle n'est pas
 
-La pseudonymisation remplace les identifiants directs par un pseudonyme, mais la donnée reste personnelle tant qu'une clé permet de la ré-identifier. Elle réduit le risque, elle ne supprime pas l'obligation. L'anonymisation, elle, rend la ré-identification impossible *de manière raisonnable*, et le seuil est strict.
+> 📖 **Définition.** La **pseudonymisation** remplace les identifiants directs par un pseudonyme : la donnée reste personnelle tant qu'une clé permet de la ré-identifier. Elle réduit le risque, elle ne supprime pas l'obligation. L'**anonymisation**, elle, rend la ré-identification impossible *de manière raisonnable*, et le seuil est strict.
+{: .callout .callout-definition}
 
 > ⚠️ **Erreur fréquente** : « anonymiser » des e-mails avec un simple SHA-256. Le résultat est **déterministe** et un dictionnaire d'e-mails permet de l'inverser.
 {: .callout .callout-attention}
@@ -321,7 +347,9 @@ flowchart TD
     F --> J
 ```
 
-**L'horloge.** Les 72 heures courent à partir du moment où le responsable de traitement a **connaissance** de la violation (art. 33). Cela ne signifie pas que la détection tardive soit sans conséquence : une organisation qui met onze jours à détecter peut être questionnée sur la pertinence de ses mesures de sécurité (art. 32). Si l'information est incomplète, la notification peut se faire par phases. Le sous-traitant doit, lui, prévenir le responsable de traitement « dans les meilleurs délais ».
+**L'horloge.** Les 72 heures courent à partir du moment où le responsable de traitement a **connaissance** de la violation (art. 33). Cela ne signifie pas que la détection tardive soit sans conséquence : une organisation qui met onze jours à détecter peut être questionnée sur la pertinence de ses mesures de sécurité (art. 32).
+
+Si l'information est incomplète, la notification peut se faire par phases. Le sous-traitant doit, lui, prévenir le responsable de traitement « dans les meilleurs délais ».
 
 **Qui décide.** Le responsable de traitement, avec l'avis du DPO. Le RSSI fournit les faits (périmètre, vecteur, données touchées), pas la qualification juridique.
 

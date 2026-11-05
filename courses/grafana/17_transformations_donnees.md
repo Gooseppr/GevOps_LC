@@ -34,7 +34,9 @@ next_module_title: "Grafana Alerting — Création et évaluation"
 
 ## Mise en situation
 
-Une équipe de cinq personnes exploite une quarantaine de machines virtuelles Linux supervisées par Prometheus. Le dashboard « Parc » contient trois panels : un pour le CPU, un pour la mémoire, un pour le disque. Chacun affiche 40 courbes. Pour répondre à la question « quelle machine va mal en ce moment ? », le technicien d'astreinte doit parcourir trois graphiques et recouper à l'œil les noms d'instances. Certains exportent même les données en CSV pour les trier dans un tableur.
+Une équipe de cinq personnes exploite une quarantaine de machines virtuelles Linux supervisées par Prometheus. Le dashboard « Parc » contient trois panels : un pour le CPU, un pour la mémoire, un pour le disque. Chacun affiche 40 courbes.
+
+Quelle machine va mal en ce moment ? Pour répondre, le technicien d'astreinte doit parcourir trois graphiques et recouper à l'œil les noms d'instances. Certains exportent même les données en CSV pour les trier dans un tableur.
 
 Ce qu'il lui faut, c'est une seule table : une ligne par machine, trois colonnes (CPU, mémoire, disque), triée de la plus chargée à la moins chargée. Les données existent déjà dans Grafana, mais elles arrivent en trois morceaux qui n'ont pas la bonne forme. C'est le rôle des transformations : remodeler, assembler et nettoyer les résultats des requêtes avant l'affichage.
 
@@ -51,7 +53,13 @@ flowchart LR
     F --> V[Visualisation]
 ```
 
-Les requêtes partent vers les sources de données. Les expressions, si vous en utilisez, s'exécutent sur le serveur Grafana. Les transformations s'exécutent dans le navigateur de la personne qui regarde le dashboard, puis les options de champs (unités, seuils, overrides) sont appliquées sur le résultat, et enfin la visualisation dessine.
+Dans l'ordre :
+
+1. Les requêtes partent vers les sources de données.
+2. Les expressions, si vous en utilisez, s'exécutent sur le serveur Grafana.
+3. Les transformations s'exécutent dans le navigateur de la personne qui regarde le dashboard.
+4. Les options de champs (unités, seuils, overrides) sont appliquées sur le résultat.
+5. La visualisation dessine.
 
 > 🧠 **Concept clé** : les transformations travaillent sur des data frames, c'est-à-dire des tables avec des colonnes typées (temps, texte, nombre). Une requête Prometheus de type range renvoie une série par combinaison de labels. Une requête de type instant en format Table renvoie une seule ligne par série. Quand on sait quelle forme on a en entrée et quelle forme on veut en sortie, le choix de la transformation devient presque mécanique.
 {: .callout .callout-important}
@@ -89,7 +97,10 @@ Les trois premières demandent une explication un peu plus longue, parce qu'on l
 
 ### Reduce : de la courbe au chiffre
 
-Reduce a deux modes. En **Series to rows**, chaque série devient une ligne, avec une colonne par calcul demandé (Last, Max, Mean, Min...). C'est le mode à utiliser pour une table de synthèse à partir de requêtes range. En **Reduce fields**, chaque champ est réduit à une seule valeur mais la structure par champ est conservée, ce qui convient mieux à un bar gauge ou un stat.
+Reduce a deux modes :
+
+- **Series to rows** : chaque série devient une ligne, avec une colonne par calcul demandé (Last, Max, Mean, Min...). C'est le mode à utiliser pour une table de synthèse à partir de requêtes range.
+- **Reduce fields** : chaque champ est réduit à une seule valeur mais la structure par champ est conservée, ce qui convient mieux à un bar gauge ou un stat.
 
 Les calculs les plus utiles en exploitation sont Last (valeur actuelle), Max (pic sur la période), Mean (niveau habituel), et Last * (dernière valeur non nulle, précieux quand une série a un trou récent).
 
@@ -98,7 +109,8 @@ Les calculs les plus utiles en exploitation sont Last (valeur actuelle), Max (pi
 
 ### Merge ou Join : empiler ou coller
 
-La règle de choix est simple. Si vos requêtes renvoient **la même forme** (mêmes colonnes) pour des périmètres différents, par exemple une requête par région ou par environnement, utilisez **Merge**. Si vos requêtes renvoient **des colonnes différentes** pour **les mêmes entités**, par exemple CPU, mémoire et disque pour les mêmes machines, utilisez **Join by field**.
+> 💡 **À retenir.** Même forme (mêmes colonnes) pour des périmètres différents, par exemple une requête par région ou par environnement → **Merge**. Colonnes différentes pour les mêmes entités, par exemple CPU, mémoire et disque des mêmes machines → **Join by field**.
+{: .callout .callout-important}
 
 Avec Merge, les champs qui n'existent que dans un des résultats laissent des cellules vides dans les lignes des autres. Ce n'est pas une erreur, c'est la conséquence de l'empilement.
 
@@ -191,6 +203,9 @@ flowchart LR
 
 Les transformations s'exécutent de haut en bas, et chacune reçoit la sortie de la précédente. Il n'y a pas de notion de dépendance explicite : l'ordre **est** la logique.
 
+> 🏭 **Analogie : une chaîne de montage.** Chaque poste reçoit la pièce telle que le poste précédent l'a laissée. Une colonne renommée ou masquée n'existe donc plus sous sa forme d'origine pour les cartes suivantes. Limite de l'image : ici, vous pouvez réordonner les postes à tout moment par glisser-déposer.
+{: .callout .callout-analogie}
+
 Quelques conséquences concrètes :
 
 - **Joindre avant de renommer.** Après Organize, `Value #A` n'existe plus sous ce nom. Une jointure ou un calcul placé après doit utiliser le nouveau nom. Si vous renommez en premier et que vous tentez ensuite de référencer l'ancien nom dans Add field from calculation, le champ est introuvable.
@@ -202,7 +217,10 @@ Quand un résultat est incohérent, la méthode qui marche : désactiver toutes 
 
 ## Expressions Grafana : usages et limites
 
-Les expressions sont une autre famille d'outils, souvent confondue avec les transformations. Dans l'éditeur de requêtes d'un panel, le bouton **+ Expression** ajoute un bloc de calcul qui référence les requêtes par leur identifiant (`$A`, `$B`). Elles sont évaluées par le **serveur** Grafana, au lieu du navigateur, et on les désigne souvent sous le nom de SSE (Server-Side Expressions).
+Les expressions sont une autre famille d'outils, souvent confondue avec les transformations. Dans l'éditeur de requêtes d'un panel, le bouton **+ Expression** ajoute un bloc de calcul qui référence les requêtes par leur identifiant (`$A`, `$B`).
+
+> 📖 **Définition.** On appelle ces blocs des SSE (Server-Side Expressions) : ils sont évalués par le **serveur** Grafana, et non par le navigateur.
+{: .callout .callout-definition}
 
 Les types disponibles et utiles dans un panel :
 
@@ -214,12 +232,16 @@ Les types disponibles et utiles dans un panel :
 
 Les autres types (Classic condition, Threshold) sont conçus pour les règles d'alerte. Ils reviendront dans le module suivant, il n'est pas utile de s'y attarder ici.
 
-Une expression de type Math a un comportement qu'il faut connaître : elle associe les opérandes par **labels** : deux séries sont appariées si leurs jeux de labels sont identiques ou si l'un est inclus dans l'autre. Si `$A` renvoie une série `{instance="web-01"}` et `$B` une série `{instance="web-01:9100"}`, rien n'est associé, et le résultat est vide. C'est le même problème que la jointure sur `instance`, mais avec un message encore moins parlant.
+Une expression de type Math a un comportement qu'il faut connaître : elle associe les opérandes par **labels**. Deux séries sont appariées si leurs jeux de labels sont identiques ou si l'un est inclus dans l'autre. Si `$A` renvoie une série `{instance="web-01"}` et `$B` une série `{instance="web-01:9100"}`, rien n'est associé, et le résultat est vide. C'est le même problème que la jointure sur `instance`, mais avec un message encore moins parlant.
 
 > ⚠️ **Erreur fréquente** : utiliser une expression Math pour calculer un ratio entre deux métriques de la même source. Le calcul fonctionne, mais il tire deux séries brutes vers Grafana pour faire une division que Prometheus fait en une ligne de PromQL, avec moins de données transférées. Gardez les expressions pour les cas où les deux opérandes ne peuvent pas être calculés au même endroit.
 {: .callout .callout-attention}
 
-Autre limite : les expressions ne travaillent que sur les sources de données dites « backend ». Les plugins purement frontend ne peuvent pas être référencés. Les expressions ne remodelent pas non plus des tables (pas de join, pas de renommage, pas de tri). Pour mettre en forme, on revient aux transformations. La disponibilité exacte des types et leur comportement avec une source Mixed peuvent varier selon la version : vérifiez dans l'interface de votre instance.
+Les expressions ont aussi d'autres limites :
+
+- Elles ne travaillent que sur les sources de données dites « backend ». Les plugins purement frontend ne peuvent pas être référencés.
+- Elles ne remodèlent pas les tables (pas de join, pas de renommage, pas de tri). Pour mettre en forme, on revient aux transformations.
+- La disponibilité exacte des types et leur comportement avec une source Mixed peuvent varier selon la version : vérifiez dans l'interface de votre instance.
 
 ### Quand choisir quoi
 
@@ -237,13 +259,17 @@ C'est le piège principal du module, et il touche aussi bien la performance que 
 
 Une transformation s'exécute **après** la requête. Tout ce que la source de données a renvoyé a déjà transité sur le réseau et se trouve déjà dans la mémoire du navigateur. Filtrer 38 machines sur 40 avec Filter data by values ne fait pas gagner un seul octet de transfert : Prometheus a calculé et renvoyé les 40.
 
+> 📦 **Analogie : le colis trié à l'arrivée.** Filtrer avec une transformation, c'est se faire livrer tout le stock puis jeter ce dont on n'a pas besoin : le transport est déjà payé. Filtrer en PromQL, c'est ne commander que le nécessaire. Limite de l'image : le coût ne se limite pas au transport, car Prometheus a aussi déjà calculé les séries inutiles.
+{: .callout .callout-analogie}
+
 Concrètement, voici ce que ça donne dans trois situations typiques :
 
 - Vous voulez la valeur max de CPU sur 24 h pour 40 machines. Avec une requête range et Reduce, Grafana reçoit des milliers de points par série, puis les écrase en un chiffre. Avec `max_over_time(...[24h])` en requête instant, Prometheus renvoie 40 valeurs.
 - Vous voulez uniquement les machines au-dessus de 80 %. Avec Filter data by values, toutes les machines sont calculées, transférées, puis filtrées. Avec `... > 80` en PromQL, seules les machines concernées reviennent.
 - Vous voulez un ratio. PromQL le calcule en une seule requête, sans transférer deux jeux de séries à joindre.
 
-La règle pratique : **tout ce qui réduit le volume ou change la sémantique de la donnée appartient à la requête**. Les transformations servent à la **mise en forme** : assembler, renommer, masquer, trier. Quand une transformation sert à compenser une requête mal posée, c'est un signal pour corriger la requête.
+> 💡 **À retenir.** Tout ce qui réduit le volume ou change la sémantique de la donnée appartient à la **requête**. Les transformations servent à la **mise en forme** : assembler, renommer, masquer, trier. Une transformation qui compense une requête mal posée signale qu'il faut corriger la requête.
+{: .callout .callout-important}
 
 > ⚠️ **Erreur fréquente** : croire que les transformations d'un panel sont réutilisables ailleurs. Elles n'existent que dans le panel et sont exécutées par le navigateur. Un moteur qui évalue une requête en arrière-plan (comme le fera une règle d'alerte, voir le module suivant) ne voit pas votre pipeline : il ne reçoit que la requête et ses expressions. Une condition « CPU > 80 % » construite avec une transformation dans un panel ne peut pas simplement être recopiée dans une alerte.
 {: .callout .callout-attention}

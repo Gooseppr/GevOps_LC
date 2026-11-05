@@ -69,9 +69,14 @@ flowchart LR
     J --> E
 ```
 
-L'organisation dépend de contraintes économiques plus que de modèles théoriques. Tenir un poste d'analyste 24h/24 demande de l'ordre de cinq à six équivalents temps plein, une fois les congés, les rotations et les arrêts comptés. Beaucoup d'entreprises choisissent donc un SOC en heures ouvrées, complété par une astreinte ou un prestataire (MSSP, Managed Security Service Provider) pour la nuit. Le découpage en niveaux N1, N2 et N3 est courant, mais ce qui compte vraiment est de savoir qui a le droit de modifier une règle et qui a le droit de clore une alerte.
+Comment s'organise un SOC ? Les contraintes économiques pèsent plus que les modèles théoriques. Tenir un poste d'analyste 24h/24 demande de l'ordre de cinq à six équivalents temps plein, une fois les congés, les rotations et les arrêts comptés. Beaucoup d'entreprises choisissent donc un SOC en heures ouvrées, complété par une astreinte ou un prestataire (MSSP, Managed Security Service Provider) pour la nuit.
 
-Deux indicateurs structurent le pilotage. Le MTTD (Mean Time To Detect) mesure le délai entre le début d'une activité malveillante et son alerte. Le temps de qualification mesure le délai entre l'alerte et la décision. Le premier dépend de vos sources et de vos règles, le second de votre processus de triage.
+Le découpage en niveaux N1, N2 et N3 est courant. Ce qui compte vraiment, c'est de savoir qui a le droit de modifier une règle et qui a le droit de clore une alerte.
+
+Deux indicateurs structurent le pilotage :
+
+- le **MTTD** (Mean Time To Detect) : le délai entre le début d'une activité malveillante et son alerte. Il dépend de vos sources et de vos règles ;
+- le **temps de qualification** : le délai entre l'alerte et la décision. Il dépend de votre processus de triage.
 
 > 🧠 **Concept clé** : un SOC ne voit que ce qui est journalisé, collecté, parsé et corrélé. Une défaillance à n'importe quel maillon se traduit par du silence, et le silence ressemble à de la sécurité.
 {: .callout .callout-important}
@@ -93,7 +98,7 @@ Pour un SOC, la surface à cartographier est celle de la visibilité. Chaque sou
 Côté attaquant, la détection est rarement attaquée de front. On passe là où personne ne regarde :
 
 - **Outils légitimes détournés** : `certutil`, `mshta`, `rundll32`, PowerShell. Ils sont signés Microsoft et présents partout, donc les signatures de fichiers ne disent rien.
-- **Comptes valides** : un mot de passe devine ou volé produit des événements parfaitement normaux.
+- **Comptes valides** : un mot de passe deviné ou volé produit des événements parfaitement normaux.
 - **Effacement et neutralisation des journaux** : une fois administrateur local, l'attaquant s'en prend à ce qui l'observe.
 
 > 🔴 **Vecteur d'attaque** : `wevtutil cl Security` efface le journal Security (événement 1102 généré). `fltmc unload SysmonDrv` décharge le pilote Sysmon. L'arrêt du service de l'agent EDR est la troisième variante courante (T1562.001). Dans les trois cas, si les événements n'ont pas déjà quitté la machine, la preuve disparaît.
@@ -161,7 +166,12 @@ Le SIEM contient l'historique de tout votre SI. Pour un attaquant qui l'atteint,
 | Alerte sur toute modification de règle, d'exclusion ou de source de données | Un flux de tickets à relire |
 | Synchronisation NTP vérifiée sur toutes les sources | Surveillance du décalage à mettre en place |
 
-Le volume est un autre arbitrage. Les licences SIEM se facturent souvent au Go ingéré, donc tout journaliser est un luxe. Deux événements Windows illustrent le piège : 5156 (connexion autorisée par le pare-feu) et 4663 (accès à un objet) produisent un volume énorme pour une valeur de détection faible. On les filtre à la source. Les événements à forte valeur (authentification, création de processus, modification de groupes) restent en recherche rapide. Le reste va en stockage moins cher, utile pour l'investigation mais pas pour l'alerte.
+Le volume est un autre arbitrage : faut-il tout journaliser ? Les licences SIEM se facturent souvent au Go ingéré, ce qui en fait un luxe. Deux événements Windows illustrent le piège : 5156 (connexion autorisée par le pare-feu) et 4663 (accès à un objet) produisent un volume énorme pour une valeur de détection faible. On les filtre à la source.
+
+Le reste se répartit sur deux niveaux :
+
+- **recherche rapide** pour les événements à forte valeur (authentification, création de processus, modification de groupes) ;
+- **stockage moins cher** pour le reste, utile pour l'investigation mais pas pour l'alerte.
 
 ## SIEM : ingestion, corrélation, recherche et alerting
 
@@ -176,7 +186,10 @@ Deux points techniques font perdre des heures :
 
 ### Un exemple : le password spraying
 
-Le password spraying (T1110.003) contourne le verrouillage de compte. L'attaquant essaie **un seul mot de passe** (`Printemps2025!`, `<NomEntreprise>2025!`) sur des centaines de comptes, en restant sous le seuil de verrouillage. Les outils courants sont `kerbrute passwordspray`, `MSOLSpray` ou Hydra.
+> 📖 **Définition.** Le password spraying (T1110.003) contourne le verrouillage de compte : l'attaquant essaie **un seul mot de passe** (`Printemps2025!`, `<NomEntreprise>2025!`) sur des centaines de comptes, en restant sous le seuil de verrouillage.
+{: .callout .callout-definition}
+
+Les outils courants sont `kerbrute passwordspray`, `MSOLSpray` ou Hydra.
 
 Une règle « plus de 5 échecs pour un même compte » ne se déclenche jamais, puisque chaque compte n'en reçoit qu'un. Il faut compter les **comptes distincts par source** :
 
@@ -230,7 +243,12 @@ alert http any any -> $HOME_NET any (msg:"LOCAL Log4Shell JNDI in URI"; flow:est
 
 ## MITRE ATT&CK et règles de détection
 
-ATT&CK* est un vocabulaire commun : une **tactique** dit pourquoi l'attaquant agit (accès aux identifiants), une **technique** dit comment (T1003, OS Credential Dumping), une **procédure** dit avec quoi (`rundll32 comsvcs.dll, MiniDump`). Les règles se rédigent au niveau des procédures observées, l'étiquette ATT&CK sert à mesurer la couverture.
+ATT&CK* est un vocabulaire commun, qui décrit l'attaquant sur trois niveaux.
+
+> 🔑 **Moyen mnémotechnique** : retenez **TTP**, du plus abstrait au plus concret. La **tactique** dit pourquoi l'attaquant agit (accès aux identifiants), la **technique** dit comment (T1003, OS Credential Dumping), la **procédure** dit avec quoi (`rundll32 comsvcs.dll, MiniDump`).
+{: .callout .callout-memo}
+
+Les règles se rédigent au niveau des procédures observées, l'étiquette ATT&CK sert à mesurer la couverture.
 
 *\* ATT&CK : base de connaissances publique qui décrit les comportements des attaquants observés en conditions réelles, organisée en tactiques, techniques et sous-techniques.*
 
@@ -284,7 +302,12 @@ Le problème est que les antivirus, l'EDR et certains agents de sauvegarde ouvre
 | Zeek | `dns.log` : sous-domaines très longs, requêtes TXT en rafale | T1071.004 | Domaine rare dans l'entreprise, cadence régulière |
 | Zeek | `conn.log` : connexions à intervalle très régulier | T1071 | Destination rare, volume faible, durée constante |
 
-Le Kerberoasting (T1558.003) mérite une explication. Tout utilisateur du domaine peut demander un ticket de service pour un compte avec SPN ; le KDC chiffre ce ticket avec une clé dérivée du mot de passe du compte de service. L'attaquant le casse hors ligne, sans autre alerte réseau (`GetUserSPNs.py` d'Impacket, `Rubeus kerberoast`). Côté détection, on cherche un même compte qui demande plusieurs services en quelques minutes, avec chiffrement RC4 (0x17), pour des noms de service qui ne finissent pas par `$` et ne sont pas `krbtgt`. Les applications anciennes qui exigent RC4 créent du bruit : il faut les inventorier.
+Pourquoi le Kerberoasting (T1558.003) est-il si discret ? Tout utilisateur du domaine peut demander un ticket de service pour un compte avec SPN. Le KDC chiffre ce ticket avec une clé dérivée du mot de passe du compte de service. L'attaquant le casse hors ligne, sans autre alerte réseau (`GetUserSPNs.py` d'Impacket, `Rubeus kerberoast`).
+
+> 🔐 **Analogie : le cadenas emporté.** Le KDC remet à tout employé qui le demande un cadenas fermé avec le mot de passe du compte de service. L'attaquant l'emporte chez lui et essaie les combinaisons à son rythme, sans que personne ne voie ses tentatives. Limite : seul un mot de passe faible cède. Un mot de passe long et aléatoire, comme celui d'un gMSA, résiste en pratique.
+{: .callout .callout-analogie}
+
+Côté détection, on cherche un même compte qui demande plusieurs services en quelques minutes, avec chiffrement RC4 (0x17), pour des noms de service qui ne finissent pas par `$` et ne sont pas `krbtgt`. Les applications anciennes qui exigent RC4 créent du bruit : il faut les inventorier.
 
 > 🔒 **Contrôle de sécurité** : créer un compte leurre avec un SPN attractif, qu'aucun service réel n'utilise. Toute demande de ticket pour ce compte est suspecte, avec un taux de faux positifs proche de zéro. Réduire l'exposition à la source aide aussi : comptes de service gérés (gMSA) pour les services qui le permettent, AES imposé via `msDS-SupportedEncryptionTypes`.
 {: .callout .callout-securite}
@@ -322,7 +345,15 @@ Ensuite, trois enrichissements dans l'ordre :
 2. **Réputation externe** (VirusTotal, AbuseIPDB, WHOIS) : utile comme indice, jamais comme verdict. Un hash détecté par 3 moteurs sur 70 est une heuristique, pas une conclusion.
 3. **Pivot** : que s'est-il passé sur cet hôte dans l'heure avant et après (connexions sortantes, processus enfants, tâches créées) ? Le même utilisateur apparaît-il ailleurs ? Le même domaine a-t-il été contacté par d'autres machines ?
 
-Le verdict se range dans quatre catégories : vrai positif, vrai positif bénin (le comportement est réel mais autorisé, comme le script d'inventaire), faux positif (la règle s'est déclenchée à tort) et indéterminé. La catégorie « vrai positif bénin » est la plus utile, car elle conduit à affiner la règle plutôt qu'à la désactiver.
+Le verdict se range dans quatre catégories :
+
+- **vrai positif** ;
+- **vrai positif bénin** : le comportement est réel mais autorisé, comme le script d'inventaire ;
+- **faux positif** : la règle s'est déclenchée à tort ;
+- **indéterminé**.
+
+> 💡 **À retenir** : la catégorie « vrai positif bénin » est la plus utile, car elle conduit à affiner la règle plutôt qu'à la désactiver.
+{: .callout .callout-important}
 
 ### Escalader : le contenu du dossier
 
@@ -406,7 +437,7 @@ Une règle n'existe que si on a prouvé qu'elle se déclenche. Quelques vérific
 > 💡 **Astuce** : lancez `Invoke-AtomicTest <TECHNIQUE> -ShowDetails` avant toute exécution pour lire ce que fait le test. Certains tests sont destructeurs (la suppression des shadow copies, T1490, en est un). À exécuter uniquement sur une machine de laboratoire ou autorisée, avec un instantané disponible. Les numéros de tests varient selon la version.
 {: .callout .callout-astuce}
 
-Pour détecter la beaconing, un `sort | uniq -c` ne suffit pas : la régularité temporelle est le signal. Des outils comme RITA calculent cette régularité sur les journaux Zeek.
+Pour détecter le beaconing, un `sort | uniq -c` ne suffit pas : la régularité temporelle est le signal. Des outils comme RITA calculent cette régularité sur les journaux Zeek.
 
 ## Cas réel en entreprise (scénario illustratif)
 

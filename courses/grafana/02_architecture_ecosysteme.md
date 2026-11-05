@@ -42,7 +42,10 @@ Ces trois questions ont la même racine : personne dans l'équipe n'a de représ
 
 ## Grafana est un navigateur de télémétrie, pas un entrepôt
 
-Voici l'analogie qui sert pour tout le reste du parcours. Un navigateur Web n'héberge aucun site : il va chercher des pages chez des serveurs, les met en forme et vous les présente. Si un site est en panne, vous ne dites pas que Firefox est cassé. Grafana tient exactement ce rôle vis-à-vis de vos métriques, logs et traces. Il interroge des systèmes qui détiennent les données et en fait quelque chose de lisible.
+Voici l'analogie qui sert pour tout le reste du parcours.
+
+> 🌐 **Analogie : le navigateur Web.** Un navigateur Web n'héberge aucun site : il va chercher des pages chez des serveurs, les met en forme et vous les présente. Si un site est en panne, vous ne dites pas que Firefox est cassé. Grafana tient exactement ce rôle vis-à-vis de vos métriques, logs et traces : il interroge des systèmes qui détiennent les données et en fait quelque chose de lisible. Limite de l'image : Grafana évalue aussi lui-même des règles d'alerte, côté serveur.
+{: .callout .callout-analogie}
 
 > 🧠 **Concept clé** : Grafana ne stocke pas la télémétrie. Il stocke seulement sa propre configuration (dashboards, utilisateurs, définitions de Data Sources, règles d'alerte). Les points de métriques, les lignes de logs et les traces vivent dans les backends.
 {: .callout .callout-important}
@@ -94,13 +97,19 @@ Grafana a besoin d'interlocuteurs qui détiennent réellement les données. Dans
 
 **Tempo** stocke des traces, généralement sur du stockage objet. Il ne les indexe pas finement : on le retrouve le plus souvent par identifiant de trace, ou via le langage TraceQL pour des recherches structurées. Les traces sont donc souvent atteintes depuis un autre signal, par exemple un log qui contient un identifiant de trace.
 
-Le point à retenir : ces trois systèmes sont indépendants de Grafana. Ils peuvent être déployés sans lui, interrogés par d'autres outils, et tomber sans que Grafana ne tombe. À l'inverse, Grafana peut parler à bien d'autres sources (PostgreSQL, Elasticsearch, CloudWatch, InfluxDB…) sans changer de nature.
+> 💡 **À retenir** : Prometheus, Loki et Tempo sont indépendants de Grafana. Ils peuvent être déployés sans lui, interrogés par d'autres outils, et tomber sans que Grafana ne tombe.
+{: .callout .callout-important}
+
+À l'inverse, Grafana peut parler à bien d'autres sources (PostgreSQL, Elasticsearch, CloudWatch, InfluxDB…) sans changer de nature.
 
 Notez aussi que Grafana Labs propose Mimir, un stockage de métriques compatible Prometheus conçu pour grossir à grande échelle. On le croise dans les architectures plus grandes. Pour Grafana, c'est une Data Source de type Prometheus comme une autre.
 
+> 🔑 **Moyen mnémotechnique** : Grafana Labs désigne souvent sa pile par l'acronyme LGTM, pour Loki (logs), Grafana (visualisation), Tempo (traces) et Mimir (métriques).
+{: .callout .callout-memo}
+
 ## Qui amène les données jusque-là
 
-Si Grafana ne collecte rien et que Prometheus, Loki et Tempo ne font que stocker et répondre, quelqu'un doit produire et acheminer la télémétrie. C'est l'étage du dessous, et trois acteurs s'y croisent.
+Si Grafana ne collecte rien et que Prometheus, Loki et Tempo ne font que stocker et répondre, qui produit et achemine la télémétrie ? C'est l'étage du dessous, et trois acteurs s'y croisent.
 
 Un **exporter** est un petit programme qui traduit l'état d'un système qui ne parle pas Prometheus en métriques lisibles. `node_exporter`, par exemple, lit ce que Linux expose (CPU, mémoire, disque, réseau) et le publie sur une page HTTP, `/metrics`, que Prometheus vient lire. C'est un traducteur, pas un stockage.
 
@@ -135,11 +144,14 @@ Le schéma est volontairement simplifié. Prometheus peut aussi aller chercher l
 
 Grafana n'a pas de code figé pour chaque système. Chaque type de source est géré par un **plugin Data Source**, qui sait faire trois choses : se connecter (URL, authentification), traduire la requête du panel dans le langage du backend, et convertir la réponse en un format interne commun. Les plugins Prometheus, Loki, Tempo, PostgreSQL ou CloudWatch sont fournis avec Grafana. D'autres s'installent à part.
 
-Ce format interne, les *data frames*, est ce qui permet à un même panel d'afficher indifféremment des données venant de Prometheus ou de PostgreSQL. Le panel ne sait pas d'où vient la donnée, il reçoit des colonnes et des lignes typées.
+> 📖 **Définition.** Les *data frames* sont le format interne commun de Grafana : des colonnes et des lignes typées. Grâce à eux, un même panel affiche indifféremment des données venant de Prometheus ou de PostgreSQL, sans savoir d'où elles viennent.
+{: .callout .callout-definition}
 
 Il existe d'autres familles de plugins, qu'il vaut mieux savoir nommer : les **plugins de panel** ajoutent des visualisations, les **plugins d'application** regroupent pages, dashboards et sources en un ensemble thématique. Par défaut, Grafana refuse de charger un plugin non signé, ce qui est une protection utile : un plugin s'exécute dans votre serveur avec ses droits.
 
-Un détail d'architecture a de vraies conséquences : par défaut, ce n'est **pas** votre navigateur qui contacte Prometheus. Le navigateur parle à Grafana Server, et c'est Grafana Server qui joint le backend (mode dit *Server*). Le backend n'a donc besoin d'être joignable que depuis le serveur Grafana, pas depuis les postes des utilisateurs. Les anciens modes où le navigateur contactait directement la source ont été dépréciés. L'interface exacte varie selon la version.
+Qui contacte réellement Prometheus ? Par défaut, ce n'est **pas** votre navigateur. Le navigateur parle à Grafana Server, et c'est Grafana Server qui joint le backend (mode dit *Server*).
+
+Ce détail d'architecture a de vraies conséquences : le backend n'a besoin d'être joignable que depuis le serveur Grafana, pas depuis les postes des utilisateurs. Les anciens modes où le navigateur contactait directement la source ont été dépréciés. L'interface exacte varie selon la version.
 
 ## Le parcours d'une requête, du clic au graphique
 

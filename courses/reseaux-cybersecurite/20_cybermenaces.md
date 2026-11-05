@@ -57,6 +57,9 @@ LockBit 3.0 utilise un modèle RaaS (Ransomware-as-a-Service) : le groupe fourni
 
 Le chiffrement hybride est la norme : un chiffrement symétrique rapide pour les fichiers (AES ou ChaCha20 selon les familles), et une clé asymétrique (RSA ou Curve25519) pour protéger la clé symétrique (la clé de déchiffrement ne quitte jamais le serveur C2 de l'attaquant). Sans la clé privée RSA, il n'existe pas de déchiffrement possible par force brute.
 
+> 🔐 **Analogie : le coffre dans le coffre.** Les fichiers sont fermés avec une clé rapide (symétrique). Cette clé est elle-même enfermée dans un cadenas dont seul l'attaquant détient la clé privée. Limite : contrairement à un vrai cadenas, aucun outil ne permet de le forcer en un temps raisonnable.
+{: .callout .callout-analogie}
+
 ### Chevaux de Troie (RAT et loaders)
 
 Un RAT (Remote Access Trojan) cherche à paraître légitime aux yeux du système d'exploitation : il imite un processus existant, injecte du code dans des processus légitimes (`explorer.exe`, `svchost.exe`), et établit une connexion sortante vers son serveur C2 sur des ports autorisés (443, 80). Aucun port entrant n'est ouvert : un filtrage limité au trafic entrant ne suffit donc pas.
@@ -74,7 +77,7 @@ Un ver se propage sans fichier hôte et sans interaction utilisateur. EternalBlu
 
 ## Phishing, ingénierie sociale et vol d'identifiants
 
-Le phishing est le vecteur d'entrée le plus fréquent dans les incidents documentés — non pas parce que les attaquants manquent d'autres options, mais parce que c'est souvent le chemin le plus rapide et le moins détectable.
+Le phishing est le vecteur d'entrée le plus fréquent dans les incidents documentés. Pourquoi ? Non pas parce que les attaquants manquent d'autres options, mais parce que c'est souvent le chemin le plus rapide et le moins détectable.
 
 ### Spear phishing vs phishing de masse
 
@@ -91,6 +94,9 @@ Un spear phishing efficace utilise des informations collectées sur LinkedIn, le
 
 La MFA ne suffit plus contre les attaques AiTM (Adversary-in-the-Middle). Des frameworks comme **Evilginx2** ou **Modlishka** agissent en proxy inverse : l'utilisateur se connecte réellement sur le vrai service (et passe la MFA), mais le proxy intercepte le cookie de session en transit. L'attaquant rejoue ce cookie — il n'a jamais eu besoin du mot de passe ni du second facteur.
 
+> 🎭 **Analogie : le faux guichet.** Vous parlez à un intermédiaire qui transmet fidèlement chaque échange au vrai guichet. Il garde ensuite pour lui le badge d'accès qu'on vous remet à la fin. Limite : ici, vous ne voyez jamais l'intermédiaire, car la page affichée est celle du vrai service, relayée par le proxy.
+{: .callout .callout-analogie}
+
 > 🔴 **Vecteur d'attaque** — Avec Evilginx2, la chaîne complète prend moins de 10 minutes : déploiement d'un phishlet, envoi d'un lien, capture du cookie de session, accès à Microsoft 365 ou Gmail sans aucune alerte MFA côté victime.
 {: .callout .callout-danger}
 
@@ -106,7 +112,8 @@ Hydra, Medusa, et CrackMapExec sont les outils courants. CrackMapExec permet de 
 
 ### Credential stuffing
 
-Après chaque fuite de données publique (Collection #1-5, par exemple), des milliards de paires email/mot de passe circulent. Le credential stuffing consiste à tester ces paires sur d'autres services — en supposant que les utilisateurs réutilisent leurs mots de passe.
+Après chaque fuite de données publique (Collection #1-5, par exemple), des milliards de paires email/mot de passe circulent. > 📖 **Définition.** Le credential stuffing consiste à tester ces paires email/mot de passe sur d'autres services, en pariant sur la réutilisation des mots de passe par les utilisateurs.
+{: .callout .callout-definition}
 
 > ⚠️ **Erreur fréquente** — Une application peut ne jamais avoir été compromise et pourtant présenter des connexions suspectes légitimes depuis ces bases. Les logs montrent des connexions réussies — pas d'alerte, pas d'anomalie. Seul un contrôle sur la détection d'anomalies comportementales (géolocalisation inhabituelle, appareil inconnu) permet de distinguer l'utilisateur légitime de l'attaquant.
 {: .callout .callout-attention}
@@ -120,6 +127,9 @@ L'ARP spoofing se produit sur un réseau local, entre l'attaquant et sa cible. L
 ### ARP spoofing
 
 L'ARP (Address Resolution Protocol) n'a aucun mécanisme d'authentification. Sur un réseau local, n'importe quel hôte peut envoyer une réponse ARP non sollicitée (`ARP reply`) annonçant que l'IP de la passerelle correspond à sa propre adresse MAC. Les machines voisines mettent à jour leur cache ARP sans vérification.
+
+> 📮 **Analogie : le faux panneau.** C'est comme si quelqu'un collait sur la boîte aux lettres de la passerelle une étiquette « courrier à déposer chez moi ». Les voisins le croient sur parole. Limite : cette tromperie ne fonctionne que sur le réseau local, là où circulent les messages ARP.
+{: .callout .callout-analogie}
 
 Résultat : tout le trafic destiné à la passerelle passe désormais par l'attaquant. Outil typique : **arpspoof** (dsniff), **Ettercap**, **Bettercap**.
 
@@ -322,7 +332,15 @@ Les leçons tirées sont systématiquement les mêmes dans ces cas :
 
 ## Résumé
 
-Les cybermenaces ne sont pas des événements discrets — elles sont des processus, souvent longs, structurés en phases progressives. Le ransomware est l'aboutissement visible d'une chaîne qui commence par un credential volé ou un service non patché. Le phishing reste le vecteur d'entrée le plus courant non pas par manque d'alternatives, mais parce que c'est souvent le chemin le plus rapide face à une défense périmétrique solide. Les attaques AiTM ont rendu la MFA classique insuffisante contre les campagnes ciblées. Le mouvement latéral — Pass-the-Hash, Kerberoasting, Golden Ticket — exploite la confiance implicite entre machines d'un même domaine. MITRE ATT&CK fournit un langage précis pour décrire et détecter chaque technique. Et surtout : une vulnérabilité avec un CVSS élevé n'est pas automatiquement un vecteur actif dans votre contexte — l'exploitabilité réelle dépend de l'accessibilité, des contrôles compensatoires et de la position de l'attaquant.
+Les cybermenaces ne sont pas des événements discrets — elles sont des processus, souvent longs, structurés en phases progressives.
+
+- Le ransomware est l'aboutissement visible d'une chaîne qui commence par un credential volé ou un service non patché.
+- Le phishing reste le vecteur d'entrée le plus courant non pas par manque d'alternatives, mais parce que c'est souvent le chemin le plus rapide face à une défense périmétrique solide.
+- Les attaques AiTM ont rendu la MFA classique insuffisante contre les campagnes ciblées.
+- Le mouvement latéral — Pass-the-Hash, Kerberoasting, Golden Ticket — exploite la confiance implicite entre machines d'un même domaine.
+- MITRE ATT&CK fournit un langage précis pour décrire et détecter chaque technique.
+
+Et surtout : une vulnérabilité avec un CVSS élevé n'est pas automatiquement un vecteur actif dans votre contexte. L'exploitabilité réelle dépend de l'accessibilité, des contrôles compensatoires et de la position de l'attaquant.
 
 ---
 

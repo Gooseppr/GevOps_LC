@@ -38,7 +38,9 @@ next_module_title: "Projet pratique — Audit d'une infrastructure de laboratoir
 
 Un distributeur de 900 personnes est certifié ISO/IEC 27001 depuis trois ans. Le périmètre du certificat couvre « le siège et les systèmes de gestion ». Lors du dernier audit, les auditeurs ont reçu une PSSI approuvée, une procédure de gestion des correctifs (« vulnérabilités critiques corrigées sous 15 jours ») et des rapports de déploiement montrant 98 % des serveurs à jour. Aucun écart majeur n'a été relevé.
 
-Six mois plus tard, un groupe de rançongiciel entre par l'équipement d'accès distant d'un entrepôt régional. Le boîtier est exposé sur Internet et vulnérable à une faille du type **CVE-2023-4966** (Citrix Bleed, vol de jetons de session sur NetScaler). Cet équipement ne figure dans aucun inventaire, car l'entrepôt appartient à une filiale hors périmètre. L'attaquant énumère ensuite les comptes de service avec `GetUserSPNs.py` (Impacket) et casse hors ligne le ticket Kerberos d'un compte de sauvegarde. Ce compte a un mot de passe qui n'expire jamais, exception « temporaire » ouverte quatre ans plus tôt. Il est administrateur de domaine, et le chiffrement des serveurs commence un vendredi soir.
+Six mois plus tard, un groupe de rançongiciel entre par l'équipement d'accès distant d'un entrepôt régional. Le boîtier est exposé sur Internet et vulnérable à une faille du type **CVE-2023-4966** (Citrix Bleed, vol de jetons de session sur NetScaler). Cet équipement ne figure dans aucun inventaire, car l'entrepôt appartient à une filiale hors périmètre.
+
+L'attaquant énumère ensuite les comptes de service avec `GetUserSPNs.py` (Impacket) et casse hors ligne le ticket Kerberos d'un compte de sauvegarde. Ce compte a un mot de passe qui n'expire jamais, exception « temporaire » ouverte quatre ans plus tôt. Il est administrateur de domaine, et le chiffrement des serveurs commence un vendredi soir.
 
 La défense naïve était « avoir la certification et les procédures ». L'audit avait validé que les documents existaient et étaient cohérents. Il n'avait pas vérifié que la réalité du SI correspondait au périmètre déclaré, ni que les exceptions étaient bornées. L'attaquant ne lit pas la PSSI : il lit l'écart entre elle et ce qui tourne en production. Ce module porte sur la façon de mesurer cet écart.
 
@@ -75,7 +77,8 @@ En audit organisationnel, la surface d'attaque est l'ensemble des zones où ce q
 
 ## ISMS, ISO/IEC 27001 et 27002 : ce que l'auditeur utilise comme critère
 
-Un **ISMS** (Information Security Management System, appelé SMSI en France)\* est l'ensemble des politiques, processus et responsabilités qui pilotent la sécurité de façon continue. C'est un système de management, pas un outil.
+> 📖 **Définition.** Un **ISMS** (Information Security Management System, appelé SMSI en France)\* est l'ensemble des politiques, processus et responsabilités qui pilotent la sécurité de façon continue. C'est un système de management, pas un outil.
+{: .callout .callout-definition}
 
 \* *Il suit un cycle d'amélioration continue : on décide, on met en œuvre, on mesure, on corrige, et l'ISMS est donc jugé sur sa capacité à se corriger, pas sur l'état d'un jour.*
 
@@ -96,7 +99,7 @@ Les contrôles les plus souvent testés en pratique : A.5.9 (inventaire des acti
 
 ## RGPD, NIS2 et DORA : qui est concerné, et comment l'audit s'en sert
 
-Un audit organisationnel doit d'abord établir quels textes s'appliquent, avant de les vérifier. Ces textes ne se valent pas : ISO/IEC 27001 est volontaire, les trois autres relèvent du droit.
+Quels textes s'appliquent à l'organisation ? L'audit doit répondre à cette question avant de vérifier quoi que ce soit. Ces textes ne se valent pas : ISO/IEC 27001 est volontaire, les trois autres relèvent du droit.
 
 | Texte | Nature | Qui est concerné | Ce que l'audit regarde |
 |-------|--------|------------------|------------------------|
@@ -106,7 +109,14 @@ Un audit organisationnel doit d'abord établir quels textes s'appliquent, avant 
 
 Le RGPD sera approfondi au module 37. Dans un audit de conformité, retenez son rôle de point de contrôle : le registre des traitements correspond-il aux systèmes réellement utilisés, et les mesures de l'article 32 sont-elles appliquées ?
 
-Pour NIS2, la question d'applicabilité passe par quatre vérifications : le secteur d'activité (annexes I et II), la taille (en général moyenne ou grande entreprise, avec des exceptions), l'établissement dans l'UE, et la position de sous-traitant d'une entité concernée. Ce dernier cas est souvent oublié : une PME non visée peut subir des exigences contractuelles de ses clients assujettis. La transposition française évolue. Vérifiez son état à la date de la mission (Légifrance, ANSSI), car un auditeur qui cite un texte périmé perd sa crédibilité.
+Pour NIS2, la question d'applicabilité passe par quatre vérifications :
+
+- le secteur d'activité (annexes I et II) ;
+- la taille (en général moyenne ou grande entreprise, avec des exceptions) ;
+- l'établissement dans l'UE ;
+- la position de sous-traitant d'une entité concernée. Ce dernier cas est souvent oublié : une PME non visée peut subir des exigences contractuelles de ses clients assujettis.
+
+La transposition française évolue. Vérifiez son état à la date de la mission (Légifrance, ANSSI), car un auditeur qui cite un texte périmé perd sa crédibilité.
 
 DORA s'applique par nature d'entité, sans seuil de taille comparable à NIS2. Si le client est une banque, un assureur ou l'un de leurs prestataires TIC, ce règlement prime sur le cadre général pour les points qu'il couvre.
 
@@ -159,7 +169,8 @@ flowchart TD
 | Document, procédure | Faible à moyenne | PSSI, procédure de sauvegarde |
 | Déclaration orale | Faible | « Oui, on fait ça tous les mois » |
 
-Une déclaration orale seule ne fonde jamais un constat de conformité. Il faut la corroborer (trianguler) avec une preuve système ou un enregistrement.
+> 💡 **À retenir.** Une déclaration orale seule ne fonde jamais un constat de conformité. Il faut la corroborer (trianguler) avec une preuve système ou un enregistrement.
+{: .callout .callout-important}
 
 **Entretiens.** 💡 Posez des questions de démonstration plutôt que des questions fermées. « Faites-vous une revue des comptes ? » obtient toujours « oui ». « Montrez-moi la dernière revue et les comptes qui ont été supprimés » donne une réponse vérifiable. Interrogez au moins deux niveaux (le RSSI et un administrateur) et comparez les réponses : les écarts entre eux sont souvent plus instructifs que les documents.
 
@@ -222,6 +233,9 @@ Ces signaux ne prouvent rien seuls, mais ils justifient d'approfondir.
 
 Un écart exploitable répond à quatre questions : quel est le **critère**, quel est le **constat**, quelle est la **cause**, quelle est la **conséquence**. Sans la cause, la recommandation traite le symptôme. Sans la conséquence, personne ne sait quoi prioriser.
 
+> 🔑 **Moyen mnémotechnique.** Retenez les « 4 C », dans l'ordre : **C**ritère, **C**onstat, **C**ause, **C**onséquence.
+{: .callout .callout-memo}
+
 Voici un exemple de fiche d'écart, sous forme déclarative et facile à reprendre dans un tableur ou un outil de suivi :
 
 ```yaml
@@ -262,13 +276,18 @@ Quatre raisons expliquent cet écart :
 - **Le référentiel décrit des exigences générales.** ISO/IEC 27001 demande de gérer les vulnérabilités techniques (A.8.8) sans dire quel délai est acceptable pour un VPN exposé sur Internet. L'organisation fixe elle-même ce niveau.
 - **L'audit est une photographie.** Un état conforme en mars ne dit rien d'une faille publiée en avril.
 
+> 🚗 **Analogie : le contrôle technique.** Un véhicule qui passe le contrôle technique satisfait une liste de points à une date donnée. Cela ne garantit ni qu'il roulera sans panne le mois suivant, ni que la remorque, non présentée, est en état. Limite : le contrôle technique examine tout le véhicule présenté, alors qu'un audit ne vérifie qu'un échantillon des systèmes du périmètre.
+{: .callout .callout-analogie}
+
 Concrètement, une conclusion défendable ressemble à ceci : « Sur le périmètre X, pour la période Y, les contrôles Z sont conformes d'après l'échantillon vérifié. Le rapport ne se prononce pas sur la sécurité du reste du SI. » Si le client a besoin de savoir si une attaque réussirait, il lui faut en complément un audit technique et un test d'intrusion, thèmes des modules 22 et 31.
 
 ## Cas réel en entreprise
 
 *Scénario illustratif, chiffres fictifs.*
 
-Une entreprise de 1 200 personnes prépare le renouvellement de sa certification ISO/IEC 27001 et mandate un consultant pour un audit à blanc de trois semaines. L'équipe sécurité compte quatre personnes. La première semaine, le consultant lit les documents et s'étonne que 14 procédures sur 16 aient été approuvées le même jour. La deuxième semaine, il mène ses entretiens avec deux interlocuteurs par thème, dont un administrateur système. Le RSSI affirme que les comptes à privilèges sont revus tous les trimestres, tandis que l'administrateur répond : « La dernière revue, c'était avant mon arrivée, il y a deux ans. »
+Une entreprise de 1 200 personnes prépare le renouvellement de sa certification ISO/IEC 27001 et mandate un consultant pour un audit à blanc de trois semaines. L'équipe sécurité compte quatre personnes. La première semaine, le consultant lit les documents et s'étonne que 14 procédures sur 16 aient été approuvées le même jour.
+
+La deuxième semaine, il mène ses entretiens avec deux interlocuteurs par thème, dont un administrateur système. Le RSSI affirme que les comptes à privilèges sont revus tous les trimestres, tandis que l'administrateur répond : « La dernière revue, c'était avant mon arrivée, il y a deux ans. »
 
 Le consultant extrait lui-même la liste du groupe Domain Admins : 19 comptes, alors que la procédure en autorise 8. Cinq appartiennent à des personnes parties. Le balayage autorisé du réseau (`nmap -sn`, comparé à la CMDB) révèle 11 hôtes absents de l'inventaire, dont un boîtier d'accès distant d'un site secondaire.
 
@@ -320,7 +339,9 @@ Trois leçons à retenir :
 
 ## Résumé
 
-L'audit organisationnel compare l'état réel d'une organisation à des critères (ISO/IEC 27001, RGPD, NIS2, DORA, PSSI interne) ; il ne remplace ni l'audit technique ni l'analyse de risques. La menace couverte est l'écart entre ce qui est documenté et ce qui est exploitable : périmètres incomplets, comptes orphelins, exceptions permanentes. Le mécanisme de défense est un audit fondé sur des preuves corroborées (documents, entretiens croisés, extractions système), tracées et hachées. Les écarts sont formulés avec critère, constat, cause et conséquence, et chaque action porte un critère de clôture vérifiable. Il reste à surveiller le périmètre, l'indépendance de l'audit, l'état de la transposition de NIS2 et le fait qu'une conformité constatée à un instant donné ne dit rien d'une faille apparue ensuite.
+L'audit organisationnel compare l'état réel d'une organisation à des critères (ISO/IEC 27001, RGPD, NIS2, DORA, PSSI interne) ; il ne remplace ni l'audit technique ni l'analyse de risques. La menace couverte est l'écart entre ce qui est documenté et ce qui est exploitable : périmètres incomplets, comptes orphelins, exceptions permanentes.
+
+Le mécanisme de défense est un audit fondé sur des preuves corroborées (documents, entretiens croisés, extractions système), tracées et hachées. Les écarts sont formulés avec critère, constat, cause et conséquence, et chaque action porte un critère de clôture vérifiable. Il reste à surveiller le périmètre, l'indépendance de l'audit, l'état de la transposition de NIS2 et le fait qu'une conformité constatée à un instant donné ne dit rien d'une faille apparue ensuite.
 
 <!-- snippet
 id: audit_trois_audits_questions

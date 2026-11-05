@@ -85,7 +85,7 @@ Avant de parler de méthode, il faut accepter un fait : **le consultant et ses l
 
 ⭐ C'est le point fondamental du module. Un cadrage raté ne se rattrape pas par la qualité technique de l'exécution.
 
-Le client formule rarement le vrai besoin. Il faut reformuler jusqu'à obtenir une question à laquelle une méthode précise peut répondre.
+Que veut vraiment le client ? Il le formule rarement. Reformulez jusqu'à obtenir une question à laquelle une méthode précise peut répondre.
 
 | Ce que dit le client | Ce qu'il veut souvent | Question de cadrage |
 |---|---|---|
@@ -98,7 +98,8 @@ Le fil logique du cadrage tient en une chaîne :
 
 **actif à protéger → menace plausible → scénario → impact métier → contrôle candidat → preuve que le contrôle fonctionne**
 
-Un contrôle qui ne remonte pas à un scénario est du bruit. Un scénario sans actif identifié est de la peur.
+> 💡 **À retenir.** Un contrôle qui ne remonte pas à un scénario est du bruit. Un scénario sans actif identifié est de la peur.
+{: .callout .callout-important}
 
 **Les éléments à figer par écrit avant toute action technique :**
 
@@ -190,6 +191,9 @@ statut: ouvert
 ### Prioriser avec le contexte
 
 Le score CVSS de base décrit la vulnérabilité en général, pas votre client. Dans le scénario d'ouverture, le « Medium » sur la passerelle VPN aurait dû passer en P1 pour trois raisons : exposition Internet, vulnérabilité exploitable sans authentification préalable et rôle de point d'entrée unique.
+
+> 🩺 **Analogie : la maladie et le patient.** Le score CVSS ressemble à la gravité d'une maladie décrite dans un manuel. L'urgence du traitement dépend pourtant du patient : son exposition, son état, ses défenses. Cette image a une limite : une vulnérabilité ne guérit jamais seule, elle reste exploitable tant qu'elle n'est pas corrigée.
+{: .callout .callout-analogie}
 
 | Facteur | Question | Effet sur la priorité |
 |---|---|---|
@@ -296,6 +300,9 @@ sha256sum -c 20-preuves/SHA256SUMS
 ## Contrôles de détection : se faire reconnaître comme légitime
 
 Un test bien mené génère du bruit. Sans coordination, le SOC du client peut déclencher une réponse à incident sur votre propre activité, ou à l'inverse prendre une vraie attaque pour votre test.
+
+> 📖 **Définition.** La *déconfliction* est l'ensemble des moyens convenus à l'avance avec le client pour distinguer l'activité de test d'une attaque réelle.
+{: .callout .callout-definition}
 
 > 🔒 **Contrôle de sécurité.** Convenez par écrit d'un mécanisme de déconfliction :
 >
@@ -463,7 +470,15 @@ La différence avec l'ouverture n'est pas technique : les outils sont les mêmes
 
 ## Résumé
 
-Une mission de cybersécurité réussie commence par un cadrage qui transforme un besoin flou en question vérifiable, avec périmètre, règles d'engagement et autorisation écrite. La méthode (audit, analyse de risque, pentest, revue d'architecture) se choisit selon la question posée, pas selon l'outil maîtrisé. Chaque constat porte sa preuve rejouable, son impact exprimé en conséquence d'attaque et une recommandation avec critère de clôture. Le plan de remédiation attribue chaque action à un responsable et à une échéance. Le consultant protège ses propres livrables, preuves et accès, car ils constituent une surface d'attaque. Restent à surveiller : la dérive de périmètre, les fuites de données de mission et la tentation de remplacer la démonstration d'un raisonnement par une liste d'outils ou de certifications.
+Une mission de cybersécurité réussie commence par un cadrage qui transforme un besoin flou en question vérifiable, avec périmètre, règles d'engagement et autorisation écrite. La méthode (audit, analyse de risque, pentest, revue d'architecture) se choisit selon la question posée, pas selon l'outil maîtrisé.
+
+Chaque constat porte sa preuve rejouable, son impact exprimé en conséquence d'attaque et une recommandation avec critère de clôture. Le plan de remédiation attribue chaque action à un responsable et à une échéance.
+
+Le consultant protège ses propres livrables, preuves et accès, car ils constituent une surface d'attaque. Restent à surveiller :
+
+- la dérive de périmètre ;
+- les fuites de données de mission ;
+- la tentation de remplacer la démonstration d'un raisonnement par une liste d'outils ou de certifications.
 
 <!-- snippet
 id: mission_cadrage_roe_autorisation

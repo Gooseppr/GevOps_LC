@@ -47,7 +47,8 @@ La duplication ne tient plus. Chaque nouveau cluster multiplie le travail de mai
 
 Sur un seul cluster, `http_requests_total{service="checkout"}` suffit pour identifier une série. Dès qu'il y a plusieurs clusters, la même métrique existe plusieurs fois, avec les mêmes noms de service et les mêmes valeurs possibles de `status`. La seule chose qui les distingue est la réponse à la question « où ? ».
 
-Pensez à une adresse postale. « 12 rue de la Paix » ne dit rien tant qu'on n'a pas la ville et le pays. Les labels `environment`, `cluster` et `region` jouent ce rôle pour vos séries temporelles. Sans eux, soit vous confondez des données qui n'ont rien à voir, soit vous êtes incapable de les retrouver.
+> 📮 **Analogie : l'adresse postale.** « 12 rue de la Paix » ne dit rien tant qu'on n'a pas la ville et le pays. Les labels `environment`, `cluster` et `region` jouent ce rôle pour vos séries temporelles. Sans eux, soit vous confondez des données qui n'ont rien à voir, soit vous êtes incapable de les retrouver.
+{: .callout .callout-analogie}
 
 Ce module repose donc sur une idée simple : **les dimensions d'infrastructure sont un contrat**, posé à la collecte et respecté par tous les signaux. Les dashboards, les alertes et les permissions s'appuient ensuite dessus. Si le contrat est flou, rien ne marche correctement, quelle que soit la qualité des dashboards.
 
@@ -63,7 +64,10 @@ Ce module repose donc sur une idée simple : **les dimensions d'infrastructure s
 | `region` | Quelle zone géographique ou fournisseur ? | `eu-west-1`, `us-east-1` | Nom du fournisseur cloud, tel quel |
 | `service` | Quel composant logique applicatif ? | `checkout`, `catalog`, `auth` | Même valeur dans les métriques, les logs et les traces |
 
-Deux précisions évitent des débats interminables. D'abord, `service` n'est ni `job`, ni `namespace`, ni `app`. `job` décrit comment Prometheus scrape une cible, `namespace` est un découpage Kubernetes. `service` est le nom que votre équipe donne au composant dans les conversations d'incident. Ensuite, ce contrat ne contient que des valeurs à faible cardinalité. Ne mettez pas ici la version de l'image ni le nom du pod : vous avez vu au module précédent ce que ça coûte.
+Deux précisions évitent des débats interminables :
+
+- **`service` n'est ni `job`, ni `namespace`, ni `app`.** `job` décrit comment Prometheus scrape une cible, `namespace` est un découpage Kubernetes. `service` est le nom que votre équipe donne au composant dans les conversations d'incident.
+- **Ce contrat ne contient que des valeurs à faible cardinalité.** Ne mettez pas ici la version de l'image ni le nom du pod : vous avez vu au module précédent ce que ça coûte.
 
 Si votre instrumentation passe par OpenTelemetry, ces labels correspondent à des attributs de ressource : `service.name`, `k8s.cluster.name`, `cloud.region` et `deployment.environment` (renommé `deployment.environment.name` dans les versions récentes des conventions). Le mapping vers les noms de labels Prometheus et Loki doit être fait explicitement dans le collecteur. Il ne se fait pas tout seul de façon uniforme.
 
@@ -169,7 +173,11 @@ Il existe trois grandes manières de relier plusieurs clusters à Grafana. Aucun
 
 Pour un parc de deux ou trois clusters, interroger les Prometheus directement est tout à fait défendable : c'est simple et ça ne demande aucun nouveau composant. La bascule vers un backend central devient pertinente quand trois besoins apparaissent : comparer des clusters dans une même requête, garder un historique long, ou ne plus exposer chaque cluster au réseau de supervision.
 
-Le modèle central a aussi des limites. Il concentre le risque, donc il faut le dimensionner et le superviser lui-même (c'est l'objet du meta-monitoring vu précédemment). Les requêtes cross-région coûtent en latence et en transfert, donc placez le backend près de là où les utilisateurs le consultent. Enfin, certaines données ne doivent pas quitter leur région pour des raisons contractuelles ou réglementaires. Dans ce cas, gardez un backend par région et faites du fédéré côté Grafana, ou créez un tenant régional.
+Le modèle central a aussi des limites :
+
+- **Il concentre le risque.** Il faut donc le dimensionner et le superviser lui-même (c'est l'objet du meta-monitoring vu précédemment).
+- **Les requêtes cross-région coûtent en latence et en transfert.** Placez le backend près de là où les utilisateurs le consultent.
+- **Certaines données ne doivent pas quitter leur région**, pour des raisons contractuelles ou réglementaires. Dans ce cas, gardez un backend par région et faites du fédéré côté Grafana, ou créez un tenant régional.
 
 La fédération Prometheus classique (`/federate`) a un rôle plus étroit : remonter quelques séries agrégées vers un Prometheus de synthèse. Elle convient mal à un transfert complet des données.
 
@@ -177,7 +185,10 @@ La fédération Prometheus classique (`/federate`) a un rôle plus étroit : rem
 
 ### Un tenant, c'est un compartiment dans le backend
 
-Mimir, Loki et Tempo savent séparer les données par tenant. Le tenant est identifié par l'en-tête `X-Scope-OrgID` de chaque requête, en écriture comme en lecture. Deux tenants ne voient pas les données l'un de l'autre, et on peut leur appliquer des limites différentes.
+Mimir, Loki et Tempo savent séparer les données par tenant.
+
+> 📖 **Définition.** Un tenant est un compartiment de données du backend. Il est identifié par l'en-tête `X-Scope-OrgID` de chaque requête, en écriture comme en lecture. Deux tenants ne voient pas les données l'un de l'autre, et on peut leur appliquer des limites différentes.
+{: .callout .callout-definition}
 
 > ⚠️ **Erreur fréquente** : prendre cet en-tête pour de l'authentification. Le backend lui fait confiance tel quel. Toute personne capable d'atteindre le backend peut écrire `X-Scope-OrgID: production` et lire la production. L'authentification doit être faite en amont, par la passerelle (mTLS, jeton), qui impose la valeur du tenant selon l'identité de l'appelant. Autre piège de même nature : avec `auth_enabled: false` dans Loki, tout tombe dans un tenant unique (nommé `fake`) et l'isolation disparaît.
 {: .callout .callout-attention}
@@ -250,9 +261,17 @@ Deux détails qui font gagner du temps :
 
 ## Corréler régions et services
 
-Une fois les dimensions propres, elles servent de fil conducteur entre les signaux. Prenons un exemple d'investigation. Le taux d'erreurs de `checkout` monte. Vous ajoutez `by (region)` à votre requête. Si seule `eu-west-1` dégrade, vous cherchez du côté d'une dépendance régionale : base de données, réseau, fournisseur. Si toutes les régions bougent en même temps, vous regardez plutôt un déploiement ou une dépendance globale. Cette bifurcation n'est possible que parce que `region` est présent partout.
+Une fois les dimensions propres, elles servent de fil conducteur entre les signaux. Prenons un exemple : le taux d'erreurs de `checkout` monte. Vous ajoutez `by (region)` à votre requête.
 
-Pour passer d'un signal à l'autre, la règle est que les mêmes valeurs de labels doivent exister des deux côtés. Une requête de logs `{service="checkout", cluster="prod-eu-1"}` ne trouve rien si votre Loki étiquette ce service `app` ou `service_name` avec une autre valeur. Le travail de normalisation se fait donc dans le collecteur, une fois pour toutes.
+- Si seule `eu-west-1` dégrade, cherchez du côté d'une dépendance régionale : base de données, réseau, fournisseur.
+- Si toutes les régions bougent en même temps, regardez plutôt un déploiement ou une dépendance globale.
+
+Cette bifurcation n'est possible que parce que `region` est présent partout.
+
+> 💡 **À retenir.** Pour passer d'un signal à l'autre, les mêmes valeurs de labels doivent exister des deux côtés.
+{: .callout .callout-important}
+
+Une requête de logs `{service="checkout", cluster="prod-eu-1"}` ne trouve rien si votre Loki étiquette ce service `app` ou `service_name` avec une autre valeur. Le travail de normalisation se fait donc dans le collecteur, une fois pour toutes.
 
 Côté Grafana, vous disposez de plusieurs mécanismes, dont l'interface varie selon la version :
 

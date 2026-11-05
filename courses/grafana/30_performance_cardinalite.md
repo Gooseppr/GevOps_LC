@@ -179,7 +179,10 @@ Autres règles :
 
 ## Cardinalité : pourquoi une requête simple peut coûter une fortune
 
-La cardinalité d'une métrique, c'est son nombre de séries distinctes, au plus le produit du nombre de valeurs de chacun de ses labels (seules les combinaisons réellement émises créent des séries). Ça se mesure vite et ça explose vite.
+> 📖 **Définition.** La cardinalité d'une métrique est son nombre de séries distinctes. Elle vaut au plus le produit du nombre de valeurs de chacun de ses labels, car seules les combinaisons réellement émises créent des séries.
+{: .callout .callout-definition}
+
+Elle se mesure vite, et elle explose vite.
 
 Prenons `http_requests_total` avec les labels suivants :
 
@@ -192,7 +195,11 @@ Prenons `http_requests_total` avec les labels suivants :
 
 Ça fait jusqu'à 5 × 10 × 200 × 50 = 500 000 séries pour une seule métrique, dans le pire cas où toutes les combinaisons existent. Si quelqu'un ajoute `user_id` ou met l'URL brute (avec les identifiants) dans `route`, le chiffre n'a plus de plafond.
 
-L'impact est triple. La mémoire du TSDB (Time Series Database) augmente avec chaque série active. Chaque requête qui touche cette métrique lit toutes les séries correspondantes. Et côté Grafana, un panel sans agrégation tente de dessiner des milliers de courbes.
+L'impact est triple :
+
+- la mémoire du TSDB (Time Series Database) augmente avec chaque série active ;
+- chaque requête qui touche cette métrique lit toutes les séries correspondantes ;
+- côté Grafana, un panel sans agrégation tente de dessiner des milliers de courbes.
 
 ### Trouver les coupables
 
@@ -233,6 +240,9 @@ Attention, `labeldrop` peut fusionner deux séries qui ne différaient que par c
 
 Quand une requête est coûteuse et consultée à répétition (par un dashboard, plusieurs utilisateurs, des alertes), il vaut mieux que Prometheus la calcule à intervalle régulier et stocke le résultat comme une nouvelle série. Les panels lisent alors cette série, légère, au lieu de réévaluer l'expression.
 
+> 🍳 **Analogie : la mise en place en cuisine.** Un restaurant prépare ses sauces avant le service au lieu de les refaire à chaque commande. La recording rule fait de même : le calcul est fait à l'avance, et la lecture devient immédiate. La limite de l'image : une préparation faite d'avance ne s'adapte plus à chaque demande, comme le précise le compromis décrit plus bas.
+{: .callout .callout-analogie}
+
 ```yaml
 # rules/api_latency.yml
 groups:
@@ -255,7 +265,13 @@ Puis rechargez Prometheus (par `SIGHUP`, ou par `POST /-/reload` si `--web.enabl
 histogram_quantile(0.95, service:http_request_duration_seconds_bucket:rate5m{service="$service"})
 ```
 
-Il faut mesurer le compromis : une recording rule fige une fenêtre (ici 5 minutes) et une résolution (ici 1 minute). On perd la souplesse de `$__rate_interval`. Elle consomme aussi du stockage et du temps d'évaluation, et une règle mal choisie qui conserve des labels à forte cardinalité ne fait que déplacer le problème. L'objectif est la **préagrégation** : on supprime les labels dont personne n'a besoin à l'affichage.
+Quel est le prix à payer ?
+
+- Une recording rule fige une fenêtre (ici 5 minutes) et une résolution (ici 1 minute) : on perd la souplesse de `$__rate_interval`.
+- Elle consomme du stockage et du temps d'évaluation.
+- Une règle mal choisie, qui conserve des labels à forte cardinalité, ne fait que déplacer le problème.
+
+L'objectif est la **préagrégation** : on supprime les labels dont personne n'a besoin à l'affichage.
 
 > 💡 **Astuce** — Réservez les recording rules aux expressions lentes (plus d'une seconde) et fréquentes. Pour une requête rapide consultée rarement, la règle ajoute de la maintenance sans bénéfice.
 {: .callout .callout-astuce}
@@ -264,7 +280,9 @@ Il faut mesurer le compromis : une recording rule fige une fenêtre (ici 5 minut
 
 Un dashboard lent n'a jamais une seule cause. La méthode consiste à faire un inventaire plutôt qu'à deviner.
 
-**Étape 1 : mesurer.** Ouvrez les outils de développement du navigateur (onglet réseau) et rechargez le dashboard. Vous voyez toutes les requêtes vers `/api/ds/query`, leur durée et leur taille. Les plus longues et les plus lourdes sont vos premières cibles. N'oubliez pas qu'en HTTP/1.1 le navigateur limite le nombre de connexions simultanées vers un même hôte, et que Grafana ou le backend peuvent aussi limiter la concurrence : avec 90 requêtes, certaines attendent leur tour, même si chacune est rapide.
+**Étape 1 : mesurer.** Ouvrez les outils de développement du navigateur (onglet réseau) et rechargez le dashboard. Vous voyez toutes les requêtes vers `/api/ds/query`, leur durée et leur taille. Les plus longues et les plus lourdes sont vos premières cibles.
+
+N'oubliez pas qu'en HTTP/1.1 le navigateur limite le nombre de connexions simultanées vers un même hôte, et que Grafana ou le backend peuvent aussi limiter la concurrence : avec 90 requêtes, certaines attendent leur tour, même si chacune est rapide.
 
 **Étape 2 : compter.** Combien de panels ? Combien de requêtes par panel ? Combien sont réellement lues en situation d'incident ? Un panel que personne n'a regardé depuis six mois est un coût sans valeur.
 
@@ -286,7 +304,8 @@ Quelques décisions concrètes :
 
 Prenez un chiffre illustratif : 25 personnes ont le dashboard ouvert, il contient 40 requêtes, et il se rafraîchit toutes les 10 secondes. Cela fait 25 × 40 / 10 = 100 requêtes par seconde sur les data sources, en continu, y compris pour les onglets oubliés derrière une autre fenêtre. Passez à 5 secondes et vous doublez ce flux.
 
-La règle de bon sens : l'intervalle de rafraîchissement ne devrait pas descendre sous l'intervalle de collecte, et il doit être cohérent avec la décision qu'il permet de prendre. Pendant une investigation, 30 secondes suffisent largement. Un écran mural n'a pas besoin de mieux qu'une minute.
+> 💡 **À retenir** — L'intervalle de rafraîchissement ne devrait pas descendre sous l'intervalle de collecte. Il doit aussi être cohérent avec la décision qu'il permet de prendre.
+{: .callout .callout-important} Pendant une investigation, 30 secondes suffisent largement. Un écran mural n'a pas besoin de mieux qu'une minute.
 
 Pour empêcher les dérives, un administrateur peut fixer un plancher dans `grafana.ini` :
 
@@ -349,7 +368,11 @@ Reprenons l'équipe de la mise en situation. Les chiffres qui suivent sont inven
 
 ## Résumé
 
-La lenteur d'un dashboard vient presque toujours d'un excès de séries, de points ou de requêtes, rarement de Grafana lui-même. Query Inspector donne la durée, le nombre de requêtes et de lignes retournées, ce qui permet de séparer coût d'évaluation, transfert et rendu. Le `step` découle de `max data points` et de `min interval` ; `$__rate_interval` évite les trous sur les `rate()`. Côté requêtes, on resserre les sélecteurs, on agrège tôt, on filtre avant de parser, et on déplace dans des recording rules les calculs coûteux et récurrents. La cardinalité reste la cause racine la plus discrète : elle se mesure avec TSDB Status et se corrige à la source. Accélérer le rafraîchissement ne fait qu'ajouter de la charge sans gain d'information. La suite logique est de définir ce qu'on veut réellement garantir à partir de ces données, c'est-à-dire de choisir des indicateurs de fiabilité et des objectifs mesurables.
+La lenteur d'un dashboard vient presque toujours d'un excès de séries, de points ou de requêtes, rarement de Grafana lui-même.
+
+Query Inspector donne la durée, le nombre de requêtes et de lignes retournées, ce qui permet de séparer coût d'évaluation, transfert et rendu. Le `step` découle de `max data points` et de `min interval` ; `$__rate_interval` évite les trous sur les `rate()`. Côté requêtes, on resserre les sélecteurs, on agrège tôt, on filtre avant de parser, et on déplace dans des recording rules les calculs coûteux et récurrents. La cardinalité reste la cause racine la plus discrète : elle se mesure avec TSDB Status et se corrige à la source. Accélérer le rafraîchissement ne fait qu'ajouter de la charge sans gain d'information.
+
+La suite logique est de définir ce qu'on veut réellement garantir à partir de ces données, c'est-à-dire de choisir des indicateurs de fiabilité et des objectifs mesurables.
 
 <!-- snippet
 id: grafana_perf_query_inspector_open

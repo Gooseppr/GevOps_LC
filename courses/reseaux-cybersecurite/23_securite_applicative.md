@@ -234,7 +234,12 @@ Le résultat attendu est 403 ou 404. Un 200 est un constat critique. L'extension
 
 ### CSRF et SSRF
 
-**CSRF (Cross-Site Request Forgery).** L'attaquant n'a pas besoin de votre cookie : il fait envoyer à votre navigateur une requête vers un site où vous êtes connecté, et le navigateur joint le cookie tout seul. Une page piégée suffit :
+**CSRF (Cross-Site Request Forgery).** L'attaquant n'a pas besoin de votre cookie : il fait envoyer à votre navigateur une requête vers un site où vous êtes connecté, et le navigateur joint le cookie tout seul.
+
+> 🎫 **Analogie : le badge qui s'active tout seul.** Votre cookie de session fonctionne comme un badge d'accès qui ouvre la porte dès que vous passez devant. Si quelqu'un vous pousse vers cette porte, il fait entrer une demande avec vos droits, sans jamais toucher au badge. Limite de l'image : l'attaquant déclenche une action, mais il ne voit pas la réponse du site.
+{: .callout .callout-analogie}
+
+Une page piégée suffit :
 
 ```html
 <form action="https://bank.example/transfer" method="POST" id="f">
@@ -251,7 +256,10 @@ Défenses, par ordre de coût croissant :
 
 Une API qui n'accepte que `Authorization: Bearer` n'est pas exposée au CSRF classique, puisque le navigateur n'envoie pas cet en-tête de lui-même.
 
-**SSRF (Server-Side Request Forgery)\*.** Toute fonction qui fait récupérer une URL par le serveur est un candidat : import d'image par lien, aperçu de lien, webhook, conversion HTML vers PDF. L'attaquant fournit une adresse interne :
+> 📖 **Définition.** Dans un SSRF (Server-Side Request Forgery), l'attaquant choisit la cible d'une requête que le serveur émet lui-même. Il contourne ainsi les pare-feux qui font confiance au serveur.
+{: .callout .callout-definition}
+
+Toute fonction qui fait récupérer une URL par le serveur est un candidat : import d'image par lien, aperçu de lien, webhook, conversion HTML vers PDF. L'attaquant fournit une adresse interne :
 
 ```
 http://169.254.169.254/latest/meta-data/iam/security-credentials/
@@ -271,8 +279,6 @@ Sur un hôte cloud, la première cible est le service de métadonnées, qui peut
 
 Une liste noire de `127.0.0.1` et `localhost` est contournée par `0x7f000001`, `127.1`, `[::1]` ou un domaine pointant vers 127.0.0.1.
 
-*\*L'attaquant choisit la cible d'une requête que le serveur émet lui-même, ce qui contourne les pare-feux qui font confiance au serveur.*
-
 ### Erreurs de validation
 
 La validation transforme « tout ce que le client peut envoyer » en « ce que le métier accepte ». Les cas récurrents :
@@ -282,11 +288,15 @@ La validation transforme « tout ce que le client peut envoyer » en « ce que l
 - `file=../../etc/passwd` : traversée de chemin.
 - `{"id": [1,2]}` à la place de `{"id": 1}` : confusion de types.
 
-Validez côté serveur, par liste blanche, avec un schéma explicite (JSON Schema, pydantic, zod). La validation côté client est de l'ergonomie, pas de la sécurité.
+> 💡 **À retenir.** Validez côté serveur, par liste blanche, avec un schéma explicite (JSON Schema, pydantic, zod). La validation côté client est de l'ergonomie, pas de la sécurité.
+{: .callout .callout-important}
 
 ## ⚠️ HTTPS ne protège pas contre les failles de logique métier
 
-HTTPS garantit trois propriétés entre le navigateur et le serveur : confidentialité, intégrité du transport et authenticité du serveur. Il ne dit rien sur ce que l'utilisateur authentifié envoie *dans* le tunnel.
+Que garantit HTTPS, exactement ? Trois propriétés entre le navigateur et le serveur : confidentialité, intégrité du transport et authenticité du serveur. Il ne dit rien sur ce que l'utilisateur authentifié envoie *dans* le tunnel.
+
+> 🚚 **Analogie : le fourgon blindé.** HTTPS est un fourgon blindé : personne ne peut lire ni modifier le colis en route, et vous savez à quelle adresse il est livré. Mais le fourgon transporte fidèlement ce que l'expéditeur y a mis, y compris une commande à 0,01 €.
+{: .callout .callout-analogie}
 
 Burp Suite se place comme proxy local avec son propre certificat que l'auditeur installe volontairement. Il voit chaque requête en clair, la modifie et la rejoue. Le serveur reçoit une requête TLS parfaitement valide, qu'il ne peut pas distinguer d'une requête du vrai navigateur.
 
@@ -458,7 +468,14 @@ Leçons tirées du scénario :
 
 ## Résumé
 
-Les risques applicatifs se regroupent en familles (OWASP Top 10) dont la plupart viennent d'une même erreur : faire confiance à ce que le client envoie. L'injection SQL, le XSS, le CSRF et le SSRF exploitent la confusion entre données et instructions ou entre origines. Le contrôle d'accès défaillant (IDOR, mass assignment) et les failles de logique métier ne sont stoppés ni par HTTPS ni par un WAF, et demandent des tests manuels avec plusieurs comptes. La défense repose sur des requêtes paramétrées, un encodage en sortie, une politique d'autorisation centralisée avec refus par défaut, des secrets hors du code et une base de données à droits minimaux avec sauvegardes restaurables. Il reste à surveiller les dépendances vulnérables, les nouvelles fonctionnalités qui recréent des flux non contrôlés (import d'URL, webhooks) et la dérive des droits en base.
+Les risques applicatifs se regroupent en familles (OWASP Top 10) dont la plupart viennent d'une même erreur : faire confiance à ce que le client envoie.
+
+- L'injection SQL, le XSS, le CSRF et le SSRF exploitent la confusion entre données et instructions ou entre origines.
+- Le contrôle d'accès défaillant (IDOR, mass assignment) et les failles de logique métier ne sont stoppés ni par HTTPS ni par un WAF. Ils demandent des tests manuels avec plusieurs comptes.
+
+La défense repose sur des requêtes paramétrées, un encodage en sortie, une politique d'autorisation centralisée avec refus par défaut, des secrets hors du code et une base de données à droits minimaux avec sauvegardes restaurables.
+
+Il reste à surveiller les dépendances vulnérables, les nouvelles fonctionnalités qui recréent des flux non contrôlés (import d'URL, webhooks) et la dérive des droits en base.
 
 <!-- snippet
 id: appsec_owasp_families_concept

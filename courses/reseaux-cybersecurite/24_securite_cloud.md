@@ -42,7 +42,9 @@ Une équipe migre en « lift-and-shift » une application web interne vers le cl
 - Option « accessible publiquement » cochée sur la base pour tester depuis un poste de dev.
 - Un rôle attaché aux VM avec `s3:*` sur `*`, parce que « ça évite les erreurs d'accès ».
 
-L'application contient une fonction d'import d'image par URL, vulnérable à une SSRF (vue au module précédent). Un attaquant lui fait requêter `http://169.254.169.254/latest/meta-data/iam/security-credentials/`, récupère les identifiants temporaires du rôle, puis les utilise depuis sa propre machine pour lister et télécharger tous les buckets du compte. Le pare-feu applicatif est en place, la base est derrière un mot de passe fort, et pourtant les données sortent.
+L'application contient une fonction d'import d'image par URL, vulnérable à une SSRF (vue au module précédent). Un attaquant lui fait requêter `http://169.254.169.254/latest/meta-data/iam/security-credentials/`, récupère les identifiants temporaires du rôle, puis les utilise depuis sa propre machine pour lister et télécharger tous les buckets du compte.
+
+Le pare-feu applicatif est en place, la base est derrière un mot de passe fort. Et pourtant, les données sortent.
 
 Ce schéma (SSRF, métadonnées d'instance, rôle trop large, stockage objet) est publiquement documenté, notamment dans l'affaire Capital One de 2019. La défense naïve échoue parce qu'elle protège le périmètre alors que l'attaquant exploite l'**identité de la machine**, qui n'a aucun lien avec le réseau.
 
@@ -93,7 +95,10 @@ Une règle de lecture utile : **plus vous montez vers le SaaS, moins vous avez d
 
 ### VPC, sous-réseaux et routage
 
-Un VPC (Virtual Private Cloud) chez AWS, un VNet (Virtual Network) chez Azure : un réseau privé logiquement isolé dans lequel vous définissez plages CIDR, sous-réseaux et tables de routage. Ce qui rend un sous-réseau « public » n'est pas son nom : c'est **une route par défaut vers une Internet Gateway** et des instances disposant d'une IP publique. Un sous-réseau « privé » n'a pas cette route.
+> 📖 **Définition.** Un VPC (Virtual Private Cloud) chez AWS, ou VNet (Virtual Network) chez Azure, est un réseau privé logiquement isolé dans lequel vous définissez plages CIDR, sous-réseaux et tables de routage.
+{: .callout .callout-definition}
+
+Qu'est-ce qui rend un sous-réseau « public » ? Pas son nom, mais **une route par défaut vers une Internet Gateway** et des instances disposant d'une IP publique. Un sous-réseau « privé » n'a pas cette route.
 
 On construit en pratique trois couches :
 
@@ -143,6 +148,9 @@ Trois mécanismes se superposent et se confondent souvent :
 | Security Group (AWS) / NSG — Network Security Group (Azure) | Interface réseau / instance | Stateful | SG : autorisations uniquement. NSG : autorisations et refus, avec priorités |
 | NACL — Network Access Control List (AWS) | Sous-réseau | Stateless | Autorisations et refus, évaluées dans l'ordre |
 | Firewall managé (AWS Network Firewall, Azure Firewall…) | Flux entre réseaux et sortie | Variable | Filtrage L7, FQDN, IDS/IPS selon l'offre |
+
+> 📖 **Définition.** Un filtre **stateful** mémorise les connexions : la réponse à une requête autorisée repasse automatiquement. Un filtre **stateless** évalue chaque paquet isolément : le trafic de retour doit être autorisé explicitement.
+{: .callout .callout-definition}
 
 Les Security Groups font 95 % du travail. Leur force : une règle peut référencer **un autre Security Group** comme source, ce qui évite de manipuler des plages IP qui changent.
 
@@ -227,7 +235,16 @@ flowchart LR
     E --> F["Listing et lecture du stockage"]
 ```
 
-Les credentials obtenus sont valides tant que la session n'a pas expiré, et rien ne les lie à l'instance d'origine. Avec IMDSv1, une simple requête GET suffit. IMDSv2 exige un jeton obtenu par une requête `PUT` avec un en-tête dédié, ce qui bloque la plupart des SSRF basées sur un simple GET (ainsi que le transfert via des reverse proxy mal configurés). Chez Azure, l'endpoint demande l'en-tête `Metadata: true`, chez GCP `Metadata-Flavor: Google` : la protection est équivalente en principe, mais pas aussi robuste qu'un jeton à durée limitée.
+Les credentials obtenus sont valides tant que la session n'a pas expiré, et rien ne les lie à l'instance d'origine.
+
+> 🪪 **Analogie : le badge posé sur le bureau.** Les credentials du rôle ressemblent à un badge d'accès laissé sur le bureau de la VM : quiconque le ramasse ouvre les mêmes portes, depuis n'importe où. Limite de l'image : ce badge expire, mais tant que la SSRF existe, l'attaquant peut revenir en prendre un neuf.
+{: .callout .callout-analogie}
+
+Tout dépend alors de la version de l'IMDS :
+
+- **IMDSv1** : une simple requête GET suffit.
+- **IMDSv2** : il exige un jeton obtenu par une requête `PUT` avec un en-tête dédié. Cela bloque la plupart des SSRF basées sur un simple GET (ainsi que le transfert via des reverse proxy mal configurés).
+- **Azure et GCP** : l'endpoint demande l'en-tête `Metadata: true` chez Azure, `Metadata-Flavor: Google` chez GCP. La protection est équivalente en principe, mais pas aussi robuste qu'un jeton à durée limitée.
 
 Une fois les credentials en main, l'attaquant utilise l'AWS CLI ou un outil comme **Pacu** pour énumérer ce qui est permis. Un rôle `s3:*` sur `*` ouvre tous les buckets du compte. Un rôle avec `iam:PassRole` et `ec2:RunInstances` permet souvent de lancer une instance avec un rôle plus puissant, et donc d'escalader.
 
@@ -371,7 +388,10 @@ prowler aws
 | Accès au stockage objet | Via Internet / endpoint privé de type gateway | Endpoint gateway : gratuit chez AWS, et ajoute une condition réseau dans les policies | Ne protège pas contre un rôle légitime abusé |
 | Posture continue | Scans ponctuels / CSPM | CSPM : couverture continue mais coût et alertes à trier | Détecte les mauvaises configurations, pas les attaques en cours |
 
-Règle générale : **commencez par ce qui élimine une classe entière de risque pour un coût faible** (pas d'IP publique sur les VM, IMDSv2, Block Public Access au niveau compte, MFA sur les humains). Les contrôles chers (firewall FQDN, segmentation fine par workload) viennent ensuite, en fonction de la sensibilité des données.
+> 💡 **À retenir.** Commencez par ce qui élimine une classe entière de risque pour un coût faible : pas d'IP publique sur les VM, IMDSv2, Block Public Access au niveau compte, MFA sur les humains.
+{: .callout .callout-important}
+
+Les contrôles chers (firewall FQDN, segmentation fine par workload) viennent ensuite, en fonction de la sensibilité des données.
 
 ---
 
@@ -428,7 +448,19 @@ Correction : règles SG par rôle (source = SG précis), filtrage sortant, surve
 
 ## Résumé
 
-Héberger une application dans le cloud déplace la frontière de responsabilité sans la supprimer : le fournisseur garantit l'infrastructure sous-jacente, vous gardez la topologie réseau, les identités, la configuration des services et les données. Les attaques réelles passent peu par l'hyperviseur et beaucoup par des expositions volontaires ou héritées : un port ouvert, un bucket public, un rôle trop large couplé à une SSRF et à l'IMDS. La défense repose sur une architecture en couches (public, privé, isolé), des Security Groups référencés entre eux, des rôles au moindre privilège sans clés longue durée, un accès d'administration sans port entrant et des journaux envoyés hors du compte de production. Ce qui reste à surveiller : la dérive de configuration (une règle « temporaire » qui reste), les permissions IAM jamais auditées, et la couverture réelle de vos alertes sur les événements de contrôle.
+Héberger une application dans le cloud déplace la frontière de responsabilité sans la supprimer. Le fournisseur garantit l'infrastructure sous-jacente ; vous gardez la topologie réseau, les identités, la configuration des services et les données.
+
+Les attaques réelles passent peu par l'hyperviseur et beaucoup par des expositions volontaires ou héritées : un port ouvert, un bucket public, un rôle trop large couplé à une SSRF et à l'IMDS.
+
+La défense repose sur :
+
+- une architecture en couches (public, privé, isolé) ;
+- des Security Groups référencés entre eux ;
+- des rôles au moindre privilège sans clés longue durée ;
+- un accès d'administration sans port entrant ;
+- des journaux envoyés hors du compte de production.
+
+Ce qui reste à surveiller : la dérive de configuration (une règle « temporaire » qui reste), les permissions IAM jamais auditées, et la couverture réelle de vos alertes sur les événements de contrôle.
 
 <!-- snippet
 id: cloud_responsabilite_partagee_limite

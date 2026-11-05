@@ -60,7 +60,10 @@ Ce module détaille chaque maillon de cette chaîne.
 | Peut-il le prouver ? | Authentification | Facteur de connaissance, de possession ou d'inhérence | Vol, devinette, relais, contournement du facteur |
 | Que peut-il faire ? | Autorisation | Rôles, groupes, ACL, politiques, scopes | Droits excédentaires, contrôle absent côté serveur |
 
-Un facteur de connaissance est ce que l'on sait (mot de passe, PIN). Un facteur de possession est ce que l'on détient (clé matérielle, téléphone). Un facteur d'inhérence est ce que l'on est (empreinte, visage). Deux mots de passe, ou un mot de passe et une question secrète, ne font **pas** du MFA : ce sont deux fois la même catégorie.
+> 🔑 **Moyen mnémotechnique** : les trois catégories de facteurs tiennent en une formule classique. « Ce que je sais » correspond à la connaissance (mot de passe, PIN). « Ce que j'ai » correspond à la possession (clé matérielle, téléphone). « Ce que je suis » correspond à l'inhérence (empreinte, visage).
+{: .callout .callout-memo}
+
+Deux mots de passe, ou un mot de passe et une question secrète, ne font **pas** du MFA : ce sont deux fois la même catégorie.
 
 Le contrôle d'accès, c'est l'application effective de l'autorisation, plus la traçabilité de ce qui a été fait. Une authentification parfaite ne corrige aucune faille d'autorisation. Un compte légitime, protégé par une clé FIDO2, qui lit les données d'un autre client parce que l'API ne vérifie pas la propriété de l'objet, reste une faille critique.
 
@@ -93,7 +96,13 @@ Deux techniques dominent, et elles n'ont rien de sophistiqué.
 > 🔴 **Vecteur d'attaque : password spraying.** À l'inverse du brute force classique, on teste **un seul** mot de passe plausible (`Printemps2025!`, `<Entreprise>2025`) contre **tous** les comptes. Le verrouillage après 5 échecs par compte ne se déclenche jamais. Des outils comme Kerbrute (`passwordspray`) ou MSOLSpray font ça sur Kerberos ou sur Microsoft 365.
 {: .callout .callout-danger}
 
-La recommandation du NIST (SP 800-63B) est à l'opposé de nombreuses politiques d'entreprise : privilégier la longueur plutôt que les règles de composition, comparer les mots de passe choisis à des listes de mots de passe compromis, et ne pas imposer de rotation périodique sans soupçon de compromission. La rotation forcée pousse les utilisateurs à incrémenter un suffixe, ce qui est exactement ce que le spraying exploite. La contrepartie est un coût d'intégration : brancher un contrôle de listes compromises (par exemple via un filtre de mots de passe AD ou un service tiers) demande un projet, pas un simple réglage.
+La recommandation du NIST (SP 800-63B) va à l'opposé de nombreuses politiques d'entreprise :
+
+- privilégier la longueur plutôt que les règles de composition ;
+- comparer les mots de passe choisis à des listes de mots de passe compromis ;
+- ne pas imposer de rotation périodique sans soupçon de compromission.
+
+Pourquoi renoncer à la rotation ? Parce que la rotation forcée pousse les utilisateurs à incrémenter un suffixe, ce qui est exactement ce que le spraying exploite. La contrepartie est un coût d'intégration : brancher un contrôle de listes compromises (par exemple via un filtre de mots de passe AD ou un service tiers) demande un projet, pas un simple réglage.
 
 ### MFA : tous les seconds facteurs ne se valent pas
 
@@ -142,13 +151,20 @@ Quand plusieurs organisations ou applications doivent partager une identité san
 
 🔴 **Vecteur d'attaque : injection LDAP.** Si une application construit un filtre par concaténation, par exemple `(&(uid=<INPUT>)(userPassword=<PWD>))`, une entrée comme `*)(uid=*))(|(uid=*` peut transformer le filtre pour qu'il retourne toujours vrai. La correction est l'échappement des caractères spéciaux (`* ( ) \ NUL`), ou des filtres paramétrés par la bibliothèque.
 
-🔒 **Contrôle de sécurité** : exiger la signature LDAP côté contrôleur de domaine. Le coût réel est la compatibilité : d'anciens équipements (imprimantes, NAS, applications maison) font du bind simple non signé. Avant de passer en « requis », relever à 2 le niveau de diagnostic « 16 LDAP Interface Events » dans le registre du contrôleur de domaine pour journaliser chaque liaison non signée (événement 2889 du journal *Directory Service* ; par défaut, seul le récapitulatif 2887 apparaît toutes les 24 h), laisser tourner une à deux semaines, corriger les clients, puis bloquer.
+🔒 **Contrôle de sécurité** : exiger la signature LDAP côté contrôleur de domaine. Le coût réel est la compatibilité : d'anciens équipements (imprimantes, NAS, applications maison) font du bind simple non signé. Avant de passer en « requis » :
+
+1. relever à 2 le niveau de diagnostic « 16 LDAP Interface Events » dans le registre du contrôleur de domaine pour journaliser chaque liaison non signée (événement 2889 du journal *Directory Service* ; par défaut, seul le récapitulatif 2887 apparaît toutes les 24 h) ;
+2. laisser tourner une à deux semaines ;
+3. corriger les clients, puis bloquer.
 
 ## Kerberos : le mécanisme des tickets
 
 Kerberos est le protocole d'authentification par défaut dans un domaine AD. Son principe : le mot de passe ne circule jamais sur le réseau. L'utilisateur prouve qu'il le connaît en déchiffrant quelque chose de dérivé de ce secret, et obtient des **tickets** valables pour une durée limitée.
 
 Les tickets sont émis par le KDC*, qui tourne sur les contrôleurs de domaine.
+
+> 🎡 **Analogie : le bracelet de parc d'attractions.** Le TGT ressemble au bracelet remis à l'entrée : il prouve que vous avez passé le contrôle. Pour chaque attraction, vous le présentez au guichet et recevez un billet valable pour celle-ci seulement, c'est le ticket de service. Limite de l'image : le guichet (le KDC) ne vérifie pas que vous avez le droit de monter, c'est l'attraction (le service) qui décide.
+{: .callout .callout-analogie}
 
 ```mermaid
 sequenceDiagram
@@ -163,7 +179,11 @@ sequenceDiagram
     S->>C: Accès accordé
 ```
 
-Trois éléments à retenir. Le TGT (Ticket-Granting Ticket) est la preuve d'authentification réutilisable, il est chiffré avec le secret du compte `krbtgt`, que seul le KDC connaît. Le ticket de service, lui, est chiffré avec le secret du **compte qui porte le SPN**. Et le KDC ne demande pas, à cette étape, si l'utilisateur a le droit d'utiliser ce service : il émet le ticket, le service décidera.
+Trois éléments à retenir :
+
+- Le TGT (Ticket-Granting Ticket) est la preuve d'authentification réutilisable. Il est chiffré avec le secret du compte `krbtgt`, que seul le KDC connaît.
+- Le ticket de service est chiffré avec le secret du **compte qui porte le SPN**.
+- À cette étape, le KDC ne demande pas si l'utilisateur a le droit d'utiliser ce service : il émet le ticket, le service décidera.
 
 C'est ce dernier point qui fonde l'attaque la plus rentable sur AD.
 
@@ -193,6 +213,9 @@ Le SSO (Single Sign-On) évite de se reconnecter à chaque application : l'utili
 {: .callout .callout-attention}
 
 OAuth 2.0 (RFC 6749) règle une seule question : comment une application obtient, avec le consentement de l'utilisateur, un **access token** pour appeler une API avec des droits limités (les *scopes*). Ce jeton dit : « le porteur peut appeler l'API X avec le scope Y ». Il ne dit pas qui est l'utilisateur, ni qu'il vient de s'authentifier, ni pour quelle application la connexion a eu lieu. L'application cliente n'a même pas à pouvoir lire son contenu : il est destiné à l'API.
+
+> 🏨 **Analogie : la carte d'hôtel.** Un access token fonctionne comme une carte magnétique d'hôtel. Elle ouvre certaines portes pendant une durée limitée, mais elle n'indique pas qui la tient. Limite de l'image : rien n'empêche de présenter à une application un jeton remis à une autre, si elle ne vérifie pas à qui il était destiné.
+{: .callout .callout-analogie}
 
 L'erreur classique ressemble à ceci. Un site propose « Se connecter avec <IDP> », reçoit un access token côté navigateur et, pour savoir qui se connecte, appelle l'endpoint profil avec ce jeton. Or un jeton obtenu par une autre application, que l'utilisateur a autorisée avec le même IdP, est tout aussi valide pour l'IdP. Un attaquant qui contrôle cette autre application peut rejouer le jeton auprès du site naïf et s'y connecter comme la victime. L'absence d'audience, de lien avec le client et de nonce rend la confusion possible.
 
@@ -426,7 +449,15 @@ La leçon pour un livrable : ne pas présenter 40 constats à égalité, mais un
 
 ## Résumé
 
-L'identification déclare une identité, l'authentification la prouve, l'autorisation limite ce qu'elle peut faire, et chacune se casse différemment. Les attaques dominantes ne sont pas exotiques : vol ou devinette de mots de passe, fatigue MFA, proxys AiTM, Kerberoasting sur des comptes de service mal gérés, jetons OAuth mal validés. Les défenses efficaces sont concrètes : facteurs résistants au phishing pour les comptes à risque, gMSA et mots de passe longs pour les comptes de service, validation stricte de l'`id_token` et du `redirect_uri`, séparation des comptes d'administration, accès JIT et revue des accès pilotée par le métier. Ce qui reste à surveiller : les processus de récupération de compte, la révocation des sessions après un départ, les consentements d'applications OAuth, les clés de l'IdP et les événements 4769 avec RC4. Le prochain module traite des mécanismes cryptographiques sous-jacents à ces jetons, signatures et canaux chiffrés.
+L'identification déclare une identité, l'authentification la prouve, l'autorisation limite ce qu'elle peut faire, et chacune se casse différemment.
+
+Les attaques dominantes ne sont pas exotiques : vol ou devinette de mots de passe, fatigue MFA, proxys AiTM, Kerberoasting sur des comptes de service mal gérés, jetons OAuth mal validés.
+
+Les défenses efficaces sont concrètes : facteurs résistants au phishing pour les comptes à risque, gMSA et mots de passe longs pour les comptes de service, validation stricte de l'`id_token` et du `redirect_uri`, séparation des comptes d'administration, accès JIT et revue des accès pilotée par le métier.
+
+Ce qui reste à surveiller : les processus de récupération de compte, la révocation des sessions après un départ, les consentements d'applications OAuth, les clés de l'IdP et les événements 4769 avec RC4.
+
+Le prochain module traite des mécanismes cryptographiques sous-jacents à ces jetons, signatures et canaux chiffrés.
 
 <!-- snippet
 id: iam_identification_authentification_autorisation

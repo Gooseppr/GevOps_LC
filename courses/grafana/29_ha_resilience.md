@@ -50,7 +50,12 @@ Avant de dessiner quoi que ce soit, il faut dire ce qu'on appelle « disponible 
 | Alerting | Au moins une instance qui évalue, et l'envoi des notifications | Les incidents ne sont plus signalés |
 | Administration (provisioning, API) | La base en écriture | On ne peut plus déployer ni corriger |
 
-Deux notions de gestion du risque reviennent dans toutes les discussions d'architecture. Le RTO (Recovery Time Objective) est la durée d'indisponibilité acceptable. Le RPO (Recovery Point Objective) est la quantité de données qu'on tolère de perdre. Pour Grafana, le RPO porte sur la base (dashboards modifiés dans l'UI, silences, état des alertes). Le RTO se joue surtout sur la détection de la panne et le basculement du trafic.
+Deux notions de gestion du risque reviennent dans toutes les discussions d'architecture.
+
+> 📖 **Définition.** Le **RTO** (Recovery Time Objective) est la durée d'indisponibilité acceptable. Le **RPO** (Recovery Point Objective) est la quantité de données qu'on tolère de perdre. Pour ne pas les confondre : T comme Temps, P comme Point de reprise des données.
+{: .callout .callout-definition}
+
+Pour Grafana, le RPO porte sur la base (dashboards modifiés dans l'UI, silences, état des alertes). Le RTO se joue surtout sur la détection de la panne et le basculement du trafic.
 
 ## Architecture
 
@@ -112,7 +117,8 @@ Les fonctions temps réel de Grafana Live (WebSocket) demandent une attention pa
 
 ### La base : le vrai point unique de défaillance
 
-Cette base est le SPOF (Single Point of Failure) de votre cluster. Trois instances Grafana derrière un PostgreSQL seul offrent une disponibilité inférieure à celle de ce PostgreSQL.
+> 💡 **À retenir.** Cette base est le SPOF (Single Point of Failure) de votre cluster. Trois instances Grafana derrière un PostgreSQL seul offrent une disponibilité inférieure à celle de ce PostgreSQL.
+{: .callout .callout-important}
 
 | Option | Principe | À retenir |
 |---|---|---|
@@ -127,7 +133,15 @@ Grafana attend **un seul point d'accès en écriture** : un nom DNS, un VIP ou u
 
 ### Migrations et mises à jour
 
-Au démarrage, une instance applique les migrations de schéma, avec un verrou en base (`migration_locking`) qui évite que deux instances le fassent en même temps. Pour une montée de version, le plus sûr est de mettre à jour **une instance, de vérifier qu'elle est saine, puis les suivantes**. Les anciennes instances continuent de tourner sur un schéma que la nouvelle a déjà modifié : restez sur des versions voisines, et lisez les notes de version pour les changements de schéma incompatibles.
+Au démarrage, une instance applique les migrations de schéma, avec un verrou en base (`migration_locking`) qui évite que deux instances le fassent en même temps.
+
+Pour une montée de version, le plus sûr est de procéder en roulement :
+
+1. mettre à jour **une instance** ;
+2. vérifier qu'elle est saine ;
+3. passer aux suivantes.
+
+Pendant ce temps, les anciennes instances tournent sur un schéma que la nouvelle a déjà modifié. Restez sur des versions voisines, et lisez les notes de version pour repérer les changements de schéma incompatibles.
 
 ## Construction progressive
 
@@ -288,6 +302,9 @@ sequenceDiagram
     Note over G2: Attend 15 s, voit l'entrée, n'envoie rien
 ```
 
+> 📞 **Analogie : la permanence téléphonique.** Plusieurs collègues entendent la même sonnerie. Le premier de la liste décroche aussitôt et le note au cahier ; le deuxième attend un instant, lit le cahier et ne rappelle que si rien n'y figure. Limite de l'image : il n'y a pas de cahier central, chaque instance tient sa propre copie du journal, synchronisée par gossip.
+{: .callout .callout-analogie}
+
 La même mécanique détermine votre comportement en cas de panne : si l'instance de position 0 meurt, la suivante enverra **avec ~15 s de retard**, pas avant. Ce retard est le coût de la déduplication, et il s'ajoute à `group_wait` et à l'intervalle d'évaluation dans votre budget de délai.
 
 > ⚠️ **Erreur fréquente** : ouvrir le port 9094 en TCP seulement. Le gossip utilise TCP et UDP. Si les pairs ne se voient pas, chacun se croit seul et notifie : vous recevez les alertes en double ou en triple, et les silences créés sur une instance ne sont pas respectés par les autres. Correction : autoriser TCP et UDP 9094 entre instances (règles de pare-feu, NetworkPolicy), puis contrôler le nombre de membres dans les métriques.
@@ -315,7 +332,12 @@ Grafana ne tombe pas parce qu'une Data Source tombe. Il dégrade : les panels co
 | Tempo | Idem, selon le mode de déploiement | Idem |
 | Base SQL métier | Endpoint de cluster | DNS à TTL court ou pooler |
 
-Côté Grafana, vous pilotez la dégradation avec des timeouts. `[dataproxy] timeout` borne les requêtes proxifiées ; pour l'alerting, `[unified_alerting] evaluation_timeout` et `max_attempts` gouvernent la durée d'une évaluation et le nombre de tentatives (noms et valeurs par défaut à vérifier dans votre version). Un timeout trop long, c'est des panels qui chargent pendant une minute et des goroutines qui s'empilent. Trop court, ce sont des fausses erreurs aux heures de pointe.
+Côté Grafana, vous pilotez la dégradation avec des timeouts :
+
+- `[dataproxy] timeout` borne les requêtes proxifiées ;
+- pour l'alerting, `[unified_alerting] evaluation_timeout` et `max_attempts` gouvernent la durée d'une évaluation et le nombre de tentatives (noms et valeurs par défaut à vérifier dans votre version).
+
+Comment les régler ? Un timeout trop long, c'est des panels qui chargent pendant une minute et des goroutines qui s'empilent. Trop court, ce sont des fausses erreurs aux heures de pointe.
 
 Pour les règles d'alerte, souvenez-vous des états `No Data` et `Error` vus aux modules d'alerting : quand la Data Source est en panne, vos règles basculent dans l'un ou l'autre. Choisissez leur mapping explicitement. Pour une règle critique, une Data Source muette ne doit pas être traitée comme « tout va bien ».
 

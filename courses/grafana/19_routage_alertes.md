@@ -179,7 +179,8 @@ curl -s -H "Authorization: Bearer <TOKEN>" \
 
 ## Les quatre réglages qui font la différence entre une alerte et du bruit
 
-Imaginez un serveur de restaurant qui apporte les plats d'une table. Il n'apporte pas chaque assiette dès qu'elle sort de la cuisine : il attend un court instant que le reste de la table soit prêt (`group_wait`), il ramène ensuite les retardataires par vagues (`group_interval`), et si quelqu'un n'a toujours pas mangé une heure plus tard, il revient lui demander (`repeat_interval`). Le `group_by`, c'est la décision de ce qui forme une « table ».
+> 🍽️ **Analogie : le serveur de restaurant.** Un serveur n'apporte pas chaque assiette dès qu'elle sort de la cuisine. Il attend un court instant que le reste de la table soit prêt (`group_wait`). Il ramène ensuite les retardataires par vagues (`group_interval`). Si quelqu'un n'a toujours pas mangé une heure plus tard, il revient lui demander (`repeat_interval`). Le `group_by`, c'est la décision de ce qui forme une « table ». Limite de l'image : Grafana ne sait pas si le message a été lu. Il rappelle tant que le groupe reste en `Firing`.
+{: .callout .callout-analogie}
 
 ### group_by : ce qui forme un groupe
 
@@ -188,6 +189,9 @@ Les alertes qui partagent les mêmes valeurs pour les labels de `group_by` sont 
 - `group_by: ['alertname', 'cluster']` : une notification « `NodeDown` sur `prod-eu` » qui liste les 23 pods concernés. C'est ce que vous voulez la plupart du temps.
 - `group_by: ['...']` : la valeur spéciale `...` désactive le groupement, donc **une notification par alerte**. Utile très rarement.
 - Un label à forte cardinalité (`pod`, `instance`, `request_id`) dans `group_by` recrée mécaniquement le problème : autant de groupes que de valeurs, donc autant de messages.
+
+> 📖 **Définition.** La **cardinalité** d'un label est le nombre de valeurs distinctes qu'il peut prendre. `severity` en a trois ; `pod` peut en avoir des milliers.
+{: .callout .callout-definition}
 
 > ⚠️ **Erreur fréquente** : mettre `instance` dans `group_by` « pour voir quelle machine est touchée ». L'information se récupère dans le corps du message, via la liste des alertes du groupe. Le groupement sert à réduire le nombre de messages, pas à les enrichir.
 {: .callout .callout-attention}
@@ -210,7 +214,7 @@ t = 5 min 30  notification n°2 (A + B)
 t = 4 h 05 min 30  si rien n'a changé depuis 5 min 30 → rappel (repeat_interval de 4 h après le dernier envoi)
 ```
 
-Le `group_wait` est le compromis le plus facile à rater. Trop long, vous retardez une vraie alerte critique de plusieurs minutes. Trop court, vous envoyez une première notification avec une seule alerte, puis une deuxième cinq minutes plus tard avec les trente autres. Pour une politique critique, 10 à 30 s reste raisonnable ; pour du `warning`, vous pouvez monter à 1–2 min sans douleur.
+Quelle valeur choisir pour `group_wait` ? C'est le compromis le plus facile à rater. Trop long, vous retardez une vraie alerte critique de plusieurs minutes. Trop court, vous envoyez une première notification avec une seule alerte, puis une deuxième cinq minutes plus tard avec les trente autres. Pour une politique critique, 10 à 30 s reste raisonnable ; pour du `warning`, vous pouvez monter à 1–2 min sans douleur.
 
 > 💡 **Astuce** : gardez un `repeat_interval` multiple du `group_interval`, et jamais plus court que l'intervalle d'évaluation de la règle. Des rappels toutes les 5 minutes d'un incident déjà pris en charge donnent la même fatigue que l'absence de groupement.
 {: .callout .callout-astuce}
@@ -231,7 +235,10 @@ Un silence se crée depuis **Alerting → Silences → New silence**, ou depuis 
 > ⚠️ **Erreur fréquente** : un silence trop large, par exemple `alertname=~".+"` pour « avoir la paix pendant l'intervention », cache aussi la vraie panne qui arrive à côté. Ciblez les labels de la maintenance (`cluster=prod-eu`, `service=billing`) et prévoyez une fin à l'heure de la fenêtre, pas « 7 jours au cas où ».
 {: .callout .callout-attention}
 
-Sur les mute timings, deux pièges à surveiller. Le **fuseau horaire** de l'intervalle n'est pas forcément celui de votre équipe (UTC par défaut chez Alertmanager) : une fenêtre « 2 h–4 h » peut tomber en plein après-midi. Et un mute timing attaché à une politique enfant ne touche que cette branche. Dans l'exemple de provisioning plus haut, l'alerte `critical` continue de réveiller l'astreinte samedi à 3 h, parce qu'elle passe par une autre route. C'est probablement ce que vous voulez, mais il faut le décider consciemment.
+Sur les mute timings, deux pièges à surveiller :
+
+- **Le fuseau horaire** de l'intervalle n'est pas forcément celui de votre équipe (UTC par défaut chez Alertmanager) : une fenêtre « 2 h–4 h » peut tomber en plein après-midi.
+- **La portée** : un mute timing attaché à une politique enfant ne touche que cette branche. Dans l'exemple de provisioning plus haut, l'alerte `critical` continue de réveiller l'astreinte samedi à 3 h, parce qu'elle passe par une autre route. C'est probablement ce que vous voulez, mais il faut le décider consciemment.
 
 Certaines versions proposent aussi des *active time intervals*, l'inverse du mute timing : la politique n'est active que pendant la plage. C'est pratique pour router vers l'astreinte uniquement hors heures ouvrées.
 
@@ -239,7 +246,10 @@ Certaines versions proposent aussi des *active time intervals*, l'inverse du mut
 
 ### Le flapping
 
-Une alerte « flappe » quand elle alterne `Firing` / `Resolved` en boucle autour de son seuil. Vous connaissez déjà le levier côté règle, la durée de maintien avant déclenchement. Côté routage, vous n'éliminez pas le flapping, vous l'atténuez :
+> 📖 **Définition.** Une alerte « flappe » quand elle alterne `Firing` / `Resolved` en boucle autour de son seuil.
+{: .callout .callout-definition}
+
+Vous connaissez déjà le levier côté règle : la durée de maintien avant déclenchement. Côté routage, vous n'éliminez pas le flapping, vous l'atténuez :
 
 - Un `group_interval` de 5 à 10 min empêche d'envoyer un message à chaque oscillation : les changements sont agrégés par fenêtre.
 - Sur certains contact points, l'option **Disable resolved message** supprime les notifications de résolution. Pour une alerte qui flappe, voir « résolu » puis « en feu » toutes les trois minutes est pire que de ne recevoir que l'ouverture.
@@ -260,7 +270,11 @@ sum(rate(http_requests_total{status=~"5.."}[5m]))
   > 2 * sum(rate(http_requests_total{status=~"5.."}[5m] offset 1w))
 ```
 
-Ça réduit le bruit sur les services dont la charge varie fortement entre le jour et la nuit. Mais le risque est réel : si une dégradation dure, elle devient la référence de la semaine suivante, et l'alerte se tait sur un service qui va mal depuis sept jours. Gardez un **plafond absolu** à côté (« jamais plus de 5 % d'erreurs, quoi que dise l'historique ») et traitez le seuil dynamique comme un complément, pas un remplacement. Et par construction, une alerte qui compare à `offset 1w` est muette dans la semaine qui suit la création d'une métrique, ce qui fait un bon candidat pour un test.
+Ça réduit le bruit sur les services dont la charge varie fortement entre le jour et la nuit. Mais le risque est réel : si une dégradation dure, elle devient la référence de la semaine suivante, et l'alerte se tait sur un service qui va mal depuis sept jours.
+
+Gardez un **plafond absolu** à côté (« jamais plus de 5 % d'erreurs, quoi que dise l'historique ») et traitez le seuil dynamique comme un complément, pas un remplacement.
+
+Enfin, par construction, une alerte qui compare à `offset 1w` est muette dans la semaine qui suit la création d'une métrique, ce qui fait un bon candidat pour un test.
 
 ## Tester avant que ça compte
 
@@ -322,11 +336,19 @@ Cette information vit dans les **annotations** de la règle (`summary`, `descrip
 
 On l'appelle ensuite depuis le champ message du contact point avec `{{ template "oncall.message" . }}`. Les variables disponibles (`.Alerts`, `.CommonLabels`, `.DashboardURL`, etc.) dépendent de la version, regardez l'aperçu du template dans l'éditeur.
 
-Un test simple pour jauger chaque alerte : *est-ce qu'une personne qui n'a pas écrit la règle, réveillée à 3 h, sait en moins d'une minute ce qui est cassé, qui est touché et quoi faire en premier ?* Si la réponse est non, ajoutez l'information manquante, ou posez-vous la vraie question : si aucune action n'est possible, ce n'est pas une alerte. C'est un panneau de dashboard ou un ticket.
+> 💡 **À retenir** : le test des 3 h du matin. *Une personne qui n'a pas écrit la règle, réveillée à 3 h, sait-elle en moins d'une minute ce qui est cassé, qui est touché et quoi faire en premier ?* Si non, ajoutez l'information manquante. Et si aucune action n'est possible, ce n'est pas une alerte, mais un panneau de dashboard ou un ticket.
+{: .callout .callout-important}
 
 ## Erreurs fréquentes
 
-**Aucune notification alors que l'alerte est en `Firing`.** Quatre causes courantes. Premièrement, un label attendu manque, l'alerte est tombée sur la racine : relisez les labels de l'instance et utilisez la prévisualisation du routage. Deuxièmement, un silence ou un mute timing la couvre : l'instance apparaît avec un état silencieux/muté dans la liste. Troisièmement, le contact point est cassé : la page **Contact points** affiche la dernière erreur de livraison (URL Slack révoquée, SMTP absent, webhook en 500). Quatrièmement, le `group_wait` n'est pas écoulé. Pour creuser, regardez les logs de Grafana, par exemple `docker logs <GRAFANA_CONTAINER> 2>&1 | grep -i notif`.
+**Aucune notification alors que l'alerte est en `Firing`.** Quatre causes courantes :
+
+1. Un label attendu manque, l'alerte est tombée sur la racine : relisez les labels de l'instance et utilisez la prévisualisation du routage.
+2. Un silence ou un mute timing la couvre : l'instance apparaît avec un état silencieux/muté dans la liste.
+3. Le contact point est cassé : la page **Contact points** affiche la dernière erreur de livraison (URL Slack révoquée, SMTP absent, webhook en 500).
+4. Le `group_wait` n'est pas écoulé.
+
+Pour creuser, regardez les logs de Grafana, par exemple `docker logs <GRAFANA_CONTAINER> 2>&1 | grep -i notif`.
 
 **Un message par alerte au lieu d'un message par incident.** Cause : `group_by: ['...']`, ou un label à forte cardinalité (`pod`, `instance`) dans `group_by`. Correction : regrouper sur `alertname` + un label de périmètre (`cluster`, `service`).
 

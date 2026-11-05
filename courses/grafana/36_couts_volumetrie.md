@@ -42,7 +42,7 @@ La réaction naïve est de couper : passer la rétention à 3 jours, désactiver
 
 ## Où part vraiment l'argent
 
-Avant de réduire quoi que ce soit, il faut savoir à quoi on réduit. Le coût d'une plateforme d'observabilité se répartit en quatre postes qui ne grossissent pas pour les mêmes raisons.
+Avant de réduire quoi que ce soit, il faut savoir où part l'argent. Le coût d'une plateforme d'observabilité se répartit en quatre postes qui ne grossissent pas pour les mêmes raisons.
 
 ```mermaid
 flowchart LR
@@ -70,7 +70,13 @@ flowchart LR
 
 ## Métriques : la cardinalité, un multiplicateur silencieux
 
-Une série temporelle, c'est une métrique + une combinaison unique de labels. Le nombre total de séries est le **produit** du nombre de valeurs possibles de chaque label. Pensez à un annuaire : ajouter un critère de classement ne rajoute pas quelques pages, il multiplie le nombre de rubriques.
+> 📖 **Définition.** Une série temporelle, c'est une métrique + une combinaison unique de labels.
+{: .callout .callout-definition}
+
+Le nombre total de séries est le **produit** du nombre de valeurs possibles de chaque label.
+
+> 📒 **Analogie : l'annuaire.** Ajouter un critère de classement ne rajoute pas quelques pages, il multiplie le nombre de rubriques.
+{: .callout .callout-analogie}
 
 Prenons un histogramme de latence HTTP typique :
 
@@ -106,7 +112,9 @@ Prometheus compresse très bien. Compter environ 1 à 2 octets par échantillon 
 - 15 jours = 1 296 000 s
 - 16 700 × 1 296 000 × 2 octets ≈ **43 Go**
 
-C'est modeste. Ce qui coûte, c'est la **mémoire** : chaque série active est conservée en RAM dans la tête du TSDB (Time Series Database) et l'ordre de grandeur est de plusieurs Ko par série. Côté échantillons, passer de 15 s à 60 s divise leur nombre par quatre, mais sans supprimer une seule série : la mémoire, dominée par le coût par série active, baisse donc peu. Le gain est réel sur le disque et l'ingestion, à condition que les fenêtres des rate() et des alertes couvrent au moins quatre intervalles de scrape.
+C'est modeste. Ce qui coûte, c'est la **mémoire** : chaque série active est conservée en RAM dans la tête du TSDB (Time Series Database), à raison de plusieurs Ko par série.
+
+Et si l'on allonge l'intervalle de scrape ? Passer de 15 s à 60 s divise le nombre d'échantillons par quatre, mais ne supprime aucune série. La mémoire, dominée par le coût par série active, baisse donc peu. Le gain est réel sur le disque et l'ingestion, à condition que les fenêtres des rate() et des alertes couvrent au moins quatre intervalles de scrape.
 
 ### Leviers concrets
 
@@ -174,7 +182,10 @@ limits_config:
 
 ## Traces : conserver l'intéressant, pas l'exhaustif
 
-Un système distribué sous charge génère un nombre de spans considérable, et la grande majorité décrit des requêtes réussies, rapides, identiques à des millions d'autres. Conserver 100 % de ces traces est le moyen le plus sûr de payer très cher pour du bruit. D'où le *sampling*, c'est-à-dire le sondage : comme un institut qui interroge 1 000 personnes plutôt que toute la population, on garde un échantillon représentatif.
+Un système distribué sous charge génère un nombre de spans considérable, et la grande majorité décrit des requêtes réussies, rapides, identiques à des millions d'autres. Conserver 100 % de ces traces est le moyen le plus sûr de payer très cher pour du bruit. D'où le *sampling* : on ne conserve qu'une partie des traces.
+
+> 📊 **Analogie : le sondage.** Comme un institut qui interroge 1 000 personnes plutôt que toute la population, on garde un échantillon représentatif. Limite de l'image : le tail sampling, lui, n'est volontairement pas représentatif, puisqu'il garde toutes les erreurs et toutes les traces lentes.
+{: .callout .callout-analogie}
 
 Deux familles :
 
@@ -270,7 +281,12 @@ C'est la partie du module où l'on compare deux modèles de coût différents pa
 | Contrôle des données | Total (localisation, chiffrement, réseau) | Dépend du contrat et de la région choisie |
 | Point d'inflexion | Rentable quand l'équipe plateforme existe déjà et que le volume est élevé | Rentable quand le volume est modéré ou que l'équipe est petite |
 
-Un point mérite d'être dit clairement : **« gratuit » n'est pas « sans coût »**. Le TCO (Total Cost of Ownership) d'une plateforme auto-hébergée inclut le temps passé à monter de version Loki ou Tempo, à diagnostiquer une compaction bloquée, à dimensionner les nœuds, à répondre à la page du samedi soir. Une fraction d'ingénieur à temps plein coûte souvent plus que la facture d'un service managé pour un volume moyen. À l'inverse, à volume très élevé, le prix à la consommation finit par dépasser l'infra et le temps d'équipe.
+Un point mérite d'être dit clairement : **« gratuit » n'est pas « sans coût »**.
+
+> 📖 **Définition.** Le TCO (*Total Cost of Ownership*, coût total de possession) d'une plateforme auto-hébergée inclut le temps passé à monter de version Loki ou Tempo, à diagnostiquer une compaction bloquée, à dimensionner les nœuds, à répondre à la page du samedi soir.
+{: .callout .callout-definition}
+
+Une fraction d'ingénieur à temps plein coûte souvent plus que la facture d'un service managé pour un volume moyen. À l'inverse, à volume très élevé, le prix à la consommation finit par dépasser l'infra et le temps d'équipe.
 
 ### Les coûts opérationnels des backends
 
@@ -315,7 +331,13 @@ Tous les leviers ne se valent pas en risque. Du moins dangereux au plus dangereu
 
 ## ⚠️ Réduire sans mesurer la perte de capacité de diagnostic
 
-C'est le piège central du module, et il est insidieux parce que la réduction réussit sur tous les indicateurs visibles. La facture baisse, la mémoire se stabilise, personne ne se plaint. Le coût réel n'apparaît que lors du prochain incident, quand une donnée qu'on croyait inutile manque : la métrique par pod supprimée pour réduire les séries, les traces d'erreur perdues par un head sampling à 1 %, les logs de la veille expirés avant l'analyse.
+C'est le piège central du module, et il est insidieux parce que la réduction réussit sur tous les indicateurs visibles. La facture baisse, la mémoire se stabilise, personne ne se plaint.
+
+Le coût réel n'apparaît que lors du prochain incident, quand une donnée qu'on croyait inutile manque :
+
+- la métrique par pod supprimée pour réduire les séries ;
+- les traces d'erreur perdues par un head sampling à 1 % ;
+- les logs de la veille expirés avant l'analyse.
 
 La bonne approche consiste à traiter toute réduction comme un changement de production :
 

@@ -37,13 +37,20 @@ next_module_title: "Transformations et traitement des données"
 
 Une équipe de huit personnes exploite une plateforme e-commerce : une dizaine de services sur Kubernetes, quelques bases managées, Prometheus, Loki et Tempo déjà en place. Après six mois, Grafana contient 140 dashboards. Beaucoup ont été importés depuis la communauté ou clonés puis modifiés, et la moitié n'a plus de propriétaire.
 
-Un soir, le support remonte des lenteurs au paiement. L'astreinte ouvre le dashboard « Checkout – FINAL v3 » : 58 panels, quatre unités différentes pour la latence (secondes, millisecondes, microsecondes, un « score »), des jauges rouges en permanence parce que le seuil a été copié d'un autre service. Elle met vingt minutes à comprendre que le problème vient d'une base de données, alors qu'un coup d'œil au bon endroit aurait suffi.
+Un soir, le support remonte des lenteurs au paiement. L'astreinte ouvre le dashboard « Checkout – FINAL v3 » :
+
+- 58 panels ;
+- quatre unités différentes pour la latence (secondes, millisecondes, microsecondes, un « score ») ;
+- des jauges rouges en permanence, parce que le seuil a été copié d'un autre service.
+
+Elle met vingt minutes à comprendre que le problème vient d'une base de données, alors qu'un coup d'œil au bon endroit aurait suffi.
 
 Les données étaient toutes là. Ce qui manquait, c'était de la conception : personne n'avait décidé *pour qui*, *pour répondre à quoi* et *dans quel ordre* ces panels devaient se lire. C'est ce que ce module met en place.
 
 ## Un dashboard sert un lecteur et une question
 
-Un tableau de bord professionnel ressemble moins à une galerie de graphiques qu'au tableau de bord d'une voiture : la vitesse et les voyants d'alerte sont immédiatement visibles, et l'on n'y trouve pas la pression de chaque pneu en temps réel. Ce qui est affiché dépend de ce que le conducteur doit décider *maintenant*.
+> 🚗 **Analogie : le tableau de bord d'une voiture.** Un dashboard professionnel ressemble moins à une galerie de graphiques qu'au tableau de bord d'une voiture : la vitesse et les voyants d'alerte sont immédiatement visibles, pas la pression de chaque pneu en temps réel. Ce qui est affiché dépend de ce que le conducteur doit décider *maintenant*. Limite de l'image : une voiture a un seul conducteur, alors qu'ici chaque type de lecteur appelle son propre dashboard.
+{: .callout .callout-analogie}
 
 Avant d'ouvrir l'éditeur, posez donc trois questions :
 
@@ -51,7 +58,8 @@ Avant d'ouvrir l'éditeur, posez donc trois questions :
 2. **Quelle question** doit-il pouvoir trancher en moins de dix secondes ?
 3. **Que fait-il ensuite** : escalade, ouverture d'un autre dashboard, consultation d'un runbook, rien du tout ?
 
-Si vous ne pouvez pas répondre à la troisième, le dashboard est un décor, pas un outil d'exploitation.
+> 💡 **À retenir.** Si vous ne pouvez pas répondre à la troisième question, le dashboard est un décor, pas un outil d'exploitation.
+{: .callout .callout-important}
 
 ### Quatre lecteurs, quatre dashboards
 
@@ -91,7 +99,8 @@ flowchart TD
 | **Service** | Ce service tient-il sa promesse ? Où se dégrade-t-il ? | Rate / Errors / Duration, dépendances, déploiements | DevOps, développeurs |
 | **Resource** | Quelle ressource sature ? | CPU, mémoire, I/O, connexions, files d'attente | DevOps, SRE |
 
-Au niveau Service, on retrouve souvent la méthode RED (Rate, Errors, Duration) : débit, erreurs et latence vues du côté de l'utilisateur. Au niveau Resource, c'est plutôt USE (Utilization, Saturation, Errors) : taux d'utilisation, saturation et erreurs d'une ressource. Les deux méthodes se complètent : RED dit *que* le service souffre, USE aide à comprendre *quelle ressource* en est la cause.
+> 🔑 **Moyen mnémotechnique.** Retenez un acronyme par niveau. **RED** pour le Service (Rate, Errors, Duration) : débit, erreurs et latence vus du côté de l'utilisateur. **USE** pour la Resource (Utilization, Saturation, Errors) : taux d'utilisation, saturation et erreurs d'une ressource. RED dit *que* le service souffre, USE aide à comprendre *quelle ressource* en est la cause.
+{: .callout .callout-memo}
 
 > 💡 **Astuce** — Nommez et rangez vos dashboards pour refléter ce niveau : un dossier par domaine, un préfixe ou un tag par niveau (`level:overview`, `level:service`, `level:resource`). Le jour où l'astreinte cherche « le dashboard de la base de données du checkout », la recherche Grafana par tag fait gagner plusieurs minutes.
 {: .callout .callout-astuce}
@@ -109,7 +118,7 @@ Un plan de lecture qui fonctionne bien en pratique :
 - **Zone basse** : détails, tableaux (top endpoints lents, top erreurs), éléments de diagnostic secondaires.
 - **Rows repliables** : tout ce qui sert rarement (détails par instance, métriques de runtime) va dans des rows fermées par défaut.
 
-Sur la densité, il n'existe pas de nombre magique. Une règle empirique raisonnable : si vous devez scroller plus de deux écrans ou si vous ne pouvez plus résumer en une phrase ce que montre le dashboard, il fait trop de choses. Un dashboard Overview tourne plutôt autour d'une dizaine de panels ; un dashboard Service peut monter plus haut grâce aux rows repliées, à condition que la partie visible à l'ouverture reste sobre.
+Combien de panels faut-il par dashboard ? Il n'existe pas de nombre magique. Une règle empirique raisonnable : si vous devez scroller plus de deux écrans ou si vous ne pouvez plus résumer en une phrase ce que montre le dashboard, il fait trop de choses. Un dashboard Overview tourne plutôt autour d'une dizaine de panels ; un dashboard Service peut monter plus haut grâce aux rows repliées, à condition que la partie visible à l'ouverture reste sobre.
 
 Quelques réglages qui changent beaucoup de choses :
 
@@ -120,7 +129,8 @@ Quelques réglages qui changent beaucoup de choses :
 
 ## KPI techniques vs métriques brutes
 
-Une métrique brute, c'est ce que l'exporter expose : `node_cpu_seconds_total`, `http_requests_total`. Un KPI, c'est une métrique *transformée en réponse à une question* : « le taux d'erreur du checkout sur 5 minutes ».
+> 📖 **Définition.** Une **métrique brute** est ce que l'exporter expose : `node_cpu_seconds_total`, `http_requests_total`. Un **KPI** est une métrique *transformée en réponse à une question* : « le taux d'erreur du checkout sur 5 minutes ».
+{: .callout .callout-definition}
 
 Un compteur brut qui monte en permanence ne dit rien à un humain. Un KPI se lit, se compare à un seuil et déclenche une décision.
 
@@ -214,7 +224,9 @@ curl -X POST "http://<GRAFANA_HOST>:3000/api/annotations" \
   }'
 ```
 
-Le champ `time` est en millisecondes depuis l'epoch. Les annotations sans `dashboardUID` sont des annotations d'organisation : pour les afficher, on ajoute dans *Dashboard settings → Annotations* une requête de type « Grafana » filtrée **par tags** (par exemple `deploy` et le tag du service). C'est ce filtre par tags qui permet à chaque dashboard de n'afficher que ses propres déploiements.
+Le champ `time` est en millisecondes depuis l'epoch.
+
+Les annotations sans `dashboardUID` sont des annotations d'organisation : pour les afficher, on ajoute dans *Dashboard settings → Annotations* une requête de type « Grafana » filtrée **par tags** (par exemple `deploy` et le tag du service). C'est ce filtre par tags qui permet à chaque dashboard de n'afficher que ses propres déploiements.
 
 Quelques règles de bon sens : un tag de service cohérent avec vos labels de métriques, un texte qui contient la version et un lien vers le commit ou la release, et un tag d'environnement pour ne pas mélanger staging et production.
 

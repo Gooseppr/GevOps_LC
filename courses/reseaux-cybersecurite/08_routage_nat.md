@@ -41,7 +41,9 @@ Une PME d'une soixantaine de personnes a trois segments réseau, tous reliés à
 - les serveurs en `192.168.20.0/24` ;
 - le lien vers Internet, côté opérateur.
 
-Les adresses de ce module sont illustratives : les réseaux internes utilisent des plages privées (RFC 1918), et les adresses publiques de la topologie des plages réservées à la documentation (RFC 5737). Tout fonctionne : navigation web, accès à l'intranet. Puis l'entreprise ouvre une petite agence en `192.168.30.0/24`, raccordée par un second routeur, `R2`, branché sur le réseau des serveurs. Le lundi matin, deux demandes arrivent :
+Les adresses de ce module sont illustratives : les réseaux internes utilisent des plages privées (RFC 1918), et les adresses publiques de la topologie des plages réservées à la documentation (RFC 5737).
+
+Tout fonctionne : navigation web, accès à l'intranet. Puis l'entreprise ouvre une petite agence en `192.168.30.0/24`, raccordée par un second routeur, `R2`, branché sur le réseau des serveurs. Le lundi matin, deux demandes arrivent :
 
 1. les postes du siège n'arrivent pas à joindre l'agence ;
 2. la direction veut que l'intranet (un serveur en `192.168.20.10`) soit accessible depuis l'extérieur.
@@ -59,7 +61,10 @@ flowchart LR
 
 ## Ce que fait vraiment un routeur
 
-Un routeur ne connaît pas le chemin complet vers la destination. Il sait seulement **à qui confier le paquet ensuite**. C'est le principe du carrefour : un panneau indique « Lyon : à droite », sans vous accompagner jusqu'à Lyon. À chaque carrefour, une nouvelle décision locale est prise, et le paquet finit par arriver parce que chaque saut fait un bon choix.
+Un routeur ne connaît pas le chemin complet vers la destination. Il sait seulement **à qui confier le paquet ensuite**.
+
+> 🚦 **Analogie : le carrefour.** Un panneau indique « Lyon : à droite », sans vous accompagner jusqu'à Lyon. À chaque carrefour, une nouvelle décision locale est prise, et le paquet finit par arriver parce que chaque saut fait un bon choix.
+{: .callout .callout-analogie}
 
 > 🧠 **Concept fondamental** : le routage fonctionne **saut par saut**. Chaque équipement ne décide que du prochain saut, jamais du trajet complet.
 {: .callout .callout-important}
@@ -76,7 +81,10 @@ flowchart TD
     E -->|non| G["Paquet détruit<br/>message ICMP unreachable"]
 ```
 
-Le mot « passerelle » désigne donc un rôle, celui de la porte de sortie du sous-réseau. C'est une adresse IP configurée sur chaque hôte (la fameuse « passerelle par défaut »), et elle appartient à un routeur situé sur le même réseau que l'hôte. Pour le poste `192.168.10.25`, la passerelle est `192.168.10.1`, l'interface `eth0` de `R1`.
+> 📖 **Définition.** La **passerelle** désigne un rôle : celui de porte de sortie du sous-réseau. C'est une adresse IP configurée sur chaque hôte (la fameuse « passerelle par défaut »), qui appartient à un routeur situé sur le même réseau que l'hôte.
+{: .callout .callout-definition}
+
+Pour le poste `192.168.10.25`, la passerelle est `192.168.10.1`, l'interface `eth0` de `R1`.
 
 Quand un paquet traverse un routeur, deux choses changent et une reste stable :
 
@@ -109,7 +117,7 @@ Ces lignes ont trois origines différentes :
 - La ligne `192.168.30.0/24 via 192.168.20.254` est une **route statique** posée à la main : « pour l'agence, passer par R2 ».
 - La ligne `default` est la **route par défaut**, le « sinon » de la table. Elle correspond à `0.0.0.0/0`, le préfixe qui englobe tout.
 
-Si plusieurs lignes correspondent à la destination, le routeur applique la règle du **préfixe le plus long** (longest prefix match). Prenons une autre table, qui contiendrait `10.1.0.0/16`, `10.0.0.0/8` et une route par défaut :
+Que se passe-t-il si plusieurs lignes correspondent à la destination ? Le routeur applique la règle du **préfixe le plus long** (longest prefix match). Prenons une autre table, qui contiendrait `10.1.0.0/16`, `10.0.0.0/8` et une route par défaut :
 
 | Destination | Routes qui correspondent | Route retenue |
 |---|---|---|
@@ -178,13 +186,18 @@ Sous Windows, les équivalents existent, avec l'option `-p` pour rendre la route
 
 ### Le piège du retour
 
-Poser la route à l'aller ne suffit pas. Un paquet réussit son voyage seulement si la **réponse** retrouve aussi son chemin. Si `R2` ne sait pas comment joindre `192.168.10.0/24`, il enverra les réponses à sa propre route par défaut, qui les enverra n'importe où, et l'utilisateur constatera simplement « ça ne répond pas ». L'aller fonctionne et le retour s'égare : c'est le routage asymétrique, la cause la plus fréquente des tickets « ping sans réponse » juste après l'ajout d'un nouveau réseau.
+Poser la route à l'aller ne suffit pas. Un paquet réussit son voyage seulement si la **réponse** retrouve aussi son chemin. Si `R2` ne sait pas comment joindre `192.168.10.0/24`, il enverra les réponses à sa propre route par défaut, qui les enverra n'importe où, et l'utilisateur constatera simplement « ça ne répond pas ».
+
+L'aller fonctionne et le retour s'égare : c'est le routage asymétrique, la cause la plus fréquente des tickets « ping sans réponse » juste après l'ajout d'un nouveau réseau.
 
 ## NAT : réécrire les adresses en passant
 
 Les adresses `10.0.0.0/8`, `172.16.0.0/12` et `192.168.0.0/16` sont privées. Elles sont réutilisées dans des millions de réseaux et, de ce fait, ne sont pas routées sur Internet. Un poste en `192.168.10.25` ne peut pas s'adresser directement à un serveur public : ses paquets partiraient avec une source que personne ne sait renvoyer.
 
 Le NAT (Network Address Translation) répond à ce problème : le routeur de bordure **réécrit les adresses** dans les en-têtes IP au passage, et se souvient des correspondances pour traiter les réponses. Selon ce qui est réécrit, on parle de variantes différentes.
+
+> 🔑 **Moyen mnémotechnique** : **S**NAT comme **S**ource, **D**NAT comme **D**estination. Le SNAT réécrit la source des paquets qui sortent, le DNAT la destination des paquets qui entrent.
+{: .callout .callout-memo}
 
 ### SNAT et PAT : sortir sous une adresse publique
 
@@ -253,7 +266,9 @@ sudo nft add rule inet filter forward iifname "eth2" oifname "eth1" ip daddr 192
 
 Les lignes se lisent ainsi : les réponses aux connexions déjà établies sont acceptées ; les postes (`eth0`) peuvent sortir vers Internet et vers les serveurs ou l'agence (`eth1`) ; depuis Internet, **un seul flux** est autorisé : HTTPS vers l'intranet. Tout le reste est jeté. Ces règles sont aussi à rendre persistantes (fichier `/etc/nftables.conf` sur la plupart des distributions) et la syntaxe peut varier selon la version de nftables.
 
-La troisième étape, la **haute disponibilité**, tient en une idée : un routeur unique est un point de défaillance unique. On installe un second routeur et on fait partager aux deux une adresse de passerelle virtuelle grâce à VRRP (Virtual Router Redundancy Protocol), souvent via `keepalived` sous Linux. Les postes gardent la même passerelle `192.168.10.1`. Si le routeur actif tombe, le secours reprend l'adresse en quelques secondes. Le mécanisme est approfondi plus loin dans le parcours.
+La troisième étape, la **haute disponibilité**, tient en une idée : un routeur unique est un point de défaillance unique.
+
+On installe un second routeur et on fait partager aux deux une adresse de passerelle virtuelle grâce à VRRP (Virtual Router Redundancy Protocol), souvent via `keepalived` sous Linux. Les postes gardent la même passerelle `192.168.10.1`. Si le routeur actif tombe, le secours reprend l'adresse en quelques secondes. Le mécanisme est approfondi plus loin dans le parcours.
 
 ## Quand les routes statiques ne suffisent plus
 
@@ -268,7 +283,9 @@ Deux protocoles méritent d'être connus, parce qu'ils ne jouent pas dans la mê
 | Critère de choix | Coût du chemin (lié à la bande passante) | Politique décidée par chaque opérateur |
 | Qui l'utilise | Administrateurs réseau d'entreprise, campus | Opérateurs, hébergeurs, grandes entreprises multi-opérateurs |
 
-OSPF (Open Shortest Path First) est un protocole « à état de liens ». Chaque routeur annonce ses liens à tous les autres, chacun dispose alors de la même carte et calcule lui-même le plus court chemin. Quand un lien tombe, la carte est mise à jour et les routes sont recalculées en quelques secondes. Sous Linux, on l'obtient avec la suite FRRouting, dont la configuration ressemble à ceci (la syntaxe peut varier selon la version) :
+OSPF (Open Shortest Path First) est un protocole « à état de liens ». Chaque routeur annonce ses liens à tous les autres, chacun dispose alors de la même carte et calcule lui-même le plus court chemin. Quand un lien tombe, la carte est mise à jour et les routes sont recalculées en quelques secondes.
+
+Sous Linux, on l'obtient avec la suite FRRouting, dont la configuration ressemble à ceci (la syntaxe peut varier selon la version) :
 
 ```
 router ospf
@@ -276,13 +293,18 @@ router ospf
  network 192.168.20.0/24 area 0
 ```
 
-BGP* (Border Gateway Protocol) est le protocole qui relie les réseaux d'Internet entre eux. Chaque organisation indépendante, appelée AS (Autonomous System), annonce aux autres les préfixes qu'elle sait joindre. Si vous n'avez qu'un seul accès Internet, vous ne ferez pas de BGP : c'est un sujet d'opérateurs et de grandes infrastructures. Il faut cependant savoir qu'il existe, que ses erreurs de configuration ou d'annonce peuvent détourner du trafic à grande échelle, et que ce protocole fait tenir Internet ensemble.
+BGP (Border Gateway Protocol) est le protocole qui relie les réseaux d'Internet entre eux. Chaque organisation indépendante, appelée AS (Autonomous System), annonce aux autres les préfixes qu'elle sait joindre.
 
-\* BGP ne cherche pas le chemin le plus court, il applique des politiques commerciales et techniques propres à chaque opérateur : c'est autant un protocole de négociation qu'un protocole de routage.
+Si vous n'avez qu'un seul accès Internet, vous ne ferez pas de BGP : c'est un sujet d'opérateurs et de grandes infrastructures. Il faut cependant savoir qu'il existe, que ses erreurs de configuration ou d'annonce peuvent détourner du trafic à grande échelle, et que ce protocole fait tenir Internet ensemble.
+
+> 📝 **Note** : BGP ne cherche pas le chemin le plus court. Il applique des politiques commerciales et techniques propres à chaque opérateur : c'est autant un protocole de négociation qu'un protocole de routage.
+{: .callout .callout-note}
 
 ## Suivre un paquet de bout en bout
 
-Quand un trafic ne passe pas, la première question est de savoir **jusqu'où** il va. La méthode la plus directe est `traceroute`, qui s'appuie sur le TTL. Il envoie des paquets avec un TTL de 1, puis 2, puis 3. Le routeur qui fait tomber le TTL à 0 en le décrémentant détruit le paquet et renvoie un message d'erreur ICMP (Time Exceeded) ; ce message révèle son adresse. En collectant ces réponses, on reconstitue la liste des sauts.
+Quand un trafic ne passe pas, une question vient en premier : **jusqu'où** va-t-il ?
+
+La méthode la plus directe est `traceroute`, qui s'appuie sur le TTL. Il envoie des paquets avec un TTL de 1, puis 2, puis 3. Le routeur qui fait tomber le TTL à 0 en le décrémentant détruit le paquet et renvoie un message d'erreur ICMP (Time Exceeded) ; ce message révèle son adresse. En collectant ces réponses, on reconstitue la liste des sauts.
 
 ```bash
 traceroute -n 192.168.30.10
@@ -306,7 +328,9 @@ Pour comprendre un mauvais choix de chemin, on combine `traceroute` (le chemin r
 
 C'est une idée très répandue : « mon réseau est en adresses privées derrière un NAT, donc personne ne peut l'attaquer ». Elle est trompeuse, et il vaut mieux comprendre pourquoi.
 
-Il est vrai qu'avec du PAT, un paquet non sollicité venant d'Internet n'a aucune entrée de translation correspondante et sera jeté. Mais ce comportement vient du **suivi de connexions** (l'état mémorisé par le routeur), pas de la traduction d'adresses elle-même. On peut très bien faire du NAT sans aucune protection, et on peut protéger un réseau sans NAT. C'est d'ailleurs ce qui se passe en IPv6, où chaque machine a une adresse globale et où c'est le pare-feu qui bloque ce qui doit l'être.
+Il est vrai qu'avec du PAT, un paquet non sollicité venant d'Internet n'a aucune entrée de translation correspondante et sera jeté. Mais ce comportement vient du **suivi de connexions** (l'état mémorisé par le routeur), pas de la traduction d'adresses elle-même.
+
+On peut très bien faire du NAT sans aucune protection, et on peut protéger un réseau sans NAT. C'est d'ailleurs ce qui se passe en IPv6, où chaque machine a une adresse globale et où c'est le pare-feu qui bloque ce qui doit l'être.
 
 Concrètement, le NAT ne protège de rien dans plusieurs situations :
 
@@ -345,7 +369,9 @@ Un nouveau test ne répond toujours pas. Cette fois le `traceroute` affiche `192
 sudo ip route add 192.168.10.0/24 via 192.168.20.1
 ```
 
-Cette fois, le `traceroute` affiche les trois sauts attendus et le partage s'ouvre. Il reste à traiter la seconde demande, la publication de l'intranet. On applique la règle DNAT vue plus haut, accompagnée de l'autorisation HTTPS ciblée dans la chaîne `forward`, et rien d'autre. Un test depuis une connexion extérieure valide l'ensemble.
+Cette fois, le `traceroute` affiche les trois sauts attendus et le partage s'ouvre.
+
+Il reste à traiter la seconde demande, la publication de l'intranet. On applique la règle DNAT vue plus haut, accompagnée de l'autorisation HTTPS ciblée dans la chaîne `forward`, et rien d'autre. Un test depuis une connexion extérieure valide l'ensemble.
 
 L'enchaînement mérite d'être retenu : **où part le paquet (`ip route get`), jusqu'où va-t-il (`traceroute`), la réponse revient-elle (routes de retour)**. Dans la majorité des cas, ces trois questions suffisent.
 

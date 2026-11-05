@@ -56,7 +56,10 @@ Un détail utile pour la suite : le choix du transport n'est pas anodin. DNS et 
 
 ### DNS : l'annuaire hiérarchique d'Internet
 
-Les humains retiennent `www.example.com`, les machines n'acheminent que des adresses IP. DNS fait la traduction. Imaginez un annuaire d'entreprise qui n'existerait pas en un seul volume. Un standard renvoie vers le bon site, le site renvoie vers le bon service, et le service connaît le numéro du collègue. DNS fonctionne ainsi, par délégation.
+Les humains retiennent `www.example.com`, les machines n'acheminent que des adresses IP. DNS fait la traduction, par délégation.
+
+> 📒 **Analogie : un annuaire en plusieurs volumes.** Imaginez un annuaire d'entreprise qui n'existerait pas en un seul volume. Un standard renvoie vers le bon site, le site renvoie vers le bon service, et le service connaît le numéro du collègue.
+{: .callout .callout-analogie}
 
 Un nom se lit de droite à gauche. Dans `www.example.com.`, le point final représente la racine, `com` est le domaine de premier niveau, `example` est le domaine de l'organisation et `www` désigne une machine de ce domaine. À chaque niveau correspond un ensemble de serveurs qui ne connaissent que leur niveau et savent vers qui renvoyer.
 
@@ -79,7 +82,10 @@ sequenceDiagram
     R-->>P: 203.0.113.10
 ```
 
-Le serveur **autoritaire** détient la réponse officielle pour une zone. Le résolveur ne fait que chercher et mémoriser. Cette distinction explique de nombreux diagnostics : si le résolveur répond mal, la source peut quand même être correcte.
+> 📖 **Définition.** Le serveur **autoritaire** détient la réponse officielle pour une zone. Le résolveur ne fait que chercher et mémoriser.
+{: .callout .callout-definition}
+
+Cette distinction explique de nombreux diagnostics : si le résolveur répond mal, la source peut quand même être correcte.
 
 Chaque réponse porte un **TTL (Time To Live)**, la durée en secondes pendant laquelle le résolveur peut la garder en cache. Il évite ainsi de refaire tout le parcours à chaque requête.
 
@@ -105,7 +111,9 @@ DNS utilise le port 53, en UDP pour la plupart des requêtes et en TCP quand la 
 
 ### DHCP : arriver sur un réseau sans rien configurer
 
-Un poste qui se connecte n'a ni adresse, ni passerelle, ni serveur DNS. Le configurer à la main pour 40 machines (et leurs téléphones) serait ingérable, d'où DHCP. Le serveur DHCP tient un **pool** d'adresses et prête une adresse pour une durée limitée appelée **bail** (*lease*). Il distribue en même temps le masque, la passerelle par défaut et les serveurs DNS.
+Un poste qui se connecte n'a ni adresse, ni passerelle, ni serveur DNS. Faut-il le configurer à la main ? Pour 40 machines (et leurs téléphones), ce serait ingérable, d'où DHCP.
+
+Le serveur DHCP tient un **pool** d'adresses et prête une adresse pour une durée limitée appelée **bail** (*lease*). Il distribue en même temps le masque, la passerelle par défaut et les serveurs DNS.
 
 L'échange tient en quatre messages, surnommés DORA :
 
@@ -137,7 +145,8 @@ Le code de statut raconte l'histoire en un chiffre :
 - **4xx** : erreur du client (`403 Forbidden`, `404 Not Found`) ;
 - **5xx** : erreur du serveur (`500`, `502`, `503`).
 
-Une règle de lecture rapide : un 4xx, c'est que la demande est mal formée, non autorisée ou vise une ressource absente ; un 5xx, c'est que le serveur n'arrive pas à y répondre.
+> 🔑 **Moyen mnémotechnique** : le premier chiffre désigne le responsable. **4**xx, c'est la demande : mal formée, non autorisée ou visant une ressource absente. **5**xx, c'est le serveur : il n'arrive pas à y répondre.
+{: .callout .callout-memo}
 
 L'en-tête `Host` mérite d'être connu. Plusieurs sites web partagent souvent une même adresse IP, et c'est `Host: www.example.com` qui indique au serveur quel site vous voulez. Sans lui, le serveur ne sait pas qui servir.
 
@@ -184,7 +193,10 @@ Pour un nouveau projet, SFTP est presque toujours le bon choix. FTPS se justifie
 
 ### Messagerie : SMTP envoie, IMAP et POP3 consultent
 
-Un courriel emprunte deux protocoles différents, selon qu'on envoie ou qu'on lit. Pensez à la différence entre déposer une lettre à La Poste et ouvrir sa boîte aux lettres.
+Un courriel emprunte deux protocoles différents, selon qu'on envoie ou qu'on lit.
+
+> 📮 **Analogie : la poste.** SMTP, c'est déposer une lettre à La Poste. IMAP et POP3, c'est ouvrir sa boîte aux lettres. Limite de l'image : avec IMAP, les lettres restent au bureau de poste, et chacun de vos appareils vient les consulter.
+{: .callout .callout-analogie}
 
 **SMTP (Simple Mail Transfer Protocol)** pousse le message : de votre client vers votre serveur, puis de serveur en serveur jusqu'à la destination. Pour trouver le serveur de destination, il interroge DNS et lit l'enregistrement MX du domaine. Il se décline en plusieurs ports :
 
@@ -312,7 +324,11 @@ flowchart TD
     G --> H
 ```
 
-Le chiffrement protège le contenu des regards extérieurs. L'authentification du serveur garantit l'identité de celui qui est au bout. L'authentification du client prouve l'identité de celui qui se connecte, et l'autorisation décide ensuite de ce qu'il a le droit de faire. Une attaque de l'homme du milieu réussit précisément quand le chiffrement est présent et l'authentification absente : vous établissez un canal chiffré avec l'attaquant, qui rouvre un autre canal chiffré vers le vrai serveur.
+- le **chiffrement** protège le contenu des regards extérieurs ;
+- l'**authentification du serveur** garantit l'identité de celui qui est au bout ;
+- l'**authentification du client** prouve l'identité de celui qui se connecte, et l'autorisation décide ensuite de ce qu'il a le droit de faire.
+
+Une attaque de l'homme du milieu réussit précisément quand le chiffrement est présent et l'authentification absente : vous établissez un canal chiffré avec l'attaquant, qui rouvre un autre canal chiffré vers le vrai serveur.
 
 Les cas concrets où ça se produit :
 
@@ -381,7 +397,9 @@ $ timedatectl | grep synchronized
 System clock synchronized: no
 ```
 
-Le poste croit être en 2014. Tous les certificats modernes lui paraissent « pas encore valides », donc rejetés. La pile de l'horloge matérielle, en fin de vie, a laissé l'horloge repartir d'une date ancienne au démarrage, et la synchronisation NTP du poste est inactive (« synchronized: no ») : rien ne corrige l'écart. Remède : replacer le poste sur le serveur de temps interne, remplacer la pile à la prochaine intervention, et ne surtout pas conseiller à Paul de cliquer sur « continuer » (voir la section précédente).
+Le poste croit être en 2014. Tous les certificats modernes lui paraissent « pas encore valides », donc rejetés. Pourquoi ? La pile de l'horloge matérielle, en fin de vie, a laissé l'horloge repartir d'une date ancienne au démarrage. Et comme la synchronisation NTP du poste est inactive (« synchronized: no »), rien ne corrige l'écart.
+
+Remède : replacer le poste sur le serveur de temps interne, remplacer la pile à la prochaine intervention, et ne surtout pas conseiller à Paul de cliquer sur « continuer » (voir la section précédente).
 
 Trois pannes qui se ressemblent pour l'utilisateur, trois protocoles différents, et un seul réflexe qui les résout : vérifier le service plutôt que d'accuser « le réseau ».
 

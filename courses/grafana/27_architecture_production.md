@@ -56,7 +56,8 @@ Avant de dessiner une architecture, il faut savoir ce qu'on place dedans. Grafan
 > 🧠 **Concept clé** — Grafana est un *client de requêtes* avec un petit état propre. Son état est dans la base de configuration, pas dans le processus. Si la base survit, on peut recréer l'instance. Si la base disparaît, les binaires intacts ne servent à rien. Le coût, lui, se paie dans les backends interrogés.
 {: .callout .callout-important}
 
-Une analogie utile : Grafana est un guichet de renseignements. Les archives (Prometheus, Loki, Tempo) sont dans un autre bâtiment. Ajouter des guichets accueille plus de monde, mais ne rend pas les archivistes plus rapides.
+> 🏛️ **Analogie : le guichet et les archives.** Grafana est un guichet de renseignements. Les archives (Prometheus, Loki, Tempo) sont dans un autre bâtiment. Ajouter des guichets accueille plus de monde, mais ne rend pas les archivistes plus rapides.
+{: .callout .callout-analogie}
 
 ## Les composants d'une installation de production
 
@@ -86,7 +87,7 @@ Le renderer et le SSO (Single Sign-On) sont en pointillé : optionnels, mais qua
 
 ## Standalone, distribuée, Cloud : trois façons d'héberger
 
-On parle souvent d'architecture « distribuée ». Grafana lui-même n'est pas un système en micro-services : on le scale en dupliquant des instances identiques qui partagent une base. Ce qui se distribue vraiment, ce sont les **backends** (Loki, Tempo et Mimir existent en mode simple et en mode distribué). Quand on compare « standalone » et « distribué », on compare donc des *piles complètes*.
+Que signifie une architecture « distribuée » pour Grafana ? Grafana lui-même n'est pas un système en micro-services : on le scale en dupliquant des instances identiques qui partagent une base. Ce qui se distribue vraiment, ce sont les **backends** (Loki, Tempo et Mimir existent en mode simple et en mode distribué). Quand on compare « standalone » et « distribué », on compare donc des *piles complètes*.
 
 | Critère | Standalone | Distribuée (auto-hébergée) | Grafana Cloud |
 |---------|-----------|---------------------------|---------------|
@@ -103,11 +104,15 @@ On parle souvent d'architecture « distribuée ». Grafana lui-même n'est pas u
 - **Distribuée** se justifie quand le volume de télémétrie dépasse ce qu'une machine encaisse, ou quand la plateforme est un service interne avec un engagement de disponibilité. Il faut une équipe qui sait exploiter Kubernetes, du stockage objet et des mises à jour de composants stateful.
 - **Cloud** s'impose quand l'équipe n'a pas la capacité d'exploiter la plateforme et que la donnée peut quitter l'infrastructure. Les limites arrivent avec la facture quand le volume explose, ou avec l'accès aux data sources en réseau privé (des mécanismes comme Private Data Source Connect existent, leur disponibilité dépend de l'offre).
 
-Une règle de bon sens : on ne passe pas en distribué parce que c'est « plus pro ». On y passe quand une mesure précise (saturation d'un backend, SLA exigé) le justifie.
+> 💡 **À retenir.** On ne passe pas en distribué parce que c'est « plus pro ». On y passe quand une mesure précise (saturation d'un backend, SLA exigé) le justifie.
+{: .callout .callout-important}
 
 ## Reverse proxy : la porte d'entrée
 
-Grafana sait écouter en HTTPS lui-même, mais en production on place presque toujours un reverse proxy devant. Il termine le TLS (Transport Layer Security), centralise les certificats, applique les règles réseau et répartit la charge.
+Grafana sait écouter en HTTPS lui-même, mais en production on place presque toujours un reverse proxy devant.
+
+> 📖 **Définition.** Le reverse proxy est le serveur placé devant Grafana, qui reçoit les requêtes des utilisateurs. Il termine le TLS (Transport Layer Security), centralise les certificats, applique les règles réseau et répartit la charge.
+{: .callout .callout-definition}
 
 Deux réglages Grafana comptent autant que le proxy :
 
@@ -234,7 +239,12 @@ Une installation de production n'est jamais seule. Le plus simple est de lister 
 | Serveur SMTP / webhooks | Les alertes partent dans le vide | Une alerte non livrée est-elle visible quelque part ? |
 | Plugins | Panels cassés après une mise à jour | Les plugins sont-ils inclus dans l'image ou installés au démarrage ? |
 
-Pour les environnements, le choix est entre une instance Grafana par environnement (dev, staging, prod) et une instance unique avec des organisations séparées. La première isole mieux les risques : on peut casser un dashboard ou tester une mise à jour sans toucher la production. La seconde consomme moins, mais mélange les blocs de panne et les droits. Pour une plateforme sérieuse, un Grafana de pré-production dans la même version que la production n'est pas un luxe : c'est l'endroit où on valide les montées de version et les changements de plugins. La manière de synchroniser ces environnements relève du module suivant.
+Pour les environnements, deux options s'offrent à vous :
+
+- **Une instance Grafana par environnement** (dev, staging, prod) isole mieux les risques : on peut casser un dashboard ou tester une mise à jour sans toucher la production.
+- **Une instance unique avec des organisations séparées** consomme moins, mais mélange les blocs de panne et les droits.
+
+Pour une plateforme sérieuse, un Grafana de pré-production dans la même version que la production n'est pas un luxe : c'est l'endroit où on valide les montées de version et les changements de plugins. La manière de synchroniser ces environnements relève du module suivant.
 
 ## Capacité et dimensionnement
 
@@ -263,7 +273,7 @@ Deux raisons :
 - Les requêtes lourdes partent toujours vers le même backend. La capacité de traitement n'a pas changé, seule la capacité d'accueil des utilisateurs a augmenté.
 - Dans le mode HA classique, chaque instance évalue l'ensemble des règles d'alerte, et seules les notifications sont dédoublonnées. Trois instances peuvent donc tripler la charge d'évaluation sur les backends (à vérifier selon la version et la configuration utilisées).
 
-Avant d'ajouter une instance, il faut établir **où** est le goulot :
+Avant d'ajouter une instance, une question s'impose : **où** est le goulot ?
 
 ```mermaid
 flowchart TD
@@ -274,7 +284,14 @@ flowchart TD
     D -->|Non| F[Vérifier réseau, proxy, timeouts]
 ```
 
-Les leviers côté backend, par ordre de coût croissant : réduire la fréquence de rafraîchissement, alléger les requêtes (recording rules Prometheus, plages de temps plus courtes), activer les caches du backend (par exemple le cache de résultats de Loki ou Mimir) et seulement ensuite scaler. Le cache de requêtes intégré à Grafana est une fonctionnalité Enterprise ou Cloud, pas OSS. La cardinalité et l'optimisation fine font l'objet d'un module dédié.
+Les leviers côté backend, par ordre de coût croissant :
+
+1. Réduire la fréquence de rafraîchissement.
+2. Alléger les requêtes (recording rules Prometheus, plages de temps plus courtes).
+3. Activer les caches du backend (par exemple le cache de résultats de Loki ou Mimir).
+4. Seulement ensuite, scaler.
+
+Le cache de requêtes intégré à Grafana est une fonctionnalité Enterprise ou Cloud, pas OSS. La cardinalité et l'optimisation fine font l'objet d'un module dédié.
 
 Pour mesurer côté Grafana, l'endpoint `/metrics` expose un histogramme de durée des requêtes HTTP. Le rapport `_sum` / `_count` en donne la durée moyenne :
 
@@ -330,7 +347,13 @@ Résultat dans le scénario : temps de chargement ramené à environ 4 s le lund
 
 ## Résumé
 
-Grafana en production est un client de requêtes doté d'un petit état stocké dans une base de configuration, placé derrière un reverse proxy et branché sur des backends qui portent la vraie charge. Le choix standalone, distribuée ou Cloud dépend du volume, de la disponibilité exigée, de la compétence d'exploitation et des contraintes sur la donnée. SQLite convient aux tests. Dès que l'on veut plusieurs instances ou une vraie résilience, il faut PostgreSQL ou MySQL. Le dimensionnement se fait en comptant les requêtes générées par les dashboards et les alertes, pas en regardant le CPU de Grafana. Ajouter des instances Grafana ne soulage jamais un Prometheus ou un Loki saturé. Une fois l'architecture stabilisée, reste à reproduire ces choix de façon fiable et automatisée, ce qui est l'objet du module suivant.
+Grafana en production est un client de requêtes doté d'un petit état stocké dans une base de configuration, placé derrière un reverse proxy et branché sur des backends qui portent la vraie charge.
+
+Le choix standalone, distribuée ou Cloud dépend du volume, de la disponibilité exigée, de la compétence d'exploitation et des contraintes sur la donnée. SQLite convient aux tests. Dès que l'on veut plusieurs instances ou une vraie résilience, il faut PostgreSQL ou MySQL.
+
+Le dimensionnement se fait en comptant les requêtes générées par les dashboards et les alertes, pas en regardant le CPU de Grafana. Ajouter des instances Grafana ne soulage jamais un Prometheus ou un Loki saturé.
+
+Une fois l'architecture stabilisée, reste à reproduire ces choix de façon fiable et automatisée, ce qui est l'objet du module suivant.
 
 <!-- snippet
 id: grafana_prod_stateless_concept

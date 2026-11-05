@@ -40,7 +40,12 @@ Une équipe plateforme héberge Grafana OSS pour trois clients. Chaque client a 
 
 Un utilisateur du client B, curieux, a reçu le rôle `Admin` de son organisation pour gérer ses propres data sources. Il ouvre la configuration de la data source Loki de son organisation et change la valeur de l'en-tête : `X-Scope-OrgID: client-a`. Loki ne vérifie pas l'identité du client, il fait confiance à l'en-tête. Les logs du client A apparaissent dans Explore.
 
-La défense naïve était « une organisation par client ». Elle sépare les dashboards, pas les données. Les organisations Grafana sont une séparation **logique** dans un même processus, une même base SQL, avec les mêmes plugins et un seul administrateur serveur. Le vrai contrôle d'accès aux données doit vivre dans les backends, ou dans la décision de ne pas partager l'instance.
+La défense naïve était « une organisation par client ». Elle sépare les dashboards, pas les données.
+
+> 🏢 **Analogie : des bureaux dans un même immeuble.** Les organisations Grafana sont une séparation **logique** : un même processus, une même base SQL, les mêmes plugins et un seul administrateur serveur. Chaque client a sa porte, mais le gardien a toutes les clés et les couloirs sont communs. Limite de l'image : dans Grafana, ce qui relie les « bureaux » est aussi le chemin vers les données elles-mêmes.
+{: .callout .callout-analogie}
+
+Le vrai contrôle d'accès aux données doit vivre dans les backends, ou dans la décision de ne pas partager l'instance.
 
 ## Surface d'attaque
 
@@ -140,9 +145,14 @@ L'interface et les limites évoluent d'une version à l'autre : vérifiez la mat
 
 ## Service accounts, tokens, secrets et TLS
 
-Les anciennes API keys sont dépréciées au profit des **service accounts**. Ces derniers ont un rôle, des permissions, et des tokens en `glsa_...` rattachés à leur compte. Un token sans date d'expiration est un mot de passe permanent.
+Les anciennes API keys sont dépréciées au profit des **service accounts**.
 
-Le modèle de rotation applicable en production est un chevauchement :
+> 📖 **Définition.** Un service account est un compte destiné aux scripts et aux outils. Il porte un rôle, des permissions, et des tokens en `glsa_...` rattachés à son compte.
+{: .callout .callout-definition}
+
+Un token sans date d'expiration est un mot de passe permanent.
+
+En production, la rotation se fait par chevauchement : le nouveau token fonctionne avant que l'ancien ne disparaisse.
 
 1. créer un nouveau token avec une durée de vie courte ;
 2. le déposer dans le gestionnaire de secrets (Vault, secrets Kubernetes chiffrés, etc.) ;
@@ -208,7 +218,7 @@ Si TLS est terminé sur un reverse proxy, le bloc `[server]` change, mais le chi
 Ce que ça coûte :
 
 - `data_source_proxy_whitelist` ajoute une étape à chaque nouveau backend (la liste doit être mise à jour), mais elle limite la SSRF via le proxy de data sources. Elle ne couvre pas forcément les requêtes des data sources à backend (`/api/ds/query`) : vérifiez dans la documentation de votre version.
-- `disable_login_form` n'est pas dans la liste volontairement : le désactiver oblige à passer par SSO, ce qui est souhaitable, mais il faut conserver un compte local d'urgence (*break-glass*) dont le mot de passe est dans un coffre, sous peine de verrouillage total en cas de panne de l'IdP.
+- `disable_login_form` n'est pas dans la liste volontairement : le désactiver oblige à passer par SSO, ce qui est souhaitable. Il faut toutefois conserver un compte local d'urgence (*break-glass*) dont le mot de passe est dans un coffre, sous peine de verrouillage total en cas de panne de l'IdP.
 - La rotation des tokens et des certificats demande de l'automatisation. Sans elle, l'expiration devient un incident récurrent plutôt qu'une protection.
 
 ## Segmentation : organisations, instances ou stacks
@@ -240,11 +250,13 @@ Les flèches en pointillés représentent des règles réseau explicites (Networ
 | Clients externes, contraintes contractuelles ou réglementaires | Une instance (ou stack) par client, backends séparés | Coût d'infrastructure (mémoire, sauvegardes, patching multiplié) | Nécessite de l'automatisation pour rester gérable |
 | Plateforme mutualisée avec Loki/Mimir | Isolation réelle au niveau backend (authentification proxy qui impose `X-Scope-OrgID`, LBAC si disponible) | Complexité côté proxy | Grafana seul ne vaut pas isolation |
 
-Règle de décision : si une fuite entre deux consommateurs est un incident contractuel ou réglementaire, passer à une instance par consommateur et à des backends distincts. Sinon, les organisations suffisent, à condition que les rôles `Admin` soient restreints et que les data sources soient verrouillées en provisioning.
+> 💡 **À retenir.** Si une fuite entre deux consommateurs est un incident contractuel ou réglementaire, passez à une instance par consommateur et à des backends distincts. Sinon, les organisations suffisent, à condition que les rôles `Admin` soient restreints et que les data sources soient verrouillées en provisioning.
+{: .callout .callout-important}
 
 ## Cycle de vie des plugins
 
-Un plugin backend est un exécutable lancé par le processus Grafana, avec les droits de ce processus. Un plugin front tourne dans le navigateur de chaque utilisateur qui ouvre un dashboard. Un plugin non signé a donc une portée comparable à celle d'une dépendance applicative exécutée en production.
+Un plugin backend est un exécutable lancé par le processus Grafana, avec les droits de ce processus. Un plugin front tourne dans le navigateur de chaque utilisateur qui ouvre un dashboard. > 📦 **Analogie : une dépendance en production.** Un plugin non signé a une portée comparable à celle d'une dépendance applicative exécutée en production. Vous ne l'installeriez pas sans en vérifier l'origine et la version.
+{: .callout .callout-analogie}
 
 Pratiques applicables sans outillage lourd :
 
@@ -341,7 +353,7 @@ Chronologie typique :
 Containment et remédiation :
 
 1. Révoquer le token exposé, puis **tous** les tokens créés depuis la date d'exposition : le second service account est la persistance.
-2. Lister les data sources et en faire tourner les credentials : ils ont pu être utilisés via le proxy : même si l'API ne renvoie pas leurs valeurs, l'attaquant a pu exploiter les droits qu'ils donnent sur les backends.
+2. Lister les data sources et en faire tourner les credentials. Ils ont pu être utilisés via le proxy : même si l'API ne renvoie pas leurs valeurs, l'attaquant a pu exploiter les droits qu'ils donnent sur les backends.
 3. Vérifier les modifications de dashboards et d'alertes (une règle d'alerte supprimée est une manière de masquer l'attaque).
 4. Remplacer le token Terraform par un token `Editor` à durée de vie courte injecté par le CI, avec détection d'usage depuis une IP hors liste.
 
@@ -387,7 +399,11 @@ Correction : envoyer les logs vers un stockage séparé en écriture seule pour 
 
 ## Résumé
 
-Grafana concentre des accès vers vos backends d'observabilité : le sécuriser, c'est limiter ce qu'une identité compromise ou curieuse peut en tirer. Le moindre privilège passe par des rôles découpés par fonction, des data sources provisionnées en lecture seule et des service accounts dédiés, à durée de vie courte. Le durcissement de la configuration (secret_key, TLS, cookies, plugins signés, liste d'hôtes autorisés pour le proxy) réduit l'impact d'une CVE comme CVE-2021-43798. Les organisations Grafana ne constituent pas une frontière de sécurité pour des données multi-clients : au-delà d'un seuil de sensibilité, il faut une instance et des backends séparés, ou un contrôle d'accès côté backend. Restent à surveiller les créations de tokens, les modifications de data sources, l'écart entre plugins installés et plugins approuvés, et l'âge des secrets. Le prochain chantier consiste à s'assurer que cette configuration peut être restaurée à l'identique après un incident.
+Grafana concentre des accès vers vos backends d'observabilité : le sécuriser, c'est limiter ce qu'une identité compromise ou curieuse peut en tirer. Le moindre privilège passe par des rôles découpés par fonction, des data sources provisionnées en lecture seule et des service accounts dédiés, à durée de vie courte.
+
+Le durcissement de la configuration (secret_key, TLS, cookies, plugins signés, liste d'hôtes autorisés pour le proxy) réduit l'impact d'une CVE comme CVE-2021-43798. Les organisations Grafana ne constituent pas une frontière de sécurité pour des données multi-clients : au-delà d'un seuil de sensibilité, il faut une instance et des backends séparés, ou un contrôle d'accès côté backend.
+
+Restent à surveiller les créations de tokens, les modifications de data sources, l'écart entre plugins installés et plugins approuvés, et l'âge des secrets. Le prochain chantier consiste à s'assurer que cette configuration peut être restaurée à l'identique après un incident.
 
 <!-- snippet
 id: grafana_ds_query_viewer_access

@@ -37,17 +37,21 @@ next_module_title: "Premiers diagnostics Grafana"
 
 Vous êtes dans une équipe de six personnes qui exploite une API de commande en ligne : trois services derrière un reverse proxy, déployés sur quelques machines virtuelles. Les dashboards construits aux modules précédents fonctionnent bien. Ce mardi, un panel montre que le temps de réponse a doublé vers 14 h 20. La courbe vous dit **que** quelque chose se passe. Elle ne dit ni quelle requête, ni quel service, ni pourquoi.
 
-Un panel de métriques est un tableau de bord de voiture : il signale que le moteur chauffe, pas quelle pièce lâche. Pour ça il faut ouvrir le capot, et le capot de l'observabilité, ce sont les logs (ce que chaque composant a raconté) et les traces (le trajet d'une requête à travers les composants).
+> 🚗 **Analogie : le tableau de bord et le capot.** Un panel de métriques est un tableau de bord de voiture : il signale que le moteur chauffe, pas quelle pièce lâche. Pour le savoir, il faut ouvrir le capot. En observabilité, le capot, ce sont les logs (ce que chaque composant a raconté) et les traces (le trajet d'une requête à travers les composants).
+{: .callout .callout-analogie}
 
 La solution naïve consiste à se connecter en SSH sur chaque machine et à lancer `grep` sur des fichiers. Elle s'effondre vite : trois services, plusieurs instances, des conteneurs éphémères dont les fichiers disparaissent au redémarrage. Et surtout, `grep` ne suit pas une requête qui traverse trois services. Grafana Explore avec Loki et Tempo répond à ces deux limites.
 
 ## Deux signaux, deux façons de raconter
 
-Avant de toucher à l'interface, il faut bien saisir ce que chaque signal contient.
+Que contient exactement chaque signal ? Mieux vaut le savoir avant de toucher à l'interface.
 
 Un **log** est un événement daté : « à 14:20:03, le service `checkout` a reçu un timeout en appelant le paiement ». Chaque ligne est isolée. Pour reconstituer une histoire, il faut deviner quelles lignes vont ensemble.
 
-Une **trace** est l'histoire d'une seule requête, déjà reconstituée. Elle est composée de **spans**, chacun représentant une opération mesurée (un appel HTTP, une requête SQL, un traitement interne), avec son début, sa durée et son parent. L'ensemble forme un arbre.
+Une **trace** est l'histoire d'une seule requête, déjà reconstituée. Elle est composée de **spans**, organisés en arbre.
+
+> 📖 **Définition.** Un **span** représente une opération mesurée (un appel HTTP, une requête SQL, un traitement interne), avec son début, sa durée et son parent.
+{: .callout .callout-definition}
 
 > 🧠 **Concept clé** — Une trace distribuée n'est pas un fichier journal. Un fichier journal est une suite chronologique de lignes écrites par un seul processus. Une trace est un graphe de spans émis par plusieurs services, rassemblés après coup grâce à un identifiant commun, le `trace_id`. Elle peut aussi être incomplète : si un service n'est pas instrumenté, ou si la requête a été écartée par l'échantillonnage (sampling), il manque des morceaux, voire toute la trace. Lire une trace comme on lit un log (de haut en bas, ligne par ligne) conduit à des conclusions fausses.
 {: .callout .callout-important}
@@ -97,7 +101,10 @@ Ouvrez **Explore** (menu de gauche), choisissez la data source Loki. Dans l'édi
 
 Loki n'indexe pas le contenu des lignes. Il n'indexe que les **labels** attachés à un flux : `app`, `env`, `host`, `namespace`, etc. Un flux est l'ensemble des lignes partageant exactement la même combinaison de labels.
 
-Imaginez une bibliothèque où seuls les rayons sont étiquetés, pas les pages des livres. Choisir le bon rayon est instantané. Chercher un mot dans toute la bibliothèque, c'est lire les pages. D'où la règle de travail de Loki : **d'abord réduire par les labels, ensuite filtrer le texte**.
+> 📚 **Analogie : la bibliothèque.** Imaginez une bibliothèque où seuls les rayons sont étiquetés, pas les pages des livres. Choisir le bon rayon est instantané. Chercher un mot dans toute la bibliothèque, c'est lire les pages.
+{: .callout .callout-analogie}
+
+D'où la règle de travail de Loki : **d'abord réduire par les labels, ensuite filtrer le texte**.
 
 Conséquence pratique, visible tout de suite : une requête Loki doit commencer par un sélecteur de flux avec au moins un critère non vide. `{}` est refusé.
 
@@ -206,14 +213,21 @@ La vue est une cascade horizontale (parfois appelée waterfall ou flame view) :
 - La longueur de la barre représente la durée. Sa position horizontale indique quand le span a démarré par rapport au début de la trace.
 - Un span en erreur est signalé visuellement. Cliquez dessus pour voir ses attributs : méthode HTTP, URL, code de statut, requête SQL, message d'erreur.
 
-Il y a une subtilité qui trompe tous les débutants. Pour des appels synchrones, la durée d'un span **inclut** celle de ses enfants. Un span racine de 5 s ne veut donc pas dire que le premier service est lent : si son unique enfant (l'appel au service de paiement) dure 4,8 s, le temps est passé en aval. À l'inverse, un span long dont les enfants sont courts signale du temps passé dans le code du span lui-même, ou dans une partie non instrumentée. Cette règle n'est pas absolue. Des enfants exécutés en parallèle se chevauchent, et un enfant asynchrone (message, appel sans attente de réponse) peut se terminer après son parent. Dans ces cas, soustraire les durées ne donne pas le temps propre du parent.
+Il y a une subtilité qui trompe tous les débutants : pour des appels synchrones, la durée d'un span **inclut** celle de ses enfants.
+
+Un span racine de 5 s ne veut donc pas dire que le premier service est lent : si son unique enfant (l'appel au service de paiement) dure 4,8 s, le temps est passé en aval. À l'inverse, un span long dont les enfants sont courts signale du temps passé dans le code du span lui-même, ou dans une partie non instrumentée.
+
+Cette règle n'est pas absolue. Des enfants exécutés en parallèle se chevauchent, et un enfant asynchrone (message, appel sans attente de réponse) peut se terminer après son parent. Dans ces cas, soustraire les durées ne donne pas le temps propre du parent.
 
 > ⚠️ **Erreur fréquente** — Accuser le premier span long de la liste. Descendez toujours l'arbre jusqu'au span le plus profond qui explique l'essentiel de la durée avant de formuler une hypothèse.
 {: .callout .callout-attention}
 
 ## Corrélation manuelle : relier métriques, logs et traces
 
-Les trois signaux répondent à des questions différentes. Les métriques disent *combien et quand*, les logs *quoi et où*, les traces *par où et en combien de temps à chaque étape*. L'investigation consiste à faire le tour dans cet ordre, en gardant la même fenêtre de temps.
+> 💡 **À retenir** — Les métriques disent *combien et quand*, les logs *quoi et où*, les traces *par où et en combien de temps à chaque étape*.
+{: .callout .callout-important}
+
+Ces trois signaux répondent donc à des questions différentes. L'investigation consiste à en faire le tour dans cet ordre, en gardant la même fenêtre de temps.
 
 ### Du panel aux logs
 
@@ -289,7 +303,13 @@ En une dizaine de minutes, l'équipe a une conclusion exploitable : la dégradat
 
 ## Résumé
 
-Les métriques signalent qu'un problème existe ; les logs et les traces permettent de l'expliquer. Dans Loki, un flux est défini par ses labels, seuls indexés : on sélectionne d'abord par labels, puis on filtre le texte, puis on extrait des champs avec `| json` ou `| logfmt` pour appliquer de vrais filtres numériques. Dans Tempo, une trace est un arbre de spans où, pour des appels synchrones, la durée d'un parent englobe celle de ses enfants : on descend jusqu'au span le plus profond qui explique le temps perdu. Le `trace_id` écrit dans les logs sert de pont entre les deux, à la main ou via des liens configurés au niveau des data sources. Une trace n'est pas un fichier log : elle peut être incomplète ou absente, et ne se lit pas ligne à ligne. La suite logique est d'organiser ces gestes en démarche d'investigation, avec hypothèses et vérifications, c'est l'objet du module suivant.
+Les métriques signalent qu'un problème existe ; les logs et les traces permettent de l'expliquer.
+
+- **Loki** : un flux est défini par ses labels, seuls indexés. On sélectionne d'abord par labels, puis on filtre le texte, puis on extrait des champs avec `| json` ou `| logfmt` pour appliquer de vrais filtres numériques.
+- **Tempo** : une trace est un arbre de spans où, pour des appels synchrones, la durée d'un parent englobe celle de ses enfants. On descend jusqu'au span le plus profond qui explique le temps perdu.
+- **Le pont** : le `trace_id` écrit dans les logs relie les deux, à la main ou via des liens configurés au niveau des data sources.
+
+Une trace n'est pas un fichier log : elle peut être incomplète ou absente, et ne se lit pas ligne à ligne. La suite logique est d'organiser ces gestes en démarche d'investigation, avec hypothèses et vérifications : c'est l'objet du module suivant.
 
 <!-- snippet
 id: grafana_loki_push_test_log

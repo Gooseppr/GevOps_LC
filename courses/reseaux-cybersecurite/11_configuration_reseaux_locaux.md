@@ -50,7 +50,10 @@ Nous les prenons dans cet ordre.
 
 ## Donner une identité à une machine
 
-Pour communiquer hors de son câble, une machine a besoin de quatre informations. Les deux premières sont son adresse IP et son masque, qui sont son adresse postale. La troisième est la passerelle, qui joue le rôle du bureau de poste auquel on confie tout ce qui n'est pas dans le quartier. La quatrième est le serveur DNS, l'annuaire qui transforme un nom en adresse.
+Pour communiquer hors de son câble, une machine a besoin de quatre informations : son adresse IP, son masque, sa passerelle et son serveur DNS.
+
+> 📮 **Analogie : le courrier.** L'adresse IP et le masque forment l'adresse postale de la machine. La passerelle est le bureau de poste auquel on confie tout ce qui n'est pas dans le quartier. Le serveur DNS est l'annuaire qui transforme un nom en adresse.
+{: .callout .callout-analogie}
 
 ### Statique ou DHCP : une règle simple
 
@@ -65,7 +68,8 @@ Dans les deux cas, découpez votre sous-réseau une fois pour toutes. Sur un `/2
 - `.2` à `.99` pour les adresses fixes ;
 - `.100` à `.200` pour le pool DHCP.
 
-Une adresse fixe placée dans le pool DHCP provoque tôt ou tard un conflit d'adresse. Le symptôme est une coupure intermittente, difficile à relier à sa cause.
+> 💡 **À retenir** : une adresse fixe placée dans le pool DHCP provoque tôt ou tard un conflit d'adresse. Le symptôme est une coupure intermittente, difficile à relier à sa cause.
+{: .callout .callout-important}
 
 ### Côté Linux
 
@@ -196,7 +200,8 @@ Le serveur répond directement pour `lab.lan` à partir de ses données locales,
 
 Le nom de domaine interne mérite réflexion. Évitez `.local`, réservé au mDNS, qui provoque des résolutions capricieuses. En production, utilisez plutôt un sous-domaine d'un nom que vous possédez (par exemple `int.votre-domaine.fr`). `lab.lan` convient pour un laboratoire.
 
-Une idée reçue à écarter : la passerelle ne résout pas les noms. Elle ne fait que transmettre des paquets. Si le ping vers une adresse IP externe fonctionne et que le ping vers un nom échoue, la passerelle est hors de cause et le DNS est en cause.
+> 💡 **À retenir** : la passerelle ne résout pas les noms, elle ne fait que transmettre des paquets. Si le ping vers une adresse IP externe fonctionne et que le ping vers un nom échoue, la passerelle est hors de cause : cherchez du côté du DNS.
+{: .callout .callout-important}
 
 ## VLAN : cloisonner sans changer de câblage
 
@@ -328,7 +333,12 @@ ping 192.168.20.2
 
 Ça répond. Le routeur a une interface dans chaque VLAN, et il considère que ces réseaux sont directement connectés : il route entre eux sans aucune restriction. Les VLAN séparent le niveau 2, mais le niveau 3 ouvre à nouveau tout. Dire « les invités sont dans leur VLAN » ne signifie donc pas « les invités n'accèdent pas aux serveurs ». Il faut écrire la règle.
 
-L'outil le plus simple sur un routeur est une ACL (Access Control List), une liste de règles lues de haut en bas. La première qui correspond s'applique, et un refus implicite termine la liste. On l'applique à une interface, dans un sens donné. Pour isoler les invités, on filtre à l'entrée de leur sous-interface, au plus près de la source :
+L'outil le plus simple sur un routeur est l'ACL.
+
+> 📖 **Définition.** Une ACL (Access Control List) est une liste de règles lues de haut en bas. La première qui correspond s'applique, et un refus implicite termine la liste. On l'applique à une interface, dans un sens donné.
+{: .callout .callout-definition}
+
+Pour isoler les invités, on filtre à l'entrée de leur sous-interface, au plus près de la source :
 
 ```
 ip access-list extended GUEST-IN
@@ -555,7 +565,13 @@ Les compteurs des lignes 20 et 30 montrent que des tentatives vers les réseaux 
 
 Documentez le plan d'adressage avant de configurer, et mettez-le à jour dès qu'on le modifie : une configuration que personne ne peut relire est une dette. Gardez des plages distinctes pour les adresses fixes et pour le DHCP, et préférez la réservation DHCP à la configuration manuelle sur chaque équipement, car on change une adresse à un seul endroit.
 
-Sur le switch, n'utilisez pas le VLAN 1 pour du trafic réel. Restreignez chaque trunk aux VLAN nécessaires, donnez-lui un VLAN natif inutilisé, éteignez les ports libres et sauvegardez la configuration après chaque changement validé. Conservez une copie hors de l'équipement. Changez enfin les identifiants par défaut de tous les équipements (switch, routeur, AP), car ils figurent dans les premières listes testées par un attaquant.
+Sur le switch :
+
+- n'utilisez pas le VLAN 1 pour du trafic réel ;
+- restreignez chaque trunk aux VLAN nécessaires et donnez-lui un VLAN natif inutilisé ;
+- éteignez les ports libres ;
+- sauvegardez la configuration après chaque changement validé, et conservez une copie hors de l'équipement ;
+- changez les identifiants par défaut de tous les équipements (switch, routeur, AP), car ils figurent dans les premières listes testées par un attaquant.
 
 Pour le Wi-Fi, séparez toujours les invités des salariés, choisissez WPA3 quand les clients le permettent, et surveillez l'occupation des canaux au moins une fois par an. Les voisins changent leurs équipements sans vous prévenir.
 

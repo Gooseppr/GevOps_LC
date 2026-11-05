@@ -43,7 +43,11 @@ Ce projet reconstruit cette brique de base de A à Z : un serveur observé, un d
 
 ## Ce qu'on construit
 
-Trois composants, chacun avec un rôle étroit. Node Exporter lit l'état du noyau Linux (`/proc`, `/sys`) et l'expose en texte sur le port 9100. Prometheus vient chercher ce texte toutes les 15 secondes et le stocke. Grafana ne collecte rien : il pose des questions à Prometheus et dessine les réponses.
+Trois composants, chacun avec un rôle étroit :
+
+- **Node Exporter** lit l'état du noyau Linux (`/proc`, `/sys`) et l'expose en texte sur le port 9100.
+- **Prometheus** vient chercher ce texte toutes les 15 secondes et le stocke.
+- **Grafana** ne collecte rien : il pose des questions à Prometheus et dessine les réponses.
 
 ```mermaid
 flowchart LR
@@ -231,7 +235,18 @@ Panel **Time series**, unité *Percent (0-100)*, minimum 0, maximum 100 :
 100 * (1 - avg by (instance) (rate(node_cpu_seconds_total{mode="idle", instance=~"$instance"}[$__rate_interval])))
 ```
 
-La logique est la suivante. `node_cpu_seconds_total` est un compteur : il cumule le temps passé par chaque cœur dans chaque mode depuis le démarrage. Sa valeur brute ne signifie rien. `rate()` la transforme en « secondes de CPU consommées par seconde », ce qui donne une fraction du temps. On prend le mode `idle` (inactif), on moyenne sur les cœurs, et on retourne la valeur : 100 % moins le temps inactif donne le temps occupé, `iowait` compris. `$__rate_interval` est une variable de Grafana qui adapte la fenêtre de calcul au pas de collecte.
+Comment lire cette requête ? Tout part d'un compteur.
+
+> 📖 **Définition.** Un compteur est une métrique qui ne fait qu'augmenter depuis le démarrage. `node_cpu_seconds_total` cumule ainsi le temps passé par chaque cœur dans chaque mode. Sa valeur brute ne signifie rien.
+{: .callout .callout-definition}
+
+La requête se lit ensuite en trois temps :
+
+- `rate()` transforme le compteur en « secondes de CPU consommées par seconde », ce qui donne une fraction du temps.
+- On prend le mode `idle` (inactif) et on moyenne sur les cœurs.
+- On retourne la valeur : 100 % moins le temps inactif donne le temps occupé, `iowait` compris.
+
+`$__rate_interval` est une variable de Grafana qui adapte la fenêtre de calcul au pas de collecte.
 
 Ajoutez un second panel qui détaille *où* part le CPU, en barres empilées :
 
@@ -249,7 +264,7 @@ Panel **Time series** ou **Gauge**, en pourcentage :
 100 * (1 - node_memory_MemAvailable_bytes{instance=~"$instance"} / node_memory_MemTotal_bytes{instance=~"$instance"})
 ```
 
-On utilise `MemAvailable` et non `MemFree`. Linux remplit volontairement la mémoire libre avec du cache de fichiers, qu'il rend dès qu'une application en a besoin. `MemFree` affiche donc presque toujours une valeur faible et alarmante, alors que le serveur va très bien. `MemAvailable` estime ce qui peut réellement être alloué sans swapper.
+Pourquoi `MemAvailable` et non `MemFree` ? Parce que Linux remplit volontairement la mémoire libre avec du cache de fichiers, qu'il rend dès qu'une application en a besoin. `MemFree` affiche donc presque toujours une valeur faible et alarmante, alors que le serveur va très bien. `MemAvailable` estime ce qui peut réellement être alloué sans swapper.
 
 Pour une jauge, définissez des seuils de couleur : vert jusqu'à 70, orange jusqu'à 85, rouge au-delà.
 
@@ -284,6 +299,9 @@ node_load1{instance=~"$instance"} / on(instance) count by (instance) (node_cpu_s
 ```
 
 Un load average brut ne veut rien dire sans le nombre de cœurs : 4 est normal sur 8 cœurs et catastrophique sur 1. Divisé par le nombre de cœurs, une valeur durablement supérieure à 1 signale que des processus font la queue pour le processeur.
+
+> 🛒 **Analogie : les caisses d'un supermarché.** Le load average compte les clients en caisse ou dans la file. Huit clients pour huit caisses, tout va bien. Huit clients pour une seule caisse, la file s'allonge. Limite : sous Linux, le load compte aussi les processus bloqués en attente du disque, qui ne réclament pas le processeur.
+{: .callout .callout-analogie}
 
 ## Rendre le dashboard réutilisable avec une variable
 
@@ -333,7 +351,9 @@ Réglez `--cpu` sur le nombre de cœurs de la machine (donné par `nproc`). Obse
 stress-ng --vm 1 --vm-bytes 50% --vm-keep --timeout 180s
 ```
 
-La mémoire monte rapidement au démarrage, puis reste stable. Le worker écrit en continu dans cette mémoire et occupe donc environ un cœur : le CPU global monte d'autant (fortement sur une machine à peu de cœurs) et le load approche 1. Ne dépassez pas 60 à 70 % : au-delà, le noyau peut déclencher l'OOM (Out Of Memory) killer. Celui-ci choisit sa victime selon un score (`oom_score`, lié surtout à la mémoire consommée) : stress-ng est le candidat le plus probable, mais pas forcément le seul.
+La mémoire monte rapidement au démarrage, puis reste stable. Le worker écrit en continu dans cette mémoire et occupe donc environ un cœur : le CPU global monte d'autant (fortement sur une machine à peu de cœurs) et le load approche 1.
+
+Ne dépassez pas 60 à 70 % : au-delà, le noyau peut déclencher l'OOM (Out Of Memory) killer. Celui-ci choisit sa victime selon un score (`oom_score`, lié surtout à la mémoire consommée) : stress-ng est le candidat le plus probable, mais pas forcément le seul.
 
 **Scénario 3, disque qui se remplit :**
 
@@ -347,9 +367,14 @@ Choisissez une taille qui fait monter le pourcentage d'une dizaine de points, pa
 
 ### Lire ce qui s'est passé
 
-Le piège est de regarder un seul panel. Pour le scénario 1, la lecture correcte ressemble à ceci : le CPU grimpe, le mode `user` domine, le load par cœur atteint ou dépasse 1, la mémoire et le disque sont stables. Hypothèse : saturation de calcul, d'origine applicative (pas du noyau, pas des E/S disque). Pour la confirmer, on relance `stress-ng` et on vérifie que la courbe suit le début et la fin de la charge.
+Le piège est de regarder un seul panel.
 
-Pour le scénario 2, le pattern est différent : la mémoire monte d'un coup puis reste haute, le CPU n'augmente que d'environ un cœur, et le load brut approche 1. Chaque ressource a sa signature, et c'est ce que vous cherchez à reconnaître. Le jour où un vrai incident survient, vous reconnaîtrez les formes déjà vues.
+Pour le scénario 1, la lecture correcte ressemble à ceci : le CPU grimpe, le mode `user` domine, le load par cœur atteint ou dépasse 1, la mémoire et le disque sont stables. Hypothèse : saturation de calcul, d'origine applicative (pas du noyau, pas des E/S disque). Pour la confirmer, on relance `stress-ng` et on vérifie que la courbe suit le début et la fin de la charge.
+
+Pour le scénario 2, le pattern est différent : la mémoire monte d'un coup puis reste haute, le CPU n'augmente que d'environ un cœur, et le load brut approche 1.
+
+> 💡 **À retenir.** Chaque ressource a sa signature, et c'est ce que vous cherchez à reconnaître. Le jour où un vrai incident survient, vous reconnaîtrez les formes déjà vues.
+{: .callout .callout-important}
 
 ## Documenter : le dashboard doit s'expliquer tout seul
 
@@ -411,7 +436,9 @@ Une conclusion qui dit « je ne sais pas encore, il manque telle donnée » est 
 
 Imaginons une équipe de quatre personnes qui gère un serveur d'application et une base de données. Chaque lundi, des utilisateurs signalent des lenteurs vers 9 h 30. L'équipe n'a aucune donnée : on regarde `htop` quand on y pense, c'est-à-dire souvent trop tard.
 
-Elle déploie ce montage en une demi-journée : un Node Exporter par machine, un Prometheus, un Grafana, le dashboard de ce module. Dès le lundi suivant, le panel du détail CPU montre un pic de `iowait` autour de 9 h 25 sur le serveur de base de données, alors que le CPU `user` reste modeste. La RAM est stable. Le disque `/` est à 78 %. L'hypothèse, un disque saturé en écriture à cause d'une sauvegarde lancée trop tard, est confirmée par la planification de la tâche : elle démarre à 9 h 20 au lieu de 2 h 20, à cause d'une erreur de fuseau horaire dans un script.
+Elle déploie ce montage en une demi-journée : un Node Exporter par machine, un Prometheus, un Grafana, le dashboard de ce module. Dès le lundi suivant, le panel du détail CPU montre un pic de `iowait` autour de 9 h 25 sur le serveur de base de données, alors que le CPU `user` reste modeste. La RAM est stable. Le disque `/` est à 78 %.
+
+L'hypothèse, un disque saturé en écriture à cause d'une sauvegarde lancée trop tard, est confirmée par la planification de la tâche : elle démarre à 9 h 20 au lieu de 2 h 20, à cause d'une erreur de fuseau horaire dans un script.
 
 Les chiffres sont fictifs, mais la démarche est celle à retenir : une hypothèse naît de la *forme* des courbes (iowait sans user, RAM plate), pas d'un seul indicateur. Le correctif tient en une ligne dans `crontab`. Sans historique, l'équipe aurait probablement incriminé l'application, voire le réseau.
 

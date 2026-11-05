@@ -42,11 +42,16 @@ L'enjeu de ce module est de comprendre d'où viennent ces adresses, comment elle
 
 ## Contexte et problématique
 
-IPv4 offre environ 4,3 milliards d'adresses, avec 32 bits. C'était confortable dans les années 80, mais l'IANA (organisme qui distribue les blocs d'adresses au niveau mondial) a épuisé ses réserves libres en 2011. Depuis, les opérateurs et les entreprises s'en sortent avec des astuces. La plus répandue est la traduction d'adresses, NAT (Network Address Translation), qui fait partager une adresse publique à de nombreuses machines. Elle fonctionne, mais elle casse le principe d'origine d'Internet : chaque machine doit pouvoir joindre directement chaque autre.
+Pourquoi un nouveau protocole ? IPv4 offre environ 4,3 milliards d'adresses, avec 32 bits. C'était confortable dans les années 80, mais l'IANA (organisme qui distribue les blocs d'adresses au niveau mondial) a épuisé ses réserves libres en 2011.
+
+Depuis, les opérateurs et les entreprises s'en sortent avec des astuces. La plus répandue est la traduction d'adresses, NAT (Network Address Translation), qui fait partager une adresse publique à de nombreuses machines. Elle fonctionne, mais elle casse le principe d'origine d'Internet : chaque machine doit pouvoir joindre directement chaque autre.
 
 IPv6 (Internet Protocol version 6) règle le problème à la racine avec des adresses de 128 bits, soit environ 3,4 × 10³⁸ combinaisons. Il en profite pour simplifier le travail des routeurs : l'en-tête a une taille fixe de 40 octets, il n'y a plus de somme de contrôle à recalculer à chaque saut, et les routeurs ne fragmentent plus les paquets en route.
 
-IPv6 reste un protocole de couche 3 du modèle OSI, au même niveau qu'IPv4. Il s'appuie sur la même couche Ethernet en dessous, et il transporte au-dessus les mêmes protocoles de transport (TCP, UDP), sans changement conceptuel. Ce qui change, c'est la façon dont les machines découvrent leurs voisins et se configurent. IPv6 n'est donc pas « IPv4 avec des adresses plus longues » : plusieurs mécanismes que vous connaissez (broadcast, ARP, DHCP comme seul mode de configuration automatique) sont remplacés ou complétés par d'autres.
+IPv6 reste un protocole de couche 3 du modèle OSI, au même niveau qu'IPv4. Il s'appuie sur la même couche Ethernet en dessous, et il transporte au-dessus les mêmes protocoles de transport (TCP, UDP), sans changement conceptuel. Ce qui change, c'est la façon dont les machines découvrent leurs voisins et se configurent.
+
+> 💡 **À retenir.** IPv6 n'est pas « IPv4 avec des adresses plus longues ». Plusieurs mécanismes que vous connaissez (broadcast, ARP, DHCP comme seul mode de configuration automatique) sont remplacés ou complétés par d'autres.
+{: .callout .callout-important}
 
 ## Lire une adresse IPv6
 
@@ -106,7 +111,17 @@ Une même interface porte normalement plusieurs adresses IPv6 en même temps. Ce
 | Multicast | `ff00::/8` | Variable | Communication vers un groupe, remplace le broadcast |
 | Loopback | `::1` | La machine | Équivalent de `127.0.0.1` |
 
-L'adresse **link-local** est la plus particulière. Dès qu'IPv6 est activé sur une interface, la machine se fabrique une adresse `fe80::...` sans rien demander à personne. Elle est valable uniquement sur le segment local : un routeur ne la transmet jamais. Elle sert de socle à tout le reste : le poste s'en sert pour parler au routeur avant d'avoir une adresse globale, et une route par défaut IPv6 pointe d'ailleurs souvent vers l'adresse link-local du routeur. Comme la même adresse `fe80::1` peut exister sur chaque interface, on précise l'interface avec un suffixe : `fe80::1%eth0` (Linux) ou `fe80::1%12` (Windows, numéro d'interface).
+L'adresse **link-local** est la plus particulière. Dès qu'IPv6 est activé sur une interface, la machine se fabrique une adresse `fe80::...` sans rien demander à personne. Elle est valable uniquement sur le segment local : un routeur ne la transmet jamais.
+
+Elle sert de socle à tout le reste :
+
+- le poste s'en sert pour parler au routeur avant d'avoir une adresse globale ;
+- une route par défaut IPv6 pointe d'ailleurs souvent vers l'adresse link-local du routeur.
+
+Comme la même adresse `fe80::1` peut exister sur chaque interface, on précise l'interface avec un suffixe : `fe80::1%eth0` (Linux) ou `fe80::1%12` (Windows, numéro d'interface).
+
+> ☎️ **Analogie : le numéro de poste interne.** Une adresse link-local ressemble au numéro court d'un téléphone de bureau. Il fonctionne dans le bâtiment, mais personne ne peut le composer depuis l'extérieur. Si vous êtes relié à plusieurs bâtiments, le poste « 1 » peut exister dans chacun : il faut préciser lequel, d'où le suffixe `%interface`. Limite : aucun standardiste n'attribue ce numéro, la machine le fabrique seule.
+{: .callout .callout-analogie}
 
 Les **ULA** servent à avoir un adressage interne qui ne change pas, même si l'opérateur modifie le préfixe public. L'organisation tire au hasard 40 bits pour former un préfixe `fdxx:xxxx:xxxx::/48`, ce qui limite le risque de collision lors d'une fusion de réseaux. Elles ne sont pas routées sur Internet. Elles complètent les adresses globales et ne les remplacent pas.
 
@@ -116,7 +131,7 @@ Le **multicast** prend la place du broadcast, qui n'existe plus du tout en IPv6.
 
 En IPv4, ICMP est utile mais souvent filtré sans conséquence grave. En IPv6, ICMPv6 (Internet Control Message Protocol version 6) est vital : il transporte les messages d'erreur, le `ping`, et surtout NDP (Neighbor Discovery Protocol), qui remplace ARP et prend en charge plusieurs autres fonctions.
 
-NDP* repose sur cinq messages ICMPv6 :
+NDP repose sur cinq messages ICMPv6 :
 
 | Message | Type | Rôle |
 |---------|------|------|
@@ -126,7 +141,11 @@ NDP* repose sur cinq messages ICMPv6 :
 | Neighbor Advertisement (NA) | 136 | « C'est moi, voici mon adresse MAC » |
 | Redirect | 137 | Le routeur indique un meilleur chemin |
 
-\* NDP : ensemble de messages ICMPv6 qui assure la résolution adresse IP → adresse MAC, la découverte des routeurs et la détection de doublons d'adresses.
+> 📖 **Définition.** NDP : ensemble de messages ICMPv6 qui assure la résolution adresse IP → adresse MAC, la découverte des routeurs et la détection de doublons d'adresses.
+{: .callout .callout-definition}
+
+> 🔑 **Moyen mnémotechnique.** Pour les types 133 à 136, le **R**outeur passe avant le **N**eighbor, et la **S**olicitation (question) avant l'**A**dvertisement (réponse). Cela donne RS, RA, NS, NA, puis Redirect ferme la liste en 137.
+{: .callout .callout-memo}
 
 Autre différence : une NS n'est pas diffusée à tout le monde. Elle est envoyée à une adresse multicast dérivée de l'adresse recherchée (solicited-node, de la forme `ff02::1:ffXX:XXXX`), que seules les machines concernées écoutent. Le lien est donc moins bruyant qu'avec la diffusion ARP.
 
@@ -139,7 +158,12 @@ Avant d'utiliser une adresse, un poste effectue aussi une DAD (Duplicate Address
 
 ### SLAAC, le mode par défaut
 
-Dans la plupart des réseaux locaux, l'initiative revient au routeur, par ses annonces RA, que le poste reçoit en réponse à un RS ou périodiquement. L'annonce contient le préfixe du lien (le `/64`), des indicateurs de comportement, la durée de vie du routeur comme passerelle par défaut et, optionnellement, l'adresse d'un serveur DNS (Domain Name System) via l'option RDNSS (Recursive DNS Server).
+Qui configure le poste ? Dans la plupart des réseaux locaux, c'est le routeur, par ses annonces RA, que le poste reçoit en réponse à un RS ou périodiquement. L'annonce contient :
+
+- le préfixe du lien (le `/64`) ;
+- des indicateurs de comportement ;
+- la durée de vie du routeur comme passerelle par défaut ;
+- optionnellement, l'adresse d'un serveur DNS (Domain Name System) via l'option RDNSS (Recursive DNS Server).
 
 À réception, le poste applique SLAAC* (Stateless Address Autoconfiguration) : il construit son adresse en collant le préfixe annoncé à un identifiant d'interface qu'il génère lui-même.
 
@@ -268,7 +292,13 @@ Les risques concrets viennent plutôt de ce qui est mal compris :
 - **Usurpation de voisin** : de fausses NA peuvent empoisonner la table des voisins, comme l'empoisonnement ARP en IPv4.
 - **Fausse impression d'invisibilité** : avec 2⁶⁴ adresses par réseau, balayer un `/64` à l'aveugle est irréaliste. Mais les adresses réelles se retrouvent via le DNS, les journaux, le multicast `ff02::1` ou des schémas d'adressage prévisibles.
 
-Les mesures de protection reprennent les mêmes logiques qu'en IPv4. Il faut des règles de filtrage IPv6 équivalentes à celles d'IPv4, et autoriser les types ICMPv6 nécessaires au lieu de tout bloquer. Sur les commutateurs, RA Guard et DHCPv6 Guard bloquent les annonces et les offres venant de ports utilisateurs, et l'inspection NDP contrôle les associations IP/MAC. Enfin, la supervision doit couvrir les deux protocoles. Désactiver IPv6 partout est parfois présenté comme une solution : c'est une décision qui doit être assumée et testée, pas un réflexe, car certains services système en dépendent.
+Les mesures de protection reprennent les mêmes logiques qu'en IPv4 :
+
+- des règles de filtrage IPv6 équivalentes à celles d'IPv4, en autorisant les types ICMPv6 nécessaires au lieu de tout bloquer ;
+- sur les commutateurs, RA Guard et DHCPv6 Guard, qui bloquent les annonces et les offres venant de ports utilisateurs, et l'inspection NDP, qui contrôle les associations IP/MAC ;
+- une supervision qui couvre les deux protocoles.
+
+Désactiver IPv6 partout est parfois présenté comme une solution : c'est une décision qui doit être assumée et testée, pas un réflexe, car certains services système en dépendent.
 
 ## Cas réel en entreprise (scénario illustratif)
 

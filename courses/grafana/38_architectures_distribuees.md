@@ -42,7 +42,10 @@ Chaque équipe regarde son service et celui-ci va bien. Le problème se trouve e
 
 ## Pourquoi un service sain ne garantit pas une requête saine
 
-Dans un monolithe, un appel lent se voit dans un profil ou dans un log unique. Dans une architecture distribuée, une requête utilisateur est plutôt un relais : le gateway passe le témoin à checkout, qui le passe à payments, qui le passe à un prestataire externe. Le temps total est la somme des relais, plus les temps de passage de témoin. Chaque coureur peut avoir des statistiques excellentes pendant que l'équipe perd la course dans les transmissions.
+Dans un monolithe, un appel lent se voit dans un profil ou dans un log unique. Dans une architecture distribuée, c'est moins simple.
+
+> 🏃 **Analogie : la course de relais.** Une requête utilisateur est un relais : le gateway passe le témoin à checkout, qui le passe à payments, qui le passe à un prestataire externe. Le temps total est la somme des relais, plus les temps de passage de témoin. Chaque coureur peut avoir d'excellentes statistiques pendant que l'équipe perd la course dans les transmissions. Limite de l'image : ici, un coureur attend souvent le retour du suivant, et certains appels partent en parallèle.
+{: .callout .callout-analogie}
 
 ```mermaid
 flowchart LR
@@ -57,7 +60,12 @@ flowchart LR
     NO --> MAIL[Service mail]
 ```
 
-Sur ce schéma, il y a deux familles de liens. Les liens synchrones (`sync`) bloquent l'appelant : si payments est lent, checkout attend, donc le client aussi. Le lien par message découple : checkout publie et continue, et la lenteur du worker ne se voit pas dans la réponse au client, mais ailleurs (email envoyé avec 20 minutes de retard). Les symptômes ne se lisent donc pas de la même façon selon le type de lien.
+Sur ce schéma, il y a deux familles de liens :
+
+- **les liens synchrones** (`sync`) bloquent l'appelant : si payments est lent, checkout attend, donc le client aussi ;
+- **le lien par message** découple : checkout publie et continue. La lenteur du worker ne se voit pas dans la réponse au client, mais ailleurs (email envoyé avec 20 minutes de retard).
+
+Les symptômes ne se lisent donc pas de la même façon selon le type de lien.
 
 > 🧠 **Concept clé** : une trace est un arbre de spans. Un span représente une unité de travail (un appel HTTP entrant, une requête SQL, un publish Kafka) avec un début, une durée, un statut et des attributs. Tous les spans d'une même requête partagent un trace ID. Cet identifiant circule entre services dans un en-tête, et c'est lui qui permet de recoller les morceaux.
 {: .callout .callout-important}
@@ -143,7 +151,10 @@ OTLP* est le protocole de transport habituel entre applications, collecteurs et 
 
 ## Lire le parcours d'une requête
 
-Ouvrez une trace lente dans Explore et résistez à l'envie de chercher le span le plus long. La durée d'un span parent inclut celle de ses enfants. Un span `checkout` de 7,9 s dont l'appel enfant `payments` dure 7,6 s ne dit rien de grave sur checkout. Ce qui compte, c'est le **temps propre** (durée du span moins le temps passé dans les enfants) et la forme générale du waterfall.
+Ouvrez une trace lente dans Explore et résistez à l'envie de chercher le span le plus long. La durée d'un span parent inclut celle de ses enfants : un span `checkout` de 7,9 s dont l'appel enfant `payments` dure 7,6 s ne dit rien de grave sur checkout. Ce qui compte, c'est le temps propre de chaque span et la forme générale du waterfall.
+
+> 📖 **Définition.** Le **temps propre** d'un span est sa durée moins le temps passé dans ses enfants. Dans l'exemple, checkout n'a que 0,3 s de temps propre.
+{: .callout .callout-definition}
 
 Quelques motifs que la forme révèle :
 
@@ -154,7 +165,7 @@ Quelques motifs que la forme révèle :
 
 ### Latence de dépendance
 
-Pour une dépendance donnée, il y a deux points de vue : celui de l'appelant (span client) et celui de l'appelé (span serveur). La différence entre les deux mesure ce qui se passe *entre* eux : DNS, établissement de connexion, TLS, réseau, saturation du pool côté client. Si le service payments répond en 120 ms de son point de vue et que checkout compte 900 ms pour le même appel, ce n'est pas payments qu'il faut tuner.
+Une dépendance est lente, mais lente pour qui ? Il y a deux points de vue : celui de l'appelant (span client) et celui de l'appelé (span serveur). La différence entre les deux mesure ce qui se passe *entre* eux : DNS, établissement de connexion, TLS, réseau, saturation du pool côté client. Si le service payments répond en 120 ms de son point de vue et que checkout compte 900 ms pour le même appel, ce n'est pas payments qu'il faut tuner.
 
 Côté métriques, mesurez la dépendance depuis l'appelant :
 
@@ -228,7 +239,10 @@ Techniquement, le contexte voyage dans les **headers du message** (Kafka headers
 - créer son span comme enfant du span producteur (lecture comme un arbre classique) ;
 - ou créer un nouveau span avec un **span link** vers le contexte producteur, ce qui est la façon naturelle de traiter un consommateur qui lit un lot de 200 messages d'un coup : un seul span de traitement, 200 liens.
 
-Le temps d'attente dans la file n'appartient à aucun span : c'est l'écart entre la fin du span `publish` et le début du span `process`. C'est précisément la mesure qui manque souvent dans les dashboards. Pour la suivre en métrique, regardez le **lag** du consumer group (par exemple via l'exporter Kafka) et rapprochez-le de la durée de traitement du worker :
+> 💡 **À retenir** : le temps d'attente dans la file n'appartient à aucun span. C'est l'écart entre la fin du span `publish` et le début du span `process`, et c'est précisément la mesure qui manque souvent dans les dashboards.
+{: .callout .callout-important}
+
+Pour la suivre en métrique, regardez le **lag** du consumer group (par exemple via l'exporter Kafka) et rapprochez-le de la durée de traitement du worker :
 
 - lag qui croît, traitement stable : les producteurs dépassent la capacité des consommateurs ;
 - lag qui croît, traitement qui ralentit : le consommateur lui-même est freiné (dépendance lente, base saturée) ;
@@ -261,7 +275,14 @@ flowchart TD
     F -->|aucune| H[Appel probablement non émis, chercher dans le code]
 ```
 
-Une démarche pratique : cherchez le trace ID dans les logs de tous les services concernés (LogQL), vérifiez le compteur de requêtes du service attendu sur la fenêtre de l'incident, consultez les logs du load balancer ou du mesh, et, pour les composants non instrumentés, leurs propres journaux (audit de base de données, logs du prestataire). C'est seulement si tous concordent que vous écrivez « non exécuté » dans le rapport.
+Une démarche pratique :
+
+- cherchez le trace ID dans les logs de tous les services concernés (LogQL) ;
+- vérifiez le compteur de requêtes du service attendu sur la fenêtre de l'incident ;
+- consultez les logs du load balancer ou du mesh ;
+- pour les composants non instrumentés, consultez leurs propres journaux (audit de base de données, logs du prestataire).
+
+C'est seulement si tous concordent que vous écrivez « non exécuté » dans le rapport.
 
 ## Analyser une dégradation partielle
 

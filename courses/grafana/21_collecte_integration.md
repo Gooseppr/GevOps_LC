@@ -65,7 +65,13 @@ flowchart LR
     T --> G
 ```
 
-Un détail change la façon de raisonner : la direction des flux. Pour les métriques, Prometheus fonctionne par défaut en **pull** : c'est lui qui appelle périodiquement chaque cible, typiquement toutes les 15 à 60 secondes. Pour les logs et les traces, c'est du **push** : l'agent envoie vers Loki ou Tempo. Cette différence a des conséquences directes en diagnostic. Avec le pull, une cible morte se voit tout de suite, parce que le scrape échoue. Avec le push, un émetteur qui se tait ne produit... rien, et le silence ressemble à un système en bonne santé.
+Qui appelle qui ? Cette question, celle de la direction des flux, change la façon de raisonner :
+
+- **Pull** pour les métriques : par défaut, c'est Prometheus qui appelle périodiquement chaque cible, typiquement toutes les 15 à 60 secondes.
+- **Push** pour les logs et les traces : l'agent envoie vers Loki ou Tempo.
+
+> 💡 **À retenir.** La différence a des conséquences directes en diagnostic. Avec le pull, une cible morte se voit tout de suite, parce que le scrape échoue. Avec le push, un émetteur qui se tait ne produit... rien, et le silence ressemble à un système en bonne santé.
+{: .callout .callout-important}
 
 ## Les briques et leur rôle
 
@@ -79,7 +85,7 @@ Un détail change la façon de raisonner : la direction des flux. Pour les métr
 | Loki | Stockage de logs indexés par labels | 3100 | `{service="api", env="prod"}` |
 | Tempo | Stockage de traces | 3200 (API), 4317/4318 (OTLP) | Trace d'une requête lente |
 
-Ces ports sont les valeurs par défaut ; ils changent selon l'installation. Il vaut mieux les vérifier chez vous avec `ss -tlnp` que de les supposer.
+Ces ports sont les valeurs par défaut ; ils changent selon l'installation. Plutôt que de les supposer, vérifiez-les chez vous avec `ss -tlnp`.
 
 ## Les sources de métriques : trois angles différents
 
@@ -151,7 +157,10 @@ Chaque ligne est un nom, des labels entre accolades et une valeur. Les lignes `#
 
 Avec huit machines, installer Node Exporter, Promtail ou un équivalent pour les logs, et un collecteur OpenTelemetry sur chacune, ça fait vite trois ou quatre processus à maintenir, à mettre à jour et à surveiller par hôte. Grafana Alloy répond à ce problème : c'est une distribution du collecteur OpenTelemetry qui sait aussi parler Prometheus et Loki. Un seul binaire, un seul fichier de configuration.
 
-Sa logique repose sur des **composants** que l'on chaîne entre eux. Chaque composant a une entrée et une sortie, et on connecte les sorties aux entrées avec `forward_to`. Pensez à un jeu de tuyaux : une source, éventuellement des filtres au milieu, puis un puits.
+Sa logique repose sur des **composants** que l'on chaîne entre eux. Chaque composant a une entrée et une sortie, et on connecte les sorties aux entrées avec `forward_to`.
+
+> 🔧 **Analogie : un jeu de tuyaux.** Une source, éventuellement des filtres au milieu, puis un puits ; `forward_to` joue le rôle du raccord. Limite de l'image : `forward_to` accepte une liste, donc une sortie peut alimenter plusieurs destinations à la fois.
+{: .callout .callout-analogie}
 
 ```alloy
 // Métriques de l'hôte, sans installer Node Exporter séparément
@@ -198,7 +207,10 @@ Les noms de composants et la syntaxe évoluent entre les versions d'Alloy, et le
 
 ## Logs et traces avec OpenTelemetry
 
-OpenTelemetry (OTel) est un standard ouvert pour produire et transporter métriques, logs et traces. Son transport principal est OTLP (OpenTelemetry Protocol)\*, accessible en gRPC sur le port 4317 et en HTTP sur le 4318 par convention. L'intérêt pour vous est que l'application n'a plus besoin de savoir où se trouve Tempo : elle envoie à l'agent local, qui s'occupe du reste.
+OpenTelemetry (OTel) est un standard ouvert pour produire et transporter métriques, logs et traces. Son transport principal est OTLP, accessible en gRPC sur le port 4317 et en HTTP sur le 4318 par convention. L'intérêt pour vous ? L'application n'a plus besoin de savoir où se trouve Tempo : elle envoie à l'agent local, qui s'occupe du reste.
+
+> 📖 **Définition.** OTLP (OpenTelemetry Protocol) est le protocole de transport standard d'OpenTelemetry : il définit comment sont encodées et envoyées les trois sortes de télémétrie entre émetteur et récepteur.
+{: .callout .callout-definition}
 
 Côté application, la configuration tient souvent en trois variables d'environnement :
 
@@ -232,8 +244,6 @@ otelcol.exporter.otlp "tempo" {
   }
 }
 ```
-
-\* OTLP est le protocole de transport standard d'OpenTelemetry : il définit comment sont encodées et envoyées les trois sortes de télémétrie entre émetteur et récepteur.
 
 Pour les logs, deux voies coexistent. La plus simple consiste à lire des fichiers avec `loki.source.file`, comme plus haut. La seconde fait passer les logs par OTLP, ce qui permet de les corréler avec les traces via le même `trace_id`. Commencez par la première ; passez à la seconde quand vous avez besoin de sauter d'un log à sa trace dans Grafana.
 
@@ -286,7 +296,12 @@ Cette version a deux limites : les cibles sont écrites à la main (une machine 
 
 ### v2 : Alloy sur chaque hôte, sonde externe, logs
 
-On remplace Node Exporter par Alloy (qui intègre ses propres collecteurs système), on ajoute Blackbox Exporter sur une machine de sonde, et on envoie les logs vers Loki. Le saut se justifie par la maintenance : un seul agent à déployer, un seul fichier à versionner, et les logs arrivent enfin dans Grafana. Les labels `service` et `env` sont posés dès la source, dans la configuration Alloy. Deux conséquences sont à anticiper. D'abord, les métriques de `prometheus.exporter.unix` ne portent pas `job="node"` par défaut : vérifiez le label réel dans Explore, puis réalignez-le par relabeling ou adaptez alertes et dashboards. Ensuite, comme Alloy pousse en `remote_write`, un agent arrêté n'envoie plus aucun `up` : l'avantage du pull disparaît, et seule une alerte d'absence ou de comptage le détecte.
+On remplace Node Exporter par Alloy (qui intègre ses propres collecteurs système), on ajoute Blackbox Exporter sur une machine de sonde, et on envoie les logs vers Loki. Le saut se justifie par la maintenance : un seul agent à déployer, un seul fichier à versionner, et les logs arrivent enfin dans Grafana. Les labels `service` et `env` sont posés dès la source, dans la configuration Alloy.
+
+Deux conséquences sont à anticiper :
+
+- les métriques de `prometheus.exporter.unix` ne portent pas `job="node"` par défaut : vérifiez le label réel dans Explore, puis réalignez-le par relabeling ou adaptez alertes et dashboards ;
+- comme Alloy pousse en `remote_write`, un agent arrêté n'envoie plus aucun `up` : l'avantage du pull disparaît, et seule une alerte d'absence ou de comptage le détecte.
 
 ### v3 : un point d'entrée OTLP et un contrôle de la chaîne elle-même
 
@@ -303,7 +318,11 @@ Les applications envoient leurs traces à l'Alloy local ou à un collecteur cent
 | Courbe d'apprentissage | Faible | Moyenne (nouvelle syntaxe) | Moyenne |
 | Écosystème Grafana | Complémentaire | Pensé pour | Compatible |
 
-Quelques cas concrets : une petite équipe qui ne veut que des métriques d'hôtes s'en sort très bien avec Prometheus et Node Exporter, sans ajouter de couche. Dès qu'il y a logs, traces et plusieurs dizaines de machines, Alloy se justifie par le gain de maintenance. Si votre organisation a déjà standardisé un collecteur OpenTelemetry et ses pipelines, gardez-le plutôt que d'introduire un second outil.
+Quelques cas concrets :
+
+- **Petite équipe, métriques d'hôtes seulement** : Prometheus et Node Exporter suffisent très bien, sans ajouter de couche.
+- **Logs, traces et plusieurs dizaines de machines** : Alloy se justifie par le gain de maintenance.
+- **Collecteur OpenTelemetry et pipelines déjà standardisés dans votre organisation** : gardez-les plutôt que d'introduire un second outil.
 
 Le modèle pull atteint ses limites avec les jobs éphémères (un script batch de 10 secondes ne sera jamais scrapé à temps) et avec les cibles derrière un NAT que Prometheus ne peut pas joindre. Dans le premier cas, on regarde du côté du Pushgateway avec ses contraintes propres ; dans le second, on passe à un agent qui pousse en `remote_write`, comme Alloy.
 
@@ -349,7 +368,14 @@ Les cas les plus fréquents, en symptôme → cause → correction :
 > ⚠️ **Erreur fréquente** — Se fier à l'absence d'alerte comme preuve que tout va bien. Si une cible disparaît de la configuration, plus aucun `up` n'est produit, donc `up == 0` ne se déclenche jamais. Correction : ajouter, en complément, une alerte qui compare `count(up{job="<JOB>"})` au nombre de cibles attendues. `absent(up{job="<JOB>"})` ne couvre que la disparition de toutes les cibles du job.
 {: .callout .callout-attention}
 
-Un petit rituel de vérification, dans l'ordre : l'endpoint répond-il au `curl` ? Prometheus (ou Alloy) le voit-il comme `UP` ? La métrique est-elle interrogeable dans Explore ? Le panel utilise-t-il les mêmes noms et labels ? Ces quatre questions couvrent l'essentiel des ruptures.
+Un petit rituel de vérification, dans l'ordre :
+
+1. L'endpoint répond-il au `curl` ?
+2. Prometheus (ou Alloy) le voit-il comme `UP` ?
+3. La métrique est-elle interrogeable dans Explore ?
+4. Le panel utilise-t-il les mêmes noms et labels ?
+
+Ces quatre questions couvrent l'essentiel des ruptures.
 
 ## Scénario illustratif : de la supervision décorative à la chaîne contrôlée
 

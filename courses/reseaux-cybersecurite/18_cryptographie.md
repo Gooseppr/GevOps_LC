@@ -38,9 +38,15 @@ Une application web interne stocke les mots de passe de ses utilisateurs. Le dé
 
 Un attaquant exploite une injection SQL. Elle lui donne d'abord la table `users`. Une lecture de fichier via la même faille lui donne ensuite `config.php`, puisque la clé est sur le même serveur que les données. Il lance `openssl enc -d` en boucle sur la table. Le « chiffrement » n'a ajouté qu'une étape de script.
 
-Ce scénario est illustratif, mais le schéma est documenté. En 2013, Adobe a vu fuiter une base de mots de passe chiffrés symétriquement, sans sel, avec les indices de mot de passe en clair à côté. Les chercheurs ont pu déduire de nombreux mots de passe en comparant les blocs chiffrés identiques et en lisant les indices. En 2012, LinkedIn a subi une fuite de hachés SHA-1 (Secure Hash Algorithm 1) non salés. Une grande partie a été cassée en quelques jours, parce que SHA-1 est conçu pour être rapide.
+Ce scénario est illustratif, mais le schéma est documenté :
 
-Dans ces cas, la défense naïve (« on chiffre ») n'a pas échoué à cause de la mathématique. Elle a échoué parce que la primitive était mal choisie, mal utilisée ou mal protégée. C'est le fil rouge du module : **la cryptographie casse presque toujours autour de l'algorithme, rarement dedans.**
+- en 2013, Adobe a vu fuiter une base de mots de passe chiffrés symétriquement, sans sel, avec les indices de mot de passe en clair à côté. Les chercheurs ont pu déduire de nombreux mots de passe en comparant les blocs chiffrés identiques et en lisant les indices ;
+- en 2012, LinkedIn a subi une fuite de hachés SHA-1 (Secure Hash Algorithm 1) non salés. Une grande partie a été cassée en quelques jours, parce que SHA-1 est conçu pour être rapide.
+
+Dans ces cas, la défense naïve (« on chiffre ») n'a pas échoué à cause des mathématiques. Elle a échoué parce que la primitive était mal choisie, mal utilisée ou mal protégée.
+
+> 💡 **À retenir.** La cryptographie casse presque toujours autour de l'algorithme, rarement dedans : c'est le fil rouge du module.
+{: .callout .callout-important}
 
 ## Surface d'attaque
 
@@ -77,7 +83,7 @@ Le dernier point n'est pas théorique pour les données à longue durée de vie 
 > 🧠 **Concept clé** : en chiffrement symétrique, la même clé chiffre et déchiffre. Les algorithmes modernes (AES-256, ChaCha20) traitent des gigaoctets par seconde, souvent avec des instructions matérielles dédiées (AES-NI). Le problème est ailleurs : comment deux parties qui ne se sont jamais rencontrées s'accordent-elles sur une clé sans la transmettre en clair ?
 {: .callout .callout-important}
 
-Le choix de l'algorithme compte moins que le **mode d'opération**.
+Qu'est-ce qui fait la différence ? Moins le choix de l'algorithme que le **mode d'opération**.
 
 🔴 **Vecteur d'attaque : ECB (Electronic Codebook).** Ce mode chiffre chaque bloc de 16 octets indépendamment. Deux blocs identiques donnent deux blocs chiffrés identiques. L'image du « pingouin ECB » (un logo chiffré dont la silhouette reste visible) illustre le défaut. Adobe a été touché par ce défaut en 2013 : deux utilisateurs avec le même mot de passe avaient le même chiffré, ce qui a permis de recouper les indices.
 
@@ -85,7 +91,9 @@ Le choix de l'algorithme compte moins que le **mode d'opération**.
 
 🔒 **Contrôle de sécurité** : utiliser un mode AEAD (Authenticated Encryption with Associated Data)*, concrètement AES-256-GCM (Galois/Counter Mode) ou ChaCha20-Poly1305. Il chiffre et authentifie en une seule opération : toute modification du chiffré est rejetée avant déchiffrement.
 
-⚠️ **Erreur fréquente** : GCM exige un nonce unique par message pour une clé donnée. Réutiliser un nonce avec la même clé permet à l'attaquant de récupérer la clé d'authentification (« forbidden attack ») et de forger des messages. Un compteur mal persisté après un redémarrage, ou un nonce de 96 bits tiré au hasard sur un volume énorme de messages, suffit à déclencher le problème. Dans la pratique, n'appelez pas ces primitives directement : utilisez libsodium, Tink ou l'API de haut niveau de votre langage, qui gèrent le nonce pour vous.
+⚠️ **Erreur fréquente** : GCM exige un nonce unique par message pour une clé donnée. Réutiliser un nonce avec la même clé permet à l'attaquant de récupérer la clé d'authentification (« forbidden attack ») et de forger des messages. Un compteur mal persisté après un redémarrage, ou un nonce de 96 bits tiré au hasard sur un volume énorme de messages, suffit à déclencher le problème.
+
+Dans la pratique, n'appelez pas ces primitives directement : utilisez libsodium, Tink ou l'API de haut niveau de votre langage, qui gèrent le nonce pour vous.
 
 \* AEAD : mode de chiffrement qui garantit à la fois la confidentialité du message et la détection de toute altération, en y incluant éventuellement des données associées (en-têtes) non chiffrées mais authentifiées.
 
@@ -97,6 +105,9 @@ Le choix de l'algorithme compte moins que le **mode d'opération**.
 ### Le schéma hybride
 
 La pratique consiste à combiner les deux : l'asymétrique sert à **s'accorder sur une clé**, le symétrique à **chiffrer les données**. TLS, SSH, WireGuard, PGP et les VPN fonctionnent tous ainsi.
+
+> 🔐 **Analogie : le cadenas ouvert.** La clé publique ressemble à un cadenas ouvert que vous distribuez à tous : n'importe qui peut fermer une boîte avec, mais seul le détenteur de la clé privée peut l'ouvrir. Dans le schéma hybride, on enferme dans cette boîte une petite clé symétrique, qui chiffre ensuite tout le reste. Limite : l'image vaut pour le chiffrement, pas pour la signature ni pour ECDHE, où aucune clé n'est transportée et où le secret est calculé des deux côtés.
+{: .callout .callout-analogie}
 
 Pour l'accord de clé, la variante éphémère ECDHE (Elliptic Curve Diffie-Hellman Ephemeral)* génère une paire de clés jetable à chaque session. Même si un attaquant vole plus tard la clé privée du serveur, il ne peut pas déchiffrer le trafic qu'il avait enregistré : c'est la **forward secrecy**. Avec l'ancien échange RSA statique (TLS 1.2 et suites `TLS_RSA_*`), le vol de la clé privée, par exemple via Heartbleed (CVE-2014-0160), ouvrait tout l'historique enregistré.
 
@@ -147,7 +158,7 @@ Modifiez un seul octet de `rapport.pdf` et relancez la dernière commande : la v
 
 ## Gérer les clés : là où les systèmes cassent vraiment
 
-Une cryptographie correcte avec une clé mal gérée est équivalente à pas de cryptographie. Les incidents réels le montrent :
+Une cryptographie correcte avec une clé mal gérée ne vaut pas mieux qu'aucune cryptographie. Les incidents réels le montrent :
 
 - En 2006, un correctif Debian a réduit sans le vouloir l'entropie du générateur aléatoire d'OpenSSL (CVE-2008-0166, divulguée en 2008). Pendant près de deux ans, les clés générées sur ces systèmes ne pouvaient prendre qu'un nombre restreint de valeurs, énumérables par un attaquant.
 - Avec Heartbleed, la clé privée du serveur pouvait être extraite de la mémoire d'un processus. Corriger OpenSSL ne suffisait pas : il fallait aussi **réémettre et révoquer** les certificats, car la clé était potentiellement déjà compromise.
@@ -183,6 +194,9 @@ Pour compromettre les données, l'attaquant doit obtenir l'accès au KMS et non 
 
 Le chiffrement asymétrique résout un problème et en crée un autre : comment savoir que la clé publique reçue appartient bien à `banque.example` et pas à un attaquant ? La réponse est le certificat X.509 : un document qui lie une identité à une clé publique, signé par un tiers de confiance, l'autorité de certification (CA — Certificate Authority).
 
+> 🪪 **Analogie : le passeport.** Un certificat joue le rôle d'un passeport : il associe un nom à un élément vérifiable, la clé publique, comme le passeport associe un nom à une photo. Vous l'acceptez parce que vous faites confiance à l'émetteur, ici la CA. Limite : contrairement à un passeport, un certificat se copie librement. Il ne prouve rien tant que le serveur ne démontre pas qu'il détient la clé privée correspondante.
+{: .callout .callout-analogie}
+
 Un certificat contient notamment :
 
 - le sujet et les noms valides (extension SAN — Subject Alternative Name, la seule vérifiée par les navigateurs modernes, pas le champ CN) ;
@@ -191,7 +205,8 @@ Un certificat contient notamment :
 - la période de validité ;
 - des contraintes d'usage (`basicConstraints`, `keyUsage`, `extendedKeyUsage`).
 
-La PKI (Public Key Infrastructure) désigne l'ensemble des CA, politiques, processus d'émission et de révocation qui font fonctionner ce système.
+> 📖 **Définition.** La PKI (Public Key Infrastructure) désigne l'ensemble des CA, politiques, processus d'émission et de révocation qui font fonctionner ce système.
+{: .callout .callout-definition}
 
 ```mermaid
 flowchart TD

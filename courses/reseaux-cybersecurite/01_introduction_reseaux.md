@@ -51,7 +51,8 @@ Avant les réseaux, partager un document signifiait le copier sur une clé USB e
 
 Retirez l'un des trois et plus rien ne fonctionne. Deux machines reliées par un câble mais sans règles communes ne se comprennent pas, tout comme deux personnes au téléphone qui ne parlent pas la même langue.
 
-On peut comparer cela au réseau postal. Les nœuds sont les expéditeurs, les centres de tri et les destinataires. Le support, ce sont les camions, les trains et les avions. Les protocoles sont le format des adresses, les codes postaux et les règles d'affranchissement. Cette analogie nous resservira.
+> 📮 **Analogie : le réseau postal.** Les nœuds sont les expéditeurs, les centres de tri et les destinataires. Le support, ce sont les camions, les trains et les avions. Les protocoles sont le format des adresses, les codes postaux et les règles d'affranchissement. Cette analogie nous resservira.
+{: .callout .callout-analogie}
 
 À quoi sert un réseau ? Il apporte quatre bénéfices :
 
@@ -97,7 +98,12 @@ Voici les acteurs du réseau de l'agence, du plus simple au plus structurant.
 | Routeur | Relie **des réseaux différents** et choisit le chemin des données entre eux | Équipement entre l'agence et Internet |
 | Point d'accès (AP) | Offre une porte d'entrée sans fil vers le réseau filaire | Borne Wi-Fi au plafond |
 
-La confusion la plus courante concerne le commutateur et le routeur. Une image aide : le commutateur est le **standard téléphonique d'un immeuble**, qui met en relation les gens à l'intérieur, tandis que le routeur est la **sortie vers la rue**, qui sait vers quelle ville orienter chaque courrier. L'un fait communiquer les machines d'un même réseau, l'autre fait communiquer des réseaux entre eux. Nous préciserons la mécanique dans les modules sur l'adressage et le routage.
+La confusion la plus courante concerne le commutateur et le routeur.
+
+> 🏢 **Analogie : l'immeuble et la rue.** Le commutateur est le **standard téléphonique d'un immeuble**, qui met en relation les gens à l'intérieur. Le routeur est la **sortie vers la rue**, qui sait vers quelle ville orienter chaque courrier. L'un fait communiquer les machines d'un même réseau, l'autre fait communiquer des réseaux entre eux.
+{: .callout .callout-analogie}
+
+Nous préciserons la mécanique dans les modules sur l'adressage et le routage.
 
 ```mermaid
 flowchart TD
@@ -122,9 +128,13 @@ Les traits pleins représentent des câbles et les traits pointillés des liaiso
 
 Dans une conversation réseau, il y a toujours un côté qui demande et un côté qui répond, mais ces rôles ne sont pas figés.
 
-**Dans l'architecture client-serveur**, un équipement dédié (le serveur) attend les demandes et les traite. Les clients se contentent de demander. Quand vous ouvrez une page web ou consultez vos mails, votre navigateur ou votre messagerie est le client, et le site ou la boîte de messagerie est servi par un serveur. La force du modèle est la centralisation : un seul endroit à sauvegarder, à mettre à jour et à contrôler. Sa faiblesse en découle : si le serveur tombe, le service disparaît.
+**Dans l'architecture client-serveur**, un équipement dédié (le serveur) attend les demandes et les traite. Les clients se contentent de demander. Quand vous ouvrez une page web ou consultez vos mails, votre navigateur ou votre messagerie est le client, et le site ou la boîte de messagerie est servi par un serveur.
 
-**Dans l'architecture pair-à-pair (P2P, Peer-to-Peer)**, chaque machine est à la fois cliente et serveuse. Deux collègues qui partagent un dossier directement entre leurs postes font du P2P, comme certaines visioconférences qui relient les participants en direct. Pas d'infrastructure à entretenir, c'est simple à mettre en place, mais c'est difficile à administrer dès que le nombre de machines augmente : où sont les données ? Qui a le droit de quoi ? Qui sauvegarde ?
+La force du modèle est la centralisation : un seul endroit à sauvegarder, à mettre à jour et à contrôler. Sa faiblesse en découle : si le serveur tombe, le service disparaît.
+
+**Dans l'architecture pair-à-pair (P2P, Peer-to-Peer)**, chaque machine est à la fois cliente et serveuse. Deux collègues qui partagent un dossier directement entre leurs postes font du P2P, comme certaines visioconférences qui relient les participants en direct.
+
+Pas d'infrastructure à entretenir, c'est simple à mettre en place, mais c'est difficile à administrer dès que le nombre de machines augmente : où sont les données ? Qui a le droit de quoi ? Qui sauvegarde ?
 
 > 💡 **Point clé** — Client et serveur désignent un **rôle dans un échange**, pas un type de machine. Votre portable peut servir un fichier à un collègue (rôle serveur), puis interroger un site web (rôle client) quelques secondes plus tard. Un « serveur » physique peut lui aussi être client d'un autre serveur, par exemple pour récupérer ses mises à jour.
 {: .callout .callout-important}
@@ -145,7 +155,8 @@ Le choix du support change surtout la **fiabilité** et la **sécurité** du ré
 
 Le point à retenir pour la suite : le Wi-Fi est un **support partagé**. Quand dix appareils sont connectés à une même borne, ils se partagent le temps d'émission. Le débit affiché sur la borne (par exemple 1 200 Mbit/s) est un maximum théorique, rarement atteint en pratique.
 
-Règle simple : tout ce qui ne bouge pas se branche en filaire, et le Wi-Fi sert à ce qui se déplace. Cela vaut en particulier pour les serveurs et les bornes Wi-Fi elles-mêmes, qui doivent être reliées au commutateur par câble.
+> 💡 **À retenir** — Tout ce qui ne bouge pas se branche en filaire, et le Wi-Fi sert à ce qui se déplace. Cela vaut en particulier pour les serveurs et les bornes Wi-Fi elles-mêmes, qui doivent être reliées au commutateur par câble.
+{: .callout .callout-important}
 
 ## Topologies : la forme du réseau
 
@@ -195,7 +206,8 @@ Ces notions sont **indépendantes** : un réseau peut avoir une grande bande pas
 > ⚠️ **Comportement contre-intuitif** — Augmenter la bande passante ne règle pas tous les problèmes. Si la visioconférence saccade à cause de la gigue ou de la perte de paquets, passer de 100 à 1 000 Mbit/s n'y changera rien, sauf si ces défauts viennent d'une liaison saturée (par exemple un envoi montant plein pendant la visio). Un téléchargement tolère une latence élevée, mais une conversation vocale ou vidéo tolère mal les variations et les pertes.
 {: .callout .callout-attention}
 
-Un détail d'unité qui piège souvent : la bande passante s'exprime en **bits** par seconde, la taille des fichiers en **octets**. Un octet vaut 8 bits, donc une liaison de 100 Mbit/s transfère au mieux environ 12,5 Mo/s, avant d'enlever les pertes dues aux protocoles.
+> 💡 **À retenir** — La bande passante s'exprime en **bits** par seconde, la taille des fichiers en **octets**. Un octet vaut 8 bits : divisez par 8. Une liaison de 100 Mbit/s transfère donc au mieux environ 12,5 Mo/s, avant d'enlever les pertes dues aux protocoles.
+{: .callout .callout-important}
 
 Les ordres de grandeur ci-dessous sont indicatifs et dépendent de l'environnement :
 
@@ -244,7 +256,9 @@ Avant de payer plus, on mesure. Depuis un portable en Wi-Fi dans la salle de ré
 | Poste fixe (câble) | 0 % | 0,5 ms | 1,1 ms | 0,1 ms |
 | Portable (salle de réunion, Wi-Fi) | 3 % | 8 ms | 180 ms | 25 ms |
 
-Le diagnostic ressort des chiffres. C'est la **perte** et la **gigue** qui sont mauvaises, uniquement en Wi-Fi, et uniquement dans cette pièce. Un téléchargement s'en accommode en ralentissant, une visio en temps réel non. Le problème se situe donc entre le portable et la box, avant même la liaison Internet. Le signal Wi-Fi arrive trop faible dans la salle, qui se trouve à l'autre bout du bâtiment, derrière des cloisons.
+Le diagnostic ressort des chiffres. C'est la **perte** et la **gigue** qui sont mauvaises, uniquement en Wi-Fi, et uniquement dans cette pièce. Un téléchargement s'en accommode en ralentissant, une visio en temps réel non.
+
+Le problème se situe donc entre le portable et la box, avant même la liaison Internet. Le signal Wi-Fi arrive trop faible dans la salle, qui se trouve à l'autre bout du bâtiment, derrière des cloisons.
 
 La correction n'a rien à voir avec l'abonnement Internet. On installe un point d'accès dans la salle de réunion et on le relie par câble au commutateur. Après changement, un nouveau test donne une perte de 0 % et un `mdev` inférieur à 2 ms. Les visios redeviennent stables sans toucher au contrat de l'opérateur.
 

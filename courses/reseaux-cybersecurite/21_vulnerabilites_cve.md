@@ -36,9 +36,14 @@ next_module_title: "Introduction à l'audit technique et aux tests d'intrusion"
 
 Lundi, 9 h. Le scanner du week-end a remonté 4 312 constats dont 187 « Critical ». L'équipe compte trois personnes, la fenêtre de maintenance est mensuelle, et la direction demande « combien de critiques sont corrigées d'ici vendredi ». Les chiffres sont illustratifs, mais l'ordre de grandeur est courant.
 
-Trier par score CVSS et corriger du haut vers le bas ne fonctionne pas. Parmi les 187 critiques, la plupart concernent des bibliothèques jamais appelées, des machines isolées ou des paquets déjà corrigés par un backport. Pendant ce temps, une vulnérabilité notée 6,5 sur le bastion d'administration, avec un module Metasploit public, reste dans la file.
+Faut-il trier par score CVSS et corriger du haut vers le bas ? Non, cela ne fonctionne pas. Parmi les 187 critiques, la plupart concernent des bibliothèques jamais appelées, des machines isolées ou des paquets déjà corrigés par un backport. Pendant ce temps, une vulnérabilité notée 6,5 sur le bastion d'administration, avec un module Metasploit public, reste dans la file.
 
-Côté attaquant, le calcul est inverse. Il ne lit pas votre rapport : il attend la publication d'un correctif, compare l'ancienne et la nouvelle version du binaire (*patch diffing*, avec BinDiff par exemple) pour isoler le défaut, puis scanne Internet avec masscan, Shodan ou Censys. Les templates Nuclei ou les modules Metasploit apparaissent souvent quelques jours après l'avis. Votre fenêtre de réaction se mesure en jours, pas en mois.
+Côté attaquant, le calcul est inverse. Il ne lit pas votre rapport. Il procède en trois temps :
+
+1. il attend la publication d'un correctif ;
+2. il compare l'ancienne et la nouvelle version du binaire (*patch diffing*, avec BinDiff par exemple) pour isoler le défaut ;
+3. il scanne Internet avec masscan, Shodan ou Censys.
+ Les templates Nuclei ou les modules Metasploit apparaissent souvent quelques jours après l'avis. Votre fenêtre de réaction se mesure en jours, pas en mois.
 
 ## Surface d'attaque
 
@@ -67,11 +72,17 @@ Les trois termes sont souvent mélangés dans les rapports, alors qu'ils appelle
 > 🔴 **Vecteur d'attaque** : Redis exposé sans authentification est le cas classique. L'attaquant se connecte avec `redis-cli -h <HOST>`, change le répertoire de sauvegarde avec `CONFIG SET dir /root/.ssh` et le nom du fichier avec `CONFIG SET dbfilename authorized_keys`, écrit sa clé publique dans une valeur, force une sauvegarde, puis se connecte en SSH. Il n'y a ni CVE ni correctif à appliquer. Un scan de versions ne verra rien, alors qu'un audit de configuration (CIS Benchmarks) trouvera le problème.
 {: .callout .callout-danger}
 
-Ces trois catégories ne se traitent pas dans la même file. Les vulnérabilités vont dans le cycle de correctifs, les mauvaises configurations dans le durcissement (CIS, guides ANSSI), et les failles de code propre vont aux développeurs. Mélanger les trois dans un seul tableau de bord produit un chiffre qui ne dit rien à personne.
+Ces trois catégories ne se traitent pas dans la même file :
+
+- les vulnérabilités vont dans le cycle de correctifs ;
+- les mauvaises configurations vont dans le durcissement (CIS, guides ANSSI) ;
+- les failles de code propre vont aux développeurs.
+ Mélanger les trois dans un seul tableau de bord produit un chiffre qui ne dit rien à personne.
 
 ## CVE, CVSS et scores de sévérité
 
-Une CVE (Common Vulnerabilities and Exposures) est un identifiant public du type `CVE-2021-44228` : l'année d'attribution suivie d'un numéro. Elle dit « cette vulnérabilité existe » et rien de plus. Le score, les versions touchées et le correctif viennent d'autres sources.
+> 📖 **Définition.** Une CVE (Common Vulnerabilities and Exposures) est un identifiant public du type `CVE-2021-44228` : l'année d'attribution suivie d'un numéro. Elle dit « cette vulnérabilité existe », rien de plus. Le score, les versions touchées et le correctif viennent d'autres sources.
+{: .callout .callout-definition}
 
 Le score le plus répandu est le CVSS (Common Vulnerability Scoring System)*, de 0,0 à 10,0 :
 
@@ -105,7 +116,8 @@ CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
 - **KEV (Known Exploited Vulnerabilities)**, catalogue de la CISA : liste les CVE dont l'exploitation réelle est avérée.
 - **EPSS (Exploit Prediction Scoring System)**, publié par FIRST : estime la probabilité d'exploitation d'une CVE dans les 30 jours.
 
-Une CVE présente dans KEV passe devant toutes les autres, quel que soit son score.
+> 💡 **À retenir** : une CVE présente dans KEV passe devant toutes les autres, quel que soit son score.
+{: .callout .callout-important}
 
 \* *CVSS est un standard de FIRST qui note la sévérité intrinsèque d'une vulnérabilité à partir de métriques d'attaque et d'impact, indépendamment de votre contexte ; les versions 3.1 et 4.0 coexistent dans les bases publiques.*
 
@@ -144,7 +156,10 @@ dpkg-query -W -f='${Package} ${Version}\n' | sort > inventaire_$(hostname)_$(dat
 rpm -qa --qf '%{NAME} %{VERSION}-%{RELEASE}\n' | sort
 ```
 
-Pour les dépendances applicatives, le gestionnaire de paquets système ne voit rien. Trivy génère l'inventaire d'un projet ou d'une image sous forme de SBOM (Software Bill of Materials), par exemple `trivy fs --format cyclonedx --output sbom.json .`, et ce SBOM conserve cette liste pour pouvoir répondre en quelques minutes à « où utilisons-nous cette bibliothèque ? ».
+Pour les dépendances applicatives, le gestionnaire de paquets système ne voit rien. Trivy génère l'inventaire d'un projet ou d'une image sous forme de SBOM (Software Bill of Materials), par exemple `trivy fs --format cyclonedx --output sbom.json .`. Ce SBOM conserve la liste pour répondre en quelques minutes à « où utilisons-nous cette bibliothèque ? ».
+
+> 🧾 **Analogie : la liste des ingrédients.** Un SBOM joue le rôle de la composition imprimée sur un emballage alimentaire : quand un ingrédient fait l'objet d'un rappel, on lit l'étiquette au lieu d'ouvrir chaque boîte. Limite : l'étiquette ne recense que ce que l'outil a su détecter au moment où il l'a générée.
+{: .callout .callout-analogie}
 
 > 🔴 **Cas Log4Shell** : au moment de la divulgation de `CVE-2021-44228`, beaucoup d'équipes ont découvert que log4j-core était embarqué dans des JAR « shadés » (recompilés dans un autre JAR), invisibles pour un `find` sur le nom de fichier. Il fallait chercher la classe elle-même :
 {: .callout .callout-danger}
@@ -223,7 +238,13 @@ flowchart TD
 
 Les délais ci-dessus sont des exemples de politique, à adapter à votre organisation.
 
-**Scénario illustratif** : la même CVE, notée 9,8 (`AV:N/PR:N/UI:N`), touche un serveur web. Dans l'organisation A, il est publié sur Internet et héberge un portail client : correction ou mitigation en moins de 72 h. Dans l'organisation B, le même produit tourne dans un VLAN de test sans données, joignable seulement depuis deux postes d'administration : le cycle standard suffit, avec contrôle de l'isolation. À l'opposé, une élévation de privilèges locale notée 6,5 avec module Metasploit public, sur un bastion utilisé par 40 administrateurs, peut mériter d'être traitée avant les deux premières. Le score est le même pour A et B, l'urgence ne l'est pas.
+**Scénario illustratif** : la même CVE, notée 9,8 (`AV:N/PR:N/UI:N`), touche un serveur web.
+
+- **Organisation A** : le serveur est publié sur Internet et héberge un portail client. Correction ou mitigation en moins de 72 h.
+- **Organisation B** : le même produit tourne dans un VLAN de test sans données, joignable seulement depuis deux postes d'administration. Le cycle standard suffit, avec contrôle de l'isolation.
+- **À l'opposé** : une élévation de privilèges locale notée 6,5, avec module Metasploit public, sur un bastion utilisé par 40 administrateurs, peut mériter d'être traitée avant les deux premières.
+
+Le score est le même pour A et B, l'urgence ne l'est pas.
 
 Les métriques environnementales de CVSS permettent de formaliser cet ajustement, mais en pratique la plupart des équipes obtiennent le même résultat avec des étiquettes sur les actifs (exposition, criticité) et des règles de tri simples.
 
@@ -339,7 +360,20 @@ Questions à vous poser après ce cas : savez-vous, en moins d'une heure, quelle
 
 ## Résumé
 
-Une vulnérabilité est une faille exploitable dans un produit et une version précis, identifiée par une CVE, alors qu'une mauvaise configuration n'a pas de correctif éditeur et se traite par durcissement. Le CVSS mesure la sévérité intrinsèque, pas votre risque : il faut le croiser avec KEV, EPSS, l'exposition de l'actif et son impact métier. L'inventaire (actifs, paquets, dépendances, SBOM) est le prérequis de tout le reste. Les scans authentifiés sur périmètre autorisé produisent des faux positifs (backports, code non appelé) qu'il faut valider et documenter. Les décisions possibles sont le correctif, la mitigation temporaire ou l'acceptation écrite avec date de revue. Restent à surveiller : les services non redémarrés après patch, les mitigations jamais remplacées, les logiciels en fin de vie et les tentatives d'exploitation pendant la fenêtre entre avis et correctif.
+Une vulnérabilité est une faille exploitable dans un produit et une version précis, identifiée par une CVE. Une mauvaise configuration, elle, n'a pas de correctif éditeur et se traite par durcissement.
+
+Le CVSS mesure la sévérité intrinsèque, pas votre risque : il faut le croiser avec KEV, EPSS, l'exposition de l'actif et son impact métier.
+
+L'inventaire (actifs, paquets, dépendances, SBOM) est le prérequis de tout le reste. Les scans authentifiés sur périmètre autorisé produisent des faux positifs (backports, code non appelé) qu'il faut valider et documenter.
+
+Les décisions possibles sont le correctif, la mitigation temporaire ou l'acceptation écrite avec date de revue.
+
+Restent à surveiller :
+
+- les services non redémarrés après patch ;
+- les mitigations jamais remplacées ;
+- les logiciels en fin de vie ;
+- les tentatives d'exploitation pendant la fenêtre entre avis et correctif.
 
 <!-- snippet
 id: vuln_faille_vulnerabilite_config

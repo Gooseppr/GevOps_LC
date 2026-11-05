@@ -73,6 +73,9 @@ Ces trois approches ne sont pas des niveaux successifs. Elles répondent à des 
 
 La différence avec le pentest du module 31 porte sur l'objectif. Un pentest cherche des vulnérabilités à périmètre borné. Un Red Team cherche à atteindre un objectif métier en évitant d'être détecté. Un exercice Purple cherche à mesurer la détection, pas à l'éviter.
 
+> 🥊 **Analogie : le match et l'entraînement.** Un Red Team ressemble à un match officiel. Vous ignorez le jeu adverse et découvrez le score à la fin. Un exercice Purple ressemble à une séance d'entraînement filmée : chaque action est rejouée au ralenti et le placement est corrigé aussitôt. Limite de l'image : l'entraînement ne reproduit ni le réalisme de l'enchaînement ni la pression du match.
+{: .callout .callout-analogie}
+
 ## Surface d'attaque : ce que l'exercice met réellement en jeu
 
 Un exercice ne teste pas « le SI ». Il teste quelques chemins précis, et il crée aussi sa propre surface de risque.
@@ -102,7 +105,7 @@ Exemple concret :
 
 Une hypothèse qui ne nomme pas le signal attendu ne peut être ni validée ni réfutée. On parle alors de démonstration, pas de test.
 
-Pour prioriser parmi des dizaines de techniques possibles, trois critères suffisent :
+Comment prioriser parmi des dizaines de techniques possibles ? Trois critères suffisent :
 
 - **Vraisemblance** : le CTI relie-t-il cette technique aux adversaires qui visent votre secteur ?
 - **Impact** : que permet-elle d'atteindre après elle (privilèges, données, arrêt) ?
@@ -176,7 +179,12 @@ L'index `Properties[5]` correspond au champ `TicketEncryptionType` sur les versi
 
 ## Contrôles de détection : valider la couverture, pas l'existence d'une règle
 
-Dire « on couvre T1003 » ne veut rien dire. Une technique a plusieurs procédures (`comsvcs.dll`, `procdump`, `Mimikatz`, copie via le gestionnaire de tâches, appel direct à `MiniDumpWriteDump`). Une règle peut en voir une et en rater quatre.
+Dire « on couvre T1003 » ne veut rien dire. Pourquoi ?
+
+> 📖 **Définition.** Une technique ATT&CK décrit un comportement de l'attaquant, par exemple copier la mémoire de LSASS. Ses procédures sont les façons concrètes de le réaliser : `comsvcs.dll`, `procdump`, `Mimikatz`, copie via le gestionnaire de tâches, appel direct à `MiniDumpWriteDump`.
+{: .callout .callout-definition}
+
+Une règle peut donc voir une procédure et en rater quatre.
 
 La couverture se mesure à l'aide d'un pipeline à cinq niveaux, appliqué à chaque procédure testée :
 
@@ -189,6 +197,9 @@ La couverture se mesure à l'aide d'un pipeline à cinq niveaux, appliqué à ch
 | 4 | Alerte triée et réponse dans le délai attendu | Détection effective |
 
 Le niveau 3 est le plus instructif. C'est là qu'on découvre qu'une alerte « fonctionne » sur le papier et qu'elle est ignorée depuis six mois parce qu'elle fait 200 faux positifs par jour.
+
+> 🔔 **Analogie : l'alarme incendie qui sonne tous les jours.** Au bout d'une semaine, plus personne n'évacue. L'alarme marche, mais elle ne protège plus. Limite de l'image : au SOC, le réglage de la règle compte autant que la discipline des analystes.
+{: .callout .callout-analogie}
 
 Voici une règle Sigma pour la copie mémoire de LSASS, avec le piège classique en commentaire :
 
@@ -278,7 +289,8 @@ Pour que la validation survive aux changements, automatisez-la. Rejouez les test
 
 ## Ce qu'un exercice offensif ne mesure pas
 
-Un exercice Red Team qui réussit prouve qu'**au moins un chemin existe**. Un exercice qui échoue prouve qu'**un chemin n'a pas été trouvé dans le temps imparti**. Aucun des deux ne mesure la maturité globale.
+> 💡 **À retenir.** Un exercice Red Team qui réussit prouve qu'**au moins un chemin existe**. Un exercice qui échoue prouve qu'**un chemin n'a pas été trouvé dans le temps imparti**. Aucun des deux ne mesure la maturité globale.
+{: .callout .callout-important}
 
 | Résultat | Lectures possibles | Ce qu'on ignore |
 |---|---|---|
@@ -377,7 +389,11 @@ Un trimestre plus tard, la société lance un Red Team en mode informé. Il part
 
 ## Résumé
 
-Red Team, Blue Team et Purple Team répondent à trois questions distinctes : un adversaire peut-il atteindre un objectif, la défense voit-elle et réagit-elle, et à quelle étape la chaîne de détection casse-t-elle pour chaque technique. L'émulation d'adversaire part d'un modèle de menace et se traduit en hypothèses testables avec un signal attendu. Le pipeline de détection à cinq niveaux (télémétrie, collecte, règle, triage, réponse) remplace un « couvert » binaire. Les contrôles se choisissent selon le coût du préventif, du détectif et du correctif. Un exercice offensif réussi ou raté ne mesure pas la maturité globale : il atteste d'un chemin ou de l'absence de chemin trouvé. Il reste à surveiller les régressions après chaque changement, la couverture des environnements hors périmètre et la qualité du triage sous pression réelle.
+Red Team, Blue Team et Purple Team répondent à trois questions distinctes : un adversaire peut-il atteindre un objectif, la défense voit-elle et réagit-elle, et à quelle étape la chaîne de détection casse-t-elle pour chaque technique.
+
+L'émulation d'adversaire part d'un modèle de menace et se traduit en hypothèses testables avec un signal attendu. Le pipeline de détection à cinq niveaux (télémétrie, collecte, règle, triage, réponse) remplace un « couvert » binaire. Les contrôles se choisissent selon le coût du préventif, du détectif et du correctif.
+
+Un exercice offensif réussi ou raté ne mesure pas la maturité globale : il atteste d'un chemin ou de l'absence de chemin trouvé. Il reste à surveiller les régressions après chaque changement, la couverture des environnements hors périmètre et la qualité du triage sous pression réelle.
 
 <!-- snippet
 id: purple_team_definition_workflow

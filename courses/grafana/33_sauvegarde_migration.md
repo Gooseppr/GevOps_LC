@@ -38,11 +38,11 @@ Une équipe SRE de six personnes exploite une instance Grafana sur une VM unique
 
 Un matin, le disque de la VM est corrompu. On recrée une VM, on réinstalle Grafana, on réimporte les JSON. Les dashboards sont là, mais ils affichent « Datasource not found ». Les Data Sources sont à recréer, avec des mots de passe que personne n'a sous la main. Les règles d'alerte ont disparu, les contact points aussi, ainsi que les équipes et les permissions de dossiers. Pendant deux jours, l'astreinte travaille sans alerting fiable.
 
-Ce scénario est illustratif, mais il se produit dans la vie réelle dès qu'on confond **exporter des dashboards** et **sauvegarder Grafana**. Ce module sert à poser la différence, puis à construire une sauvegarde dont on a prouvé qu'elle restaure.
+Ce scénario est illustratif, mais il se produit réellement dès qu'on confond **exporter des dashboards** et **sauvegarder Grafana**. Ce module sert à poser la différence, puis à construire une sauvegarde dont on a prouvé qu'elle restaure.
 
 ## Ce qui constitue vraiment l'état de Grafana
 
-Avant de choisir un outil, il faut savoir où vit chaque information. Grafana est un binaire sans état fort, posé sur trois zones : une base de données, des fichiers, et des secrets. Le reste (métriques, logs, traces) vit dans les backends que Grafana interroge.
+Où vit chaque information ? C'est la question à se poser avant de choisir un outil. Grafana est un binaire sans état fort, posé sur trois zones : une base de données, des fichiers, et des secrets. Le reste (métriques, logs, traces) vit dans les backends que Grafana interroge.
 
 ```mermaid
 flowchart TD
@@ -119,7 +119,7 @@ Pour viser un RPO de quelques minutes plutôt que 24 heures, le dump quotidien n
 
 ## Sauvegarder fichiers, plugins et clé de chiffrement
 
-Une fois la base copiée, il reste le reste de l'état. Trois choses comptent.
+Une fois la base copiée, reste tout le reste de l'état. Trois choses comptent.
 
 **La configuration.** `grafana.ini` (souvent `/etc/grafana/grafana.ini`), le dossier `provisioning/`, et, en conteneur, les variables `GF_*` définies dans votre orchestrateur. Si tout cela est déjà dans Git, vous avez ce qu'il faut. Sinon :
 
@@ -135,7 +135,12 @@ grafana cli plugins ls > /backup/plugins-$(date +%F).txt
 
 À la restauration, chaque ligne devient `grafana cli plugins install <PLUGIN_ID> <VERSION>`. En conteneur, la variable `GF_INSTALL_PLUGINS` joue ce rôle (le nom de la variable a évolué dans les versions récentes, vérifiez la documentation de votre version). Un plugin de panel manquant produit un panel vide ou en erreur, pas une erreur globale, ce qui rend l'oubli facile à rater.
 
-**La `secret_key`.** C'est l'élément qui fait la différence entre une restauration qui marche et une qui fait semblant. Grafana chiffre en base les mots de passe, tokens et autres champs sensibles des Data Sources et des contact points. La clé racine de ce chiffrement dérive de `secret_key` (ou d'un KMS, Key Management Service, si vous l'avez branché). Restaurer la base avec une autre clé donne une instance où les Data Sources existent mais ne peuvent plus s'authentifier.
+**La `secret_key`.** C'est l'élément qui fait la différence entre une restauration qui marche et une qui fait semblant.
+
+Grafana chiffre en base les mots de passe, tokens et autres champs sensibles des Data Sources et des contact points. La clé racine de ce chiffrement dérive de `secret_key` (ou d'un KMS, Key Management Service, si vous l'avez branché).
+
+> 🔐 **Analogie : le coffre sans sa combinaison.** Restaurer la base avec une autre clé revient à récupérer un coffre intact dont on a perdu la combinaison : les Data Sources existent, mais ne peuvent plus s'authentifier. La comparaison a une limite : seuls les champs chiffrés restent fermés, et les dashboards comme le reste de la base restent lisibles.
+{: .callout .callout-analogie}
 
 > 🧠 **Concept clé** : une sauvegarde de base sans la `secret_key` correspondante est incomplète. Conservez la clé **séparément** de la base (secret manager, coffre), jamais dans le même fichier de sauvegarde, sinon le chiffrement ne protège plus rien. Puis testez : restaurez et vérifiez qu'une Data Source authentifiée répond.
 {: .callout .callout-important}
@@ -213,7 +218,11 @@ Le même raisonnement s'applique aux UIDs de dashboards (stables, donc les liens
 
 On emploie « migration » pour deux opérations qui n'ont pas les mêmes risques.
 
-**Déplacer l'instance** (nouvelle VM, nouveau cluster, passage de SQLite à PostgreSQL, ou vers Grafana Cloud). Vous transportez l'état complet. La clé, c'est la fidélité : même `secret_key`, mêmes UIDs, mêmes plugins. Pour un simple changement de machine avec le même moteur, la restauration de la sauvegarde décrite plus haut suffit. Pour SQLite vers PostgreSQL, Grafana ne fournit pas de commande de conversion intégrée à tout épreuve : on trouve des outils tiers (comme `pgloader`) et des méthodes documentées qui évoluent d'une version à l'autre. Dans tous les cas, on répète la migration sur une copie, on compare le nombre de dashboards, de Data Sources et de règles d'alerte, puis seulement on programme la bascule. Pour Grafana Cloud, un assistant de migration existe dans les versions récentes ; son périmètre et son interface changent, consultez la documentation de votre version.
+**Déplacer l'instance** (nouvelle VM, nouveau cluster, passage de SQLite à PostgreSQL, ou vers Grafana Cloud). Vous transportez l'état complet. La clé, c'est la fidélité : même `secret_key`, mêmes UIDs, mêmes plugins. Selon la destination :
+
+- **Simple changement de machine, même moteur** : la restauration de la sauvegarde décrite plus haut suffit.
+- **SQLite vers PostgreSQL** : Grafana ne fournit pas de commande de conversion intégrée à toute épreuve. On trouve des outils tiers (comme `pgloader`) et des méthodes documentées qui évoluent d'une version à l'autre. Dans tous les cas, on répète la migration sur une copie, on compare le nombre de dashboards, de Data Sources et de règles d'alerte, puis seulement on programme la bascule.
+- **Grafana Cloud** : un assistant de migration existe dans les versions récentes. Son périmètre et son interface changent : consultez la documentation de votre version.
 
 **Promouvoir du contenu** (dev → recette → prod). Ici on ne déplace pas l'état, on déploie des définitions. L'approche saine est de ne jamais copier à la main d'une instance à l'autre : le contenu vit dans Git, le provisioning (ou Terraform, vu au module précédent de la série sur l'automatisation) l'applique. La sauvegarde de la base devient alors une assurance pour ce qui n'est pas dans Git : utilisateurs, annotations, silences, modifications faites à la main.
 
@@ -235,7 +244,10 @@ La quatrième étape est la plus rentable : elle teste simultanément la mise à
 
 ## Procédure de rollback
 
-Comme le schéma de base ne revient pas en arrière, le rollback de Grafana n'est pas « réinstaller l'ancienne version ». C'est **restaurer l'état d'avant** avec l'ancienne version. La séquence est donc écrite avant la mise à jour, pas pendant l'incident.
+> 💡 **À retenir.** Comme le schéma de base ne revient pas en arrière, le rollback de Grafana n'est pas « réinstaller l'ancienne version ». C'est **restaurer l'état d'avant** avec l'ancienne version.
+{: .callout .callout-important}
+
+La séquence est donc écrite avant la mise à jour, pas pendant l'incident.
 
 Avant la mise à jour : arrêter les écritures si possible (ou accepter la fenêtre de perte), prendre le dump de la base, copier `grafana.ini` et le provisioning, noter la version exacte en cours.
 
@@ -251,7 +263,10 @@ Un coût est à regarder en face : tout ce qui a été écrit entre la mise à j
 
 ## RPO, RTO et tests de restauration
 
-RPO (Recovery Point Objective) est la quantité maximale de données qu'on accepte de perdre, exprimée en temps. RTO (Recovery Time Objective) est le délai maximal pour remettre le service en état. Ces deux chiffres ne sont pas des vœux : ils sont mesurés ou ils n'existent pas.
+> 📖 **Définition.** Le **RPO** (Recovery Point Objective) est la quantité maximale de données qu'on accepte de perdre, exprimée en temps. Le **RTO** (Recovery Time Objective) est le délai maximal pour remettre le service en état.
+{: .callout .callout-definition}
+
+Ces deux chiffres ne sont pas des vœux : ils sont mesurés ou ils n'existent pas.
 
 Un exemple de raisonnement. Les dashboards sont dans Git et provisionnés : leur RPO est quasiment nul. En revanche, les règles d'alerte sont modifiées en interface presque tous les jours. Avec un dump nocturne, vous pouvez perdre jusqu'à 24 heures de modifications, ce qui est probablement trop pour des alertes d'astreinte. Deux choix : déplacer les règles dans le provisioning (RPO ≈ 0), ou rapprocher les dumps (toutes les 4 heures, par exemple). Le bon choix dépend du coût de l'un face au risque de l'autre.
 

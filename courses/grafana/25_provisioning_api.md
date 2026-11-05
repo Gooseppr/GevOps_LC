@@ -40,6 +40,9 @@ Après six mois, le volume Docker de la production est corrompu. Il faut tout re
 
 Le problème n'est pas Grafana, c'est que sa configuration n'existe qu'à un seul endroit : la base interne de l'instance. Ce module montre comment la sortir de là pour la mettre dans Git, où elle se relit, se compare, se restaure et se déploie.
 
+> 🍳 **Analogie : la recette plutôt que le plat.** Jusqu'ici, l'équipe ne conservait que le plat, c'est-à-dire l'instance configurée. Le provisioning conserve la recette dans Git : si le plat est perdu, on le refait à l'identique. Limite : la recette ne contient que ce que vous y avez déclaré, et ni les données de vos sources (métriques, logs) ni ce qui a été créé à la main sans être exporté.
+{: .callout .callout-analogie}
+
 ## Trois canaux pour piloter Grafana sans cliquer
 
 Grafana offre plusieurs moyens de recevoir sa configuration de l'extérieur. Ils se complètent, mais ils ne se valent pas selon la situation.
@@ -214,6 +217,9 @@ Un dashboard exporté fait vite plusieurs milliers de lignes, mais seuls quelque
 - **`version`** est un compteur que Grafana incrémente à chaque sauvegarde dans sa base. Il sert à détecter les modifications concurrentes (nous y reviendrons avec l'API). Dans un fichier provisionné, Git est votre historique ; ne cherchez pas à tenir ce champ à jour à la main.
 - **`schemaVersion`** indique le format du JSON. Grafana migre automatiquement les anciens schémas à l'ouverture. Les versions récentes introduisent aussi de nouveaux formats de dashboard ; le détail varie selon la version installée.
 
+> 🪪 **Analogie : ticket d'attente et numéro de passeport.** L'`id` ressemble à un ticket d'attente : il n'a de sens qu'au guichet qui l'a émis. L'`uid` ressemble à un numéro de passeport : il vous suit d'une instance à l'autre. Limite : contrairement à un passeport, c'est vous qui choisissez l'UID. Rien n'empêche de le changer, mais cela casse tous les liens qui pointaient vers l'ancien.
+{: .callout .callout-analogie}
+
 > ⚠️ **Erreur fréquente** : copier un export « Export for sharing externally » dans le dépôt. Ce mode remplace les Data Sources par des variables `${DS_PROMETHEUS}` pensées pour l'import manuel. Pour du provisioning, utilisez plutôt l'export JSON standard (« Export as JSON » sans partage externe), dont les références à des UID fixes fonctionnent telles quelles.
 {: .callout .callout-attention}
 
@@ -229,7 +235,8 @@ Deux autres effets de bord du même mécanisme :
 - Avec `disableDeletion: false`, **supprimer le fichier supprime le dashboard** dans Grafana au prochain scan. Ça peut être voulu, mais pas lors d'un déploiement qui oublie un volume.
 - Si deux fichiers déclarent le même UID, Grafana ne garde qu'un des deux et le signale dans les logs. Lequel ? Ne comptez pas là-dessus.
 
-Le bon réflexe est donc un sens unique : on édite dans l'interface sur **dev**, on exporte le JSON, on le commit, et staging et prod le reçoivent par fichier. L'interface est un outil de conception, Git est la source de vérité.
+> 💡 **À retenir** : un seul sens de circulation. On édite dans l'interface sur **dev**, on exporte le JSON, on le commit, et staging et prod le reçoivent par fichier. L'interface est un outil de conception, Git est la source de vérité.
+{: .callout .callout-important}
 
 > 💡 **Astuce** : en dev, mettre `allowUiUpdates: true` est une bonne idée si l'équipe adopte la règle « on exporte avant de pousser ». Vous gardez la liberté du clic et vous évitez d'éditer du JSON à la main.
 {: .callout .callout-astuce}
@@ -277,7 +284,12 @@ jq -n --slurpfile d dashboards/app/api-latency.json \
   -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d @-
 ```
 
-Le champ `overwrite: true` mérite une explication. Sans lui, Grafana protège contre les écrasements involontaires : si le dashboard existe déjà et que la `version` envoyée ne correspond pas à celle de la base, ou si un dashboard du même nom existe dans le dossier, la requête est rejetée (HTTP 412). Avec `overwrite: true`, vous dites « mon fichier est la référence, remplace ». C'est exactement ce que veut un pipeline de déploiement, mais pas ce que veut un script qui bricole sur une instance partagée.
+À quoi sert `overwrite: true` ? Sans lui, Grafana protège contre les écrasements involontaires. La requête est rejetée (HTTP 412) dans deux cas :
+
+- le dashboard existe déjà et la `version` envoyée ne correspond pas à celle de la base ;
+- un dashboard du même nom existe dans le dossier.
+
+Avec `overwrite: true`, vous dites « mon fichier est la référence, remplace ». C'est exactement ce que veut un pipeline de déploiement, mais pas un script qui bricole sur une instance partagée.
 
 ### Permissions d'un dossier
 
@@ -432,6 +444,9 @@ url: ${PROM_URL}      # dev : http://prometheus:9090 | prod : https://prom.inter
 ## Introduction au provider Terraform Grafana
 
 Terraform est pertinent quand vous voulez piloter Grafana **à distance** (pas de fichiers à monter, cas typique de Grafana Cloud), voir ce qui va changer avant d'appliquer (`terraform plan`), ou détecter qu'une instance a dérivé de ce qui est déclaré.
+
+> 📖 **Définition.** On parle de **dérive** (*drift*) quand l'état réel d'une instance ne correspond plus à ce qui est déclaré dans le code, par exemple après une modification faite à la main dans l'interface.
+{: .callout .callout-definition}
 
 Un premier exemple minimal :
 
