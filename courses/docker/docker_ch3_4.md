@@ -70,7 +70,7 @@ Lien direct entre un dossier de ton PC et le conteneur.
 ```mermaid
 flowchart LR
     A[Conteneur] --> B[Volume Docker]
-    A --> C[Bind Mount (PC)]
+    A --> C["Bind Mount (PC)"]
 ```
 
 ---

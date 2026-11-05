@@ -133,13 +133,13 @@ Deux critères guident cette décision.
 ```mermaid
 quadrantChart
     title Priorisation des tests
-    x-axis Valeur métier faible --> Valeur métier élevée
-    y-axis Risque faible --> Risque élevé
-    quadrant-1 Tester en priorité absolue
-    quadrant-2 Tester tôt, risque à couvrir
-    quadrant-3 Tester si temps disponible
-    quadrant-4 Automatiser ou déprioritiser
-    Soumission de congé: [0.85, 0.9]
+    x-axis "Valeur métier faible" --> "Valeur métier élevée"
+    y-axis "Risque faible" --> "Risque élevé"
+    quadrant-1 "Tester en priorité absolue"
+    quadrant-2 "Tester tôt, risque à couvrir"
+    quadrant-3 "Tester si temps disponible"
+    quadrant-4 "Automatiser ou déprioritiser"
+    "Soumission de congé": [0.85, 0.9]
     Validation manager: [0.75, 0.8]
     Notification email: [0.6, 0.65]
     Tri historique: [0.3, 0.2]

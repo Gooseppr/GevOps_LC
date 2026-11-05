@@ -88,26 +88,25 @@ Une suite de tests sur-représentée en tests end-to-end et sous-représentée e
 
 ```mermaid
 graph TB
-    subgraph Pyramide saine
-        U1["Tests unitaires\nnombreux, rapides"]
-        I1["Tests intégration\nquelques-uns"]
-        E1["Tests E2E\nrares, ciblés"]
+    subgraph SAINE["Pyramide saine"]
+        U1["Tests unitaires<br/>nombreux, rapides"]
+        I1["Tests d'intégration<br/>quelques-uns"]
+        E1["Tests E2E<br/>rares, ciblés"]
         U1 --> I1 --> E1
     end
 
-    subgraph Pyramide inversée — dette
-        E2["Tests E2E\ntrop nombreux"]
-        I2["Tests intégration\nquelques-uns"]
-        U2["Tests unitaires\nquasi absents"]
+    subgraph DETTE["Pyramide inversée, signe de dette"]
+        E2["Tests E2E<br/>trop nombreux"]
+        I2["Tests d'intégration<br/>quelques-uns"]
+        U2["Tests unitaires<br/>quasi absents"]
         E2 --> I2 --> U2
     end
 
-    style U1 fill:#4CAF50,color:#fff
-    style I1 fill:#FF9800,color:#fff
-    style E1 fill:#F44336,color:#fff
-    style E2 fill:#F44336,color:#fff
-    style I2 fill:#FF9800,color:#fff
-    style U2 fill:#9E9E9E,color:#fff
+    style U1 fill:#dcfce7,stroke:#16a34a,color:#14532d
+    style I1 fill:#fef3c7,stroke:#d97706,color:#78350f
+    style E1 fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style E2 fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style I2 fill:#fef3c7,stroke:#d97706,color:#78350f
 ```
 
 Ces six formes se combinent rarement seules. Un projet avec une pyramide inversée développe presque mécaniquement du flakiness — et le flakiness non traité mène à la perte de confiance dans la suite, ce qui freine la maintenance, ce qui aggrave tout le reste. La dette de test est un système, pas une liste de problèmes indépendants.
@@ -142,17 +141,17 @@ Une fois les signaux identifiés, l'objectif est de les positionner selon deux a
 ```mermaid
 quadrantChart
     title Cartographie de la dette de test
-    x-axis Effort de correction faible --> Effort de correction élevé
-    y-axis Impact faible --> Impact élevé
-    quadrant-1 Planifier sur le long terme
-    quadrant-2 Prioriser maintenant
-    quadrant-3 Backlog bas
-    quadrant-4 Quick wins
+    x-axis "Effort de correction faible" --> "Effort de correction élevé"
+    y-axis "Impact faible" --> "Impact élevé"
+    quadrant-1 "Planifier sur le long terme"
+    quadrant-2 "Prioriser maintenant"
+    quadrant-3 "Backlog bas"
+    quadrant-4 "Quick wins"
     Tests manquants sur flux critiques: [0.3, 0.85]
     Flaky tests E2E: [0.55, 0.75]
-    Couverture trompeuse: [0.65, 0.60]
-    Tests obsolètes non maintenus: [0.25, 0.40]
-    Pyramide inversée: [0.80, 0.70]
+    "Couverture trompeuse": [0.65, 0.60]
+    "Tests obsolètes non maintenus": [0.25, 0.40]
+    "Pyramide inversée": [0.80, 0.70]
     Assertions vides: [0.20, 0.55]
 ```
 

@@ -329,8 +329,8 @@ Le principe : si un service upstream répond avec des erreurs (ou ne répond plu
 ```mermaid
 stateDiagram-v2
     [*] --> Closed
-    Closed --> Open : Taux d'erreur > seuil (ex: 50% sur 10 req)
-    Open --> HalfOpen : Après timeout (ex: 30 secondes)
+    Closed --> Open : Taux d'erreur au-dessus du seuil, par exemple 50 % sur 10 requêtes
+    Open --> HalfOpen : Après un délai, par exemple 30 secondes
     HalfOpen --> Closed : Requête test réussie
     HalfOpen --> Open : Requête test échouée
     

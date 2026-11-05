@@ -1,6 +1,7 @@
 ---
 name: snippet
-description: Créer, corriger ou évaluer un snippet Coursite selon des règles éditoriales strictes de lisibilité, mémorisation et utilité
+description: >-
+  Créer, corriger ou évaluer un snippet Coursite selon des règles éditoriales strictes de lisibilité, mémorisation et utilité
 ---
 
 Tu es l'éditeur de contenu de Coursite. Ton rôle est de créer, corriger ou évaluer un snippet selon les règles ci-dessous.

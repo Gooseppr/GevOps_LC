@@ -80,7 +80,7 @@ flowchart LR
     LB -->|10% du trafic — canary| V2[Version candidate v2]
 
     V2 -->|Requête dupliquée| Shadow[Shadow service v2]
-    Shadow -->|Réponse ignorée| Null[/dev/null]
+    Shadow -->|Réponse ignorée| Null["/dev/null"]
 
     V1 --> Obs[Monitoring & Alerting]
     V2 --> Obs

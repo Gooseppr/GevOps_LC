@@ -261,8 +261,8 @@ Le circuit breaker s'inspire des fusibles électriques : quand trop d'erreurs se
 stateDiagram-v2
     [*] --> CLOSED
 
-    CLOSED --> OPEN : Seuil d'erreurs dépassé\n(ex: >50% sur 10 req)
-    OPEN --> HALF_OPEN : Délai écoulé\n(ex: 30 secondes)
+    CLOSED --> OPEN : Seuil d'erreurs dépassé, par exemple plus de 50 % sur 10 requêtes
+    OPEN --> HALF_OPEN : Délai écoulé, par exemple 30 secondes
     HALF_OPEN --> CLOSED : Requête test OK
     HALF_OPEN --> OPEN : Requête test échoue
 

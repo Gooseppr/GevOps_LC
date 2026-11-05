@@ -176,7 +176,7 @@ En 2013, David Bianco a proposé la **Pyramid of Pain** : plus l'indicateur est 
 ```mermaid
 flowchart TB
   T[TTP<br/>très difficile à changer] --> U[OUTILS]
-  U --> V[ARTEFACTS RESEAU ET HOTE]
+  U --> V[ARTEFACTS RÉSEAU ET HOTE]
   V --> W[NOMS DE DOMAINE]
   W --> X[ADRESSES IP]
   X --> Y[HASHES<br/>trivial à changer]
