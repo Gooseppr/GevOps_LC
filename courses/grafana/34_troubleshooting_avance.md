@@ -221,14 +221,14 @@ Le bouton *Save & test* donne un faux sentiment de sécurité : il exécute un t
 > 🧠 **Concept clé**
 >
 > Entre le navigateur et le moteur de stockage, plusieurs couches ont chacune leur délai maximum, et c'est la plus courte qui coupe en premier. À titre indicatif, car les valeurs par défaut varient selon version et configuration :
+>
+> | Couche | Réglage typique | Valeur courante |
+> |---|---|---|
+> | Reverse proxy | `proxy_read_timeout` (nginx) | 60 s |
+> | Data proxy Grafana | `[dataproxy] timeout` | 30 s |
+> | Data source | *Query timeout* (Prometheus) | 60 s |
+> | Backend | `--query.timeout` (Prometheus) | 2 min |
 {: .callout .callout-important}
-
-| Couche | Réglage typique | Valeur courante |
-|---|---|---|
-| Reverse proxy | `proxy_read_timeout` (nginx) | 60 s |
-| Data proxy Grafana | `[dataproxy] timeout` | 30 s |
-| Data source | *Query timeout* (Prometheus) | 60 s |
-| Backend | `--query.timeout` (Prometheus) | 2 min |
 
 Cela a une conséquence pratique : **la durée de l'échec est une signature**. Une requête qui meurt à 30,0 s pile s'est heurtée au data proxy. Une qui meurt à 60 s s'est heurtée à l'une des deux autres. Augmenter un seul timeout sans regarder les autres déplace la limite sans résoudre la lenteur. Le vrai correctif est presque toujours côté requête ou backend.
 

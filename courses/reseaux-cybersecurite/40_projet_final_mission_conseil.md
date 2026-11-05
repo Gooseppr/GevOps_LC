@@ -347,15 +347,15 @@ Total : 63 J/H, soit environ 44 000 € hors licences. Précisez toujours les hy
 > 🔒 **Contrôle de sécurité**
 >
 > Sur le dépôt de sauvegarde, le mode « ajout uniquement » casse la chaîne d'attaque du ransomware. Exemple avec rest-server pour restic :
+>
+> ```bash
+> # Avant : dépôt modifiable par tout client authentifié
+> rest-server --path <DATA_DIR> --listen :8000
+>
+> # Après : écriture seule, aucune suppression ni modification des snapshots existants
+> rest-server --path <DATA_DIR> --listen :8000 --append-only
+> ```
 {: .callout .callout-securite}
-
-```bash
-# Avant : dépôt modifiable par tout client authentifié
-rest-server --path <DATA_DIR> --listen :8000
-
-# Après : écriture seule, aucune suppression ni modification des snapshots existants
-rest-server --path <DATA_DIR> --listen :8000 --append-only
-```
 
 Le compromis : la purge des anciens snapshots doit se faire côté serveur, avec un compte distinct jamais exposé aux postes clients. C'est un peu plus de gestion pour une garantie bien plus forte.
 

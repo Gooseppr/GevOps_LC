@@ -235,20 +235,20 @@ Les règles de conception qui comptent :
 > 🔒 **Sécurité**
 >
 > **Contrôle de sécurité** (Cisco IOS, adapter selon l'équipementier) :
+>
+> ```
+> interface GigabitEthernet0/10
+>  switchport mode access
+>  switchport access vlan <VLAN_ID>
+>  switchport nonegotiate
+> !
+> interface GigabitEthernet0/48
+>  switchport mode trunk
+>  switchport nonegotiate
+>  switchport trunk native vlan 999
+>  switchport trunk allowed vlan <LISTE_VLAN>
+> ```
 {: .callout .callout-securite}
-
-```
-interface GigabitEthernet0/10
- switchport mode access
- switchport access vlan <VLAN_ID>
- switchport nonegotiate
-!
-interface GigabitEthernet0/48
- switchport mode trunk
- switchport nonegotiate
- switchport trunk native vlan 999
- switchport trunk allowed vlan <LISTE_VLAN>
-```
 
 Ports d'accès explicites, DTP désactivé, VLAN natif inutilisé (999), liste de VLAN autorisés sur chaque trunk. Ça ne coûte rien en performance, juste de la discipline de configuration.
 

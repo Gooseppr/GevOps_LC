@@ -394,11 +394,11 @@ Une escalade qui oblige l'équipe suivante à tout refaire est une mauvaise esca
 > ⚠️ **Attention**
 >
 > C'est la discipline centrale du métier. Une alerte est **une hypothèse produite par une règle**. Elle devient une conclusion quand des observations indépendantes la corroborent. On distingue trois niveaux :
+>
+> 1. **Alerte** : une règle ou un modèle a émis un signal.
+> 2. **Télémétrie corroborante** : une seconde source indépendante (réseau, identité, EDR) confirme.
+> 3. **Artefact** : un fait vérifiable (processus exécuté, connexion établie, fichier présent, ticket Kerberos émis).
 {: .callout .callout-attention}
-
-1. **Alerte** : une règle ou un modèle a émis un signal.
-2. **Télémétrie corroborante** : une seconde source indépendante (réseau, identité, EDR) confirme.
-3. **Artefact** : un fait vérifiable (processus exécuté, connexion établie, fichier présent, ticket Kerberos émis).
 
 | Alerte | Ce qu'elle établit réellement | Ce qu'il faut pour conclure |
 |---|---|---|

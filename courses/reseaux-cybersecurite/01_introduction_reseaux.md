@@ -45,11 +45,11 @@ Avant les réseaux, partager un document signifiait le copier sur une clé USB e
 > 🧠 **Concept fondamental**
 >
 > Un réseau informatique, c'est trois ingrédients réunis :
+>
+> 1. **Des équipements** qui émettent, reçoivent ou relaient des données (on les appelle des *nœuds*).
+> 2. **Un support** qui les relie : câble de cuivre, fibre optique ou ondes radio.
+> 3. **Des règles communes**, les protocoles, qui indiquent comment se parler : quel format, dans quel ordre, comment vérifier que le message est arrivé.
 {: .callout .callout-important}
-
-1. **Des équipements** qui émettent, reçoivent ou relaient des données (on les appelle des *nœuds*).
-2. **Un support** qui les relie : câble de cuivre, fibre optique ou ondes radio.
-3. **Des règles communes**, les protocoles, qui indiquent comment se parler : quel format, dans quel ordre, comment vérifier que le message est arrivé.
 
 Retirez l'un des trois et plus rien ne fonctionne. Deux machines reliées par un câble mais sans règles communes ne se comprennent pas, tout comme deux personnes au téléphone qui ne parlent pas la même langue.
 

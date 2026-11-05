@@ -355,11 +355,11 @@ La leçon : l'incident technique avait des causes organisationnelles. Les outils
 >
 > - *Conséquence* : les dérogations s'accumulent, la politique n'est plus appliquée nulle part de façon cohérente.
 > - *Détection* :
+>
+> ```bash
+> awk -F, -v d="$(date +%F)" 'NR>1 && $5<d {print $1, $2, $5}' exceptions.csv
+> ```
 {: .callout .callout-attention}
-
-```bash
-awk -F, -v d="$(date +%F)" 'NR>1 && $5<d {print $1, $2, $5}' exceptions.csv
-```
 
 Ici, le fichier est un CSV simple (aucune virgule à l'intérieur des champs) dont la colonne 5 est la date d'expiration au format ISO (AAAA-MM-JJ). Toute ligne affichée est une exception expirée, ou sans date d'expiration (champ vide), à traiter.
 - *Correction* : l'échéance est obligatoire, une exception expirée sans décision est supprimée.

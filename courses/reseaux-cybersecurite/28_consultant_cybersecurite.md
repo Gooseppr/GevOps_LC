@@ -197,13 +197,13 @@ Ces réponses fixent le vocabulaire de vos recommandations. Une usine mesure son
 > 🧠 **Concept clé**
 >
 > Un écart n'est défendable que si vous savez dire sur quoi il repose. Qualifiez chaque affirmation :
+>
+> | Niveau | Définition | Exemple | Utilisation dans le rapport |
+> |---|---|---|---|
+> | **Déclaré** | Dit en entretien, sans pièce | « Tous les admins ont du MFA » | Hypothèse à vérifier, jamais un constat |
+> | **Documenté** | Existe sur papier ou dans une politique | « La procédure de revue des comptes existe » | Preuve de conception, pas de fonctionnement |
+> | **Vérifié** | Observé ou testé par vous | Export des membres de `Domain Admins` comparé à la liste fournie | Seul niveau qui fonde un constat ferme |
 {: .callout .callout-important}
-
-| Niveau | Définition | Exemple | Utilisation dans le rapport |
-|---|---|---|---|
-| **Déclaré** | Dit en entretien, sans pièce | « Tous les admins ont du MFA » | Hypothèse à vérifier, jamais un constat |
-| **Documenté** | Existe sur papier ou dans une politique | « La procédure de revue des comptes existe » | Preuve de conception, pas de fonctionnement |
-| **Vérifié** | Observé ou testé par vous | Export des membres de `Domain Admins` comparé à la liste fournie | Seul niveau qui fonde un constat ferme |
 
 Un écart se formule toujours par rapport à un référentiel : ISO 27001/27002, guide d'hygiène de l'ANSSI, NIST CSF, exigences contractuelles du donneur d'ordre, ou la politique interne du client. Sans référence, vous donnez une opinion ; avec elle, vous constatez une distance mesurable.
 

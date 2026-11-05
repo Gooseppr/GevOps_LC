@@ -162,12 +162,12 @@ Trois choses méritent d'être soulignées.
 > 💡 **Astuce**
 >
 > Pour valider une Data Source après déploiement sans ouvrir l'interface, appelez le point de santé de l'API :
+>
+> ```bash
+> curl -s -H "Authorization: Bearer <TOKEN>" \
+>   <GRAFANA_URL>/api/datasources/uid/<DS_UID>/health
+> ```
 {: .callout .callout-astuce}
-
-```bash
-curl -s -H "Authorization: Bearer <TOKEN>" \
-  <GRAFANA_URL>/api/datasources/uid/<DS_UID>/health
-```
 
 ## Provisioning des dashboards
 

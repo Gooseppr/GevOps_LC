@@ -178,12 +178,12 @@ Pour les dépendances applicatives, le gestionnaire de paquets système ne voit 
 > 🔴 **Cas Log4Shell**
 >
 > Au moment de la divulgation de `CVE-2021-44228`, beaucoup d'équipes ont découvert que log4j-core était embarqué dans des JAR « shadés » (recompilés dans un autre JAR), invisibles pour un `find` sur le nom de fichier. Il fallait chercher la classe elle-même :
+>
+> ```bash
+> find / -type f -name 'log4j-core*.jar' 2>/dev/null
+> unzip -l <APPLICATION.jar> | grep JndiLookup
+> ```
 {: .callout .callout-danger}
-
-```bash
-find / -type f -name 'log4j-core*.jar' 2>/dev/null
-unzip -l <APPLICATION.jar> | grep JndiLookup
-```
 
 > ⚠️ **Erreur fréquente**
 >
@@ -335,11 +335,11 @@ Entre l'avis et le correctif, vous êtes exposé. Il faut donc chercher les tent
 > ⚠️ **Erreur fréquente**
 >
 > Correctif installé, service jamais redémarré. Le processus continue d'utiliser l'ancienne bibliothèque en mémoire. Vérification :
+>
+> ```bash
+> sudo needrestart -r l
+> ```
 {: .callout .callout-attention}
-
-```bash
-sudo needrestart -r l
-```
 
 ## Tests de sécurité : vérifier que le correctif a vraiment fermé la porte
 

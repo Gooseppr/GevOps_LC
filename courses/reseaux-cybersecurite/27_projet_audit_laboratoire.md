@@ -409,12 +409,12 @@ Le rapport tient en six parties, sans remplissage :
 > 💡 **À retenir**
 >
 > Capturez chaque preuve en une ligne, horodatée et empreintée :
+>
+> ```bash
+> <COMMANDE> | tee preuves/F01_$(date -u +%Y%m%dT%H%M%SZ).txt
+> sha256sum preuves/* > preuves/SHA256SUMS
+> ```
 {: .callout .callout-important}
-
-```bash
-<COMMANDE> | tee preuves/F01_$(date -u +%Y%m%dT%H%M%SZ).txt
-sha256sum preuves/* > preuves/SHA256SUMS
-```
 
 Un constat sans preuve rejouable est une opinion. Un constat avec preuve, horodatage et empreinte se défend devant n'importe quel interlocuteur technique.
 

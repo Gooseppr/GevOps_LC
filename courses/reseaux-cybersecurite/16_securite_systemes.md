@@ -199,11 +199,11 @@ Trois conséquences pratiques :
 > 🔴 **Vecteur d'attaque, version historique**
 >
 > Avant le correctif MS14-025, les *Group Policy Preferences* permettaient de définir un mot de passe d'administrateur local dans une GPO. Il était chiffré en AES, mais la clé a été publiée par Microsoft. Le fichier XML (`cpassword`) est lisible par tout utilisateur du domaine dans SYSVOL. Beaucoup d'environnements anciens en contiennent encore des restes. Vérification :
+>
+> ```powershell
+> findstr /S /I cpassword \\<DOMAINE>\sysvol\<DOMAINE>\policies\*.xml
+> ```
 {: .callout .callout-danger}
-
-```powershell
-findstr /S /I cpassword \\<DOMAINE>\sysvol\<DOMAINE>\policies\*.xml
-```
 
 > 🔒 **Contrôle de sécurité**
 >

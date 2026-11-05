@@ -137,11 +137,11 @@ docker compose ps
 > ⚠️ **Erreur fréquente**
 >
 > Croire que `GF_SECURITY_ADMIN_PASSWORD` change le mot de passe à chaque démarrage. Il n'est lu qu'à l'initialisation de la base, quand `grafana.db` n'existe pas encore. Si vous modifiez la variable après le premier lancement, rien ne change et `docker compose up` ne dit rien. Pour un compte existant, passez par l'interface ou par :
+>
+> ```bash
+> docker compose exec grafana grafana cli admin reset-admin-password <NOUVEAU_MOT_DE_PASSE>
+> ```
 {: .callout .callout-attention}
-
-```bash
-docker compose exec grafana grafana cli admin reset-admin-password <NOUVEAU_MOT_DE_PASSE>
-```
 
 ### Version 3 : configuration fichier, exposition limitée, healthcheck
 

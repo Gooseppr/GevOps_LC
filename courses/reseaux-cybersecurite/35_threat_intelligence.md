@@ -217,14 +217,14 @@ zgrep -H -F -f <IOC_FILE> /var/log/<LOG_DIR>/*.log*
 > 🔒 **Contrôle de sécurité**
 >
 > Appliquer une durée de vie par type d'IoC et la faire respecter par le SIEM ou la plateforme CTI. Valeurs de départ à ajuster selon vos faux positifs :
+>
+> | Type | Durée de vie de départ | Usage |
+> |------|------------------------|-------|
+> | IP de C2 | 7 à 30 jours | Alerte, blocage seulement avec corroboration |
+> | Domaine récent | 30 à 90 jours | Alerte ; blocage possible si domaine non légitime |
+> | Hash | Long | Rétro-chasse, périmétrage, pas détection préventive |
+> | Artefact, outil, TTP | Aussi longtemps que pertinent | Règles comportementales |
 {: .callout .callout-securite}
-
-| Type | Durée de vie de départ | Usage |
-|------|------------------------|-------|
-| IP de C2 | 7 à 30 jours | Alerte, blocage seulement avec corroboration |
-| Domaine récent | 30 à 90 jours | Alerte ; blocage possible si domaine non légitime |
-| Hash | Long | Rétro-chasse, périmétrage, pas détection préventive |
-| Artefact, outil, TTP | Aussi longtemps que pertinent | Règles comportementales |
 
 Pour gravir la pyramide, il faut écrire une règle qui détecte l'action, pas le nom du binaire. Exemple en Sigma, qui repère un dump de LSASS par `procdump` (même renommé) ou par `comsvcs.dll` :
 
@@ -256,14 +256,14 @@ Cette règle a ses limites : elle repose sur des chaînes de la ligne de command
 > 🧠 **Concept clé**
 >
 > MITRE ATT&CK (Adversarial Tactics, Techniques, and Common Knowledge) est un catalogue du comportement observé, pas une checklist. Le vocabulaire de base :
+>
+> | Terme | Signification | Exemple |
+> |-------|---------------|---------|
+> | **Tactique** | L'objectif de l'attaquant (le « pourquoi ») | Credential Access (TA0006) |
+> | **Technique** | La méthode générale (le « comment ») | OS Credential Dumping (T1003) |
+> | **Sous-technique** | Variante précise | LSASS Memory (T1003.001) |
+> | **Procédure** | L'implémentation observée chez un acteur | `rundll32 comsvcs.dll, MiniDump <PID> out.dmp full` |
 {: .callout .callout-important}
-
-| Terme | Signification | Exemple |
-|-------|---------------|---------|
-| **Tactique** | L'objectif de l'attaquant (le « pourquoi ») | Credential Access (TA0006) |
-| **Technique** | La méthode générale (le « comment ») | OS Credential Dumping (T1003) |
-| **Sous-technique** | Variante précise | LSASS Memory (T1003.001) |
-| **Procédure** | L'implémentation observée chez un acteur | `rundll32 comsvcs.dll, MiniDump <PID> out.dmp full` |
 
 Les TTP (Tactics, Techniques, and Procedures) forment le haut de la pyramide. Une technique comme T1003.001 reste utile des années, parce que Windows stocke toujours des secrets en mémoire.
 

@@ -142,11 +142,11 @@ Quand vos serveurs, vos logs et vos collègues sont répartis sur plusieurs fuse
 > ⚠️ **Erreur fréquente**
 >
 > Conclure « rien d'anormal » en regardant une période qui ne contient pas l'événement, ou qui l'écrase. Trois mécanismes expliquent ce piège :
+>
+> 1. **La fenêtre est trop courte ou mal placée.** « Last 6 hours » lundi matin ne montre rien du samedi soir.
+> 2. **La fenêtre est trop large.** Sur 30 jours, Grafana ne peut pas afficher chaque point : la requête est agrégée par pas plus grand, et un pic de deux minutes disparaît dans la moyenne. Le même incident est net sur 1 heure et invisible sur 7 jours.
+> 3. **Le panel a sa propre période.** Dans les options de requête d'un panel, on peut définir une période relative ou un décalage qui ignore celle du dashboard. Un petit libellé apparaît alors en haut du panel (par exemple « Last 1h »). Ce panel ne bougera pas quand vous changerez la période globale, et il peut se retrouver aligné sur une autre fenêtre que ses voisins.
 {: .callout .callout-attention}
-
-1. **La fenêtre est trop courte ou mal placée.** « Last 6 hours » lundi matin ne montre rien du samedi soir.
-2. **La fenêtre est trop large.** Sur 30 jours, Grafana ne peut pas afficher chaque point : la requête est agrégée par pas plus grand, et un pic de deux minutes disparaît dans la moyenne. Le même incident est net sur 1 heure et invisible sur 7 jours.
-3. **Le panel a sa propre période.** Dans les options de requête d'un panel, on peut définir une période relative ou un décalage qui ignore celle du dashboard. Un petit libellé apparaît alors en haut du panel (par exemple « Last 1h »). Ce panel ne bougera pas quand vous changerez la période globale, et il peut se retrouver aligné sur une autre fenêtre que ses voisins.
 
 **Correction :** avant toute conclusion, vérifiez dans l'ordre : fuseau, période (absolue si l'événement est passé), éventuels libellés de période sur les panels, puis zoomez sur la zone suspecte pour obtenir des pas plus fins. Et quand vous partagez un constat, partagez un lien avec la période verrouillée (voir plus bas).
 

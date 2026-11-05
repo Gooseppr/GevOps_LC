@@ -74,24 +74,24 @@ Trois acteurs couvrent la plupart des scénarios réalistes :
 > 🔴 **Vecteur d'attaque — CVE-2021-43798**
 >
 > Dans Grafana 8.0.0-beta1 à 8.3.0, le chemin `/public/plugins/<ID_PLUGIN>/` permettait une traversée de répertoire sans authentification. L'attaque se résume à un `curl --path-as-is` (sans `--path-as-is`, curl normalise les `../` et l'attaque échoue silencieusement) :
+>
+> ```bash
+> curl --path-as-is "http://<HOST>:3000/public/plugins/alertlist/../../../../../../../../etc/grafana/grafana.ini"
+> ```
 {: .callout .callout-danger}
-
-```bash
-curl --path-as-is "http://<HOST>:3000/public/plugins/alertlist/../../../../../../../../etc/grafana/grafana.ini"
-```
 
 L'attaquant lit `grafana.ini`, récupère `secret_key`, puis télécharge `/var/lib/grafana/grafana.db`. Des outils publics déchiffrent ensuite les mots de passe des data sources stockés dans la base. Un seul bug de lecture de fichier se transforme ainsi en accès à tous les backends. Ce chemin d'attaque explique pourquoi `secret_key` et la base ne doivent jamais voyager ensemble.
 
 > 🔴 **Vecteur d'attaque — proxy de data sources**
 >
 > Pas de CVE ici, c'est le comportement normal. Avec un token ou une session `Viewer` :
+>
+> ```bash
+> curl -s -X POST "https://<HOST>/api/ds/query" \
+>   -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" \
+>   -d '{"queries":[{"refId":"A","datasource":{"uid":"<DS_UID>"},"expr":"up","instant":true}],"from":"now-5m","to":"now"}'
+> ```
 {: .callout .callout-danger}
-
-```bash
-curl -s -X POST "https://<HOST>/api/ds/query" \
-  -H "Authorization: Bearer <TOKEN>" -H "Content-Type: application/json" \
-  -d '{"queries":[{"refId":"A","datasource":{"uid":"<DS_UID>"},"expr":"up","instant":true}],"from":"now-5m","to":"now"}'
-```
 
 Si la data source accepte la requête, le `Viewer` lit la donnée, même s'il n'a jamais vu de panel qui l'utilise. Les UID sont faciles à obtenir : ils apparaissent dans le JSON de n'importe quel dashboard exporté.
 
