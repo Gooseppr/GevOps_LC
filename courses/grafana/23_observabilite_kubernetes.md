@@ -53,7 +53,7 @@ Une erreur courante chez les débutants consiste à croire qu'il existe « les m
 | Grafana | Interroge Prometheus en PromQL | — |
 
 ```mermaid
-flowchart LR
+flowchart TD
     API[API Kubernetes] -->|état des objets| KSM[kube-state-metrics]
     subgraph NODE[Nœud]
         KUB[kubelet et cAdvisor]

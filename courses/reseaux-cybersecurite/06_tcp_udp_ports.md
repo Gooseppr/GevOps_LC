@@ -46,7 +46,7 @@ Le ping prouve que les paquets atteignent la machine. Mais le programme qui doit
 {: .callout .callout-analogie}
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph POSTE["Poste 192.168.1.10"]
         N["Navigateur<br/>port 51234"]
         D["Résolveur local<br/>port 40022"]

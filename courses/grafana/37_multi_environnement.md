@@ -136,7 +136,7 @@ Pour les logs, `loki.write` accepte aussi un argument `external_labels`. Pour le
 Le principe est de laisser chaque cluster collecter localement et de pousser vers un point central, par une passerelle qui authentifie. Grafana ne fait que lire.
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph C1[Cluster prod-eu-1]
         A1[Agent Alloy]
     end

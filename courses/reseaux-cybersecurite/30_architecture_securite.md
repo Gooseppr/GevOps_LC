@@ -318,7 +318,7 @@ Un attaquant cherche le flux que personne n'a dessiné : l'agent de sauvegarde a
 4. **Écrire la matrice de flux** qui en découle.
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph EXT["Zone Internet"]
         CLI["Client navigateur"]
     end

@@ -71,7 +71,7 @@ Le détecteur d'une panne ne doit pas partager son sort avec ce qu'il détecte. 
 {: .callout .callout-definition}
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph PROD["PLATEFORME OBSERVÉE"]
         G[Grafana]
         P[Prometheus]
