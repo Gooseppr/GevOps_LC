@@ -53,15 +53,16 @@ Que manipule-t-on exactement avant de cliquer ?
 {: .callout .callout-definition}
 
 ```mermaid
-flowchart TD
-    F[DOSSIER Infra Linux] --> D[DASHBOARD Serveur Linux]
-    D --> R1[Row Vue d'ensemble]
-    D --> R2[Row Détail ressources]
-    R1 --> P1[Panel Stat]
-    R2 --> P2[Panel Time séries]
-    P2 --> Q[Requête PromQL]
-    Q --> S[Data source Prometheus]
+erDiagram
+    "DOSSIER" ||--o{ "DASHBOARD" : "range"
+    "DASHBOARD" ||--o{ "ROW" : "s'organise en"
+    "DASHBOARD" ||--o{ "PANEL" : "contient"
+    "ROW" |o--o{ "PANEL" : "regroupe"
+    "PANEL" ||--|{ "REQUÊTE" : "exécute"
+    "DATA SOURCE" ||--o{ "REQUÊTE" : "répond à"
 ```
+
+Ce schéma se lit ainsi : `||` signifie « exactement un », `|o` « zéro ou un », `o{` « zéro ou plusieurs » et `|{` « un ou plusieurs ». Un panel peut donc rester hors de toute row, mais il s'appuie sur au moins une requête.
 
 Le dossier sert surtout à regrouper les dashboards et à poser des permissions, ce qu'on verra au module d'administration. Les rows sont des sections repliables : elles servent à structurer la lecture, pas à décorer.
 

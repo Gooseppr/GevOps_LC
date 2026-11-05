@@ -43,15 +43,19 @@ Acheter plus de CPU pour Prometheus règle le symptôme pendant un mois. Ensuite
 Avant de toucher à une requête, il faut savoir de quelle lenteur on parle. Un panel qui « charge lentement » peut être lent à quatre endroits différents, et les remèdes n'ont rien en commun.
 
 ```mermaid
-flowchart LR
-    A[Navigateur] --> B[Serveur Grafana]
-    B --> C[Data source]
-    C --> D[Backend : Prometheus, Loki, Tempo]
-    D --> C
-    C --> B
-    B --> E[Rendu dans le navigateur]
-    style D fill:#fef3c7,stroke:#d97706,color:#78350f
-    style E fill:#fef3c7,stroke:#d97706,color:#78350f
+sequenceDiagram
+    participant N as Navigateur
+    participant G as Serveur Grafana
+    participant D as Data source
+    participant B as Prometheus, Loki ou Tempo
+    N->>G: requête du panel
+    G->>D: transmet la requête
+    D->>B: interroge le backend
+    Note over B: évaluation de la requête
+    B-->>D: données, parfois très volumineuses
+    D-->>G: réponse
+    G-->>N: résultat
+    Note over N: rendu des séries et des points
 ```
 
 Le backend évalue la requête (c'est là que se joue le coût de PromQL ou LogQL). Le trajet retour transporte un volume de données. Enfin le navigateur dessine des séries et des points. Un panel qui retourne 400 000 lignes peut avoir une évaluation rapide côté Prometheus et pourtant geler l'onglet pendant plusieurs secondes.

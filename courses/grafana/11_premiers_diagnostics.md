@@ -53,13 +53,18 @@ Ce module vous donne une méthode : poser les questions dans le bon ordre pour q
 Que se passe-t-il quand un panel s'affiche ? Plus de choses qu'on ne le croit. Le navigateur ne parle pas directement à Prometheus : il envoie la requête au serveur Grafana, qui la transmet à la Data Source, qui interroge son stockage et renvoie une réponse que Grafana met en forme.
 
 ```mermaid
-flowchart LR
-    A[Navigateur] --> B[Serveur Grafana]
-    B --> C[Data Source]
-    C --> D[Stockage Prometheus ou Loki ou Tempo]
-    D --> C
-    C --> B
-    B --> E[Panel affiché]
+sequenceDiagram
+    participant N as Navigateur
+    participant G as Serveur Grafana
+    participant D as Data Source
+    participant B as Prometheus, Loki ou Tempo
+    N->>G: requête du panel
+    G->>D: transmet la requête
+    D->>B: interroge le stockage
+    B-->>D: données
+    D-->>G: réponse
+    G-->>N: réponse mise en forme
+    Note over N: panel affiché
 ```
 
 Cette chaîne donne quatre zones de panne possibles :

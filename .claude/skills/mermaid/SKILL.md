@@ -37,10 +37,17 @@ Choisis ensuite le bon outil :
 | Qui parle à qui, et dans quel ordre ? | `sequenceDiagram` |
 | Par où passe la donnée ? Quels composants ? | `flowchart` |
 | Dans quel état est l'objet ? | `stateDiagram-v2` |
+| Quels éléments existent, et combien de chacun ? | `erDiagram` |
+| Quelle exigence, satisfaite ou vérifiée par quoi ? | `requirementDiagram` |
+| Quand, dans quel ordre, sur une période ? | `timeline` ou `gantt` |
+| Comment situer des éléments selon deux critères ? | `quadrantChart` |
+| Quelles idées se rattachent à un thème ? | `mindmap`, 5 à 6 feuilles par branche |
 | Que décider selon le cas ? | `flowchart TD` avec losanges |
 | Différence entre A et B sur plusieurs critères | Tableau, pas de schéma |
 | Liste sans relation entre les éléments | Liste, pas de schéma |
 | Idée abstraite sans enchaînement | Encart d'analogie ou de définition |
+
+Un aller-retour entre composants se lit mieux en `sequenceDiagram` qu'en `flowchart` à flèches retour. Dans un `erDiagram`, ajoute une phrase qui explique les symboles utilisés (`||`, `o{`, `|{`), car le lecteur ne les connaît pas forcément. Ne force jamais un type parce qu'il est disponible.
 
 Un processus s'explique par un schéma, pas par une analogie. Si un schéma et une analogie disent la même chose à côté l'un de l'autre, garde le schéma.
 
@@ -90,7 +97,8 @@ flowchart LR
 
 ## 4. Respecter les contraintes du site
 
-- Le site charge **Mermaid 10** : `look: handDrawn` et les nouveautés de la version 11 n'y fonctionnent pas.
+- Le site reste en **Mermaid 10**, par décision de l'utilisateur. `treeView-beta`, `architecture-beta`, `usecase-beta` et `look: handDrawn` n'y fonctionnent pas : pour une arborescence, utilise un bloc de texte, et pour une architecture, un `flowchart` avec `subgraph`.
+- Dans un `erDiagram`, mets les noms accentués entre guillemets.
 - Mets `mermaid: true` dans le frontmatter du fichier. Le site charge Mermaid sur toutes les pages, mais c'est la convention des cours.
 - Labels en texte brut : pas de backticks ni de markdown. Le seul HTML accepté est `<br/>`.
 - Mets entre guillemets un label qui contient `( ) { } : # ;` ou un mot réservé comme `end`.
@@ -166,4 +174,5 @@ Syntaxe validée avec Mermaid 10. Rendu à l'écran non vérifié.
 | Version | Date | Changement | Origine |
 |---|---|---|---|
 | 1.0 | 2026-11-05 | Création | Revue des 138 schémas de Grafana et Réseaux, skills Mermaid étudiés |
+| 1.2 | 2026-11-05 | Choix étendu aux types compatibles avec Mermaid 10, types récents exclus | Demande de l'utilisateur |
 | 1.1 | 2026-11-05 | Erreurs de syntaxe observées sur le site : transitions, quadrants, subgraph, chemins | Correction de 8 schémas invalides |

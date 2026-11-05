@@ -213,10 +213,15 @@ Voyons concrètement ce qui se passe quand vous tapez `https://www.example.org/`
 {: .callout .callout-attention}
 
 ```mermaid
-flowchart LR
-    C[Poste<br/>192.168.1.20] -->|trame 1<br/>MAC poste vers MAC routeur| R1[Routeur local]
-    R1 -->|trame 2<br/>autres MAC| R2[Routeurs intermédiaires]
-    R2 -->|trame n<br/>MAC dernier routeur vers MAC serveur| S[Serveur<br/>203.0.113.10]
+sequenceDiagram
+    participant C as Poste 192.168.1.20
+    participant R1 as Routeur local
+    participant R2 as Routeurs intermédiaires
+    participant S as Serveur 203.0.113.10
+    Note over C,S: IP source et destination inchangées pendant tout le trajet
+    C->>R1: trame 1, MAC poste vers MAC routeur
+    R1->>R2: trame 2, autres MAC
+    R2->>S: trame n, MAC dernier routeur vers MAC serveur
 ```
 
 Sur le chemin, un switch ne regarde que la trame (couche 2) et un routeur le paquet (couche 3). Un pare-feu applicatif, lui, remonte jusqu'à la couche 7. Plus un équipement « monte » dans les couches, plus il comprend le trafic, mais plus il a de travail à faire.

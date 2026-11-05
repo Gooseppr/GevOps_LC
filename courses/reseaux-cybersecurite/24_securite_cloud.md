@@ -241,12 +241,16 @@ Le filtrage sortant est celui qu'on oublie, alors qu'il conditionne l'exfiltrati
 ### Mécanisme d'attaque : de la SSRF au compte cloud
 
 ```mermaid
-flowchart TD
-    A["Attaquant"] --> B["SSRF sur l'application"]
-    B --> C["Requête vers 169.254.169.254"]
-    C --> D["Credentials temporaires du rôle"]
-    D --> E["Utilisation depuis Internet"]
-    E --> F["Listing et lecture du stockage"]
+sequenceDiagram
+    participant A as Attaquant
+    participant V as Application vulnérable
+    participant M as Métadonnées 169.254.169.254
+    participant S as Stockage objet
+    A->>V: requête exploitant la SSRF
+    V->>M: requête vers le service de métadonnées
+    M-->>V: credentials temporaires du rôle
+    V-->>A: credentials dans la réponse
+    A->>S: listing et lecture, depuis Internet
 ```
 
 Les credentials obtenus sont valides tant que la session n'a pas expiré, et rien ne les lie à l'instance d'origine.

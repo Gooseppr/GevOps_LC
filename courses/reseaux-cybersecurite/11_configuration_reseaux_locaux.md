@@ -320,12 +320,16 @@ interface GigabitEthernet0/0.30
 Chaque adresse `.1` est la passerelle de son VLAN. L'encapsulation `dot1Q` suivie de l'identifiant dit au routeur quelle étiquette lire et écrire. Voici le trajet d'un paquet entre un PC du VLAN 10 et un serveur du VLAN 20 :
 
 ```mermaid
-flowchart TD
-  A["PC VLAN 10<br/>192.168.10.50"] --> B["SWITCH<br/>port access 10"]
-  B -->|"trame taguée 10"| C["ROUTEUR<br/>sous-interface .10"]
-  C -->|"routage"| D["ROUTEUR<br/>sous-interface .20"]
-  D -->|"trame taguée 20"| E["SWITCH<br/>port access 20"]
-  E --> F["Serveur VLAN 20<br/>192.168.20.2"]
+sequenceDiagram
+    participant P as PC VLAN 10, 192.168.10.50
+    participant SW as Switch
+    participant R as Routeur
+    participant S as Serveur VLAN 20, 192.168.20.2
+    P->>SW: trame, port d'accès VLAN 10
+    SW->>R: trame étiquetée 10, par le trunk
+    Note over R: routage de la sous-interface .10 vers la .20
+    R->>SW: trame étiquetée 20, par le même trunk
+    SW->>S: trame, port d'accès VLAN 20
 ```
 
 Le paquet monte vers le routeur par le trunk, est routé, puis redescend par le même câble avec une autre étiquette. Cela fonctionne très bien pour un petit réseau, mais tout le trafic inter-VLAN et vers Internet emprunte ce seul lien, qui devient le goulot d'étranglement d'un réseau chargé.
